@@ -69,6 +69,11 @@ body {
   font-size: 0.9rem;
   font-weight: 500;
   transition: all 0.2s;
+  /* Reset button defaults */
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 100%;
 }
 
 .nav-item:hover {

@@ -62,7 +62,7 @@ const AlignmentHeatmap = ({ onSelect }) => {
   );
 };
 
-const ProfilePanel = ({ selected, onClose }) => {
+const ProfilePanel = ({ selected, onClose, onCompare }) => {
   const isOpen = !!selected;
 
   // Mock DNA data lookup based on councillor
@@ -240,6 +240,7 @@ const VersusOverlay = ({ selection, onClose }) => {
 function App() {
   const [selectedCouncillor, setSelectedCouncillor] = useState(null);
   const [compareList, setCompareList] = useState([]);
+  const [currentView, setCurrentView] = useState('dashboard');
 
   const handleSelect = (name) => {
     if (compareList.length > 0) {
@@ -273,24 +274,49 @@ function App() {
 
       {/* Sidebar */}
       <aside className="sidebar">
-        <div className="logo">
+        <div className="logo" onClick={() => setCurrentView('dashboard')} style={{ cursor: 'pointer' }}>
           TORONTO COUNCIL<br />TRANSPARENCY
         </div>
 
         <nav className="nav-section">
           <h3>Navigate</h3>
           <div className="space-y-1">
-            <a href="#" className="nav-item active"><LayoutDashboard size={18} /> Dashboard</a>
-            <a href="#" className="nav-item"><FileText size={18} /> Reports</a>
-            <a href="#" className="nav-item"><Database size={18} /> Open Data</a>
+            <button
+              onClick={() => setCurrentView('dashboard')}
+              className={`nav-item ${currentView === 'dashboard' ? 'active' : ''}`}
+            >
+              <LayoutDashboard size={18} /> Dashboard
+            </button>
+            <button
+              onClick={() => setCurrentView('reports')}
+              className={`nav-item ${currentView === 'reports' ? 'active' : ''}`}
+            >
+              <FileText size={18} /> Reports
+            </button>
+            <button
+              onClick={() => setCurrentView('data')}
+              className={`nav-item ${currentView === 'data' ? 'active' : ''}`}
+            >
+              <Database size={18} /> Open Data
+            </button>
           </div>
         </nav>
 
         <nav className="nav-section">
           <h3>Topics</h3>
           <div className="space-y-1">
-            <a href="#" className="nav-item"><Bus size={18} /> Transit</a>
-            <a href="#" className="nav-item"><Home size={18} /> Housing</a>
+            <button
+              onClick={() => setCurrentView('transit')}
+              className={`nav-item ${currentView === 'transit' ? 'active' : ''}`}
+            >
+              <Bus size={18} /> Transit
+            </button>
+            <button
+              onClick={() => setCurrentView('housing')}
+              className={`nav-item ${currentView === 'housing' ? 'active' : ''}`}
+            >
+              <Home size={18} /> Housing
+            </button>
           </div>
         </nav>
 
@@ -305,83 +331,125 @@ function App() {
 
       {/* Main Content */}
       <main className="main-content">
-        <header className="section-header flex justify-between items-end">
-          <div>
-            <h2>Council Session Overview</h2>
-            <p className="text-muted">Data updated daily at 9:00 AM • October 2024</p>
-          </div>
-          <div className="flex gap-2">
-            <button className="px-4 py-2 border border-slate-200 rounded-lg text-sm font-semibold hover:bg-slate-50" onClick={() => setSelectedCouncillor(null)}>Clear View</button>
-            <button className="px-4 py-2 bg-slate-900 text-white rounded-lg text-sm font-semibold hover:bg-slate-800 transition-colors">Generate Report</button>
-          </div>
-        </header>
-
-        <div className="stats-grid">
-          {/* Triviality Score Card */}
-          <div className="card">
-            <div className="card-title">
-              TRIVIALITY SCORE
-              <AlertCircle size={16} className="text-slate-400" />
-            </div>
-            <div className="flex-1 flex flex-col justify-center">
-              <p className="text-sm font-semibold text-slate-600 mb-1">
-                Score: <span className="text-emerald-700">78% Focus on Core</span>
-              </p>
-              <div className="score-bar-container mt-1">
-                <div className="score-bar-fill" style={{ width: '78%' }}></div>
+        {compareList.length === 1 && (
+          <div className="mb-6 p-4 bg-toronto-blue text-white rounded-xl flex justify-between items-center animate-in fade-in slide-in-from-top-4 duration-300">
+            <div className="flex items-center gap-3">
+              <Users size={20} />
+              <div>
+                <p className="text-sm font-bold">Versus Mode Active</p>
+                <p className="text-xs opacity-90">Select another councillor below to compare with <strong>{compareList[0]}</strong></p>
               </div>
-              <p className="text-[11px] text-slate-500 mt-2 leading-snug">
-                <strong>Analysis:</strong> Council focus remains primarily on significant civic matters this session.
-              </p>
             </div>
+            <button
+              onClick={() => setCompareList([])}
+              className="text-xs font-bold uppercase tracking-wider bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-lg transition-colors"
+            >
+              Cancel
+            </button>
           </div>
+        )}
 
-          {/* Alignment Card */}
-          <div className="card">
-            <div className="card-title">
-              MEMBER ALIGNMENT
-              <Users size={16} className="text-slate-400" />
+        {currentView === 'dashboard' ? (
+          <>
+            <header className="section-header flex justify-between items-end">
+              <div>
+                <h2>Council Session Overview</h2>
+                <p className="text-muted">Data updated daily at 9:00 AM • October 2024</p>
+              </div>
+              <div className="flex gap-2">
+                <button className="px-4 py-2 border border-slate-200 rounded-lg text-sm font-semibold hover:bg-slate-50" onClick={() => {
+                  setSelectedCouncillor(null);
+                  setCompareList([]);
+                }}>Clear View</button>
+                <button className="px-4 py-2 bg-slate-900 text-white rounded-lg text-sm font-semibold hover:bg-slate-800 transition-colors">Generate Report</button>
+              </div>
+            </header>
+
+            <div className="stats-grid">
+              {/* Triviality Score Card */}
+              <div className="card">
+                <div className="card-title">
+                  TRIVIALITY SCORE
+                  <AlertCircle size={16} className="text-slate-400" />
+                </div>
+                <div className="flex-1 flex flex-col justify-center">
+                  <p className="text-sm font-semibold text-slate-600 mb-1">
+                    Score: <span className="text-emerald-700">78% Focus on Core</span>
+                  </p>
+                  <div className="score-bar-container mt-1">
+                    <div className="score-bar-fill" style={{ width: '78%' }}></div>
+                  </div>
+                  <p className="text-[11px] text-slate-500 mt-2 leading-snug">
+                    <strong>Analysis:</strong> Council focus remains primarily on significant civic matters this session.
+                  </p>
+                </div>
+              </div>
+
+              {/* Alignment Card */}
+              <div className="card">
+                <div className="card-title">
+                  MEMBER ALIGNMENT
+                  <Users size={16} className="text-slate-400" />
+                </div>
+                <AlignmentHeatmap onSelect={handleSelect} />
+              </div>
             </div>
-            <AlignmentHeatmap onSelect={handleSelect} />
-          </div>
-        </div>
 
-        {/* Recent Motions Table */}
-        <div className="card">
-          <div className="card-title">
-            RECENT MOTIONS
-            <Filter size={18} className="text-slate-400 cursor-pointer" />
+            {/* Recent Motions Table */}
+            <div className="card">
+              <div className="card-title">
+                RECENT MOTIONS
+                <Filter size={18} className="text-slate-400 cursor-pointer" />
+              </div>
+              <table className="motion-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Motion Title</th>
+                    <th>Moved By</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {mockMotions.map((m, i) => (
+                    <tr key={i}>
+                      <td className="text-slate-500">{m.date}</td>
+                      <td className="font-semibold">
+                        <div className="flex items-center gap-2">
+                          {m.title}
+                          {m.trivial && <span className="text-[9px] bg-amber-50 text-amber-600 border border-amber-200 px-1.5 py-0.5 rounded font-bold uppercase">Minor</span>}
+                        </div>
+                      </td>
+                      <td>{m.mover}</td>
+                      <td>
+                        <span className={`status-badge status-${m.status.toLowerCase()}`}>
+                          {m.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
+        ) : (
+          <div className="flex flex-col items-center justify-center h-[60vh] text-center">
+            <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-4">
+              {currentView === 'reports' ? <FileText size={32} className="text-slate-400" /> :
+                currentView === 'data' ? <Database size={32} className="text-slate-400" /> :
+                  currentView === 'transit' ? <Bus size={32} className="text-slate-400" /> :
+                    <Home size={32} className="text-slate-400" />}
+            </div>
+            <h3 className="text-xl font-bold text-slate-900 capitalize">{currentView} Module</h3>
+            <p className="text-slate-500 mt-1 max-w-xs">The {currentView} interface is currently under development. Please check back soon.</p>
+            <button
+              onClick={() => setCurrentView('dashboard')}
+              className="mt-6 px-4 py-2 bg-toronto-blue text-white rounded-lg text-sm font-semibold hover:bg-blue-800 transition-colors"
+            >
+              Back to Dashboard
+            </button>
           </div>
-          <table className="motion-table">
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Motion Title</th>
-                <th>Moved By</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {mockMotions.map((m, i) => (
-                <tr key={i}>
-                  <td className="text-slate-500">{m.date}</td>
-                  <td className="font-semibold">
-                    <div className="flex items-center gap-2">
-                      {m.title}
-                      {m.trivial && <span className="text-[9px] bg-amber-50 text-amber-600 border border-amber-200 px-1.5 py-0.5 rounded font-bold uppercase">Minor</span>}
-                    </div>
-                  </td>
-                  <td>{m.mover}</td>
-                  <td>
-                    <span className={`status-badge status-${m.status.toLowerCase()}`}>
-                      {m.status}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        )}
       </main>
     </div>
   );
