@@ -49,7 +49,7 @@ export async function fetchItemDetails(itemId) {
     };
 }
 
-export function calculateAlignment(councillorA, councillorB, topic = null) {
+export function calculateAlignment() {
     // Placeholder for alignment math logic: Shared Votes / Total Votes
     return Math.floor(Math.random() * 60) + 40; // Mock 40-100%
 }
