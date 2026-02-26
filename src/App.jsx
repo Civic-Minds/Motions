@@ -4,7 +4,12 @@ import {
   AlertCircle,
   Database,
   Home,
-  FileText
+  FileText,
+  Activity,
+  Calendar,
+  Sparkles,
+  RotateCcw,
+  Download
 } from 'lucide-react';
 
 import Sidebar from './components/Sidebar';
@@ -13,6 +18,8 @@ import AlignmentHeatmap from './components/AlignmentHeatmap';
 import ProfilePanel from './components/ProfilePanel';
 import VersusOverlay from './components/VersusOverlay';
 import Scorecard from './components/Scorecard';
+import BudgetTranslator from './components/BudgetTranslator';
+import WardGrid from './components/WardGrid';
 
 function App() {
   const [motions, setMotions] = useState([]);
@@ -98,7 +105,7 @@ function App() {
             <div className="flex items-center gap-3">
               <Users size={20} />
               <div>
-                <p className="text-sm font-bold">Versus Mode Active</p>
+                <p className="text-sm font-bold">Comparison Mode Active</p>
                 <p className="text-xs opacity-90">Select another councillor below to compare with <strong>{compareList[0]}</strong></p>
               </div>
             </div>
@@ -115,22 +122,32 @@ function App() {
           <Scorecard motions={motions} />
         ) : (
           <>
-            <header className="section-header flex justify-between items-end">
-              <div>
-                <h2 className="capitalize">{currentView} Session Overview</h2>
-                <p className="text-muted">Data updated daily at 9:00 AM • February 2026</p>
+            <header className="section-header-premium">
+              <div className="header-content">
+                <h2 className="header-title">
+                  {currentView === 'wards' ? 'Ward Legislative Footprint' : currentView + ' Session Overview'}
+                  <Sparkles size={20} className="text-amber-400 ml-2 inline-block" />
+                </h2>
+                <div className="view-indicator">
+                  <Activity size={12} className="text-toronto-blue animate-pulse" />
+                  <span className="text-[10px] font-bold tracking-tighter uppercase text-toronto-blue/70">Live Analytics Engine</span>
+                </div>
               </div>
-              <div className="flex gap-2">
-                <button className="px-4 py-2 border border-slate-200 rounded-lg text-sm font-semibold hover:bg-slate-50" onClick={() => {
+              <div className="header-actions">
+                <button className="btn-secondary" onClick={() => {
                   setSelectedCouncillor(null);
                   setCompareList([]);
                   setCurrentView('dashboard');
-                }}>Clear View</button>
+                }}>
+                  <RotateCcw size={14} />
+                  Reset View
+                </button>
                 <button
                   onClick={() => setCurrentView('reports')}
-                  className="px-4 py-2 bg-slate-900 text-white rounded-lg text-sm font-semibold hover:bg-slate-800 transition-colors"
+                  className="btn-primary"
                 >
-                  Generate Report
+                  <Download size={14} />
+                  Export Insights
                 </button>
               </div>
             </header>
@@ -167,11 +184,16 @@ function App() {
 
                 <MotionTable motions={filteredMotions} />
               </>
+            ) : currentView === 'budget' ? (
+              <BudgetTranslator />
+            ) : currentView === 'wards' ? (
+              <WardGrid motions={motions} />
             ) : (
               <div className="flex flex-col items-center justify-center h-[60vh] text-center">
                 <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-4">
                   {currentView === 'data' ? <Database size={32} className="text-slate-400" /> :
-                    <Home size={32} className="text-slate-400" />}
+                    currentView === 'housing' ? <Home size={32} className="text-slate-400" /> :
+                      <AlertCircle size={32} className="text-slate-400" />}
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 capitalize">{currentView} Module</h3>
                 <p className="text-slate-500 mt-1 max-w-xs">The {currentView} interface is currently under development. Please check back soon.</p>

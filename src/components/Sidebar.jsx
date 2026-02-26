@@ -1,10 +1,11 @@
-import React from 'react';
 import {
   LayoutDashboard,
   FileText,
   Database,
   Bus,
-  Home
+  Home,
+  Coins,
+  MapPin
 } from 'lucide-react';
 
 const Sidebar = ({ currentView, setCurrentView }) => {
@@ -22,6 +23,12 @@ const Sidebar = ({ currentView, setCurrentView }) => {
             className={`nav-item ${currentView === 'dashboard' ? 'active' : ''}`}
           >
             <LayoutDashboard size={18} /> Dashboard
+          </button>
+          <button
+            onClick={() => setCurrentView('wards')}
+            className={`nav-item ${currentView === 'wards' ? 'active' : ''}`}
+          >
+            <MapPin size={18} /> Ward Impact
           </button>
           <button
             onClick={() => setCurrentView('reports')}
@@ -53,17 +60,26 @@ const Sidebar = ({ currentView, setCurrentView }) => {
           >
             <Home size={18} /> Housing
           </button>
+          <button
+            onClick={() => setCurrentView('budget')}
+            className={`nav-item ${currentView === 'budget' ? 'active' : ''}`}
+          >
+            <Coins size={18} /> Budget Translator
+          </button>
         </div>
       </nav>
 
       <div className="mt-auto p-4 bg-slate-100/50 rounded-xl border border-slate-200">
-        <p className="text-[10px] font-bold text-slate-400 uppercase mb-2">Automated Data Ingestion</p>
-        <div className="flex items-center gap-2 text-[11px] font-bold text-slate-600">
-          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-          TMMIS SYNC ACTIVE
-        </div>
-        <div className="mt-2 text-[10px] text-slate-500 leading-tight">
-          Monitoring City Council meetings for new agenda items.
+        <p className="text-[10px] font-bold text-slate-400 uppercase mb-2">Active Monitoring</p>
+        <div className="space-y-2">
+          <div className="flex items-center gap-2 text-[11px] font-bold text-slate-600">
+            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            TMMIS SYNC ACTIVE
+          </div>
+          <div className="text-[10px] text-slate-500 font-mono space-y-1">
+            <p>• CC37 (FEB 4, 2026)</p>
+            <p>• CC38 (FEB 10, 2026)</p>
+          </div>
         </div>
       </div>
     </aside>

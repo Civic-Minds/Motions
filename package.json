@@ -1,7 +1,8 @@
 {
-  "name": "vote-tracker",
+  "name": "motions",
+  "description": "A civic-intelligence engine that filters municipal noise to surface real legislative impact.",
   "private": true,
-  "version": "0.2.0",
+  "version": "0.3.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,14 +11,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
     "clsx": "^2.1.1",
+    "leaflet": "^1.9.4",
     "lucide-react": "^0.563.0",
+    "node-fetch": "^3.3.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-leaflet": "^5.0.0",
     "recharts": "^3.7.0",
-    "tailwind-merge": "^3.4.0",
-    "node-fetch": "^3.3.2",
-    "cheerio": "^1.0.0-rc.12"
+    "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

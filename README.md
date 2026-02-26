@@ -1,16 +1,27 @@
-# React + Vite
+# Motions
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A premium municipal transparency dashboard to separate policy from posturing.
 
-Currently, two official plugins are available:
+## Problem
+Municipal governance is often an opaque mix of major policy and routine bureaucracy. For citizens and observers, it is nearly impossible to track where a council’s energy is actually being spent without manual, deep-dive research into thousands of pages of records.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+- **Triviality Score**: A data-driven metric that separates high-impact civic priorities from minor administrative items.
+- **Member Alignment**: Dynamic heatmaps and coalition analysis based on historical voting patterns.
+- **Councilor Comparison**: Side-by-side analysis of voting records to surface policy divergence and alignment.
+- **Budget Translator**: An automated layer that clarifies the real-world impact of complex financial motions.
 
-## React Compiler
+## Stack
+- **Frontend**: React 19, Vite, Tailwind CSS
+- **Data**: TMMIS Scraper (Cheerio) - extensible to other municipal data portals
+- **Visuals**: Recharts & Lucide React
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+- [Roadmap](./ROADMAP.md)
+- [Changelog](./CHANGELOG.md)
+- [Security](./SECURITY.md)
+- [Contributing](./CONTRIBUTING.md)
+- [License](./LICENSE)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Created by Civic Minds

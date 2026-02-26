@@ -1,0 +1,82 @@
+[
+    {
+        "id": "police",
+        "name": "Toronto Police Service",
+        "budget": 1220000000,
+        "grossBudget": 1418000000,
+        "color": "from-blue-600 to-indigo-900",
+        "icon": "Shield",
+        "translation": [
+            {
+                "label": "Frontline Officers",
+                "value": "~5,935",
+                "context": "Total sworn officers by 2029 (hiring 109 net new in 2025)"
+            },
+            {
+                "label": "Priority 1 Response",
+                "value": "17.4 min",
+                "context": "Average response time (improved from 23.1 min in 2023)"
+            },
+            {
+                "label": "911 & Patrol",
+                "value": "41%",
+                "context": "Percentage of the total budget spent on emergency response"
+            },
+            {
+                "label": "People Costs",
+                "value": "90%",
+                "context": "The portion of the budget spent on salaries and wages"
+            }
+        ]
+    },
+    {
+        "id": "ttc",
+        "name": "Toronto Transit Commission",
+        "budget": 2819000000,
+        "grossBudget": 2819000000,
+        "color": "from-red-600 to-red-900",
+        "icon": "Bus",
+        "translation": [
+            {
+                "label": "Service Hours",
+                "value": "9.6M",
+                "context": "Total conventional transit service hours provided in 2025"
+            },
+            {
+                "label": "Workforce",
+                "value": "18,201",
+                "context": "Total staff positions (up 476 from 2024)"
+            },
+            {
+                "label": "Subway Frequency",
+                "value": "~5 min",
+                "context": "Target off-peak headway on Lines 1 & 2"
+            },
+            {
+                "label": "Wheel-Trans Trips",
+                "value": "4M+",
+                "context": "Additional rides supported by 1.5M service hours"
+            }
+        ]
+    },
+    {
+        "id": "shelter",
+        "name": "Shelter & Support Services",
+        "budget": 1100000000,
+        "grossBudget": 1100000000,
+        "color": "from-emerald-600 to-teal-900",
+        "icon": "Home",
+        "translation": [
+            {
+                "label": "Shelter Beds",
+                "value": "10,000+",
+                "context": "Total capacity including hotel programs"
+            },
+            {
+                "label": "Street Outreach",
+                "value": "24/7",
+                "context": "Availability of mobile crisis response teams"
+            }
+        ]
+    }
+]

@@ -52,19 +52,85 @@ async function fetchCouncilItem(itemId) {
             }
         }
 
+        const wardKeywords = {
+            '1': ['Etobicoke North', 'Rexdale', 'Thistletown'],
+            '2': ['Etobicoke Centre', 'Islington', 'Kingsway'],
+            '3': ['Etobicoke-Lakeshore', 'Mimico', 'Long Branch', 'Humber Bay'],
+            '4': ['Parkdale-High Park', 'Roncesvalles', 'Sunnyside'],
+            '5': ['York South-Weston', 'Mount Dennis', 'Weston'],
+            '8': ['Eglinton-Lawrence', 'Lawrence Park'],
+            '9': ['Davenport', 'Corso Italia'],
+            '10': ['Spadina-Fort York', 'Front Street', 'Liberty Village', 'Cityview', 'Harbourfront'],
+            '11': ['University-Rosedale', 'Annex', 'Yorkville', 'Rosedale'],
+            '12': ['Toronto-St. Paul\'s', 'Deer Park', 'Casa Loma'],
+            '13': ['Toronto Centre', 'Dundas', 'Sherbourne', 'Cabbagetown', 'St. Lawrence', 'Regent Park'],
+            '14': ['Toronto-Danforth', 'Leslieville', 'Riverdale', 'Greektown'],
+            '15': ['Don Valley West', 'Redpath', 'Leaside', 'Thorncliffe Park'],
+            '16': ['Don Valley East', 'Flemingdon Park'],
+            '18': ['Willowdale', 'North York Centre'],
+            '19': ['Beaches-East York', 'The Beach'],
+            '23': ['Scarborough North', 'Milliken', 'Agincourt'],
+            '25': ['Scarborough-Rouge Park', 'Rouge', 'Malvern'],
+        };
+
+        let ward = 'City';
+        for (const [w, keywords] of Object.entries(wardKeywords)) {
+            if (keywords.some(k => title.toLowerCase().includes(k.toLowerCase()) || rawDetails.toLowerCase().includes(k.toLowerCase()))) {
+                ward = w;
+                break;
+            }
+        }
+
+        const votes = {};
+        $('.report-table tbody tr').each((i, row) => {
+            const cells = $(row).find('td');
+            const type = cells.eq(0).text().trim().split(':')[0]; // Yes, No, Absent
+            const names = cells.eq(1).text().split(',').map(n => n.replace(/\([^)]+\)/g, '').trim()).filter(n => n.length > 0);
+
+            if (type === 'Yes' || type === 'No') {
+                names.forEach(name => {
+                    votes[name] = type.toUpperCase();
+                });
+            }
+        });
+
         const id = itemId.split('.').slice(1).join('.');
+
+        const routineKeywords = [
+            'By-law', 'Confirmatory', 'Order Paper', 'Declarations of Interest',
+            'Minutes', 'Routine', 'Enactment', 'Administrative', 'Appointment',
+            'Ceremonial', 'Petitions', 'Call to Order'
+        ];
+
+        const impactKeywords = [
+            'Budget', 'Housing', 'TTC', 'Transit', 'Shelter', 'Climate',
+            'Implementation', 'Safety', 'Strategy', 'Framework'
+        ];
+
+        const isRoutine = routineKeywords.some(k => title.includes(k));
+        const hasHighImpact = impactKeywords.some(k => title.toLowerCase().includes(k.toLowerCase()));
+
+        // Triviality logic:
+        // 1. Routine procedural items are trivial.
+        // 2. Anything moved by "Staff Report" or lack of Seconder is higher likelihood of being routine.
+        // 3. Very short titles or titles that are just IDs are trivial.
+        const mover = moverMatch ? moverMatch[1].trim() : 'Staff Report';
+        const seconder = seconderMatch ? seconderMatch[1].trim() : 'N/A';
+
+        const isTrivial = isRoutine || (!hasHighImpact && (mover === 'Staff Report' || seconder === 'N/A' || title.length < 35));
 
         const motionData = {
             id: id,
             date: 'Feb 2026',
             title: title,
-            mover: moverMatch ? moverMatch[1].trim() : 'Staff Report',
-            seconder: seconderMatch ? seconderMatch[1].trim() : 'N/A',
+            mover: mover,
+            seconder: seconder,
             status: statusMatch || 'Adopted',
             topic: topic,
-            trivial: title.length < 30 || topic === 'General',
+            trivial: isTrivial,
+            ward: ward,
             url: url,
-            votes: {} // Votes are usually captured in a separate sub-page or table
+            votes: votes
         };
 
         return motionData;
