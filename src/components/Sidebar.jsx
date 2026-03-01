@@ -7,65 +7,66 @@ import {
   Coins,
   MapPin
 } from 'lucide-react';
+import { NavLink, Link } from 'react-router-dom';
 
-const Sidebar = ({ currentView, setCurrentView }) => {
+const Sidebar = () => {
   return (
     <aside className="sidebar">
-      <div className="logo" onClick={() => setCurrentView('dashboard')} style={{ cursor: 'pointer' }}>
+      <Link to="/" className="logo">
         TORONTO COUNCIL<br />TRANSPARENCY
-      </div>
+      </Link>
 
       <nav className="nav-section">
         <h3>Navigate</h3>
         <div className="space-y-1">
-          <button
-            onClick={() => setCurrentView('dashboard')}
-            className={`nav-item ${currentView === 'dashboard' ? 'active' : ''}`}
+          <NavLink
+            to="/"
+            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
           >
             <LayoutDashboard size={18} /> Dashboard
-          </button>
-          <button
-            onClick={() => setCurrentView('wards')}
-            className={`nav-item ${currentView === 'wards' ? 'active' : ''}`}
+          </NavLink>
+          <NavLink
+            to="/wards"
+            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
           >
             <MapPin size={18} /> Ward Impact
-          </button>
-          <button
-            onClick={() => setCurrentView('reports')}
-            className={`nav-item ${currentView === 'reports' ? 'active' : ''}`}
+          </NavLink>
+          <NavLink
+            to="/reports"
+            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
           >
             <FileText size={18} /> Reports
-          </button>
-          <button
-            onClick={() => setCurrentView('data')}
-            className={`nav-item ${currentView === 'data' ? 'active' : ''}`}
+          </NavLink>
+          <NavLink
+            to="/data"
+            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
           >
             <Database size={18} /> Open Data
-          </button>
+          </NavLink>
         </div>
       </nav>
 
       <nav className="nav-section">
         <h3>Topics</h3>
         <div className="space-y-1">
-          <button
-            onClick={() => setCurrentView('transit')}
-            className={`nav-item ${currentView === 'transit' ? 'active' : ''}`}
+          <NavLink
+            to="/transit"
+            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
           >
             <Bus size={18} /> Transit
-          </button>
-          <button
-            onClick={() => setCurrentView('housing')}
-            className={`nav-item ${currentView === 'housing' ? 'active' : ''}`}
+          </NavLink>
+          <NavLink
+            to="/housing"
+            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
           >
             <Home size={18} /> Housing
-          </button>
-          <button
-            onClick={() => setCurrentView('budget')}
-            className={`nav-item ${currentView === 'budget' ? 'active' : ''}`}
+          </NavLink>
+          <NavLink
+            to="/budget"
+            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
           >
             <Coins size={18} /> Budget Translator
-          </button>
+          </NavLink>
         </div>
       </nav>
 

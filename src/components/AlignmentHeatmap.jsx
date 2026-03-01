@@ -1,28 +1,14 @@
 import { COUNCILLORS } from '../constants/data';
+import { getMemberAlignmentScore } from '../utils/analytics';
 
 const AlignmentHeatmap = ({ onSelect, motions }) => {
     // Show a relevant subset of councillors for the dashboard view
     const displayCouncillors = COUNCILLORS.slice(0, 15);
 
-    const getAlignmentScore = (name) => {
-        const totalMotions = motions.filter(m => m.votes && m.votes[name]).length;
-        if (totalMotions === 0) return 75;
-
-        const consensusVotes = motions.filter(m => {
-            if (!m.votes || !m.votes[name]) return false;
-            // Consensus = voted with majority
-            const yesCount = Object.values(m.votes).filter(v => v === 'YES').length;
-            const majorityVote = yesCount > (Object.keys(m.votes).length / 2) ? 'YES' : 'NO';
-            return m.votes[name] === majorityVote;
-        }).length;
-
-        return Math.floor((consensusVotes / totalMotions) * 100);
-    };
-
     return (
         <div className="councillor-alignment-grid">
             {displayCouncillors.map((c, i) => {
-                const score = getAlignmentScore(c);
+                const score = getMemberAlignmentScore(motions, c);
                 return (
                     <div
                         key={i}

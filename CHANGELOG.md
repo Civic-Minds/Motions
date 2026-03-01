@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.0] - 2026-02-28
+
+### Added
+- **Routing**: Implemented `react-router-dom` for robust structural navigation, enabling deep-linking to dedicated views (Dashboard, Wards, Reports).
+- **Custom Hooks**: Abstracted static JSON data fetching into a modular `useMotions` React hook for centralized state management.
+
+### Changed
+- **Documentation**: Refactored `CONTRIBUTING.md` to be more concise and direct, removing conversational filler.
+- **Architectural Modularity**: Extracted monolithic `App.jsx` layout into discrete `Layout` and `DashboardView` components, eliminating duplicated presentation logic.
+- **Business Logic Decoupling**: Migrated complex data analytics (triviality scores, member alignment, ward impacts) from inline React components to a dedicated `src/utils/analytics.js` service.
+
 ## [0.3.0] - 2026-02-25
 
 ### Added

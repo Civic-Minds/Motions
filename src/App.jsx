@@ -1,48 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import {
-  Users,
-  AlertCircle,
-  Database,
-  Home,
-  FileText,
-  Activity,
-  Calendar,
-  Sparkles,
-  RotateCcw,
-  Download
-} from 'lucide-react';
+import React, { useState } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Database } from 'lucide-react';
 
-import Sidebar from './components/Sidebar';
-import MotionTable from './components/MotionTable';
-import AlignmentHeatmap from './components/AlignmentHeatmap';
-import ProfilePanel from './components/ProfilePanel';
-import VersusOverlay from './components/VersusOverlay';
+import Layout from './components/Layout';
 import Scorecard from './components/Scorecard';
 import BudgetTranslator from './components/BudgetTranslator';
 import WardGrid from './components/WardGrid';
+import DashboardView from './components/DashboardView';
+import { useMotions } from './hooks/useMotions';
 
 function App() {
-  const [motions, setMotions] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { motions, loading, focusScore } = useMotions();
   const [selectedCouncillor, setSelectedCouncillor] = useState(null);
   const [compareList, setCompareList] = useState([]);
-  const [currentView, setCurrentView] = useState('dashboard');
-
-  useEffect(() => {
-    async function loadData() {
-      try {
-        const response = await fetch('/data/motions.json');
-        if (!response.ok) throw new Error('Failed to fetch data');
-        const data = await response.json();
-        setMotions(data);
-      } catch (error) {
-        console.error('Error loading motions:', error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    loadData();
-  }, []);
 
   const handleSelect = (name) => {
     if (compareList.length > 0) {
@@ -56,20 +26,10 @@ function App() {
     }
   };
 
-  const startComparison = (name) => {
-    setCompareList([name]);
+  const handleReset = () => {
     setSelectedCouncillor(null);
+    setCompareList([]);
   };
-
-  const filteredMotions = currentView === 'dashboard'
-    ? motions
-    : motions.filter(m => m.topic.toLowerCase() === currentView.toLowerCase());
-
-  // Calculate Real Triviality
-  const totalMotions = motions.length;
-  const trivialMotions = motions.filter(m => m.trivial).length;
-  const trivialPercentage = totalMotions > 0 ? Math.floor((trivialMotions / totalMotions) * 100) : 0;
-  const focusScore = 100 - trivialPercentage;
 
   if (loading) {
     return (
@@ -83,132 +43,54 @@ function App() {
   }
 
   return (
-    <div className="dashboard-container">
-      <ProfilePanel
-        selected={selectedCouncillor}
-        onCompare={startComparison}
-        onClose={() => setSelectedCouncillor(null)}
+    <BrowserRouter>
+      <Layout
         motions={motions}
-      />
+        selectedCouncillor={selectedCouncillor}
+        setSelectedCouncillor={setSelectedCouncillor}
+        compareList={compareList}
+        setCompareList={setCompareList}
+        handleReset={handleReset}
+      >
+        <Routes>
+          <Route path="/" element={
+            <DashboardView
+              motions={motions}
+              focusScore={focusScore}
+              handleSelect={handleSelect}
+              topic="dashboard"
+            />
+          } />
 
-      <VersusOverlay
-        selection={compareList}
-        onClose={() => setCompareList([])}
-        motions={motions}
-      />
+          <Route path="/wards" element={<WardGrid motions={motions} />} />
+          <Route path="/budget" element={<BudgetTranslator />} />
+          <Route path="/reports" element={<Scorecard motions={motions} />} />
 
-      <Sidebar currentView={currentView} setCurrentView={setCurrentView} />
+          {['transit', 'housing'].map(topic => (
+            <Route key={topic} path={`/${topic}`} element={
+              <DashboardView
+                motions={motions}
+                focusScore={focusScore}
+                handleSelect={handleSelect}
+                topic={topic}
+              />
+            } />
+          ))}
 
-      <main className="main-content">
-        {compareList.length === 1 && (
-          <div className="mb-6 p-4 bg-toronto-blue text-white rounded-xl flex justify-between items-center animate-in fade-in slide-in-from-top-4 duration-300">
-            <div className="flex items-center gap-3">
-              <Users size={20} />
-              <div>
-                <p className="text-sm font-bold">Comparison Mode Active</p>
-                <p className="text-xs opacity-90">Select another councillor below to compare with <strong>{compareList[0]}</strong></p>
+          <Route path="/data" element={
+            <div className="flex flex-col items-center justify-center h-[60vh] text-center">
+              <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-4">
+                <Database size={32} className="text-slate-400" />
               </div>
+              <h3 className="text-xl font-bold text-slate-900 capitalize">Data Module</h3>
+              <p className="text-slate-500 mt-1 max-w-xs">The data interface is currently under development. Please check back soon.</p>
             </div>
-            <button
-              onClick={() => setCompareList([])}
-              className="text-xs font-bold uppercase tracking-wider bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-lg transition-colors"
-            >
-              Cancel
-            </button>
-          </div>
-        )}
+          } />
 
-        {currentView === 'reports' ? (
-          <Scorecard motions={motions} />
-        ) : (
-          <>
-            <header className="section-header-premium">
-              <div className="header-content">
-                <h2 className="header-title">
-                  {currentView === 'wards' ? 'Ward Legislative Footprint' : currentView + ' Session Overview'}
-                  <Sparkles size={20} className="text-amber-400 ml-2 inline-block" />
-                </h2>
-                <div className="view-indicator">
-                  <Activity size={12} className="text-toronto-blue animate-pulse" />
-                  <span className="text-[10px] font-bold tracking-tighter uppercase text-toronto-blue/70">Live Analytics Engine</span>
-                </div>
-              </div>
-              <div className="header-actions">
-                <button className="btn-secondary" onClick={() => {
-                  setSelectedCouncillor(null);
-                  setCompareList([]);
-                  setCurrentView('dashboard');
-                }}>
-                  <RotateCcw size={14} />
-                  Reset View
-                </button>
-                <button
-                  onClick={() => setCurrentView('reports')}
-                  className="btn-primary"
-                >
-                  <Download size={14} />
-                  Export Insights
-                </button>
-              </div>
-            </header>
-
-            {currentView === 'dashboard' || currentView === 'transit' || currentView === 'housing' ? (
-              <>
-                <div className="stats-grid">
-                  <div className="card">
-                    <div className="card-title">
-                      TRIVIALITY SCORE
-                      <AlertCircle size={16} className="text-slate-400" />
-                    </div>
-                    <div className="flex-1 flex flex-col justify-center">
-                      <p className="text-sm font-semibold text-slate-600 mb-1">
-                        Score: <span className={focusScore > 70 ? "text-emerald-700" : "text-amber-700"}>{focusScore}% Focus on Core</span>
-                      </p>
-                      <div className="score-bar-container mt-1">
-                        <div className="score-bar-fill" style={{ width: `${focusScore}%`, backgroundColor: focusScore > 70 ? '#059669' : '#d97706' }}></div>
-                      </div>
-                      <p className="text-[11px] text-slate-500 mt-2 leading-snug">
-                        <strong>Analysis:</strong> {focusScore > 75 ? "Council focus remains primarily on significant civic matters this session." : "A significant portion of this session was occupied by administrative or minor items."}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="card">
-                    <div className="card-title">
-                      MEMBER ALIGNMENT
-                      <Users size={16} className="text-slate-400" />
-                    </div>
-                    <AlignmentHeatmap onSelect={handleSelect} motions={motions} />
-                  </div>
-                </div>
-
-                <MotionTable motions={filteredMotions} />
-              </>
-            ) : currentView === 'budget' ? (
-              <BudgetTranslator />
-            ) : currentView === 'wards' ? (
-              <WardGrid motions={motions} />
-            ) : (
-              <div className="flex flex-col items-center justify-center h-[60vh] text-center">
-                <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-4">
-                  {currentView === 'data' ? <Database size={32} className="text-slate-400" /> :
-                    currentView === 'housing' ? <Home size={32} className="text-slate-400" /> :
-                      <AlertCircle size={32} className="text-slate-400" />}
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 capitalize">{currentView} Module</h3>
-                <p className="text-slate-500 mt-1 max-w-xs">The {currentView} interface is currently under development. Please check back soon.</p>
-                <button
-                  onClick={() => setCurrentView('dashboard')}
-                  className="mt-6 px-4 py-2 bg-toronto-blue text-white rounded-lg text-sm font-semibold hover:bg-blue-800 transition-colors"
-                >
-                  Back to Dashboard
-                </button>
-              </div>
-            )}
-          </>
-        )}
-      </main>
-    </div>
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Layout>
+    </BrowserRouter>
   );
 }
 

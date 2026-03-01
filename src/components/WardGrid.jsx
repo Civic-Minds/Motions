@@ -1,18 +1,10 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { MapPin, Activity, Info } from 'lucide-react';
-import { TORONTO_WARDS } from '../constants/wards';
+import { getWardActivityMetrics } from '../utils/analytics';
 
 const WardGrid = ({ motions }) => {
     // Calculate activity per ward
-    const wardActivity = TORONTO_WARDS.map(ward => {
-        const wardMotions = motions.filter(m => m.ward === ward.id);
-        const impactMotions = wardMotions.filter(m => !m.trivial).length;
-        return {
-            ...ward,
-            count: wardMotions.length,
-            impactCount: impactMotions
-        };
-    });
+    const wardActivity = useMemo(() => getWardActivityMetrics(motions), [motions]);
 
     const cityWideCount = motions.filter(m => m.ward === 'City').length;
 
@@ -49,8 +41,8 @@ const WardGrid = ({ motions }) => {
                     <div
                         key={ward.id}
                         className={`group p-4 rounded-xl border transition-all duration-300 ${ward.count > 0
-                                ? 'bg-white border-toronto-blue/30 shadow-sm border-l-4 border-l-toronto-blue'
-                                : 'bg-slate-50/50 border-slate-200 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 hover:bg-white'
+                            ? 'bg-white border-toronto-blue/30 shadow-sm border-l-4 border-l-toronto-blue'
+                            : 'bg-slate-50/50 border-slate-200 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 hover:bg-white'
                             }`}
                     >
                         <div className="flex justify-between items-start mb-2">
