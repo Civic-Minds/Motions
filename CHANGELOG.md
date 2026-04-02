@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- **WardGrid: dynamic highest-activity card** — top 2 wards by motion count now computed from real data; was hardcoded to Ward 15/13.
+- **VersusOverlay: full topic badge coverage** — topic pills now style all 6 topics (Housing, Transit, Finance, Parks, Climate, General); previously only Housing and Transit had distinct colours.
+- **VersusOverlay: slide-in panel CSS** — `.versus-overlay` styles were completely missing from index.css, causing the panel to never appear. Added fixed-position panel with slide-in transition matching the Profile panel.
+- **DataModule: pagination** — table now renders 100 rows at a time with "Show more"; previously all 717 motions rendered at once.
+- **App.css cleanup** — removed conflicting Vite template defaults (`.card`, `.logo`) that were overriding index.css styles.
 - **Budget Translator overhaul** — expanded from 3 to 14 departments covering ~80% of the $18.8B operating budget (TTC, Police, Shelter, Children's Services, Fire, Parks, Infrastructure, Paramedic, Public Health, Long-Term Care, Solid Waste, Library, Economic Development, City Planning). Each department includes 4 real-world translation stats with context.
 - **Budget Translator: spending breakdown chart** — horizontal bar chart (Recharts) ranking all departments by allocation with a tooltip showing per-resident cost. Remaining uncategorized budget shown as "All Other Services."
 - **Budget Translator: accordion cards** — department cards now collapse/expand on click; collapsed state shows budget, % of total, and a proportional bar. Gross vs. net budget shown where applicable.
