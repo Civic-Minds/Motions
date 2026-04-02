@@ -1,8 +1,14 @@
 import { useMemo } from 'react';
 import { getMemberAlignmentScore } from '../utils/analytics';
 
+const scoreStyle = (score) => {
+    if (score >= 85) return { bar: 'bg-emerald-500', text: 'text-emerald-700', bg: 'bg-emerald-50', border: 'border-emerald-200' };
+    if (score >= 70) return { bar: 'bg-[#004a99]',   text: 'text-[#004a99]',   bg: 'bg-blue-50',    border: 'border-blue-200' };
+    if (score >= 55) return { bar: 'bg-amber-500',   text: 'text-amber-700',   bg: 'bg-amber-50',   border: 'border-amber-200' };
+    return               { bar: 'bg-rose-500',   text: 'text-rose-700',   bg: 'bg-rose-50',    border: 'border-rose-200' };
+};
+
 const AlignmentHeatmap = ({ onSelect, motions }) => {
-    // Derive councillor list from actual vote data — anyone with ≥5 recorded votes
     const councillors = useMemo(() => {
         const voteCounts = {};
         motions.forEach(m => {
@@ -26,23 +32,27 @@ const AlignmentHeatmap = ({ onSelect, motions }) => {
 
     return (
         <div className="councillor-alignment-grid">
-            {scored.map(({ name, score }, i) => (
-                <div
-                    key={i}
-                    onClick={() => onSelect(name)}
-                    className="p-3 border border-[#e2e8f0] rounded-lg bg-slate-50/50 hover:border-[#004a99] cursor-pointer transition-all active:scale-95 group"
-                >
-                    <div className="flex justify-between items-center mb-1">
-                        <p className="text-[10px] text-[#64748b] font-bold uppercase group-hover:text-[#004a99] truncate pr-1">
-                            {name.split(' ').at(-1)}
-                        </p>
-                        <span className="text-[10px] font-mono font-bold text-[#004a99] shrink-0">{score}%</span>
+            {scored.map(({ name, score }) => {
+                const style = scoreStyle(score);
+                return (
+                    <div
+                        key={name}
+                        onClick={() => onSelect(name)}
+                        title={name}
+                        className={`p-3 border rounded-lg cursor-pointer transition-all active:scale-95 hover:shadow-md hover:border-[#004a99] group ${style.border} ${style.bg}`}
+                    >
+                        <div className="flex justify-between items-center mb-2">
+                            <p className="text-[10px] text-slate-600 font-bold uppercase group-hover:text-[#004a99] truncate pr-1">
+                                {name.split(' ').at(-1)}
+                            </p>
+                            <span className={`text-[11px] font-mono font-black shrink-0 ${style.text}`}>{score}%</span>
+                        </div>
+                        <div className="h-2 w-full bg-white/60 rounded-full overflow-hidden border border-white/40">
+                            <div className={`h-full rounded-full transition-all ${style.bar}`} style={{ width: `${score}%` }} />
+                        </div>
                     </div>
-                    <div className="h-1.5 w-full bg-[#cbd5e1] rounded-full overflow-hidden">
-                        <div className="h-full bg-[#004a99]" style={{ width: `${score}%` }}></div>
-                    </div>
-                </div>
-            ))}
+                );
+            })}
         </div>
     );
 };

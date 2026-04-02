@@ -4,6 +4,39 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-04-02
+
+### Added
+- **Councillor attendance** — ProfilePanel now shows meeting day attendance (e.g. 68/71 days · 96%) derived from vote records. A councillor is counted as present on a given day if they cast at least one YES or NO vote. Score coloured green ≥90%, amber ≥75%, rose below.
+- **ContestBoard: flag filter pills** — second row of filter pills for Close Vote, Unanimous, Crushed, and Defeated. Pills are styled per flag type (rose, emerald, slate). Deselects on second click. Empty state message when no motions match.
+- **ContestBoard: mover byline** — motion mover now shown inline in each row on wider screens.
+- **MotionTable: topic badge** — coloured topic pill (Housing, Transit, Finance, Parks, Climate, General) now displayed inline before each motion title.
+
+### Added
+- **Councillors page** (`/councillors`) — card grid of all 26 councillors showing attendance %, alignment score, vote count, and top topic. Click any card to open the existing ProfilePanel. Accessible from the top navbar.
+- **Navbar** — replaces the sidebar. Sticky top bar with logo and links: Councillors, Wards, Analytics, Export, Budget. Shows live motion count and latest meeting date.
+- **Dashboard: topic filter pills** — All · Housing · Transit · Finance · Parks · Climate · General filter pills replace the per-topic routes. Filtering is now in-page state; topic routes removed.
+- **Dashboard: All Motions / Notable toggle** — two-button toggle above the motion list switches between the full MotionTable and the ContestBoard (notable/significant motions). Replaces the `/contested` route.
+
+### Changed
+- **Routes simplified** — removed `/contested`, `/housing`, `/transit`, `/finance`, `/parks`, `/climate`, `/general`. "Reports" route renamed to `/analytics`, "Open Data" renamed to `/export`.
+- **ContestBoard** — topic filter pills removed (parent DashboardView handles topic filtering now). Flag filter pills remain.
+- **Layout** — sidebar replaced by Navbar; main content now full-width centered at max 1400px.
+
+### Docs
+- **Roadmap restructured** — `ROADMAP.md` is now an index linking to three sub-roadmaps: `ROADMAP_PRODUCT.md` (features & UX), `ROADMAP_DATA.md` (pipelines & new sources), and `ROADMAP_TECHNICAL.md` (bugs & code quality). Populated with actionable items from the current codebase audit.
+
+### Fixed
+- **Sidebar logo underline** — `text-decoration: none` added to `.logo`; the site title was rendering as an underlined link.
+- **"TRIVIALITY SCORE" card renamed to AGENDA BREAKDOWN** — replaced the opaque "42% Focus on Core" metric with a plain count ("423 of 717 motions were substantive"), a split bar, and a two-item legend showing substantive vs procedural/minor counts. The old jargon label and hardcoded two-variant analysis text are removed.
+- **Layout header clutter** — removed "Live Analytics Engine" indicator, sparkle icon on page titles, "Export Insights" button (navigated to Reports, not an export), and "Reset View" button. Page titles are now clean labels.
+
+### Changed
+- **AlignmentHeatmap: score-coloured cards** — councillor cards now use a 4-tier colour scheme (green ≥85%, blue 70–84%, amber 55–69%, rose <55%) for both the card background/border and the score bar. Bars increased from 6px to 8px height for legibility.
+- **ContestBoard: live result count** — subtitle now shows the actual filtered count instead of hardcoded "TOP 50".
+- **ContestBoard: top-3 rank colouring** — #1 rank shown in amber, #2 in silver, #3 in bronze.
+- **MotionTable: flag badges** — moved flag badges (Minor, Close, Crushed, Unanimous) below the title text to reduce horizontal clutter.
+
 ## [1.0.0] - 2026-04-02
 
 ### Added

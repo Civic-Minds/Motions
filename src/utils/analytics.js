@@ -46,8 +46,27 @@ export function getMemberAlignmentScore(motions, memberName) {
 }
 
 /**
+ * Calculates meeting day attendance for a councillor.
+ * A councillor is considered present on a given day if they cast at least one YES or NO vote.
+ * @param {Array} motions
+ * @param {string} memberName
+ * @returns {{ daysPresent: number, totalDays: number, pct: number }}
+ */
+export function getAttendance(motions, memberName) {
+    const allDates = [...new Set(motions.filter(m => m.votes).map(m => m.date))];
+    const totalDays = allDates.length;
+    const daysPresent = allDates.filter(date => {
+        return motions
+            .filter(m => m.date === date && m.votes && m.votes[memberName])
+            .some(m => m.votes[memberName] === 'YES' || m.votes[memberName] === 'NO');
+    }).length;
+    const pct = totalDays > 0 ? Math.round((daysPresent / totalDays) * 100) : 0;
+    return { daysPresent, totalDays, pct };
+}
+
+/**
  * Calculates activity metrics per ward.
- * @param {Array} motions 
+ * @param {Array} motions
  * @returns {Array} Array of ward objects with activity counts
  */
 export function getWardActivityMetrics(motions) {

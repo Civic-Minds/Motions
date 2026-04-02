@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { ChevronRight } from 'lucide-react';
+import { getAttendance } from '../utils/analytics';
 
 const TOPIC_STYLES = {
     Housing:  'bg-blue-50 text-blue-600',
@@ -41,6 +42,11 @@ const ProfilePanel = ({ selected, onClose, onCompare, motions }) => {
         return motions.filter(m => m.votes && m.votes[selected]).length;
     }, [selected, motions]);
 
+    const attendance = useMemo(() => {
+        if (!selected) return null;
+        return getAttendance(motions, selected);
+    }, [selected, motions]);
+
     return (
         <div className={`profile-panel ${isOpen ? 'open' : ''}`}>
             <div className="profile-header flex justify-between items-start">
@@ -49,8 +55,29 @@ const ProfilePanel = ({ selected, onClose, onCompare, motions }) => {
                         {selected || 'Profile'}
                     </h2>
                     <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">
-                        Toronto City Council · {totalVotes} recorded votes
+                        Toronto City Council
                     </p>
+                    {attendance && (
+                        <div className="flex gap-3 mt-3">
+                            <div className="text-center">
+                                <div className="text-lg font-black text-slate-800">{totalVotes}</div>
+                                <div className="text-[9px] text-slate-400 font-bold uppercase">votes cast</div>
+                            </div>
+                            <div className="w-px bg-slate-200" />
+                            <div className="text-center">
+                                <div className={`text-lg font-black ${attendance.pct >= 90 ? 'text-emerald-600' : attendance.pct >= 75 ? 'text-amber-500' : 'text-rose-500'}`}>
+                                    {attendance.daysPresent}/{attendance.totalDays}
+                                </div>
+                                <div className="text-[9px] text-slate-400 font-bold uppercase">meeting days</div>
+                            </div>
+                            <div className="text-center">
+                                <div className={`text-lg font-black ${attendance.pct >= 90 ? 'text-emerald-600' : attendance.pct >= 75 ? 'text-amber-500' : 'text-rose-500'}`}>
+                                    {attendance.pct}%
+                                </div>
+                                <div className="text-[9px] text-slate-400 font-bold uppercase">attendance</div>
+                            </div>
+                        </div>
+                    )}
                 </div>
                 <div className="flex gap-2">
                     <button

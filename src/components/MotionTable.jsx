@@ -1,6 +1,15 @@
 import React, { useState, useMemo } from 'react';
 import { Filter, ExternalLink, X } from 'lucide-react';
 
+const TOPIC_STYLES = {
+    Housing: 'border-blue-300 text-blue-700 bg-blue-50',
+    Transit: 'border-red-300 text-red-600 bg-red-50',
+    Finance: 'border-emerald-300 text-emerald-700 bg-emerald-50',
+    Parks:   'border-green-300 text-green-700 bg-green-50',
+    Climate: 'border-teal-300 text-teal-700 bg-teal-50',
+    General: 'border-slate-200 text-slate-500 bg-slate-50',
+};
+
 const PAGE_SIZE = 50;
 
 const MotionTable = ({ motions }) => {
@@ -147,8 +156,15 @@ const MotionTable = ({ motions }) => {
                                     )}
                                 </td>
                                 <td className="font-semibold text-slate-800">
-                                    <div className="flex items-center gap-2 flex-wrap">
-                                        {m.title}
+                                    <div className="flex items-start gap-2 flex-wrap">
+                                        {m.topic && (
+                                            <span className={`shrink-0 text-[9px] font-black uppercase px-1.5 py-0.5 rounded border whitespace-nowrap ${TOPIC_STYLES[m.topic] || TOPIC_STYLES.General}`}>
+                                                {m.topic}
+                                            </span>
+                                        )}
+                                        <span className="leading-snug">{m.title}</span>
+                                    </div>
+                                    <div className="flex items-center gap-1.5 mt-1 flex-wrap">
                                         {m.trivial && (
                                             <span className="text-[9px] bg-amber-50 text-amber-600 border border-amber-200 px-1.5 py-0.5 rounded font-bold uppercase whitespace-nowrap">
                                                 Minor
