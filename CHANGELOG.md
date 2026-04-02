@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- **Dashboard: "Votes with Majority" subtitle** — one-line explanation ("How often each councillor sides with the winning vote") added below the card title.
+
+### Changed
+- **Topic filter pills: neutral inactive state** — inactive pills are now plain gray; only the selected topic gets its colour. Previously all pills showed their topic colour simultaneously, making the active selection unclear.
+- **Navbar: Stats renamed to Scorecard** — better reflects what the page actually shows.
+- **Navbar: grouped with divider** — Councillors · Wards separated from Scorecard · Budget by a vertical divider rule.
+- **Alignment card renamed** — "MEMBER ALIGNMENT" → "VOTES WITH MAJORITY".
+
+### Fixed
+- **Tailwind CSS not generating utility classes** — `@import "tailwindcss"` was missing from `index.css`. All Tailwind utility classes across the app were silently unapplied; CSS bundle grew from 5 kB to 48 kB after fix.
+- **Export feature removed** — CSV download button, `exportCSV` function, DataModule import, and `/export` route all removed. Page is gone entirely.
+- **Navbar: motion count and date removed** — "717 motions · Feb 10, 2026" status indicator removed from the navbar.
+
 ## [1.1.0] - 2026-04-02
 
 ### Added
