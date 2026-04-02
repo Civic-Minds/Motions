@@ -6,7 +6,6 @@ import Scorecard from './components/Scorecard';
 import BudgetTranslator from './components/BudgetTranslator';
 import WardGrid from './components/WardGrid';
 import DashboardView from './components/DashboardView';
-import DataModule from './components/DataModule';
 import CouncillorList from './components/CouncillorList';
 import { useMotions } from './hooks/useMotions';
 
@@ -68,7 +67,6 @@ function App() {
           } />
           <Route path="/wards"     element={<WardGrid motions={motions} />} />
           <Route path="/analytics" element={<Scorecard motions={motions} />} />
-          <Route path="/export"    element={<DataModule motions={motions} />} />
           <Route path="/budget"    element={<BudgetTranslator />} />
           <Route path="*"          element={<Navigate to="/" replace />} />
         </Routes>

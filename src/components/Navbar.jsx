@@ -19,9 +19,6 @@ const Navbar = ({ motions = [] }) => {
                 <NavLink to="/analytics" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
                     Analytics
                 </NavLink>
-                <NavLink to="/export" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
-                    Export
-                </NavLink>
                 <NavLink to="/budget" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
                     Budget
                 </NavLink>

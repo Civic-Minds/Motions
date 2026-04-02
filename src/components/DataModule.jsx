@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Search, Download } from 'lucide-react';
+import { Search } from 'lucide-react';
 
 const TOPIC_STYLES = {
     Housing:   'border-blue-400 text-blue-700 bg-blue-50',
@@ -32,45 +32,13 @@ const DataModule = ({ motions }) => {
     const visible = filtered.slice(0, page * PAGE_SIZE);
     const hasMore = visible.length < filtered.length;
 
-    const exportCSV = () => {
-        const headers = ['ID', 'Date', 'Title', 'Topic', 'Mover', 'Seconder', 'Status', 'Ward', 'Trivial', 'URL'];
-        const rows = motions.map(m => [
-            m.id,
-            m.date,
-            `"${(m.title || '').replace(/"/g, '""')}"`,
-            m.topic || '',
-            `"${(m.mover || '').replace(/"/g, '""')}"`,
-            `"${(m.seconder || '').replace(/"/g, '""')}"`,
-            m.status,
-            m.ward || '',
-            m.trivial ? 'Yes' : 'No',
-            m.url || '',
-        ]);
-        const csv = [headers, ...rows].map(r => r.join(',')).join('\n');
-        const blob = new Blob([csv], { type: 'text/csv' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'motions-toronto-council.csv';
-        a.click();
-        URL.revokeObjectURL(url);
-    };
-
     return (
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            <div className="flex justify-between items-end">
-                <div>
-                    <h1 className="text-4xl font-black italic tracking-tight text-slate-800">OPEN DATA</h1>
-                    <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] mt-1">
-                        {motions.length} MOTIONS • CITY OF TORONTO
-                    </p>
-                </div>
-                <button
-                    onClick={exportCSV}
-                    className="flex items-center gap-2 px-4 py-2 bg-[#004a99] text-white rounded-lg text-sm font-bold hover:bg-blue-800 transition-colors"
-                >
-                    <Download size={15} /> Download CSV
-                </button>
+            <div>
+                <h1 className="text-4xl font-black italic tracking-tight text-slate-800">OPEN DATA</h1>
+                <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] mt-1">
+                    {motions.length} MOTIONS • CITY OF TORONTO
+                </p>
             </div>
 
             <div className="card">
