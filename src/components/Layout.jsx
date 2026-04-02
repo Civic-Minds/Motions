@@ -35,7 +35,7 @@ const Layout = ({
                 motions={motions}
             />
 
-            <Navbar motions={motions} />
+            <Navbar />
 
             <main className="main-content">
                 {compareList.length === 1 && (

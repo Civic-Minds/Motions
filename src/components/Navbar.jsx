@@ -1,8 +1,6 @@
 import { NavLink, Link } from 'react-router-dom';
 
-const Navbar = ({ motions = [] }) => {
-    const lastMeeting = motions.length > 0 ? motions[0]?.date : null;
-
+const Navbar = () => {
     return (
         <nav className="navbar">
             <Link to="/" className="nav-logo">
@@ -24,13 +22,6 @@ const Navbar = ({ motions = [] }) => {
                 </NavLink>
             </div>
 
-            {motions.length > 0 && (
-                <div className="nav-status">
-                    <span className="nav-status-dot" />
-                    {motions.length.toLocaleString()} motions
-                    {lastMeeting && <span className="nav-status-date">· {lastMeeting}</span>}
-                </div>
-            )}
         </nav>
     );
 };
