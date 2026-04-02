@@ -2,6 +2,41 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Added
+- **Budget Translator overhaul** — expanded from 3 to 14 departments covering ~80% of the $18.8B operating budget (TTC, Police, Shelter, Children's Services, Fire, Parks, Infrastructure, Paramedic, Public Health, Long-Term Care, Solid Waste, Library, Economic Development, City Planning). Each department includes 4 real-world translation stats with context.
+- **Budget Translator: spending breakdown chart** — horizontal bar chart (Recharts) ranking all departments by allocation with a tooltip showing per-resident cost. Remaining uncategorized budget shown as "All Other Services."
+- **Budget Translator: accordion cards** — department cards now collapse/expand on click; collapsed state shows budget, % of total, and a proportional bar. Gross vs. net budget shown where applicable.
+- **Vercel deployment config** — added `vercel.json` with SPA rewrite rule so deep links and React Router routes resolve correctly on Vercel.
+- **MotionTable filtering** — the Filter button now opens an inline filter bar with text search (title, mover, ID), a status dropdown (All / Adopted / Not adopted), and a "Hide minor items" checkbox. Active filter count shown as a badge on the button. Results count shown when filters are active. Empty state message when no motions match.
+- **Scorecard: real Efficiency metric** — replaced hardcoded 92% with a live calculation: non-trivial motions adopted ÷ total non-trivial motions.
+- **Scorecard: dynamic Session Summary** — replaced static AI copy with a generated paragraph drawn from real data: topic breakdown, adoption rate, split vote count, and top dissenter.
+- **Data Module** — new `/data` route with a searchable, full-dataset table (ID, Date, Title, Topic, Mover, Ward, Vote, Status) and a Download CSV button that exports all tracked motions.
+- **Vote column in MotionTable** — each motion row now shows a live YES–NO count derived from its vote record.
+- **VersusOverlay: real DNA bars** — "Voter DNA" bars for each councillor now compute their YES% from actual vote records instead of hardcoded values.
+- **Toronto Open Data pipeline** — new `scripts/import_open_data.js` downloads the City Council voting record CSV from the Toronto Open Data portal (2022–2026 term, ~40k vote records, 717 agenda items) and converts it to `motions.json`. Replaces the 5-item TMMIS scraper output with the full term's data. Supports `--term=` flag for historical terms back to 2006.
+- **Climate topic** — added Climate as a distinct topic category (TransformTO, net zero, heat relief, emissions, etc.) with teal pill styling.
+- **Significance score** — each motion now has a `significance` field (0–100) computed from five signals: vote margin, outcome (defeated/referred score higher), motion complexity (number of distinct motion types — amendments, referrals), multi-day (item spanned multiple meeting dates), and time spent (timestamp gap to next item in same session). `trivial` is now derived from `score < 25` rather than keyword matching alone. Median score: 20. Top motion: Housing Action Plan Avenues Policy Review at 83.
+- **Motion flags** — each motion now carries a `flags` array: `close-vote`, `defeated`, `unanimous`, `landslide-defeat`, all gated on significance ≥ 25 to exclude procedural noise.
+- **Flag badges in MotionTable** — Close, Unanimous, and Crushed badges render inline next to the motion title, same pattern as the existing Minor badge.
+- **MotionTable pagination** — renders 50 rows at a time with a "Show more" button. Prevents browser strain on the full 717-motion dataset.
+- **MotionTable: Notable filter + significance sort** — new "Notable only" checkbox shows flagged motions exclusively. New "Sort: Most Significant" option re-sorts by significance score descending.
+- **MotionTable: significance score** — score shown as small grey number under each motion ID for quick reference.
+- **MotionTable: Defeated status badge** — defeated motions now render a rose badge instead of grey.
+- **Scorecard: dynamic date range** — title now derives the date range from the loaded motions instead of hardcoded "FEBRUARY 2026".
+- **Scorecard: Impact Analysis sorted by significance** — "Major Wins" section now shows top 15 non-trivial adopted motions sorted by significance score, with the score shown as a badge on each card.
+- **AlignmentHeatmap: data-derived councillor list** — no longer uses a hardcoded constant. Derives all councillors with ≥5 recorded votes from the motions data, sorted alphabetically by last name. Catches councillors missing from the static list (e.g. Rachel Chernos Lin).
+- **ProfilePanel rewrite** — voting DNA now covers all 6 topics (Housing, Transit, Finance, Parks, Climate, General) with vote counts per topic. Notable votes now sorted by significance score instead of recency, showing top 20. Vote count shown in panel header.
+- **ProfilePanel: ABSENT vote styling** — absent votes now render amber, distinct from YES (green) and NO (red).
+- **Most Contested view** (`/contested`) — ranked list of top 50 non-trivial motions by significance score with topic filter pills, flag badges, vote counts, status badges, and significance bar per item.
+- **Topic routes expanded** — added `/finance`, `/parks`, `/climate`, `/general` routes alongside the existing `/transit` and `/housing`.
+- **Sidebar overhaul** — adds Most Contested, Finance, Parks, Climate nav links; status widget now shows live motion count and latest meeting date from loaded data instead of hardcoded session strings.
+
+### Changed
+
+### Fixed
+
 ## [0.4.0] - 2026-02-28
 
 ### Added

@@ -1,35 +1,5 @@
 [
     {
-        "id": "police",
-        "name": "Toronto Police Service",
-        "budget": 1220000000,
-        "grossBudget": 1418000000,
-        "color": "from-blue-600 to-indigo-900",
-        "icon": "Shield",
-        "translation": [
-            {
-                "label": "Frontline Officers",
-                "value": "~5,935",
-                "context": "Total sworn officers by 2029 (hiring 109 net new in 2025)"
-            },
-            {
-                "label": "Priority 1 Response",
-                "value": "17.4 min",
-                "context": "Average response time (improved from 23.1 min in 2023)"
-            },
-            {
-                "label": "911 & Patrol",
-                "value": "41%",
-                "context": "Percentage of the total budget spent on emergency response"
-            },
-            {
-                "label": "People Costs",
-                "value": "90%",
-                "context": "The portion of the budget spent on salaries and wages"
-            }
-        ]
-    },
-    {
         "id": "ttc",
         "name": "Toronto Transit Commission",
         "budget": 2819000000,
@@ -45,7 +15,7 @@
             {
                 "label": "Workforce",
                 "value": "18,201",
-                "context": "Total staff positions (up 476 from 2024)"
+                "context": "Total staff positions, up 476 from 2024"
             },
             {
                 "label": "Subway Frequency",
@@ -55,7 +25,157 @@
             {
                 "label": "Wheel-Trans Trips",
                 "value": "4M+",
-                "context": "Additional rides supported by 1.5M service hours"
+                "context": "Accessible transit rides supported by 1.5M service hours"
+            }
+        ]
+    },
+    {
+        "id": "police",
+        "name": "Toronto Police Service",
+        "budget": 1220000000,
+        "grossBudget": 1418000000,
+        "color": "from-blue-600 to-indigo-900",
+        "icon": "Shield",
+        "translation": [
+            {
+                "label": "Frontline Officers",
+                "value": "~5,935",
+                "context": "Total sworn officers by 2029, hiring 109 net new in 2025"
+            },
+            {
+                "label": "Priority 1 Response",
+                "value": "17.4 min",
+                "context": "Average response time, improved from 23.1 min in 2023"
+            },
+            {
+                "label": "911 & Patrol",
+                "value": "41%",
+                "context": "Portion of total budget spent on emergency response"
+            },
+            {
+                "label": "People Costs",
+                "value": "90%",
+                "context": "Share of budget spent on salaries and wages"
+            }
+        ]
+    },
+    {
+        "id": "children",
+        "name": "Children's Services",
+        "budget": 788000000,
+        "grossBudget": 788000000,
+        "color": "from-violet-500 to-purple-800",
+        "icon": "Baby",
+        "translation": [
+            {
+                "label": "Licensed Spaces",
+                "value": "82,000+",
+                "context": "Licensed childcare spaces across Toronto in 2025"
+            },
+            {
+                "label": "Fee Subsidies",
+                "value": "~28,000",
+                "context": "Families receiving childcare fee subsidies"
+            },
+            {
+                "label": "EarlyON Centres",
+                "value": "100+",
+                "context": "Centres offering free play and learning for 0–6 year olds"
+            },
+            {
+                "label": "Homelessness Prevention",
+                "value": "$41M",
+                "context": "Allocated for child and family homelessness prevention services"
+            }
+        ]
+    },
+    {
+        "id": "fire",
+        "name": "Toronto Fire Services",
+        "budget": 608000000,
+        "grossBudget": 608000000,
+        "color": "from-orange-600 to-red-800",
+        "icon": "Flame",
+        "translation": [
+            {
+                "label": "Fire Stations",
+                "value": "84",
+                "context": "Stations across the city providing 24/7 coverage"
+            },
+            {
+                "label": "Firefighters",
+                "value": "~3,100",
+                "context": "Frontline firefighting and fire prevention staff"
+            },
+            {
+                "label": "Response Target",
+                "value": "4 min",
+                "context": "First-unit response time target for high-priority calls"
+            },
+            {
+                "label": "Annual Calls",
+                "value": "170,000+",
+                "context": "Emergency responses handled per year, including medical assists"
+            }
+        ]
+    },
+    {
+        "id": "parks",
+        "name": "Parks, Forestry & Recreation",
+        "budget": 596000000,
+        "grossBudget": 596000000,
+        "color": "from-green-600 to-emerald-900",
+        "icon": "Trees",
+        "translation": [
+            {
+                "label": "Parks",
+                "value": "1,500+",
+                "context": "Maintained parks, ravines, and green spaces across the city"
+            },
+            {
+                "label": "Rec Facilities",
+                "value": "~200",
+                "context": "Recreation centres, arenas, pools, and community hubs"
+            },
+            {
+                "label": "Urban Forest",
+                "value": "10M trees",
+                "context": "Trees in the urban canopy maintained and monitored by the city"
+            },
+            {
+                "label": "Registered Programs",
+                "value": "1M+",
+                "context": "Registrations across recreation and arts programs annually"
+            }
+        ]
+    },
+    {
+        "id": "infrastructure",
+        "name": "Infrastructure & Development Services",
+        "budget": 466000000,
+        "grossBudget": 466000000,
+        "color": "from-slate-600 to-slate-900",
+        "icon": "HardHat",
+        "translation": [
+            {
+                "label": "Road Network",
+                "value": "5,600 km",
+                "context": "Lane kilometres of roads maintained by the city"
+            },
+            {
+                "label": "Sidewalks",
+                "value": "7,400 km",
+                "context": "Kilometres of sidewalk maintained and repaired annually"
+            },
+            {
+                "label": "Winter Ops",
+                "value": "~$80M",
+                "context": "Annual budget for winter road maintenance and snow clearing"
+            },
+            {
+                "label": "Bridges & Structures",
+                "value": "900+",
+                "context": "Bridges and major structures under active maintenance"
             }
         ]
     },
@@ -68,14 +188,234 @@
         "icon": "Home",
         "translation": [
             {
-                "label": "Shelter Beds",
+                "label": "Shelter Capacity",
                 "value": "10,000+",
-                "context": "Total capacity including hotel programs"
+                "context": "Total shelter beds including hotel programs and refugee sites"
             },
             {
                 "label": "Street Outreach",
                 "value": "24/7",
-                "context": "Availability of mobile crisis response teams"
+                "context": "Availability of mobile crisis response teams across the city"
+            },
+            {
+                "label": "Housing Workers",
+                "value": "500+",
+                "context": "Case managers and housing support staff helping people exit shelter"
+            },
+            {
+                "label": "Refugee Services",
+                "value": "~7,000",
+                "context": "Asylum claimants in city-funded temporary accommodation"
+            }
+        ]
+    },
+    {
+        "id": "paramedic",
+        "name": "Toronto Paramedic Services",
+        "budget": 334000000,
+        "grossBudget": 334000000,
+        "color": "from-rose-500 to-red-800",
+        "icon": "Ambulance",
+        "translation": [
+            {
+                "label": "Paramedics",
+                "value": "~1,500",
+                "context": "Frontline advanced and primary care paramedics"
+            },
+            {
+                "label": "Annual Calls",
+                "value": "400,000+",
+                "context": "Emergency calls responded to per year"
+            },
+            {
+                "label": "Response Target",
+                "value": "6 min",
+                "context": "Target response time for life-threatening calls in urban areas"
+            },
+            {
+                "label": "Community Paramedics",
+                "value": "30+",
+                "context": "Paramedics in preventive/non-emergency community health roles"
+            }
+        ]
+    },
+    {
+        "id": "health",
+        "name": "Toronto Public Health",
+        "budget": 345000000,
+        "grossBudget": 345000000,
+        "color": "from-cyan-500 to-teal-800",
+        "icon": "HeartPulse",
+        "translation": [
+            {
+                "label": "Staff",
+                "value": "~1,800",
+                "context": "Public health professionals, nurses, and inspectors"
+            },
+            {
+                "label": "Food Inspections",
+                "value": "50,000+",
+                "context": "Premises inspected annually including restaurants and grocers"
+            },
+            {
+                "label": "Dental Clinics",
+                "value": "10",
+                "context": "Publicly funded dental clinics serving low-income residents"
+            },
+            {
+                "label": "Harm Reduction",
+                "value": "7M+",
+                "context": "Needle and syringe units distributed annually through harm reduction sites"
+            }
+        ]
+    },
+    {
+        "id": "ltc",
+        "name": "Long-Term Care Homes",
+        "budget": 332000000,
+        "grossBudget": 332000000,
+        "color": "from-amber-500 to-orange-800",
+        "icon": "Building2",
+        "translation": [
+            {
+                "label": "Residents",
+                "value": "~2,650",
+                "context": "Residents in the city's 10 long-term care homes"
+            },
+            {
+                "label": "Homes",
+                "value": "10",
+                "context": "Municipally operated long-term care facilities across Toronto"
+            },
+            {
+                "label": "Staff",
+                "value": "~3,500",
+                "context": "Care workers, nurses, and support staff across all homes"
+            },
+            {
+                "label": "Meals Served",
+                "value": "3M+",
+                "context": "Nutritionist-planned meals prepared and served annually"
+            }
+        ]
+    },
+    {
+        "id": "solidwaste",
+        "name": "Solid Waste Management",
+        "budget": 252000000,
+        "grossBudget": 476000000,
+        "color": "from-lime-600 to-green-900",
+        "icon": "Trash2",
+        "translation": [
+            {
+                "label": "Households Served",
+                "value": "~530,000",
+                "context": "Residential properties receiving curbside collection"
+            },
+            {
+                "label": "Diversion Rate",
+                "value": "~67%",
+                "context": "Waste diverted from landfill through recycling, composting, and reuse"
+            },
+            {
+                "label": "Green Bin Pickups",
+                "value": "Weekly",
+                "context": "Organics collected every week year-round from homes across the city"
+            },
+            {
+                "label": "Landfill Life",
+                "value": "2028",
+                "context": "Projected capacity remaining at Green Lane Landfill without new diversion"
+            }
+        ]
+    },
+    {
+        "id": "library",
+        "name": "Toronto Public Library",
+        "budget": 232000000,
+        "grossBudget": 232000000,
+        "color": "from-indigo-500 to-blue-900",
+        "icon": "BookOpen",
+        "translation": [
+            {
+                "label": "Branches",
+                "value": "100",
+                "context": "Library branches — the largest urban public library system in the world"
+            },
+            {
+                "label": "Annual Visits",
+                "value": "20M+",
+                "context": "In-person and digital visits across the system"
+            },
+            {
+                "label": "Collection Items",
+                "value": "11M+",
+                "context": "Physical and digital items available to borrowers"
+            },
+            {
+                "label": "Card Holders",
+                "value": "1.2M",
+                "context": "Active library cardholders in Toronto"
+            }
+        ]
+    },
+    {
+        "id": "econdev",
+        "name": "Economic Development & Culture",
+        "budget": 111000000,
+        "grossBudget": 111000000,
+        "color": "from-pink-500 to-rose-800",
+        "icon": "Landmark",
+        "translation": [
+            {
+                "label": "Arts Grants",
+                "value": "$20M+",
+                "context": "Grants to artists, arts organizations, and cultural festivals"
+            },
+            {
+                "label": "BIA Support",
+                "value": "83 BIAs",
+                "context": "Business Improvement Areas supported with programming and street grants"
+            },
+            {
+                "label": "Film Permits",
+                "value": "4,000+",
+                "context": "Annual film and TV production permits — Toronto is North America's #3 film city"
+            },
+            {
+                "label": "Museums",
+                "value": "10",
+                "context": "Civic museums and heritage sites operated by the city"
+            }
+        ]
+    },
+    {
+        "id": "planning",
+        "name": "City Planning",
+        "budget": 74000000,
+        "grossBudget": 74000000,
+        "color": "from-sky-500 to-blue-800",
+        "icon": "Map",
+        "translation": [
+            {
+                "label": "Staff Planners",
+                "value": "~500",
+                "context": "Urban planners, heritage specialists, and policy analysts"
+            },
+            {
+                "label": "Applications Reviewed",
+                "value": "9,000+",
+                "context": "Development and rezoning applications processed annually"
+            },
+            {
+                "label": "Heritage Properties",
+                "value": "7,500+",
+                "context": "Properties listed or designated under heritage protection"
+            },
+            {
+                "label": "Official Plan",
+                "value": "2051",
+                "context": "Horizon year for Toronto's current Official Plan growth projections"
             }
         ]
     }
