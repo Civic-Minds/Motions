@@ -38,7 +38,7 @@ const Layout = ({
                 motions={motions}
             />
 
-            <Sidebar />
+            <Sidebar motions={motions} />
 
             <main className="main-content">
                 {compareList.length === 1 && (

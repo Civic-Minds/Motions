@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { Database } from 'lucide-react';
 
 import Layout from './components/Layout';
 import Scorecard from './components/Scorecard';
 import BudgetTranslator from './components/BudgetTranslator';
 import WardGrid from './components/WardGrid';
 import DashboardView from './components/DashboardView';
+import DataModule from './components/DataModule';
+import ContestBoard from './components/ContestBoard';
 import { useMotions } from './hooks/useMotions';
 
 function App() {
@@ -66,7 +67,7 @@ function App() {
           <Route path="/budget" element={<BudgetTranslator />} />
           <Route path="/reports" element={<Scorecard motions={motions} />} />
 
-          {['transit', 'housing'].map(topic => (
+          {['transit', 'housing', 'finance', 'parks', 'climate', 'general'].map(topic => (
             <Route key={topic} path={`/${topic}`} element={
               <DashboardView
                 motions={motions}
@@ -77,15 +78,9 @@ function App() {
             } />
           ))}
 
-          <Route path="/data" element={
-            <div className="flex flex-col items-center justify-center h-[60vh] text-center">
-              <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-4">
-                <Database size={32} className="text-slate-400" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 capitalize">Data Module</h3>
-              <p className="text-slate-500 mt-1 max-w-xs">The data interface is currently under development. Please check back soon.</p>
-            </div>
-          } />
+          <Route path="/contested" element={<ContestBoard motions={motions} />} />
+
+          <Route path="/data" element={<DataModule motions={motions} />} />
 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
