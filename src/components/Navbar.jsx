@@ -18,7 +18,7 @@ const Navbar = () => {
                 <div className="nav-divider" />
 
                 <NavLink to="/analytics" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
-                    Stats
+                    Scorecard
                 </NavLink>
                 <NavLink to="/budget" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
                     Budget

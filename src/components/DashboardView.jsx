@@ -6,15 +6,16 @@ import ContestBoard from './ContestBoard';
 
 const TOPICS = ['All', 'Housing', 'Transit', 'Finance', 'Parks', 'Climate', 'General'];
 
-const TOPIC_PILL_STYLES = {
-    All:     { active: 'bg-slate-800 text-white border-slate-800',        inactive: 'text-slate-500 border-slate-200 hover:border-slate-400' },
-    Housing: { active: 'bg-blue-600 text-white border-blue-600',          inactive: 'text-blue-700 border-blue-200 hover:border-blue-400 bg-blue-50/50' },
-    Transit: { active: 'bg-red-600 text-white border-red-600',            inactive: 'text-red-600 border-red-200 hover:border-red-400 bg-red-50/50' },
-    Finance: { active: 'bg-emerald-600 text-white border-emerald-600',    inactive: 'text-emerald-700 border-emerald-200 hover:border-emerald-400 bg-emerald-50/50' },
-    Parks:   { active: 'bg-green-600 text-white border-green-600',        inactive: 'text-green-700 border-green-200 hover:border-green-400 bg-green-50/50' },
-    Climate: { active: 'bg-teal-600 text-white border-teal-600',          inactive: 'text-teal-700 border-teal-200 hover:border-teal-400 bg-teal-50/50' },
-    General: { active: 'bg-slate-500 text-white border-slate-500',        inactive: 'text-slate-500 border-slate-200 hover:border-slate-400' },
+const TOPIC_PILL_ACTIVE = {
+    All:     'bg-slate-800 text-white border-slate-800',
+    Housing: 'bg-blue-600 text-white border-blue-600',
+    Transit: 'bg-red-600 text-white border-red-600',
+    Finance: 'bg-emerald-600 text-white border-emerald-600',
+    Parks:   'bg-green-600 text-white border-green-600',
+    Climate: 'bg-teal-600 text-white border-teal-600',
+    General: 'bg-slate-500 text-white border-slate-500',
 };
+const TOPIC_PILL_INACTIVE = 'text-slate-500 border-slate-200 hover:border-slate-400 hover:text-slate-700';
 
 const DashboardView = ({ motions, handleSelect }) => {
     const [topic, setTopic] = useState('All');
@@ -41,7 +42,7 @@ const DashboardView = ({ motions, handleSelect }) => {
                         <button
                             key={t}
                             onClick={() => setTopic(t)}
-                            className={`text-[10px] font-bold uppercase px-3 py-1.5 rounded-full border transition-colors ${isActive ? styles.active : styles.inactive}`}
+                            className={`text-[10px] font-bold uppercase px-3 py-1.5 rounded-full border transition-colors ${isActive ? TOPIC_PILL_ACTIVE[t] : TOPIC_PILL_INACTIVE}`}
                         >
                             {t}
                         </button>
@@ -76,9 +77,10 @@ const DashboardView = ({ motions, handleSelect }) => {
 
                 <div className="card">
                     <div className="card-title">
-                        MEMBER ALIGNMENT
+                        VOTES WITH MAJORITY
                         <UsersIcon size={16} className="text-slate-400" />
                     </div>
+                    <p className="text-[10px] text-slate-400 mb-3 -mt-3">How often each councillor sides with the winning vote</p>
                     <AlignmentHeatmap onSelect={handleSelect} motions={motions} />
                 </div>
             </div>
