@@ -336,3 +336,33 @@ body {
   background: #fef3c7;
   color: #92400e;
 }
+
+/* Versus Overlay */
+.versus-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 560px;
+  height: 100vh;
+  background: white;
+  border-left: 1px solid var(--border-light);
+  box-shadow: -15px 0 35px rgba(0, 0, 0, 0.08);
+  z-index: 1100;
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.versus-overlay.open {
+  transform: translateX(0);
+}
+
+.versus-header {
+  flex-shrink: 0;
+}
+
+.versus-content {
+  flex: 1;
+  overflow-y: auto;
+}

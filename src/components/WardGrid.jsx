@@ -22,18 +22,27 @@ const WardGrid = ({ motions }) => {
                     </p>
                 </div>
 
-                <div className="card border-dashed border-2 border-slate-200 bg-slate-50/50">
-                    <div className="card-title">GEOGRAPHIC CLUSTER</div>
-                    <div className="flex items-center gap-3 mt-2">
-                        <div className="p-2 bg-toronto-blue/10 rounded-lg text-toronto-blue">
-                            <Activity size={20} />
+                {(() => {
+                    const top = [...wardActivity].filter(w => w.count > 0).sort((a, b) => b.count - a.count).slice(0, 2);
+                    return (
+                        <div className="card border-dashed border-2 border-slate-200 bg-slate-50/50">
+                            <div className="card-title">HIGHEST ACTIVITY</div>
+                            <div className="space-y-3 mt-2">
+                                {top.map((w, i) => (
+                                    <div key={w.id} className="flex items-center gap-3">
+                                        <div className="p-2 bg-toronto-blue/10 rounded-lg text-toronto-blue">
+                                            <Activity size={16} />
+                                        </div>
+                                        <div>
+                                            <p className="text-sm font-bold text-slate-900">Ward {w.id} — {w.name}</p>
+                                            <p className="text-[11px] text-slate-500">{w.count} items · {w.impactCount} impactful</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
-                        <div>
-                            <p className="text-sm font-bold text-slate-900">Highest Activity</p>
-                            <p className="text-[11px] text-slate-500">Ward 15, Ward 13</p>
-                        </div>
-                    </div>
-                </div>
+                    );
+                })()}
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">

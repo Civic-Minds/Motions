@@ -20,6 +20,12 @@ const VersusOverlay = ({ selection, onClose, motions }) => {
     const sharedVotes = motions.filter(m => m.votes && m.votes[c1] === m.votes[c2]).length;
     const alignmentScore = totalVotes > 0 ? Math.floor((sharedVotes / totalVotes) * 100) : 100;
 
+    // Compute real YES % from vote data
+    const c1All = motions.filter(m => m.votes && m.votes[c1]);
+    const c1YesPct = c1All.length > 0 ? Math.round((c1All.filter(m => m.votes[c1] === 'YES').length / c1All.length) * 100) : 0;
+    const c2All = motions.filter(m => m.votes && m.votes[c2]);
+    const c2YesPct = c2All.length > 0 ? Math.round((c2All.filter(m => m.votes[c2] === 'YES').length / c2All.length) * 100) : 0;
+
     return (
         <div className="versus-overlay open">
             <div className="versus-header">
@@ -37,23 +43,23 @@ const VersusOverlay = ({ selection, onClose, motions }) => {
                     <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100">
                         <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-4">{c1} DNA</h3>
                         <div className="h-2 w-full bg-slate-200 rounded-full overflow-hidden flex">
-                            <div className="h-full bg-emerald-500" style={{ width: '70%' }}></div>
-                            <div className="h-full bg-rose-500" style={{ width: '30%' }}></div>
+                            <div className="h-full bg-emerald-500" style={{ width: `${c1YesPct}%` }}></div>
+                            <div className="h-full bg-rose-500" style={{ width: `${100 - c1YesPct}%` }}></div>
                         </div>
                         <div className="flex justify-between mt-2 text-[10px] font-bold">
-                            <span className="text-emerald-600">YES (70%)</span>
-                            <span className="text-rose-600">NO (30%)</span>
+                            <span className="text-emerald-600">YES ({c1YesPct}%)</span>
+                            <span className="text-rose-600">NO ({100 - c1YesPct}%)</span>
                         </div>
                     </div>
                     <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100">
                         <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-4">{c2} DNA</h3>
                         <div className="h-2 w-full bg-slate-200 rounded-full overflow-hidden flex">
-                            <div className="h-full bg-emerald-500" style={{ width: '45%' }}></div>
-                            <div className="h-full bg-rose-500" style={{ width: '55%' }}></div>
+                            <div className="h-full bg-emerald-500" style={{ width: `${c2YesPct}%` }}></div>
+                            <div className="h-full bg-rose-500" style={{ width: `${100 - c2YesPct}%` }}></div>
                         </div>
                         <div className="flex justify-between mt-2 text-[10px] font-bold">
-                            <span className="text-emerald-600">YES (45%)</span>
-                            <span className="text-rose-600">NO (55%)</span>
+                            <span className="text-emerald-600">YES ({c2YesPct}%)</span>
+                            <span className="text-rose-600">NO ({100 - c2YesPct}%)</span>
                         </div>
                     </div>
                 </div>
@@ -69,10 +75,15 @@ const VersusOverlay = ({ selection, onClose, motions }) => {
                             <div className="flex justify-between items-start">
                                 <div className="flex-1">
                                     <div className="flex items-center gap-2 mb-2">
-                                        <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded-md border ${item.topic === 'Housing' ? 'border-toronto-blue text-toronto-blue bg-blue-50' :
-                                            item.topic === 'Transit' ? 'border-red-500 text-red-500 bg-red-50' :
-                                                'border-slate-400 text-slate-500 bg-slate-50'
-                                            }`}>{item.topic}</span>
+                                        <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded-md border ${
+                                            item.topic === 'Housing' ? 'border-blue-400 text-blue-700 bg-blue-50' :
+                                            item.topic === 'Transit' ? 'border-red-400 text-red-600 bg-red-50' :
+                                            item.topic === 'Finance' ? 'border-emerald-400 text-emerald-700 bg-emerald-50' :
+                                            item.topic === 'Parks' ? 'border-green-400 text-green-700 bg-green-50' :
+                                            item.topic === 'Climate' ? 'border-teal-400 text-teal-700 bg-teal-50' :
+                                            item.topic === 'Events' ? 'border-purple-400 text-purple-700 bg-purple-50' :
+                                            'border-slate-300 text-slate-500 bg-slate-50'
+                                        }`}>{item.topic}</span>
                                         <span className="text-[10px] font-mono font-bold text-slate-400">{item.id}</span>
                                     </div>
                                     <p className="text-sm font-bold text-slate-800 leading-tight group-hover:text-[#004a99] transition-colors">{item.title}</p>
