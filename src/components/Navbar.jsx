@@ -14,8 +14,11 @@ const Navbar = () => {
                 <NavLink to="/wards" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
                     Wards
                 </NavLink>
+
+                <div className="nav-divider" />
+
                 <NavLink to="/analytics" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
-                    Analytics
+                    Stats
                 </NavLink>
                 <NavLink to="/budget" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
                     Budget

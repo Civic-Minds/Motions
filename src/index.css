@@ -112,6 +112,14 @@ body {
   color: #94a3b8;
 }
 
+.nav-divider {
+  width: 1px;
+  height: 18px;
+  background: var(--border-light);
+  margin: 0 6px;
+  flex-shrink: 0;
+}
+
 /* Main Content */
 .main-content {
   padding: 32px;
