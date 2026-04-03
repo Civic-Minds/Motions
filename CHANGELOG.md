@@ -28,6 +28,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - **Ward → Councillor connection** — each ward card on the Wards page now shows the councillor's name for the 2022–2026 term (by-election winners included). Clicking a ward card opens that councillor's ProfilePanel directly.
 - **Last Session widget** — compact strip on the Dashboard (between the stats row and filters) showing the most recent meeting date, adoption/defeat counts, and top 3 substantive motions. Gives return visitors immediate context without scrolling the full table.
+- **"Locate my ward" geolocation** — button on the Wards page requests the user's location, fetches Toronto's official ward boundary GeoJSON from Toronto Open Data (lazily, cached for the session), runs a client-side point-in-polygon lookup, highlights the matched ward card with a "Your Ward" badge, scrolls to it, and opens that councillor's ProfilePanel automatically. Gracefully handles permission denial, out-of-Toronto locations, and network errors.
 
 ### Added
 - **Framer Motion** — installed `framer-motion` as a dependency for all animation work.
