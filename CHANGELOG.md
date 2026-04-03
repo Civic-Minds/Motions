@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 - **Readability Restoration** — Purged excessive `uppercase` styling from motion titles, navigation labels, and primary dashboard metrics to restore text scanning efficiency.
-- **Jargon Elimination** — Replaced abstract 'Navigator-Premium' terminology with standard, descriptive English:
+- **Jargon Elimination** — Replaced abstract terminology with standard, descriptive English:
     - `Outcome Pulse` → `Outcome`
     - `Consensus Flow` → `Votes`
     - `System Volume` → `Motions` / `Total Activity`
@@ -23,8 +23,8 @@ All notable changes to this project will be documented in this file.
 - **Status Tags** — Standardized status indicators to use title-case labels and high-contrast semantic coloring without forced capitalization.
 - **Navigation Transparency** — Updated the global navigation and logo to standard casing to improve professional brand clarity.
 - **Old Jargon Elimination** — Purged abstract headers ("Legislative Ecosystem Feed") and ambiguous labels ("Active Cluster") in favor of direct, record-derived quantitative metrics.
-- **Global Design System** — Standardized legacy components to 32px rounded "Navigator-Premium" containers (white-to-slate architecture).
-- **Navigator-Premium UI Overhaul** — Purged experimental dark/tactical gradients in favor of high-fidelity "Pulse" white surfaces and diffused shadows.
+- **Global Design System** — Standardized legacy components to 32px rounded Motions UI containers (white-to-slate architecture).
+- **Motions UI Overhaul** — Purged experimental dark/tactical gradients in favor of high-fidelity "Pulse" white surfaces and diffused shadows.
 - **Legislative Stream (Motions)** — Abolished legacy card formats for 32px rounded white cards with segmented consensus tracks and large binary outcome labels.
 - **Metadata Vertical Rhythm** — Resolved typography collisions and overlap issues in categorical headers; optimized contrast for ID identifiers.
 - **Geographic & Fiscal Intelligence** — Overhauled Ward cards, Budget Translator, and Scorecard into high-fidelity "Analytics Alpha" diagnostic modules with 32px rounding.
