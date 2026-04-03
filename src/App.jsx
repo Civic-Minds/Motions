@@ -79,7 +79,7 @@ function App() {
               onSelect={handleSelect}
             />
           } />
-          <Route path="/wards"     element={<WardGrid motions={motions} />} />
+          <Route path="/wards"     element={<WardGrid motions={motions} onSelect={handleSelect} />} />
           <Route path="/analytics" element={<Scorecard motions={motions} />} />
           <Route path="/budget"    element={<BudgetTranslator />} />
           <Route path="*"          element={<Navigate to="/" replace />} />

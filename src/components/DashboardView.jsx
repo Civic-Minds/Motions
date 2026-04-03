@@ -2,6 +2,60 @@ import React, { useMemo } from 'react';
 import { Search, X } from 'lucide-react';
 import { motion } from 'framer-motion';
 import MotionTable from './MotionTable';
+import { TOPIC_BADGE } from '../constants/data';
+
+const parseDate = (s) => new Date(s);
+
+const LastSession = ({ motions }) => {
+    const { latestDate, sessionMotions } = useMemo(() => {
+        if (!motions.length) return { latestDate: null, sessionMotions: [] };
+        const dates = [...new Set(motions.map(m => m.date))];
+        const latestDate = dates.sort((a, b) => parseDate(b) - parseDate(a))[0];
+        const sessionMotions = motions
+            .filter(m => m.date === latestDate)
+            .sort((a, b) => (b.significance ?? 0) - (a.significance ?? 0));
+        return { latestDate, sessionMotions };
+    }, [motions]);
+
+    if (!latestDate || sessionMotions.length === 0) return null;
+
+    const adopted  = sessionMotions.filter(m => m.status === 'Adopted' || m.status?.includes('Carried')).length;
+    const defeated = sessionMotions.filter(m => m.status === 'Defeated').length;
+    const highlights = sessionMotions.filter(m => !m.trivial).slice(0, 3);
+    const shown = highlights.length > 0 ? highlights : sessionMotions.slice(0, 3);
+
+    return (
+        <div className="p-5 bg-white border border-slate-100 rounded-[28px] shadow-sm">
+            <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2.5">
+                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Latest Session</span>
+                    <span className="text-[10px] font-bold text-slate-300">{latestDate}</span>
+                </div>
+                <div className="flex items-center gap-3 text-[10px] font-bold">
+                    <span className="text-emerald-600">{adopted} adopted</span>
+                    {defeated > 0 && <><span className="text-slate-200">·</span><span className="text-rose-500">{defeated} defeated</span></>}
+                    <span className="text-slate-200">·</span>
+                    <span className="text-slate-400">{sessionMotions.length} total</span>
+                </div>
+            </div>
+            <div className="divide-y divide-slate-50">
+                {shown.map((m, i) => (
+                    <div key={i} className="flex items-center gap-3 py-2.5">
+                        <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded border shrink-0 ${TOPIC_BADGE[m.topic] || TOPIC_BADGE.General}`}>
+                            {m.topic}
+                        </span>
+                        <p className="text-xs font-semibold text-slate-700 leading-tight flex-1 line-clamp-1">{m.title}</p>
+                        <span className={`text-[9px] font-bold shrink-0 ${
+                            m.status === 'Adopted' || m.status?.includes('Carried') ? 'text-emerald-600' :
+                            m.status === 'Defeated' ? 'text-rose-500' : 'text-slate-400'
+                        }`}>{m.status}</span>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};
 
 const statsContainer = {
     hidden: {},
@@ -168,6 +222,8 @@ const DashboardView = ({ motions, handleSelect }) => {
                     </div>
                 </motion.div>
             </motion.div>
+
+            <LastSession motions={motions} />
 
             {/* Premium Filter & Search Terminal */}
             <div className="flex flex-col md:flex-row items-center gap-6 py-4 px-2">

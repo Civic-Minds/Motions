@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { MapPin, Activity, Info, Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { getWardActivityMetrics } from '../utils/analytics';
+import { WARD_COUNCILLORS } from '../constants/data';
 
 const statsContainer = {
     hidden: {},
@@ -12,7 +13,7 @@ const statsItem = {
     show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 280, damping: 26 } },
 };
 
-const WardGrid = ({ motions }) => {
+const WardGrid = ({ motions, onSelect }) => {
     const wardActivity = useMemo(() => getWardActivityMetrics(motions), [motions]);
     const cityWideCount = motions.filter(m => m.ward === 'City').length;
     const highImpactWards = wardActivity.filter(w => w.impactCount > 0).length;
@@ -100,12 +101,13 @@ const WardGrid = ({ motions }) => {
                     <motion.div
                         key={ward.id}
                         variants={{ hidden: { opacity: 0, scale: 0.92 }, show: { opacity: 1, scale: 1, transition: { type: 'spring', stiffness: 300, damping: 26 } } }}
-                        className={`group p-6 rounded-[24px] border transition-all duration-500 cursor-default ${ward.count > 0
-                            ? 'bg-white/70 backdrop-blur-md border-slate-100 shadow-sm hover:border-[#004a99]/30 hover:shadow-2xl hover:-translate-y-1'
-                            : 'bg-slate-50/40 border-slate-100/50 opacity-40 grayscale'
+                        onClick={() => onSelect && WARD_COUNCILLORS[ward.id] && onSelect(WARD_COUNCILLORS[ward.id])}
+                        className={`group p-6 rounded-[24px] border transition-all duration-500 ${ward.count > 0
+                            ? `bg-white/70 backdrop-blur-md border-slate-100 shadow-sm hover:border-[#004a99]/30 hover:shadow-2xl hover:-translate-y-1 ${onSelect && WARD_COUNCILLORS[ward.id] ? 'cursor-pointer' : 'cursor-default'}`
+                            : 'bg-slate-50/40 border-slate-100/50 opacity-40 grayscale cursor-default'
                             }`}
                     >
-                        <div className="flex justify-between items-center mb-6">
+                        <div className="flex justify-between items-center mb-4">
                             <span className="text-[10px] font-black text-slate-400 tracking-[0.2em] uppercase">W{ward.id.padStart(2, '0')}</span>
                             {ward.impactCount > 0 && (
                                 <div className="flex items-center gap-1.5 px-2 py-0.5 bg-emerald-50 border border-emerald-100 rounded-full">
@@ -114,9 +116,14 @@ const WardGrid = ({ motions }) => {
                                 </div>
                             )}
                         </div>
-                        <h4 className="text-xs font-black text-slate-900 group-hover:text-[#004a99] transition-colors uppercase tracking-tight leading-tight mb-3">
+                        <h4 className="text-xs font-black text-slate-900 group-hover:text-[#004a99] transition-colors uppercase tracking-tight leading-tight mb-1">
                             {ward.name}
                         </h4>
+                        {WARD_COUNCILLORS[ward.id] && (
+                            <p className="text-[9px] font-bold text-slate-400 mb-3 group-hover:text-[#004a99]/70 transition-colors truncate">
+                                {WARD_COUNCILLORS[ward.id]}
+                            </p>
+                        )}
 
                         <div className="flex items-center justify-between pt-3 border-t border-slate-100 mt-auto">
                             <div className="flex flex-col">

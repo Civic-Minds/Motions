@@ -26,6 +26,10 @@ All notable changes to this project will be documented in this file.
   - **Scorecard impact cards**: icon hidden on mobile to reduce clutter in the Impact Pulse list.
 
 ### Added
+- **Ward → Councillor connection** — each ward card on the Wards page now shows the councillor's name for the 2022–2026 term (by-election winners included). Clicking a ward card opens that councillor's ProfilePanel directly.
+- **Last Session widget** — compact strip on the Dashboard (between the stats row and filters) showing the most recent meeting date, adoption/defeat counts, and top 3 substantive motions. Gives return visitors immediate context without scrolling the full table.
+
+### Added
 - **Framer Motion** — installed `framer-motion` as a dependency for all animation work.
 - **Page transitions** — every route change fades and slides via `AnimatePresence` in `Layout.jsx`.
 - **Dashboard stat card stagger** — the four header stat cards spring in with an 80ms stagger on load (`DashboardView`).

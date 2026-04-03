@@ -13,6 +13,36 @@ export const COUNCILLORS = [
 export const PROGRESSIVES = ['Olivia Chow', 'Gord Perks', 'Alejandra Bravo', 'Ausma Malik', 'Chris Moise', 'Paula Fletcher', 'Dianne Saxe', 'Jamaal Myers', 'Amber Morley'];
 export const CONSERVATIVES = ['Stephen Holyday', 'Vincent Crisanti', 'Frances Nunziata', 'Jaye Robinson', 'Brad Bradford', 'Jon Burnside'];
 
+// ─── Ward → Councillor mapping (2022–2026 term, by-election winners included) ─
+
+export const WARD_COUNCILLORS = {
+    '1':  'Vincent Crisanti',
+    '2':  'Stephen Holyday',
+    '3':  'Amber Morley',
+    '4':  'Gord Perks',
+    '5':  'Frances Nunziata',
+    '6':  'James Pasternak',
+    '7':  'Anthony Perruzza',
+    '8':  'Mike Colle',
+    '9':  'Alejandra Bravo',
+    '10': 'Ausma Malik',
+    '11': 'Dianne Saxe',
+    '12': 'Josh Matlow',
+    '13': 'Chris Moise',
+    '14': 'Paula Fletcher',
+    '15': 'Jaye Robinson',
+    '16': 'Rachel Chernos Lin',
+    '17': 'Shelley Carroll',
+    '18': 'Lily Cheng',
+    '19': 'Brad Bradford',
+    '20': 'Parthi Kandavel',
+    '21': 'Michael Thompson',
+    '22': 'Nick Mantas',
+    '23': 'Jamaal Myers',
+    '24': 'Paul Ainslie',
+    '25': 'Neethan Shan',
+};
+
 // ─── Topic styling ────────────────────────────────────────────────────────────
 
 /** Bordered pill — used in ContestBoard, VersusOverlay */
