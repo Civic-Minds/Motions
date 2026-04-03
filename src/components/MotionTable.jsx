@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { ExternalLink, Search, ChevronDown, CheckCircle2, Activity } from 'lucide-react';
+import React, { useState } from 'react';
+import { ExternalLink, ChevronDown } from 'lucide-react';
 
 const TOPIC_STYLES = {
     Housing: 'text-blue-600',
@@ -88,15 +88,7 @@ const MotionCard = ({ motion }) => {
 };
 
 const MotionTable = ({ motions }) => {
-    const [searchTerm, setSearchTerm] = useState('');
     const [visibleRows, setVisibleRows] = useState(20);
-
-    const filteredMotions = useMemo(() => {
-        return motions.filter(m => 
-            m.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-            m.id.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-    }, [motions, searchTerm]);
 
     return (
         <div className="space-y-12 mt-16 max-w-[1400px] mx-auto pb-40">
@@ -104,33 +96,24 @@ const MotionTable = ({ motions }) => {
             <header className="flex items-end justify-between px-6 border-b border-slate-100 pb-10">
                 <div className="flex flex-col gap-2">
                     <div className="flex items-center gap-4">
-                        <span className="text-[52px] font-black text-slate-900 tracking-tighter leading-none">{filteredMotions.length}</span>
+                        <span className="text-[52px] font-black text-slate-900 tracking-tighter leading-none">{motions.length}</span>
                         <h2 className="pulse-label">Council Records</h2>
                     </div>
                 </div>
 
-                <div className="flex flex-col gap-2">
-                     <p className="text-[10px] font-black text-[#004a99] px-1">Search Records</p>
-                     <div className="relative group w-80">
-                        <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none group-focus-within:text-[#004a99] transition-colors" />
-                        <input
-                            type="text"
-                            placeholder="Search by title or ID..."
-                            className="w-full h-14 pl-12 pr-4 bg-white border border-slate-200 rounded-2xl text-[14px] font-medium placeholder:text-slate-300 outline-none focus:border-[#004a99] focus:shadow-xl transition-all"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                        />
-                     </div>
+                <div className="flex-1" />
+                <div className="flex items-center gap-2">
+                    <span className="text-[10px] text-slate-300 font-bold uppercase tracking-widest">{motions.length} Motions found</span>
                 </div>
             </header>
 
             <div className="grid gap-6 px-2">
-                {filteredMotions.slice(0, visibleRows).map((motion) => (
+                {motions.slice(0, visibleRows).map((motion) => (
                     <MotionCard key={motion.id} motion={motion} />
                 ))}
             </div>
 
-            {visibleRows < filteredMotions.length && (
+            {visibleRows < motions.length && (
                 <div className="flex justify-center pt-8 pb-32">
                     <button
                         onClick={() => setVisibleRows(prev => prev + 20)}

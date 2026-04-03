@@ -1,5 +1,4 @@
-import React, { useState, useMemo } from 'react';
-import { Search } from 'lucide-react';
+import React, { useState } from 'react';
 
 const TOPIC_STYLES = {
     Housing:   'border-blue-400 text-blue-700 bg-blue-50',
@@ -14,23 +13,9 @@ const TOPIC_STYLES = {
 const PAGE_SIZE = 100;
 
 const DataModule = ({ motions }) => {
-    const [search, setSearch] = useState('');
     const [page, setPage] = useState(1);
-
-    const filtered = useMemo(() => {
-        setPage(1);
-        const s = search.toLowerCase();
-        if (!s) return motions;
-        return motions.filter(m =>
-            m.title.toLowerCase().includes(s) ||
-            m.id.toLowerCase().includes(s) ||
-            (m.topic || '').toLowerCase().includes(s) ||
-            (m.mover || '').toLowerCase().includes(s)
-        );
-    }, [search, motions]);
-
-    const visible = filtered.slice(0, page * PAGE_SIZE);
-    const hasMore = visible.length < filtered.length;
+    const visible = motions.slice(0, page * PAGE_SIZE);
+    const hasMore = visible.length < motions.length;
 
     return (
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
@@ -42,21 +27,7 @@ const DataModule = ({ motions }) => {
             </div>
 
             <div className="card">
-                <div className="relative mb-4">
-                    <input
-                        type="text"
-                        placeholder="Search motions, topics, movers..."
-                        className="pl-10 pr-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#004a99] w-full"
-                        value={search}
-                        onChange={e => setSearch(e.target.value)}
-                    />
-                    <Search className="absolute left-3 top-2.5 text-slate-400" size={16} />
-                    {search && (
-                        <span className="absolute right-3 top-2.5 text-[11px] text-slate-400 font-bold">
-                            {filtered.length} of {motions.length}
-                        </span>
-                    )}
-                </div>
+
 
                 <table className="motion-table">
                     <thead>
@@ -72,7 +43,7 @@ const DataModule = ({ motions }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {filtered.length > 0 ? visible.map(m => {
+                        {motions.length > 0 && visible.map(m => {
                             const voteVals = m.votes ? Object.values(m.votes) : [];
                             const yes = voteVals.filter(v => v === 'YES').length;
                             const no = voteVals.filter(v => v === 'NO').length;
@@ -115,10 +86,11 @@ const DataModule = ({ motions }) => {
                                     </td>
                                 </tr>
                             );
-                        }) : (
+                        })}
+                        {motions.length === 0 && (
                             <tr>
                                 <td colSpan={8} className="text-center py-8 text-slate-400 italic">
-                                    No motions match "{search}"
+                                    No motions found in database
                                 </td>
                             </tr>
                         )}
@@ -130,7 +102,7 @@ const DataModule = ({ motions }) => {
                             onClick={() => setPage(p => p + 1)}
                             className="text-[11px] font-bold text-[#004a99] hover:underline"
                         >
-                            Show more ({filtered.length - visible.length} remaining)
+                            Show more ({motions.length - visible.length} remaining)
                         </button>
                     </div>
                 )}
