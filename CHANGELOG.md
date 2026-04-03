@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- **Shareable councillor URLs** — councillor profiles and VS comparisons now have permanent, linkable URLs:
+  - `/councillors/:slug` — opens that councillor's ProfilePanel directly (e.g. `/councillors/josh-matlow`)
+  - `/councillors/:slug/vs/:slug2` — opens the VersusOverlay for two councillors (e.g. `/councillors/josh-matlow/vs/gord-perks`)
+  - New `src/utils/slug.js` utility: `nameToSlug` and `slugToName` for converting between display names and URL-safe slugs
+  - Browser URL updates automatically when a card is clicked or a VS pair is completed
+  - Navigating directly to a profile/VS URL reopens the correct panel without needing to click through the UI
+  - Closing a panel from a sub-route navigates back to `/councillors`
+
 ### Fixed
 - **Error state** — `App.jsx` now reads `error` from `useMotions` and renders a visible error card if `motions.json` fails to load. Previously the app would spin indefinitely.
 - **VersusOverlay: no shared vote history** — when two councillors share zero vote records, alignment score now shows "NO SHARED VOTES" in the header and "No shared vote history for these two councillors." in the divergence panel. Previously it displayed a misleading "100% UNANIMOUS" message.

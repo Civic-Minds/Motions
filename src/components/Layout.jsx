@@ -1,10 +1,11 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Users } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Navbar from './Navbar';
 import ProfilePanel from './ProfilePanel';
 import VersusOverlay from './VersusOverlay';
+import { nameToSlug } from '../utils/slug';
 
 const Layout = ({
     children,
@@ -16,6 +17,28 @@ const Layout = ({
     handleReset,
 }) => {
     const location = useLocation();
+    const navigate = useNavigate();
+
+    const onCouncillorRoute = location.pathname.startsWith('/councillors/');
+
+    // When a VS pair is fully selected, push the shareable URL
+    useEffect(() => {
+        if (compareList.length === 2) {
+            const s1 = nameToSlug(compareList[0]);
+            const s2 = nameToSlug(compareList[1]);
+            navigate(`/councillors/${s1}/vs/${s2}`, { replace: true });
+        }
+    }, [compareList]);
+
+    const handleProfileClose = () => {
+        setSelectedCouncillor(null);
+        if (onCouncillorRoute) navigate('/councillors', { replace: true });
+    };
+
+    const handleVersusClose = () => {
+        setCompareList([]);
+        if (onCouncillorRoute) navigate('/councillors', { replace: true });
+    };
 
     const startComparison = (name) => {
         setCompareList([name]);
@@ -27,12 +50,12 @@ const Layout = ({
             <ProfilePanel
                 selected={selectedCouncillor}
                 onCompare={startComparison}
-                onClose={() => setSelectedCouncillor(null)}
+                onClose={handleProfileClose}
                 motions={motions}
             />
             <VersusOverlay
                 selection={compareList}
-                onClose={() => setCompareList([])}
+                onClose={handleVersusClose}
                 motions={motions}
             />
 

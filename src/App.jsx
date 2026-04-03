@@ -14,6 +14,16 @@ function App() {
   const [selectedCouncillor, setSelectedCouncillor] = useState(null);
   const [compareList, setCompareList] = useState([]);
 
+  const handleActivatePanel = ({ profile = null, compare = null } = {}) => {
+    if (compare) {
+      setSelectedCouncillor(null);
+      setCompareList(compare);
+    } else {
+      setCompareList([]);
+      setSelectedCouncillor(profile);
+    }
+  };
+
   const handleSelect = (name) => {
     if (compareList.length > 0) {
       if (compareList.includes(name)) {
@@ -77,6 +87,21 @@ function App() {
             <CouncillorList
               motions={motions}
               onSelect={handleSelect}
+              onActivate={handleActivatePanel}
+            />
+          } />
+          <Route path="/councillors/:slug" element={
+            <CouncillorList
+              motions={motions}
+              onSelect={handleSelect}
+              onActivate={handleActivatePanel}
+            />
+          } />
+          <Route path="/councillors/:slug/vs/:slug2" element={
+            <CouncillorList
+              motions={motions}
+              onSelect={handleSelect}
+              onActivate={handleActivatePanel}
             />
           } />
           <Route path="/wards"     element={<WardGrid motions={motions} onSelect={handleSelect} />} />
