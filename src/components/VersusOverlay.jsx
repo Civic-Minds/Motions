@@ -1,4 +1,5 @@
 import { ChevronRight } from 'lucide-react';
+import { TOPIC_BADGE } from '../constants/data';
 
 const VersusOverlay = ({ selection, onClose, motions }) => {
     if (selection.length < 2) return null;
@@ -18,7 +19,7 @@ const VersusOverlay = ({ selection, onClose, motions }) => {
     // Calculate alignment score
     const totalVotes = motions.filter(m => m.votes && m.votes[c1] && m.votes[c2]).length;
     const sharedVotes = motions.filter(m => m.votes && m.votes[c1] === m.votes[c2]).length;
-    const alignmentScore = totalVotes > 0 ? Math.floor((sharedVotes / totalVotes) * 100) : 100;
+    const alignmentScore = totalVotes > 0 ? Math.floor((sharedVotes / totalVotes) * 100) : null;
 
     // Compute real YES % from vote data
     const c1All = motions.filter(m => m.votes && m.votes[c1]);
@@ -32,7 +33,7 @@ const VersusOverlay = ({ selection, onClose, motions }) => {
                 <div className="flex justify-between items-center px-8 py-6 bg-white border-b border-slate-100">
                     <div>
                         <h2 className="text-xl font-bold italic tracking-tight">VOTER DIVERGENCE</h2>
-                        <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest">{c1} VS {c2} • {alignmentScore}% ALIGNMENT</p>
+                        <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest">{c1} VS {c2} • {alignmentScore !== null ? `${alignmentScore}% ALIGNMENT` : 'NO SHARED VOTES'}</p>
                     </div>
                     <button onClick={onClose} className="p-2 hover:bg-slate-100 rounded-full transition-colors"><ChevronRight size={24} /></button>
                 </div>
@@ -75,15 +76,7 @@ const VersusOverlay = ({ selection, onClose, motions }) => {
                             <div className="flex justify-between items-start">
                                 <div className="flex-1">
                                     <div className="flex items-center gap-2 mb-2">
-                                        <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded-md border ${
-                                            item.topic === 'Housing' ? 'border-blue-400 text-blue-700 bg-blue-50' :
-                                            item.topic === 'Transit' ? 'border-red-400 text-red-600 bg-red-50' :
-                                            item.topic === 'Finance' ? 'border-emerald-400 text-emerald-700 bg-emerald-50' :
-                                            item.topic === 'Parks' ? 'border-green-400 text-green-700 bg-green-50' :
-                                            item.topic === 'Climate' ? 'border-teal-400 text-teal-700 bg-teal-50' :
-                                            item.topic === 'Events' ? 'border-purple-400 text-purple-700 bg-purple-50' :
-                                            'border-slate-300 text-slate-500 bg-slate-50'
-                                        }`}>{item.topic}</span>
+                                        <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded-md border ${TOPIC_BADGE[item.topic] || TOPIC_BADGE.General}`}>{item.topic}</span>
                                         <span className="text-[10px] font-mono font-bold text-slate-400">{item.id}</span>
                                     </div>
                                     <p className="text-sm font-bold text-slate-800 leading-tight group-hover:text-[#004a99] transition-colors">{item.title}</p>
@@ -103,7 +96,12 @@ const VersusOverlay = ({ selection, onClose, motions }) => {
                         </div>
                     )) : (
                         <div className="text-center py-12 bg-slate-50 rounded-2xl border border-dashed border-slate-200">
-                            <p className="text-slate-400 font-bold">100% UNANIMOUS ON ALL RECENT MOTIONS</p>
+                            <p className="text-slate-400 font-bold">
+                                {totalVotes === 0
+                                    ? 'No shared vote history for these two councillors.'
+                                    : 'Voted identically on all shared motions.'
+                                }
+                            </p>
                         </div>
                     )}
                 </div>

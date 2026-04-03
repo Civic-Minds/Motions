@@ -1,16 +1,7 @@
 import React, { useMemo } from 'react';
 import { ChevronRight } from 'lucide-react';
 import { getAttendance } from '../utils/analytics';
-
-const TOPIC_STYLES = {
-    Housing:  'bg-blue-50 text-blue-600',
-    Transit:  'bg-red-50 text-red-600',
-    Finance:  'bg-emerald-50 text-emerald-700',
-    Parks:    'bg-green-50 text-green-700',
-    Climate:  'bg-teal-50 text-teal-700',
-    Events:   'bg-purple-50 text-purple-700',
-    General:  'bg-slate-100 text-slate-600',
-};
+import { TOPIC_PILL } from '../constants/data';
 
 const ProfilePanel = ({ selected, onClose, onCompare, motions }) => {
     const isOpen = !!selected;
@@ -131,7 +122,7 @@ const ProfilePanel = ({ selected, onClose, onCompare, motions }) => {
                                 <div key={i} className="p-4 border border-slate-100 rounded-2xl hover:border-[#004a99] transition-all bg-white group">
                                     <div className="flex justify-between items-center mb-2">
                                         <div className="flex items-center gap-1.5">
-                                            <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded ${TOPIC_STYLES[m.topic] || TOPIC_STYLES.General}`}>
+                                            <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded ${TOPIC_PILL[m.topic] || TOPIC_PILL.General}`}>
                                                 {m.topic}
                                             </span>
                                             {m.significance != null && (

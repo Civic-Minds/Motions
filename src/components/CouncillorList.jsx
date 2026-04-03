@@ -1,16 +1,8 @@
 import React, { useMemo } from 'react';
 import { Users as UsersIcon } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { getMemberAlignmentScore, getAttendance } from '../utils/analytics';
 import AlignmentHeatmap from './AlignmentHeatmap';
-
-const TOPIC_STYLES = {
-    Housing: 'bg-blue-50 text-blue-700 border-blue-200',
-    Transit: 'bg-red-50 text-red-600 border-red-200',
-    Finance: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-    Parks:   'bg-green-50 text-green-700 border-green-200',
-    Climate: 'bg-teal-50 text-teal-700 border-teal-200',
-    General: 'bg-slate-50 text-slate-500 border-slate-200',
-};
 
 const attendanceStyle = (pct) => {
     if (pct >= 90) return 'text-emerald-600';
@@ -19,6 +11,7 @@ const attendanceStyle = (pct) => {
 };
 
 const CouncillorList = ({ motions, onSelect }) => {
+    const [searchTerm, setSearchTerm] = React.useState('');
     const councillors = useMemo(() => {
         const voteCounts = {};
         motions.forEach(m => {
@@ -47,8 +40,13 @@ const CouncillorList = ({ motions, onSelect }) => {
             .sort((a, b) => a.name.split(' ').at(-1).localeCompare(b.name.split(' ').at(-1)));
     }, [motions]);
 
+    const filteredCouncillors = councillors.filter(c => 
+        c.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+        (c.topTopic && c.topTopic.toLowerCase().includes(searchTerm.toLowerCase()))
+    );
+
     return (
-        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-500">
+        <div className="space-y-6">
             {/* Consensus Score Card (Relocated from Dashboard) */}
             <div className="card overflow-hidden">
                 <div className="card-title">
@@ -61,10 +59,37 @@ const CouncillorList = ({ motions, onSelect }) => {
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {councillors.map(({ name, alignment, attendance, topTopic, voteCount }) => (
-                    <div
+            <div className="flex justify-between items-center px-2">
+                <div className="flex flex-col">
+                    <h3 className="text-xl font-black text-slate-800 uppercase tracking-tighter">City Council</h3>
+                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">{filteredCouncillors.length} Members Active</p>
+                </div>
+                
+                <div className="flex items-center w-80 h-12 px-4 bg-white border border-slate-100 rounded-xl group focus-within:border-[#004a99]/20 focus-within:shadow-lg transition-all">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-slate-400 group-focus-within:text-[#004a99] transition-colors shrink-0">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input
+                        type="text"
+                        placeholder="Search members..."
+                        className="flex-1 h-full bg-transparent border-none outline-none pl-3 text-[12px] font-bold text-slate-900 placeholder:text-slate-300"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                </div>
+            </div>
+
+            <motion.div
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+                initial="hidden"
+                animate="show"
+                variants={{ hidden: {}, show: { transition: { staggerChildren: 0.04, delayChildren: 0.1 } } }}
+            >
+                {filteredCouncillors.map(({ name, alignment, attendance, topTopic, voteCount }) => (
+                    <motion.div
                         key={name}
+                        variants={{ hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 280, damping: 26 } } }}
                         onClick={() => onSelect(name)}
                         className="group flex flex-col p-6 bg-white/70 backdrop-blur-md border border-slate-100 rounded-[24px] cursor-pointer hover:border-[#004a99]/30 hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 relative overflow-hidden"
                     >
@@ -90,12 +115,12 @@ const CouncillorList = ({ motions, onSelect }) => {
                             <div>
                                 <p className="text-[8px] text-slate-400 font-bold uppercase tracking-[0.1em] mb-1">Alignment</p>
                                 <div className="flex items-baseline gap-1">
-                                    <span className="text-lg font-black text-[#004a99] tracking-tighter">{alignment}%</span>
+                                    <span className="text-lg font-black text-[#004a99] tracking-tighter">{alignment !== null ? `${alignment}%` : '—'}</span>
                                 </div>
                                 <div className="w-full bg-slate-50 h-1 rounded-full mt-2 overflow-hidden">
-                                    <div 
-                                        className="bg-[#004a99] h-full transition-all duration-1000" 
-                                        style={{ width: `${alignment}%` }}
+                                    <div
+                                        className="bg-[#004a99] h-full transition-all duration-1000"
+                                        style={{ width: `${alignment ?? 0}%` }}
                                     />
                                 </div>
                             </div>
@@ -119,9 +144,9 @@ const CouncillorList = ({ motions, onSelect }) => {
                             </span>
                             <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]" />
                         </div>
-                    </div>
+                    </motion.div>
                 ))}
-            </div>
+            </motion.div>
         </div>
     );
 };

@@ -33,7 +33,7 @@ export function getMemberAlignmentScore(motions, memberName) {
     const relevantMotions = motions.filter(m => m.votes && m.votes[memberName]);
     const totalCount = relevantMotions.length;
 
-    if (totalCount === 0) return 75; // Default/baseline score
+    if (totalCount === 0) return null;
 
     const consensusVotes = relevantMotions.filter(m => {
         const yesCount = Object.values(m.votes).filter(v => v === 'YES').length;

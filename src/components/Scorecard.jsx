@@ -1,6 +1,16 @@
 import React from 'react';
 import { Target, AlertCircle, FileText, TrendingUp, UserMinus, ShieldCheck, Zap, BarChart3, Fingerprint } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { COUNCILLORS } from '../constants/data';
+
+const statsContainer = {
+    hidden: {},
+    show: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
+};
+const statsItem = {
+    hidden: { opacity: 0, y: 18 },
+    show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 280, damping: 26 } },
+};
 
 const Scorecard = ({ motions }) => {
     // Calculate Stats
@@ -31,10 +41,10 @@ const Scorecard = ({ motions }) => {
     const topTopic = Object.entries(topicCounts).sort((a, b) => b[1] - a[1])[0];
 
     return (
-        <div className="space-y-10 animate-in fade-in slide-in-from-bottom-2 duration-700">
+        <div className="space-y-10">
             {/* 4-Card Analysis Header */}
-            <div className="dashboard-stats-row">
-                <div className="card-mainline border-l-4 border-l-[#004a99] !p-8">
+            <motion.div className="dashboard-stats-row" variants={statsContainer} initial="hidden" animate="show">
+                <motion.div className="card-mainline border-l-4 border-l-[#004a99] !p-8" variants={statsItem}>
                      <div className="flex flex-col gap-1">
                         <p className="text-[10px] font-black text-[#004a99] uppercase tracking-[0.25em] mb-3 opacity-60">Substantive Focus</p>
                         <div className="flex items-baseline gap-3">
@@ -47,27 +57,27 @@ const Scorecard = ({ motions }) => {
                             <Target size={22} />
                         </div>
                     </div>
-                </div>
+                </motion.div>
 
-                <div className="card-mini border-l-4 border-l-amber-500">
+                <motion.div className="card-mini border-l-4 border-l-amber-500" variants={statsItem}>
                     <p className="text-[10px] font-black text-amber-600 uppercase tracking-[0.2em] mb-4 opacity-60">Admin Overhead</p>
                     <div className="flex items-baseline gap-2 mb-4">
                         <span className="text-4xl font-black text-slate-900 tracking-tighter leading-none">{trivialPercentage}%</span>
                         <span className="text-[11px] font-bold text-slate-400 uppercase">Trivial</span>
                     </div>
                     <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest leading-tight italic">Procedural Buffer</span>
-                </div>
+                </motion.div>
 
-                <div className="card-mini border-l-4 border-l-emerald-500">
+                <motion.div className="card-mini border-l-4 border-l-emerald-500" variants={statsItem}>
                     <p className="text-[10px] font-black text-emerald-600 uppercase tracking-[0.2em] mb-4 opacity-60">Legislative Yield</p>
                     <div className="flex items-baseline gap-2 mb-4">
                         <span className="text-4xl font-black text-slate-900 tracking-tighter leading-none">{efficiency}%</span>
                         <span className="text-[11px] font-bold text-slate-400 uppercase">Passed</span>
                     </div>
                     <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest leading-tight">Adoption Velocity</span>
-                </div>
+                </motion.div>
 
-                <div className="card-mini border-l-4 border-l-rose-500">
+                <motion.div className="card-mini border-l-4 border-l-rose-500" variants={statsItem}>
                     <p className="text-[10px] font-black text-rose-600 uppercase tracking-[0.2em] mb-4 opacity-60">Top Oppositionalist</p>
                     <div className="flex flex-col gap-2">
                         <span className="text-[14px] font-black text-slate-900 tracking-tighter leading-tight uppercase font-mono">{biggestDissenter[0]?.split(' ').at(-1)}</span>
@@ -75,8 +85,8 @@ const Scorecard = ({ motions }) => {
                              <span className="text-[9px] font-black text-rose-700 uppercase tracking-widest">{biggestDissenter[1]} NO VOTES</span>
                         </div>
                     </div>
-                </div>
-            </div>
+                </motion.div>
+            </motion.div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Impact Intelligence */}
@@ -85,9 +95,18 @@ const Scorecard = ({ motions }) => {
                         <h4 className="text-[10px] font-black tracking-[0.3em] uppercase text-slate-400 font-mono">Impact Pulse: Major Adoptions</h4>
                         <span className="text-[9px] font-black text-slate-400 opacity-60">SORTED BY SIGNIFICANCE</span>
                     </div>
-                    <div className="grid gap-4">
+                    <motion.div
+                        className="grid gap-4"
+                        initial="hidden"
+                        animate="show"
+                        variants={{ hidden: {}, show: { transition: { staggerChildren: 0.06, delayChildren: 0.2 } } }}
+                    >
                         {majorWins.map((win, i) => (
-                            <div key={i} className="group p-6 bg-white/80 backdrop-blur-md border border-slate-100 rounded-[28px] flex gap-6 items-center hover:border-[#004a99]/30 hover:shadow-2xl transition-all duration-500 cursor-default relative overflow-hidden">
+                            <motion.div
+                                key={i}
+                                variants={{ hidden: { opacity: 0, x: -12 }, show: { opacity: 1, x: 0, transition: { type: 'spring', stiffness: 260, damping: 24 } } }}
+                                className="group p-6 bg-white/80 backdrop-blur-md border border-slate-100 rounded-[28px] flex gap-6 items-center hover:border-[#004a99]/30 hover:shadow-2xl transition-all duration-500 cursor-default relative overflow-hidden"
+                            >
                                 <div className={`w-14 h-14 rounded-3xl flex items-center justify-center border font-black transition-all duration-500 ${
                                     win.topic === 'Finance' ? 'bg-emerald-50 border-emerald-100 text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white' : 
                                     win.topic === 'Transit' ? 'bg-rose-50 border-rose-100 text-rose-600 group-hover:bg-rose-500 group-hover:text-white' :
@@ -110,24 +129,23 @@ const Scorecard = ({ motions }) => {
                                     </div>
                                 </div>
                                 <div className="absolute top-0 right-0 w-64 h-64 bg-[#004a99]/5 blur-[100px] pointer-events-none -mr-32 -mt-32 opacity-0 group-hover:opacity-100 transition-opacity" />
-                            </div>
+                            </motion.div>
                         ))}
-                    </div>
+                    </motion.div>
                 </div>
 
                 {/* Tactical Overlays */}
                 <div className="space-y-8">
-                     <div className="p-8 bg-slate-900 rounded-[32px] text-white shadow-2xl relative overflow-hidden group">
+                     <div className="p-8 bg-white border border-slate-100 rounded-[32px] shadow-sm relative overflow-hidden group">
                         <div className="relative z-10">
-                            <div className="w-12 h-12 bg-[#004a99] rounded-[20px] flex items-center justify-center mb-6 shadow-xl shadow-[#004a99]/20 group-hover:scale-110 transition-transform">
-                                <FileText size={24} />
+                            <div className="w-12 h-12 bg-[#004a99]/8 rounded-[20px] flex items-center justify-center mb-6 group-hover:bg-[#004a99] transition-colors duration-500">
+                                <FileText size={24} className="text-[#004a99] group-hover:text-white transition-colors duration-500" />
                             </div>
-                            <h4 className="text-[11px] font-black mb-4 tracking-[0.25em] uppercase text-blue-400 border-l-2 border-l-[#004a99] pl-3">Session Synopsis</h4>
-                            <p className="text-[13px] text-slate-300 leading-relaxed font-semibold italic opacity-90">
+                            <h4 className="text-[11px] font-black mb-4 tracking-[0.25em] uppercase text-[#004a99] border-l-2 border-l-[#004a99] pl-3">Session Synopsis</h4>
+                            <p className="text-[13px] text-slate-600 leading-relaxed font-semibold italic">
                                 "Council demonstrates a high density of substantive output in {topTopic ? topTopic[0] : 'core sectors'}, with a {efficiency}% strategic adoption rate across {nonTrivial.length} items."
                             </p>
                         </div>
-                        <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_bottom_left,rgba(0,74,153,0.15),transparent_70%)]" />
                     </div>
 
                     <div className="space-y-4">
@@ -160,11 +178,13 @@ const Scorecard = ({ motions }) => {
                         </div>
                     </div>
 
-                    <div className="p-8 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-[32px] text-white shadow-xl shadow-emerald-500/10 relative overflow-hidden group">
+                    <div className="p-8 bg-white border border-emerald-100 rounded-[32px] shadow-sm relative overflow-hidden group hover:border-emerald-200 hover:shadow-lg transition-all duration-500">
                         <div className="relative z-10 flex flex-col items-center text-center">
-                            <Fingerprint size={48} className="mb-4 opacity-40 group-hover:scale-110 transition-transform" />
-                            <h5 className="text-[11px] font-black uppercase tracking-[0.25em] mb-2">Legislative Fingerprint</h5>
-                            <p className="text-[10px] font-semibold opacity-70 leading-relaxed">System-wide transparency is verified. All data points are extracted from primary legislative records.</p>
+                            <div className="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-emerald-500 transition-colors duration-500">
+                                <Fingerprint size={24} className="text-emerald-500 group-hover:text-white transition-colors duration-500" />
+                            </div>
+                            <h5 className="text-[11px] font-black uppercase tracking-[0.25em] mb-2 text-slate-900">Legislative Fingerprint</h5>
+                            <p className="text-[10px] font-semibold text-slate-400 leading-relaxed">System-wide transparency is verified. All data points are extracted from primary legislative records.</p>
                         </div>
                     </div>
                 </div>

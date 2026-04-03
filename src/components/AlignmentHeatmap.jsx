@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { motion } from 'framer-motion';
 import { getMemberAlignmentScore } from '../utils/analytics';
 
 const TIERS = [
@@ -25,6 +26,7 @@ const AlignmentHeatmap = ({ onSelect, motions }) => {
                 lastName: name.split(' ').at(-1),
                 score: getMemberAlignmentScore(motions, name)
             }))
+            .filter(m => m.score !== null)
             .sort((a, b) => b.score - a.score);
     }, [motions]);
 
@@ -36,9 +38,19 @@ const AlignmentHeatmap = ({ onSelect, motions }) => {
     }, [scored]);
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-1 h-full">
+        <>
+        <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-1 h-full"
+            initial="hidden"
+            animate="show"
+            variants={{ hidden: {}, show: { transition: { staggerChildren: 0.1 } } }}
+        >
             {bucketed.map((tier) => (
-                <div key={tier.title} className={`flex flex-col rounded-[32px] border border-slate-100 p-6 ${tier.bg} transition-all duration-500`}>
+                <motion.div
+                    key={tier.title}
+                    variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 260, damping: 24 } } }}
+                    className={`flex flex-col rounded-[32px] border border-slate-100 p-6 ${tier.bg} transition-all duration-500`}
+                >
                     <div className="flex justify-between items-center mb-8 px-1">
                         <div className="flex items-center gap-2.5">
                              <div className={`w-2 h-2 rounded-full ${tier.dot}`} />
@@ -50,11 +62,14 @@ const AlignmentHeatmap = ({ onSelect, motions }) => {
                             {tier.members.length}
                         </span>
                     </div>
-                    
+
                     <div className="flex flex-col gap-4">
-                        {tier.members.map((member) => (
-                            <div
+                        {tier.members.map((member, idx) => (
+                            <motion.div
                                 key={member.name}
+                                initial={{ opacity: 0, x: -8 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: idx * 0.04, type: 'spring', stiffness: 300, damping: 28 }}
                                 onClick={() => onSelect(member.name)}
                                 className="group p-5 bg-white/90 backdrop-blur-md border border-slate-100/50 rounded-2xl cursor-pointer hover:shadow-2xl hover:border-[#004a99]/30 hover:-translate-y-1 transition-all duration-500 relative overflow-hidden"
                             >
@@ -72,7 +87,7 @@ const AlignmentHeatmap = ({ onSelect, motions }) => {
                                         style={{ width: `${member.score}%` }} 
                                     />
                                 </div>
-                            </div>
+                            </motion.div>
                         ))}
                         {tier.members.length === 0 && (
                             <div className="py-12 flex flex-col items-center justify-center border-2 border-dashed border-slate-200/40 rounded-3xl bg-white/30">
@@ -80,9 +95,13 @@ const AlignmentHeatmap = ({ onSelect, motions }) => {
                             </div>
                         )}
                     </div>
-                </div>
+                </motion.div>
             ))}
-        </div>
+        </motion.div>
+        <p className="text-[9px] text-slate-400 font-medium mt-4 px-1">
+            Councillors with fewer than 5 recorded votes are not shown.
+        </p>
+        </>
     );
 };
 

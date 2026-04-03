@@ -13,9 +13,17 @@ const TOPIC_STYLES = {
 const PAGE_SIZE = 100;
 
 const DataModule = ({ motions }) => {
+    const [searchTerm, setSearchTerm] = useState('');
     const [page, setPage] = useState(1);
-    const visible = motions.slice(0, page * PAGE_SIZE);
-    const hasMore = visible.length < motions.length;
+    
+    const filtered = motions.filter(m => 
+        m.id.toLowerCase().includes(searchTerm.toLowerCase()) || 
+        m.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        m.mover.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    const visible = filtered.slice(0, page * PAGE_SIZE);
+    const hasMore = visible.length < filtered.length;
 
     return (
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
@@ -27,7 +35,22 @@ const DataModule = ({ motions }) => {
             </div>
 
             <div className="card">
-
+                <div className="mb-8 flex items-center h-14 px-5 bg-slate-50/50 border border-slate-100 rounded-[20px] group focus-within:bg-white focus-within:border-[#004a99]/20 focus-within:shadow-xl transition-all duration-300">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-slate-400 group-focus-within:text-[#004a99] transition-colors shrink-0">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input
+                        type="text"
+                        placeholder="Filter by title, mover, or ID..."
+                        className="flex-1 h-full bg-transparent border-none outline-none pl-4 text-[13px] font-bold text-slate-900 placeholder:text-slate-300"
+                        value={searchTerm}
+                        onChange={(e) => {
+                            setSearchTerm(e.target.value);
+                            setPage(1);
+                        }}
+                    />
+                </div>
 
                 <table className="motion-table">
                     <thead>
@@ -43,7 +66,7 @@ const DataModule = ({ motions }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {motions.length > 0 && visible.map(m => {
+                        {filtered.length > 0 && visible.map(m => {
                             const voteVals = m.votes ? Object.values(m.votes) : [];
                             const yes = voteVals.filter(v => v === 'YES').length;
                             const no = voteVals.filter(v => v === 'NO').length;
@@ -87,10 +110,10 @@ const DataModule = ({ motions }) => {
                                 </tr>
                             );
                         })}
-                        {motions.length === 0 && (
+                        {filtered.length === 0 && (
                             <tr>
                                 <td colSpan={8} className="text-center py-8 text-slate-400 italic">
-                                    No motions found in database
+                                    No records found matching query
                                 </td>
                             </tr>
                         )}
@@ -102,7 +125,7 @@ const DataModule = ({ motions }) => {
                             onClick={() => setPage(p => p + 1)}
                             className="text-[11px] font-bold text-[#004a99] hover:underline"
                         >
-                            Show more ({motions.length - visible.length} remaining)
+                            Show more ({filtered.length - visible.length} remaining)
                         </button>
                     </div>
                 )}

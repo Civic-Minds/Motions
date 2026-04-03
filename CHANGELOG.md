@@ -4,6 +4,38 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+- **Error state** — `App.jsx` now reads `error` from `useMotions` and renders a visible error card if `motions.json` fails to load. Previously the app would spin indefinitely.
+- **VersusOverlay: no shared vote history** — when two councillors share zero vote records, alignment score now shows "NO SHARED VOTES" in the header and "No shared vote history for these two councillors." in the divergence panel. Previously it displayed a misleading "100% UNANIMOUS" message.
+- **Alignment baseline** — `getMemberAlignmentScore` now returns `null` instead of an arbitrary 75% when a councillor has no recorded votes. `AlignmentHeatmap` and `CouncillorList` both guard against null.
+
+### Changed
+- **Centralized topic & flag styles** — `TOPIC_BADGE`, `TOPIC_PILL`, `TOPIC_COLOR`, `FLAG_STYLES`, `FLAG_LABELS`, and `FLAG_FILTER_STYLES` moved to `constants/data.js`. Removed duplicate definitions from `ContestBoard`, `VersusOverlay`, `ProfilePanel`, `MotionTable`, and `CouncillorList`.
+- **AlignmentHeatmap: threshold note** — footnote added below the heatmap grid explaining that councillors with fewer than 5 recorded votes are excluded.
+
+### Removed
+- **`services/scraper.js`** — unused stub file (mock data, random alignment math). All real data comes from `public/data/motions.json` via the import pipeline.
+
+### Added
+- **Framer Motion** — installed `framer-motion` as a dependency for all animation work.
+- **Page transitions** — every route change fades and slides via `AnimatePresence` in `Layout.jsx`.
+- **Dashboard stat card stagger** — the four header stat cards spring in with an 80ms stagger on load (`DashboardView`).
+- **Topic filter pill animation** — active filter pill uses `layoutId` so the blue background slides between selections instead of snapping.
+- **Meeting group stagger** — meeting rows in `MotionTable` stagger in on load; expanding a meeting animates height open/closed via `AnimatePresence`.
+- **Motion card entrance** — individual motion cards stagger in with spring physics when a meeting is expanded.
+- **Councillor grid stagger** — councillor cards stagger in on load (`CouncillorList`).
+- **Alignment Heatmap stagger** — tier columns stagger in; member rows slide in from the left within each tier (`AlignmentHeatmap`).
+- **Ward grid pop-in** — all 25 ward cells scale in with a 30ms per-cell stagger (`WardGrid`).
+- **Scorecard animations** — stat cards stagger in; major adoption cards slide in from the left with stagger (`Scorecard`).
+- **Budget Translator animations** — stat cards stagger in; department detail panels animate height open/closed with stat tiles staggering in on expand (`BudgetTranslator`).
+- **Navbar refresh** — renamed logo to "Motions / Toronto Council", added explicit Dashboard nav link, added live data indicator dot on the right.
+
+### Changed
+- **MotionTable redesign** — replaced bloated glass-morphism accordion cards with a cleaner card-based feed. Meeting headers now use a solid `#004a99` MTG badge, visible `border-slate-200` card border, and `shadow-sm` at rest. Expanded motions render inside a `bg-slate-50/50` container with white motion cards. Motion cards use a coloured left border (green = adopted, red = defeated) as a quick-scan status indicator. Removed verbose "Official Council Meeting Transmission" subtitle.
+- **BudgetTranslator chart** — changed bar chart container from dark `bg-slate-900` to a white card matching the rest of the page. Each department now has a distinct bar colour (TTC blue, Police purple, Shelter orange, Fire red, Parks green, All Others light grey). Chart height reduced from 430px to 320px. Bottom "Net vs Gross" callout changed from dark card to a light blue info block.
+- **Scorecard sidebar** — Session Synopsis card changed from dark navy (`bg-slate-900`) to a white card with a blue border accent and icon that fills on hover. Legislative Fingerprint card changed from a solid green gradient to a white card with an emerald icon, eliminating the jarring colour contrast.
+- **WardGrid cards** — reduced `mb-8` gap on ward name to `mb-3`; item count bumped from `text-[10px]` to `text-2xl` so each card has a clear focal point.
+
 ### Added
 - **Readability Restoration** — Purged excessive `uppercase` styling from motion titles, navigation labels, and primary dashboard metrics to restore text scanning efficiency.
 - **Jargon Elimination** — Replaced abstract terminology with standard, descriptive English:
@@ -13,9 +45,7 @@ All notable changes to this project will be documented in this file.
     - `Legislative Pulse` → `By Topic`
     - `Registry` → `Records`
 - **Visual Spacing Refinement** — Abolished the `tracking-widest` and `tracking-[0.3em]` letter-spacing system across all `.pulse-label` and `.card-title` classes for a cleaner, modern look.
-- **Search Bar Layout Recovery** — Standardized the search terminal with a reliable 48px leading icon offset and non-overlapping placeholder text.
-- **Dynamic Efficiency Pulse** — Purged redundant "Live" and "Pulse" jargon from telemetry cards in favor of direct metric labeling.
-- Resolved persistent search bar overlap by transitioning to a flex-row geometric layout; decoupled search terminal from ID metadata to ensure high-contrast legibility.
+- **Definitive Search Bar Geometric Fix** — Abolished absolute icon positioning in favor of a robust flexbox-based layout across all modules. This ensures the search icon and placeholder text are physically decoupled as siblings in a row, making it impossible for them to overlap regardless of browser-specific CSS scaling or Tailwind utility overrides.
 - Standardized dashboard card rounding to `32px` for visual consistency across all modules.
 
 ### Changed

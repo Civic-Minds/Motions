@@ -1,6 +1,16 @@
 import React, { useMemo, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import { Wallet, Calculator, Info, Search, ChevronDown, ChevronUp, Landmark, TrendingUp } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const statsContainer = {
+    hidden: {},
+    show: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
+};
+const statsItem = {
+    hidden: { opacity: 0, y: 18 },
+    show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 280, damping: 26 } },
+};
 
 const DEPARTMENTS = [
     { name: "TTC", gross: 2570000000, net: 958000000, context: "Operating Toronto's transit network which carries over 1.6M passengers daily.", stats: ["$1,606 per resident (Gross)", "55 operating subway stations", "Run 135+ bus & streetcar routes", "90% of Toronto residents live within 400m of transit"] },
@@ -21,10 +31,10 @@ const BudgetTranslator = () => {
     }, []);
 
     return (
-        <div className="space-y-12 animate-in fade-in slide-in-from-bottom-2 duration-700">
+        <div className="space-y-12">
             {/* Header: Fiscal Intelligence */}
-            <div className="dashboard-stats-row">
-                <div className="card-mainline border-l-4 border-l-[#004a99]">
+            <motion.div className="dashboard-stats-row" variants={statsContainer} initial="hidden" animate="show">
+                <motion.div className="card-mainline border-l-4 border-l-[#004a99]" variants={statsItem}>
                     <div className="flex flex-col gap-1">
                         <p className="text-[10px] font-black text-[#004a99] uppercase tracking-[0.2em] mb-2 opacity-60">System Liquidity</p>
                         <div className="flex items-baseline gap-3">
@@ -43,9 +53,9 @@ const BudgetTranslator = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </motion.div>
 
-                <div className="card-mini border-l-4 border-l-emerald-500">
+                <motion.div className="card-mini border-l-4 border-l-emerald-500" variants={statsItem}>
                     <p className="text-[10px] font-black text-emerald-600 uppercase tracking-[0.2em] mb-4 opacity-60">Forecast</p>
                     <div className="flex items-baseline justify-between mb-4">
                         <div className="flex items-baseline gap-1">
@@ -54,18 +64,18 @@ const BudgetTranslator = () => {
                         </div>
                     </div>
                     <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest leading-tight italic">Adjusted for Inflation</span>
-                </div>
+                </motion.div>
 
-                <div className="card-mini border-l-4 border-l-slate-200">
+                <motion.div className="card-mini border-l-4 border-l-slate-200" variants={statsItem}>
                     <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4 opacity-60">Coverage</p>
                     <div className="flex items-baseline gap-2 mb-4">
                         <span className="text-4xl font-black text-slate-900 tracking-tighter leading-none">14</span>
                         <span className="text-[11px] font-bold text-slate-400 uppercase">Sectors</span>
                     </div>
                     <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest leading-tight">Tax-Extracted Revenue</span>
-                </div>
+                </motion.div>
 
-                 <div className="card-mini border-l-4 border-l-amber-400">
+                <motion.div className="card-mini border-l-4 border-l-amber-400" variants={statsItem}>
                     <p className="text-[10px] font-black text-amber-600 uppercase tracking-[0.2em] mb-4 opacity-60">Velocity</p>
                     <div className="flex flex-col gap-2">
                         <span className="text-2xl font-black text-slate-900 tracking-tighter leading-tight font-mono">$1.5B/MO</span>
@@ -73,40 +83,42 @@ const BudgetTranslator = () => {
                              <span className="text-[9px] font-black text-amber-700 uppercase tracking-widest">Global Output</span>
                         </div>
                     </div>
-                </div>
-            </div>
+                </motion.div>
+            </motion.div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Visual Overview */}
-                <div className="card-mini h-full p-8 border-none bg-slate-900 !rounded-[32px] shadow-2xl relative overflow-hidden group">
+                <div className="card-mini h-full p-8 !rounded-[32px] relative overflow-hidden group bg-white border border-slate-100">
                     <div className="relative z-10">
                         <h4 className="text-[10px] font-black tracking-[0.3em] uppercase text-slate-400 mb-8 border-l-2 border-l-[#004a99] pl-3">Vertical Spending Distribution</h4>
-                        <div className="h-[430px] w-full mt-4">
+                        <div className="h-[320px] w-full mt-4">
                             <ResponsiveContainer width="100%" height="100%">
                                 <BarChart data={chartData} layout="vertical" margin={{ left: 20 }}>
                                     <XAxis type="number" hide />
-                                    <YAxis 
-                                        dataKey="name" 
-                                        type="category" 
-                                        tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 800, textTransform: 'uppercase' }} 
+                                    <YAxis
+                                        dataKey="name"
+                                        type="category"
+                                        tick={{ fill: '#64748b', fontSize: 10, fontWeight: 800 }}
                                         width={120}
                                         axisLine={false}
                                         tickLine={false}
                                     />
-                                    <Tooltip 
-                                        cursor={{ fill: 'rgba(255,255,255,0.05)' }} 
-                                        contentStyle={{ backgroundColor: '#0f172a', border: '1px solid #1e293b', borderRadius: '16px', color: '#fff', fontSize: '12px' }}
+                                    <Tooltip
+                                        cursor={{ fill: 'rgba(0,74,153,0.04)' }}
+                                        contentStyle={{ backgroundColor: '#fff', border: '1px solid #e2e8f0', borderRadius: '16px', color: '#0f172a', fontSize: '12px' }}
                                     />
-                                    <Bar dataKey="gross" radius={[0, 4, 4, 0]} barSize={24}>
+                                    <Bar dataKey="gross" radius={[0, 6, 6, 0]} barSize={22}>
                                         {chartData.map((entry, index) => (
-                                            <Cell key={`cell-${index}`} fill={entry.isOther ? '#1e293b' : index === 0 ? '#004a99' : '#334155'} />
+                                            <Cell key={`cell-${index}`} fill={
+                                                entry.isOther ? '#e2e8f0' :
+                                                ['#004a99', '#7c3aed', '#ea580c', '#dc2626', '#16a34a'][index] ?? '#94a3b8'
+                                            } />
                                         ))}
                                     </Bar>
                                 </BarChart>
                             </ResponsiveContainer>
                         </div>
                     </div>
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-[#004a99] opacity-[0.03] blur-[100px] -mr-32 -mt-32" />
                 </div>
 
                 {/* Tactical Translation */}
@@ -144,36 +156,51 @@ const BudgetTranslator = () => {
                                 </div>
                             </button>
                             
-                            {expanded === i && (
-                                <div className="px-6 pb-8 pt-2 animate-in slide-in-from-top-2 duration-500">
-                                    <p className="text-xs font-semibold text-slate-500 leading-relaxed mb-6 px-4 py-3 bg-slate-50 rounded-2xl border border-slate-100">
-                                        {dept.context}
-                                    </p>
-                                    <div className="grid grid-cols-2 gap-3">
-                                        {dept.stats.map((stat, si) => (
-                                            <div key={si} className="p-4 rounded-2xl bg-white border border-slate-50 group-hover:border-[#004a99]/10 transition-colors shadow-sm">
-                                                <p className="text-[11px] font-bold text-slate-700 leading-snug">{stat}</p>
+                            <AnimatePresence initial={false}>
+                                {expanded === i && (
+                                    <motion.div
+                                        initial={{ opacity: 0, height: 0 }}
+                                        animate={{ opacity: 1, height: 'auto' }}
+                                        exit={{ opacity: 0, height: 0 }}
+                                        transition={{ duration: 0.22, ease: 'easeOut' }}
+                                        className="overflow-hidden"
+                                    >
+                                        <div className="px-6 pb-8 pt-2">
+                                            <p className="text-xs font-semibold text-slate-500 leading-relaxed mb-6 px-4 py-3 bg-slate-50 rounded-2xl border border-slate-100">
+                                                {dept.context}
+                                            </p>
+                                            <div className="grid grid-cols-2 gap-3">
+                                                {dept.stats.map((stat, si) => (
+                                                    <motion.div
+                                                        key={si}
+                                                        initial={{ opacity: 0, y: 8 }}
+                                                        animate={{ opacity: 1, y: 0 }}
+                                                        transition={{ delay: si * 0.05, type: 'spring', stiffness: 300, damping: 26 }}
+                                                        className="p-4 rounded-2xl bg-white border border-slate-50 group-hover:border-[#004a99]/10 transition-colors shadow-sm"
+                                                    >
+                                                        <p className="text-[11px] font-bold text-slate-700 leading-snug">{stat}</p>
+                                                    </motion.div>
+                                                ))}
                                             </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         </div>
                     ))}
                 </div>
             </div>
 
-            <div className="p-8 bg-slate-900 border border-slate-800 rounded-[32px] flex items-start gap-6 shadow-2xl relative overflow-hidden">
-                <div className="p-4 bg-[#004a99] rounded-[20px] text-white relative z-10 shadow-lg">
+            <div className="p-8 bg-blue-50/50 border border-blue-100 rounded-[32px] flex items-start gap-6">
+                <div className="p-4 bg-[#004a99]/10 rounded-[20px] text-[#004a99] shrink-0">
                     <Wallet size={24} />
                 </div>
-                <div className="relative z-10">
-                    <h5 className="text-[11px] font-black text-slate-300 uppercase tracking-[0.25em] mb-2">Net vs Gross Analysis</h5>
-                    <p className="text-[12px] text-slate-400 leading-relaxed font-medium max-w-2xl">
+                <div>
+                    <h5 className="text-[11px] font-black text-[#004a99] uppercase tracking-[0.25em] mb-2">Net vs Gross Analysis</h5>
+                    <p className="text-[12px] text-blue-900/60 leading-relaxed font-medium max-w-2xl">
                         Gross budget represents the total spend including provincial/federal transfers and service revenue. Net budget represents the amount collected from Toronto property taxes.
                     </p>
                 </div>
-                <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top_right,rgba(0,74,153,0.1),transparent_70%)]" />
             </div>
         </div>
     );

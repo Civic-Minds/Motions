@@ -10,7 +10,7 @@ import CouncillorList from './components/CouncillorList';
 import { useMotions } from './hooks/useMotions';
 
 function App() {
-  const { motions, loading } = useMotions();
+  const { motions, loading, error } = useMotions();
   const [selectedCouncillor, setSelectedCouncillor] = useState(null);
   const [compareList, setCompareList] = useState([]);
 
@@ -37,6 +37,20 @@ function App() {
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-[#004a99] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">Loading council data...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-screen bg-slate-50">
+        <div className="text-center max-w-sm">
+          <div className="w-12 h-12 rounded-full bg-rose-50 border border-rose-200 flex items-center justify-center mx-auto mb-4">
+            <span className="text-rose-500 font-black text-lg">!</span>
+          </div>
+          <p className="text-slate-800 font-bold mb-1">Could not load council data</p>
+          <p className="text-slate-400 text-xs font-medium">{error}</p>
         </div>
       </div>
     );

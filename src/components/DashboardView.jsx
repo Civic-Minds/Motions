@@ -1,8 +1,30 @@
 import React, { useMemo } from 'react';
+import { Search, X } from 'lucide-react';
+import { motion } from 'framer-motion';
 import MotionTable from './MotionTable';
 
+const statsContainer = {
+    hidden: {},
+    show: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
+};
+const statsItem = {
+    hidden: { opacity: 0, y: 18 },
+    show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 280, damping: 26 } },
+};
+
 const DashboardView = ({ motions, handleSelect }) => {
-    const filteredMotions = motions;
+    const [searchTerm, setSearchTerm] = React.useState('');
+    const [selectedTopic, setSelectedTopic] = React.useState('All');
+
+    const filteredMotions = useMemo(() => {
+        return motions.filter(m => {
+            const matchesSearch = 
+                m.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                m.id.toLowerCase().includes(searchTerm.toLowerCase());
+            const matchesTopic = selectedTopic === 'All' || m.topic === selectedTopic;
+            return matchesSearch && matchesTopic;
+        });
+    }, [motions, searchTerm, selectedTopic]);
 
     const substantive = useMemo(() => filteredMotions.filter(m => !m.trivial).length, [filteredMotions]);
     const procedural  = useMemo(() => filteredMotions.filter(m => m.trivial).length,  [filteredMotions]);
@@ -35,10 +57,15 @@ const DashboardView = ({ motions, handleSelect }) => {
     }, [filteredMotions]);
 
     return (
-        <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-700">
+        <div className="space-y-8">
             {/* Stats header row */}
-            <div className="dashboard-stats-row">
-                <div className="card-mainline border-l-4 border-l-slate-400">
+            <motion.div
+                className="dashboard-stats-row"
+                variants={statsContainer}
+                initial="hidden"
+                animate="show"
+            >
+                <motion.div className="card-mainline border-l-4 border-l-slate-400" variants={statsItem}>
                     <div className="flex flex-col gap-1">
                         <p className="text-[10px] font-black text-[#004a99] mb-2 opacity-60">Motions</p>
                         <div className="flex items-baseline gap-3">
@@ -76,10 +103,10 @@ const DashboardView = ({ motions, handleSelect }) => {
                             ))}
                         </div>
                     </div>
-                </div>
+                </motion.div>
 
                 {/* 2. Substantive Focus */}
-                <div className="card-mini border-l-4 border-l-[#004a99]">
+                <motion.div className="card-mini border-l-4 border-l-[#004a99]" variants={statsItem}>
                     <p className="text-[10px] font-black text-[#004a99] mb-4 opacity-60">Focus</p>
                     <div className="flex items-baseline justify-between mb-4">
                         <div className="flex items-baseline gap-2">
@@ -92,10 +119,10 @@ const DashboardView = ({ motions, handleSelect }) => {
                         <span>{procedural} Procedural</span>
                         <span>{substantive} Global</span>
                     </div>
-                </div>
+                </motion.div>
 
                 {/* 3. Adoption Efficiency */}
-                <div className="card-mini border-l-4 border-l-emerald-500">
+                <motion.div className="card-mini border-l-4 border-l-emerald-500" variants={statsItem}>
                     <p className="text-[10px] font-black text-emerald-600 mb-4 opacity-60">Adoption Rate</p>
                     <div className="flex items-baseline justify-between mb-4">
                         <div className="flex items-baseline gap-2">
@@ -129,10 +156,9 @@ const DashboardView = ({ motions, handleSelect }) => {
                             {adoptionRate > 60 ? 'High Adoption Rate' : adoptionRate > 30 ? 'Moderate Output' : 'Low Legislative Yield'}
                         </span>
                     </div>
-                </div>
+                </motion.div>
 
-                {/* 4. Priority Topic */}
-                <div className="card-mini border-l-4 border-l-amber-400">
+                <motion.div className="card-mini border-l-4 border-l-amber-400" variants={statsItem}>
                     <p className="text-[10px] font-black text-amber-600 mb-4 opacity-60">Domain</p>
                     <div className="flex flex-col gap-2">
                         <span className="text-2xl font-black text-slate-900 tracking-tighter leading-tight truncate">{topTopicData.name}</span>
@@ -140,12 +166,59 @@ const DashboardView = ({ motions, handleSelect }) => {
                              <span className="text-[9px] font-black text-amber-700">{topTopicData.count} Recorded Records</span>
                         </div>
                     </div>
+                </motion.div>
+            </motion.div>
+
+            {/* Premium Filter & Search Terminal */}
+            <div className="flex flex-col md:flex-row items-center gap-6 py-4 px-2">
+                <div className="flex flex-wrap items-center gap-2">
+                    {['All', 'Housing', 'Transit', 'Finance', 'Parks', 'Climate', 'General'].map(topic => (
+                        <button
+                            key={topic}
+                            onClick={() => setSelectedTopic(topic)}
+                            className={`relative px-4 py-2 rounded-xl text-[11px] font-black border uppercase tracking-widest transition-colors duration-150 ${
+                                selectedTopic === topic
+                                    ? 'text-white border-transparent'
+                                    : 'bg-white text-slate-400 border-slate-100 hover:border-slate-200 hover:bg-slate-50'
+                            }`}
+                        >
+                            {selectedTopic === topic && (
+                                <motion.span
+                                    layoutId="pill-bg"
+                                    className="absolute inset-0 rounded-xl bg-[#004a99]"
+                                    transition={{ type: 'spring', stiffness: 400, damping: 35 }}
+                                />
+                            )}
+                            <span className="relative">{topic}</span>
+                        </button>
+                    ))}
+                </div>
+
+                <div className="flex-1" />
+
+                <div className="flex items-center w-full md:w-96 h-14 bg-white border border-slate-100 rounded-[28px] px-5 group focus-within:border-[#004a99]/30 focus-within:shadow-2xl focus-within:shadow-[#004a99]/5 transition-all duration-500">
+                    <Search size={18} strokeWidth={3} className="text-slate-400 group-focus-within:text-[#004a99] transition-colors shrink-0" />
+                    <input
+                        type="text"
+                        placeholder="Search queries or ID nodes..."
+                        className="flex-1 h-full bg-transparent border-none outline-none pl-4 text-[13px] font-bold text-slate-900 placeholder:text-slate-300"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                    {searchTerm && (
+                        <button 
+                            onClick={() => setSearchTerm('')}
+                            className="text-slate-300 hover:text-[#004a99] transition-colors shrink-0 ml-2"
+                        >
+                            <X size={16} strokeWidth={3} />
+                        </button>
+                    )}
                 </div>
             </div>
 
             {/* Main Content Area */}
             <div className="pt-2">
-                <MotionTable motions={motions} handleSelect={handleSelect} />
+                <MotionTable motions={filteredMotions} handleSelect={handleSelect} />
             </div>
         </div>
     );
