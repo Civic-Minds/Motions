@@ -47,16 +47,18 @@ const CouncillorList = ({ motions, onSelect, onActivate }) => {
 
     const allNames = useMemo(() => councillors.map(c => c.name), [councillors]);
 
-    // Sync URL params → panel state
+    // Sync URL params → panel state; redirect on unrecognised slugs
     useEffect(() => {
         if (!allNames.length) return;
         if (slug2) {
             const name1 = slugToName(slug, allNames);
             const name2 = slugToName(slug2, allNames);
             if (name1 && name2) onActivate({ compare: [name1, name2] });
+            else navigate('/councillors', { replace: true });
         } else if (slug) {
             const name = slugToName(slug, allNames);
             if (name) onActivate({ profile: name });
+            else navigate('/councillors', { replace: true });
         } else {
             onActivate({});
         }
