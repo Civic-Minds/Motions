@@ -28,14 +28,14 @@ const MotionCard = ({ motion }) => {
     const tc = TOPIC_COLOR[motion.topic] ?? TOPIC_COLOR.General;
 
     return (
-        <div className={`group relative flex items-center gap-6 p-5 bg-white rounded-2xl border transition-all duration-300 hover:shadow-md hover:-translate-y-px ${
+        <div className={`group relative flex items-center gap-2 p-3 sm:gap-6 sm:p-5 bg-white rounded-2xl border transition-all duration-300 hover:shadow-md hover:-translate-y-px ${
             isAdopted  ? 'border-l-[3px] border-l-emerald-400 border-slate-100' :
             isDefeated ? 'border-l-[3px] border-l-rose-400 border-slate-100' :
                          'border-slate-100'
         }`}>
 
             {/* Topic + ID */}
-            <div className="shrink-0 flex flex-col gap-1 w-[88px]">
+            <div className="shrink-0 flex flex-col gap-1 w-[72px] sm:w-[88px]">
                 <span className={`text-[9px] font-black uppercase tracking-wide px-2 py-1 rounded-lg border text-center ${tc.badge}`}>
                     {motion.topic ?? 'General'}
                 </span>
@@ -70,8 +70,8 @@ const MotionCard = ({ motion }) => {
             )}
 
             {/* Outcome */}
-            <div className="shrink-0 w-[80px] text-right">
-                <span className={`text-[13px] font-black tracking-tight ${
+            <div className="shrink-0 text-right">
+                <span className={`text-xs sm:text-[13px] font-black tracking-tight ${
                     isAdopted ? 'text-emerald-500' : isDefeated ? 'text-rose-500' : 'text-slate-400'
                 }`}>
                     {motion.status}

@@ -17,6 +17,15 @@ All notable changes to this project will be documented in this file.
 - **`services/scraper.js`** — unused stub file (mock data, random alignment math). All real data comes from `public/data/motions.json` via the import pipeline.
 
 ### Added
+- **Mobile responsive pass** — full layout support for screens below 768px:
+  - **Navbar**: hamburger menu (Menu/X icon) collapses nav links into a sticky dropdown drawer on mobile. Desktop nav and Live Data indicator hidden on small screens.
+  - **Stats grid**: `dashboard-stats-row` switches to 2-column on mobile; the mainline card spans full width and stacks its content vertically.
+  - **Main content**: padding reduced from 32px to 16px on mobile.
+  - **ProfilePanel & VersusOverlay**: side panels expand to full-screen (100vw / 100dvh, no border-radius) on mobile. Panel header and content padding reduced.
+  - **MotionCard**: gap and padding tightened (`gap-2 p-3` → `gap-6 p-5` on `sm:`) and topic column narrowed (`w-[72px]` → `w-[88px]` on `sm:`) so motion titles have adequate room on 375px+ screens.
+  - **Scorecard impact cards**: icon hidden on mobile to reduce clutter in the Impact Pulse list.
+
+### Added
 - **Framer Motion** — installed `framer-motion` as a dependency for all animation work.
 - **Page transitions** — every route change fades and slides via `AnimatePresence` in `Layout.jsx`.
 - **Dashboard stat card stagger** — the four header stat cards spring in with an 80ms stagger on load (`DashboardView`).

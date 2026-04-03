@@ -105,9 +105,9 @@ const Scorecard = ({ motions }) => {
                             <motion.div
                                 key={i}
                                 variants={{ hidden: { opacity: 0, x: -12 }, show: { opacity: 1, x: 0, transition: { type: 'spring', stiffness: 260, damping: 24 } } }}
-                                className="group p-6 bg-white/80 backdrop-blur-md border border-slate-100 rounded-[28px] flex gap-6 items-center hover:border-[#004a99]/30 hover:shadow-2xl transition-all duration-500 cursor-default relative overflow-hidden"
+                                className="group p-4 sm:p-6 bg-white/80 backdrop-blur-md border border-slate-100 rounded-[28px] flex gap-3 sm:gap-6 items-center hover:border-[#004a99]/30 hover:shadow-2xl transition-all duration-500 cursor-default relative overflow-hidden"
                             >
-                                <div className={`w-14 h-14 rounded-3xl flex items-center justify-center border font-black transition-all duration-500 ${
+                                <div className={`hidden sm:flex w-14 h-14 rounded-3xl items-center justify-center border font-black transition-all duration-500 ${
                                     win.topic === 'Finance' ? 'bg-emerald-50 border-emerald-100 text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white' : 
                                     win.topic === 'Transit' ? 'bg-rose-50 border-rose-100 text-rose-600 group-hover:bg-rose-500 group-hover:text-white' :
                                     'bg-blue-50 border-blue-100 text-blue-600 group-hover:bg-[#004a99] group-hover:text-white'

@@ -567,3 +567,124 @@ body {
   flex: 1;
   overflow-y: auto;
 }
+
+/* ── Hamburger / mobile drawer ────────────────────────────────────────── */
+.nav-hamburger {
+  display: none;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: background 0.15s;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-hamburger:hover {
+  background: var(--bg-color);
+}
+
+.nav-mobile-drawer {
+  display: none;
+  position: sticky;
+  top: 52px;
+  z-index: 90;
+  background: white;
+  border-bottom: 1px solid var(--border-light);
+  padding: 8px 12px 12px;
+  flex-direction: column;
+  gap: 2px;
+  box-shadow: 0 4px 12px -4px rgba(0,0,0,0.06);
+}
+
+.nav-mobile-link {
+  padding: 11px 14px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: all 0.15s;
+  display: block;
+}
+
+.nav-mobile-link:hover {
+  background: var(--bg-color);
+  color: var(--text-main);
+}
+
+.nav-mobile-link.active {
+  background: var(--toronto-blue-subtle);
+  color: var(--toronto-blue);
+}
+
+.nav-mobile-divider {
+  height: 1px;
+  background: var(--border-light);
+  margin: 4px 2px;
+}
+
+/* ── Mobile breakpoint ────────────────────────────────────────────────── */
+@media (max-width: 767px) {
+  /* Navbar */
+  .navbar {
+    padding: 0 16px;
+  }
+  .nav-logo {
+    margin-right: 0;
+  }
+  .nav-links {
+    display: none;
+  }
+  .nav-status {
+    display: none;
+  }
+  .nav-hamburger {
+    display: flex;
+  }
+  .nav-mobile-drawer {
+    display: flex;
+  }
+
+  /* Content */
+  .main-content {
+    padding: 16px;
+  }
+
+  /* Stats grid: mainline full-width, 3 mini cards in 2+1 layout */
+  .dashboard-stats-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .card-mainline {
+    grid-column: 1 / -1;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .card-mainline > div:last-child {
+    max-width: 100%;
+    align-items: flex-start;
+  }
+
+  /* Side panels — full screen on mobile */
+  .profile-panel {
+    width: 100%;
+    top: 0;
+    right: 0;
+    height: 100dvh;
+    border-radius: 0;
+  }
+  .profile-header {
+    padding: 24px 20px;
+  }
+  .profile-content {
+    padding: 20px;
+  }
+  .versus-overlay {
+    width: 100%;
+    border-radius: 0;
+  }
+}
