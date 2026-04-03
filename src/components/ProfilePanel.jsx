@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { ChevronRight } from 'lucide-react';
-import { getAttendance } from '../utils/analytics';
+import { getAttendance, getVotedWith } from '../utils/analytics';
 import { TOPIC_PILL } from '../constants/data';
 
 const ProfilePanel = ({ selected, onClose, onCompare, motions }) => {
@@ -36,6 +36,11 @@ const ProfilePanel = ({ selected, onClose, onCompare, motions }) => {
     const attendance = useMemo(() => {
         if (!selected) return null;
         return getAttendance(motions, selected);
+    }, [selected, motions]);
+
+    const votedWith = useMemo(() => {
+        if (!selected) return [];
+        return getVotedWith(motions, selected);
     }, [selected, motions]);
 
     return (
@@ -107,6 +112,50 @@ const ProfilePanel = ({ selected, onClose, onCompare, motions }) => {
                                 </div>
                             ))}
                         </div>
+                    </div>
+                )}
+
+                {/* Voted With */}
+                {votedWith.length > 0 && (
+                    <div className="mb-8 p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                        <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Votes With</h3>
+                        <div className="space-y-2.5">
+                            {votedWith.slice(0, 5).map((peer, i) => (
+                                <div key={i} className="flex items-center gap-3">
+                                    <div className="w-7 h-7 rounded-xl bg-white border border-slate-100 flex items-center justify-center shrink-0">
+                                        <span className="text-[8px] font-black text-slate-400 uppercase">
+                                            {peer.name.split(' ').map(n => n[0]).slice(0, 2).join('')}
+                                        </span>
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                        <div className="flex justify-between items-center mb-1">
+                                            <span className="text-[11px] font-bold text-slate-700 truncate">{peer.name}</span>
+                                            <span className={`text-[10px] font-black shrink-0 ml-2 ${peer.pct >= 80 ? 'text-emerald-600' : peer.pct >= 60 ? 'text-[#004a99]' : 'text-amber-500'}`}>
+                                                {peer.pct}%
+                                            </span>
+                                        </div>
+                                        <div className="h-1 w-full bg-slate-200 rounded-full overflow-hidden">
+                                            <div
+                                                className={`h-full rounded-full ${peer.pct >= 80 ? 'bg-emerald-500' : peer.pct >= 60 ? 'bg-[#004a99]' : 'bg-amber-400'}`}
+                                                style={{ width: `${peer.pct}%` }}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        {votedWith.length > 5 && (
+                            <div className="mt-4 pt-3 border-t border-slate-100">
+                                <p className="text-[9px] font-black text-slate-300 uppercase tracking-widest">Least aligned</p>
+                                <div className="mt-2 flex gap-2 flex-wrap">
+                                    {votedWith.slice(-3).reverse().map((peer, i) => (
+                                        <span key={i} className="text-[9px] font-bold text-rose-400 bg-rose-50 border border-rose-100 px-2 py-0.5 rounded-lg">
+                                            {peer.name.split(' ').at(-1)} {peer.pct}%
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
                     </div>
                 )}
 

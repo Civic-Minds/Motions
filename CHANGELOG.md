@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- **"Votes With" section in ProfilePanel** — shows the top 5 councillors this member agrees with most often (% agreement on shared non-trivial YES/NO votes, minimum 10 shared votes). A "Least aligned" row at the bottom shows the 3 most opposed councillors by last name + percentage. Powered by new `getVotedWith` utility in `analytics.js`.
+- **Legislative Activity timeline in Scorecard** — horizontal bar chart showing motions per session across the full term. Each bar is split into adopted (green) and non-adopted (blue) segments. Hovering a bar shows the session date, total count, and adopted count. Spans the full term chronologically.
 - **Shareable councillor URLs** — councillor profiles and VS comparisons now have permanent, linkable URLs:
   - `/councillors/:slug` — opens that councillor's ProfilePanel directly (e.g. `/councillors/josh-matlow`)
   - `/councillors/:slug/vs/:slug2` — opens the VersusOverlay for two councillors (e.g. `/councillors/josh-matlow/vs/gord-perks`)

@@ -65,6 +65,41 @@ export function getAttendance(motions, memberName) {
 }
 
 /**
+ * Returns the councillors this member agrees with most (and least) often.
+ * Only counts non-trivial motions where both councillors voted YES or NO.
+ * @param {Array} motions
+ * @param {string} memberName
+ * @param {number} minShared - minimum shared votes to include a pairing
+ * @returns {Array} [{ name, pct, shared }] sorted by pct desc
+ */
+export function getVotedWith(motions, memberName, minShared = 10) {
+    const peerCounts = {};
+    const sharedCounts = {};
+
+    motions.forEach(m => {
+        if (m.trivial || !m.votes || !m.votes[memberName]) return;
+        const myVote = m.votes[memberName];
+        if (myVote !== 'YES' && myVote !== 'NO') return;
+
+        Object.entries(m.votes).forEach(([peer, peerVote]) => {
+            if (peer === memberName) return;
+            if (peerVote !== 'YES' && peerVote !== 'NO') return;
+            peerCounts[peer] = (peerCounts[peer] || 0) + 1;
+            if (peerVote === myVote) sharedCounts[peer] = (sharedCounts[peer] || 0) + 1;
+        });
+    });
+
+    return Object.entries(peerCounts)
+        .filter(([, total]) => total >= minShared)
+        .map(([name, total]) => ({
+            name,
+            pct: Math.round(((sharedCounts[name] || 0) / total) * 100),
+            shared: total,
+        }))
+        .sort((a, b) => b.pct - a.pct);
+}
+
+/**
  * Calculates activity metrics per ward.
  * @param {Array} motions
  * @returns {Array} Array of ward objects with activity counts

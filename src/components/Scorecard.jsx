@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Target, AlertCircle, FileText, TrendingUp, UserMinus, ShieldCheck, Zap, BarChart3, Fingerprint } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { COUNCILLORS } from '../constants/data';
@@ -39,6 +39,20 @@ const Scorecard = ({ motions }) => {
         return acc;
     }, {});
     const topTopic = Object.entries(topicCounts).sort((a, b) => b[1] - a[1])[0];
+
+    const sessionTimeline = useMemo(() => {
+        const byDate = {};
+        motions.forEach(m => {
+            if (!byDate[m.date]) byDate[m.date] = { total: 0, adopted: 0 };
+            byDate[m.date].total += 1;
+            if (m.status === 'Adopted' || m.status?.includes('Carried')) byDate[m.date].adopted += 1;
+        });
+        return Object.entries(byDate)
+            .sort((a, b) => new Date(a[0]) - new Date(b[0]))
+            .map(([date, counts]) => ({ date, ...counts }));
+    }, [motions]);
+
+    const maxSessionTotal = Math.max(...sessionTimeline.map(s => s.total), 1);
 
     return (
         <div className="space-y-10">
@@ -187,6 +201,42 @@ const Scorecard = ({ motions }) => {
                             <p className="text-[10px] font-semibold text-slate-400 leading-relaxed">System-wide transparency is verified. All data points are extracted from primary legislative records.</p>
                         </div>
                     </div>
+                </div>
+            </div>
+            {/* Activity Timeline */}
+            <div className="p-8 bg-white border border-slate-100 rounded-[32px] shadow-sm">
+                <div className="flex justify-between items-center mb-6">
+                    <div>
+                        <h4 className="text-[10px] font-black tracking-[0.3em] uppercase text-slate-400 font-mono">Legislative Activity</h4>
+                        <p className="text-[9px] font-bold text-slate-300 uppercase tracking-widest mt-1">Motions per session · {sessionTimeline.length} meetings</p>
+                    </div>
+                    <div className="flex items-center gap-4 text-[9px] font-black uppercase tracking-widest">
+                        <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-[#004a99]" /><span className="text-slate-400">Total</span></div>
+                        <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-full bg-emerald-500" /><span className="text-slate-400">Adopted</span></div>
+                    </div>
+                </div>
+                <div className="flex items-end gap-1 h-32 overflow-x-auto pb-2">
+                    {sessionTimeline.map((session, i) => (
+                        <div key={i} className="group relative flex flex-col items-center gap-0.5 shrink-0" style={{ minWidth: '18px', flex: '1 0 18px', maxWidth: '36px' }}>
+                            <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-[8px] font-bold px-2 py-1 rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
+                                {session.date}<br />{session.total} total · {session.adopted} adopted
+                            </div>
+                            <div className="w-full flex flex-col items-center justify-end gap-px" style={{ height: '112px' }}>
+                                <div
+                                    className="w-full rounded-t-sm bg-emerald-500/80 transition-all duration-300 group-hover:bg-emerald-500"
+                                    style={{ height: `${(session.adopted / maxSessionTotal) * 100}%` }}
+                                />
+                                <div
+                                    className="w-full bg-[#004a99]/20 transition-all duration-300 group-hover:bg-[#004a99]/40"
+                                    style={{ height: `${((session.total - session.adopted) / maxSessionTotal) * 100}%` }}
+                                />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                <div className="flex justify-between items-center mt-3 text-[9px] font-bold text-slate-300 uppercase tracking-widest">
+                    <span>{sessionTimeline[0]?.date}</span>
+                    <span>{sessionTimeline.at(-1)?.date}</span>
                 </div>
             </div>
         </div>
