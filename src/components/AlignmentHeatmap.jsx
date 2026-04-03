@@ -1,15 +1,15 @@
 import { useMemo } from 'react';
 import { getMemberAlignmentScore } from '../utils/analytics';
 
-const scoreStyle = (score) => {
-    if (score >= 85) return { bar: 'bg-emerald-500', text: 'text-emerald-700', bg: 'bg-emerald-50', border: 'border-emerald-200' };
-    if (score >= 70) return { bar: 'bg-[#004a99]',   text: 'text-[#004a99]',   bg: 'bg-blue-50',    border: 'border-blue-200' };
-    if (score >= 55) return { bar: 'bg-amber-500',   text: 'text-amber-700',   bg: 'bg-amber-50',   border: 'border-amber-200' };
-    return               { bar: 'bg-rose-500',   text: 'text-rose-700',   bg: 'bg-rose-50',    border: 'border-rose-200' };
-};
+const TIERS = [
+    { title: 'Solid Consensus',  min: 90, color: 'text-emerald-700', dot: 'bg-emerald-500', bar: 'bg-emerald-500',  accent: 'border-emerald-200', bg: 'bg-emerald-50/20' },
+    { title: 'Constructive',      min: 75, color: 'text-[#004a99]',   dot: 'bg-[#004a99]',   bar: 'bg-[#004a99]',    accent: 'border-blue-200',    bg: 'bg-blue-50/20' },
+    { title: 'Variable',          min: 60, color: 'text-amber-700',   dot: 'bg-amber-400',   bar: 'bg-amber-400',    accent: 'border-amber-200',   bg: 'bg-amber-50/20' },
+    { title: 'Systemic Dissent',  min: 0,  color: 'text-rose-700',    dot: 'bg-rose-400',    bar: 'bg-rose-400',     accent: 'border-rose-200',    bg: 'bg-rose-50/20' }
+];
 
 const AlignmentHeatmap = ({ onSelect, motions }) => {
-    const councillors = useMemo(() => {
+    const scored = useMemo(() => {
         const voteCounts = {};
         motions.forEach(m => {
             if (!m.votes) return;
@@ -17,42 +17,71 @@ const AlignmentHeatmap = ({ onSelect, motions }) => {
                 voteCounts[name] = (voteCounts[name] || 0) + 1;
             });
         });
+        
         return Object.entries(voteCounts)
             .filter(([, count]) => count >= 5)
-            .map(([name]) => name)
-            .sort((a, b) => a.split(' ').at(-1).localeCompare(b.split(' ').at(-1)));
+            .map(([name]) => ({
+                name,
+                lastName: name.split(' ').at(-1),
+                score: getMemberAlignmentScore(motions, name)
+            }))
+            .sort((a, b) => b.score - a.score);
     }, [motions]);
 
-    const scored = useMemo(() =>
-        councillors
-            .map(c => ({ name: c, score: getMemberAlignmentScore(motions, c) }))
-            .sort((a, b) => b.score - a.score),
-        [councillors, motions]
-    );
+    const bucketed = useMemo(() => {
+        return TIERS.map(tier => ({
+            ...tier,
+            members: scored.filter(s => s.score >= tier.min && (TIERS.find(t => t.min > tier.min && s.score >= t.min) === undefined))
+        }));
+    }, [scored]);
 
     return (
-        <div className="councillor-alignment-grid">
-            {scored.map(({ name, score }) => {
-                const style = scoreStyle(score);
-                return (
-                    <div
-                        key={name}
-                        onClick={() => onSelect(name)}
-                        title={name}
-                        className={`p-3 border rounded-lg cursor-pointer transition-all active:scale-95 hover:shadow-md hover:border-[#004a99] group ${style.border} ${style.bg}`}
-                    >
-                        <div className="flex justify-between items-center mb-2">
-                            <p className="text-[10px] text-slate-600 font-bold uppercase group-hover:text-[#004a99] truncate pr-1">
-                                {name.split(' ').at(-1)}
-                            </p>
-                            <span className={`text-[11px] font-mono font-black shrink-0 ${style.text}`}>{score}%</span>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-1 h-full">
+            {bucketed.map((tier) => (
+                <div key={tier.title} className={`flex flex-col rounded-[32px] border border-slate-100 p-6 ${tier.bg} transition-all duration-500`}>
+                    <div className="flex justify-between items-center mb-8 px-1">
+                        <div className="flex items-center gap-2.5">
+                             <div className={`w-2 h-2 rounded-full ${tier.dot}`} />
+                             <h4 className={`text-[11px] font-black uppercase tracking-[0.25em] ${tier.color}`}>
+                                {tier.title}
+                            </h4>
                         </div>
-                        <div className="h-2 w-full bg-white/60 rounded-full overflow-hidden border border-white/40">
-                            <div className={`h-full rounded-full transition-all ${style.bar}`} style={{ width: `${score}%` }} />
-                        </div>
+                        <span className="text-[11px] font-black text-slate-400 opacity-60">
+                            {tier.members.length}
+                        </span>
                     </div>
-                );
-            })}
+                    
+                    <div className="flex flex-col gap-4">
+                        {tier.members.map((member) => (
+                            <div
+                                key={member.name}
+                                onClick={() => onSelect(member.name)}
+                                className="group p-5 bg-white/90 backdrop-blur-md border border-slate-100/50 rounded-2xl cursor-pointer hover:shadow-2xl hover:border-[#004a99]/30 hover:-translate-y-1 transition-all duration-500 relative overflow-hidden"
+                            >
+                                <div className="flex justify-between items-baseline mb-4">
+                                    <span className="text-[11px] font-black text-slate-800 group-hover:text-[#004a99] transition-colors truncate uppercase tracking-tight">
+                                        {member.lastName}
+                                    </span>
+                                    <span className={`text-[12px] font-black ${tier.color}`}>
+                                        {member.score}%
+                                    </span>
+                                </div>
+                                <div className="h-2 w-full bg-slate-50 rounded-full overflow-hidden border border-slate-100/30">
+                                    <div 
+                                        className={`h-full rounded-full ${tier.bar} transition-all duration-1000`} 
+                                        style={{ width: `${member.score}%` }} 
+                                    />
+                                </div>
+                            </div>
+                        ))}
+                        {tier.members.length === 0 && (
+                            <div className="py-12 flex flex-col items-center justify-center border-2 border-dashed border-slate-200/40 rounded-3xl bg-white/30">
+                                <span className="text-[11px] font-black text-slate-300 uppercase tracking-widest leading-none">Neutral Tier</span>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            ))}
         </div>
     );
 };

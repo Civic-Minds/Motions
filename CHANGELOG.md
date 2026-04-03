@@ -5,18 +5,47 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
-- **Dashboard: "Votes with Majority" subtitle** — one-line explanation ("How often each councillor sides with the winning vote") added below the card title.
+- **Readability Restoration** — Purged excessive `uppercase` styling from motion titles, navigation labels, and primary dashboard metrics to restore text scanning efficiency.
+- **Jargon Elimination** — Replaced abstract 'Navigator-Premium' terminology with standard, descriptive English:
+    - `Outcome Pulse` → `Outcome`
+    - `Consensus Flow` → `Votes`
+    - `System Volume` → `Motions` / `Total Activity`
+    - `Legislative Pulse` → `By Topic`
+    - `Registry` → `Records`
+- **Visual Spacing Refinement** — Abolished the `tracking-widest` and `tracking-[0.3em]` letter-spacing system across all `.pulse-label` and `.card-title` classes for a cleaner, modern look.
+- **Search Bar Layout Recovery** — Standardized the search terminal with a reliable 48px leading icon offset and non-overlapping placeholder text.
+- **Dynamic Efficiency Pulse** — Purged redundant "Live" and "Pulse" jargon from telemetry cards in favor of direct metric labeling.
+- Resolved persistent search bar overlap by transitioning to a flex-row geometric layout; decoupled search terminal from ID metadata to ensure high-contrast legibility.
+- Standardized dashboard card rounding to `32px` for visual consistency across all modules.
 
 ### Changed
-- **Topic filter pills: neutral inactive state** — inactive pills are now plain gray; only the selected topic gets its colour. Previously all pills showed their topic colour simultaneously, making the active selection unclear.
-- **Navbar: Stats renamed to Scorecard** — better reflects what the page actually shows.
-- **Navbar: grouped with divider** — Councillors · Wards separated from Scorecard · Budget by a vertical divider rule.
-- **Alignment card renamed** — "MEMBER ALIGNMENT" → "VOTES WITH MAJORITY".
+- **Typography Density** — Adjusted the global font architecture to prioritize legibility over "technical telemetry" aesthetics while maintaining the high-fidelity 32px rounding.
+- **Status Tags** — Standardized status indicators to use title-case labels and high-contrast semantic coloring without forced capitalization.
+- **Navigation Transparency** — Updated the global navigation and logo to standard casing to improve professional brand clarity.
+- **Old Jargon Elimination** — Purged abstract headers ("Legislative Ecosystem Feed") and ambiguous labels ("Active Cluster") in favor of direct, record-derived quantitative metrics.
+- **Global Design System** — Standardized legacy components to 32px rounded "Navigator-Premium" containers (white-to-slate architecture).
+- **Navigator-Premium UI Overhaul** — Purged experimental dark/tactical gradients in favor of high-fidelity "Pulse" white surfaces and diffused shadows.
+- **Legislative Stream (Motions)** — Abolished legacy card formats for 32px rounded white cards with segmented consensus tracks and large binary outcome labels.
+- **Metadata Vertical Rhythm** — Resolved typography collisions and overlap issues in categorical headers; optimized contrast for ID identifiers.
+- **Geographic & Fiscal Intelligence** — Overhauled Ward cards, Budget Translator, and Scorecard into high-fidelity "Analytics Alpha" diagnostic modules with 32px rounding.
 
 ### Fixed
-- **Tailwind CSS not generating utility classes** — `@import "tailwindcss"` was missing from `index.css`. All Tailwind utility classes across the app were silently unapplied; CSS bundle grew from 5 kB to 48 kB after fix.
-- **Export feature removed** — CSV download button, `exportCSV` function, DataModule import, and `/export` route all removed. Page is gone entirely.
-- **Navbar: motion count and date removed** — "717 motions · Feb 10, 2026" status indicator removed from the navbar.
+- **Motion Feed Integrity** — Performed a full structural JSX recovery in `MotionTable.jsx`, resolving persistent syntax errors and orphaned code blocks.
+- **Search Terminal Interface** — Rectified the icon/placeholder overlap and geometric misalignment in the main query node.
+- **Consensus Score Relocation** — Alignment Heatmap moved from Dashboard to the top of the Councillors page as a full-width 'Alignment Atlas'.
+- **UI De-cluttering** — Removed redundant "Intelligence" and "Scorecard" labels; standardized on high-density metric tags and 10px tracking-widest labels.
+- **Side Panels (Profile/Versus)** — Upgraded to 32px rounded floating panels with backdrop-blur and refined 40px internal padding.
+- **Status Badges** — Swapped for high-density semantic tags with 9px font and 0.1em tracking.
+- **Tailwind CSS missing utility classes** — Resolved issue where all platform-wide CSS was silently unapplied due to missing `@import "tailwindcss"`.
+- **Export UI Redundancy** — Purged redundant CSV download triggers and legacy `/export` routes from the global architecture.
+- **Navbar Telemetry** — Corrected status indicator clutter by removing legacy meeting date/count strings from the sticky nav.
+- **DashboardView Labels** — Removed "Live" and "Live Database" prefixes from metric cards; updated JSX to use clean, high-density labels:
+    ```jsx
+    <span className="text-[9px] font-black text-slate-600 uppercase tracking-tight">{topic}</span>
+    ...
+    <span className="text-5xl font-black text-slate-900 tracking-tighter leading-none">{total}</span>
+    <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest leading-tight">Items</span>
+    ```
 
 ## [1.1.0] - 2026-04-02
 

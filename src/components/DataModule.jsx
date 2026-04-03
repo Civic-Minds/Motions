@@ -35,9 +35,9 @@ const DataModule = ({ motions }) => {
     return (
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
             <div>
-                <h1 className="text-4xl font-black italic tracking-tight text-slate-800">OPEN DATA</h1>
-                <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] mt-1">
-                    {motions.length} MOTIONS • CITY OF TORONTO
+                <h1 className="text-4xl font-black italic tracking-tight text-slate-800">Open Data</h1>
+                <p className="text-slate-400 font-bold text-[10px] mt-1">
+                    {motions.length} Motions • City of Toronto
                 </p>
             </div>
 
@@ -84,12 +84,12 @@ const DataModule = ({ motions }) => {
                                         <div className="flex items-center gap-2">
                                             <p className="font-semibold text-slate-900 text-sm">{m.title}</p>
                                             {m.trivial && (
-                                                <span className="text-[9px] bg-amber-50 text-amber-600 border border-amber-200 px-1.5 py-0.5 rounded font-bold uppercase whitespace-nowrap">Minor</span>
+                                                <span className="text-[9px] bg-amber-50 text-amber-600 border border-amber-200 px-1.5 py-0.5 rounded font-bold whitespace-nowrap">Minor</span>
                                             )}
                                         </div>
                                     </td>
                                     <td>
-                                        <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded-md border whitespace-nowrap ${TOPIC_STYLES[m.topic] || TOPIC_STYLES.General}`}>
+                                        <span className={`text-[9px] font-black px-2 py-0.5 rounded-md border whitespace-nowrap ${TOPIC_STYLES[m.topic] || TOPIC_STYLES.General}`}>
                                             {m.topic}
                                         </span>
                                     </td>
@@ -105,7 +105,7 @@ const DataModule = ({ motions }) => {
                                         )}
                                     </td>
                                     <td>
-                                        <span className={`px-2 py-1 rounded-full text-[10px] font-bold uppercase whitespace-nowrap ${
+                                        <span className={`px-2 py-1 rounded-full text-[10px] font-bold whitespace-nowrap ${
                                             m.status === 'Adopted' || m.status.includes('Carried')
                                                 ? 'bg-green-100 text-green-700'
                                                 : 'bg-slate-100 text-slate-600'

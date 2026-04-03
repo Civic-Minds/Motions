@@ -4,7 +4,7 @@ const Navbar = () => {
     return (
         <nav className="navbar">
             <Link to="/" className="nav-logo">
-                TORONTO<br />COUNCIL
+                Toronto Council
             </Link>
 
             <div className="nav-links">
@@ -18,13 +18,12 @@ const Navbar = () => {
                 <div className="nav-divider" />
 
                 <NavLink to="/analytics" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
-                    Scorecard
+                    Analytics
                 </NavLink>
                 <NavLink to="/budget" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
                     Budget
                 </NavLink>
             </div>
-
         </nav>
     );
 };

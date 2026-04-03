@@ -1,243 +1,145 @@
 import React, { useState, useMemo } from 'react';
-import { Filter, ExternalLink, X } from 'lucide-react';
+import { ExternalLink, Search, ChevronDown, CheckCircle2, Activity } from 'lucide-react';
 
 const TOPIC_STYLES = {
-    Housing: 'border-blue-300 text-blue-700 bg-blue-50',
-    Transit: 'border-red-300 text-red-600 bg-red-50',
-    Finance: 'border-emerald-300 text-emerald-700 bg-emerald-50',
-    Parks:   'border-green-300 text-green-700 bg-green-50',
-    Climate: 'border-teal-300 text-teal-700 bg-teal-50',
-    General: 'border-slate-200 text-slate-500 bg-slate-50',
+    Housing: 'text-blue-600',
+    Transit: 'text-rose-600',
+    Finance: 'text-emerald-600',
+    General: 'text-slate-500',
 };
 
-const PAGE_SIZE = 50;
-
-const MotionTable = ({ motions }) => {
-    const [filtersOpen, setFiltersOpen] = useState(false);
-    const [search, setSearch] = useState('');
-    const [statusFilter, setStatusFilter] = useState('all');
-    const [hideMinor, setHideMinor] = useState(false);
-    const [notableOnly, setNotableOnly] = useState(false);
-    const [sortBy, setSortBy] = useState('recent');
-    const [page, setPage] = useState(1);
-
-    const filtered = useMemo(() => {
-        setPage(1);
-        let result = motions.filter(m => {
-            if (hideMinor && m.trivial) return false;
-            if (notableOnly && (!m.flags || m.flags.length === 0)) return false;
-            if (statusFilter === 'adopted' && m.status !== 'Adopted' && !m.status.includes('Carried')) return false;
-            if (statusFilter === 'other' && (m.status === 'Adopted' || m.status.includes('Carried'))) return false;
-            if (search) {
-                const q = search.toLowerCase();
-                return m.title.toLowerCase().includes(q) || (m.mover || '').toLowerCase().includes(q) || m.id.toLowerCase().includes(q);
-            }
-            return true;
-        });
-
-        if (sortBy === 'significance') {
-            result = [...result].sort((a, b) => (b.significance ?? 0) - (a.significance ?? 0));
-        }
-        // 'recent' preserves the default newest-first order from motions.json
-
-        return result;
-    }, [motions, search, statusFilter, hideMinor, notableOnly, sortBy]);
-
-    const visible = filtered.slice(0, page * PAGE_SIZE);
-    const hasMore = visible.length < filtered.length;
-
-    const hasActiveFilters = search || statusFilter !== 'all' || hideMinor || notableOnly || sortBy !== 'recent';
-
-    const clearFilters = () => {
-        setSearch('');
-        setStatusFilter('all');
-        setHideMinor(false);
-        setNotableOnly(false);
-        setSortBy('recent');
-    };
+const MotionCard = ({ motion }) => {
+    const isAdopted = motion.status === 'Adopted' || motion.status.includes('Carried');
+    const isDefeated = motion.status === 'Defeated';
+    
+    const votes = motion.votes ? Object.values(motion.votes) : [];
+    const yes = votes.filter(v => v === 'YES').length;
+    const no = votes.filter(v => v === 'NO').length;
+    const total = yes + no;
+    const yesPct = total > 0 ? (yes / total) * 100 : 0;
 
     return (
-        <div className="card">
-            <div className="card-title">
-                MOTIONS
-                <div className="flex items-center gap-2 ml-auto">
-                    {hasActiveFilters && (
-                        <span className="text-[10px] text-slate-500">
-                            {filtered.length} of {motions.length}
+        <div className="pulse-card-premium group">
+            <div className="flex items-center p-6 gap-12 relative overflow-hidden">
+                {/* 1. Category Module */}
+                <div className="flex flex-col w-[120px] shrink-0 gap-0.5">
+                    <p className="pulse-label mb-1 opacity-60">Category</p>
+                    <div className="flex flex-col">
+                        <span className={`text-[14px] font-black tracking-tight leading-tight truncate ${TOPIC_STYLES[motion.topic] || TOPIC_STYLES.General}`}>
+                            {motion.topic || 'General'}
                         </span>
+                        <span className="text-[9.5px] font-mono font-black text-slate-400 leading-none mt-1 opacity-80">
+                            ID: {motion.id}
+                        </span>
+                    </div>
+                </div>
+
+                {/* 2. Motion Title Header */}
+                <div className="flex-1 min-w-0 border-l border-slate-100 pl-10">
+                    <h3 className="text-[17px] font-bold text-slate-900 leading-tight tracking-tight group-hover:text-[#004a99] transition-colors line-clamp-1 pr-6 underline-offset-4 group-hover:underline">
+                        {motion.title}
+                    </h3>
+                    {motion.significance > 15 && (
+                        <div className="flex items-center gap-2 mt-2">
+                             <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)] animate-pulse" />
+                             <span className="text-[9px] font-black text-slate-400 leading-none">High Legislative Impact</span>
+                        </div>
                     )}
-                    <button
-                        onClick={() => setFiltersOpen(o => !o)}
-                        className={`flex items-center gap-1 text-[10px] font-bold uppercase px-2 py-1 rounded transition-colors ${filtersOpen || hasActiveFilters ? 'bg-[#004a99] text-white' : 'text-slate-400 hover:text-slate-700'}`}
-                    >
-                        <Filter size={12} />
-                        Filter
-                        {hasActiveFilters && (
-                            <span className="ml-1 bg-white text-[#004a99] rounded-full w-4 h-4 flex items-center justify-center text-[9px]">
-                                {[search, statusFilter !== 'all', hideMinor, notableOnly, sortBy !== 'recent'].filter(Boolean).length}
-                            </span>
-                        )}
-                    </button>
+                </div>
+
+                {/* 3. Vote Breakdown */}
+                <div className="w-[200px] shrink-0 space-y-3">
+                    <div className="flex justify-between items-baseline mb-1">
+                        <span className="pulse-label">Vote Breakdown</span>
+                        <span className="text-[11px] font-black text-slate-900 font-mono leading-none">{yes} / {no}</span>
+                    </div>
+                    <div className="h-2.5 w-full bg-slate-100 rounded-full overflow-hidden flex gap-0.5 p-0.5">
+                        <div className="h-full bg-emerald-500 rounded-full transition-all duration-1000 shadow-[1px_0_4px_rgba(16,185,129,0.3)]" style={{ width: `${yesPct}%` }} />
+                        <div className="h-full bg-rose-400 rounded-full transition-all duration-1000" style={{ width: `${100 - yesPct}%` }} />
+                    </div>
+                </div>
+
+                {/* 4. Outcome */}
+                <div className="w-[160px] shrink-0 text-right pr-4">
+                    <span className="pulse-label mb-1.5 block">Outcome</span>
+                    <span className={`text-[22px] font-black tracking-tighter block leading-none ${
+                        isAdopted ? 'text-emerald-500' : isDefeated ? 'text-rose-500' : 'text-slate-400'
+                    }`}>
+                        {motion.status}
+                    </span>
+                </div>
+
+                {/* 5. Execution Protocol */}
+                <div className="shrink-0">
+                    {motion.url && (
+                        <a 
+                            href={motion.url} 
+                            target="_blank" 
+                            rel="noreferrer" 
+                            className="w-14 h-14 rounded-[24px] border border-slate-100 flex items-center justify-center text-slate-300 hover:bg-[#004a99] hover:text-white hover:border-[#004a99] hover:shadow-2xl hover:scale-105 transition-all duration-300 bg-white"
+                        >
+                            <ExternalLink size={20} />
+                        </a>
+                    )}
                 </div>
             </div>
+        </div>
+    );
+};
 
-            {filtersOpen && (
-                <div className="px-4 pb-3 pt-1 border-b border-slate-100 flex flex-wrap gap-3 items-center">
-                    <input
-                        type="text"
-                        placeholder="Search title, mover, ID..."
-                        value={search}
-                        onChange={e => setSearch(e.target.value)}
-                        className="text-[11px] border border-slate-200 rounded px-2 py-1 bg-white text-slate-700 placeholder-slate-400 focus:outline-none focus:border-[#004a99] w-52"
-                    />
+const MotionTable = ({ motions }) => {
+    const [searchTerm, setSearchTerm] = useState('');
+    const [visibleRows, setVisibleRows] = useState(20);
 
-                    <select
-                        value={statusFilter}
-                        onChange={e => setStatusFilter(e.target.value)}
-                        className="text-[11px] border border-slate-200 rounded px-2 py-1 bg-white text-slate-700 focus:outline-none focus:border-[#004a99]"
-                    >
-                        <option value="all">All statuses</option>
-                        <option value="adopted">Adopted</option>
-                        <option value="other">Defeated / Referred</option>
-                    </select>
+    const filteredMotions = useMemo(() => {
+        return motions.filter(m => 
+            m.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+            m.id.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+    }, [motions, searchTerm]);
 
-                    <select
-                        value={sortBy}
-                        onChange={e => setSortBy(e.target.value)}
-                        className="text-[11px] border border-slate-200 rounded px-2 py-1 bg-white text-slate-700 focus:outline-none focus:border-[#004a99]"
-                    >
-                        <option value="recent">Sort: Recent</option>
-                        <option value="significance">Sort: Most Significant</option>
-                    </select>
-
-                    <label className="flex items-center gap-1.5 text-[11px] text-slate-600 cursor-pointer select-none">
-                        <input type="checkbox" checked={hideMinor} onChange={e => setHideMinor(e.target.checked)} className="accent-[#004a99]" />
-                        Hide minor
-                    </label>
-
-                    <label className="flex items-center gap-1.5 text-[11px] text-slate-600 cursor-pointer select-none">
-                        <input type="checkbox" checked={notableOnly} onChange={e => setNotableOnly(e.target.checked)} className="accent-[#004a99]" />
-                        Notable only
-                    </label>
-
-                    {hasActiveFilters && (
-                        <button onClick={clearFilters} className="flex items-center gap-1 text-[10px] text-slate-400 hover:text-slate-700 ml-auto">
-                            <X size={11} /> Clear
-                        </button>
-                    )}
+    return (
+        <div className="space-y-12 mt-16 max-w-[1400px] mx-auto pb-40">
+            {/* Standardized Pulse Stream Header */}
+            <header className="flex items-end justify-between px-6 border-b border-slate-100 pb-10">
+                <div className="flex flex-col gap-2">
+                    <div className="flex items-center gap-4">
+                        <span className="text-[52px] font-black text-slate-900 tracking-tighter leading-none">{filteredMotions.length}</span>
+                        <h2 className="pulse-label">Council Records</h2>
+                    </div>
                 </div>
-            )}
 
-            <table className="motion-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Motion Title</th>
-                        <th>Mover / Seconder</th>
-                        <th>Vote</th>
-                        <th>Status</th>
-                        <th>Link</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {visible.length === 0 ? (
-                        <tr>
-                            <td colSpan={6} className="text-center text-slate-400 text-[11px] py-6">
-                                No motions match the current filters.
-                            </td>
-                        </tr>
-                    ) : (
-                        visible.map((m, i) => (
-                            <tr key={i}>
-                                <td>
-                                    <div className="font-mono text-[10px] text-slate-500">{m.id}</div>
-                                    {m.significance != null && (
-                                        <div className="text-[9px] text-slate-300 font-bold mt-0.5">{m.significance}</div>
-                                    )}
-                                </td>
-                                <td className="font-semibold text-slate-800">
-                                    <div className="flex items-start gap-2 flex-wrap">
-                                        {m.topic && (
-                                            <span className={`shrink-0 text-[9px] font-black uppercase px-1.5 py-0.5 rounded border whitespace-nowrap ${TOPIC_STYLES[m.topic] || TOPIC_STYLES.General}`}>
-                                                {m.topic}
-                                            </span>
-                                        )}
-                                        <span className="leading-snug">{m.title}</span>
-                                    </div>
-                                    <div className="flex items-center gap-1.5 mt-1 flex-wrap">
-                                        {m.trivial && (
-                                            <span className="text-[9px] bg-amber-50 text-amber-600 border border-amber-200 px-1.5 py-0.5 rounded font-bold uppercase whitespace-nowrap">
-                                                Minor
-                                            </span>
-                                        )}
-                                        {m.flags?.includes('close-vote') && (
-                                            <span className="text-[9px] bg-rose-50 text-rose-600 border border-rose-200 px-1.5 py-0.5 rounded font-bold uppercase whitespace-nowrap">
-                                                Close
-                                            </span>
-                                        )}
-                                        {m.flags?.includes('landslide-defeat') && (
-                                            <span className="text-[9px] bg-slate-100 text-slate-500 border border-slate-200 px-1.5 py-0.5 rounded font-bold uppercase whitespace-nowrap">
-                                                Crushed
-                                            </span>
-                                        )}
-                                        {m.flags?.includes('unanimous') && (
-                                            <span className="text-[9px] bg-emerald-50 text-emerald-600 border border-emerald-200 px-1.5 py-0.5 rounded font-bold uppercase whitespace-nowrap">
-                                                Unanimous
-                                            </span>
-                                        )}
-                                    </div>
-                                </td>
-                                <td>
-                                    <div className="text-[11px] font-bold text-[#004a99] uppercase">{m.mover}</div>
-                                    {m.seconder && (
-                                        <div className="text-[10px] text-slate-500 italic">Seconded by {m.seconder}</div>
-                                    )}
-                                </td>
-                                <td className="whitespace-nowrap">
-                                    {m.votes && (() => {
-                                        const vals = Object.values(m.votes);
-                                        const yes = vals.filter(v => v === 'YES').length;
-                                        const no = vals.filter(v => v === 'NO').length;
-                                        return (
-                                            <span className="font-mono text-xs">
-                                                <span className="text-emerald-600 font-bold">{yes}</span>
-                                                <span className="text-slate-300 mx-1">–</span>
-                                                <span className="text-rose-500 font-bold">{no}</span>
-                                            </span>
-                                        );
-                                    })()}
-                                </td>
-                                <td>
-                                    <span className={`px-2 py-1 rounded-full text-[10px] font-bold uppercase ${
-                                        m.status === 'Adopted' || m.status.includes('Carried')
-                                            ? 'bg-green-100 text-green-700'
-                                            : m.status === 'Defeated'
-                                                ? 'bg-rose-50 text-rose-600'
-                                                : 'bg-slate-100 text-slate-600'
-                                    }`}>
-                                        {m.status}
-                                    </span>
-                                </td>
-                                <td>
-                                    {m.url && (
-                                        <a href={m.url} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-[#004a99]">
-                                            <ExternalLink size={14} />
-                                        </a>
-                                    )}
-                                </td>
-                            </tr>
-                        ))
-                    )}
-                </tbody>
-            </table>
+                <div className="flex flex-col gap-2">
+                     <p className="text-[10px] font-black text-[#004a99] px-1">Search Records</p>
+                     <div className="relative group w-80">
+                        <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none group-focus-within:text-[#004a99] transition-colors" />
+                        <input
+                            type="text"
+                            placeholder="Search by title or ID..."
+                            className="w-full h-14 pl-12 pr-4 bg-white border border-slate-200 rounded-2xl text-[14px] font-medium placeholder:text-slate-300 outline-none focus:border-[#004a99] focus:shadow-xl transition-all"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                     </div>
+                </div>
+            </header>
 
-            {hasMore && (
-                <div className="px-4 py-3 border-t border-slate-100 text-center">
+            <div className="grid gap-6 px-2">
+                {filteredMotions.slice(0, visibleRows).map((motion) => (
+                    <MotionCard key={motion.id} motion={motion} />
+                ))}
+            </div>
+
+            {visibleRows < filteredMotions.length && (
+                <div className="flex justify-center pt-8 pb-32">
                     <button
-                        onClick={() => setPage(p => p + 1)}
-                        className="text-[11px] font-bold text-[#004a99] hover:underline"
+                        onClick={() => setVisibleRows(prev => prev + 20)}
+                        className="group flex flex-col items-center gap-4 active:scale-95 transition-all"
                     >
-                        Show more ({filtered.length - visible.length} remaining)
+                        <span className="text-[12px] font-black text-[#004a99] group-hover:underline transition-all">Show More Records</span>
+                        <div className="w-16 h-16 rounded-full border border-slate-200 flex items-center justify-center text-slate-300 group-hover:text-[#004a99] group-hover:border-[#004a99] group-hover:bg-slate-50 group-hover:shadow-lg transition-all">
+                             <ChevronDown size={32} strokeWidth={2.5} />
+                        </div>
                     </button>
                 </div>
             )}

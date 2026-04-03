@@ -1,5 +1,7 @@
 import React, { useMemo } from 'react';
+import { Users as UsersIcon } from 'lucide-react';
 import { getMemberAlignmentScore, getAttendance } from '../utils/analytics';
+import AlignmentHeatmap from './AlignmentHeatmap';
 
 const TOPIC_STYLES = {
     Housing: 'bg-blue-50 text-blue-700 border-blue-200',
@@ -46,56 +48,76 @@ const CouncillorList = ({ motions, onSelect }) => {
     }, [motions]);
 
     return (
-        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            <div>
-                <h1 className="text-4xl font-black italic tracking-tight text-slate-800">COUNCILLORS</h1>
-                <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] mt-1">
-                    {councillors.length} MEMBERS · 2022–2026 TERM
-                </p>
+        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-500">
+            {/* Consensus Score Card (Relocated from Dashboard) */}
+            <div className="card overflow-hidden">
+                <div className="card-title">
+                    Consensus Score
+                    <UsersIcon size={14} className="text-slate-300" />
+                </div>
+                <p className="text-[10px] text-slate-400 font-medium -mt-2 mb-4">Frequency of voting with the majority outcome across the current session</p>
+                <div className="mt-2">
+                    <AlignmentHeatmap onSelect={onSelect} motions={motions} />
+                </div>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {councillors.map(({ name, alignment, attendance, topTopic, voteCount }) => (
                     <div
                         key={name}
                         onClick={() => onSelect(name)}
-                        className="group p-4 bg-white border border-slate-100 rounded-2xl cursor-pointer hover:border-[#004a99] hover:shadow-lg hover:shadow-slate-200/50 transition-all"
+                        className="group flex flex-col p-6 bg-white/70 backdrop-blur-md border border-slate-100 rounded-[24px] cursor-pointer hover:border-[#004a99]/30 hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 relative overflow-hidden"
                     >
-                        {/* Avatar placeholder */}
-                        <div className="w-12 h-12 rounded-full bg-slate-100 border-2 border-slate-200 flex items-center justify-center mb-3 group-hover:border-[#004a99] transition-colors">
-                            <span className="text-sm font-black text-slate-400 group-hover:text-[#004a99] transition-colors">
-                                {name.split(' ').map(n => n[0]).slice(0, 2).join('')}
-                            </span>
+                        <div className="flex items-center gap-4 mb-5">
+                            <div className="w-12 h-12 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center shrink-0 group-hover:bg-[#004a99] group-hover:border-[#004a99] transition-all duration-500">
+                                <span className="text-[12px] font-black text-slate-400 group-hover:text-white transition-colors uppercase tracking-tight">
+                                    {name.split(' ').map(n => n[0]).slice(0, 2).join('')}
+                                </span>
+                            </div>
+                            <div className="min-w-0">
+                                <p className="font-black text-slate-900 text-sm leading-tight group-hover:text-[#004a99] transition-colors uppercase tracking-tighter truncate">
+                                    {name}
+                                </p>
+                                {topTopic && (
+                                    <span className="text-[9px] font-black uppercase inline-block mt-1 text-slate-400 tracking-widest opacity-60">
+                                        {topTopic}
+                                    </span>
+                                )}
+                            </div>
                         </div>
 
-                        <p className="font-black text-slate-800 text-sm leading-tight group-hover:text-[#004a99] transition-colors">
-                            {name.split(' ').at(-1)}
-                        </p>
-                        <p className="text-[10px] text-slate-400 font-medium mb-3 truncate">
-                            {name.split(' ').slice(0, -1).join(' ')}
-                        </p>
-
-                        {topTopic && (
-                            <span className={`text-[9px] font-black uppercase px-1.5 py-0.5 rounded border whitespace-nowrap ${TOPIC_STYLES[topTopic] || TOPIC_STYLES.General}`}>
-                                {topTopic}
-                            </span>
-                        )}
-
-                        <div className="flex items-center justify-between mt-3 pt-3 border-t border-slate-100">
-                            <div className="text-center">
-                                <div className={`text-sm font-black ${attendanceStyle(attendance.pct)}`}>
-                                    {attendance.pct}%
+                        <div className="grid grid-cols-2 gap-4">
+                            <div>
+                                <p className="text-[8px] text-slate-400 font-bold uppercase tracking-[0.1em] mb-1">Alignment</p>
+                                <div className="flex items-baseline gap-1">
+                                    <span className="text-lg font-black text-[#004a99] tracking-tighter">{alignment}%</span>
                                 </div>
-                                <div className="text-[8px] text-slate-400 font-bold uppercase">attend</div>
+                                <div className="w-full bg-slate-50 h-1 rounded-full mt-2 overflow-hidden">
+                                    <div 
+                                        className="bg-[#004a99] h-full transition-all duration-1000" 
+                                        style={{ width: `${alignment}%` }}
+                                    />
+                                </div>
                             </div>
-                            <div className="text-center">
-                                <div className="text-sm font-black text-[#004a99]">{alignment}%</div>
-                                <div className="text-[8px] text-slate-400 font-bold uppercase">align</div>
+                            <div>
+                                <p className="text-[8px] text-slate-400 font-bold uppercase tracking-[0.1em] mb-1">Attendance</p>
+                                <div className="flex items-baseline gap-1">
+                                    <span className={`text-lg font-black ${attendanceStyle(attendance.pct)} tracking-tighter`}>{attendance.pct}%</span>
+                                </div>
+                                <div className="w-full bg-slate-50 h-1 rounded-full mt-2 overflow-hidden">
+                                    <div 
+                                        className={`${attendance.pct < 90 ? 'bg-amber-500' : 'bg-emerald-500'} h-full transition-all duration-1000`}
+                                        style={{ width: `${attendance.pct}%` }}
+                                    />
+                                </div>
                             </div>
-                            <div className="text-center">
-                                <div className="text-sm font-black text-slate-600">{voteCount}</div>
-                                <div className="text-[8px] text-slate-400 font-bold uppercase">votes</div>
-                            </div>
+                        </div>
+
+                        <div className="mt-5 pt-4 border-t border-slate-50 flex justify-between items-center">
+                            <span className="text-[9px] font-bold text-slate-300 uppercase tracking-widest">
+                                {voteCount} Sessions
+                            </span>
+                            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]" />
                         </div>
                     </div>
                 ))}
