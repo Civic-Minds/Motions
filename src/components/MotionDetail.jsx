@@ -1,10 +1,18 @@
 import React, { useMemo } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ChevronLeft, ExternalLink, ArrowRight } from 'lucide-react';
+import { ChevronLeft, ExternalLink, ArrowRight, FileText } from 'lucide-react';
 import { TOPIC_PILL } from '../constants/data';
 
 // Extracts motion IDs referenced in text, e.g. "2024.EX15.3" or "EX15.3"
 const REF_PATTERN = /\b(?:\d{4}\.)?([A-Z]{2,4}\d+\.\d+)\b/g;
+
+// Derives the meeting-level agenda URL from a motion ID and date
+// e.g. id="MPB38.1", date="Feb 10, 2026" → https://secure.toronto.ca/council/agenda.do?meeting=2026.MPB38
+function meetingUrl(id, date) {
+    const year = new Date(date).getFullYear();
+    const meetingCode = id.replace(/\.\d+$/, ''); // strip item number
+    return `https://secure.toronto.ca/council/agenda.do?meeting=${year}.${meetingCode}`;
+}
 
 function parseReferences(title) {
     const ids = [];
@@ -138,16 +146,26 @@ const MotionDetail = ({ motions }) => {
                             </span>
                         )}
                     </div>
-                    {motion.url && (
+                    <div className="flex items-center gap-3 shrink-0">
                         <a
-                            href={motion.url}
+                            href={meetingUrl(motion.id, motion.date)}
                             target="_blank"
                             rel="noreferrer"
-                            className="shrink-0 flex items-center gap-1.5 text-[10px] font-bold text-slate-400 hover:text-[#004a99] transition-colors"
+                            className="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 hover:text-[#004a99] transition-colors"
                         >
-                            <ExternalLink size={13} /> Source
+                            <FileText size={13} /> Meeting Minutes
                         </a>
-                    )}
+                        {motion.url && (
+                            <a
+                                href={motion.url}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 hover:text-[#004a99] transition-colors"
+                            >
+                                <ExternalLink size={13} /> Agenda Item
+                            </a>
+                        )}
+                    </div>
                 </div>
 
                 <h1 className="text-xl font-black text-slate-900 leading-snug tracking-tight mb-5">
