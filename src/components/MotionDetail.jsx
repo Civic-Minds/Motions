@@ -1,7 +1,47 @@
 import React, { useMemo } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ChevronLeft, ExternalLink } from 'lucide-react';
+import { ChevronLeft, ExternalLink, ArrowRight } from 'lucide-react';
 import { TOPIC_PILL } from '../constants/data';
+
+// Extracts motion IDs referenced in text, e.g. "2024.EX15.3" or "EX15.3"
+const REF_PATTERN = /\b(?:\d{4}\.)?([A-Z]{2,4}\d+\.\d+)\b/g;
+
+function parseReferences(title) {
+    const ids = [];
+    let match;
+    const re = new RegExp(REF_PATTERN.source, 'g');
+    while ((match = re.exec(title)) !== null) {
+        ids.push(match[1]);
+    }
+    return [...new Set(ids)];
+}
+
+const MotionLink = ({ motion }) => {
+    const isAdopted = motion.status === 'Adopted' || motion.status?.includes('Carried');
+    const isDefeated = motion.status === 'Defeated';
+    return (
+        <Link
+            to={`/motions/${motion.id}`}
+            className="flex items-center justify-between gap-4 p-4 bg-slate-50 border border-slate-100 rounded-2xl hover:border-[#004a99]/30 hover:bg-white hover:shadow-sm transition-all group"
+        >
+            <div className="flex items-center gap-3 min-w-0">
+                <span className="text-[9px] font-mono font-bold text-slate-400 shrink-0">{motion.id}</span>
+                <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded-lg shrink-0 ${TOPIC_PILL[motion.topic] || TOPIC_PILL.General}`}>
+                    {motion.topic}
+                </span>
+                <p className="text-[11px] font-bold text-slate-700 truncate group-hover:text-[#004a99] transition-colors">
+                    {motion.title}
+                </p>
+            </div>
+            <div className="flex items-center gap-2 shrink-0">
+                <span className={`text-[9px] font-black ${isAdopted ? 'text-emerald-500' : isDefeated ? 'text-rose-500' : 'text-slate-400'}`}>
+                    {motion.status}
+                </span>
+                <ArrowRight size={12} className="text-slate-300 group-hover:text-[#004a99] transition-colors" />
+            </div>
+        </Link>
+    );
+};
 
 const VoteGroup = ({ label, names, color, bg }) => {
     if (!names.length) return null;
@@ -23,10 +63,28 @@ const MotionDetail = ({ motions }) => {
     const { motionId } = useParams();
     const navigate = useNavigate();
 
-    const motion = useMemo(
-        () => motions.find(m => m.id === motionId),
-        [motions, motionId]
-    );
+    const motionIndex = useMemo(() => {
+        const idx = {};
+        motions.forEach(m => { idx[m.id] = m; });
+        return idx;
+    }, [motions]);
+
+    const motion = motionIndex[motionId];
+
+    const references = useMemo(() => {
+        if (!motion) return [];
+        return parseReferences(motion.title)
+            .filter(id => id !== motion.id && motionIndex[id])
+            .map(id => motionIndex[id]);
+    }, [motion, motionIndex]);
+
+    const referencedBy = useMemo(() => {
+        if (!motion) return [];
+        return motions.filter(m => {
+            if (m.id === motion.id) return false;
+            return parseReferences(m.title).includes(motion.id);
+        });
+    }, [motion, motions]);
 
     if (!motion) {
         return (
@@ -122,6 +180,22 @@ const MotionDetail = ({ motions }) => {
                 </div>
             </div>
 
+            {/* References this motion makes */}
+            {references.length > 0 && (
+                <div className="p-8 bg-white border border-slate-100 rounded-[32px] shadow-sm space-y-3">
+                    <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">References</h2>
+                    {references.map(m => <MotionLink key={m.id} motion={m} />)}
+                </div>
+            )}
+
+            {/* Motions that reference this one */}
+            {referencedBy.length > 0 && (
+                <div className="p-8 bg-white border border-slate-100 rounded-[32px] shadow-sm space-y-3">
+                    <h2 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Referenced By</h2>
+                    {referencedBy.map(m => <MotionLink key={m.id} motion={m} />)}
+                </div>
+            )}
+
             {/* Vote breakdown */}
             {total > 0 && (
                 <div className="p-8 bg-white border border-slate-100 rounded-[32px] shadow-sm space-y-6">
@@ -137,24 +211,9 @@ const MotionDetail = ({ motions }) => {
                         </div>
                     </div>
 
-                    <VoteGroup
-                        label="Yes"
-                        names={yesVoters.sort()}
-                        color="text-emerald-600"
-                        bg="bg-emerald-50 border-emerald-100 text-emerald-800"
-                    />
-                    <VoteGroup
-                        label="No"
-                        names={noVoters.sort()}
-                        color="text-rose-500"
-                        bg="bg-rose-50 border-rose-100 text-rose-800"
-                    />
-                    <VoteGroup
-                        label="Absent"
-                        names={absentVoters.sort()}
-                        color="text-slate-400"
-                        bg="bg-slate-50 border-slate-100 text-slate-500"
-                    />
+                    <VoteGroup label="Yes" names={yesVoters.sort()} color="text-emerald-600" bg="bg-emerald-50 border-emerald-100 text-emerald-800" />
+                    <VoteGroup label="No" names={noVoters.sort()} color="text-rose-500" bg="bg-rose-50 border-rose-100 text-rose-800" />
+                    <VoteGroup label="Absent" names={absentVoters.sort()} color="text-slate-400" bg="bg-slate-50 border-slate-100 text-slate-500" />
                 </div>
             )}
         </div>
