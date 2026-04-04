@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { Target, AlertCircle, FileText, TrendingUp, UserMinus, ShieldCheck, Zap, BarChart3, Fingerprint } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { COUNCILLORS } from '../constants/data';
+import AlignmentMatrix from './AlignmentMatrix';
 
 const statsContainer = {
     hidden: {},
@@ -101,6 +102,11 @@ const Scorecard = ({ motions }) => {
                     </div>
                 </motion.div>
             </motion.div>
+
+            {/* Pairwise Alignment Matrix */}
+            <div className="p-8 bg-white border border-slate-100 rounded-[32px] shadow-sm overflow-hidden">
+                <AlignmentMatrix motions={motions} />
+            </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Impact Intelligence */}

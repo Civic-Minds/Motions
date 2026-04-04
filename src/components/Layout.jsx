@@ -30,6 +30,17 @@ const Layout = ({
         }
     }, [compareList]);
 
+    // Escape key closes whichever panel is open
+    useEffect(() => {
+        const onKey = (e) => {
+            if (e.key !== 'Escape') return;
+            if (compareList.length > 0) handleVersusClose();
+            else if (selectedCouncillor) handleProfileClose();
+        };
+        window.addEventListener('keydown', onKey);
+        return () => window.removeEventListener('keydown', onKey);
+    }, [selectedCouncillor, compareList]);
+
     const handleProfileClose = () => {
         setSelectedCouncillor(null);
         if (onCouncillorRoute) navigate('/councillors', { replace: true });

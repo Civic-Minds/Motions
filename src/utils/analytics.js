@@ -65,6 +65,57 @@ export function getAttendance(motions, memberName) {
 }
 
 /**
+ * Computes pairwise vote agreement between all councillors in a single pass.
+ * @param {Array} motions
+ * @param {number} minShared - minimum shared votes to include a pairing
+ * @returns {{ names: string[], matrix: number[][] }} names sorted alphabetically by last name,
+ *   matrix[i][j] = agreement % (0–100), or null if insufficient shared votes.
+ */
+export function getPairwiseAlignment(motions, minShared = 10) {
+    const agreed = {};
+    const total = {};
+
+    motions.forEach(m => {
+        if (m.trivial || !m.votes) return;
+        const voters = Object.entries(m.votes).filter(([, v]) => v === 'YES' || v === 'NO');
+        for (let i = 0; i < voters.length; i++) {
+            for (let j = i + 1; j < voters.length; j++) {
+                const [nameA, voteA] = voters[i];
+                const [nameB, voteB] = voters[j];
+                const key = nameA < nameB ? `${nameA}|${nameB}` : `${nameB}|${nameA}`;
+                total[key] = (total[key] || 0) + 1;
+                if (voteA === voteB) agreed[key] = (agreed[key] || 0) + 1;
+            }
+        }
+    });
+
+    // Collect all names that appear in enough pairings
+    const nameSet = new Set();
+    Object.keys(total).forEach(key => {
+        if (total[key] >= minShared) {
+            const [a, b] = key.split('|');
+            nameSet.add(a);
+            nameSet.add(b);
+        }
+    });
+
+    const names = [...nameSet].sort((a, b) =>
+        a.split(' ').at(-1).localeCompare(b.split(' ').at(-1))
+    );
+
+    const matrix = names.map((nameA, i) =>
+        names.map((nameB, j) => {
+            if (i === j) return 100;
+            const key = nameA < nameB ? `${nameA}|${nameB}` : `${nameB}|${nameA}`;
+            if (!total[key] || total[key] < minShared) return null;
+            return Math.round(((agreed[key] || 0) / total[key]) * 100);
+        })
+    );
+
+    return { names, matrix };
+}
+
+/**
  * Returns the councillors this member agrees with most (and least) often.
  * Only counts non-trivial motions where both councillors voted YES or NO.
  * @param {Array} motions

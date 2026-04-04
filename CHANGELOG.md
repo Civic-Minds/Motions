@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- **Escape key closes panels** — pressing Escape dismisses the ProfilePanel or VersusOverlay (whichever is open), with the same navigate-back behaviour as the close button on councillor sub-routes.
+- **Pairwise alignment matrix** — new `AlignmentMatrix` component on the Analytics page showing agreement % between every pair of councillors as a colour-coded NxN grid. Computed in one pass via `getPairwiseAlignment()` in analytics.js. Hovering a cell dims all unrelated rows/columns and shows a callout with the exact pairing and percentage. The colour scale runs from rose (low agreement) through amber to emerald (high), making the progressive/conservative fault line visible at a glance without any hardcoded groupings.
 - **"Votes With" section in ProfilePanel** — shows the top 5 councillors this member agrees with most often (% agreement on shared non-trivial YES/NO votes, minimum 10 shared votes). A "Least aligned" row at the bottom shows the 3 most opposed councillors by last name + percentage. Powered by new `getVotedWith` utility in `analytics.js`.
 - **Legislative Activity timeline in Scorecard** — horizontal bar chart showing motions per session across the full term. Each bar is split into adopted (green) and non-adopted (blue) segments. Hovering a bar shows the session date, total count, and adopted count. Spans the full term chronologically.
 - **Shareable councillor URLs** — councillor profiles and VS comparisons now have permanent, linkable URLs:
