@@ -43,6 +43,18 @@ const ProfilePanel = ({ selected, onClose, onCompare, motions }) => {
         return getVotedWith(motions, selected);
     }, [selected, motions]);
 
+    const [topicFilter, setTopicFilter] = React.useState('All');
+
+    const voteTopics = useMemo(() => {
+        const topics = [...new Set(voteHistory.map(m => m.topic).filter(Boolean))];
+        return ['All', ...topics];
+    }, [voteHistory]);
+
+    const filteredVoteHistory = useMemo(() => {
+        if (topicFilter === 'All') return voteHistory;
+        return voteHistory.filter(m => m.topic === topicFilter);
+    }, [voteHistory, topicFilter]);
+
     return (
         <div className={`profile-panel ${isOpen ? 'open' : ''}`}>
             <div className="profile-header flex justify-between items-start">
@@ -161,11 +173,30 @@ const ProfilePanel = ({ selected, onClose, onCompare, motions }) => {
 
                 {/* Voting history — top 20 by significance */}
                 <div>
-                    <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">
-                        Notable Votes <span className="text-slate-300 font-bold normal-case">· by significance</span>
-                    </h3>
+                    <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+                        <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                            Notable Votes <span className="text-slate-300 font-bold normal-case">· by significance</span>
+                        </h3>
+                        {voteTopics.length > 2 && (
+                            <div className="flex flex-wrap gap-1">
+                                {voteTopics.map(topic => (
+                                    <button
+                                        key={topic}
+                                        onClick={() => setTopicFilter(topic)}
+                                        className={`text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded-lg border transition-colors ${
+                                            topicFilter === topic
+                                                ? 'bg-[#004a99] text-white border-[#004a99]'
+                                                : 'bg-white text-slate-400 border-slate-100 hover:border-slate-300'
+                                        }`}
+                                    >
+                                        {topic}
+                                    </button>
+                                ))}
+                            </div>
+                        )}
+                    </div>
                     <div className="space-y-3">
-                        {voteHistory.map((m, i) => {
+                        {filteredVoteHistory.map((m, i) => {
                             const vote = m.votes[selected];
                             return (
                                 <div key={i} className="p-4 border border-slate-100 rounded-2xl hover:border-[#004a99] transition-all bg-white group">
@@ -193,8 +224,8 @@ const ProfilePanel = ({ selected, onClose, onCompare, motions }) => {
                                 </div>
                             );
                         })}
-                        {voteHistory.length === 0 && (
-                            <p className="text-[11px] text-slate-400 italic">No notable votes found.</p>
+                        {filteredVoteHistory.length === 0 && (
+                            <p className="text-[11px] text-slate-400 italic">No votes found for this topic.</p>
                         )}
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { getPairwiseAlignment } from '../utils/analytics';
+import { getPairwiseAlignment, getMemberAlignmentScore } from '../utils/analytics';
 
 function pctToColor(pct) {
     if (pct === null) return { bg: 'bg-slate-50', text: 'text-slate-200' };
@@ -12,9 +12,20 @@ function pctToColor(pct) {
 }
 
 const AlignmentMatrix = ({ motions }) => {
-    const [hovered, setHovered] = useState(null); // { row, col }
+    const [hovered, setHovered] = useState(null);
+    const [sortByBloc, setSortByBloc] = useState(false);
 
-    const { names, matrix } = useMemo(() => getPairwiseAlignment(motions), [motions]);
+    const { names: rawNames, matrix: rawMatrix } = useMemo(() => getPairwiseAlignment(motions), [motions]);
+
+    // Bloc sort: reorder by average alignment score (progressives low, conservatives high)
+    const { names, matrix } = useMemo(() => {
+        if (!sortByBloc || !rawNames.length) return { names: rawNames, matrix: rawMatrix };
+        const scores = rawNames.map(name => getMemberAlignmentScore(motions, name) ?? 50);
+        const order = rawNames.map((_, i) => i).sort((a, b) => scores[a] - scores[b]);
+        const names = order.map(i => rawNames[i]);
+        const matrix = order.map(i => order.map(j => rawMatrix[i][j]));
+        return { names, matrix };
+    }, [sortByBloc, rawNames, rawMatrix, motions]);
 
     const shortName = (name) => name.split(' ').at(-1);
 
@@ -27,15 +38,27 @@ const AlignmentMatrix = ({ motions }) => {
                         Agreement % on shared non-trivial votes · {names.length} councillors
                     </p>
                 </div>
-                <div className="flex items-center gap-1 text-[8px] font-black uppercase tracking-widest text-slate-400">
-                    <div className="flex gap-0.5 items-center">
-                        <div className="w-3 h-3 rounded bg-rose-300" />
-                        <span className="mx-1">Low</span>
-                        <div className="w-3 h-3 rounded bg-amber-100" />
-                        <div className="w-3 h-3 rounded bg-emerald-200" />
-                        <div className="w-3 h-3 rounded bg-emerald-500" />
-                        <span className="ml-1">High</span>
+                <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-1 text-[8px] font-black uppercase tracking-widest text-slate-400">
+                        <div className="flex gap-0.5 items-center">
+                            <div className="w-3 h-3 rounded bg-rose-300" />
+                            <span className="mx-1">Low</span>
+                            <div className="w-3 h-3 rounded bg-amber-100" />
+                            <div className="w-3 h-3 rounded bg-emerald-200" />
+                            <div className="w-3 h-3 rounded bg-emerald-500" />
+                            <span className="ml-1">High</span>
+                        </div>
                     </div>
+                    <button
+                        onClick={() => setSortByBloc(p => !p)}
+                        className={`text-[8px] font-black uppercase tracking-widest px-2.5 py-1 rounded-lg border transition-colors ${
+                            sortByBloc
+                                ? 'bg-[#004a99] text-white border-[#004a99]'
+                                : 'bg-white text-slate-400 border-slate-200 hover:border-slate-300'
+                        }`}
+                    >
+                        {sortByBloc ? 'Bloc View' : 'Sort by Bloc'}
+                    </button>
                 </div>
             </div>
 

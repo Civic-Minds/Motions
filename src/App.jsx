@@ -7,6 +7,7 @@ import BudgetTranslator from './components/BudgetTranslator';
 import WardGrid from './components/WardGrid';
 import DashboardView from './components/DashboardView';
 import CouncillorList from './components/CouncillorList';
+import MotionDetail from './components/MotionDetail';
 import { useMotions } from './hooks/useMotions';
 
 function App() {
@@ -104,6 +105,7 @@ function App() {
               onActivate={handleActivatePanel}
             />
           } />
+          <Route path="/motions/:motionId" element={<MotionDetail motions={motions} />} />
           <Route path="/wards"     element={<WardGrid motions={motions} onSelect={handleSelect} />} />
           <Route path="/analytics" element={<Scorecard motions={motions} />} />
           <Route path="/budget"    element={<BudgetTranslator />} />

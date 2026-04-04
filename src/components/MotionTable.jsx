@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { ExternalLink, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { TOPIC_COLOR } from '../constants/data';
@@ -16,82 +17,149 @@ const MEETING_NAMES = {
 const getMeetingName = (id) => MEETING_NAMES[id.replace(/\d/g, '')] ?? 'Committee Meeting';
 
 const MotionCard = ({ motion }) => {
+    const [votersOpen, setVotersOpen] = useState(false);
+
     const isAdopted  = motion.status === 'Adopted' || motion.status.includes('Carried');
     const isDefeated = motion.status === 'Defeated';
 
-    const votes  = motion.votes ? Object.values(motion.votes) : [];
-    const yes    = votes.filter(v => v === 'YES').length;
-    const no     = votes.filter(v => v === 'NO').length;
+    const allVotes = motion.votes ? Object.entries(motion.votes) : [];
+    const yes    = allVotes.filter(([, v]) => v === 'YES').length;
+    const no     = allVotes.filter(([, v]) => v === 'NO').length;
     const total  = yes + no;
     const yesPct = total > 0 ? (yes / total) * 100 : 0;
+
+    const yesVoters    = allVotes.filter(([, v]) => v === 'YES').map(([n]) => n).sort();
+    const noVoters     = allVotes.filter(([, v]) => v === 'NO').map(([n]) => n).sort();
+    const absentVoters = allVotes.filter(([, v]) => v !== 'YES' && v !== 'NO').map(([n]) => n).sort();
 
     const tc = TOPIC_COLOR[motion.topic] ?? TOPIC_COLOR.General;
 
     return (
-        <div className={`group relative flex items-center gap-2 p-3 sm:gap-6 sm:p-5 bg-white rounded-2xl border transition-all duration-300 hover:shadow-md hover:-translate-y-px ${
+        <div className={`group relative bg-white rounded-2xl border transition-all duration-300 hover:shadow-md ${
             isAdopted  ? 'border-l-[3px] border-l-emerald-400 border-slate-100' :
             isDefeated ? 'border-l-[3px] border-l-rose-400 border-slate-100' :
                          'border-slate-100'
         }`}>
+            <div className="flex items-center gap-2 p-3 sm:gap-6 sm:p-5">
+                {/* Topic + ID */}
+                <div className="shrink-0 flex flex-col gap-1 w-[72px] sm:w-[88px]">
+                    <span className={`text-[9px] font-black uppercase tracking-wide px-2 py-1 rounded-lg border text-center ${tc.badge}`}>
+                        {motion.topic ?? 'General'}
+                    </span>
+                    <span className="text-[9px] font-mono font-bold text-slate-400 text-center">{motion.id}</span>
+                </div>
 
-            {/* Topic + ID */}
-            <div className="shrink-0 flex flex-col gap-1 w-[72px] sm:w-[88px]">
-                <span className={`text-[9px] font-black uppercase tracking-wide px-2 py-1 rounded-lg border text-center ${tc.badge}`}>
-                    {motion.topic ?? 'General'}
-                </span>
-                <span className="text-[9px] font-mono font-bold text-slate-400 text-center">{motion.id}</span>
-            </div>
+                {/* Title */}
+                <div className="flex-1 min-w-0">
+                    <Link
+                        to={`/motions/${motion.id}`}
+                        className="text-[14px] font-semibold text-slate-800 leading-snug line-clamp-1 hover:text-[#004a99] transition-colors"
+                    >
+                        {motion.title}
+                    </Link>
+                    {motion.significance > 15 && (
+                        <div className="flex items-center gap-1.5 mt-1.5">
+                            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                            <span className="text-[9px] font-bold text-emerald-600 uppercase tracking-wide">High Legislative Impact</span>
+                        </div>
+                    )}
+                </div>
 
-            {/* Title */}
-            <div className="flex-1 min-w-0">
-                <p className="text-[14px] font-semibold text-slate-800 leading-snug line-clamp-1 group-hover:text-[#004a99] transition-colors">
-                    {motion.title}
-                </p>
-                {motion.significance > 15 && (
-                    <div className="flex items-center gap-1.5 mt-1.5">
-                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                        <span className="text-[9px] font-bold text-emerald-600 uppercase tracking-wide">High Legislative Impact</span>
-                    </div>
+                {/* Vote bar + expand toggle */}
+                {total > 0 && (
+                    <button
+                        onClick={() => setVotersOpen(p => !p)}
+                        className="shrink-0 w-[160px] hidden lg:block text-left group/vbar"
+                    >
+                        <div className="flex justify-between items-baseline mb-1.5">
+                            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider group-hover/vbar:text-[#004a99] transition-colors">
+                                {votersOpen ? 'Hide' : 'Voters'}
+                            </span>
+                            <span className="text-[11px] font-black text-slate-700 font-mono">{yes} / {no}</span>
+                        </div>
+                        <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden flex">
+                            <div className="h-full bg-emerald-400 rounded-l-full transition-all duration-700" style={{ width: `${yesPct}%` }} />
+                            <div className="h-full bg-rose-400 rounded-r-full transition-all duration-700" style={{ width: `${100 - yesPct}%` }} />
+                        </div>
+                    </button>
+                )}
+
+                {/* Outcome */}
+                <div className="shrink-0 text-right">
+                    <span className={`text-xs sm:text-[13px] font-black tracking-tight ${
+                        isAdopted ? 'text-emerald-500' : isDefeated ? 'text-rose-500' : 'text-slate-400'
+                    }`}>
+                        {motion.status}
+                    </span>
+                </div>
+
+                {/* External link */}
+                {motion.url ? (
+                    <a
+                        href={motion.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={e => e.stopPropagation()}
+                        className="shrink-0 w-9 h-9 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-[#004a99] hover:text-white hover:border-[#004a99] transition-all duration-200"
+                    >
+                        <ExternalLink size={14} />
+                    </a>
+                ) : (
+                    <div className="shrink-0 w-9" />
                 )}
             </div>
 
-            {/* Vote breakdown */}
-            {total > 0 && (
-                <div className="shrink-0 w-[160px] hidden lg:block">
-                    <div className="flex justify-between items-baseline mb-1.5">
-                        <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Vote</span>
-                        <span className="text-[11px] font-black text-slate-700 font-mono">{yes} / {no}</span>
-                    </div>
-                    <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden flex">
-                        <div className="h-full bg-emerald-400 rounded-l-full transition-all duration-700" style={{ width: `${yesPct}%` }} />
-                        <div className="h-full bg-rose-400 rounded-r-full transition-all duration-700" style={{ width: `${100 - yesPct}%` }} />
-                    </div>
-                </div>
-            )}
-
-            {/* Outcome */}
-            <div className="shrink-0 text-right">
-                <span className={`text-xs sm:text-[13px] font-black tracking-tight ${
-                    isAdopted ? 'text-emerald-500' : isDefeated ? 'text-rose-500' : 'text-slate-400'
-                }`}>
-                    {motion.status}
-                </span>
-            </div>
-
-            {/* Link */}
-            {motion.url ? (
-                <a
-                    href={motion.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    onClick={e => e.stopPropagation()}
-                    className="shrink-0 w-9 h-9 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-[#004a99] hover:text-white hover:border-[#004a99] transition-all duration-200"
-                >
-                    <ExternalLink size={14} />
-                </a>
-            ) : (
-                <div className="shrink-0 w-9" />
-            )}
+            {/* Expandable voter list */}
+            <AnimatePresence initial={false}>
+                {votersOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.18, ease: 'easeOut' }}
+                        className="overflow-hidden border-t border-slate-50"
+                    >
+                        <div className="px-5 py-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            {yesVoters.length > 0 && (
+                                <div>
+                                    <p className="text-[8px] font-black text-emerald-600 uppercase tracking-widest mb-2">Yes · {yesVoters.length}</p>
+                                    <div className="flex flex-wrap gap-1">
+                                        {yesVoters.map(n => (
+                                            <span key={n} className="text-[9px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded-lg">
+                                                {n.split(' ').at(-1)}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                            {noVoters.length > 0 && (
+                                <div>
+                                    <p className="text-[8px] font-black text-rose-500 uppercase tracking-widest mb-2">No · {noVoters.length}</p>
+                                    <div className="flex flex-wrap gap-1">
+                                        {noVoters.map(n => (
+                                            <span key={n} className="text-[9px] font-bold text-rose-800 bg-rose-50 border border-rose-100 px-2 py-0.5 rounded-lg">
+                                                {n.split(' ').at(-1)}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                            {absentVoters.length > 0 && (
+                                <div>
+                                    <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-2">Absent · {absentVoters.length}</p>
+                                    <div className="flex flex-wrap gap-1">
+                                        {absentVoters.map(n => (
+                                            <span key={n} className="text-[9px] font-bold text-slate-500 bg-slate-50 border border-slate-100 px-2 py-0.5 rounded-lg">
+                                                {n.split(' ').at(-1)}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 };
