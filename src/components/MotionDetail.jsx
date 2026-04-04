@@ -51,23 +51,27 @@ const MotionLink = ({ motion }) => {
     );
 };
 
-const VoteGroup = ({ label, names, color, bg }) => {
+const VoteGroup = ({ label, names, color, bg, hoverBg, onSelect }) => {
     if (!names.length) return null;
     return (
         <div>
             <p className={`text-[9px] font-black uppercase tracking-widest mb-2 ${color}`}>{label} — {names.length}</p>
             <div className="flex flex-wrap gap-2">
                 {names.map(name => (
-                    <span key={name} className={`text-[10px] font-bold px-2.5 py-1 rounded-xl border ${bg}`}>
+                    <button
+                        key={name}
+                        onClick={() => onSelect?.(name)}
+                        className={`text-[10px] font-bold px-2.5 py-1 rounded-xl border transition-colors ${bg} ${hoverBg}`}
+                    >
                         {name}
-                    </span>
+                    </button>
                 ))}
             </div>
         </div>
     );
 };
 
-const MotionDetail = ({ motions }) => {
+const MotionDetail = ({ motions, onSelect }) => {
     const { motionId } = useParams();
     const navigate = useNavigate();
 
@@ -186,13 +190,17 @@ const MotionDetail = ({ motions }) => {
                     {motion.mover && (
                         <div>
                             <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Mover</p>
-                            <p className="text-sm font-black text-slate-800">{motion.mover}</p>
+                            <button onClick={() => onSelect?.(motion.mover)} className="text-sm font-black text-slate-800 hover:text-[#004a99] transition-colors">
+                                {motion.mover}
+                            </button>
                         </div>
                     )}
                     {motion.seconder && (
                         <div>
                             <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Seconder</p>
-                            <p className="text-sm font-black text-slate-800">{motion.seconder}</p>
+                            <button onClick={() => onSelect?.(motion.seconder)} className="text-sm font-black text-slate-800 hover:text-[#004a99] transition-colors">
+                                {motion.seconder}
+                            </button>
                         </div>
                     )}
                 </div>
@@ -229,9 +237,9 @@ const MotionDetail = ({ motions }) => {
                         </div>
                     </div>
 
-                    <VoteGroup label="Yes" names={yesVoters.sort()} color="text-emerald-600" bg="bg-emerald-50 border-emerald-100 text-emerald-800" />
-                    <VoteGroup label="No" names={noVoters.sort()} color="text-rose-500" bg="bg-rose-50 border-rose-100 text-rose-800" />
-                    <VoteGroup label="Absent" names={absentVoters.sort()} color="text-slate-400" bg="bg-slate-50 border-slate-100 text-slate-500" />
+                    <VoteGroup label="Yes" names={yesVoters.sort()} color="text-emerald-600" bg="bg-emerald-50 border-emerald-100 text-emerald-800" hoverBg="hover:bg-emerald-100 hover:border-emerald-300" onSelect={onSelect} />
+                    <VoteGroup label="No" names={noVoters.sort()} color="text-rose-500" bg="bg-rose-50 border-rose-100 text-rose-800" hoverBg="hover:bg-rose-100 hover:border-rose-300" onSelect={onSelect} />
+                    <VoteGroup label="Absent" names={absentVoters.sort()} color="text-slate-400" bg="bg-slate-50 border-slate-100 text-slate-500" hoverBg="hover:bg-slate-100 hover:border-slate-300" onSelect={onSelect} />
                 </div>
             )}
         </div>

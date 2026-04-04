@@ -2,9 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [1.2.0] - 2026-04-03
 
 ### Added
+- **Clickable councillor names throughout** — councillor names in the motion detail vote breakdown (YES/NO/Absent), and the mover/seconder fields, are now interactive buttons that open that councillor's ProfilePanel. Names in the inline voter expansion in MotionTable are also clickable. Closes the loop between motions and people across the entire app.
 - **Motion cross-references** — motion detail pages now parse item IDs from titles (e.g. "Re-Opening and Amending Item 2024.EX15.3") and render a References section linking to the cited motion. A Referenced By section appears on the target motion showing what later items point back to it. Bidirectional, derived entirely from title text.
 - **Motion detail pages** (`/motions/:id`) — each motion now has a permanent, shareable URL. Shows full title, date, topic, outcome, mover/seconder, and a full YES/NO/Absent vote breakdown with all councillor names. Motion titles in the table are now links to their detail page.
 - **Vote breakdown in MotionTable** — clicking the "Voters" bar on any motion card expands an inline panel showing individual YES/NO/Absent voters by last name, without leaving the table. The bar also remains a link to the full detail page.

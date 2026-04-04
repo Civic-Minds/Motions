@@ -105,7 +105,7 @@ function App() {
               onActivate={handleActivatePanel}
             />
           } />
-          <Route path="/motions/:motionId" element={<MotionDetail motions={motions} />} />
+          <Route path="/motions/:motionId" element={<MotionDetail motions={motions} onSelect={handleSelect} />} />
           <Route path="/wards"     element={<WardGrid motions={motions} onSelect={handleSelect} />} />
           <Route path="/analytics" element={<Scorecard motions={motions} />} />
           <Route path="/budget"    element={<BudgetTranslator />} />

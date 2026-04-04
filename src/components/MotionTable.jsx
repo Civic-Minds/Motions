@@ -16,7 +16,7 @@ const MEETING_NAMES = {
 
 const getMeetingName = (id) => MEETING_NAMES[id.replace(/\d/g, '')] ?? 'Committee Meeting';
 
-const MotionCard = ({ motion }) => {
+const MotionCard = ({ motion, onSelect }) => {
     const [votersOpen, setVotersOpen] = useState(false);
 
     const isAdopted  = motion.status === 'Adopted' || motion.status.includes('Carried');
@@ -125,9 +125,9 @@ const MotionCard = ({ motion }) => {
                                     <p className="text-[8px] font-black text-emerald-600 uppercase tracking-widest mb-2">Yes · {yesVoters.length}</p>
                                     <div className="flex flex-wrap gap-1">
                                         {yesVoters.map(n => (
-                                            <span key={n} className="text-[9px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded-lg">
+                                            <button key={n} onClick={() => onSelect?.(n)} className="text-[9px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded-lg hover:bg-emerald-100 hover:border-emerald-300 transition-colors">
                                                 {n.split(' ').at(-1)}
-                                            </span>
+                                            </button>
                                         ))}
                                     </div>
                                 </div>
@@ -137,9 +137,9 @@ const MotionCard = ({ motion }) => {
                                     <p className="text-[8px] font-black text-rose-500 uppercase tracking-widest mb-2">No · {noVoters.length}</p>
                                     <div className="flex flex-wrap gap-1">
                                         {noVoters.map(n => (
-                                            <span key={n} className="text-[9px] font-bold text-rose-800 bg-rose-50 border border-rose-100 px-2 py-0.5 rounded-lg">
+                                            <button key={n} onClick={() => onSelect?.(n)} className="text-[9px] font-bold text-rose-800 bg-rose-50 border border-rose-100 px-2 py-0.5 rounded-lg hover:bg-rose-100 hover:border-rose-300 transition-colors">
                                                 {n.split(' ').at(-1)}
-                                            </span>
+                                            </button>
                                         ))}
                                     </div>
                                 </div>
@@ -149,9 +149,9 @@ const MotionCard = ({ motion }) => {
                                     <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-2">Absent · {absentVoters.length}</p>
                                     <div className="flex flex-wrap gap-1">
                                         {absentVoters.map(n => (
-                                            <span key={n} className="text-[9px] font-bold text-slate-500 bg-slate-50 border border-slate-100 px-2 py-0.5 rounded-lg">
+                                            <button key={n} onClick={() => onSelect?.(n)} className="text-[9px] font-bold text-slate-500 bg-slate-50 border border-slate-100 px-2 py-0.5 rounded-lg hover:bg-slate-100 hover:border-slate-300 transition-colors">
                                                 {n.split(' ').at(-1)}
-                                            </span>
+                                            </button>
                                         ))}
                                     </div>
                                 </div>
@@ -164,7 +164,7 @@ const MotionCard = ({ motion }) => {
     );
 };
 
-const MeetingGroup = ({ meeting, isInitiallyExpanded = false }) => {
+const MeetingGroup = ({ meeting, isInitiallyExpanded = false, onSelect }) => {
     const [isExpanded, setIsExpanded] = useState(isInitiallyExpanded);
     const { date, meetingID, motions } = meeting;
     const meetingName = getMeetingName(meetingID);
@@ -237,7 +237,7 @@ const MeetingGroup = ({ meeting, isInitiallyExpanded = false }) => {
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: idx * 0.035, type: 'spring', stiffness: 320, damping: 28 }}
                                 >
-                                    <MotionCard motion={m} />
+                                    <MotionCard motion={m} onSelect={onSelect} />
                                 </motion.div>
                             ))}
                         </div>
@@ -248,7 +248,7 @@ const MeetingGroup = ({ meeting, isInitiallyExpanded = false }) => {
     );
 };
 
-const MotionTable = ({ motions }) => {
+const MotionTable = ({ motions, handleSelect }) => {
     const [visibleMeetings, setVisibleMeetings] = useState(10);
 
     const groupedMeetings = useMemo(() => {
@@ -287,6 +287,7 @@ const MotionTable = ({ motions }) => {
                         <MeetingGroup
                             meeting={meeting}
                             isInitiallyExpanded={idx === 0}
+                            onSelect={handleSelect}
                         />
                     </motion.div>
                 ))}
