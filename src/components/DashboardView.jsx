@@ -169,7 +169,7 @@ export default function DashboardView({ motions, councillors }) {
           </div>
 
           {highlights.length > 0 ? (
-            <div className="grid grid-cols-4 gap-2 flex-1">
+            <div className="grid grid-cols-4 gap-2 items-start">
               {highlights.map((m, i) => {
                 const yesCount = Object.values(m.votes ?? {}).filter(v => v === 'YES').length;
                 const noCount  = Object.values(m.votes ?? {}).filter(v => v === 'NO').length;
@@ -191,10 +191,10 @@ export default function DashboardView({ motions, councillors }) {
                         {m.status === 'Adopted' ? '✓' : '✗'}
                       </span>
                     </div>
-                    <p className="text-xs font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-3 leading-snug flex-1">
+                    <p className="text-xs font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-3 leading-snug">
                       {m.title}
                     </p>
-                    <div className="flex items-center justify-between mt-auto">
+                    <div className="flex items-center justify-between">
                       <span className="text-[9px] text-slate-400">{m.date}</span>
                       {total > 0 && (
                         <span className="text-[9px] font-medium">
