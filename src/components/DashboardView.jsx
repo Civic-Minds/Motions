@@ -90,7 +90,7 @@ export default function DashboardView({ motions, councillors }) {
 
         {/* Last Meeting */}
         <div className="flex flex-col gap-1.5">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-1">Last Meeting</p>
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Last Meeting</p>
           <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col gap-3">
             <div>
               <p className="text-2xl font-black text-slate-900 leading-none">{lastMeeting.count}
@@ -123,7 +123,7 @@ export default function DashboardView({ motions, councillors }) {
 
         {/* Most Recent Notable */}
         <div className="flex flex-col gap-1.5">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-1">Most Recent Notable</p>
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Most Recent Notable</p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {highlights.map((m, i) => {
               const yesCount = Object.values(m.votes ?? {}).filter(v => v === 'YES').length;
@@ -167,7 +167,7 @@ export default function DashboardView({ motions, councillors }) {
 
         {/* Your Ward */}
         <div className="flex flex-col gap-1.5">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-1">Your Ward</p>
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Your Ward</p>
           <YourWardCard motions={motions} />
         </div>
       </div>
@@ -177,7 +177,7 @@ export default function DashboardView({ motions, councillors }) {
 
         {/* ── Topic sidebar (desktop) ── */}
         <div className="hidden lg:block sticky top-24">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3 px-3">Filter</p>
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-3 px-3">Filter</p>
           <div className="space-y-0.5">
             {['All', ...TOPICS].map(topic => (
               <button

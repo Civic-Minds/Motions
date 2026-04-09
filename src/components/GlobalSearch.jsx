@@ -172,7 +172,7 @@ export default function GlobalSearch({ motions, councillorNames, open, onClose }
 
                   {results.councillors.length > 0 && (
                     <div>
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-4 pt-2 pb-1">Councillors</p>
+                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-4 pt-2 pb-1">Councillors</p>
                       {results.councillors.map((name, i) => {
                         const idx = i;
                         const isActive = cursor === idx;
@@ -201,7 +201,7 @@ export default function GlobalSearch({ motions, councillorNames, open, onClose }
 
                   {results.motions.length > 0 && (
                     <div>
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-4 pt-2 pb-1">Motions</p>
+                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-4 pt-2 pb-1">Motions</p>
                       {results.motions.map((m, i) => {
                         const idx = results.councillors.length + i;
                         const isActive = cursor === idx;

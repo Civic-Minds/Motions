@@ -155,7 +155,7 @@ export default function ProfilePanel({ selected, onClose, onCompare, onMotionCli
                 {/* Voting DNA */}
                 {dna.length > 0 && (
                   <div className="rounded-2xl bg-slate-50 border border-slate-100 p-5">
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Voting DNA</p>
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-4">Voting DNA</p>
                     <div className="space-y-3.5">
                       {dna.map(({ topic, yesPct, total }) => (
                         <div key={topic}>
@@ -181,7 +181,7 @@ export default function ProfilePanel({ selected, onClose, onCompare, onMotionCli
                 {/* Votes With */}
                 {votedWith.length > 0 && (
                   <div className="rounded-2xl bg-slate-50 border border-slate-100 p-5">
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Most Aligned With</p>
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-4">Most Aligned With</p>
                     <div className="space-y-2.5">
                       {votedWith.slice(0, 5).map((peer, i) => (
                         <div key={i} className="flex items-center gap-3">
@@ -210,7 +210,7 @@ export default function ProfilePanel({ selected, onClose, onCompare, onMotionCli
                     </div>
                     {votedWith.length > 5 && (
                       <div className="mt-4 pt-3 border-t border-slate-100">
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Least aligned</p>
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-2">Least aligned</p>
                         <div className="flex gap-1.5 flex-wrap">
                           {votedWith.slice(-3).reverse().map((peer, i) => (
                             <span key={i} className="text-[10px] font-medium text-rose-500 bg-rose-50 border border-rose-100 px-2 py-0.5 rounded-lg">
@@ -226,7 +226,7 @@ export default function ProfilePanel({ selected, onClose, onCompare, onMotionCli
                 {/* Notable Votes */}
                 <div>
                   <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Notable Votes</p>
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Notable Votes</p>
                     {voteTopics.length > 2 && (
                       <div className="flex flex-wrap gap-1">
                         {voteTopics.map(topic => (

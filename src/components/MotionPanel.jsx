@@ -109,7 +109,7 @@ export default function MotionPanel({ motion: m, onClose }) {
                 {/* Vote breakdown */}
                 {m.votes && Object.keys(m.votes).length > 0 && (
                   <div className="space-y-3">
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">All Votes</p>
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">All Votes</p>
                     <div className="grid grid-cols-2 gap-1.5">
                       {Object.entries(m.votes)
                         .sort(([, a], [, b]) => {
