@@ -121,11 +121,10 @@ export default function DashboardView({ motions, councillors }) {
               Last meeting: <span className="text-slate-900">{lastMeeting.date}</span>
               <span className="text-slate-400 mx-1.5">·</span>
               <span className="text-slate-900">{lastMeeting.count}</span> motions
+              {adoptionRateLastMeeting !== null && (
+                <><span className="text-slate-400 mx-1.5">·</span><span className="text-emerald-600 font-bold">{adoptionRateLastMeeting}% adopted</span></>
+              )}
             </span>
-            <div className="w-px h-3.5 bg-slate-200 hidden sm:block" />
-            <span className="text-xs font-bold text-emerald-600">{adoptionRate}% adopted</span>
-            <div className="w-px h-3.5 bg-slate-200 hidden sm:block" />
-            <span className="text-xs font-bold text-[#004a99]">{substantiveCount} substantive</span>
             {lastMeetingTopics.length > 0 && (
               <>
                 <div className="w-px h-3.5 bg-slate-200 hidden sm:block" />

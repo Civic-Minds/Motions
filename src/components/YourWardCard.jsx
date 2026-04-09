@@ -32,7 +32,7 @@ export default function YourWardCard({ motions }) {
     return motions
       .filter(m => m.votes?.[councillorName] && !m.trivial)
       .sort((a, b) => new Date(b.date) - new Date(a.date))
-      .slice(0, 4);
+      .slice(0, 3);
   }, [motions, councillorName]);
 
   const handleLocate = async () => {
@@ -99,7 +99,7 @@ export default function YourWardCard({ motions }) {
         className="bg-white border border-[#004a99]/20 rounded-3xl overflow-hidden shadow-sm"
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-slate-100">
+        <div className="flex items-center justify-between px-4 pt-3 pb-3 border-b border-slate-100">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-[#004a99]/10 flex items-center justify-center shrink-0">
               <MapPin className="w-4 h-4 text-[#004a99]" />
@@ -131,29 +131,29 @@ export default function YourWardCard({ motions }) {
         </div>
 
         {/* Recent votes */}
-        <div className="px-6 py-4">
+        <div className="px-4 py-3">
           {recentVotes.length > 0 ? (
             <>
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">Recent votes</p>
-              <div className="grid sm:grid-cols-2 gap-2">
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Recent votes</p>
+              <div className="space-y-1">
                 {recentVotes.map((m, i) => (
                   <Link
                     key={m.id}
                     to={`/motions/${m.id}`}
-                    className="group flex items-center gap-2.5 p-3 rounded-xl border border-slate-100 hover:border-[#004a99]/30 hover:bg-slate-50 transition-all"
+                    className="group flex items-center gap-2.5 px-2 py-1.5 rounded-lg hover:bg-slate-50 transition-colors"
                   >
-                    <div className={cn(
-                      "shrink-0 text-[9px] font-bold px-1.5 py-0.5 rounded-md",
+                    <span className={cn(
+                      "shrink-0 text-[9px] font-bold px-1.5 py-0.5 rounded-md w-12 text-center",
                       voteBg(m.votes[councillorName]),
                       voteColor(m.votes[councillorName])
                     )}>
                       {m.votes[councillorName]}
-                    </div>
+                    </span>
                     <div className="flex-1 min-w-0">
-                      <p className="text-xs font-medium text-slate-700 group-hover:text-[#004a99] transition-colors line-clamp-2 leading-snug">
+                      <p className="text-xs font-medium text-slate-700 group-hover:text-[#004a99] transition-colors line-clamp-1 leading-snug">
                         {m.title}
                       </p>
-                      <p className="text-[10px] text-slate-400 mt-0.5">{m.date}</p>
+                      <p className="text-[9px] text-slate-400">{m.date}</p>
                     </div>
                   </Link>
                 ))}
