@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { Users, Map, BarChart3, Building2, Menu, X, Search } from 'lucide-react';
+import { Users, Map, Building2, Menu, X, Search } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from './lib/utils';
 import { useMotions } from './hooks/useMotions';
@@ -9,14 +9,12 @@ import DashboardView from './components/DashboardView';
 import CouncillorList from './components/CouncillorList';
 import CouncillorProfile from './components/CouncillorProfile';
 import WardGrid from './components/WardGrid';
-import Scorecard from './components/Scorecard';
 import BudgetTranslator from './components/BudgetTranslator';
 import CommitteesView from './components/CommitteesView';
 import GlobalSearch from './components/GlobalSearch';
 
 const TABS = [
   { path: '/councillors', label: 'Councillors', icon: Users },
-  { path: '/analytics',   label: 'Scorecard',   icon: BarChart3 },
   { path: '/committees',  label: 'Committees',  icon: Building2 },
   { path: '/wards',       label: 'Wards',       icon: Map },
 ];
@@ -183,8 +181,7 @@ function AppShell() {
           <Route path="/councillors/:slug/vs/:slug2" element={<CouncillorList motions={motions} councillors={councillors} />} />
           <Route path="/wards"       element={<WardGrid motions={motions} />} />
           <Route path="/committees" element={<CommitteesView motions={motions} />} />
-          <Route path="/analytics" element={<Scorecard motions={motions} />} />
-          <Route path="/budget"    element={<BudgetTranslator />} />
+          <Route path="/budget" element={<BudgetTranslator />} />
           <Route path="*"          element={<Navigate to="/" replace />} />
         </Routes>
       </main>
