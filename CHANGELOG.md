@@ -5,9 +5,21 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
-- **Topic preferences on homepage** — topic toggle buttons in the Recent Highlights header filter which topics appear. Preference persisted to `localStorage` so it survives page reloads.
+- **Open Data import expanded** — `import_open_data.js` now includes committee-level votes, not just City Council votes. Items that reached full council keep the City Council vote as final; committee-only items are included as new entries. Motions count: 717 → 926. Each motion now stores a `committee` field from the CSV directly. Frontend updated to use `m.committee` with `getCommittee(m.id)` as fallback.
+- **CouncillorProfile full page** — `/councillors/:slug` now renders a full-page profile instead of a modal overlay. Layout: back link + header (avatar, name, ward, stats strip, contact), two-column body on desktop (sticky left sidebar with Voting DNA + Most/Least Aligned; right column with full vote history). Topic filter pills + Notable Only toggle on the vote list. Compare button opens an inline picker to navigate to `/councillors/:slug/vs/:slug2`. Vote rows animate in and open MotionPanel on click.
+- **Committee filter in sidebar** — homepage motion list can now be filtered by committee. Available committees are derived from the loaded motions. Filter appears in the desktop sidebar and mobile pill row.
 - **Notable Votes are now clickable** — tapping a motion in a councillor's Notable Votes section opens the motion detail modal.
 - **Vote split in highlights** — each highlight now shows YES/NO counts inline (e.g. `18–8`).
+
+### Changed
+- **Bento header layout** — top section redesigned as three columns: Last Meeting (200px), Most Recent Notable (flexible), Your Ward (220px). Section labels moved above cards. Removed outer card wrapper from Most Recent Notable so the 4 mini-cards sit directly in the column. Your Ward moved to the right column.
+- **Equal card heights** — all three top-section columns use CSS grid `items-stretch` with `flex-1` / `h-full` to fill the row height consistently.
+- **ProfilePanel and MotionPanel z-index** — raised backdrop to `z-[60]` and modal to `z-[70]` so they correctly overlay the sticky navbar (`z-50`).
+- **Motion list sort order** — default sort is now date-descending (most recent first), with significance as tiebreaker within the same date.
+- **Budget tab hidden** — Budget page removed from the navbar (route still exists).
+- **Nav order updated** — Councillors → Scorecard → Committees → Wards.
+- **Ward detail map removed** — the SVG ward boundary outline shown on ward detail pages has been removed; it added little value.
+- **Search bar redesigned** — navbar search now looks like a real search input with a fixed width, placeholder text, and the ⌘K hint inside the field. Mobile gets an icon-only button.
 
 ### Changed
 - **ProfilePanel → centered modal** — councillor detail panel replaced the right-side slide-in with a centered modal dialog (spring animation, backdrop blur). Works the same on mobile and desktop.

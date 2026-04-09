@@ -31,6 +31,7 @@ export default function DashboardView({ motions, councillors }) {
   const { motionId } = useParams();
   const navigate = useNavigate();
   const [selectedTopic, setSelectedTopic] = useState('All');
+  const [selectedCommittee, setSelectedCommittee] = useState('All');
   const [showNotableOnly, setShowNotableOnly] = useState(false);
   const [showAll, setShowAll] = useState(false);
 
@@ -62,7 +63,7 @@ export default function DashboardView({ motions, councillors }) {
     return Math.round((adopted / lastMeeting.items.length) * 100);
   }, [lastMeeting.items]);
 
-  // Most recent notable motions, filtered by topic prefs
+  // Most recent notable motions
   const highlights = useMemo(() => {
     return [...motions]
       .filter(m => !m.trivial && m.significance >= 60)
@@ -70,15 +71,27 @@ export default function DashboardView({ motions, councillors }) {
       .slice(0, 4);
   }, [motions]);
 
+  // Available committees derived from motions
+  const committees = useMemo(() => {
+    const seen = new Set();
+    motions.forEach(m => seen.add(m.committee || getCommittee(m.id)));
+    return [...seen].sort();
+  }, [motions]);
+
   const sortedMotions = useMemo(() => {
     return [...motions]
       .filter(m => {
         if (selectedTopic !== 'All' && m.topic !== selectedTopic) return false;
+        if (selectedCommittee !== 'All' && (m.committee || getCommittee(m.id)) !== selectedCommittee) return false;
         if (showNotableOnly && m.significance < 60) return false;
         return true;
       })
-      .sort((a, b) => (b.significance ?? 0) - (a.significance ?? 0));
-  }, [motions, selectedTopic, showNotableOnly]);
+      .sort((a, b) => {
+        const dateDiff = new Date(b.date) - new Date(a.date);
+        if (dateDiff !== 0) return dateDiff;
+        return (b.significance ?? 0) - (a.significance ?? 0);
+      });
+  }, [motions, selectedTopic, selectedCommittee, showNotableOnly]);
 
   const visibleMotions = showAll ? sortedMotions : sortedMotions.slice(0, 20);
 
@@ -86,13 +99,7 @@ export default function DashboardView({ motions, councillors }) {
     <div className="space-y-4">
 
       {/* ── Top section: three cards ── */}
-      <div className="grid grid-cols-1 lg:grid-cols-[220px_200px_1fr] gap-3 items-stretch">
-
-        {/* Your Ward — first, sticky */}
-        <div className="flex flex-col gap-1.5 h-full lg:sticky lg:top-24 lg:self-start">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Your Ward</p>
-          <YourWardCard motions={motions} />
-        </div>
+      <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr_220px] gap-3 items-stretch">
 
         {/* Last Meeting */}
         <div className="flex flex-col gap-1.5">
@@ -130,44 +137,52 @@ export default function DashboardView({ motions, councillors }) {
         {/* Most Recent Notable */}
         <div className="flex flex-col gap-1.5">
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Most Recent Notable</p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 flex-1 items-start content-start">
-            {highlights.map((m, i) => {
-              const yesCount = Object.values(m.votes ?? {}).filter(v => v === 'YES').length;
-              const noCount  = Object.values(m.votes ?? {}).filter(v => v === 'NO').length;
-              const total    = yesCount + noCount;
-              return (
-                <motion.button
-                  key={m.id}
-                  initial={{ opacity: 0, scale: 0.97 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: i * 0.04 }}
-                  onClick={() => navigate(`/motions/${m.id}`)}
-                  className="bg-white border border-slate-200 rounded-2xl p-4 text-left group flex flex-col gap-2 hover:border-[#004a99]/40 hover:shadow-sm transition-all"
-                >
-                  <div className="flex items-center justify-between gap-1">
-                    <span className={cn("text-[9px] font-semibold px-1.5 py-0.5 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>
-                      {m.topic}
-                    </span>
-                    <span className={cn("text-[9px] font-bold shrink-0", m.status === 'Adopted' ? 'text-emerald-600' : 'text-rose-500')}>
-                      {m.status === 'Adopted' ? '✓' : '✗'}
-                    </span>
-                  </div>
-                  <p className="text-xs font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-3 leading-snug flex-1">
-                    {m.title}
-                  </p>
-                  <div className="flex items-center justify-between mt-auto">
-                    <span className="text-[9px] text-slate-400">{m.date}</span>
-                    {total > 0 && (
-                      <span className="text-[9px] font-medium">
-                        <span className="text-emerald-600 font-bold">{yesCount}</span>
-                        <span className="text-slate-300 mx-0.5">–</span>
-                        <span className="text-rose-500 font-bold">{noCount}</span>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 items-stretch flex-1">
+              {highlights.map((m, i) => {
+                const yesCount = Object.values(m.votes ?? {}).filter(v => v === 'YES').length;
+                const noCount  = Object.values(m.votes ?? {}).filter(v => v === 'NO').length;
+                const total    = yesCount + noCount;
+                return (
+                  <motion.button
+                    key={m.id}
+                    initial={{ opacity: 0, scale: 0.97 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: i * 0.04 }}
+                    onClick={() => navigate(`/motions/${m.id}`)}
+                    className="bg-white border border-slate-200 rounded-2xl p-4 text-left group flex flex-col gap-2 hover:border-[#004a99]/40 hover:shadow-sm transition-all"
+                  >
+                    <div className="flex items-center justify-between gap-1">
+                      <span className={cn("text-[9px] font-semibold px-1.5 py-0.5 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>
+                        {m.topic}
                       </span>
-                    )}
-                  </div>
-                </motion.button>
-              );
-            })}
+                      <span className={cn("text-[9px] font-bold shrink-0", m.status === 'Adopted' ? 'text-emerald-600' : 'text-rose-500')}>
+                        {m.status === 'Adopted' ? '✓' : '✗'}
+                      </span>
+                    </div>
+                    <p className="text-xs font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-3 leading-snug flex-1">
+                      {m.title}
+                    </p>
+                    <div className="flex items-center justify-between mt-auto">
+                      <span className="text-[9px] text-slate-400">{m.date}</span>
+                      {total > 0 && (
+                        <span className="text-[9px] font-medium">
+                          <span className="text-emerald-600 font-bold">{yesCount}</span>
+                          <span className="text-slate-300 mx-0.5">–</span>
+                          <span className="text-rose-500 font-bold">{noCount}</span>
+                        </span>
+                      )}
+                    </div>
+                  </motion.button>
+                );
+              })}
+          </div>
+        </div>
+
+        {/* Your Ward — right */}
+        <div className="flex flex-col gap-1.5">
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Your Ward</p>
+          <div className="flex-1 min-h-0 flex flex-col">
+            <YourWardCard motions={motions} />
           </div>
         </div>
 
@@ -202,6 +217,25 @@ export default function DashboardView({ motions, councillors }) {
                 {topic === 'All' ? 'All Topics' : topic}
               </button>
             ))}
+          </div>
+          <div className="mt-4 pt-4 border-t border-slate-200">
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-2 px-3">Committee</p>
+            <div className="space-y-0.5 max-h-48 overflow-y-auto">
+              {['All', ...committees].map(c => (
+                <button
+                  key={c}
+                  onClick={() => setSelectedCommittee(c)}
+                  className={cn(
+                    "w-full flex items-center px-3 py-2 rounded-xl text-sm font-medium text-left transition-all",
+                    selectedCommittee === c
+                      ? "bg-[#004a99] text-white"
+                      : "text-slate-600 hover:bg-slate-100"
+                  )}
+                >
+                  {c === 'All' ? 'All Committees' : c}
+                </button>
+              ))}
+            </div>
           </div>
           <div className="mt-4 pt-4 border-t border-slate-200">
             <button
@@ -270,7 +304,7 @@ export default function DashboardView({ motions, councillors }) {
                     <div className="flex items-center gap-2 mt-2 flex-wrap">
                       <span className={cn("text-xs font-semibold px-2 py-0.5 rounded-full", m.status === 'Adopted' ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-700')}>{m.status}</span>
                       <span className={cn("text-xs px-2 py-0.5 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>{m.topic}</span>
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-500">{getCommittee(m.id)}</span>
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-500">{m.committee || getCommittee(m.id)}</span>
                       {m.significance >= 90 && <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-600">High Impact</span>}
                       {m.significance >= 60 && m.significance < 90 && <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-600">Notable</span>}
                       <span className="text-xs text-slate-400 ml-auto">{m.date}</span>

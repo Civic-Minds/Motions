@@ -26,7 +26,7 @@ export default function MotionPanel({ motion: m, onClose }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-40"
+            className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[60]"
             onClick={onClose}
           />
 
@@ -36,7 +36,7 @@ export default function MotionPanel({ motion: m, onClose }) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.97, y: 8 }}
             transition={{ type: 'spring', stiffness: 400, damping: 32 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none"
+            className="fixed inset-0 z-[70] flex items-center justify-center p-4 pointer-events-none"
           >
             <div className="bg-white rounded-2xl shadow-2xl w-full max-w-xl max-h-[88vh] flex flex-col overflow-hidden pointer-events-auto">
 
@@ -69,7 +69,7 @@ export default function MotionPanel({ motion: m, onClose }) {
                       <span>{m.date}</span>
                       {m.topic && <><span>·</span><span>{m.topic}</span></>}
                       <span>·</span>
-                      <span>{getCommittee(m.id)}</span>
+                      <span>{m.committee || getCommittee(m.id)}</span>
                     </div>
                     {m.url && (
                       <a

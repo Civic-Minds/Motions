@@ -61,7 +61,7 @@ export default function YourWardCard({ motions }) {
 
   if (!wardId) {
     return (
-      <div className="bg-white border border-slate-200 rounded-3xl p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col gap-4 h-full">
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-xl bg-[#004a99]/10 flex items-center justify-center shrink-0">
             <MapPin className="w-4 h-4 text-[#004a99]" />

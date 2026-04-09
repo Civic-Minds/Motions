@@ -7,9 +7,7 @@ import { nameToSlug, slugToName } from '../utils/slug';
 import { WARD_COUNCILLORS } from '../constants/data';
 import { TORONTO_WARDS } from '../constants/wards';
 import { cn } from '../lib/utils';
-import ProfilePanel from './ProfilePanel';
 import VersusOverlay from './VersusOverlay';
-import MotionPanel from './MotionPanel';
 
 const COUNCILLOR_WARD = {};
 Object.entries(WARD_COUNCILLORS).forEach(([wardId, name]) => {
@@ -29,9 +27,7 @@ export default function CouncillorList({ motions, councillors: contactData = [] 
   const [search, setSearch] = useState('');
   const [compareMode, setCompareMode] = useState(false);
   const [compareSlots, setCompareSlots] = useState([]);
-  const [selectedProfile, setSelectedProfile] = useState(null);
   const [versusSelection, setVersusSelection] = useState([]);
-  const [selectedMotion, setSelectedMotion] = useState(null);
   const { slug, slug2 } = useParams();
   const navigate = useNavigate();
 
@@ -68,34 +64,20 @@ export default function CouncillorList({ motions, councillors: contactData = [] 
 
   const allNames = useMemo(() => councillors.map(c => c.name), [councillors]);
 
-  // Handle URL-driven panels
+  // Handle VS URL
   useEffect(() => {
     if (!allNames.length) return;
     if (slug2) {
       const n1 = slugToName(slug, allNames);
       const n2 = slugToName(slug2, allNames);
-      if (n1 && n2) { setVersusSelection([n1, n2]); setSelectedProfile(null); }
-      else navigate('/councillors', { replace: true });
-    } else if (slug) {
-      const name = slugToName(slug, allNames);
-      if (name) { setSelectedProfile(name); setVersusSelection([]); }
+      if (n1 && n2) setVersusSelection([n1, n2]);
       else navigate('/councillors', { replace: true });
     } else {
-      setSelectedProfile(null);
       setVersusSelection([]);
     }
   }, [slug, slug2, allNames]);
 
-  const openProfile = (name) => {
-    setSelectedProfile(name);
-    setVersusSelection([]);
-    navigate(`/councillors/${nameToSlug(name)}`);
-  };
-
-  const closeProfile = () => {
-    setSelectedProfile(null);
-    navigate('/councillors');
-  };
+  const openProfile = (name) => navigate(`/councillors/${nameToSlug(name)}`);
 
   const openVersus = (n1, n2) => {
     setVersusSelection([n1, n2]);
@@ -295,21 +277,6 @@ export default function CouncillorList({ motions, councillors: contactData = [] 
         </div>
       )}
 
-      {/* Side panel — profile */}
-      <ProfilePanel
-        selected={selectedProfile}
-        onClose={closeProfile}
-        onCompare={(name) => {
-          setCompareMode(true);
-          setCompareSlots([name]);
-          closeProfile();
-        }}
-        onMotionClick={setSelectedMotion}
-        motions={motions}
-        councillors={contactData}
-      />
-
-      <MotionPanel motion={selectedMotion} onClose={() => setSelectedMotion(null)} />
     </div>
   );
 }

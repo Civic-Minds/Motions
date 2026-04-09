@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { MapPin, Navigation, Loader2, X, AlertCircle, ArrowRight, ChevronLeft, ExternalLink } from 'lucide-react';
+import { MapPin, Navigation, Loader2, X, AlertCircle, ArrowRight, ChevronLeft } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getWardActivityMetrics } from '../utils/analytics';
 import { WARD_COUNCILLORS } from '../constants/data';
@@ -269,7 +269,7 @@ export default function WardGrid({ motions }) {
           </div>
         </>
       ) : (
-        /* ── Ward detail: map + motion list ── */
+        /* ── Ward detail: motion list ── */
         <AnimatePresence mode="wait">
           <motion.div
             key={selectedWard.id}
@@ -278,19 +278,6 @@ export default function WardGrid({ motions }) {
             exit={{ opacity: 0 }}
             className="space-y-4"
           >
-            {/* Map */}
-            <div className="relative">
-              <WardMap feature={selectedWardFeature} />
-              <a
-                href={`https://www.openstreetmap.org/search?query=${encodeURIComponent(`Ward ${selectedWard.id} Toronto`)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="absolute bottom-2 right-2 flex items-center gap-1 text-[10px] font-medium text-slate-500 bg-white/90 hover:bg-white px-2 py-1 rounded-lg border border-slate-200 transition-colors"
-              >
-                <ExternalLink className="w-3 h-3" />
-                OpenStreetMap
-              </a>
-            </div>
             {wardMotions.length === 0 ? (
               <div className="text-center py-16 bg-white border border-dashed border-slate-200 rounded-2xl">
                 <p className="text-slate-400 text-sm">No ward-specific motions recorded.</p>

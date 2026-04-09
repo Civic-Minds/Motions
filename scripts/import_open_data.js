@@ -284,19 +284,31 @@ async function main() {
     const rows = parseCSV(text);
     console.log(`   ${rows.length.toLocaleString()} vote records`);
 
-    const councilRows = rows.filter(r => r['Committee'] === 'City Council');
-    console.log(`   ${councilRows.length.toLocaleString()} City Council votes`);
+    // Track which agenda items reached City Council (final binding vote)
+    const councilItemKeys = new Set(
+        rows.filter(r => r['Committee'] === 'City Council').map(r => r['Agenda Item #'])
+    );
+    console.log(`   ${councilItemKeys.size.toLocaleString()} items reached City Council`);
+
+    // Include ALL rows, but for items that reached City Council, only keep
+    // the City Council rows (final vote wins over committee vote).
+    const filteredRows = rows.filter(r =>
+        r['Committee'] === 'City Council' ||
+        !councilItemKeys.has(r['Agenda Item #'])
+    );
+    console.log(`   ${filteredRows.length.toLocaleString()} rows after deduplication`);
 
     // -----------------------------------------------------------------------
     // Pass 1: Build item map with full signal data
     // -----------------------------------------------------------------------
     const itemMap = new Map();
 
-    for (const row of councilRows) {
+    for (const row of filteredRows) {
         const key = row['Agenda Item #'];
         if (!itemMap.has(key)) {
             itemMap.set(key, {
                 meta: row,
+                committee: row['Committee'] || '',
                 councillorVotes: new Map(),
                 motionTypesSeen: new Set(),
                 meetingDates: new Set(),
@@ -310,6 +322,9 @@ async function main() {
         if (rowType === 'Adopt Item' && entry.meta['Motion Type'] !== 'Adopt Item') {
             entry.meta = row;
         }
+
+        // Store committee name from CSV
+        if (!entry.committee) entry.committee = row['Committee'] || '';
 
         // Last vote per councillor wins (amendment → adoption sequence)
         const name = `${row['First Name']} ${row['Last Name']}`.trim();
@@ -365,7 +380,7 @@ async function main() {
     // -----------------------------------------------------------------------
     const motions = [];
 
-    for (const [itemNum, { meta, councillorVotes, motionTypesSeen, meetingDates }] of itemMap) {
+    for (const [itemNum, { meta, councillorVotes, motionTypesSeen, meetingDates, committee }] of itemMap) {
         const title = (meta['Agenda Item Title'] || '').trim() || 'Untitled';
 
         const votes = {};
@@ -394,9 +409,8 @@ async function main() {
             id: formatId(itemNum),
             date: formatDate(meta['Date/Time']),
             title,
-            mover: '',
-            seconder: '',
             status,
+            committee,
             topic: classifyTopic(title),
             trivial,
             significance,

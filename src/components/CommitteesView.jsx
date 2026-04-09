@@ -20,7 +20,7 @@ export default function CommitteesView({ motions }) {
   const committees = useMemo(() => {
     const map = {};
     motions.forEach(m => {
-      const name = getCommittee(m.id);
+      const name = m.committee || getCommittee(m.id);
       if (!map[name]) map[name] = { name, motions: [] };
       map[name].motions.push(m);
     });

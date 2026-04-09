@@ -37,7 +37,7 @@ export default function MotionDetail({ motions }) {
           <span>{motion.date}</span>
           {motion.topic && <><span>·</span><span>{motion.topic}</span></>}
           <span>·</span>
-          <span>{getCommittee(motion.id)}</span>
+          <span>{motion.committee || getCommittee(motion.id)}</span>
           {motion.significance >= 90 && <><span>·</span><span className="text-amber-600 font-semibold">High Impact</span></>}
           {motion.significance >= 60 && motion.significance < 90 && <><span>·</span><span className="text-amber-600 font-semibold">Notable</span></>}
         </div>
