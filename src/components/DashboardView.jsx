@@ -117,13 +117,13 @@ export default function DashboardView({ motions }) {
                 <div>
                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Adopted</p>
                   <p className="text-2xl font-black text-emerald-600 mt-0.5">{adoptionRate}%</p>
-                  <p className="text-[10px] text-slate-400">{adoptedCount} passed</p>
+                  <p className="text-[10px] text-slate-400">{adoptedCount} of {motions.length} all-time</p>
                 </div>
                 <div className="w-px bg-slate-100" />
                 <div>
                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Substantive</p>
                   <p className="text-2xl font-black text-[#004a99] mt-0.5">{substantiveCount}</p>
-                  <p className="text-[10px] text-slate-400">{Math.round((substantiveCount / motions.length) * 100)}% of all</p>
+                  <p className="text-[10px] text-slate-400">non-trivial, all-time</p>
                 </div>
               </div>
             </div>

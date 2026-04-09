@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { X, GitCompare } from 'lucide-react';
+import { X, GitCompare, Mail, Phone } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getAttendance, getVotedWith } from '../utils/analytics';
 import { TOPIC_PILL, TOPIC_BADGE, WARD_COUNCILLORS } from '../constants/data';
@@ -12,7 +12,7 @@ Object.entries(WARD_COUNCILLORS).forEach(([wardId, name]) => {
   if (ward) COUNCILLOR_WARD[name] = { id: wardId, name: ward.name };
 });
 
-export default function ProfilePanel({ selected, onClose, onCompare, motions }) {
+export default function ProfilePanel({ selected, onClose, onCompare, motions, councillors = [] }) {
   const [topicFilter, setTopicFilter] = useState('All');
 
   const dna = useMemo(() => {
@@ -57,6 +57,7 @@ export default function ProfilePanel({ selected, onClose, onCompare, motions }) 
     : voteHistory.filter(m => m.topic === topicFilter);
 
   const ward = COUNCILLOR_WARD[selected];
+  const contact = councillors.find(c => c.name === selected) ?? null;
 
   return (
     <AnimatePresence>
@@ -105,6 +106,20 @@ export default function ProfilePanel({ selected, onClose, onCompare, motions }) 
                         </div>
                         <div className="text-[10px] text-slate-400 font-medium">attendance</div>
                       </div>
+                    </div>
+                  )}
+                  {contact && (contact.email || contact.phone) && (
+                    <div className="flex flex-wrap gap-3 mt-3 pt-3 border-t border-slate-100">
+                      {contact.email && (
+                        <a href={`mailto:${contact.email}`} className="flex items-center gap-1.5 text-xs text-[#004a99] hover:underline">
+                          <Mail className="w-3 h-3" />{contact.email}
+                        </a>
+                      )}
+                      {contact.phone && (
+                        <a href={`tel:${contact.phone}`} className="flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-800 transition-colors">
+                          <Phone className="w-3 h-3" />{contact.phone}
+                        </a>
+                      )}
                     </div>
                   )}
                 </div>

@@ -22,7 +22,9 @@ const attendanceColor = (pct) =>
 const attendanceBg = (pct) =>
   pct >= 90 ? 'bg-emerald-500' : pct >= 75 ? 'bg-amber-400' : 'bg-rose-500';
 
-export default function CouncillorList({ motions }) {
+const MAYOR = 'Olivia Chow';
+
+export default function CouncillorList({ motions, councillors: contactData = [] }) {
   const [search, setSearch] = useState('');
   const [compareMode, setCompareMode] = useState(false);
   const [compareSlots, setCompareSlots] = useState([]);
@@ -54,7 +56,12 @@ export default function CouncillorList({ motions }) {
         const topTopic = Object.entries(topicCounts).sort((a, b) => b[1] - a[1])[0]?.[0];
         return { name, alignment, attendance, topTopic, voteCount: voteCounts[name] };
       })
-      .sort((a, b) => a.name.split(' ').at(-1).localeCompare(b.name.split(' ').at(-1)));
+      .sort((a, b) => {
+        // Mayor always first
+        if (a.name === MAYOR) return -1;
+        if (b.name === MAYOR) return 1;
+        return a.name.split(' ').at(-1).localeCompare(b.name.split(' ').at(-1));
+      });
   }, [motions]);
 
   const allNames = useMemo(() => councillors.map(c => c.name), [councillors]);
@@ -206,6 +213,7 @@ export default function CouncillorList({ motions }) {
           const isSelected = compareSlots.includes(name);
           const isFaded = compareMode && compareSlots.length === 2 && !isSelected;
           const initials = name.split(' ').map(n => n[0]).slice(0, 2).join('');
+          const isMayor = name === MAYOR;
 
           return (
             <motion.div
@@ -224,15 +232,25 @@ export default function CouncillorList({ motions }) {
               {/* Avatar + name */}
               <div className="flex items-center gap-3 mb-4">
                 <div className={cn(
-                  "w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-xs font-bold transition-colors",
-                  isSelected ? 'bg-[#004a99] text-white' : 'bg-slate-100 text-slate-500 group-hover:bg-[#004a99] group-hover:text-white'
+                  "w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-xs font-bold transition-colors relative",
+                  isMayor
+                    ? isSelected ? 'bg-[#004a99] text-white' : 'bg-amber-100 text-amber-700 group-hover:bg-[#004a99] group-hover:text-white'
+                    : isSelected ? 'bg-[#004a99] text-white' : 'bg-slate-100 text-slate-500 group-hover:bg-[#004a99] group-hover:text-white'
                 )}>
                   {initials}
                 </div>
                 <div className="min-w-0">
-                  <p className="text-sm font-semibold text-slate-900 truncate group-hover:text-[#004a99] transition-colors">{name}</p>
+                  <div className="flex items-center gap-1.5">
+                    <p className="text-sm font-semibold text-slate-900 truncate group-hover:text-[#004a99] transition-colors">{name}</p>
+                    {isMayor && (
+                      <span className="shrink-0 text-[9px] font-bold text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded-full uppercase tracking-wide">Mayor</span>
+                    )}
+                  </div>
                   {ward && (
                     <p className="text-[10px] text-slate-400 font-medium">W{ward.id} · {ward.name}</p>
+                  )}
+                  {isMayor && !ward && (
+                    <p className="text-[10px] text-slate-400 font-medium">Toronto City Hall</p>
                   )}
                 </div>
               </div>
@@ -285,6 +303,7 @@ export default function CouncillorList({ motions }) {
           closeProfile();
         }}
         motions={motions}
+        councillors={contactData}
       />
     </div>
   );

@@ -118,7 +118,7 @@ function Navbar({ onSearchOpen }) {
 }
 
 function AppShell() {
-  const { motions, loading, error } = useMotions();
+  const { motions, councillors, loading, error } = useMotions();
   const [searchOpen, setSearchOpen] = useState(false);
 
   const councillorNames = useMemo(() => {
@@ -165,9 +165,9 @@ function AppShell() {
         <Routes>
           <Route path="/" element={<DashboardView motions={motions} />} />
           <Route path="/motions/:motionId" element={<DashboardView motions={motions} />} />
-          <Route path="/councillors" element={<CouncillorList motions={motions} />} />
-          <Route path="/councillors/:slug" element={<CouncillorList motions={motions} />} />
-          <Route path="/councillors/:slug/vs/:slug2" element={<CouncillorList motions={motions} />} />
+          <Route path="/councillors" element={<CouncillorList motions={motions} councillors={councillors} />} />
+          <Route path="/councillors/:slug" element={<CouncillorList motions={motions} councillors={councillors} />} />
+          <Route path="/councillors/:slug/vs/:slug2" element={<CouncillorList motions={motions} councillors={councillors} />} />
           <Route path="/wards"       element={<WardGrid motions={motions} />} />
           <Route path="/committees" element={<CommitteesView motions={motions} />} />
           <Route path="/analytics" element={<Scorecard motions={motions} />} />
