@@ -123,6 +123,12 @@ function Navbar({ onSearchOpen }) {
   );
 }
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  return null;
+}
+
 function AppShell() {
   const { motions, councillors, loading, error } = useMotions();
   const [searchOpen, setSearchOpen] = useState(false);
@@ -166,6 +172,7 @@ function AppShell() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <ScrollToTop />
       <Navbar onSearchOpen={() => setSearchOpen(true)} />
       <main className="flex-1 max-w-[1400px] mx-auto w-full px-4 sm:px-6 py-8">
         <Routes>

@@ -137,7 +137,7 @@ export const FLAG_STYLES = {
 
 export const FLAG_LABELS = {
     'close-vote':       'Close Vote',
-    'defeated':         'Defeated',
+    'defeated':         'Lost',
     'unanimous':        'Unanimous',
     'landslide-defeat': 'Crushed',
 };
