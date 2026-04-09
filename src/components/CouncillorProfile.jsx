@@ -135,14 +135,14 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
       {/* Profile header */}
       <div className="flex items-start justify-between gap-6 mb-8">
         <div className="flex items-start gap-5">
-          <div className="w-14 h-14 rounded-2xl bg-[#004a99] flex items-center justify-center shrink-0 overflow-hidden">
+          <div className="w-24 h-24 rounded-2xl bg-[#004a99] flex items-center justify-center shrink-0 overflow-hidden">
             <img
               src={photoUrl}
               alt={selected}
               className="w-full h-full object-cover"
               onError={e => { e.currentTarget.style.display = 'none'; e.currentTarget.nextSibling.style.display = 'flex'; }}
             />
-            <span className="text-white font-bold text-lg hidden w-full h-full items-center justify-center">{initials}</span>
+            <span className="text-white font-bold text-2xl hidden w-full h-full items-center justify-center">{initials}</span>
           </div>
           <div>
             <h1 className="text-2xl font-bold text-slate-900 leading-tight">{selected}</h1>
