@@ -53,13 +53,17 @@ export function getMemberAlignmentScore(motions, memberName) {
  * @returns {{ daysPresent: number, totalDays: number, pct: number }}
  */
 export function getAttendance(motions, memberName) {
-    const allDates = [...new Set(motions.filter(m => m.votes).map(m => m.date))];
-    const totalDays = allDates.length;
-    const daysPresent = allDates.filter(date => {
-        return motions
+    // Only count days where the member appears in the vote record at all.
+    // This avoids penalising councillors for committee meetings they were never expected to attend.
+    const memberDates = [...new Set(
+        motions.filter(m => m.votes && m.votes[memberName]).map(m => m.date)
+    )];
+    const totalDays = memberDates.length;
+    const daysPresent = memberDates.filter(date =>
+        motions
             .filter(m => m.date === date && m.votes && m.votes[memberName])
-            .some(m => m.votes[memberName] === 'YES' || m.votes[memberName] === 'NO');
-    }).length;
+            .some(m => m.votes[memberName] === 'YES' || m.votes[memberName] === 'NO')
+    ).length;
     const pct = totalDays > 0 ? Math.round((daysPresent / totalDays) * 100) : 0;
     return { daysPresent, totalDays, pct };
 }
