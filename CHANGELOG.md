@@ -8,13 +8,19 @@ All notable changes to this project will be documented in this file.
 - **Scorecard** — ranked leaderboard of all 26 councillors at `/analytics`. Sortable by attendance, majority alignment, yes rate, or votes cast. Active sort highlights with a podium top-3; non-active stats dim. Stats computed from live motions data via `getAttendance` and `getMemberAlignmentScore`.
 - **CommitteesView** — new page at `/committees` listing all 15 committees derived from motion ID prefixes (e.g. `PH` → Planning & Housing). Each card shows total motions, adoption rate bar, substantive count, and top topics. Clicking drills into a significance-sorted motion list for that committee.
 - **Committee badge on motion rows** — `getCommittee(id)` utility derives committee name from motion ID prefix; shown as a grey pill on every motion row in the dashboard.
-- **COMMITTEE_NAMES mapping** — added to `constants/data.js` with 15 committee code → full name entries.
+- **COMMITTEE_NAMES mapping + `getCommittee()`** — added to `constants/data.js` with 15 committee code → full name entries.
+- **CouncillorList** — 25-councillor card grid with alignment % and attendance % bars, search, compare mode (select two → opens VersusOverlay), shareable URLs (`/councillors/:slug`, `/councillors/:slug/vs/:slug2`).
+- **ProfilePanel** — slide-in panel showing voting DNA by topic, most-aligned peers, top 20 notable votes sorted by significance, topic filter pills, attendance stats.
+- **VersusOverlay** — slide-in split panel showing alignment score, YES/NO DNA bars for both councillors, full list of motions where they voted differently.
+- **WardGrid** — 25-ward card grid with motion counts, councillor names, "Find my ward" geolocation (fetches Toronto Open Data GeoJSON, point-in-polygon lookup, highlights matched ward).
+- **MotionDetail** — dedicated page at `/motions/:id` with full vote breakdown (YES/NO/ABSENT per councillor), back navigation.
 
 ### Changed
 - **Dashboard motions list** — replaced the date-grouped meeting accordion with a flat list sorted by significance (highest first). Shows top 20 by default with a "Show all N motions" toggle. Topic filter and Notable toggle still apply.
 - **Dashboard stat card** — "Motions" card now shows the count from the most recent meeting date instead of the all-time total.
 - **Significance labels** — replaced raw score display ("66 significance") with tiered labels: "High Impact" (90+) and "Notable" (60–89) throughout the app.
 - **Navbar** — removed redundant "Dashboard" tab (logo navigates home). Removed "717 motions" live pill. Added "Committees" tab with `Building2` icon.
+- **Full clean rebuild** — moved project to `/Users/ryan/Desktop/Production/Motions`, rewrote entire frontend. Tailwind v4, React 19 + Vite 7, `framer-motion`, `react-router-dom` v7. Zero mock data — all views wired to `motions.json`.
 - **Removed unused imports** — cleaned up `AnimatePresence`, `CheckCircle2`, `FileText`, `ChevronDown`, `ChevronUp`, `LayoutDashboard` after dashboard accordion removal.
 
 
