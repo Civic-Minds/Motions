@@ -86,7 +86,13 @@ export default function DashboardView({ motions, councillors }) {
     <div className="space-y-4">
 
       {/* ── Top section: three cards ── */}
-      <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr_220px] gap-3 items-stretch">
+      <div className="grid grid-cols-1 lg:grid-cols-[220px_200px_1fr] gap-3 items-stretch">
+
+        {/* Your Ward — first, sticky */}
+        <div className="flex flex-col gap-1.5 h-full lg:sticky lg:top-24 lg:self-start">
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Your Ward</p>
+          <YourWardCard motions={motions} />
+        </div>
 
         {/* Last Meeting */}
         <div className="flex flex-col gap-1.5">
@@ -165,11 +171,6 @@ export default function DashboardView({ motions, councillors }) {
           </div>
         </div>
 
-        {/* Your Ward */}
-        <div className="flex flex-col gap-1.5 h-full">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Your Ward</p>
-          <YourWardCard motions={motions} />
-        </div>
       </div>
 
       {/* ── Main: sidebar + list ── */}
