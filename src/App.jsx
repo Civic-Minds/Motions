@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { LayoutDashboard, Users, Map, BarChart3, PieChart, Menu, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -146,7 +146,7 @@ function AppShell() {
           <Route path="/councillors/:slug" element={<CouncillorList motions={motions} />} />
           <Route path="/councillors/:slug/vs/:slug2" element={<CouncillorList motions={motions} />} />
           <Route path="/motions/:motionId" element={<MotionDetail motions={motions} />} />
-          <Route path="/wards"     element={<WardGrid motions={motions} onSelect={handleSelect} />} />
+          <Route path="/wards"     element={<WardGrid motions={motions} />} />
           <Route path="/analytics" element={<Scorecard motions={motions} />} />
           <Route path="/budget"    element={<BudgetTranslator />} />
           <Route path="*"          element={<Navigate to="/" replace />} />

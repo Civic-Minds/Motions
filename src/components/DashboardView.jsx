@@ -165,21 +165,37 @@ export default function DashboardView({ motions }) {
       {highlights.length > 0 && (
         <div>
           <h2 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">What's been happening</h2>
-          <div className="space-y-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {highlights.map((m, i) => (
-              <motion.div key={m.id} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.06 }}>
-                <Link to={`/motions/${m.id}`}>
-                  <div className="bg-white border border-slate-200 rounded-xl p-4 flex items-center gap-3 hover:border-[#004a99]/30 hover:shadow-md transition-all group shadow-sm">
-                    <div className={cn("w-1 self-stretch rounded-full shrink-0", m.status === 'Adopted' ? 'bg-emerald-500' : 'bg-rose-500')} />
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-1">{m.title}</p>
-                      <div className="flex items-center gap-2 mt-1">
-                        <span className="text-xs text-slate-400">{m.date}</span>
-                        <span className={cn("text-xs font-semibold px-2 py-0.5 rounded-full", m.status === 'Adopted' ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-700')}>{m.status}</span>
-                        <span className={cn("text-xs font-medium px-2 py-0.5 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>{m.topic}</span>
+              <motion.div key={m.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }}>
+                <Link to={`/motions/${m.id}`} className="block h-full">
+                  <div className="group bg-white border border-slate-200 rounded-2xl p-5 hover:border-[#004a99]/40 hover:shadow-md transition-all shadow-sm h-full flex flex-col gap-3">
+                    {/* Top: topic + status */}
+                    <div className="flex items-center justify-between gap-2">
+                      <span className={cn("text-xs font-semibold px-2.5 py-1 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>
+                        {m.topic}
+                      </span>
+                      <span className={cn("text-xs font-semibold px-2.5 py-1 rounded-full shrink-0",
+                        m.status === 'Adopted' ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-700')}>
+                        {m.status}
+                      </span>
+                    </div>
+                    {/* Title */}
+                    <p className="text-sm font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors leading-snug line-clamp-3 flex-1">
+                      {m.title}
+                    </p>
+                    {/* Bottom: date + significance + arrow */}
+                    <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-100">
+                      <span className="text-xs text-slate-400">{m.date}</span>
+                      <div className="flex items-center gap-2">
+                        {m.significance != null && (
+                          <span className="text-[10px] font-semibold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full">
+                            {m.significance} significance
+                          </span>
+                        )}
+                        <ArrowRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-[#004a99] transition-colors" />
                       </div>
                     </div>
-                    <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-[#004a99] shrink-0 transition-colors" />
                   </div>
                 </Link>
               </motion.div>
