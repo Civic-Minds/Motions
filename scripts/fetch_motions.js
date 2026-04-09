@@ -1,176 +1,251 @@
-import fetch from 'node-fetch';
-import * as cheerio from 'cheerio';
-import fs from 'fs';
-import path from 'path';
-
-/* global process */
-
-const DATA_PATH = path.join(process.cwd(), 'public/data/motions.json');
-
+#!/usr/bin/env node
 /**
- * TMMIS Data Fetcher Utility
+ * Fetches Toronto City Council voting records from the Open Data API.
+ * Groups individual vote rows into motions, merges with existing data to
+ * preserve manually-set fields (topic, significance, trivial, url, ward, flags).
+ *
+ * Usage: node scripts/fetch_motions.js
  */
 
-async function fetchCouncilItem(itemId) {
-    const url = `https://secure.toronto.ca/council/agenda-item.do?item=${itemId}`;
-    console.log(`\n🔍 Fetching: ${url}`);
+import https from 'https';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-    try {
-        const response = await fetch(url, {
-            headers: {
-                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-                'Accept-Language': 'en-US,en;q=0.9',
-                'Connection': 'keep-alive',
-                'Upgrade-Insecure-Requests': '1',
-                'Referer': 'https://www.toronto.ca/'
-            }
-        });
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const html = await response.text();
-        const $ = cheerio.load(html);
+const RESOURCE_ID = '55ead013-2331-4686-9895-9e8145b94189'; // 2022-2026 term
+const API_BASE    = 'https://ckan0.cf.opendata.inter.prod-toronto.ca';
+const OUT_FILE    = path.join(__dirname, '../public/data/motions.json');
+const PAGE_SIZE   = 5000;
 
-        const title = $('.itemTitle').text().trim() || 'Untitled Motion';
-        const rawDetails = $('.itemDetails').text();
+// ── Topic classification ──────────────────────────────────────────────────────
 
-        const moverMatch = rawDetails.match(/Moved by:\s+([^\n,]+)/);
-        const seconderMatch = rawDetails.match(/Seconded by:\s+([^\n,]+)/);
-        const statusMatch = $('.itemStatus').text().trim();
+const TOPIC_KEYWORDS = {
+  Housing: [
+    'housing', 'affordable', 'rental', 'rent', 'tenant', 'landlord', 'zoning',
+    'rezoning', 'shelter', 'eviction', 'secondary suite', 'inclusionary',
+    'supportive housing', 'development application', 'official plan amendment',
+    'community infrastructure and housing accelerator',
+  ],
+  Transit: [
+    'transit', 'ttc', 'bus', 'subway', 'streetcar', 'cycling', 'bike', 'bicycle',
+    'road', 'traffic', 'transportation', 'pedestrian', 'sidewalk', 'vision zero',
+    'fare', 'rapid transit', 'light rail', 'eglinton', 'ontario line',
+  ],
+  Finance: [
+    'budget', 'tax', 'levy', 'fee', 'rate', 'grant', 'funding', 'appropriation',
+    'procurement', 'financial', 'revenue', 'expenditure', 'reserve fund',
+    'operating budget', 'capital budget', 'rebate',
+  ],
+  Parks: [
+    'park', 'recreation', 'community centre', 'arena', 'sports', 'playground',
+    'trail', 'waterfront', 'ravine', 'green space', 'dog off-leash',
+  ],
+  Climate: [
+    'climate', 'environment', 'green', 'emission', 'tree', 'waste', 'energy',
+    'sustainability', 'net zero', 'electric vehicle', 'carbon', 'flood',
+    'resilience', 'biodiversity',
+  ],
+};
 
-        const topicKeywords = {
-            'Housing': ['housing', 'rental', 'tenant'],
-            'Transit': ['ttc', 'transit', 'bus', 'lrt'],
-            'Finance': ['budget', 'capital', 'operating', 'tax'],
-            'Parks': ['park', 'recreation', 'garden']
-        };
+const TRIVIAL_KEYWORDS = [
+  'election of', 'appointment of', 'recess', 'adjourn', 'in-camera',
+  'confidential', 'consent agenda', 'routine matters', 'confirmation of',
+  'minute', 'declare conflict', 'pecuniary interest',
+];
 
-        let topic = 'General';
-        for (const [key, keywords] of Object.entries(topicKeywords)) {
-            if (keywords.some(k => title.toLowerCase().includes(k))) {
-                topic = key;
-                break;
-            }
-        }
+function classifyTopic(title) {
+  const lower = title.toLowerCase();
+  for (const [topic, keywords] of Object.entries(TOPIC_KEYWORDS)) {
+    if (keywords.some(k => lower.includes(k))) return topic;
+  }
+  return 'General';
+}
 
-        const wardKeywords = {
-            '1': ['Etobicoke North', 'Rexdale', 'Thistletown'],
-            '2': ['Etobicoke Centre', 'Islington', 'Kingsway'],
-            '3': ['Etobicoke-Lakeshore', 'Mimico', 'Long Branch', 'Humber Bay'],
-            '4': ['Parkdale-High Park', 'Roncesvalles', 'Sunnyside'],
-            '5': ['York South-Weston', 'Mount Dennis', 'Weston'],
-            '8': ['Eglinton-Lawrence', 'Lawrence Park'],
-            '9': ['Davenport', 'Corso Italia'],
-            '10': ['Spadina-Fort York', 'Front Street', 'Liberty Village', 'Cityview', 'Harbourfront'],
-            '11': ['University-Rosedale', 'Annex', 'Yorkville', 'Rosedale'],
-            '12': ['Toronto-St. Paul\'s', 'Deer Park', 'Casa Loma'],
-            '13': ['Toronto Centre', 'Dundas', 'Sherbourne', 'Cabbagetown', 'St. Lawrence', 'Regent Park'],
-            '14': ['Toronto-Danforth', 'Leslieville', 'Riverdale', 'Greektown'],
-            '15': ['Don Valley West', 'Redpath', 'Leaside', 'Thorncliffe Park'],
-            '16': ['Don Valley East', 'Flemingdon Park'],
-            '18': ['Willowdale', 'North York Centre'],
-            '19': ['Beaches-East York', 'The Beach'],
-            '23': ['Scarborough North', 'Milliken', 'Agincourt'],
-            '25': ['Scarborough-Rouge Park', 'Rouge', 'Malvern'],
-        };
+function isTrivial(title) {
+  const lower = title.toLowerCase();
+  return TRIVIAL_KEYWORDS.some(k => lower.includes(k));
+}
 
-        let ward = 'City';
-        for (const [w, keywords] of Object.entries(wardKeywords)) {
-            if (keywords.some(k => title.toLowerCase().includes(k.toLowerCase()) || rawDetails.toLowerCase().includes(k.toLowerCase()))) {
-                ward = w;
-                break;
-            }
-        }
+// ── Significance scoring ──────────────────────────────────────────────────────
 
-        const votes = {};
-        $('.report-table tbody tr').each((i, row) => {
-            const cells = $(row).find('td');
-            const type = cells.eq(0).text().trim().split(':')[0]; // Yes, No, Absent
-            const names = cells.eq(1).text().split(',').map(n => n.replace(/\([^)]+\)/g, '').trim()).filter(n => n.length > 0);
+function estimateSignificance(motion, rawResult) {
+  let score = 30;
 
-            if (type === 'Yes' || type === 'No') {
-                names.forEach(name => {
-                    votes[name] = type.toUpperCase();
-                });
-            }
-        });
+  // Committee weight
+  const code = motion.id.split('.')[0].replace(/\d/g, '');
+  if (['EX', 'PH', 'IE', 'EC', 'GG'].includes(code)) score += 20;
+  else if (['MM', 'CC'].includes(code)) score += 10;
 
-        const id = itemId.split('.').slice(1).join('.');
+  // Close vote (more contentious = more significant)
+  const m = rawResult?.match(/(\d+)-(\d+)/);
+  if (m) {
+    const margin = Math.abs(parseInt(m[1]) - parseInt(m[2]));
+    if (margin <= 3) score += 30;
+    else if (margin <= 6) score += 18;
+    else if (margin <= 10) score += 8;
+  }
 
-        const routineKeywords = [
-            'By-law', 'Confirmatory', 'Order Paper', 'Declarations of Interest',
-            'Minutes', 'Routine', 'Enactment', 'Administrative', 'Appointment',
-            'Ceremonial', 'Petitions', 'Call to Order'
-        ];
+  // High-impact keywords
+  const title = motion.title.toLowerCase();
+  const highKeywords = [
+    'official plan', 'bylaw', 'emergency', 'community benefit', 'inclusionary',
+    'major capital', 'rapid transit', 'budget', 'affordable housing',
+    'net zero', 'ontario line', 'eglinton',
+  ];
+  if (highKeywords.some(k => title.includes(k))) score += 15;
 
-        const impactKeywords = [
-            'Budget', 'Housing', 'TTC', 'Transit', 'Shelter', 'Climate',
-            'Implementation', 'Safety', 'Strategy', 'Framework'
-        ];
+  // Trivial penalty
+  if (motion.trivial) score = Math.min(score, 20);
 
-        const isRoutine = routineKeywords.some(k => title.includes(k));
-        const hasHighImpact = impactKeywords.some(k => title.toLowerCase().includes(k.toLowerCase()));
+  return Math.min(Math.max(score, 5), 95);
+}
 
-        // Triviality logic:
-        // 1. Routine procedural items are trivial.
-        // 2. Anything moved by "Staff Report" or lack of Seconder is higher likelihood of being routine.
-        // 3. Very short titles or titles that are just IDs are trivial.
-        const mover = moverMatch ? moverMatch[1].trim() : 'Staff Report';
-        const seconder = seconderMatch ? seconderMatch[1].trim() : 'N/A';
+// ── API helpers ───────────────────────────────────────────────────────────────
 
-        const isTrivial = isRoutine || (!hasHighImpact && (mover === 'Staff Report' || seconder === 'N/A' || title.length < 35));
+function fetchJSON(url) {
+  return new Promise((resolve, reject) => {
+    https.get(url, (res) => {
+      const chunks = [];
+      res.on('data', c => chunks.push(c));
+      res.on('end', () => {
+        try { resolve(JSON.parse(Buffer.concat(chunks).toString())); }
+        catch (e) { reject(e); }
+      });
+    }).on('error', reject);
+  });
+}
 
-        const motionData = {
-            id: id,
-            date: 'Feb 2026',
-            title: title,
-            mover: mover,
-            seconder: seconder,
-            status: statusMatch || 'Adopted',
-            topic: topic,
-            trivial: isTrivial,
-            ward: ward,
-            url: url,
-            votes: votes
-        };
+async function fetchAllRecords() {
+  const firstPage = await fetchJSON(
+    `${API_BASE}/api/3/action/datastore_search?resource_id=${RESOURCE_ID}&limit=1`
+  );
+  const total = firstPage.result.total;
+  console.log(`  Total vote rows: ${total}`);
 
-        return motionData;
-    } catch (error) {
-        console.error(`❌ Failed to fetch item ${itemId}:`, error);
+  const all = [];
+  for (let offset = 0; offset < total; offset += PAGE_SIZE) {
+    process.stdout.write(`  Fetching rows ${offset}–${Math.min(offset + PAGE_SIZE, total)} of ${total}...\r`);
+    const page = await fetchJSON(
+      `${API_BASE}/api/3/action/datastore_search?resource_id=${RESOURCE_ID}&limit=${PAGE_SIZE}&offset=${offset}`
+    );
+    all.push(...page.result.records);
+  }
+  process.stdout.write('\n');
+  return all;
+}
+
+// ── Main ──────────────────────────────────────────────────────────────────────
+
+async function main() {
+  console.log('📥  Fetching Toronto Open Data voting records (2022–2026)...');
+
+  // Load existing motions for field preservation
+  let existingMap = {};
+  if (fs.existsSync(OUT_FILE)) {
+    const existing = JSON.parse(fs.readFileSync(OUT_FILE, 'utf8'));
+    existing.forEach(m => { existingMap[m.id] = m; });
+    console.log(`📂  Loaded ${existing.length} existing motions for merging`);
+  }
+
+  const rows = await fetchAllRecords();
+  console.log(`✅  Fetched ${rows.length} vote rows`);
+
+  // Group by Agenda Item # → motion
+  const motionMap = {};
+  for (const row of rows) {
+    const agendaNum = row['Agenda Item #'];
+    if (!agendaNum) continue;
+
+    // "2023.PH27.8" → "PH27.8"
+    const id = agendaNum.replace(/^\d{4}\./, '');
+
+    if (!motionMap[id]) {
+      // Parse date: "2022-11-23 15:17 PM" → "November 23, 2022"
+      const rawDate = row['Date/Time'] ?? '';
+      const datePart = rawDate.split(' ')[0]; // "2022-11-23"
+      const dateObj = datePart ? new Date(datePart + 'T00:00:00') : null;
+      const dateDisplay = dateObj
+        ? dateObj.toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })
+        : rawDate;
+
+      motionMap[id] = {
+        id,
+        title: row['Agenda Item Title'] ?? '',
+        date: dateDisplay,
+        _rawDate: datePart,
+        committee: row['Committee'] ?? '',
+        _rawResult: row['Result'] ?? '',
+        votes: {},
+      };
     }
-}
 
-async function updateDataFile(newData) {
-    try {
-        let currentData = [];
-        if (fs.existsSync(DATA_PATH)) {
-            const fileContent = fs.readFileSync(DATA_PATH, 'utf8');
-            currentData = JSON.parse(fileContent);
-        }
-
-        const index = currentData.findIndex(m => m.id === newData.id);
-        if (index > -1) {
-            currentData[index] = { ...currentData[index], ...newData };
-            console.log(`♻️ Updated existing item: ${newData.id}`);
-        } else {
-            currentData.push(newData);
-            console.log(`✨ Added new item: ${newData.id}`);
-        }
-
-        fs.writeFileSync(DATA_PATH, JSON.stringify(currentData, null, 2));
-        console.log(`✅ Saved to ${DATA_PATH}`);
-    } catch (error) {
-        console.error('❌ Failed to update data file:', error);
+    // Record this councillor's vote
+    const name = `${(row['First Name'] ?? '').trim()} ${(row['Last Name'] ?? '').trim()}`.trim();
+    if (name) {
+      const raw = (row['Vote'] ?? '').toLowerCase();
+      motionMap[id].votes[name] = raw === 'yes' ? 'YES' : raw === 'no' ? 'NO' : 'ABSENT';
     }
+  }
+
+  console.log(`📋  Unique motions: ${Object.keys(motionMap).length}`);
+
+  // Build final motions
+  const motions = Object.values(motionMap).map(m => {
+    const existing = existingMap[m.id];
+    const rawResult = m._rawResult;
+
+    // Derive status
+    const lower = rawResult.toLowerCase();
+    const status = lower.startsWith('carried') ? 'Adopted'
+                 : (lower.startsWith('lost') || lower.startsWith('failed')) ? 'Defeated'
+                 : 'Unknown';
+
+    const trivialVal = existing?.trivial ?? isTrivial(m.title);
+    const topicVal   = existing?.topic   ?? classifyTopic(m.title);
+
+    const base = {
+      id:         m.id,
+      title:      m.title,
+      date:       m.date,
+      status,
+      topic:      topicVal,
+      trivial:    trivialVal,
+      votes:      m.votes,
+    };
+
+    base.significance = existing?.significance ?? estimateSignificance(base, rawResult);
+
+    // Preserve manually-set fields from existing data
+    if (existing?.mover)    base.mover    = existing.mover;
+    if (existing?.seconder) base.seconder = existing.seconder;
+    if (existing?.url)      base.url      = existing.url;
+    if (existing?.ward)     base.ward     = existing.ward;
+    if (existing?.flags?.length) base.flags = existing.flags;
+
+    return base;
+  });
+
+  // Sort: newest first, then by id
+  motions.sort((a, b) => {
+    const da = motionMap[a.id]?._rawDate ?? '';
+    const db = motionMap[b.id]?._rawDate ?? '';
+    if (db !== da) return db.localeCompare(da);
+    return a.id.localeCompare(b.id);
+  });
+
+  fs.writeFileSync(OUT_FILE, JSON.stringify(motions, null, 2));
+
+  // Stats
+  const adopted = motions.filter(m => m.status === 'Adopted').length;
+  const topics  = {};
+  motions.forEach(m => { topics[m.topic] = (topics[m.topic] || 0) + 1; });
+  const preserved = motions.filter(m => existingMap[m.id]).length;
+
+  console.log(`\n✅  Written ${motions.length} motions → ${OUT_FILE}`);
+  console.log(`    Adopted: ${adopted} (${Math.round(adopted / motions.length * 100)}%)`);
+  console.log(`    Preserved from existing: ${preserved}`);
+  console.log(`    Topics:`, topics);
 }
 
-const targetId = process.argv[2];
-if (targetId) {
-    fetchCouncilItem(targetId).then(data => {
-        if (data) {
-            updateDataFile(data);
-        }
-    });
-} else {
-    console.log("Usage: node scripts/fetch_motions.js [YEAR.ITEM_ID]");
-    console.log("Example: node scripts/fetch_motions.js 2026.CC37.3");
-}
+main().catch(err => { console.error('❌ ', err.message); process.exit(1); });

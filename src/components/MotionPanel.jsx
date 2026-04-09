@@ -37,7 +37,7 @@ export default function MotionPanel({ motion: m, onClose }) {
                       "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold",
                       m.status === 'Adopted'
                         ? 'bg-emerald-50 text-emerald-700 ring-1 ring-inset ring-emerald-600/20'
-                        : m.status === 'Lost'
+                        : (m.status === 'Lost' || m.status === 'Defeated')
                         ? 'bg-red-50 text-red-700 ring-1 ring-inset ring-red-600/20'
                         : 'bg-slate-100 text-slate-700'
                     )}>
