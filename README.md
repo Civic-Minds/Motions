@@ -1,9 +1,9 @@
 # Motions
 
-A premium municipal transparency dashboard to separate policy from posturing.
+You elected them. Here’s what they’ve done.
 
 ## Problem
-Municipal governance is often an opaque mix of major policy and routine bureaucracy. For citizens and observers, it is nearly impossible to track where a council’s energy is actually being spent without manual, deep-dive research into thousands of pages of records.
+City council makes decisions that affect your rent, your commute, your neighbourhood — but following what’s actually happening requires wading through thousands of pages of records most people will never read. Motions makes that legible.
 
 ## Features
 - **Triviality Score**: A data-driven metric that separates high-impact civic priorities from minor administrative items.

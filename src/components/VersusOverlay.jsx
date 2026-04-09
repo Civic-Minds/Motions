@@ -1,147 +1,253 @@
-import React from 'react';
-import { X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { TOPIC_BADGE } from '../constants/data';
+import React, { useMemo } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowRight, ExternalLink } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { cn } from '../lib/utils';
+
+const TOPICS = ['Housing', 'Transit', 'Finance', 'Parks', 'Climate', 'General'];
+
+const TOPIC_COLOR = {
+  Housing:  { bar: 'bg-blue-500',    light: 'bg-blue-50 text-blue-700' },
+  Transit:  { bar: 'bg-amber-500',   light: 'bg-amber-50 text-amber-700' },
+  Finance:  { bar: 'bg-emerald-500', light: 'bg-emerald-50 text-emerald-700' },
+  Parks:    { bar: 'bg-green-500',   light: 'bg-green-50 text-green-700' },
+  Climate:  { bar: 'bg-teal-500',    light: 'bg-teal-50 text-teal-700' },
+  General:  { bar: 'bg-slate-400',   light: 'bg-slate-100 text-slate-600' },
+};
+
+function VoteBar({ pct, color }) {
+  return (
+    <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+      <motion.div
+        className={cn('h-full rounded-full', color)}
+        initial={{ width: 0 }}
+        animate={{ width: `${pct}%` }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+      />
+    </div>
+  );
+}
 
 export default function VersusOverlay({ selection, onClose, motions }) {
   if (!selection || selection.length < 2) return null;
   const [c1, c2] = selection;
 
-  const divergence = motions
-    .filter(m => m.votes && m.votes[c1] !== m.votes[c2] && !m.trivial)
-    .sort((a, b) => (b.significance ?? 0) - (a.significance ?? 0));
+  const { alignmentScore, totalShared, c1Yes, c2Yes } = useMemo(() => {
+    const shared = motions.filter(m => m.votes?.[c1] && m.votes?.[c2]);
+    const same   = shared.filter(m => m.votes[c1] === m.votes[c2]).length;
+    const allC1  = motions.filter(m => m.votes?.[c1]);
+    const allC2  = motions.filter(m => m.votes?.[c2]);
+    return {
+      totalShared:    shared.length,
+      alignmentScore: shared.length > 0 ? Math.floor((same / shared.length) * 100) : null,
+      c1Yes: allC1.length > 0 ? Math.round((allC1.filter(m => m.votes[c1] === 'YES').length / allC1.length) * 100) : 0,
+      c2Yes: allC2.length > 0 ? Math.round((allC2.filter(m => m.votes[c2] === 'YES').length / allC2.length) * 100) : 0,
+    };
+  }, [c1, c2, motions]);
 
-  const totalShared = motions.filter(m => m.votes && m.votes[c1] && m.votes[c2]).length;
-  const sharedSame = motions.filter(m => m.votes && m.votes[c1] === m.votes[c2]).length;
-  const alignmentScore = totalShared > 0 ? Math.floor((sharedSame / totalShared) * 100) : null;
+  const topicBreakdown = useMemo(() => {
+    return TOPICS.map(topic => {
+      const relevant = motions.filter(m => m.topic === topic && !m.trivial);
+      const c1Votes  = relevant.filter(m => m.votes?.[c1] === 'YES' || m.votes?.[c1] === 'NO');
+      const c2Votes  = relevant.filter(m => m.votes?.[c2] === 'YES' || m.votes?.[c2] === 'NO');
+      const shared   = relevant.filter(m => (m.votes?.[c1] === 'YES' || m.votes?.[c1] === 'NO') && (m.votes?.[c2] === 'YES' || m.votes?.[c2] === 'NO'));
+      const agreed   = shared.filter(m => m.votes[c1] === m.votes[c2]).length;
+      return {
+        topic,
+        c1Yes:     c1Votes.length > 0 ? Math.round((c1Votes.filter(m => m.votes[c1] === 'YES').length / c1Votes.length) * 100) : null,
+        c2Yes:     c2Votes.length > 0 ? Math.round((c2Votes.filter(m => m.votes[c2] === 'YES').length / c2Votes.length) * 100) : null,
+        agreement: shared.length >= 5 ? Math.round((agreed / shared.length) * 100) : null,
+        shared:    shared.length,
+        hasData:   c1Votes.length >= 3 && c2Votes.length >= 3,
+      };
+    }).filter(t => t.hasData);
+  }, [c1, c2, motions]);
 
-  const dna = (name) => {
-    const all = motions.filter(m => m.votes?.[name]);
-    const yes = all.filter(m => m.votes[name] === 'YES').length;
-    return all.length > 0 ? Math.round((yes / all.length) * 100) : 0;
-  };
-  const c1Yes = dna(c1);
-  const c2Yes = dna(c2);
+  const topDivergences = useMemo(() => {
+    return motions
+      .filter(m => m.votes?.[c1] && m.votes?.[c2] && m.votes[c1] !== m.votes[c2] && !m.trivial)
+      .sort((a, b) => (b.significance ?? 0) - (a.significance ?? 0))
+      .slice(0, 5);
+  }, [c1, c2, motions]);
+
+  const c1Last = c1.split(' ').at(-1);
+  const c2Last = c2.split(' ').at(-1);
 
   return (
-    <AnimatePresence>
-      {selection.length >= 2 && (
-        <>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-slate-900/20 z-40 md:hidden"
-            onClick={onClose}
-          />
-          <motion.div
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-            className="fixed top-16 right-0 bottom-0 w-full sm:w-[480px] bg-white border-l border-slate-200 shadow-2xl z-50 flex flex-col overflow-hidden"
-          >
-            {/* Header */}
-            <div className="p-6 border-b border-slate-100 shrink-0">
-              <div className="flex items-start justify-between">
-                <div>
-                  <h2 className="text-lg font-bold text-slate-900">
-                    {c1.split(' ').at(-1)} vs {c2.split(' ').at(-1)}
-                  </h2>
-                  <p className="text-xs text-slate-400 mt-0.5">
-                    {alignmentScore !== null
-                      ? `${alignmentScore}% agreement on ${totalShared} shared votes`
-                      : 'No shared vote history'}
-                  </p>
-                </div>
-                <button onClick={onClose} className="p-1.5 hover:bg-slate-100 rounded-lg transition-colors">
-                  <X className="w-4 h-4 text-slate-400" />
-                </button>
-              </div>
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+      className="space-y-6"
+    >
+      {/* ── Header ── */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-black text-slate-900 tracking-tight">
+            {c1Last} <span className="text-slate-300 font-light mx-2">vs</span> {c2Last}
+          </h1>
+          <p className="text-sm text-slate-400 mt-1">
+            {c1} · {c2}
+          </p>
+        </div>
+        <button
+          onClick={onClose}
+          className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors"
+        >
+          ← Back
+        </button>
+      </div>
 
-              {/* Alignment bar */}
-              {alignmentScore !== null && (
-                <div className="mt-4">
-                  <div className="flex justify-between text-xs font-semibold mb-1.5">
-                    <span className="text-emerald-600">{alignmentScore}% agree</span>
-                    <span className="text-rose-500">{100 - alignmentScore}% differ</span>
-                  </div>
-                  <div className="h-2 w-full bg-rose-100 rounded-full overflow-hidden">
-                    <div className="h-full bg-emerald-500 rounded-full transition-all" style={{ width: `${alignmentScore}%` }} />
-                  </div>
-                </div>
-              )}
+      {/* ── Overall alignment ── */}
+      <div className="bg-white border border-slate-200 rounded-2xl p-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 items-center">
+
+          {/* C1 DNA */}
+          <div className="space-y-2">
+            <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide truncate">{c1}</p>
+            <div className="flex h-3 rounded-full overflow-hidden">
+              <div className="bg-emerald-500 h-full" style={{ width: `${c1Yes}%` }} />
+              <div className="bg-rose-400 h-full" style={{ width: `${100 - c1Yes}%` }} />
             </div>
-
-            {/* DNA cards */}
-            <div className="px-6 pt-4 pb-4 border-b border-slate-100 grid grid-cols-2 gap-3 shrink-0">
-              {[[c1, c1Yes], [c2, c2Yes]].map(([name, yesPct]) => (
-                <div key={name} className="rounded-xl bg-slate-50 border border-slate-100 p-3.5">
-                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 truncate">{name}</p>
-                  <div className="h-1.5 w-full bg-slate-200 rounded-full overflow-hidden flex">
-                    <div className="h-full bg-emerald-500" style={{ width: `${yesPct}%` }} />
-                    <div className="h-full bg-rose-400" style={{ width: `${100 - yesPct}%` }} />
-                  </div>
-                  <div className="flex justify-between mt-1.5 text-[10px] font-medium">
-                    <span className="text-emerald-600">YES {yesPct}%</span>
-                    <span className="text-rose-500">NO {100 - yesPct}%</span>
-                  </div>
-                </div>
-              ))}
+            <div className="flex justify-between text-xs font-medium">
+              <span className="text-emerald-600">YES {c1Yes}%</span>
+              <span className="text-rose-500">NO {100 - c1Yes}%</span>
             </div>
+          </div>
 
-            {/* Divergence list */}
-            <div className="flex-1 overflow-y-auto p-6">
-              <div className="flex items-center justify-between mb-4">
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Where they split</p>
-                <span className="text-[10px] font-medium text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">{divergence.length} motions</span>
-              </div>
-              <div className="space-y-3">
-                {divergence.length > 0 ? divergence.map((m, i) => (
-                  <div key={i} className="p-4 border border-slate-100 rounded-xl bg-white hover:border-[#004a99]/30 transition-all group">
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="flex-1 min-w-0">
-                        {m.topic && (
-                          <span className={cn("inline-block text-[9px] font-bold uppercase px-1.5 py-0.5 rounded border mb-1.5", TOPIC_BADGE[m.topic] || TOPIC_BADGE.General)}>
-                            {m.topic}
-                          </span>
-                        )}
-                        <p className="text-xs font-medium text-slate-700 leading-snug group-hover:text-[#004a99] transition-colors">{m.title}</p>
-                      </div>
-                      <div className="flex items-center gap-2 shrink-0 pl-2">
-                        <div className="text-center">
-                          <p className="text-[8px] text-slate-400 font-medium mb-0.5">{c1.split(' ').at(-1)}</p>
-                          <span className={cn("text-xs font-bold",
-                            m.votes[c1] === 'YES' ? 'text-emerald-600' :
-                            m.votes[c1] === 'NO'  ? 'text-rose-500' : 'text-amber-500')}>
-                            {m.votes[c1] || '—'}
-                          </span>
-                        </div>
-                        <div className="w-px h-6 bg-slate-200" />
-                        <div className="text-center">
-                          <p className="text-[8px] text-slate-400 font-medium mb-0.5">{c2.split(' ').at(-1)}</p>
-                          <span className={cn("text-xs font-bold",
-                            m.votes[c2] === 'YES' ? 'text-emerald-600' :
-                            m.votes[c2] === 'NO'  ? 'text-rose-500' : 'text-amber-500')}>
-                            {m.votes[c2] || '—'}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+          {/* Alignment score */}
+          <div className="text-center">
+            {alignmentScore !== null ? (
+              <>
+                <p className="text-5xl font-black text-slate-900">{alignmentScore}%</p>
+                <p className="text-xs text-slate-400 mt-1">agreement on {totalShared} shared votes</p>
+                <div className="mt-3 h-2 w-full bg-rose-100 rounded-full overflow-hidden">
+                  <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${alignmentScore}%` }} />
+                </div>
+              </>
+            ) : (
+              <p className="text-sm text-slate-400 font-medium">No shared vote history</p>
+            )}
+          </div>
+
+          {/* C2 DNA */}
+          <div className="space-y-2">
+            <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide truncate text-right">{c2}</p>
+            <div className="flex h-3 rounded-full overflow-hidden">
+              <div className="bg-emerald-500 h-full" style={{ width: `${c2Yes}%` }} />
+              <div className="bg-rose-400 h-full" style={{ width: `${100 - c2Yes}%` }} />
+            </div>
+            <div className="flex justify-between text-xs font-medium">
+              <span className="text-emerald-600">YES {c2Yes}%</span>
+              <span className="text-rose-500">NO {100 - c2Yes}%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Topic breakdown ── */}
+      <div>
+        <h2 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">By topic</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {topicBreakdown.map((t, i) => {
+            const colors = TOPIC_COLOR[t.topic] ?? TOPIC_COLOR.General;
+            return (
+              <motion.div
+                key={t.topic}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.05 }}
+                className="bg-white border border-slate-200 rounded-2xl p-5 space-y-4"
+              >
+                <div className="flex items-center justify-between">
+                  <span className={cn("text-xs font-semibold px-2.5 py-1 rounded-full", colors.light)}>
+                    {t.topic}
+                  </span>
+                  {t.agreement !== null && (
+                    <span className={cn(
+                      "text-[10px] font-bold px-2 py-0.5 rounded-full",
+                      t.agreement >= 70 ? "bg-emerald-50 text-emerald-600" :
+                      t.agreement >= 50 ? "bg-amber-50 text-amber-600" :
+                                          "bg-rose-50 text-rose-600"
+                    )}>
+                      {t.agreement}% agree
+                    </span>
+                  )}
+                </div>
+
+                {/* C1 bar */}
+                <div className="space-y-1">
+                  <div className="flex justify-between text-[10px] text-slate-500">
+                    <span className="font-medium truncate max-w-[120px]">{c1Last}</span>
+                    <span>{t.c1Yes != null ? `YES ${t.c1Yes}%` : '—'}</span>
                   </div>
-                )) : (
-                  <div className="text-center py-12 bg-slate-50 rounded-2xl border border-dashed border-slate-200">
-                    <p className="text-sm text-slate-400 font-medium">
-                      {totalShared === 0 ? 'No shared vote history.' : 'Voted identically on all shared motions.'}
-                    </p>
+                  {t.c1Yes != null && <VoteBar pct={t.c1Yes} color={colors.bar} />}
+                </div>
+
+                {/* C2 bar */}
+                <div className="space-y-1">
+                  <div className="flex justify-between text-[10px] text-slate-500">
+                    <span className="font-medium truncate max-w-[120px]">{c2Last}</span>
+                    <span>{t.c2Yes != null ? `YES ${t.c2Yes}%` : '—'}</span>
                   </div>
+                  {t.c2Yes != null && <VoteBar pct={t.c2Yes} color="bg-slate-400" />}
+                </div>
+
+                {t.shared > 0 && (
+                  <p className="text-[10px] text-slate-400">{t.shared} shared votes</p>
                 )}
-              </div>
-            </div>
-          </motion.div>
-        </>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* ── Top divergences ── */}
+      {topDivergences.length > 0 && (
+        <div>
+          <h2 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">
+            Where they split — top {topDivergences.length} notable
+          </h2>
+          <div className="space-y-2">
+            {topDivergences.map(m => (
+              <Link key={m.id} to={`/motions/${m.id}`}>
+                <div className="bg-white border border-slate-200 rounded-2xl p-4 flex items-center gap-4 hover:border-[#004a99]/40 hover:shadow-sm transition-all group">
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-1">{m.title}</p>
+                    <p className="text-xs text-slate-400 mt-0.5">{m.date} · {m.topic}</p>
+                  </div>
+                  <div className="flex items-center gap-3 shrink-0">
+                    <div className="text-center">
+                      <p className="text-[9px] text-slate-400 mb-0.5">{c1Last}</p>
+                      <span className={cn("text-xs font-bold",
+                        m.votes[c1] === 'YES' ? 'text-emerald-600' : m.votes[c1] === 'NO' ? 'text-rose-500' : 'text-amber-500')}>
+                        {m.votes[c1]}
+                      </span>
+                    </div>
+                    <div className="w-px h-5 bg-slate-200" />
+                    <div className="text-center">
+                      <p className="text-[9px] text-slate-400 mb-0.5">{c2Last}</p>
+                      <span className={cn("text-xs font-bold",
+                        m.votes[c2] === 'YES' ? 'text-emerald-600' : m.votes[c2] === 'NO' ? 'text-rose-500' : 'text-amber-500')}>
+                        {m.votes[c2]}
+                      </span>
+                    </div>
+                    {m.url && (
+                      <a href={m.url} target="_blank" rel="noopener noreferrer"
+                        onClick={e => e.stopPropagation()}
+                        className="text-slate-300 hover:text-[#004a99] transition-colors">
+                        <ExternalLink className="w-3.5 h-3.5" />
+                      </a>
+                    )}
+                    <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-[#004a99] transition-colors" />
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
       )}
-    </AnimatePresence>
+    </motion.div>
   );
 }

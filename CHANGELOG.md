@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- **VersusOverlay → full-page topic breakdown** — VS mode now renders full-width (replacing the councillor grid) instead of a sidebar. Content changed from a raw divergent-motions list to a topic-by-topic breakdown: each topic shows both councillors' YES rates as bars + agreement rate. Top 5 most significant divergent motions still shown below. External link icon on each motion row links to toronto.ca.
+- **Ward card click-through** — clicking a ward card now shows a significance-sorted motion list for that ward (with back navigation). Previously cards were not interactive.
+- **Bundled ward boundaries** — ward GeoJSON downloaded from Toronto ArcGIS and saved to `public/data/wards.geojson`. "Find my ward" no longer depends on the CKAN API (which was unreachable).
+- **Scorecard dense ranking** — ties share the same rank number. Podium (gold/silver/bronze) hidden when top values are tied (e.g. multiple councillors at 100% attendance).
+
+### Changed
 - **Scorecard** — ranked leaderboard of all 26 councillors at `/analytics`. Sortable by attendance, majority alignment, yes rate, or votes cast. Active sort highlights with a podium top-3; non-active stats dim. Stats computed from live motions data via `getAttendance` and `getMemberAlignmentScore`.
 - **CommitteesView** — new page at `/committees` listing all 15 committees derived from motion ID prefixes (e.g. `PH` → Planning & Housing). Each card shows total motions, adoption rate bar, substantive count, and top topics. Clicking drills into a significance-sorted motion list for that committee.
 - **Committee badge on motion rows** — `getCommittee(id)` utility derives committee name from motion ID prefix; shown as a grey pill on every motion row in the dashboard.

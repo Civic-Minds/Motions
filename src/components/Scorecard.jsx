@@ -66,7 +66,24 @@ export default function Scorecard({ motions }) {
     else { setSortKey(key); setSortDir('desc'); }
   }
 
-  const top3 = sortKey !== 'name' ? sorted.slice(0, 3) : [];
+  // Only show podium if the top values are distinct (no ties at the top)
+  // Dense ranking: same value = same rank
+  const ranks = useMemo(() => {
+    if (sortKey === 'name') return sorted.map((_, i) => i + 1);
+    let rank = 1;
+    return sorted.map((c, i) => {
+      if (i > 0 && c[sortKey] !== sorted[i - 1][sortKey]) rank = i + 1;
+      return rank;
+    });
+  }, [sorted, sortKey]);
+
+  const top3 = useMemo(() => {
+    if (sortKey === 'name') return [];
+    const top = sorted.slice(0, 3);
+    const topVal = top[0]?.[sortKey];
+    const hasTie = topVal != null && sorted.filter(c => c[sortKey] === topVal).length > 1;
+    return hasTie ? [] : top;
+  }, [sorted, sortKey]);
   const activeSort = SORTS.find(s => s.key === sortKey);
 
   function activeStat(c) {
@@ -134,7 +151,7 @@ export default function Scorecard({ motions }) {
 
       {/* Ranked list */}
       <div className="space-y-2">
-        {sorted.map((c, i) => (
+        {sorted.map((c, i) => { const rank = ranks[i]; return ( // eslint-disable-line no-unused-vars
           <motion.div
             key={c.name}
             initial={{ opacity: 0, y: 6 }}
@@ -147,12 +164,12 @@ export default function Scorecard({ motions }) {
               {/* Rank */}
               <span className={cn(
                 "w-7 text-center text-sm font-black shrink-0 tabular-nums",
-                i === 0 ? "text-amber-500" :
-                i === 1 ? "text-slate-400" :
-                i === 2 ? "text-orange-400" :
-                          "text-slate-300"
+                rank === 1 ? "text-amber-500" :
+                rank === 2 ? "text-slate-400" :
+                rank === 3 ? "text-orange-400" :
+                             "text-slate-300"
               )}>
-                {i + 1}
+                {rank}
               </span>
 
               {/* Name + ward */}
@@ -198,7 +215,7 @@ export default function Scorecard({ motions }) {
               </div>
             </div>
           </motion.div>
-        ))}
+        ); })}
       </div>
     </div>
   );

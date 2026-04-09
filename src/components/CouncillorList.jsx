@@ -120,6 +120,17 @@ export default function CouncillorList({ motions }) {
     (c.topTopic && c.topTopic.toLowerCase().includes(search.toLowerCase()))
   );
 
+  // Full-page versus view
+  if (versusSelection.length >= 2) {
+    return (
+      <VersusOverlay
+        selection={versusSelection}
+        onClose={closeVersus}
+        motions={motions}
+      />
+    );
+  }
+
   return (
     <div className="space-y-8 pb-20">
       {/* Page header */}
@@ -264,7 +275,7 @@ export default function CouncillorList({ motions }) {
         </div>
       )}
 
-      {/* Side panels */}
+      {/* Side panel — profile */}
       <ProfilePanel
         selected={selectedProfile}
         onClose={closeProfile}
@@ -273,11 +284,6 @@ export default function CouncillorList({ motions }) {
           setCompareSlots([name]);
           closeProfile();
         }}
-        motions={motions}
-      />
-      <VersusOverlay
-        selection={versusSelection}
-        onClose={closeVersus}
         motions={motions}
       />
     </div>
