@@ -77,6 +77,35 @@ export const TOPIC_COLOR = {
     General: { badge: 'bg-slate-50 text-slate-500 border-slate-200',       dot: 'bg-slate-400' },
 };
 
+// ─── Committee names (derived from motion ID prefix) ─────────────────────────
+
+export const COMMITTEE_NAMES = {
+  MM:  'City Council',
+  CC:  'City Council',
+  EX:  'Executive Committee',
+  PH:  'Planning & Housing Committee',
+  IE:  'Infrastructure & Environment Committee',
+  EC:  'Economic & Community Development Committee',
+  TE:  'Toronto & East York Community Council',
+  EY:  'Etobicoke York Community Council',
+  NY:  'North York Community Council',
+  SC:  'Scarborough Community Council',
+  GG:  'General Government & Licensing Committee',
+  AU:  'Audit Committee',
+  HL:  'Board of Health',
+  MPB: 'Mayor\'s Policy & Budget',
+  BL:  'Budget Committee',
+  RM:  'Etobicoke York Community Council',
+  DM:  'Deputy Mayor\'s Office',
+  IA:  'Striking Committee',
+  CA:  'Committee of Adjustment',
+};
+
+export function getCommittee(motionId) {
+  const code = motionId?.split('.')[0].replace(/\d/g, '') ?? '';
+  return COMMITTEE_NAMES[code] ?? code;
+}
+
 // ─── Flag styling ─────────────────────────────────────────────────────────────
 
 export const FLAG_STYLES = {

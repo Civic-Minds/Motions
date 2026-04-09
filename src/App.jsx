@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, Users, Map, BarChart3, PieChart, Menu, X } from 'lucide-react';
+import { Users, Map, BarChart3, PieChart, Building2, Menu, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from './lib/utils';
 import { useMotions } from './hooks/useMotions';
@@ -10,17 +10,18 @@ import CouncillorList from './components/CouncillorList';
 import WardGrid from './components/WardGrid';
 import Scorecard from './components/Scorecard';
 import BudgetTranslator from './components/BudgetTranslator';
+import CommitteesView from './components/CommitteesView';
 import MotionDetail from './components/MotionDetail';
 
 const TABS = [
-  { path: '/',            label: 'Dashboard',  icon: LayoutDashboard },
   { path: '/councillors', label: 'Councillors', icon: Users },
   { path: '/wards',       label: 'Wards',       icon: Map },
+  { path: '/committees',  label: 'Committees',  icon: Building2 },
   { path: '/analytics',   label: 'Scorecard',   icon: BarChart3 },
   { path: '/budget',      label: 'Budget',      icon: PieChart },
 ];
 
-function Navbar({ motions }) {
+function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -67,14 +68,6 @@ function Navbar({ motions }) {
           })}
         </nav>
 
-        {/* Live pill */}
-        <div className="hidden md:flex items-center gap-2 px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-full">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-          </span>
-          <span className="text-xs font-semibold text-slate-600">{motions.length} motions</span>
-        </div>
 
         {/* Mobile toggle */}
         <button className="md:hidden p-2 rounded-lg hover:bg-slate-100" onClick={() => setOpen(o => !o)}>
@@ -138,7 +131,7 @@ function AppShell() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar motions={motions} />
+      <Navbar />
       <main className="flex-1 max-w-[1400px] mx-auto w-full px-4 sm:px-6 py-8">
         <Routes>
           <Route path="/" element={<DashboardView motions={motions} />} />
@@ -146,7 +139,8 @@ function AppShell() {
           <Route path="/councillors/:slug" element={<CouncillorList motions={motions} />} />
           <Route path="/councillors/:slug/vs/:slug2" element={<CouncillorList motions={motions} />} />
           <Route path="/motions/:motionId" element={<MotionDetail motions={motions} />} />
-          <Route path="/wards"     element={<WardGrid motions={motions} />} />
+          <Route path="/wards"       element={<WardGrid motions={motions} />} />
+          <Route path="/committees" element={<CommitteesView motions={motions} />} />
           <Route path="/analytics" element={<Scorecard motions={motions} />} />
           <Route path="/budget"    element={<BudgetTranslator />} />
           <Route path="*"          element={<Navigate to="/" replace />} />
