@@ -96,7 +96,7 @@ export default function YourWardCard({ motions }) {
       <motion.div
         initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white border border-[#004a99]/20 rounded-3xl overflow-hidden shadow-sm"
+        className="bg-white border border-[#004a99]/20 rounded-2xl overflow-hidden shadow-sm h-full"
       >
         {/* Header */}
         <div className="flex items-center justify-between px-4 pt-3 pb-3 border-b border-slate-100">

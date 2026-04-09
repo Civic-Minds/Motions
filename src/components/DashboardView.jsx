@@ -106,10 +106,10 @@ export default function DashboardView({ motions, councillors }) {
     <div className="space-y-4">
 
       {/* ── Top section: hero + ward side by side ── */}
-      <div className="grid lg:grid-cols-[1fr_300px] gap-4 items-start">
+      <div className="grid lg:grid-cols-[1fr_300px] gap-4 items-stretch">
 
         {/* Hero card */}
-        <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+        <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden h-full">
 
           {/* Compact stats strip */}
           <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-100 flex-wrap">
