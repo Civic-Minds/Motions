@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { MapPin, X, ChevronRight, Loader2 } from 'lucide-react';
+import { MapPin, ChevronRight, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { WARD_COUNCILLORS } from '../constants/data';
 import { TORONTO_WARDS } from '../constants/wards';
@@ -101,34 +101,23 @@ export default function YourWardCard({ motions }) {
         {/* Header row */}
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Your Ward</p>
-            <p className="text-sm font-bold text-slate-900 mt-0.5 leading-snug">
+            <p className="text-sm font-bold text-slate-900 leading-snug">
               Ward {wardId}{ward ? ` · ${ward.name}` : ''}
             </p>
-          </div>
-          <div className="flex items-center gap-1 shrink-0">
-            {councillorName && (
-              <Link
-                to={`/councillors/${nameToSlug(councillorName)}`}
-                className="flex items-center gap-1 px-2 py-1 bg-slate-50 border border-slate-200 rounded-lg text-xs font-semibold text-slate-700 hover:border-[#004a99]/40 hover:text-[#004a99] transition-colors"
-              >
-                {councillorName.split(' ').at(-1)} <ChevronRight className="w-3 h-3" />
-              </Link>
-            )}
-            <button onClick={handleClear} className="p-1 hover:bg-slate-100 rounded-lg transition-colors" title="Change ward">
-              <X className="w-3.5 h-3.5 text-slate-400" />
+            <button onClick={handleClear} className="text-[9px] text-slate-400 hover:text-slate-600 transition-colors mt-0.5">
+              change
             </button>
           </div>
+          {councillorName && (
+            <Link
+              to={`/councillors/${nameToSlug(councillorName)}`}
+              className="flex items-center gap-1 px-2 py-1 bg-slate-50 border border-slate-200 rounded-lg text-xs font-semibold text-slate-700 hover:border-[#004a99]/40 hover:text-[#004a99] transition-colors shrink-0"
+            >
+              {councillorName.split(' ').at(-1)} <ChevronRight className="w-3 h-3" />
+            </Link>
+          )}
         </div>
 
-        {councillorName && (
-          <Link
-            to={`/councillors/${nameToSlug(councillorName)}`}
-            className="mt-auto text-xs font-semibold text-[#004a99] hover:underline"
-          >
-            View {councillorName}'s profile →
-          </Link>
-        )}
       </motion.div>
     </AnimatePresence>
   );

@@ -86,90 +86,90 @@ export default function DashboardView({ motions, councillors }) {
     <div className="space-y-4">
 
       {/* ── Top section: three cards ── */}
-      <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr_240px] gap-4 items-stretch">
+      <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr_220px] gap-3 items-start">
 
-        {/* Last Meeting card */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col gap-3">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Last Meeting</p>
-          <div>
-            <p className="text-2xl font-black text-slate-900 leading-none">{lastMeeting.count}
-              <span className="text-sm font-medium text-slate-400 ml-1.5">motion{lastMeeting.count !== 1 ? 's' : ''}</span>
-            </p>
-            {lastMeeting.date && <p className="text-xs text-slate-400 mt-1">{lastMeeting.date}</p>}
-          </div>
-          {adoptionRateLastMeeting !== null && (
+        {/* Last Meeting */}
+        <div className="flex flex-col gap-1.5">
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-1">Last Meeting</p>
+          <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col gap-3">
             <div>
-              <div className="flex justify-between text-xs mb-1">
-                <span className="text-slate-500 font-medium">Adopted</span>
-                <span className="font-bold text-emerald-600">{adoptionRateLastMeeting}%</span>
-              </div>
-              <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
-                <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${adoptionRateLastMeeting}%` }} />
-              </div>
+              <p className="text-2xl font-black text-slate-900 leading-none">{lastMeeting.count}
+                <span className="text-sm font-medium text-slate-400 ml-1.5">motion{lastMeeting.count !== 1 ? 's' : ''}</span>
+              </p>
+              {lastMeeting.date && <p className="text-xs text-slate-400 mt-1">{lastMeeting.date}</p>}
             </div>
-          )}
-          {lastMeetingTopics.length > 0 && (
-            <div className="flex flex-wrap gap-1 mt-auto pt-1">
-              {lastMeetingTopics.map(topic => (
-                <span key={topic} className={cn("text-[9px] font-medium px-1.5 py-0.5 rounded-full", TOPIC_LIGHT[topic] || 'bg-slate-100 text-slate-600')}>
-                  {topic}
-                </span>
-              ))}
-            </div>
-          )}
+            {adoptionRateLastMeeting !== null && (
+              <div>
+                <div className="flex justify-between text-xs mb-1">
+                  <span className="text-slate-500 font-medium">Adopted</span>
+                  <span className="font-bold text-emerald-600">{adoptionRateLastMeeting}%</span>
+                </div>
+                <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                  <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${adoptionRateLastMeeting}%` }} />
+                </div>
+              </div>
+            )}
+            {lastMeetingTopics.length > 0 && (
+              <div className="flex flex-wrap gap-1">
+                {lastMeetingTopics.map(topic => (
+                  <span key={topic} className={cn("text-[9px] font-medium px-1.5 py-0.5 rounded-full", TOPIC_LIGHT[topic] || 'bg-slate-100 text-slate-600')}>
+                    {topic}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
 
-        {/* Most Recent Notable card */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col gap-3">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Most Recent Notable</p>
-
-          {highlights.length > 0 ? (
-            <div className="grid grid-cols-4 gap-2 items-start">
-              {highlights.map((m, i) => {
-                const yesCount = Object.values(m.votes ?? {}).filter(v => v === 'YES').length;
-                const noCount  = Object.values(m.votes ?? {}).filter(v => v === 'NO').length;
-                const total    = yesCount + noCount;
-                return (
-                  <motion.button
-                    key={m.id}
-                    initial={{ opacity: 0, scale: 0.97 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: i * 0.04 }}
-                    onClick={() => navigate(`/motions/${m.id}`)}
-                    className="w-full text-left group flex flex-col gap-2 p-3 rounded-xl border border-slate-100 hover:border-[#004a99]/30 hover:bg-slate-50 transition-all"
-                  >
-                    <div className="flex items-center justify-between gap-1">
-                      <span className={cn("text-[9px] font-semibold px-1.5 py-0.5 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>
-                        {m.topic}
+        {/* Most Recent Notable */}
+        <div className="flex flex-col gap-1.5">
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-1">Most Recent Notable</p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {highlights.map((m, i) => {
+              const yesCount = Object.values(m.votes ?? {}).filter(v => v === 'YES').length;
+              const noCount  = Object.values(m.votes ?? {}).filter(v => v === 'NO').length;
+              const total    = yesCount + noCount;
+              return (
+                <motion.button
+                  key={m.id}
+                  initial={{ opacity: 0, scale: 0.97 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: i * 0.04 }}
+                  onClick={() => navigate(`/motions/${m.id}`)}
+                  className="bg-white border border-slate-200 rounded-2xl p-4 text-left group flex flex-col gap-2 hover:border-[#004a99]/40 hover:shadow-sm transition-all"
+                >
+                  <div className="flex items-center justify-between gap-1">
+                    <span className={cn("text-[9px] font-semibold px-1.5 py-0.5 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>
+                      {m.topic}
+                    </span>
+                    <span className={cn("text-[9px] font-bold shrink-0", m.status === 'Adopted' ? 'text-emerald-600' : 'text-rose-500')}>
+                      {m.status === 'Adopted' ? '✓' : '✗'}
+                    </span>
+                  </div>
+                  <p className="text-xs font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-3 leading-snug flex-1">
+                    {m.title}
+                  </p>
+                  <div className="flex items-center justify-between mt-auto">
+                    <span className="text-[9px] text-slate-400">{m.date}</span>
+                    {total > 0 && (
+                      <span className="text-[9px] font-medium">
+                        <span className="text-emerald-600 font-bold">{yesCount}</span>
+                        <span className="text-slate-300 mx-0.5">–</span>
+                        <span className="text-rose-500 font-bold">{noCount}</span>
                       </span>
-                      <span className={cn("text-[9px] font-bold shrink-0", m.status === 'Adopted' ? 'text-emerald-600' : 'text-rose-500')}>
-                        {m.status === 'Adopted' ? '✓' : '✗'}
-                      </span>
-                    </div>
-                    <p className="text-xs font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-3 leading-snug">
-                      {m.title}
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-[9px] text-slate-400">{m.date}</span>
-                      {total > 0 && (
-                        <span className="text-[9px] font-medium">
-                          <span className="text-emerald-600 font-bold">{yesCount}</span>
-                          <span className="text-slate-300 mx-0.5">–</span>
-                          <span className="text-rose-500 font-bold">{noCount}</span>
-                        </span>
-                      )}
-                    </div>
-                  </motion.button>
-                );
-              })}
-            </div>
-          ) : (
-            <p className="text-sm text-slate-400">No recent highlights for selected topics.</p>
-          )}
+                    )}
+                  </div>
+                </motion.button>
+              );
+            })}
+          </div>
         </div>
 
         {/* Your Ward */}
-        <YourWardCard motions={motions} />
+        <div className="flex flex-col gap-1.5">
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-1">Your Ward</p>
+          <YourWardCard motions={motions} />
+        </div>
       </div>
 
       {/* ── Main: sidebar + list ── */}
@@ -187,7 +187,7 @@ export default function DashboardView({ motions, councillors }) {
                   "w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-medium text-left transition-all",
                   selectedTopic === topic
                     ? topic === 'All'
-                      ? "bg-slate-900 text-white"
+                      ? "bg-[#004a99] text-white"
                       : "bg-[#004a99] text-white"
                     : "text-slate-600 hover:bg-slate-100"
                 )}
@@ -231,7 +231,7 @@ export default function DashboardView({ motions, councillors }) {
                 className={cn(
                   "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-all border",
                   selectedTopic === topic
-                    ? topic === 'All' ? "bg-slate-900 text-white border-slate-900" : "bg-[#004a99] text-white border-[#004a99]"
+                    ? "bg-[#004a99] text-white border-[#004a99]"
                     : "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100"
                 )}
               >
