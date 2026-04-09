@@ -104,16 +104,14 @@ export default function DashboardView({ motions, councillors }) {
         {/* Last Meeting */}
         <div className="flex flex-col gap-1.5">
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Last Meeting</p>
-          <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col gap-3 flex-1">
-            <div>
-              <p className="text-2xl font-black text-slate-900 leading-none">{lastMeeting.count}
-                <span className="text-sm font-medium text-slate-400 ml-1.5">motion{lastMeeting.count !== 1 ? 's' : ''}</span>
-              </p>
-              {lastMeeting.date && <p className="text-xs text-slate-400 mt-1">{lastMeeting.date}</p>}
+          <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col gap-2 flex-1">
+            <div className="flex items-center justify-between">
+              <p className="text-xs font-semibold text-slate-800">{lastMeeting.count} motion{lastMeeting.count !== 1 ? 's' : ''}</p>
+              {lastMeeting.date && <p className="text-[9px] text-slate-400">{lastMeeting.date}</p>}
             </div>
             {adoptionRateLastMeeting !== null && (
               <div>
-                <div className="flex justify-between text-xs mb-1">
+                <div className="flex justify-between text-[9px] mb-1">
                   <span className="text-slate-500 font-medium">Adopted</span>
                   <span className="font-bold text-emerald-600">{adoptionRateLastMeeting}%</span>
                 </div>
@@ -123,7 +121,7 @@ export default function DashboardView({ motions, councillors }) {
               </div>
             )}
             {lastMeetingTopics.length > 0 && (
-              <div className="flex flex-wrap gap-1">
+              <div className="flex flex-wrap gap-1 mt-auto">
                 {lastMeetingTopics.map(topic => (
                   <span key={topic} className={cn("text-[9px] font-medium px-1.5 py-0.5 rounded-full", TOPIC_LIGHT[topic] || 'bg-slate-100 text-slate-600')}>
                     {topic}

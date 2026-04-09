@@ -55,21 +55,21 @@ export default function YourWardCard({ motions }) {
     return (
       <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col gap-4 h-full">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-[#004a99]/10 flex items-center justify-center shrink-0">
-            <MapPin className="w-4 h-4 text-[#004a99]" />
+          <div className="w-7 h-7 rounded-lg bg-[#004a99]/10 flex items-center justify-center shrink-0">
+            <MapPin className="w-3.5 h-3.5 text-[#004a99]" />
           </div>
           <div>
-            <p className="text-sm font-semibold text-slate-900">Your Ward</p>
-            <p className="text-xs text-slate-400">See how your councillor votes</p>
+            <p className="text-xs font-semibold text-slate-900">Your Ward</p>
+            <p className="text-[9px] text-slate-400">See how your councillor votes</p>
           </div>
         </div>
         {status === 'error' && (
-          <p className="text-xs text-rose-500 -mt-2">{errorMsg}</p>
+          <p className="text-[9px] text-rose-500 -mt-2">{errorMsg}</p>
         )}
         <button
           onClick={handleLocate}
           disabled={status === 'locating'}
-          className="flex items-center gap-2 px-4 py-2 bg-[#004a99] text-white text-sm font-semibold rounded-xl hover:bg-[#003875] disabled:opacity-60 transition-colors w-fit"
+          className="flex items-center gap-2 px-3 py-1.5 bg-[#004a99] text-white text-xs font-semibold rounded-lg hover:bg-[#003875] disabled:opacity-60 transition-colors w-fit"
         >
           {status === 'locating' ? (
             <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Locating…</>
@@ -91,9 +91,12 @@ export default function YourWardCard({ motions }) {
         {/* Header */}
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0">
-            <p className="text-sm font-bold text-slate-900 leading-snug">
+            <p className="text-xs font-semibold text-slate-800 leading-snug">
               Ward {wardId}{ward ? ` · ${ward.name}` : ''}
             </p>
+            {councillorName && (
+              <p className="text-[9px] text-slate-500 mt-0.5">{councillorName}</p>
+            )}
             <button onClick={handleClear} className="text-[9px] text-slate-400 hover:text-slate-600 transition-colors mt-0.5 flex items-center gap-0.5">
               <X className="w-2.5 h-2.5" /> change
             </button>
@@ -101,9 +104,9 @@ export default function YourWardCard({ motions }) {
           {councillorName && (
             <Link
               to={`/councillors/${nameToSlug(councillorName)}`}
-              className="flex items-center gap-1 px-2 py-1 bg-slate-50 border border-slate-200 rounded-lg text-xs font-semibold text-slate-700 hover:border-[#004a99]/40 hover:text-[#004a99] transition-colors shrink-0"
+              className="flex items-center gap-1 px-2 py-1 bg-slate-50 border border-slate-200 rounded-lg text-[9px] font-semibold text-slate-500 hover:border-[#004a99]/40 hover:text-[#004a99] transition-colors shrink-0"
             >
-              {councillorName.split(' ').at(-1)} <ChevronRight className="w-3 h-3" />
+              More <ChevronRight className="w-2.5 h-2.5" />
             </Link>
           )}
         </div>
