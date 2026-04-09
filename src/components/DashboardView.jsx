@@ -86,12 +86,12 @@ export default function DashboardView({ motions, councillors }) {
     <div className="space-y-4">
 
       {/* ── Top section: three cards ── */}
-      <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr_220px] gap-3 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr_220px] gap-3 items-stretch">
 
         {/* Last Meeting */}
         <div className="flex flex-col gap-1.5">
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Last Meeting</p>
-          <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col gap-3">
+          <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col gap-3 flex-1">
             <div>
               <p className="text-2xl font-black text-slate-900 leading-none">{lastMeeting.count}
                 <span className="text-sm font-medium text-slate-400 ml-1.5">motion{lastMeeting.count !== 1 ? 's' : ''}</span>
@@ -124,7 +124,7 @@ export default function DashboardView({ motions, councillors }) {
         {/* Most Recent Notable */}
         <div className="flex flex-col gap-1.5">
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Most Recent Notable</p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 flex-1 items-start content-start">
             {highlights.map((m, i) => {
               const yesCount = Object.values(m.votes ?? {}).filter(v => v === 'YES').length;
               const noCount  = Object.values(m.votes ?? {}).filter(v => v === 'NO').length;
@@ -166,7 +166,7 @@ export default function DashboardView({ motions, councillors }) {
         </div>
 
         {/* Your Ward */}
-        <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-1.5 h-full">
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Your Ward</p>
           <YourWardCard motions={motions} />
         </div>
