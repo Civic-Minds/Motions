@@ -4,12 +4,21 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- **CouncillorList** — 25-councillor card grid with alignment % and attendance % bars, search, compare mode (select two → opens VersusOverlay), shareable URLs (`/councillors/:slug`, `/councillors/:slug/vs/:slug2`).
+- **ProfilePanel** — slide-in panel showing voting DNA by topic, most-aligned peers, top 20 notable votes sorted by significance, topic filter pills, attendance stats.
+- **VersusOverlay** — slide-in split panel showing alignment score, YES/NO DNA bars for both councillors, full list of motions where they voted differently.
+- **WardGrid** — 25-ward card grid with motion counts, councillor names, "Find my ward" geolocation (fetches Toronto Open Data GeoJSON, point-in-polygon lookup, highlights matched ward).
+- **MotionDetail** — dedicated page at `/motions/:id` with full vote breakdown (YES/NO/ABSENT per councillor), back navigation.
+- **Dashboard highlights as cards** — "What's been happening" section switched from a list to a responsive card grid (topic badge, status, title, significance score).
+
 ### Changed
 - **Clean rebuild** — moved project to `/Users/ryan/Desktop/Production/Motions` and rewrote the entire frontend from scratch. Tailwind v4 with `@theme` tokens, React 19 + Vite 7, `framer-motion` for animations, `react-router-dom` v7 for shareable URLs. Zero mock data — all views wired directly to `motions.json`.
 - **New design system** — frosted glass navbar, Inter font, `#004a99` primary, `shadow-sm` cards with `border-slate-200`, slate-50 page background. No dark cards or experimental gradients.
 - **Dashboard rewrite** — stat row (total motions, substantive count, adoption rate), highlights strip (top motions by significance from last 90 days), topic filter pills, Notable toggle, expandable meeting accordion with individual motion links to `/motions/:id`.
-- **MotionDetail** — dedicated page at `/motions/:id` with full vote breakdown (YES/NO/ABSENT per councillor), back navigation.
-- **Stub pages** — `CouncillorList`, `WardGrid`, `Scorecard`, `BudgetTranslator` render placeholder until built out.
+
+### Remaining (stub pages)
+- `Scorecard`, `BudgetTranslator` — placeholder until built out.
 
 
 
