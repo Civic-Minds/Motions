@@ -197,6 +197,8 @@ export default function CouncillorList({ motions, councillors: contactData = [] 
           const isSelected = compareSlots.includes(name);
           const isFaded = compareMode && compareSlots.length === 2 && !isSelected;
           const initials = name.split(' ').map(n => n[0]).slice(0, 2).join('');
+          const lastName = name.split(' ').at(-1);
+          const photoUrl = `/images/councillors/${lastName}.jpg`;
           const isMayor = name === MAYOR;
 
           return (
@@ -216,12 +218,18 @@ export default function CouncillorList({ motions, councillors: contactData = [] 
               {/* Avatar + name */}
               <div className="flex items-center gap-3 mb-4">
                 <div className={cn(
-                  "w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-xs font-bold transition-colors relative",
+                  "w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-xs font-bold transition-colors relative overflow-hidden",
                   isMayor
                     ? isSelected ? 'bg-[#004a99] text-white' : 'bg-amber-100 text-amber-700 group-hover:bg-[#004a99] group-hover:text-white'
                     : isSelected ? 'bg-[#004a99] text-white' : 'bg-slate-100 text-slate-500 group-hover:bg-[#004a99] group-hover:text-white'
                 )}>
-                  {initials}
+                  <span>{initials}</span>
+                  <img
+                    src={photoUrl}
+                    alt={name}
+                    className="w-full h-full object-cover absolute inset-0 z-10"
+                    onError={e => { e.currentTarget.style.display = 'none'; }}
+                  />
                 </div>
                 <div className="min-w-0">
                   <div className="flex items-center gap-1.5">
