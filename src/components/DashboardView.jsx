@@ -1,9 +1,7 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, AlertCircle } from 'lucide-react';
-
-const TOPIC_PREFS_KEY = 'motions_topic_prefs';
 import { cn } from '../lib/utils';
 import { getCommittee } from '../constants/data';
 import MotionPanel from './MotionPanel';
@@ -36,24 +34,6 @@ export default function DashboardView({ motions, councillors }) {
   const [showNotableOnly, setShowNotableOnly] = useState(false);
   const [showAll, setShowAll] = useState(false);
 
-  const [topicPrefs, setTopicPrefs] = useState(() => {
-    try {
-      const stored = localStorage.getItem(TOPIC_PREFS_KEY);
-      return stored ? JSON.parse(stored) : TOPICS;
-    } catch { return TOPICS; }
-  });
-
-  useEffect(() => {
-    localStorage.setItem(TOPIC_PREFS_KEY, JSON.stringify(topicPrefs));
-  }, [topicPrefs]);
-
-  function toggleTopicPref(topic) {
-    setTopicPrefs(prev =>
-      prev.includes(topic)
-        ? prev.length > 1 ? prev.filter(t => t !== topic) : prev
-        : [...prev, topic]
-    );
-  }
 
   const selectedMotion = useMemo(
     () => (motionId ? motions.find(m => m.id === motionId) ?? null : null),
@@ -85,10 +65,10 @@ export default function DashboardView({ motions, councillors }) {
   // Most recent notable motions, filtered by topic prefs
   const highlights = useMemo(() => {
     return [...motions]
-      .filter(m => !m.trivial && m.significance >= 60 && topicPrefs.includes(m.topic))
+      .filter(m => !m.trivial && m.significance >= 60)
       .sort((a, b) => new Date(b.date) - new Date(a.date))
       .slice(0, 4);
-  }, [motions, topicPrefs]);
+  }, [motions]);
 
   const sortedMotions = useMemo(() => {
     return [...motions]
@@ -141,32 +121,7 @@ export default function DashboardView({ motions, councillors }) {
 
         {/* Most Recent Notable card */}
         <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col gap-3">
-          <div className="flex items-center justify-between gap-2 flex-wrap">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Most Recent Notable</p>
-            <div className="flex flex-wrap gap-1">
-              {TOPICS.map(topic => (
-                <button
-                  key={topic}
-                  onClick={() => toggleTopicPref(topic)}
-                  className={cn(
-                    "text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full border transition-all",
-                    topicPrefs.includes(topic)
-                      ? cn("border-transparent text-white", {
-                          Housing: 'bg-blue-500',
-                          Transit: 'bg-amber-500',
-                          Finance: 'bg-emerald-500',
-                          Parks:   'bg-green-500',
-                          Climate: 'bg-teal-500',
-                          General: 'bg-slate-400',
-                        }[topic] || 'bg-slate-500')
-                      : 'bg-white text-slate-400 border-slate-200 hover:border-slate-300'
-                  )}
-                >
-                  {topic}
-                </button>
-              ))}
-            </div>
-          </div>
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Most Recent Notable</p>
 
           {highlights.length > 0 ? (
             <div className="grid grid-cols-4 gap-2 items-start">

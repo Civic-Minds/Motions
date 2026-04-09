@@ -121,36 +121,13 @@ export default function YourWardCard({ motions }) {
           </div>
         </div>
 
-        {/* Recent votes */}
-        {recentVotes.length > 0 ? (
-          <>
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Recent Votes</p>
-            <div className="space-y-1.5 flex-1">
-              {recentVotes.map((m, i) => (
-                <Link
-                  key={m.id}
-                  to={`/motions/${m.id}`}
-                  className="group flex items-start gap-2.5 p-2.5 rounded-xl border border-slate-100 hover:border-[#004a99]/30 hover:bg-slate-50 transition-all"
-                >
-                  <span className={cn(
-                    "shrink-0 text-[9px] font-bold px-1.5 py-0.5 rounded-md mt-0.5",
-                    voteBg(m.votes[councillorName]),
-                    voteColor(m.votes[councillorName])
-                  )}>
-                    {m.votes[councillorName]}
-                  </span>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-xs font-semibold text-slate-700 group-hover:text-[#004a99] transition-colors line-clamp-1 leading-snug">
-                      {m.title}
-                    </p>
-                    <p className="text-[9px] text-slate-400 mt-0.5">{m.date}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </>
-        ) : (
-          <p className="text-xs text-slate-400">No recent votes found.</p>
+        {councillorName && (
+          <Link
+            to={`/councillors/${nameToSlug(councillorName)}`}
+            className="mt-auto text-xs font-semibold text-[#004a99] hover:underline"
+          >
+            View {councillorName}'s profile →
+          </Link>
         )}
       </motion.div>
     </AnimatePresence>
