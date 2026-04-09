@@ -9,11 +9,6 @@ import { cn } from '../lib/utils';
 
 const STORAGE_KEY = 'motions_ward_id';
 
-const voteColor = (vote) =>
-  vote === 'YES' ? 'text-emerald-600' : vote === 'NO' ? 'text-rose-500' : 'text-slate-400';
-
-const voteBg = (vote) =>
-  vote === 'YES' ? 'bg-emerald-50 border-emerald-100' : vote === 'NO' ? 'bg-rose-50 border-rose-100' : 'bg-slate-50 border-slate-100';
 
 export default function YourWardCard({ motions }) {
   const [wardId, setWardId] = useState(() => {
@@ -32,13 +27,6 @@ export default function YourWardCard({ motions }) {
   const ward = TORONTO_WARDS.find(w => w.id === wardId);
   const councillorName = wardId ? WARD_COUNCILLORS[wardId] : null;
 
-  const recentVotes = useMemo(() => {
-    if (!councillorName) return [];
-    return motions
-      .filter(m => m.votes?.[councillorName] && !m.trivial)
-      .sort((a, b) => new Date(b.date) - new Date(a.date))
-      .slice(0, 3);
-  }, [motions, councillorName]);
 
   const handleLocate = async () => {
     setStatus('locating');
@@ -120,26 +108,6 @@ export default function YourWardCard({ motions }) {
           )}
         </div>
 
-        {/* Recent votes */}
-        {recentVotes.length > 0 && (
-          <div className="flex flex-col gap-1.5 flex-1">
-            <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wide">Recent votes</p>
-            {recentVotes.map(m => {
-              const vote = m.votes[councillorName];
-              return (
-                <div
-                  key={m.id}
-                  className={cn("flex items-start gap-2 px-2 py-1.5 rounded-lg border text-left", voteBg(vote))}
-                >
-                  <span className={cn("text-[9px] font-black shrink-0 mt-0.5 uppercase", voteColor(vote))}>
-                    {vote}
-                  </span>
-                  <p className="text-[10px] text-slate-700 leading-snug line-clamp-2">{m.title}</p>
-                </div>
-              );
-            })}
-          </div>
-        )}
       </motion.div>
     </AnimatePresence>
   );

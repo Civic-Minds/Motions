@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { MapPin, Navigation, Loader2, X, AlertCircle, ArrowRight, ChevronLeft } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getWardActivityMetrics } from '../utils/analytics';
@@ -54,16 +54,20 @@ function WardMap({ feature }) {
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function WardGrid({ motions }) {
+  const { wardId: wardIdParam } = useParams();
+  const navigate = useNavigate();
   const wardActivity = useMemo(() => getWardActivityMetrics(motions), [motions]);
   const topWard = [...wardActivity].sort((a, b) => b.count - a.count)[0];
-  const totalWardMotions = wardActivity.reduce((s, w) => s + w.count, 0);
 
   const [locateState, setLocateState] = useState('idle');
   const [locateMsg, setLocateMsg] = useState('');
   const [foundWardId, setFoundWardId] = useState(null);
-  const [selectedWard, setSelectedWard] = useState(null);
   const [geoData, setGeoData] = useState(null);
   const wardRefs = useRef({});
+
+  const selectedWard = wardIdParam
+    ? TORONTO_WARDS.find(w => w.id === wardIdParam) ?? null
+    : null;
 
   // Eagerly load GeoJSON for ward maps
   useEffect(() => {
@@ -124,7 +128,7 @@ export default function WardGrid({ motions }) {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           {selectedWard && (
-            <button onClick={() => setSelectedWard(null)} className="p-1.5 hover:bg-slate-100 rounded-lg transition-colors">
+            <button onClick={() => navigate('/wards')} className="p-1.5 hover:bg-slate-100 rounded-lg transition-colors">
               <ChevronLeft className="w-5 h-5 text-slate-500" />
             </button>
           )}
@@ -190,9 +194,9 @@ export default function WardGrid({ motions }) {
               <p className="text-xs text-slate-400 mt-0.5">{topWard?.count} motions</p>
             </div>
             <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
-              <p className="text-xs text-slate-400 font-medium uppercase tracking-wide mb-1">Local Motions</p>
-              <p className="text-2xl font-black text-[#004a99]">{totalWardMotions}</p>
-              <p className="text-xs text-slate-400">all time, across all wards</p>
+              <p className="text-xs text-slate-400 font-medium uppercase tracking-wide mb-1">Total Motions</p>
+              <p className="text-2xl font-black text-[#004a99]">{motions.length}</p>
+              <p className="text-xs text-slate-400">2022–2026 term</p>
             </div>
             <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
               <p className="text-xs text-slate-400 font-medium uppercase tracking-wide mb-1">Coverage</p>
@@ -216,7 +220,7 @@ export default function WardGrid({ motions }) {
                 <motion.button
                   key={ward.id}
                   ref={el => { wardRefs.current[ward.id] = el; }}
-                  onClick={() => setSelectedWard(ward)}
+                  onClick={() => navigate(`/wards/${ward.id}`)}
                   variants={{ hidden: { opacity: 0, scale: 0.95 }, show: { opacity: 1, scale: 1, transition: { type: 'spring', stiffness: 280, damping: 28 } } }}
                   className={cn(
                     "group relative bg-white border rounded-2xl p-4 flex flex-col gap-3 transition-all duration-200 text-left w-full",

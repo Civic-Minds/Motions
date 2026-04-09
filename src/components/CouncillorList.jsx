@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Search, GitCompare, ChevronRight } from 'lucide-react';
+import { GitCompare, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getMemberAlignmentScore, getAttendance } from '../utils/analytics';
 import { nameToSlug, slugToName } from '../utils/slug';
@@ -24,7 +24,6 @@ const attendanceBg = (pct) =>
 const MAYOR = 'Olivia Chow';
 
 export default function CouncillorList({ motions, councillors: contactData = [] }) {
-  const [search, setSearch] = useState('');
   const [compareMode, setCompareMode] = useState(false);
   const [compareSlots, setCompareSlots] = useState([]);
   const [versusSelection, setVersusSelection] = useState([]);
@@ -106,10 +105,7 @@ export default function CouncillorList({ motions, councillors: contactData = [] 
     }
   };
 
-  const filtered = councillors.filter(c =>
-    c.name.toLowerCase().includes(search.toLowerCase()) ||
-    (c.topTopic && c.topTopic.toLowerCase().includes(search.toLowerCase()))
-  );
+  const filtered = councillors;
 
   // Full-page versus view
   if (versusSelection.length >= 2) {
@@ -143,16 +139,6 @@ export default function CouncillorList({ motions, councillors: contactData = [] 
             <GitCompare className="w-4 h-4" />
             {compareMode ? 'Cancel' : 'Compare'}
           </button>
-          <div className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-full focus-within:border-[#004a99] transition-colors">
-            <Search className="w-4 h-4 text-slate-400 shrink-0" />
-            <input
-              type="text"
-              placeholder="Search members..."
-              className="bg-transparent text-sm text-slate-900 placeholder:text-slate-400 outline-none w-40"
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-            />
-          </div>
         </div>
       </div>
 
@@ -277,13 +263,6 @@ export default function CouncillorList({ motions, councillors: contactData = [] 
           );
         })}
       </motion.div>
-
-      {filtered.length === 0 && (
-        <div className="text-center py-16 text-slate-400">
-          <Search className="w-10 h-10 mx-auto mb-3 opacity-30" />
-          <p className="text-sm font-medium">No councillors match "{search}"</p>
-        </div>
-      )}
 
     </div>
   );
