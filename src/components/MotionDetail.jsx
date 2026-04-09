@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, ExternalLink } from 'lucide-react';
+import { getCommittee } from '../constants/data';
 
 export default function MotionDetail({ motions }) {
   const { motionId } = useParams();
@@ -35,8 +36,22 @@ export default function MotionDetail({ motions }) {
           <span>·</span>
           <span>{motion.date}</span>
           {motion.topic && <><span>·</span><span>{motion.topic}</span></>}
-          {motion.significance != null && <><span>·</span><span>Significance {motion.significance}</span></>}
+          <span>·</span>
+          <span>{getCommittee(motion.id)}</span>
+          {motion.significance >= 90 && <><span>·</span><span className="text-amber-600 font-semibold">High Impact</span></>}
+          {motion.significance >= 60 && motion.significance < 90 && <><span>·</span><span className="text-amber-600 font-semibold">Notable</span></>}
         </div>
+        {motion.url && (
+          <a
+            href={motion.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-[#004a99] hover:underline"
+          >
+            <ExternalLink className="w-3.5 h-3.5" />
+            View on toronto.ca
+          </a>
+        )}
         {motion.votes && Object.keys(motion.votes).length > 0 && (
           <div className="space-y-2 pt-2">
             <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Votes</p>

@@ -21,6 +21,8 @@ All notable changes to this project will be documented in this file.
 - **WardGrid** — 25-ward card grid with motion counts, councillor names, "Find my ward" geolocation (fetches Toronto Open Data GeoJSON, point-in-polygon lookup, highlights matched ward).
 - **MotionDetail** — dedicated page at `/motions/:id` with full vote breakdown (YES/NO/ABSENT per councillor), back navigation.
 
+- **MotionDetail: external link + committee + significance label** — each motion detail page now shows a "View on toronto.ca" link, the committee name, and the tiered significance label (High Impact / Notable) instead of the raw score.
+
 ### Changed
 - **Dashboard motions list** — replaced the date-grouped meeting accordion with a flat list sorted by significance (highest first). Shows top 20 by default with a "Show all N motions" toggle. Topic filter and Notable toggle still apply.
 - **Dashboard stat card** — "Motions" card now shows the count from the most recent meeting date instead of the all-time total.
