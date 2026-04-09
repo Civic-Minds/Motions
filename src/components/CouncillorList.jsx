@@ -9,6 +9,7 @@ import { TORONTO_WARDS } from '../constants/wards';
 import { cn } from '../lib/utils';
 import ProfilePanel from './ProfilePanel';
 import VersusOverlay from './VersusOverlay';
+import MotionPanel from './MotionPanel';
 
 const COUNCILLOR_WARD = {};
 Object.entries(WARD_COUNCILLORS).forEach(([wardId, name]) => {
@@ -30,6 +31,7 @@ export default function CouncillorList({ motions, councillors: contactData = [] 
   const [compareSlots, setCompareSlots] = useState([]);
   const [selectedProfile, setSelectedProfile] = useState(null);
   const [versusSelection, setVersusSelection] = useState([]);
+  const [selectedMotion, setSelectedMotion] = useState(null);
   const { slug, slug2 } = useParams();
   const navigate = useNavigate();
 
@@ -302,9 +304,12 @@ export default function CouncillorList({ motions, councillors: contactData = [] 
           setCompareSlots([name]);
           closeProfile();
         }}
+        onMotionClick={setSelectedMotion}
         motions={motions}
         councillors={contactData}
       />
+
+      <MotionPanel motion={selectedMotion} onClose={() => setSelectedMotion(null)} />
     </div>
   );
 }

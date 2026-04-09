@@ -16,43 +16,7 @@ const TOPIC_LIGHT = {
   General: 'bg-slate-100 text-slate-600',
 };
 
-// ── Geolocation helpers ───────────────────────────────────────────────────────
-
-function pointInRing(point, ring) {
-  const [px, py] = point;
-  let inside = false;
-  for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
-    const [xi, yi] = ring[i];
-    const [xj, yj] = ring[j];
-    if ((yi > py) !== (yj > py) && px < ((xj - xi) * (py - yi)) / (yj - yi) + xi)
-      inside = !inside;
-  }
-  return inside;
-}
-
-function pointInFeature(point, geometry) {
-  const polys = geometry.type === 'Polygon' ? [geometry.coordinates] : geometry.coordinates;
-  return polys.some(poly => pointInRing(point, poly[0]));
-}
-
-function extractWardId(props) {
-  for (const key of ['AREA_SHORT_CODE', 'WARD_NUM', 'WARD', 'ward_num', 'ward']) {
-    if (props[key] != null) return String(props[key]);
-  }
-  const name = props.AREA_NAME ?? props.area_name ?? '';
-  const m = name.match(/\((\d+)\)/);
-  return m ? m[1] : null;
-}
-
-let cachedBoundaries = null;
-
-async function fetchWardBoundaries() {
-  if (cachedBoundaries) return cachedBoundaries;
-  // Bundled locally — no external dependency
-  const data = await fetch('/data/wards.geojson').then(r => r.json());
-  cachedBoundaries = data;
-  return cachedBoundaries;
-}
+import { fetchWardBoundaries, extractWardId, pointInFeature } from '../utils/ward';
 
 // Simple SVG map of a ward polygon from GeoJSON feature
 function WardMap({ feature }) {
@@ -122,43 +86,20 @@ export default function WardGrid({ motions }) {
     }
     setLocateState('locating');
     setFoundWardId(null);
-    navigator.geolocation.getCurrentPosition(
-      async ({ coords }) => {
-        setLocateState('loading');
-        try {
-          const geojson = await fetchWardBoundaries();
-          const point = [coords.longitude, coords.latitude];
-          let matched = null;
-          for (const feature of geojson.features) {
-            if (pointInFeature(point, feature.geometry)) {
-              matched = extractWardId(feature.properties);
-              break;
-            }
-          }
-          const knownWard = matched && TORONTO_WARDS.find(w => w.id === matched);
-          if (knownWard) {
-            setFoundWardId(matched);
-            setLocateState('found');
-          } else {
-            setLocateState('not_found');
-            setLocateMsg('Your location appears to be outside Toronto.');
-          }
-        } catch {
-          setLocateState('error');
-          setLocateMsg('Could not load ward boundary data. Try again later.');
-        }
-      },
-      (err) => {
-        if (err.code === 1) {
-          setLocateState('denied');
-          setLocateMsg('Location access was denied. Enable it in your browser settings.');
-        } else {
-          setLocateState('error');
-          setLocateMsg('Could not determine your location.');
-        }
-      },
-      { timeout: 10000 }
-    );
+    import('../utils/ward').then(({ geolocateWard }) => {
+      setLocateState('loading');
+      geolocateWard()
+        .then(wardId => {
+          const knownWard = TORONTO_WARDS.find(w => w.id === wardId);
+          if (knownWard) { setFoundWardId(wardId); setLocateState('found'); }
+          else { setLocateState('not_found'); setLocateMsg('Your location appears to be outside Toronto.'); }
+        })
+        .catch(err => {
+          if (err.message === 'denied') { setLocateState('denied'); setLocateMsg('Location access was denied.'); }
+          else if (err.message === 'not_in_toronto') { setLocateState('not_found'); setLocateMsg('Your location appears to be outside Toronto.'); }
+          else { setLocateState('error'); setLocateMsg('Could not determine your location.'); }
+        });
+    });
   };
 
   const wardMotions = useMemo(() => {
