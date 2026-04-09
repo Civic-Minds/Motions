@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Changed
+- **Clean rebuild** — moved project to `/Users/ryan/Desktop/Production/Motions` and rewrote the entire frontend from scratch. Tailwind v4 with `@theme` tokens, React 19 + Vite 7, `framer-motion` for animations, `react-router-dom` v7 for shareable URLs. Zero mock data — all views wired directly to `motions.json`.
+- **New design system** — frosted glass navbar, Inter font, `#004a99` primary, `shadow-sm` cards with `border-slate-200`, slate-50 page background. No dark cards or experimental gradients.
+- **Dashboard rewrite** — stat row (total motions, substantive count, adoption rate), highlights strip (top motions by significance from last 90 days), topic filter pills, Notable toggle, expandable meeting accordion with individual motion links to `/motions/:id`.
+- **MotionDetail** — dedicated page at `/motions/:id` with full vote breakdown (YES/NO/ABSENT per councillor), back navigation.
+- **Stub pages** — `CouncillorList`, `WardGrid`, `Scorecard`, `BudgetTranslator` render placeholder until built out.
+
+
+
 ## [1.2.0] - 2026-04-03
 
 ### Added

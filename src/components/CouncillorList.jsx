@@ -1,188 +1,285 @@
-import React, { useMemo, useEffect } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Users as UsersIcon } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Search, GitCompare, ChevronRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { getMemberAlignmentScore, getAttendance } from '../utils/analytics';
 import { nameToSlug, slugToName } from '../utils/slug';
-import AlignmentHeatmap from './AlignmentHeatmap';
+import { WARD_COUNCILLORS } from '../constants/data';
+import { TORONTO_WARDS } from '../constants/wards';
+import { cn } from '../lib/utils';
+import ProfilePanel from './ProfilePanel';
+import VersusOverlay from './VersusOverlay';
 
-const attendanceStyle = (pct) => {
-    if (pct >= 90) return 'text-emerald-600';
-    if (pct >= 75) return 'text-amber-500';
-    return 'text-rose-500';
-};
+const COUNCILLOR_WARD = {};
+Object.entries(WARD_COUNCILLORS).forEach(([wardId, name]) => {
+  const ward = TORONTO_WARDS.find(w => w.id === wardId);
+  if (ward) COUNCILLOR_WARD[name] = { id: wardId, name: ward.name };
+});
 
-const CouncillorList = ({ motions, onSelect, onActivate }) => {
-    const [searchTerm, setSearchTerm] = React.useState('');
-    const { slug, slug2 } = useParams();
-    const navigate = useNavigate();
+const attendanceColor = (pct) =>
+  pct >= 90 ? 'text-emerald-600' : pct >= 75 ? 'text-amber-500' : 'text-rose-500';
 
-    const councillors = useMemo(() => {
-        const voteCounts = {};
+const attendanceBg = (pct) =>
+  pct >= 90 ? 'bg-emerald-500' : pct >= 75 ? 'bg-amber-400' : 'bg-rose-500';
+
+export default function CouncillorList({ motions }) {
+  const [search, setSearch] = useState('');
+  const [compareMode, setCompareMode] = useState(false);
+  const [compareSlots, setCompareSlots] = useState([]);
+  const [selectedProfile, setSelectedProfile] = useState(null);
+  const [versusSelection, setVersusSelection] = useState([]);
+  const { slug, slug2 } = useParams();
+  const navigate = useNavigate();
+
+  const councillors = useMemo(() => {
+    const voteCounts = {};
+    motions.forEach(m => {
+      if (!m.votes) return;
+      Object.keys(m.votes).forEach(name => {
+        voteCounts[name] = (voteCounts[name] || 0) + 1;
+      });
+    });
+
+    return Object.entries(voteCounts)
+      .filter(([, count]) => count >= 5)
+      .map(([name]) => {
+        const alignment = getMemberAlignmentScore(motions, name);
+        const attendance = getAttendance(motions, name);
+        const topicCounts = {};
         motions.forEach(m => {
-            if (!m.votes) return;
-            Object.keys(m.votes).forEach(name => {
-                voteCounts[name] = (voteCounts[name] || 0) + 1;
-            });
+          if (m.votes?.[name] && m.topic && !m.trivial) {
+            topicCounts[m.topic] = (topicCounts[m.topic] || 0) + 1;
+          }
         });
+        const topTopic = Object.entries(topicCounts).sort((a, b) => b[1] - a[1])[0]?.[0];
+        return { name, alignment, attendance, topTopic, voteCount: voteCounts[name] };
+      })
+      .sort((a, b) => a.name.split(' ').at(-1).localeCompare(b.name.split(' ').at(-1)));
+  }, [motions]);
 
-        return Object.entries(voteCounts)
-            .filter(([, count]) => count >= 5)
-            .map(([name]) => {
-                const alignment = getMemberAlignmentScore(motions, name);
-                const attendance = getAttendance(motions, name);
+  const allNames = useMemo(() => councillors.map(c => c.name), [councillors]);
 
-                const topicCounts = {};
-                motions.forEach(m => {
-                    if (m.votes?.[name] && m.topic && !m.trivial) {
-                        topicCounts[m.topic] = (topicCounts[m.topic] || 0) + 1;
-                    }
-                });
-                const topTopic = Object.entries(topicCounts).sort((a, b) => b[1] - a[1])[0]?.[0];
+  // Handle URL-driven panels
+  useEffect(() => {
+    if (!allNames.length) return;
+    if (slug2) {
+      const n1 = slugToName(slug, allNames);
+      const n2 = slugToName(slug2, allNames);
+      if (n1 && n2) { setVersusSelection([n1, n2]); setSelectedProfile(null); }
+      else navigate('/councillors', { replace: true });
+    } else if (slug) {
+      const name = slugToName(slug, allNames);
+      if (name) { setSelectedProfile(name); setVersusSelection([]); }
+      else navigate('/councillors', { replace: true });
+    } else {
+      setSelectedProfile(null);
+      setVersusSelection([]);
+    }
+  }, [slug, slug2, allNames]);
 
-                return { name, alignment, attendance, topTopic, voteCount: voteCounts[name] };
-            })
-            .sort((a, b) => a.name.split(' ').at(-1).localeCompare(b.name.split(' ').at(-1)));
-    }, [motions]);
+  const openProfile = (name) => {
+    setSelectedProfile(name);
+    setVersusSelection([]);
+    navigate(`/councillors/${nameToSlug(name)}`);
+  };
 
-    const allNames = useMemo(() => councillors.map(c => c.name), [councillors]);
+  const closeProfile = () => {
+    setSelectedProfile(null);
+    navigate('/councillors');
+  };
 
-    // Sync URL params → panel state; redirect on unrecognised slugs
-    useEffect(() => {
-        if (!allNames.length) return;
-        if (slug2) {
-            const name1 = slugToName(slug, allNames);
-            const name2 = slugToName(slug2, allNames);
-            if (name1 && name2) onActivate({ compare: [name1, name2] });
-            else navigate('/councillors', { replace: true });
-        } else if (slug) {
-            const name = slugToName(slug, allNames);
-            if (name) onActivate({ profile: name });
-            else navigate('/councillors', { replace: true });
-        } else {
-            onActivate({});
-        }
-    }, [slug, slug2, allNames]);
+  const openVersus = (n1, n2) => {
+    setVersusSelection([n1, n2]);
+    setSelectedProfile(null);
+    navigate(`/councillors/${nameToSlug(n1)}/vs/${nameToSlug(n2)}`);
+  };
 
-    const handleCardClick = (name) => {
-        if (onSelect) {
-            // compareList is managed in App; if comparison mode is active onSelect handles it
-            // For normal click, navigate to profile URL
-            const currentSlug = nameToSlug(name);
-            navigate(`/councillors/${currentSlug}`);
-            onActivate({ profile: name });
-        }
-    };
+  const closeVersus = () => {
+    setVersusSelection([]);
+    navigate('/councillors');
+  };
 
-    const filteredCouncillors = councillors.filter(c =>
-        c.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (c.topTopic && c.topTopic.toLowerCase().includes(searchTerm.toLowerCase()))
-    );
+  const handleCompareClick = (name) => {
+    setCompareSlots(prev => {
+      if (prev.includes(name)) return prev.filter(n => n !== name);
+      if (prev.length < 2) return [...prev, name];
+      return [prev[1], name];
+    });
+  };
 
-    return (
-        <div className="space-y-6">
-            {/* Consensus Score Card (Relocated from Dashboard) */}
-            <div className="card overflow-hidden">
-                <div className="card-title">
-                    Consensus Score
-                    <UsersIcon size={14} className="text-slate-300" />
-                </div>
-                <p className="text-[10px] text-slate-400 font-medium -mt-2 mb-4">Frequency of voting with the majority outcome across the current session</p>
-                <div className="mt-2">
-                    <AlignmentHeatmap onSelect={onSelect} motions={motions} />
-                </div>
-            </div>
+  const launchCompare = () => {
+    if (compareSlots.length === 2) {
+      openVersus(compareSlots[0], compareSlots[1]);
+      setCompareMode(false);
+      setCompareSlots([]);
+    }
+  };
 
-            <div className="flex justify-between items-center px-2">
-                <div className="flex flex-col">
-                    <h3 className="text-xl font-black text-slate-800 uppercase tracking-tighter">City Council</h3>
-                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">{filteredCouncillors.length} Members Active</p>
-                </div>
+  const filtered = councillors.filter(c =>
+    c.name.toLowerCase().includes(search.toLowerCase()) ||
+    (c.topTopic && c.topTopic.toLowerCase().includes(search.toLowerCase()))
+  );
 
-                <div className="flex items-center w-80 h-12 px-4 bg-white border border-slate-100 rounded-xl group focus-within:border-[#004a99]/20 focus-within:shadow-lg transition-all">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-slate-400 group-focus-within:text-[#004a99] transition-colors shrink-0">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    </svg>
-                    <input
-                        type="text"
-                        placeholder="Search members..."
-                        className="flex-1 h-full bg-transparent border-none outline-none pl-3 text-[12px] font-bold text-slate-900 placeholder:text-slate-300"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-                </div>
-            </div>
-
-            <motion.div
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
-                initial="hidden"
-                animate="show"
-                variants={{ hidden: {}, show: { transition: { staggerChildren: 0.04, delayChildren: 0.1 } } }}
-            >
-                {filteredCouncillors.map(({ name, alignment, attendance, topTopic, voteCount }) => (
-                    <motion.div
-                        key={name}
-                        variants={{ hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 280, damping: 26 } } }}
-                        onClick={() => handleCardClick(name)}
-                        className="group flex flex-col p-6 bg-white/70 backdrop-blur-md border border-slate-100 rounded-[24px] cursor-pointer hover:border-[#004a99]/30 hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 relative overflow-hidden"
-                    >
-                        <div className="flex items-center gap-4 mb-5">
-                            <div className="w-12 h-12 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center shrink-0 group-hover:bg-[#004a99] group-hover:border-[#004a99] transition-all duration-500">
-                                <span className="text-[12px] font-black text-slate-400 group-hover:text-white transition-colors uppercase tracking-tight">
-                                    {name.split(' ').map(n => n[0]).slice(0, 2).join('')}
-                                </span>
-                            </div>
-                            <div className="min-w-0">
-                                <p className="font-black text-slate-900 text-sm leading-tight group-hover:text-[#004a99] transition-colors uppercase tracking-tighter truncate">
-                                    {name}
-                                </p>
-                                {topTopic && (
-                                    <span className="text-[9px] font-black uppercase inline-block mt-1 text-slate-400 tracking-widest opacity-60">
-                                        {topTopic}
-                                    </span>
-                                )}
-                            </div>
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-4">
-                            <div>
-                                <p className="text-[8px] text-slate-400 font-bold uppercase tracking-[0.1em] mb-1">Alignment</p>
-                                <div className="flex items-baseline gap-1">
-                                    <span className="text-lg font-black text-[#004a99] tracking-tighter">{alignment !== null ? `${alignment}%` : '—'}</span>
-                                </div>
-                                <div className="w-full bg-slate-50 h-1 rounded-full mt-2 overflow-hidden">
-                                    <div
-                                        className="bg-[#004a99] h-full transition-all duration-1000"
-                                        style={{ width: `${alignment ?? 0}%` }}
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <p className="text-[8px] text-slate-400 font-bold uppercase tracking-[0.1em] mb-1">Attendance</p>
-                                <div className="flex items-baseline gap-1">
-                                    <span className={`text-lg font-black ${attendanceStyle(attendance.pct)} tracking-tighter`}>{attendance.pct}%</span>
-                                </div>
-                                <div className="w-full bg-slate-50 h-1 rounded-full mt-2 overflow-hidden">
-                                    <div
-                                        className={`${attendance.pct < 90 ? 'bg-amber-500' : 'bg-emerald-500'} h-full transition-all duration-1000`}
-                                        style={{ width: `${attendance.pct}%` }}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="mt-5 pt-4 border-t border-slate-50 flex justify-between items-center">
-                            <span className="text-[9px] font-bold text-slate-300 uppercase tracking-widest">
-                                {voteCount} Sessions
-                            </span>
-                            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]" />
-                        </div>
-                    </motion.div>
-                ))}
-            </motion.div>
+  return (
+    <div className="space-y-8 pb-20">
+      {/* Page header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-900">Councillors</h1>
+          <p className="text-sm text-slate-500 mt-0.5">{filtered.length} members · 2022–2026 term</p>
         </div>
-    );
-};
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => { setCompareMode(m => !m); setCompareSlots([]); }}
+            className={cn(
+              "flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border transition-all",
+              compareMode
+                ? 'bg-slate-900 text-white border-slate-900'
+                : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400'
+            )}
+          >
+            <GitCompare className="w-4 h-4" />
+            {compareMode ? 'Cancel' : 'Compare'}
+          </button>
+          <div className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-full focus-within:border-[#004a99] transition-colors">
+            <Search className="w-4 h-4 text-slate-400 shrink-0" />
+            <input
+              type="text"
+              placeholder="Search members..."
+              className="bg-transparent text-sm text-slate-900 placeholder:text-slate-400 outline-none w-40"
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+            />
+          </div>
+        </div>
+      </div>
 
-export default CouncillorList;
+      {/* Compare banner */}
+      <AnimatePresence>
+        {compareMode && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            className="flex items-center justify-between bg-[#004a99] text-white rounded-2xl px-6 py-4"
+          >
+            <div className="flex items-center gap-3">
+              <GitCompare className="w-5 h-5 text-white/70" />
+              <span className="text-sm font-medium">
+                {compareSlots.length === 0 && 'Select two councillors to compare'}
+                {compareSlots.length === 1 && `${compareSlots[0]} — pick one more`}
+                {compareSlots.length === 2 && `${compareSlots[0]} vs ${compareSlots[1]}`}
+              </span>
+            </div>
+            {compareSlots.length === 2 && (
+              <button
+                onClick={launchCompare}
+                className="flex items-center gap-2 px-4 py-2 bg-white text-[#004a99] text-sm font-semibold rounded-xl hover:bg-slate-50 transition-colors"
+              >
+                Compare <ChevronRight className="w-4 h-4" />
+              </button>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Grid */}
+      <motion.div
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+        initial="hidden"
+        animate="show"
+        variants={{ hidden: {}, show: { transition: { staggerChildren: 0.04 } } }}
+      >
+        {filtered.map(({ name, alignment, attendance, topTopic, voteCount }) => {
+          const ward = COUNCILLOR_WARD[name];
+          const isSelected = compareSlots.includes(name);
+          const isFaded = compareMode && compareSlots.length === 2 && !isSelected;
+          const initials = name.split(' ').map(n => n[0]).slice(0, 2).join('');
+
+          return (
+            <motion.div
+              key={name}
+              variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 280, damping: 28 } } }}
+              onClick={() => compareMode ? handleCompareClick(name) : openProfile(name)}
+              className={cn(
+                "group bg-white border rounded-2xl p-5 cursor-pointer transition-all duration-200",
+                isSelected
+                  ? 'border-[#004a99] shadow-lg shadow-blue-900/10 scale-[1.02]'
+                  : isFaded
+                  ? 'border-slate-100 opacity-50'
+                  : 'border-slate-200 hover:border-[#004a99]/40 hover:shadow-md hover:-translate-y-0.5'
+              )}
+            >
+              {/* Avatar + name */}
+              <div className="flex items-center gap-3 mb-4">
+                <div className={cn(
+                  "w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-xs font-bold transition-colors",
+                  isSelected ? 'bg-[#004a99] text-white' : 'bg-slate-100 text-slate-500 group-hover:bg-[#004a99] group-hover:text-white'
+                )}>
+                  {initials}
+                </div>
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold text-slate-900 truncate group-hover:text-[#004a99] transition-colors">{name}</p>
+                  {ward && (
+                    <p className="text-[10px] text-slate-400 font-medium">W{ward.id} · {ward.name}</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Metrics */}
+              <div className="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                  <p className="text-[10px] text-slate-400 font-medium uppercase tracking-wide mb-1">Alignment</p>
+                  <p className="text-lg font-bold text-[#004a99] leading-none">{alignment !== null ? `${alignment}%` : '—'}</p>
+                  <div className="mt-1.5 h-1 w-full bg-slate-100 rounded-full overflow-hidden">
+                    <div className="h-full bg-[#004a99] rounded-full" style={{ width: `${alignment ?? 0}%` }} />
+                  </div>
+                </div>
+                <div>
+                  <p className="text-[10px] text-slate-400 font-medium uppercase tracking-wide mb-1">Attendance</p>
+                  <p className={cn("text-lg font-bold leading-none", attendanceColor(attendance.pct))}>{attendance.pct}%</p>
+                  <div className="mt-1.5 h-1 w-full bg-slate-100 rounded-full overflow-hidden">
+                    <div className={cn("h-full rounded-full", attendanceBg(attendance.pct))} style={{ width: `${attendance.pct}%` }} />
+                  </div>
+                </div>
+              </div>
+
+              {/* Footer */}
+              <div className="flex justify-between items-center pt-3 border-t border-slate-100">
+                <div className="text-[10px] text-slate-400">
+                  <span className="font-medium">{voteCount}</span> votes
+                  {topTopic && <span className="ml-2 text-slate-400">· {topTopic}</span>}
+                </div>
+                <ChevronRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-[#004a99] transition-colors" />
+              </div>
+            </motion.div>
+          );
+        })}
+      </motion.div>
+
+      {filtered.length === 0 && (
+        <div className="text-center py-16 text-slate-400">
+          <Search className="w-10 h-10 mx-auto mb-3 opacity-30" />
+          <p className="text-sm font-medium">No councillors match "{search}"</p>
+        </div>
+      )}
+
+      {/* Side panels */}
+      <ProfilePanel
+        selected={selectedProfile}
+        onClose={closeProfile}
+        onCompare={(name) => {
+          setCompareMode(true);
+          setCompareSlots([name]);
+          closeProfile();
+        }}
+        motions={motions}
+      />
+      <VersusOverlay
+        selection={versusSelection}
+        onClose={closeVersus}
+        motions={motions}
+      />
+    </div>
+  );
+}

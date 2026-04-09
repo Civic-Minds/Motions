@@ -1,119 +1,161 @@
-import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-
-import Layout from './components/Layout';
-import Scorecard from './components/Scorecard';
-import BudgetTranslator from './components/BudgetTranslator';
-import WardGrid from './components/WardGrid';
-import DashboardView from './components/DashboardView';
-import CouncillorList from './components/CouncillorList';
-import MotionDetail from './components/MotionDetail';
+import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { LayoutDashboard, Users, Map, BarChart3, PieChart, Menu, X } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { cn } from './lib/utils';
 import { useMotions } from './hooks/useMotions';
 
-function App() {
-  const { motions, loading, error } = useMotions();
-  const [selectedCouncillor, setSelectedCouncillor] = useState(null);
-  const [compareList, setCompareList] = useState([]);
+import DashboardView from './components/DashboardView';
+import CouncillorList from './components/CouncillorList';
+import WardGrid from './components/WardGrid';
+import Scorecard from './components/Scorecard';
+import BudgetTranslator from './components/BudgetTranslator';
+import MotionDetail from './components/MotionDetail';
 
-  const handleActivatePanel = ({ profile = null, compare = null } = {}) => {
-    if (compare) {
-      setSelectedCouncillor(null);
-      setCompareList(compare);
-    } else {
-      setCompareList([]);
-      setSelectedCouncillor(profile);
-    }
-  };
+const TABS = [
+  { path: '/',            label: 'Dashboard',  icon: LayoutDashboard },
+  { path: '/councillors', label: 'Councillors', icon: Users },
+  { path: '/wards',       label: 'Wards',       icon: Map },
+  { path: '/analytics',   label: 'Scorecard',   icon: BarChart3 },
+  { path: '/budget',      label: 'Budget',      icon: PieChart },
+];
 
-  const handleSelect = (name) => {
-    if (compareList.length > 0) {
-      if (compareList.includes(name)) {
-        setCompareList(prev => prev.filter(c => c !== name));
-      } else if (compareList.length < 2) {
-        setCompareList(prev => [...prev, name]);
-      }
-    } else {
-      setSelectedCouncillor(name);
-    }
-  };
+function Navbar({ motions }) {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
 
-  const handleReset = () => {
-    setSelectedCouncillor(null);
-    setCompareList([]);
-  };
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-screen bg-slate-50">
-        <div className="text-center">
-          <div className="w-12 h-12 border-4 border-[#004a99] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">Loading council data...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex items-center justify-center h-screen bg-slate-50">
-        <div className="text-center max-w-sm">
-          <div className="w-12 h-12 rounded-full bg-rose-50 border border-rose-200 flex items-center justify-center mx-auto mb-4">
-            <span className="text-rose-500 font-black text-lg">!</span>
-          </div>
-          <p className="text-slate-800 font-bold mb-1">Could not load council data</p>
-          <p className="text-slate-400 text-xs font-medium">{error}</p>
-        </div>
-      </div>
-    );
-  }
+  const active = TABS.find(t =>
+    t.path === '/' ? location.pathname === '/' : location.pathname.startsWith(t.path)
+  );
 
   return (
-    <BrowserRouter>
-      <Layout
-        motions={motions}
-        selectedCouncillor={selectedCouncillor}
-        setSelectedCouncillor={setSelectedCouncillor}
-        compareList={compareList}
-        setCompareList={setCompareList}
-        handleReset={handleReset}
-      >
+    <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 bg-white/80 backdrop-blur-xl">
+      <div className="max-w-[1400px] mx-auto px-6 h-16 flex items-center justify-between">
+
+        {/* Logo */}
+        <div className="flex items-center gap-3 cursor-pointer select-none" onClick={() => navigate('/')}>
+          <div className="w-9 h-9 rounded-xl bg-[#004a99] flex items-center justify-center shadow-sm">
+            <span className="text-white font-black text-lg leading-none">M</span>
+          </div>
+          <div>
+            <span className="font-bold text-slate-900 text-base leading-none">Motions</span>
+            <span className="text-slate-400 font-normal text-sm ml-2">Toronto Council</span>
+          </div>
+        </div>
+
+        {/* Desktop nav */}
+        <nav className="hidden md:flex items-center gap-1">
+          {TABS.map(tab => {
+            const Icon = tab.icon;
+            const isActive = active?.path === tab.path;
+            return (
+              <button
+                key={tab.path}
+                onClick={() => navigate(tab.path)}
+                className={cn(
+                  "flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200",
+                  isActive
+                    ? "bg-slate-900 text-white"
+                    : "text-slate-500 hover:text-slate-900 hover:bg-slate-100"
+                )}
+              >
+                <Icon className="w-4 h-4" />
+                {tab.label}
+              </button>
+            );
+          })}
+        </nav>
+
+        {/* Live pill */}
+        <div className="hidden md:flex items-center gap-2 px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-full">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+          </span>
+          <span className="text-xs font-semibold text-slate-600">{motions.length} motions</span>
+        </div>
+
+        {/* Mobile toggle */}
+        <button className="md:hidden p-2 rounded-lg hover:bg-slate-100" onClick={() => setOpen(o => !o)}>
+          {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        </button>
+      </div>
+
+      {/* Mobile menu */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            className="md:hidden absolute w-full bg-white border-b border-slate-200 px-4 py-3 space-y-1 shadow-lg"
+          >
+            {TABS.map(tab => {
+              const Icon = tab.icon;
+              const isActive = active?.path === tab.path;
+              return (
+                <button
+                  key={tab.path}
+                  onClick={() => { navigate(tab.path); setOpen(false); }}
+                  className={cn(
+                    "flex items-center gap-3 w-full px-4 py-3 rounded-xl text-sm font-medium transition-colors",
+                    isActive ? "bg-slate-900 text-white" : "text-slate-600 hover:bg-slate-100"
+                  )}
+                >
+                  <Icon className="w-4 h-4" />
+                  {tab.label}
+                </button>
+              );
+            })}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
+  );
+}
+
+function AppShell() {
+  const { motions, loading, error } = useMotions();
+
+  if (loading) return (
+    <div className="flex items-center justify-center h-screen bg-slate-50">
+      <div className="text-center">
+        <div className="w-10 h-10 border-4 border-[#004a99] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+        <p className="text-sm text-slate-500 font-medium">Loading council data...</p>
+      </div>
+    </div>
+  );
+
+  if (error) return (
+    <div className="flex items-center justify-center h-screen bg-slate-50">
+      <div className="text-center max-w-sm">
+        <p className="font-semibold text-slate-800 mb-1">Could not load data</p>
+        <p className="text-sm text-slate-400">{error}</p>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      <Navbar motions={motions} />
+      <main className="flex-1 max-w-[1400px] mx-auto w-full px-4 sm:px-6 py-8">
         <Routes>
-          <Route path="/" element={
-            <DashboardView
-              motions={motions}
-              handleSelect={handleSelect}
-            />
-          } />
-          <Route path="/councillors" element={
-            <CouncillorList
-              motions={motions}
-              onSelect={handleSelect}
-              onActivate={handleActivatePanel}
-            />
-          } />
-          <Route path="/councillors/:slug" element={
-            <CouncillorList
-              motions={motions}
-              onSelect={handleSelect}
-              onActivate={handleActivatePanel}
-            />
-          } />
-          <Route path="/councillors/:slug/vs/:slug2" element={
-            <CouncillorList
-              motions={motions}
-              onSelect={handleSelect}
-              onActivate={handleActivatePanel}
-            />
-          } />
-          <Route path="/motions/:motionId" element={<MotionDetail motions={motions} onSelect={handleSelect} />} />
+          <Route path="/" element={<DashboardView motions={motions} />} />
+          <Route path="/councillors" element={<CouncillorList motions={motions} />} />
+          <Route path="/councillors/:slug" element={<CouncillorList motions={motions} />} />
+          <Route path="/councillors/:slug/vs/:slug2" element={<CouncillorList motions={motions} />} />
+          <Route path="/motions/:motionId" element={<MotionDetail motions={motions} />} />
           <Route path="/wards"     element={<WardGrid motions={motions} onSelect={handleSelect} />} />
           <Route path="/analytics" element={<Scorecard motions={motions} />} />
           <Route path="/budget"    element={<BudgetTranslator />} />
           <Route path="*"          element={<Navigate to="/" replace />} />
         </Routes>
-      </Layout>
-    </BrowserRouter>
+      </main>
+    </div>
   );
 }
 
-export default App;
+export default function App() {
+  return <BrowserRouter><AppShell /></BrowserRouter>;
+}
