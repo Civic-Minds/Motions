@@ -1,5 +1,6 @@
 import React, { useMemo, useState, useRef, useEffect } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import MotionPanel from './MotionPanel';
 import { MapPin, Navigation, Loader2, X, AlertCircle, ArrowRight, ChevronLeft } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getWardActivityMetrics } from '../utils/analytics';
@@ -59,6 +60,7 @@ export default function WardGrid({ motions }) {
   const wardActivity = useMemo(() => getWardActivityMetrics(motions), [motions]);
   const topWard = [...wardActivity].sort((a, b) => b.count - a.count)[0];
 
+  const [selectedMotion, setSelectedMotion] = useState(null);
   const [locateState, setLocateState] = useState('idle');
   const [locateMsg, setLocateMsg] = useState('');
   const [foundWardId, setFoundWardId] = useState(null);
@@ -289,34 +291,33 @@ export default function WardGrid({ motions }) {
               </div>
             ) : (
               wardMotions.map((m, i) => (
-                <motion.div
+                <motion.button
                   key={m.id}
                   initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: Math.min(i * 0.02, 0.3) }}
+                  onClick={() => setSelectedMotion(m)}
+                  className="w-full text-left bg-white border border-slate-200 rounded-2xl p-4 flex items-start gap-3 hover:border-[#004a99]/40 hover:shadow-sm transition-all group"
                 >
-                  <Link to={`/motions/${m.id}`}>
-                    <div className="bg-white border border-slate-200 rounded-2xl p-4 flex items-start gap-3 hover:border-[#004a99]/40 hover:shadow-sm transition-all group">
-                      <div className={cn("w-1 self-stretch rounded-full shrink-0", m.status === 'Adopted' ? 'bg-emerald-400' : 'bg-rose-400')} />
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-2 leading-snug">{m.title}</p>
-                        <div className="flex items-center gap-2 mt-2 flex-wrap">
-                          <span className={cn("text-xs font-semibold px-2 py-0.5 rounded-full", m.status === 'Adopted' ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-700')}>{m.status}</span>
-                          <span className={cn("text-xs px-2 py-0.5 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>{m.topic}</span>
-                          {m.significance >= 90 && <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-600">High Impact</span>}
-                          {m.significance >= 60 && m.significance < 90 && <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-600">Notable</span>}
-                          <span className="text-xs text-slate-400 ml-auto">{m.date}</span>
-                        </div>
-                      </div>
-                      <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-[#004a99] shrink-0 mt-0.5 transition-colors" />
+                  <div className={cn("w-1 self-stretch rounded-full shrink-0", m.status === 'Adopted' ? 'bg-emerald-400' : 'bg-rose-400')} />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-2 leading-snug">{m.title}</p>
+                    <div className="flex items-center gap-2 mt-2 flex-wrap">
+                      <span className={cn("text-xs font-semibold px-2 py-0.5 rounded-full", m.status === 'Adopted' ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-700')}>{m.status}</span>
+                      <span className={cn("text-xs px-2 py-0.5 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>{m.topic}</span>
+                      {m.significance >= 90 && <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-600">High Impact</span>}
+                      {m.significance >= 60 && m.significance < 90 && <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-600">Notable</span>}
+                      <span className="text-xs text-slate-400 ml-auto">{m.date}</span>
                     </div>
-                  </Link>
-                </motion.div>
+                  </div>
+                  <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-[#004a99] shrink-0 mt-0.5 transition-colors" />
+                </motion.button>
               ))
             )}
           </motion.div>
         </AnimatePresence>
       )}
+      <MotionPanel motion={selectedMotion} onClose={() => setSelectedMotion(null)} />
     </div>
   );
 }
