@@ -151,22 +151,20 @@ export default function DashboardView({ motions, councillors }) {
                       <span className={cn("text-[9px] font-semibold px-1.5 py-0.5 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>
                         {m.topic}
                       </span>
-                      <span className={cn("text-[9px] font-bold shrink-0", m.status === 'Adopted' ? 'text-emerald-600' : 'text-rose-500')}>
-                        {m.status === 'Adopted' ? '✓' : '✗'}
-                      </span>
+                      {total > 0 && (
+                        <span className="text-[9px] font-medium shrink-0">
+                          <span className="text-emerald-600 font-bold">{yesCount}</span>
+                          <span className="text-slate-300 mx-0.5">–</span>
+                          <span className="text-rose-500 font-bold">{noCount}</span>
+                        </span>
+                      )}
                     </div>
                     <p className="text-xs font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-3 leading-snug flex-1">
                       {m.title}
                     </p>
                     <div className="flex items-center justify-between mt-auto">
                       <span className="text-[9px] text-slate-400">{m.date}</span>
-                      {total > 0 && (
-                        <span className="text-[9px] font-medium">
-                          <span className="text-emerald-600 font-bold">{yesCount}</span>
-                          <span className="text-slate-300 mx-0.5">–</span>
-                          <span className="text-rose-500 font-bold">{noCount}</span>
-                        </span>
-                      )}
+                      <span className="text-[9px] font-semibold text-[#004a99] group-hover:underline">See more</span>
                     </div>
                   </motion.button>
                 );
