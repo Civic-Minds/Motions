@@ -106,7 +106,7 @@ export default function DashboardView({ motions, councillors }) {
     <div className="space-y-4">
 
       {/* ── Top section: three cards ── */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_280px] gap-4 items-stretch">
+      <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr_240px] gap-4 items-stretch">
 
         {/* Last Meeting card */}
         <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col gap-3">
