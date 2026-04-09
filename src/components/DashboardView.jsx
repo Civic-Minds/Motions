@@ -86,144 +86,87 @@ export default function DashboardView({ motions }) {
   const visibleMotions = showAll ? sortedMotions : sortedMotions.slice(0, 20);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
 
-      {/* ── Stat cards ── */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+      {/* ── Combined hero: stats + highlights ── */}
+      <Card className="rounded-3xl overflow-hidden shadow-sm">
+        <CardContent className="p-0">
+          <div className="grid lg:grid-cols-[220px_1fr]">
 
-        {/* Last meeting */}
-        <Card className="lg:col-span-2 rounded-3xl">
-          <CardContent className="p-6 sm:p-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
-            <div>
-              <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Last Meeting</p>
-              <div className="flex items-baseline gap-2">
-                <span className="text-6xl font-black text-slate-900 tracking-tighter leading-none">{lastMeeting.count}</span>
-                <span className="text-sm text-slate-400 font-medium">motions</span>
+            {/* Stats column */}
+            <div className="p-6 sm:p-8 border-b lg:border-b-0 lg:border-r border-slate-100 flex flex-col justify-between gap-6">
+              <div>
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Last Meeting</p>
+                <div className="flex items-baseline gap-1.5">
+                  <span className="text-5xl font-black text-slate-900 tracking-tighter leading-none">{lastMeeting.count}</span>
+                  <span className="text-sm text-slate-400 font-medium">motions</span>
+                </div>
+                {lastMeeting.date && <p className="text-xs text-slate-400 mt-1">{lastMeeting.date}</p>}
+                {lastMeetingTopics.length > 0 && (
+                  <div className="flex flex-wrap gap-1 mt-2">
+                    {lastMeetingTopics.map(topic => (
+                      <span key={topic} className={cn("text-[10px] font-medium px-2 py-0.5 rounded-full", TOPIC_LIGHT[topic] || 'bg-slate-100 text-slate-600')}>
+                        {topic}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
-              {lastMeeting.date && (
-                <p className="text-xs text-slate-400 mt-1">{lastMeeting.date}</p>
+
+              <div className="flex gap-5 pt-4 border-t border-slate-100">
+                <div>
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Adopted</p>
+                  <p className="text-2xl font-black text-emerald-600 mt-0.5">{adoptionRate}%</p>
+                  <p className="text-[10px] text-slate-400">{adoptedCount} passed</p>
+                </div>
+                <div className="w-px bg-slate-100" />
+                <div>
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Substantive</p>
+                  <p className="text-2xl font-black text-[#004a99] mt-0.5">{substantiveCount}</p>
+                  <p className="text-[10px] text-slate-400">{Math.round((substantiveCount / motions.length) * 100)}% of all</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Highlights column */}
+            <div className="p-6 sm:p-8">
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Recent highlights</p>
+              {highlights.length > 0 ? (
+                <div className="space-y-1">
+                  {highlights.slice(0, 5).map((m, i) => (
+                    <motion.div
+                      key={m.id}
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: i * 0.05 }}
+                      onClick={() => navigate(`/motions/${m.id}`)}
+                      className="group flex items-start gap-3 p-3 rounded-xl hover:bg-slate-50 cursor-pointer transition-colors"
+                    >
+                      <div className={cn("w-1 self-stretch rounded-full shrink-0 mt-0.5", m.status === 'Adopted' ? 'bg-emerald-400' : 'bg-rose-400')} />
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-2 leading-snug">
+                          {m.title}
+                        </p>
+                        <div className="flex items-center gap-1.5 mt-1 flex-wrap">
+                          <span className={cn("text-[10px] font-medium px-1.5 py-0.5 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>
+                            {m.topic}
+                          </span>
+                          <span className="text-[10px] text-slate-400">{m.date}</span>
+                          {m.significance >= 90 && <span className="text-[10px] font-bold text-amber-600">High Impact</span>}
+                          {m.significance >= 60 && m.significance < 90 && <span className="text-[10px] font-bold text-amber-600">Notable</span>}
+                        </div>
+                      </div>
+                      <ArrowRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-[#004a99] shrink-0 mt-1 transition-colors" />
+                    </motion.div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-sm text-slate-400">No recent notable motions.</p>
               )}
             </div>
-            {lastMeetingTopics.length > 0 && (
-              <div className="flex-1 w-full sm:max-w-[180px]">
-                <p className="text-xs text-slate-400 font-medium text-right mb-2">This session</p>
-                <div className="flex flex-wrap gap-1.5 justify-end">
-                  {lastMeetingTopics.map(topic => (
-                    <span
-                      key={topic}
-                      className={cn(
-                        "text-xs font-medium px-2.5 py-1 rounded-full flex items-center gap-1.5",
-                        TOPIC_LIGHT[topic] || 'bg-slate-100 text-slate-600'
-                      )}
-                    >
-                      <span className={cn("w-1.5 h-1.5 rounded-full shrink-0", TOPIC_COLORS[topic] || 'bg-slate-400')} />
-                      {topic}
-                    </span>
-                  ))}
-                  {adoptionRateLastMeeting !== null && (
-                    <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700">
-                      {adoptionRateLastMeeting}% adopted
-                    </span>
-                  )}
-                </div>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-
-        {/* Substantive */}
-        <Card className="rounded-3xl">
-          <CardContent className="p-6 sm:p-8">
-            <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Substantive</p>
-            <div className="flex items-baseline gap-2 mt-1">
-              <span className="text-6xl font-black text-[#004a99] tracking-tighter leading-none">{substantiveCount}</span>
-              <span className="text-sm text-slate-400 font-medium">real decisions</span>
-            </div>
-            <div className="mt-4 h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
-              <motion.div
-                className="h-full bg-[#004a99] rounded-full"
-                initial={{ width: 0 }}
-                animate={{ width: `${(substantiveCount / motions.length) * 100}%` }}
-                transition={{ duration: 0.8, ease: 'easeOut' }}
-              />
-            </div>
-            <p className="text-xs text-slate-400 mt-1">{Math.round((substantiveCount / motions.length) * 100)}% of all items</p>
-          </CardContent>
-        </Card>
-
-        {/* Adoption rate */}
-        <Card className="rounded-3xl relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/60 to-transparent pointer-events-none" />
-          <CardContent className="p-6 sm:p-8 flex items-center justify-between relative">
-            <div>
-              <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Adopted</p>
-              <motion.span
-                className="text-6xl font-black text-emerald-600 tracking-tighter leading-none block"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
-              >
-                {adoptionRate}%
-              </motion.span>
-              <p className="text-xs text-slate-400 mt-1">{adoptedCount} passed</p>
-            </div>
-            <svg className="w-16 h-16 -rotate-90 shrink-0" viewBox="0 0 36 36">
-              <path className="text-emerald-100" strokeWidth="3.5" stroke="currentColor" fill="none"
-                d="M18 3 a 15 15 0 0 1 0 30 a 15 15 0 0 1 0 -30" />
-              <motion.path
-                className="text-emerald-500"
-                strokeWidth="3.5" strokeLinecap="round" stroke="currentColor" fill="none"
-                d="M18 3 a 15 15 0 0 1 0 30 a 15 15 0 0 1 0 -30"
-                initial={{ strokeDasharray: '0 100' }}
-                animate={{ strokeDasharray: `${adoptionRate * 0.942} 100` }}
-                transition={{ duration: 1.2, ease: 'easeOut' }}
-              />
-            </svg>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* ── Recent highlights ── */}
-      {highlights.length > 0 && (
-        <div>
-          <h2 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">What's been happening</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {highlights.map((m, i) => (
-              <motion.div key={m.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }}>
-                <div
-                  onClick={() => navigate(`/motions/${m.id}`)}
-                  className="group bg-white border border-slate-200 rounded-2xl p-5 hover:border-[#004a99]/40 hover:shadow-md transition-all shadow-sm h-full flex flex-col gap-3 cursor-pointer"
-                >
-                  <div className="flex items-center justify-between gap-2">
-                    <span className={cn("text-xs font-semibold px-2.5 py-1 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>
-                      {m.topic}
-                    </span>
-                    <span className={cn("text-xs font-semibold px-2.5 py-1 rounded-full shrink-0",
-                      m.status === 'Adopted' ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-700')}>
-                      {m.status}
-                    </span>
-                  </div>
-                  <p className="text-sm font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors leading-snug line-clamp-3 flex-1">
-                    {m.title}
-                  </p>
-                  <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-100">
-                    <span className="text-xs text-slate-400">{m.date}</span>
-                    <div className="flex items-center gap-2">
-                      {m.significance >= 90 && (
-                        <span className="text-[10px] font-semibold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full">High Impact</span>
-                      )}
-                      {m.significance >= 60 && m.significance < 90 && (
-                        <span className="text-[10px] font-semibold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full">Notable</span>
-                      )}
-                      <ArrowRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-[#004a99] transition-colors" />
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
           </div>
-        </div>
-      )}
+        </CardContent>
+      </Card>
 
       {/* ── Main: sidebar + list ── */}
       <div className="lg:grid lg:grid-cols-[180px_1fr] lg:gap-6 lg:items-start space-y-6 lg:space-y-0">
