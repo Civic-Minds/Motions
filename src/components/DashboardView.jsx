@@ -82,15 +82,11 @@ export default function DashboardView({ motions, councillors }) {
     return Math.round((adopted / lastMeeting.items.length) * 100);
   }, [lastMeeting.items]);
 
-  // Top notable motions — highest significance from last 90 days, filtered by topic prefs
+  // Most recent notable motions, filtered by topic prefs
   const highlights = useMemo(() => {
-    const dates = motions.map(m => new Date(m.date)).filter(d => !isNaN(d));
-    const latest = dates.length ? new Date(Math.max(...dates)) : new Date();
-    const cutoff = new Date(latest);
-    cutoff.setDate(cutoff.getDate() - 90);
     return [...motions]
-      .filter(m => !m.trivial && m.significance >= 60 && new Date(m.date) >= cutoff && topicPrefs.includes(m.topic))
-      .sort((a, b) => b.significance - a.significance)
+      .filter(m => !m.trivial && m.significance >= 60 && topicPrefs.includes(m.topic))
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
       .slice(0, 4);
   }, [motions, topicPrefs]);
 
@@ -142,7 +138,7 @@ export default function DashboardView({ motions, councillors }) {
           {/* Highlights */}
           <div className="p-4">
             <div className="flex items-center justify-between gap-2 mb-2.5 flex-wrap">
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Recent Highlights</span>
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Most Recent Notable</span>
               <div className="flex flex-wrap gap-1">
                 {TOPICS.map(topic => (
                   <button
