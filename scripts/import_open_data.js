@@ -242,6 +242,15 @@ function computeSignificance(votes, status, motionTypes, multiDay, minutes, titl
     const lower = title.toLowerCase();
     if (ROUTINE_KEYWORDS.some(k => lower.includes(k))) score -= 25;
 
+    // High-importance keyword boost
+    const HIGH_IMPORTANCE = [
+        'budget', 'property tax', 'tax rate', 'levy', 'bylaw', 'zoning',
+        'official plan', 'development charge', 'expropriat', 'billion',
+        'million', 'housing accelerator', 'rent', 'shelter', 'transit',
+        'police', 'fire', 'emergency', 'climate', 'declaration',
+    ];
+    if (HIGH_IMPORTANCE.some(k => lower.includes(k))) score += 20;
+
     return Math.max(0, Math.min(100, score));
 }
 

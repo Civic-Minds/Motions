@@ -133,7 +133,7 @@ export default function DashboardView({ motions, councillors }) {
         {/* Most Recent Notable */}
         <div className="flex flex-col gap-1.5">
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Most Recent Notable</p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 items-stretch flex-1">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 items-stretch flex-1">
               {highlights.map((m, i) => {
                 const yesCount = Object.values(m.votes ?? {}).filter(v => v === 'YES').length;
                 const noCount  = Object.values(m.votes ?? {}).filter(v => v === 'NO').length;

@@ -51,7 +51,7 @@
     "committee": "Etobicoke York Community Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 15,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EY30.1",
     "votes": {
@@ -127,7 +127,7 @@
     "committee": "Etobicoke York Community Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 10,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EY29.2",
     "votes": {
@@ -146,8 +146,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Finance",
-    "trivial": true,
-    "significance": 20,
+    "trivial": false,
+    "significance": 40,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MPB38.1",
     "votes": {
@@ -178,7 +178,9 @@
       "Neethan Shan": "YES",
       "Michael Thompson": "YES"
     },
-    "flags": []
+    "flags": [
+      "unanimous"
+    ]
   },
   {
     "id": "CC38.1",
@@ -188,7 +190,7 @@
     "committee": "City Council",
     "topic": "Finance",
     "trivial": false,
-    "significance": 40,
+    "significance": 60,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CC38.1",
     "votes": {
@@ -398,7 +400,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 3,
+    "significance": 23,
     "ward": "13",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE28.12",
     "votes": {
@@ -439,7 +441,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 15,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH27.2",
     "votes": {
@@ -521,7 +523,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 3,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SC28.1",
     "votes": {
@@ -603,7 +605,7 @@
     "committee": "Budget Committee",
     "topic": "Finance",
     "trivial": true,
-    "significance": 0,
+    "significance": 20,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.BU12.1",
     "votes": {
@@ -773,7 +775,7 @@
     "committee": "City Council",
     "topic": "Transit",
     "trivial": false,
-    "significance": 48,
+    "significance": 68,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.MM35.17",
     "votes": {
@@ -1143,7 +1145,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": false,
-    "significance": 39,
+    "significance": 59,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.CC35.7",
     "votes": {
@@ -1391,7 +1393,7 @@
     "committee": "City Council",
     "topic": "Transit",
     "trivial": false,
-    "significance": 33,
+    "significance": 53,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.MM35.15",
     "votes": {
@@ -1475,7 +1477,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": false,
-    "significance": 42,
+    "significance": 62,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EX28.3",
     "votes": {
@@ -1561,8 +1563,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 12,
+    "trivial": false,
+    "significance": 32,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.DM35.2",
     "votes": {
@@ -1685,8 +1687,8 @@
     "status": "Adopted",
     "committee": "Infrastructure and Environment Committee",
     "topic": "Climate",
-    "trivial": true,
-    "significance": 22,
+    "trivial": false,
+    "significance": 42,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.IE26.14",
     "votes": {
@@ -1769,7 +1771,7 @@
     "committee": "Confronting Anti-Black Racism Advisory Committee",
     "topic": "Finance",
     "trivial": true,
-    "significance": 0,
+    "significance": 20,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.CR8.5",
     "votes": {
@@ -1785,7 +1787,7 @@
     "committee": "City Council",
     "topic": "Transit",
     "trivial": false,
-    "significance": 66,
+    "significance": 86,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.GG25.15",
     "votes": {
@@ -1948,8 +1950,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 22,
+    "trivial": false,
+    "significance": 42,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.MM34.11",
     "votes": {
@@ -2073,8 +2075,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Transit",
-    "trivial": true,
-    "significance": 20,
+    "trivial": false,
+    "significance": 40,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EX27.3",
     "votes": {
@@ -2105,7 +2107,9 @@
       "Neethan Shan": "YES",
       "Michael Thompson": "ABSENT"
     },
-    "flags": []
+    "flags": [
+      "unanimous"
+    ]
   },
   {
     "id": "IE25.8",
@@ -2156,7 +2160,7 @@
     "committee": "City Council",
     "topic": "Transit",
     "trivial": false,
-    "significance": 29,
+    "significance": 49,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.MM34.22",
     "votes": {
@@ -2197,7 +2201,7 @@
     "committee": "City Council",
     "topic": "Finance",
     "trivial": false,
-    "significance": 51,
+    "significance": 71,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.MM34.17",
     "votes": {
@@ -2444,8 +2448,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 22,
+    "trivial": false,
+    "significance": 42,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EX27.1",
     "votes": {
@@ -2734,7 +2738,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 2,
     "ward": "2",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY26.2",
     "votes": {
@@ -2775,7 +2779,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 2,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY26.4",
     "votes": {
@@ -2816,7 +2820,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 5,
     "ward": "13",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY26.5",
     "votes": {
@@ -2857,7 +2861,7 @@
     "committee": "City Council",
     "topic": "Transit",
     "trivial": false,
-    "significance": 30,
+    "significance": 50,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE26.14",
     "votes": {
@@ -2897,7 +2901,7 @@
     "committee": "City Council",
     "topic": "Finance",
     "trivial": false,
-    "significance": 27,
+    "significance": 47,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.AU10.1",
     "votes": {
@@ -3169,7 +3173,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": false,
-    "significance": 31,
+    "significance": 51,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.CC33.25",
     "votes": {
@@ -3210,7 +3214,7 @@
     "committee": "City Council",
     "topic": "Transit",
     "trivial": false,
-    "significance": 35,
+    "significance": 55,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.CC33.1",
     "votes": {
@@ -4075,7 +4079,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": false,
-    "significance": 29,
+    "significance": 49,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.PH23.3",
     "votes": {
@@ -4116,8 +4120,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Transit",
-    "trivial": true,
-    "significance": 12,
+    "trivial": false,
+    "significance": 32,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.MM32.6",
     "votes": {
@@ -4279,7 +4283,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": false,
-    "significance": 27,
+    "significance": 47,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.MM32.46",
     "votes": {
@@ -4559,7 +4563,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 3,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.SC24.1",
     "votes": {
@@ -5047,7 +5051,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 4,
+    "significance": 24,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY25.6",
     "votes": {
@@ -5205,7 +5209,7 @@
     "committee": "City Council",
     "topic": "Transit",
     "trivial": false,
-    "significance": 67,
+    "significance": 87,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EX25.4",
     "votes": {
@@ -5362,8 +5366,8 @@
     "status": "Adopted",
     "committee": "Toronto Transit Commission",
     "topic": "Transit",
-    "trivial": true,
-    "significance": 12,
+    "trivial": false,
+    "significance": 32,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TTC7.7",
     "votes": {
@@ -5442,7 +5446,7 @@
     "committee": "General Government Committee",
     "topic": "Transit",
     "trivial": true,
-    "significance": 0,
+    "significance": 20,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.GG23.24",
     "votes": {
@@ -5767,7 +5771,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": false,
-    "significance": 40,
+    "significance": 60,
     "ward": "2",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.MM31.10",
     "votes": {
@@ -5849,7 +5853,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": false,
-    "significance": 33,
+    "significance": 53,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.DM31.1",
     "votes": {
@@ -5969,7 +5973,7 @@
     "committee": "City Council",
     "topic": "Finance",
     "trivial": false,
-    "significance": 27,
+    "significance": 47,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EX24.2",
     "votes": {
@@ -6092,8 +6096,8 @@
     "status": "Defeated",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 15,
+    "trivial": false,
+    "significance": 35,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.SC23.1",
     "votes": {
@@ -6123,7 +6127,9 @@
       "Dianne Saxe": "YES",
       "Michael Thompson": "NO"
     },
-    "flags": []
+    "flags": [
+      "defeated"
+    ]
   },
   {
     "id": "SC23.2",
@@ -6132,8 +6138,8 @@
     "status": "Defeated",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 22,
+    "trivial": false,
+    "significance": 42,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.SC23.2",
     "votes": {
@@ -6163,7 +6169,10 @@
       "Dianne Saxe": "YES",
       "Michael Thompson": "NO"
     },
-    "flags": []
+    "flags": [
+      "close-vote",
+      "defeated"
+    ]
   },
   {
     "id": "PH22.5",
@@ -6172,8 +6181,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 7,
+    "trivial": false,
+    "significance": 27,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.PH22.5",
     "votes": {
@@ -6253,7 +6262,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": false,
-    "significance": 25,
+    "significance": 45,
     "ward": "5",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY23.1",
     "votes": {
@@ -6575,7 +6584,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": false,
-    "significance": 73,
+    "significance": 93,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.PH22.4",
     "votes": {
@@ -7191,7 +7200,7 @@
     "committee": "City Council",
     "topic": "Transit",
     "trivial": false,
-    "significance": 74,
+    "significance": 94,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EX23.2",
     "votes": {
@@ -7392,7 +7401,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": false,
-    "significance": 28,
+    "significance": 48,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.PH21.4",
     "votes": {
@@ -7431,8 +7440,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 22,
+    "trivial": false,
+    "significance": 42,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.MM30.6",
     "votes": {
@@ -7462,7 +7471,9 @@
       "Dianne Saxe": "ABSENT",
       "Michael Thompson": "ABSENT"
     },
-    "flags": []
+    "flags": [
+      "close-vote"
+    ]
   },
   {
     "id": "IE21.4",
@@ -7472,7 +7483,7 @@
     "committee": "City Council",
     "topic": "Transit",
     "trivial": false,
-    "significance": 36,
+    "significance": 56,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.IE21.4",
     "votes": {
@@ -7715,7 +7726,7 @@
     "committee": "Planning and Housing Committee",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 20,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.PH21.1",
     "votes": {
@@ -7838,8 +7849,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 7,
+    "trivial": false,
+    "significance": 27,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EX22.10",
     "votes": {
@@ -7879,8 +7890,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "General",
-    "trivial": true,
-    "significance": 18,
+    "trivial": false,
+    "significance": 38,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.MM29.16",
     "votes": {
@@ -7921,7 +7932,7 @@
     "committee": "City Council",
     "topic": "Finance",
     "trivial": true,
-    "significance": 0,
+    "significance": 11,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EX22.4",
     "votes": {
@@ -7962,7 +7973,7 @@
     "committee": "City Council",
     "topic": "Transit",
     "trivial": true,
-    "significance": 3,
+    "significance": 23,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE20.40",
     "votes": {
@@ -8043,7 +8054,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 2,
+    "significance": 22,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE21.4",
     "votes": {
@@ -8492,8 +8503,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 7,
+    "trivial": false,
+    "significance": 27,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.PH20.2",
     "votes": {
@@ -8575,7 +8586,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 8,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY22.1",
     "votes": {
@@ -8615,7 +8626,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 10,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE21.9",
     "votes": {
@@ -8820,7 +8831,7 @@
     "committee": "Planning and Housing Committee",
     "topic": "Housing",
     "trivial": true,
-    "significance": 2,
+    "significance": 22,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.PH20.1",
     "votes": {
@@ -8862,8 +8873,8 @@
     "status": "Defeated",
     "committee": "North York Community Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 20,
+    "trivial": false,
+    "significance": 40,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY22.2",
     "votes": {
@@ -8874,7 +8885,9 @@
       "Mike Colle": "ABSENT",
       "James Pasternak": "NO"
     },
-    "flags": []
+    "flags": [
+      "defeated"
+    ]
   },
   {
     "id": "HL23.1",
@@ -8903,8 +8916,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 20,
+    "trivial": false,
+    "significance": 40,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.CC28.2",
     "votes": {
@@ -8935,7 +8948,9 @@
       "Dianne Saxe": "ABSENT",
       "Michael Thompson": "YES"
     },
-    "flags": []
+    "flags": [
+      "unanimous"
+    ]
   },
   {
     "id": "MM28.37",
@@ -9522,7 +9537,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 19,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY21.2",
     "votes": {
@@ -9726,7 +9741,7 @@
     "committee": "City Council",
     "topic": "Transit",
     "trivial": false,
-    "significance": 27,
+    "significance": 47,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EX21.4",
     "votes": {
@@ -10104,7 +10119,7 @@
     "committee": "North York Community Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 8,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY21.3",
     "votes": {
@@ -10145,7 +10160,7 @@
     "committee": "City Council",
     "topic": "Finance",
     "trivial": false,
-    "significance": 42,
+    "significance": 62,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.MPB27.1",
     "votes": {
@@ -10188,7 +10203,7 @@
     "committee": "City Council",
     "topic": "Finance",
     "trivial": false,
-    "significance": 42,
+    "significance": 62,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.CC27.1",
     "votes": {
@@ -10231,7 +10246,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": false,
-    "significance": 42,
+    "significance": 62,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.MM26.1",
     "votes": {
@@ -10440,8 +10455,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 11,
+    "trivial": false,
+    "significance": 31,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.PH18.4",
     "votes": {
@@ -10482,7 +10497,7 @@
     "committee": "City Council",
     "topic": "Transit",
     "trivial": false,
-    "significance": 33,
+    "significance": 53,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EX20.5",
     "votes": {
@@ -10919,7 +10934,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": false,
-    "significance": 43,
+    "significance": 63,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.CC24.1",
     "votes": {
@@ -11092,7 +11107,7 @@
     "committee": "City Council",
     "topic": "General",
     "trivial": true,
-    "significance": 3,
+    "significance": 23,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.MM24.16",
     "votes": {
@@ -11338,7 +11353,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": false,
-    "significance": 27,
+    "significance": 47,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.EC17.4",
     "votes": {
@@ -11711,8 +11726,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "General",
-    "trivial": true,
-    "significance": 8,
+    "trivial": false,
+    "significance": 28,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.MM24.42",
     "votes": {
@@ -11834,8 +11849,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 20,
+    "trivial": false,
+    "significance": 40,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.SC18.3",
     "votes": {
@@ -11866,7 +11881,9 @@
       "Dianne Saxe": "YES",
       "Michael Thompson": "YES"
     },
-    "flags": []
+    "flags": [
+      "unanimous"
+    ]
   },
   {
     "id": "IE18.1",
@@ -11999,7 +12016,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": false,
-    "significance": 25,
+    "significance": 45,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.CC24.16",
     "votes": {
@@ -12121,8 +12138,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Finance",
-    "trivial": true,
-    "significance": 15,
+    "trivial": false,
+    "significance": 35,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.AU7.1",
     "votes": {
@@ -12230,7 +12247,7 @@
     "committee": "Executive Committee",
     "topic": "Transit",
     "trivial": true,
-    "significance": 0,
+    "significance": 20,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.EX19.6",
     "votes": {
@@ -12256,7 +12273,7 @@
     "committee": "Scarborough Community Council",
     "topic": "Transit",
     "trivial": true,
-    "significance": 0,
+    "significance": 20,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.SC18.12",
     "votes": {
@@ -12404,8 +12421,8 @@
     "status": "Adopted",
     "committee": "Planning and Housing Committee",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 13,
+    "trivial": false,
+    "significance": 33,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PH17.11",
     "votes": {
@@ -12511,7 +12528,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": false,
-    "significance": 27,
+    "significance": 47,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.CC23.19",
     "votes": {
@@ -12551,8 +12568,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 22,
+    "trivial": false,
+    "significance": 42,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PH16.4",
     "votes": {
@@ -12634,7 +12651,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 5,
     "ward": "19",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PH16.3",
     "votes": {
@@ -12960,8 +12977,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 10,
+    "trivial": false,
+    "significance": 30,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.MM23.18",
     "votes": {
@@ -13002,7 +13019,7 @@
     "committee": "City Council",
     "topic": "General",
     "trivial": true,
-    "significance": 3,
+    "significance": 23,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.MM23.20",
     "votes": {
@@ -13127,7 +13144,7 @@
     "committee": "City Council",
     "topic": "Transit",
     "trivial": false,
-    "significance": 31,
+    "significance": 51,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.MM23.26",
     "votes": {
@@ -13171,7 +13188,7 @@
     "committee": "City Council",
     "topic": "General",
     "trivial": true,
-    "significance": 0,
+    "significance": 15,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.MM23.34",
     "votes": {
@@ -13378,7 +13395,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": false,
-    "significance": 35,
+    "significance": 55,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PH16.1",
     "votes": {
@@ -13583,7 +13600,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 5,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PH16.2",
     "votes": {
@@ -13665,7 +13682,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": false,
-    "significance": 27,
+    "significance": 47,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.EX18.2",
     "votes": {
@@ -13995,8 +14012,8 @@
     "status": "Adopted",
     "committee": "North York Community Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 15,
+    "trivial": false,
+    "significance": 35,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY18.12",
     "votes": {
@@ -14016,7 +14033,7 @@
     "committee": "Toronto and East York Community Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 7,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.TE17.8",
     "votes": {
@@ -14134,7 +14151,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 3,
+    "significance": 23,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PH15.3",
     "votes": {
@@ -14777,7 +14794,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": false,
-    "significance": 40,
+    "significance": 60,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PH15.1",
     "votes": {
@@ -15140,7 +15157,7 @@
     "committee": "Board of Health",
     "topic": "Finance",
     "trivial": true,
-    "significance": 0,
+    "significance": 20,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.HL16.2",
     "votes": {
@@ -15161,7 +15178,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 19,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.CC21.3",
     "votes": {
@@ -15201,7 +15218,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 2,
     "ward": "13",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.CC21.4",
     "votes": {
@@ -15522,8 +15539,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 14,
+    "trivial": false,
+    "significance": 34,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.MM20.33",
     "votes": {
@@ -15552,7 +15569,9 @@
       "Dianne Saxe": "YES",
       "Michael Thompson": "YES"
     },
-    "flags": []
+    "flags": [
+      "unanimous"
+    ]
   },
   {
     "id": "GG14.8",
@@ -15642,7 +15661,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": false,
-    "significance": 27,
+    "significance": 47,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.MM20.30",
     "votes": {
@@ -15682,7 +15701,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": false,
-    "significance": 47,
+    "significance": 67,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PH14.14",
     "votes": {
@@ -15881,8 +15900,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 15,
+    "trivial": false,
+    "significance": 35,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PH14.6",
     "votes": {
@@ -15921,8 +15940,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 15,
+    "trivial": false,
+    "significance": 35,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.DM20.1",
     "votes": {
@@ -16209,7 +16228,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 12,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY15.3",
     "votes": {
@@ -16408,8 +16427,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Parks",
-    "trivial": true,
-    "significance": 7,
+    "trivial": false,
+    "significance": 27,
     "ward": "15",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.EX16.7",
     "votes": {
@@ -16495,8 +16514,8 @@
     "status": "Adopted",
     "committee": "Scarborough Community Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 13,
+    "trivial": false,
+    "significance": 33,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.SC15.1",
     "votes": {
@@ -16559,8 +16578,8 @@
     "status": "Adopted",
     "committee": "North York Community Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 12,
+    "trivial": false,
+    "significance": 32,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY15.4",
     "votes": {
@@ -16762,8 +16781,8 @@
     "status": "Defeated",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 16,
+    "trivial": false,
+    "significance": 36,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PH13.2",
     "votes": {
@@ -16793,7 +16812,9 @@
       "Dianne Saxe": "YES",
       "Michael Thompson": "YES"
     },
-    "flags": []
+    "flags": [
+      "defeated"
+    ]
   },
   {
     "id": "IE14.15",
@@ -17694,7 +17715,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 3,
+    "significance": 23,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PH13.3",
     "votes": {
@@ -17814,7 +17835,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": false,
-    "significance": 33,
+    "significance": 53,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PH13.8",
     "votes": {
@@ -17854,7 +17875,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": false,
-    "significance": 62,
+    "significance": 82,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.EX15.3",
     "votes": {
@@ -17954,7 +17975,7 @@
     "committee": "Planning and Housing Committee",
     "topic": "Housing",
     "trivial": false,
-    "significance": 27,
+    "significance": 47,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PH13.4",
     "votes": {
@@ -17999,7 +18020,7 @@
     "committee": "Scarborough Community Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 20,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.SC14.5",
     "votes": {
@@ -18019,8 +18040,8 @@
     "status": "Adopted",
     "committee": "Etobicoke York Community Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 5,
+    "trivial": false,
+    "significance": 25,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.EY14.2",
     "votes": {
@@ -18040,7 +18061,7 @@
     "committee": "General Government Committee",
     "topic": "Finance",
     "trivial": true,
-    "significance": 0,
+    "significance": 20,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.GG13.2",
     "votes": {
@@ -18153,7 +18174,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": false,
-    "significance": 34,
+    "significance": 54,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY13.3",
     "votes": {
@@ -18520,7 +18541,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 5,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.TE13.8",
     "votes": {
@@ -18680,7 +18701,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 2,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.TE13.6",
     "votes": {
@@ -18720,7 +18741,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 2,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.TE13.7",
     "votes": {
@@ -18759,8 +18780,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 21,
+    "trivial": false,
+    "significance": 41,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.CC18.12",
     "votes": {
@@ -18964,7 +18985,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": false,
-    "significance": 31,
+    "significance": 51,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PH12.8",
     "votes": {
@@ -19003,8 +19024,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 23,
+    "trivial": false,
+    "significance": 43,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PH12.7",
     "votes": {
@@ -19034,7 +19055,9 @@
       "Dianne Saxe": "YES",
       "Michael Thompson": "YES"
     },
-    "flags": []
+    "flags": [
+      "unanimous"
+    ]
   },
   {
     "id": "EX14.6",
@@ -19406,8 +19429,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 20,
+    "trivial": false,
+    "significance": 40,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PH11.8",
     "votes": {
@@ -19438,7 +19461,9 @@
       "Dianne Saxe": "YES",
       "Michael Thompson": "YES"
     },
-    "flags": []
+    "flags": [
+      "unanimous"
+    ]
   },
   {
     "id": "EC11.4",
@@ -19532,7 +19557,7 @@
     "committee": "City Council",
     "topic": "Finance",
     "trivial": true,
-    "significance": 2,
+    "significance": 22,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.EX13.8",
     "votes": {
@@ -19613,8 +19638,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 10,
+    "trivial": false,
+    "significance": 30,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PH11.2",
     "votes": {
@@ -19696,7 +19721,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": false,
-    "significance": 34,
+    "significance": 54,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PH11.10",
     "votes": {
@@ -19780,7 +19805,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 18,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.TE12.5",
     "votes": {
@@ -19944,7 +19969,7 @@
     "committee": "City Council",
     "topic": "Transit",
     "trivial": false,
-    "significance": 26,
+    "significance": 46,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.IE12.1",
     "votes": {
@@ -20147,7 +20172,7 @@
     "committee": "Civic Appointments Committee",
     "topic": "Transit",
     "trivial": true,
-    "significance": 0,
+    "significance": 20,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.CA15.2",
     "votes": {
@@ -20186,7 +20211,7 @@
     "committee": "Planning and Housing Committee",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 19,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PH11.9",
     "votes": {
@@ -20421,7 +20446,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 2,
+    "significance": 22,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY11.2",
     "votes": {
@@ -20672,8 +20697,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 13,
+    "trivial": false,
+    "significance": 33,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PH10.2",
     "votes": {
@@ -20796,7 +20821,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": false,
-    "significance": 27,
+    "significance": 47,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PH10.13",
     "votes": {
@@ -20877,8 +20902,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Finance",
-    "trivial": true,
-    "significance": 8,
+    "trivial": false,
+    "significance": 28,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.MM16.25",
     "votes": {
@@ -20909,7 +20934,9 @@
       "Dianne Saxe": "YES",
       "Michael Thompson": "YES"
     },
-    "flags": []
+    "flags": [
+      "unanimous"
+    ]
   },
   {
     "id": "MM16.50",
@@ -21001,7 +21028,7 @@
     "committee": "City Council",
     "topic": "Transit",
     "trivial": false,
-    "significance": 56,
+    "significance": 76,
     "ward": "13",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.IA16.2",
     "votes": {
@@ -21045,7 +21072,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 2,
+    "significance": 22,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY11.6",
     "votes": {
@@ -21169,7 +21196,7 @@
     "committee": "City Council",
     "topic": "Transit",
     "trivial": false,
-    "significance": 62,
+    "significance": 82,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.EX12.5",
     "votes": {
@@ -21211,8 +21238,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Finance",
-    "trivial": true,
-    "significance": 20,
+    "trivial": false,
+    "significance": 40,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.EX12.9",
     "votes": {
@@ -21253,7 +21280,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 16,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PH10.12",
     "votes": {
@@ -21506,7 +21533,7 @@
     "committee": "Scarborough Community Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 20,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.SC11.3",
     "votes": {
@@ -21526,8 +21553,8 @@
     "status": "Adopted",
     "committee": "Scarborough Community Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 17,
+    "trivial": false,
+    "significance": 37,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.SC11.1",
     "votes": {
@@ -21569,7 +21596,7 @@
     "committee": "City Council",
     "topic": "Finance",
     "trivial": false,
-    "significance": 27,
+    "significance": 47,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.MPB15.1",
     "votes": {
@@ -21610,7 +21637,7 @@
     "committee": "City Council",
     "topic": "Finance",
     "trivial": false,
-    "significance": 40,
+    "significance": 60,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.CC15.1",
     "votes": {
@@ -21779,7 +21806,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 5,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PH9.1",
     "votes": {
@@ -21820,7 +21847,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": false,
-    "significance": 44,
+    "significance": 64,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.MM14.4",
     "votes": {
@@ -22113,7 +22140,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": false,
-    "significance": 41,
+    "significance": 61,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.CC14.10",
     "votes": {
@@ -22194,8 +22221,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 5,
+    "trivial": false,
+    "significance": 25,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY10.5",
     "votes": {
@@ -22236,7 +22263,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 15,
     "ward": "13",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.EY10.5",
     "votes": {
@@ -22276,7 +22303,7 @@
     "committee": "City Council",
     "topic": "Transit",
     "trivial": false,
-    "significance": 66,
+    "significance": 86,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.EX11.8",
     "votes": {
@@ -22445,7 +22472,7 @@
     "committee": "City Council",
     "topic": "Transit",
     "trivial": true,
-    "significance": 0,
+    "significance": 20,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.EX11.7",
     "votes": {
@@ -22526,7 +22553,7 @@
     "committee": "Planning and Housing Committee",
     "topic": "Housing",
     "trivial": false,
-    "significance": 28,
+    "significance": 48,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PH9.14",
     "votes": {
@@ -22550,7 +22577,7 @@
     "committee": "Scarborough Community Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 20,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.SC10.3",
     "votes": {
@@ -22571,7 +22598,7 @@
     "committee": "Scarborough Community Council",
     "topic": "Housing",
     "trivial": false,
-    "significance": 25,
+    "significance": 45,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.SC10.5",
     "votes": {
@@ -22694,7 +22721,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 2,
+    "significance": 22,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.PH8.2",
     "votes": {
@@ -22858,7 +22885,7 @@
     "committee": "City Council",
     "topic": "Finance",
     "trivial": false,
-    "significance": 37,
+    "significance": 57,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.EX10.12",
     "votes": {
@@ -22900,8 +22927,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 7,
+    "trivial": false,
+    "significance": 27,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.PH8.16",
     "votes": {
@@ -22932,7 +22959,9 @@
       "Dianne Saxe": "YES",
       "Michael Thompson": "YES"
     },
-    "flags": []
+    "flags": [
+      "unanimous"
+    ]
   },
   {
     "id": "CC13.23",
@@ -23065,7 +23094,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 2,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.PH8.3",
     "votes": {
@@ -23316,8 +23345,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 18,
+    "trivial": false,
+    "significance": 38,
     "ward": "1",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.PH8.23",
     "votes": {
@@ -23522,7 +23551,7 @@
     "committee": "City Council",
     "topic": "Transit",
     "trivial": true,
-    "significance": 3,
+    "significance": 23,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.EX10.17",
     "votes": {
@@ -23686,7 +23715,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": false,
-    "significance": 41,
+    "significance": 61,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.MM13.27",
     "votes": {
@@ -24020,7 +24049,7 @@
     "committee": "City Council",
     "topic": "General",
     "trivial": false,
-    "significance": 28,
+    "significance": 48,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.EC8.8",
     "votes": {
@@ -24546,8 +24575,8 @@
     "status": "Adopted",
     "committee": "North York Community Council",
     "topic": "General",
-    "trivial": true,
-    "significance": 13,
+    "trivial": false,
+    "significance": 33,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.NY9.3",
     "votes": {
@@ -24672,8 +24701,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Transit",
-    "trivial": true,
-    "significance": 13,
+    "trivial": false,
+    "significance": 33,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.EX9.14",
     "votes": {
@@ -24755,7 +24784,7 @@
     "committee": "City Council",
     "topic": "General",
     "trivial": true,
-    "significance": 0,
+    "significance": 20,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.MM12.12",
     "votes": {
@@ -25038,8 +25067,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 7,
+    "trivial": false,
+    "significance": 27,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.EC7.7",
     "votes": {
@@ -25078,8 +25107,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 10,
+    "trivial": false,
+    "significance": 30,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.EC7.8",
     "votes": {
@@ -25119,7 +25148,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 3,
+    "significance": 23,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.DM12.1",
     "votes": {
@@ -25182,7 +25211,7 @@
     "committee": "North York Community Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 20,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.NY8.10",
     "votes": {
@@ -25243,7 +25272,7 @@
     "committee": "City Council",
     "topic": "Transit",
     "trivial": false,
-    "significance": 39,
+    "significance": 59,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.IE6.3",
     "votes": {
@@ -25487,8 +25516,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 7,
+    "trivial": false,
+    "significance": 27,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.PH6.2",
     "votes": {
@@ -25527,8 +25556,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 10,
+    "trivial": false,
+    "significance": 30,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.CC11.9",
     "votes": {
@@ -25809,7 +25838,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 2,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.EY7.3",
     "votes": {
@@ -25929,7 +25958,7 @@
     "committee": "City Council",
     "topic": "Transit",
     "trivial": false,
-    "significance": 42,
+    "significance": 62,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.EC6.6",
     "votes": {
@@ -26477,7 +26506,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 2,
+    "significance": 22,
     "ward": "13",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.TE6.21",
     "votes": {
@@ -26600,7 +26629,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 16,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.EY6.2",
     "votes": {
@@ -26892,8 +26921,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 14,
+    "trivial": false,
+    "significance": 34,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.SC6.6",
     "votes": {
@@ -26933,8 +26962,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 8,
+    "trivial": false,
+    "significance": 28,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.SC6.8",
     "votes": {
@@ -26965,7 +26994,9 @@
       "Dianne Saxe": "ABSENT",
       "Michael Thompson": "YES"
     },
-    "flags": []
+    "flags": [
+      "unanimous"
+    ]
   },
   {
     "id": "RM8.7",
@@ -27016,7 +27047,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 20,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.MM8.29",
     "votes": {
@@ -27325,7 +27356,7 @@
     "committee": "North York Community Council",
     "topic": "General",
     "trivial": true,
-    "significance": 0,
+    "significance": 20,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.NY6.20",
     "votes": {
@@ -27491,8 +27522,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 14,
+    "trivial": false,
+    "significance": 34,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.CC7.9",
     "votes": {
@@ -27692,7 +27723,7 @@
     "committee": "City Council",
     "topic": "Climate",
     "trivial": false,
-    "significance": 27,
+    "significance": 47,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.MM7.25",
     "votes": {
@@ -27983,8 +28014,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Transit",
-    "trivial": true,
-    "significance": 14,
+    "trivial": false,
+    "significance": 34,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.MM7.19",
     "votes": {
@@ -28064,7 +28095,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 5,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.EY5.1",
     "votes": {
@@ -28143,8 +28174,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 13,
+    "trivial": false,
+    "significance": 33,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.CC7.11",
     "votes": {
@@ -28344,7 +28375,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 2,
+    "significance": 22,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.TE5.9",
     "votes": {
@@ -28383,8 +28414,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Transit",
-    "trivial": true,
-    "significance": 10,
+    "trivial": false,
+    "significance": 30,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.CA6.5",
     "votes": {
@@ -28538,7 +28569,7 @@
     "committee": "Planning and Housing Committee",
     "topic": "Transit",
     "trivial": false,
-    "significance": 32,
+    "significance": 52,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.PH4.7",
     "votes": {
@@ -28655,7 +28686,7 @@
     "committee": "City Council",
     "topic": "Finance",
     "trivial": false,
-    "significance": 36,
+    "significance": 56,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.MM6.8",
     "votes": {
@@ -28814,8 +28845,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Transit",
-    "trivial": true,
-    "significance": 22,
+    "trivial": false,
+    "significance": 42,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.MM6.1",
     "votes": {
@@ -28896,8 +28927,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Transit",
-    "trivial": true,
-    "significance": 20,
+    "trivial": false,
+    "significance": 40,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.TE4.37",
     "votes": {
@@ -28927,7 +28958,9 @@
       "Dianne Saxe": "YES",
       "Michael Thompson": "ABSENT"
     },
-    "flags": []
+    "flags": [
+      "unanimous"
+    ]
   },
   {
     "id": "EC3.13",
@@ -28976,8 +29009,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Transit",
-    "trivial": true,
-    "significance": 23,
+    "trivial": false,
+    "significance": 43,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.MM6.17",
     "votes": {
@@ -29058,8 +29091,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Finance",
-    "trivial": true,
-    "significance": 14,
+    "trivial": false,
+    "significance": 34,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.EX4.3",
     "votes": {
@@ -29089,7 +29122,9 @@
       "Dianne Saxe": "NO",
       "Michael Thompson": "YES"
     },
-    "flags": []
+    "flags": [
+      "close-vote"
+    ]
   },
   {
     "id": "EC3.16",
@@ -29709,7 +29744,7 @@
     "committee": "City Council",
     "topic": "Transit",
     "trivial": false,
-    "significance": 40,
+    "significance": 60,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.MM6.33",
     "votes": {
@@ -29874,7 +29909,7 @@
     "committee": "City Council",
     "topic": "Transit",
     "trivial": false,
-    "significance": 40,
+    "significance": 60,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.EX4.10",
     "votes": {
@@ -29997,7 +30032,7 @@
     "committee": "City Council",
     "topic": "Transit",
     "trivial": false,
-    "significance": 52,
+    "significance": 72,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.DM6.2",
     "votes": {
@@ -30199,7 +30234,7 @@
     "committee": "City Council",
     "topic": "Climate",
     "trivial": false,
-    "significance": 27,
+    "significance": 47,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.EX4.2",
     "votes": {
@@ -30342,7 +30377,7 @@
     "committee": "Toronto Parking Authority",
     "topic": "Finance",
     "trivial": true,
-    "significance": 0,
+    "significance": 20,
     "ward": "11",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.PA3.11",
     "votes": {
@@ -30419,8 +30454,8 @@
     "status": "Adopted",
     "committee": "General Government Committee",
     "topic": "General",
-    "trivial": true,
-    "significance": 22,
+    "trivial": false,
+    "significance": 42,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.GG3.20",
     "votes": {
@@ -30482,8 +30517,8 @@
     "status": "Adopted",
     "committee": "Toronto and East York Community Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 12,
+    "trivial": false,
+    "significance": 32,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.TE4.13",
     "votes": {
@@ -30913,7 +30948,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 20,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.CC5.24",
     "votes": {
@@ -31355,7 +31390,7 @@
     "committee": "City Council",
     "topic": "Transit",
     "trivial": false,
-    "significance": 25,
+    "significance": 45,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.MM5.6",
     "votes": {
@@ -31636,8 +31671,8 @@
     "status": "Defeated",
     "committee": "City Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 20,
+    "trivial": false,
+    "significance": 40,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.CC5.5",
     "votes": {
@@ -31667,7 +31702,10 @@
       "Dianne Saxe": "YES",
       "Michael Thompson": "YES"
     },
-    "flags": []
+    "flags": [
+      "defeated",
+      "unanimous"
+    ]
   },
   {
     "id": "EY3.8",
@@ -31757,7 +31795,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 2,
+    "significance": 22,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.CC5.22",
     "votes": {
@@ -31989,7 +32027,7 @@
     "committee": "Civic Appointments Committee",
     "topic": "General",
     "trivial": true,
-    "significance": 0,
+    "significance": 20,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.CA4.3",
     "votes": {
@@ -32053,7 +32091,7 @@
     "committee": "City Council",
     "topic": "Finance",
     "trivial": false,
-    "significance": 47,
+    "significance": 67,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.CC4.1",
     "votes": {
@@ -32093,8 +32131,8 @@
     "status": "Adopted",
     "committee": "City Council",
     "topic": "Finance",
-    "trivial": true,
-    "significance": 21,
+    "trivial": false,
+    "significance": 41,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.MPB4.1",
     "votes": {
@@ -32634,7 +32672,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 0,
+    "significance": 10,
     "ward": "13",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.CC3.6",
     "votes": {
@@ -32757,7 +32795,7 @@
     "committee": "City Council",
     "topic": "Housing",
     "trivial": false,
-    "significance": 27,
+    "significance": 47,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.EC1.5",
     "votes": {
@@ -32838,8 +32876,8 @@
     "status": "Adopted",
     "committee": "Scarborough Community Council",
     "topic": "Housing",
-    "trivial": true,
-    "significance": 13,
+    "trivial": false,
+    "significance": 33,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.SC2.1",
     "votes": {
@@ -32924,8 +32962,8 @@
     "status": "Adopted",
     "committee": "Budget Committee",
     "topic": "Finance",
-    "trivial": true,
-    "significance": 13,
+    "trivial": false,
+    "significance": 33,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.BU3.1",
     "votes": {
@@ -32945,8 +32983,8 @@
     "status": "Adopted",
     "committee": "Board of Health",
     "topic": "Finance",
-    "trivial": true,
-    "significance": 22,
+    "trivial": false,
+    "significance": 42,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.HL1.4",
     "votes": {
@@ -32988,7 +33026,7 @@
     "committee": "Budget Committee",
     "topic": "Finance",
     "trivial": false,
-    "significance": 40,
+    "significance": 60,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2023.BU2.1",
     "votes": {
