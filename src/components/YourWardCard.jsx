@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { MapPin, ChevronRight, Loader2, X } from 'lucide-react';
+import { MapPin, Loader2, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { WARD_COUNCILLORS } from '../constants/data';
 import { TORONTO_WARDS } from '../constants/wards';
@@ -89,24 +89,24 @@ export default function YourWardCard({ motions }) {
         className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col gap-3 h-full"
       >
         {/* Header */}
-        <div className="flex items-start justify-between gap-2">
-          <div className="min-w-0">
-            <p className="text-xs font-semibold text-slate-800 leading-snug">
-              Ward {wardId}{ward ? ` · ${ward.name}` : ''}
-            </p>
-            {councillorName && (
-              <p className="text-[9px] text-slate-500 mt-0.5">{councillorName}</p>
-            )}
-            <button onClick={handleClear} className="text-[9px] text-slate-400 hover:text-slate-600 transition-colors mt-0.5 flex items-center gap-0.5">
-              <X className="w-2.5 h-2.5" /> change
-            </button>
-          </div>
+        <div className="flex flex-col gap-1 flex-1">
+          <p className="text-xs font-semibold text-slate-800 leading-snug">
+            Ward {wardId}{ward ? ` · ${ward.name}` : ''}
+          </p>
+          {councillorName && (
+            <p className="text-[9px] text-slate-500">{councillorName}</p>
+          )}
+        </div>
+        <div className="flex items-center justify-between mt-auto">
+          <button onClick={handleClear} className="text-[9px] text-slate-400 hover:text-slate-600 transition-colors flex items-center gap-0.5">
+            <X className="w-2.5 h-2.5" /> change
+          </button>
           {councillorName && (
             <Link
               to={`/councillors/${nameToSlug(councillorName)}`}
-              className="flex items-center gap-1 px-2 py-1 bg-slate-50 border border-slate-200 rounded-lg text-[9px] font-semibold text-slate-500 hover:border-[#004a99]/40 hover:text-[#004a99] transition-colors shrink-0"
+              className="text-[9px] font-semibold text-[#004a99] hover:underline"
             >
-              More <ChevronRight className="w-2.5 h-2.5" />
+              See more
             </Link>
           )}
         </div>
