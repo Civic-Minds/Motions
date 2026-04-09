@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { Users, Map, BarChart3, PieChart, Building2, Menu, X } from 'lucide-react';
+import { Users, Map, BarChart3, PieChart, Building2, Menu, X, Search } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from './lib/utils';
 import { useMotions } from './hooks/useMotions';
@@ -11,6 +11,7 @@ import WardGrid from './components/WardGrid';
 import Scorecard from './components/Scorecard';
 import BudgetTranslator from './components/BudgetTranslator';
 import CommitteesView from './components/CommitteesView';
+import GlobalSearch from './components/GlobalSearch';
 
 const TABS = [
   { path: '/councillors', label: 'Councillors', icon: Users },
@@ -20,7 +21,7 @@ const TABS = [
   { path: '/budget',      label: 'Budget',      icon: PieChart },
 ];
 
-function Navbar() {
+function Navbar({ onSearchOpen }) {
   const location = useLocation();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -67,11 +68,20 @@ function Navbar() {
           })}
         </nav>
 
-
-        {/* Mobile toggle */}
-        <button className="md:hidden p-2 rounded-lg hover:bg-slate-100" onClick={() => setOpen(o => !o)}>
-          {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
+        {/* Right: search + mobile toggle */}
+        <div className="flex items-center gap-2">
+          <button
+            onClick={onSearchOpen}
+            className="flex items-center gap-2 px-3 py-1.5 text-sm text-slate-500 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 rounded-full transition-all"
+          >
+            <Search className="w-3.5 h-3.5" />
+            <span className="hidden sm:block">Search</span>
+            <kbd className="hidden sm:block text-[10px] font-medium text-slate-400 bg-white border border-slate-200 rounded px-1.5 py-0.5 ml-1">⌘K</kbd>
+          </button>
+          <button className="md:hidden p-2 rounded-lg hover:bg-slate-100" onClick={() => setOpen(o => !o)}>
+            {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}
@@ -109,6 +119,26 @@ function Navbar() {
 
 function AppShell() {
   const { motions, loading, error } = useMotions();
+  const [searchOpen, setSearchOpen] = useState(false);
+
+  const councillorNames = useMemo(() => {
+    if (!motions) return [];
+    const nameSet = new Set();
+    motions.forEach(m => { if (m.votes) Object.keys(m.votes).forEach(n => nameSet.add(n)); });
+    return [...nameSet].sort();
+  }, [motions]);
+
+  // Global Cmd+K listener
+  useEffect(() => {
+    const handler = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setSearchOpen(o => !o);
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, []);
 
   if (loading) return (
     <div className="flex items-center justify-center h-screen bg-slate-50">
@@ -130,7 +160,7 @@ function AppShell() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
+      <Navbar onSearchOpen={() => setSearchOpen(true)} />
       <main className="flex-1 max-w-[1400px] mx-auto w-full px-4 sm:px-6 py-8">
         <Routes>
           <Route path="/" element={<DashboardView motions={motions} />} />
@@ -145,6 +175,13 @@ function AppShell() {
           <Route path="*"          element={<Navigate to="/" replace />} />
         </Routes>
       </main>
+
+      <GlobalSearch
+        motions={motions ?? []}
+        councillorNames={councillorNames}
+        open={searchOpen}
+        onClose={() => setSearchOpen(false)}
+      />
     </div>
   );
 }
