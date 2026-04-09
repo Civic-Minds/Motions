@@ -1,9 +1,9 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { ChevronLeft, GitCompare, Mail, Phone, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getAttendance, getVotedWith } from '../utils/analytics';
-import { TOPIC_PILL, WARD_COUNCILLORS } from '../constants/data';
+import { TOPIC_PILL, WARD_COUNCILLORS, FORMER_MEMBERS } from '../constants/data';
 import { TORONTO_WARDS } from '../constants/wards';
 import { nameToSlug, slugToName } from '../utils/slug';
 import { cn } from '../lib/utils';
@@ -32,6 +32,11 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
   const [selectedMotion, setSelectedMotion] = useState(null);
   const [vsPickerOpen, setVsPickerOpen] = useState(false);
   const [vsSearch, setVsSearch] = useState('');
+  const [tenure, setTenure] = useState({});
+
+  useEffect(() => {
+    fetch('/data/tenure.json').then(r => r.json()).then(setTenure).catch(() => {});
+  }, []);
 
   const allNames = useMemo(() => {
     const s = new Set();
@@ -117,6 +122,14 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
         Councillors
       </Link>
 
+      {/* Former member notice */}
+      {FORMER_MEMBERS[selected] && (
+        <div className="mb-6 flex items-center gap-2.5 px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-500">
+          <span className="w-1.5 h-1.5 rounded-full bg-slate-400 shrink-0" />
+          {FORMER_MEMBERS[selected]} · Historical record only
+        </div>
+      )}
+
       {/* Profile header */}
       <div className="flex items-start justify-between gap-6 mb-8">
         <div className="flex items-start gap-5">
@@ -156,6 +169,15 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
                     <div>
                       <span className="text-lg font-black text-slate-800">{yesRate}%</span>
                       <span className="text-xs text-slate-400 ml-1.5">yes rate</span>
+                    </div>
+                  </>
+                )}
+                {tenure[selected] && (
+                  <>
+                    <div className="w-px h-4 bg-slate-200" />
+                    <div>
+                      <span className="text-lg font-black text-slate-800">{tenure[selected].since}</span>
+                      <span className="text-xs text-slate-400 ml-1.5">on council since</span>
                     </div>
                   </>
                 )}

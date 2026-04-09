@@ -4,7 +4,7 @@ import { Search, GitCompare, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getMemberAlignmentScore, getAttendance } from '../utils/analytics';
 import { nameToSlug, slugToName } from '../utils/slug';
-import { WARD_COUNCILLORS } from '../constants/data';
+import { WARD_COUNCILLORS, FORMER_MEMBERS } from '../constants/data';
 import { TORONTO_WARDS } from '../constants/wards';
 import { cn } from '../lib/utils';
 import VersusOverlay from './VersusOverlay';
@@ -41,7 +41,7 @@ export default function CouncillorList({ motions, councillors: contactData = [] 
     });
 
     return Object.entries(voteCounts)
-      .filter(([, count]) => count >= 5)
+      .filter(([name, count]) => count >= 5 && !(name in FORMER_MEMBERS))
       .map(([name]) => {
         const alignment = getMemberAlignmentScore(motions, name);
         const attendance = getAttendance(motions, name);

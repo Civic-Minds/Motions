@@ -2,6 +2,12 @@
  * Static constants for Toronto Council Transparency
  */
 
+export const FORMER_MEMBERS = {
+  'John Tory':     'Resigned February 2023',
+  'Jaye Robinson': 'Passed away June 2024',
+  'Gary Crawford': 'Resigned August 2023',
+};
+
 export const COUNCILLORS = [
     'Olivia Chow', 'Stephen Holyday', 'Amber Morley', 'Gord Perks', 'Alejandra Bravo',
     'Mike Colle', 'Josh Matlow', 'Dianne Saxe', 'Ausma Malik', 'Chris Moise',
