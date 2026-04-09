@@ -99,7 +99,7 @@ export default function DashboardView({ motions, councillors }) {
     <div className="space-y-4">
 
       {/* ── Top section: three cards ── */}
-      <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr_220px] gap-3 items-stretch">
+      <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr_220px] gap-3 items-stretch overflow-hidden">
 
         {/* Last Meeting */}
         <div className="flex flex-col gap-1.5">
@@ -131,9 +131,9 @@ export default function DashboardView({ motions, councillors }) {
         </div>
 
         {/* Most Recent Notable */}
-        <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-1.5 min-w-0">
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Most Recent Notable</p>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 items-stretch flex-1">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 items-stretch flex-1 min-w-0">
               {highlights.map((m, i) => {
                 const yesCount = Object.values(m.votes ?? {}).filter(v => v === 'YES').length;
                 const noCount  = Object.values(m.votes ?? {}).filter(v => v === 'NO').length;
