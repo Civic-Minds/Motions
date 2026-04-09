@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { X, ExternalLink } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -9,6 +9,13 @@ import { nameToSlug } from '../utils/slug';
 export default function MotionPanel({ motion: m, onClose }) {
   const yesVotes = m ? Object.values(m.votes ?? {}).filter(v => v === 'YES').length : 0;
   const noVotes  = m ? Object.values(m.votes ?? {}).filter(v => v === 'NO').length  : 0;
+
+  useEffect(() => {
+    if (!m) return;
+    const handler = (e) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [m, onClose]);
 
   return (
     <AnimatePresence>

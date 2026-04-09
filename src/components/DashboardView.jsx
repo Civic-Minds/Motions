@@ -169,7 +169,7 @@ export default function DashboardView({ motions, councillors }) {
           </div>
 
           {highlights.length > 0 ? (
-            <div className="space-y-1.5 flex-1">
+            <div className="grid grid-cols-4 gap-2 flex-1">
               {highlights.map((m, i) => {
                 const yesCount = Object.values(m.votes ?? {}).filter(v => v === 'YES').length;
                 const noCount  = Object.values(m.votes ?? {}).filter(v => v === 'NO').length;
@@ -177,28 +177,32 @@ export default function DashboardView({ motions, councillors }) {
                 return (
                   <motion.button
                     key={m.id}
-                    initial={{ opacity: 0, y: 4 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, scale: 0.97 }}
+                    animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: i * 0.04 }}
                     onClick={() => navigate(`/motions/${m.id}`)}
-                    className="w-full text-left group flex items-start gap-2.5 p-2.5 rounded-xl border border-slate-100 hover:border-[#004a99]/30 hover:bg-slate-50 transition-all"
+                    className="w-full text-left group flex flex-col gap-2 p-3 rounded-xl border border-slate-100 hover:border-[#004a99]/30 hover:bg-slate-50 transition-all"
                   >
-                    <div className={cn("w-1 self-stretch rounded-full shrink-0 mt-0.5", m.status === 'Adopted' ? 'bg-emerald-400' : 'bg-rose-400')} />
-                    <div className="flex-1 min-w-0">
-                      <p className="text-xs font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-1 leading-snug">
-                        {m.title}
-                      </p>
-                      <div className="flex items-center gap-1.5 mt-0.5">
-                        <span className={cn("text-[9px] font-medium px-1 py-0.5 rounded", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>
-                          {m.topic}
+                    <div className="flex items-center justify-between gap-1">
+                      <span className={cn("text-[9px] font-semibold px-1.5 py-0.5 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>
+                        {m.topic}
+                      </span>
+                      <span className={cn("text-[9px] font-bold shrink-0", m.status === 'Adopted' ? 'text-emerald-600' : 'text-rose-500')}>
+                        {m.status === 'Adopted' ? '✓' : '✗'}
+                      </span>
+                    </div>
+                    <p className="text-xs font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-3 leading-snug flex-1">
+                      {m.title}
+                    </p>
+                    <div className="flex items-center justify-between mt-auto">
+                      <span className="text-[9px] text-slate-400">{m.date}</span>
+                      {total > 0 && (
+                        <span className="text-[9px] font-medium">
+                          <span className="text-emerald-600 font-bold">{yesCount}</span>
+                          <span className="text-slate-300 mx-0.5">–</span>
+                          <span className="text-rose-500 font-bold">{noCount}</span>
                         </span>
-                        {total > 0 && (
-                          <span className="text-[9px] text-slate-400">
-                            <span className="text-emerald-600 font-bold">{yesCount}</span>–<span className="text-rose-500 font-bold">{noCount}</span>
-                          </span>
-                        )}
-                        <span className="text-[9px] text-slate-400">{m.date}</span>
-                      </div>
+                      )}
                     </div>
                   </motion.button>
                 );

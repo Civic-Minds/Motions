@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { X, GitCompare, Mail, Phone } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getAttendance, getVotedWith } from '../utils/analytics';
@@ -14,6 +14,13 @@ Object.entries(WARD_COUNCILLORS).forEach(([wardId, name]) => {
 
 export default function ProfilePanel({ selected, onClose, onCompare, onMotionClick, motions, councillors = [] }) {
   const [topicFilter, setTopicFilter] = useState('All');
+
+  useEffect(() => {
+    if (!selected) return;
+    const handler = (e) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [selected, onClose]);
 
   const dna = useMemo(() => {
     if (!selected) return [];
