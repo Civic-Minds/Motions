@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { MapPin, Navigation, Loader2, X, AlertCircle, ArrowRight, ChevronLeft } from 'lucide-react';
+import { MapPin, Navigation, Loader2, X, AlertCircle, ArrowRight, ChevronLeft, ExternalLink } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getWardActivityMetrics } from '../utils/analytics';
 import { WARD_COUNCILLORS } from '../constants/data';
@@ -54,6 +54,39 @@ async function fetchWardBoundaries() {
   return cachedBoundaries;
 }
 
+// Simple SVG map of a ward polygon from GeoJSON feature
+function WardMap({ feature }) {
+  if (!feature) return null;
+
+  const geom = feature.geometry;
+  const polys = geom.type === 'Polygon' ? [geom.coordinates] : geom.coordinates;
+  const allCoords = polys.flatMap(p => p[0]);
+
+  const lons = allCoords.map(c => c[0]);
+  const lats = allCoords.map(c => c[1]);
+  const minLon = Math.min(...lons), maxLon = Math.max(...lons);
+  const minLat = Math.min(...lats), maxLat = Math.max(...lats);
+  const rangeW = maxLon - minLon || 0.001;
+  const rangeH = maxLat - minLat || 0.001;
+
+  const W = 300, H = 140;
+  const pad = 12;
+  const toX = lon => pad + ((lon - minLon) / rangeW) * (W - pad * 2);
+  const toY = lat => H - pad - ((lat - minLat) / rangeH) * (H - pad * 2);
+
+  const pathStrings = polys.map(poly =>
+    poly[0].map((c, i) => `${i === 0 ? 'M' : 'L'}${toX(c[0]).toFixed(1)},${toY(c[1]).toFixed(1)}`).join(' ') + ' Z'
+  );
+
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} className="w-full rounded-xl bg-slate-50 border border-slate-200">
+      {pathStrings.map((d, i) => (
+        <path key={i} d={d} fill="#dbeafe" stroke="#004a99" strokeWidth="1.5" strokeLinejoin="round" />
+      ))}
+    </svg>
+  );
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function WardGrid({ motions }) {
@@ -65,7 +98,13 @@ export default function WardGrid({ motions }) {
   const [locateMsg, setLocateMsg] = useState('');
   const [foundWardId, setFoundWardId] = useState(null);
   const [selectedWard, setSelectedWard] = useState(null);
+  const [geoData, setGeoData] = useState(null);
   const wardRefs = useRef({});
+
+  // Eagerly load GeoJSON for ward maps
+  useEffect(() => {
+    fetchWardBoundaries().then(setGeoData).catch(() => {});
+  }, []);
 
   useEffect(() => {
     if (foundWardId && wardRefs.current[foundWardId]) {
@@ -128,6 +167,11 @@ export default function WardGrid({ motions }) {
       .filter(m => m.ward === selectedWard.id)
       .sort((a, b) => (b.significance ?? 0) - (a.significance ?? 0));
   }, [selectedWard, motions]);
+
+  const selectedWardFeature = useMemo(() => {
+    if (!geoData || !selectedWard) return null;
+    return geoData.features.find(f => extractWardId(f.properties) === selectedWard.id) ?? null;
+  }, [geoData, selectedWard]);
 
   const isSearching = locateState === 'locating' || locateState === 'loading';
   const hasError = ['error', 'denied', 'not_found'].includes(locateState);
@@ -284,15 +328,28 @@ export default function WardGrid({ motions }) {
           </div>
         </>
       ) : (
-        /* ── Ward detail: motion list ── */
+        /* ── Ward detail: map + motion list ── */
         <AnimatePresence mode="wait">
           <motion.div
             key={selectedWard.id}
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            className="space-y-2"
+            className="space-y-4"
           >
+            {/* Map */}
+            <div className="relative">
+              <WardMap feature={selectedWardFeature} />
+              <a
+                href={`https://www.openstreetmap.org/search?query=${encodeURIComponent(`Ward ${selectedWard.id} Toronto`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute bottom-2 right-2 flex items-center gap-1 text-[10px] font-medium text-slate-500 bg-white/90 hover:bg-white px-2 py-1 rounded-lg border border-slate-200 transition-colors"
+              >
+                <ExternalLink className="w-3 h-3" />
+                OpenStreetMap
+              </a>
+            </div>
             {wardMotions.length === 0 ? (
               <div className="text-center py-16 bg-white border border-dashed border-slate-200 rounded-2xl">
                 <p className="text-slate-400 text-sm">No ward-specific motions recorded.</p>
