@@ -7,6 +7,11 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for pre-2.0.0 history.
 ## [Unreleased]
 
 ### Added
+- **"Your Ward" filter on dashboard** — when a ward is saved, a "Your Ward" button appears in the filter sidebar showing the councillor's name. Filters the motion list to motions specifically tagged to that ward.
+- **"Your Councillor" callout on motion pages** — if a ward is saved and the councillor's vote is recorded, a coloured callout (green/red/grey) appears above the vote breakdown showing how your councillor voted.
+- **Geocoding pipeline** — `scripts/geocode_addresses.js` extracts street addresses from motion titles using regex, geocodes them via Nominatim (free, no API key), and stores `locations: [{address, lat, lng}]` on each motion. 218 motions now have location data. Handles multi-address titles (e.g. "150 The Donway West and 4 Overland Drive") by storing all addresses as separate pins.
+- **Field extraction pipeline** — `scripts/extract_fields.js` runs a regex pass over scraped body text before stripping it. Extracts: `amounts[]` (dollar values normalized to integers), `staffRecommendation` ('approval' | 'refusal' | null), `developer` (applicant name for zoning items), and `relatedMotions[]` (cross-referenced motion IDs like "In response to Council direction (2025.MM35.15)"). 88 motions have dollar amounts; 82 have cross-references.
+- **Plain-language summaries** — `scripts/generate_summaries.js` reads scraped `body` text, calls Gemini 2.5 Flash API, and writes a 2-3 sentence plain-language `summary` to each motion. `scripts/strip_body.js` removes raw `body` before committing (pipeline-only field). In progress.
 - **Councillor card on ward detail pages** — every ward detail page now shows a councillor callout with photo, name, and a link to their profile. Labels as "Your Councillor" when viewing your own ward.
 - **"Your Councillor" highlight on councillors grid** — if a ward is saved, the matching councillor's card is highlighted with a blue border and "Your Councillor" pill, matching the "Your Ward" treatment on the wards page.
 - **Vote history sort + outcome filter on councillor profiles** — Impact / Date sort toggle and All / YES / NO outcome filter pills added to the vote history section.
@@ -16,8 +21,22 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for pre-2.0.0 history.
 - **TMMIS scraper** — `scripts/scrape_agenda_text.js` added; uses Playwright to scrape agenda item body text from toronto.ca and stores it as a `body` field on each motion, incrementally.
 
 ### Changed
+- **Councillor roster updated** — Rachel Chernos Lin (Ward 15, won by-election Nov 2024) and Neethan Shan (Ward 25, won by-election Sep 2025) replace Jaye Robinson and Jennifer McKelvie respectively. Anthony Perruzza (Ward 7) and Neethan Shan added to `COUNCILLORS` array where they were previously missing. Jennifer McKelvie added to `FORMER_MEMBERS` (resigned May 2025). Rachel Chernos Lin tenure corrected to 2024. Ward 16 mapping corrected to Jon Burnside (was incorrectly showing Chernos Lin).
+- **Removed PROGRESSIVES/CONSERVATIVES constants** — editorial political lean labels removed from `data.js`. Were unused in the UI and based on subjective judgment.
+- **Summaries model updated** — `generate_summaries.js` migrated from deprecated `gemini-2.0-flash` to `gemini-2.5-flash`. Delay adjusted from 4s to 10s to stay within free tier rate limits (6 req/min vs 10 RPM limit).
 - **Refactored topic colour constants** — `TOPIC_LIGHT` and `TOPIC_DOT` centralized in `src/constants/data.js`; removed local duplicate definitions from `WardGrid`, `CouncillorProfile`, `CommitteesView`, `DashboardView`, `GlobalSearch`, and `VersusOverlay`.
 - **Extracted VsPickerModal** — VS comparison picker modal split out of `CouncillorProfile.jsx` into its own `VsPickerModal.jsx` component.
+- **CouncillorProfile back button** — added "← Back" nav at the top of every councillor profile page.
+- **"Your Councillor" badge on profile page** — when viewing your own councillor, a blue "Your Councillor" pill appears next to their name in the profile header.
+- **Empty votes state on motion pages** — when a motion has no recorded votes, the vote section now shows a clear "No recorded votes for this item." message instead of an empty bordered box.
+
+### Fixed
+- **Ward keyword coverage** — added geographic keywords for the 7 previously uncovered wards (6 York Centre, 7 Humber River–Black Creek, 17 Don Valley North, 20 Scarborough Southwest, 21 Scarborough Centre, 22 Scarborough–Agincourt, 24 Scarborough–Guildwood) in `import_open_data.js`. Previously 93.8% of motions fell through to "City".
+
+### Removed
+- **Dead component files** — deleted `MotionDetail.jsx`, `MotionPanel.jsx`, `ProfilePanel.jsx`, and `Scorecard.jsx`; all four were superseded and had no remaining imports.
+- **`scripts/fetch_motions.js`** — old import script using CKAN API and different status vocabulary. Superseded by `import_open_data.js`.
+- **`getPairwiseAlignment` in `analytics.js`** — exported but never imported anywhere. Removed.
 
 ## [2.0.2] - 2026-04-10
 

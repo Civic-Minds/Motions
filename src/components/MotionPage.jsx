@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Link, useParams, useNavigate, Navigate } from 'react-router-dom';
 import { ExternalLink, ChevronDown, ChevronUp, ArrowLeft } from 'lucide-react';
 import { cn } from '../lib/utils';
-import { getCommittee } from '../constants/data';
+import { getCommittee, WARD_COUNCILLORS } from '../constants/data';
 import { nameToSlug } from '../utils/slug';
 
 function StatusBadge({ status }) {
@@ -211,6 +211,10 @@ export default function MotionPage({ motions = [] }) {
   const committee = motion.committee || getCommittee(motion.id);
   const isMultiVote = subEntries.length > 0;
 
+  const myWardId = useMemo(() => { try { return localStorage.getItem('motions_ward_id'); } catch { return null; } }, []);
+  const myCouncillor = myWardId ? WARD_COUNCILLORS[myWardId] : null;
+  const myVote = myCouncillor ? (motion.votes?.[myCouncillor] ?? null) : null;
+
   return (
     <div className="max-w-2xl mx-auto space-y-6 py-2">
 
@@ -268,6 +272,29 @@ export default function MotionPage({ motions = [] }) {
         </div>
       )}
 
+      {/* Your councillor callout */}
+      {myCouncillor && myVote && (
+        <div className={cn(
+          "flex items-center justify-between gap-3 rounded-xl px-5 py-3 border",
+          myVote === 'YES' ? 'bg-emerald-50 border-emerald-200' :
+          myVote === 'NO'  ? 'bg-red-50 border-red-200' :
+                             'bg-slate-50 border-slate-200'
+        )}>
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-wide text-slate-400 mb-0.5">Your Councillor</p>
+            <p className="text-sm font-semibold text-slate-800">{myCouncillor}</p>
+          </div>
+          <span className={cn(
+            "text-sm font-bold px-3 py-1 rounded-full",
+            myVote === 'YES'    ? 'bg-emerald-100 text-emerald-700' :
+            myVote === 'NO'     ? 'bg-red-100 text-red-700' :
+                                  'bg-slate-100 text-slate-500'
+          )}>
+            {myVote}
+          </span>
+        </div>
+      )}
+
       {/* Votes */}
       <div className="space-y-3">
         {isMultiVote ? (
@@ -297,6 +324,10 @@ export default function MotionPage({ motions = [] }) {
               ))}
             </div>
           </>
+        ) : Object.keys(motion.votes ?? {}).length === 0 ? (
+          <div className="border border-dashed border-slate-200 rounded-xl p-5 text-center">
+            <p className="text-sm text-slate-400">No recorded votes for this item.</p>
+          </div>
         ) : (
           <div className="space-y-4 border border-slate-200 rounded-xl p-5">
             <VoteBar votes={motion.votes} resultText={motion.resultText} />

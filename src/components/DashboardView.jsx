@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, AlertCircle } from 'lucide-react';
 import { cn } from '../lib/utils';
-import { getCommittee, TOPIC_LIGHT, TOPIC_DOT } from '../constants/data';
+import { getCommittee, TOPIC_LIGHT, TOPIC_DOT, WARD_COUNCILLORS } from '../constants/data';
 import YourWardCard from './YourWardCard';
 
 const TOPICS = ['Housing', 'Transit', 'Finance', 'Parks', 'Climate', 'General'];
@@ -14,7 +14,11 @@ export default function DashboardView({ motions, councillors }) {
   const [selectedCommittee, setSelectedCommittee] = useState('All');
   const [voteType, setVoteType] = useState('All');
   const [showNotableOnly, setShowNotableOnly] = useState(false);
+  const [showMyWard, setShowMyWard] = useState(false);
   const [showAll, setShowAll] = useState(false);
+
+  const savedWardId = useMemo(() => { try { return localStorage.getItem('motions_ward_id'); } catch { return null; } }, []);
+  const savedCouncillor = savedWardId ? WARD_COUNCILLORS[savedWardId] : null;
 
   const VOTE_TYPES = [
     { label: 'All', value: 'All' },
@@ -71,6 +75,7 @@ export default function DashboardView({ motions, councillors }) {
         if (selectedCommittee !== 'All' && (m.committee || getCommittee(m.id)) !== selectedCommittee) return false;
         if (voteType !== 'All' && !m.flags?.includes(voteType)) return false;
         if (showNotableOnly && m.significance < 60) return false;
+        if (showMyWard && savedWardId && m.ward !== savedWardId) return false;
         return true;
       })
       .sort((a, b) => {
@@ -78,7 +83,7 @@ export default function DashboardView({ motions, councillors }) {
         if (dateDiff !== 0) return dateDiff;
         return (b.significance ?? 0) - (a.significance ?? 0);
       });
-  }, [primaryMotions, selectedTopic, selectedCommittee, showNotableOnly]);
+  }, [primaryMotions, selectedTopic, selectedCommittee, voteType, showNotableOnly]);
 
   const visibleMotions = showAll ? sortedMotions : sortedMotions.slice(0, 20);
 
@@ -121,6 +126,11 @@ export default function DashboardView({ motions, councillors }) {
         <div className="flex flex-col gap-1.5 min-w-0">
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Most Recent Notable</p>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 items-stretch flex-1 min-w-0">
+            {highlights.length === 0 && (
+              <div className="col-span-2 lg:col-span-4 flex items-center justify-center py-10 bg-white border border-dashed border-slate-200 rounded-2xl">
+                <p className="text-xs text-slate-400">No notable motions yet.</p>
+              </div>
+            )}
             {highlights.map((m, i) => {
               const yesCount = Object.values(m.votes ?? {}).filter(v => v === 'YES').length;
               const noCount  = Object.values(m.votes ?? {}).filter(v => v === 'NO').length;
@@ -249,13 +259,31 @@ export default function DashboardView({ motions, councillors }) {
               Notable only
             </button>
           </div>
+          {savedCouncillor && (
+            <div className="mt-4 pt-4 border-t border-slate-200">
+              <button
+                onClick={() => setShowMyWard(s => !s)}
+                className={cn(
+                  "w-full flex flex-col items-start gap-0.5 px-3 py-2 rounded-xl text-sm font-medium transition-all",
+                  showMyWard
+                    ? "bg-[#004a99] text-white"
+                    : "text-slate-600 hover:bg-slate-100"
+                )}
+              >
+                <span>Your Ward</span>
+                <span className={cn("text-[10px] font-normal", showMyWard ? "text-white/70" : "text-slate-400")}>
+                  {savedCouncillor}
+                </span>
+              </button>
+            </div>
+          )}
           <p className="text-[10px] text-slate-400 mt-3 px-3">{sortedMotions.length} motions</p>
         </div>
 
         {/* Motion list */}
         <div className="space-y-4 min-w-0">
 
-          {/* Mobile topic pills */}
+          {/* Mobile filters */}
           <div className="lg:hidden flex flex-wrap gap-2">
             {['All', ...TOPICS].map(topic => (
               <button
@@ -286,6 +314,20 @@ export default function DashboardView({ motions, councillors }) {
                 )}
               >
                 {label}
+              </button>
+            ))}
+            {committees.map(c => (
+              <button
+                key={c}
+                onClick={() => setSelectedCommittee(v => v === c ? 'All' : c)}
+                className={cn(
+                  "px-3 py-1.5 rounded-full text-sm font-medium border transition-all",
+                  selectedCommittee === c
+                    ? "bg-[#004a99] text-white border-[#004a99]"
+                    : "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100"
+                )}
+              >
+                {c}
               </button>
             ))}
             <button

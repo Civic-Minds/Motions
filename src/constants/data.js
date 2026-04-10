@@ -3,21 +3,19 @@
  */
 
 export const FORMER_MEMBERS = {
-  'John Tory':     'Resigned February 2023',
-  'Jaye Robinson': 'Passed away June 2024',
-  'Gary Crawford': 'Resigned August 2023',
+  'John Tory':          'Resigned February 2023',
+  'Gary Crawford':      'Resigned August 2023',
+  'Jaye Robinson':      'Passed away June 2024',
+  'Jennifer McKelvie':  'Resigned May 2025',
 };
 
 export const COUNCILLORS = [
     'Olivia Chow', 'Stephen Holyday', 'Amber Morley', 'Gord Perks', 'Alejandra Bravo',
-    'Mike Colle', 'Josh Matlow', 'Dianne Saxe', 'Ausma Malik', 'Chris Moise',
-    'Paula Fletcher', 'Lily Cheng', 'Shelley Carroll', 'Jon Burnside', 'Jaye Robinson',
-    'Brad Bradford', 'Parthi Kandavel', 'Paul Ainslie', 'Jamaal Myers', 'Jennifer McKelvie',
+    'Mike Colle', 'Anthony Perruzza', 'Josh Matlow', 'Dianne Saxe', 'Ausma Malik', 'Chris Moise',
+    'Paula Fletcher', 'Lily Cheng', 'Shelley Carroll', 'Jon Burnside', 'Rachel Chernos Lin',
+    'Brad Bradford', 'Parthi Kandavel', 'Paul Ainslie', 'Jamaal Myers', 'Neethan Shan',
     'Michael Thompson', 'Nick Mantas', 'Vincent Crisanti', 'Frances Nunziata', 'James Pasternak'
 ];
-
-export const PROGRESSIVES = ['Olivia Chow', 'Gord Perks', 'Alejandra Bravo', 'Ausma Malik', 'Chris Moise', 'Paula Fletcher', 'Dianne Saxe', 'Jamaal Myers', 'Amber Morley'];
-export const CONSERVATIVES = ['Stephen Holyday', 'Vincent Crisanti', 'Frances Nunziata', 'Jaye Robinson', 'Brad Bradford', 'Jon Burnside'];
 
 // ─── Ward → Councillor mapping (2022–2026 term, by-election winners included) ─
 
@@ -36,8 +34,8 @@ export const WARD_COUNCILLORS = {
     '12': 'Josh Matlow',
     '13': 'Chris Moise',
     '14': 'Paula Fletcher',
-    '15': 'Jaye Robinson',
-    '16': 'Rachel Chernos Lin',
+    '15': 'Rachel Chernos Lin',
+    '16': 'Jon Burnside',
     '17': 'Shelley Carroll',
     '18': 'Lily Cheng',
     '19': 'Brad Bradford',
