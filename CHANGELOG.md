@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for pre-2.0.0 history.
 
+## [2.0.2] - 2026-04-10
+
+### Changed
+- **Renamed to Your City at Work** — browser tab, OG tags, navbar logo, and developer configuration updated from "Motions" to "Your City at Work".
+
 ## [2.0.1] - 2026-04-10
 
 ### Added
