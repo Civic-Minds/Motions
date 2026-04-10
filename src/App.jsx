@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { Users, Map, Building2, Menu, X, Search } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -209,5 +210,5 @@ function AppShell() {
 }
 
 export default function App() {
-  return <BrowserRouter><AppShell /><Analytics /></BrowserRouter>;
+  return <BrowserRouter><AppShell /><Analytics /><SpeedInsights /></BrowserRouter>;
 }
