@@ -8,7 +8,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for pre-2.0.0 history.
 
 ### Changed
 - **Renamed to Your City at Work** — browser tab, OG tags, navbar logo, and developer configuration updated from "Motions" to "Your City at Work".
-- **Social Preview Updates** — generalized description text to remove city-specific constraints for future expansion.
+- **Social Preview Updates** — generalized description text ("Track every motion and vote to see exactly how you're being represented.") and updated SEO metadata.
 
 ## [2.0.1] - 2026-04-10
 
