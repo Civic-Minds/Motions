@@ -8,7 +8,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for pre-2.0.0 history.
 
 ### Changed
 - **Renamed to Your City at Work** — browser tab, OG tags, navbar logo, and developer configuration updated from "Motions" to "Your City at Work".
-- **Social Preview Updates** — generalized description text ("See every vote. Know every decision. It's your city.") and updated SEO metadata.
+- **Social Preview Updates** — generalized description text ("See every vote. Know every decision. It's your city.") and added a premium user-provided photo of Toronto City Hall as the social graphic.
 
 ## [2.0.1] - 2026-04-10
 
