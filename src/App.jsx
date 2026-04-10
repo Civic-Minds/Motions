@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { Users, Map, Building2, Menu, X, Search } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -189,6 +190,14 @@ function AppShell() {
         </Routes>
       </main>
 
+      <footer className="border-t border-slate-200 bg-white">
+        <div className="max-w-[1400px] mx-auto px-6 h-12 flex items-center justify-between text-xs text-slate-400">
+          <span>Data: <a href="https://open.toronto.ca/dataset/members-of-toronto-city-council-voting-record/" target="_blank" rel="noopener noreferrer" className="hover:text-slate-600 underline underline-offset-2 transition-colors">Toronto Open Data</a></span>
+          <span className="hidden sm:block">A <a href="https://github.com/Civic-Minds" target="_blank" rel="noopener noreferrer" className="hover:text-slate-600 transition-colors">Civic Minds</a> project</span>
+          <a href="https://github.com/Civic-Minds/Motions" target="_blank" rel="noopener noreferrer" className="hover:text-slate-600 transition-colors">GitHub</a>
+        </div>
+      </footer>
+
       <GlobalSearch
         motions={motions ?? []}
         councillorNames={councillorNames}
@@ -200,5 +209,5 @@ function AppShell() {
 }
 
 export default function App() {
-  return <BrowserRouter><AppShell /></BrowserRouter>;
+  return <BrowserRouter><AppShell /><Analytics /></BrowserRouter>;
 }

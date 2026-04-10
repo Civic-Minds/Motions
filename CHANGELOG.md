@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for pre-2.0.0 history.
 
+## [2.0.1] - 2026-04-10
+
+### Added
+- **Site footer** — slim footer on every page with Toronto Open Data attribution, Civic Minds link, and GitHub link.
+- **Vercel Analytics** — privacy-friendly page view tracking via `@vercel/analytics`. No cookies, no consent banner.
+
 ## [2.0.0] - 2026-04-10
 
 ### Infrastructure

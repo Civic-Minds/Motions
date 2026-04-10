@@ -2,7 +2,7 @@
   "name": "motions",
   "description": "A civic-intelligence engine that filters municipal noise to surface real legislative impact.",
   "private": true,
-  "version": "2.0.0",
+  "version": "2.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.2",
+    "@vercel/analytics": "^2.0.1",
     "cheerio": "^1.0.0-rc.12",
     "clsx": "^2.1.1",
     "framer-motion": "^12.38.0",
