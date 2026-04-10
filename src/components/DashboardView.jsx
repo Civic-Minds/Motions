@@ -1,12 +1,13 @@
-import React, { useState, useMemo, lazy, Suspense } from 'react';
+import React, { useState, useMemo, useEffect, lazy, Suspense } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-
-const TorontoMiniMap = lazy(() => import('./TorontoMiniMap'));
-import { ArrowRight, AlertCircle, X } from 'lucide-react';
+import { ArrowRight, AlertCircle, X, Search } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { getCommittee, TOPIC_LIGHT, TOPIC_DOT, WARD_COUNCILLORS } from '../constants/data';
+import { getWardId } from '../utils/storage';
 import YourWardCard from './YourWardCard';
+
+const TorontoMiniMap = lazy(() => import('./TorontoMiniMap'));
 
 const TOPICS = ['Housing', 'Transit', 'Finance', 'Parks', 'Climate', 'General'];
 
@@ -18,15 +19,12 @@ export default function DashboardView({ motions, councillors }) {
   const [showNotableOnly, setShowNotableOnly] = useState(false);
   const [showMyWard, setShowMyWard] = useState(false);
   const [showLastMeeting, setShowLastMeeting] = useState(false);
-  const [showAll, setShowAll] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(20);
   const [selectedYear, setSelectedYear] = useState('All');
+  const [committeeSearch, setCommitteeSearch] = useState('');
+  const [committeeOpen, setCommitteeOpen] = useState(false);
 
-  const savedWardId = useMemo(() => {
-    try {
-      const raw = localStorage.getItem('motions_ward_id');
-      return raw ? String(parseInt(raw, 10)) : null;
-    } catch { return null; }
-  }, []);
+  const savedWardId = useMemo(() => getWardId(), []);
   const savedCouncillor = savedWardId ? WARD_COUNCILLORS[savedWardId] : null;
 
   const VOTE_TYPES = [
@@ -103,7 +101,10 @@ export default function DashboardView({ motions, councillors }) {
       });
   }, [primaryMotions, selectedTopic, selectedCommittee, voteType, showNotableOnly, showMyWard, savedWardId, showLastMeeting, lastMeeting.date, selectedYear]);
 
-  const visibleMotions = showAll ? sortedMotions : sortedMotions.slice(0, 20);
+  // Reset visible count when filters change
+  useEffect(() => { setVisibleCount(20); }, [selectedTopic, selectedCommittee, voteType, selectedYear, showNotableOnly, showMyWard, showLastMeeting]);
+
+  const visibleMotions = sortedMotions.slice(0, visibleCount);
 
   return (
     <div className="space-y-4">
@@ -204,7 +205,7 @@ export default function DashboardView({ motions, councillors }) {
       <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr_220px] lg:gap-x-3 lg:items-start gap-y-4">
 
         {/* Filter sidebar (desktop) */}
-        <div className="hidden lg:block sticky top-24 bg-white border border-slate-200 rounded-2xl p-3 space-y-3">
+        <div className="hidden lg:flex flex-col sticky top-24 bg-white border border-slate-200 rounded-2xl p-3 gap-3 h-[480px] overflow-y-auto">
 
           {/* Topic */}
           <div>
@@ -233,22 +234,47 @@ export default function DashboardView({ motions, councillors }) {
           {/* Committee */}
           <div className="pt-2.5 border-t border-slate-100">
             <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wide mb-1.5">Committee</p>
-            <div className="flex flex-wrap gap-1">
-              {['All', ...committees].map(c => (
+            <div className="relative">
+              <Search className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-400 pointer-events-none" />
+              <input
+                type="text"
+                value={committeeSearch}
+                onChange={e => setCommitteeSearch(e.target.value)}
+                onFocus={() => setCommitteeOpen(true)}
+                onBlur={() => setTimeout(() => setCommitteeOpen(false), 150)}
+                placeholder={selectedCommittee !== 'All' ? selectedCommittee : 'Search…'}
+                className="w-full pl-6 pr-2 py-1 text-[11px] bg-slate-100 rounded-lg outline-none placeholder:text-slate-400 text-slate-700 focus:ring-1 focus:ring-[#004a99]/30"
+              />
+              {(committeeSearch || selectedCommittee !== 'All') && (
                 <button
-                  key={c}
-                  onClick={() => setSelectedCommittee(c)}
-                  className={cn(
-                    "px-2 py-0.5 rounded-full text-[11px] font-medium transition-all",
-                    selectedCommittee === c
-                      ? "bg-[#004a99] text-white"
-                      : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                  )}
+                  onClick={() => { setCommitteeSearch(''); setSelectedCommittee('All'); }}
+                  className="absolute right-1.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
                 >
-                  {c === 'All' ? 'All' : c}
+                  <X className="w-3 h-3" />
                 </button>
-              ))}
+              )}
             </div>
+            {committeeOpen && (
+              <div className="mt-1 space-y-0.5">
+                {committees
+                  .filter(c => !committeeSearch || c.toLowerCase().includes(committeeSearch.toLowerCase()))
+                  .map(c => (
+                    <button
+                      key={c}
+                      onClick={() => { setSelectedCommittee(c); setCommitteeSearch(''); }}
+                      className={cn(
+                        "w-full text-left px-2 py-0.5 rounded-lg text-[11px] font-medium transition-all",
+                        selectedCommittee === c
+                          ? "bg-[#004a99] text-white"
+                          : "text-slate-600 hover:bg-slate-100"
+                      )}
+                    >
+                      {c}
+                    </button>
+                  ))
+                }
+              </div>
+            )}
           </div>
 
           {/* Vote Type */}
@@ -454,12 +480,12 @@ export default function DashboardView({ motions, councillors }) {
               </div>
             )}
 
-            {sortedMotions.length > 20 && (
+            {visibleCount < sortedMotions.length && (
               <button
-                onClick={() => setShowAll(s => !s)}
+                onClick={() => setVisibleCount(c => c + 20)}
                 className="w-full py-3 text-sm font-medium text-slate-500 hover:text-slate-900 bg-white border border-slate-200 rounded-2xl hover:bg-slate-50 transition-all"
               >
-                {showAll ? 'Show less' : `Show all ${sortedMotions.length} motions`}
+                Show 20 more ({sortedMotions.length - visibleCount} remaining)
               </button>
             )}
           </div>

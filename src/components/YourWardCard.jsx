@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MapPin, Loader2, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -6,28 +6,21 @@ import { WARD_COUNCILLORS } from '../constants/data';
 import { TORONTO_WARDS } from '../constants/wards';
 import { nameToSlug } from '../utils/slug';
 import { cn } from '../lib/utils';
-
-const STORAGE_KEY = 'motions_ward_id';
-
+import { getWardId, setWardId as saveWardId } from '../utils/storage';
 
 export default function YourWardCard({ motions }) {
   const navigate = useNavigate();
-  const [wardId, setWardId] = useState(() => {
-    try { return localStorage.getItem(STORAGE_KEY); } catch { return null; }
-  });
+  const [wardId, setWardIdState] = useState(() => getWardId());
   const [status, setStatus] = useState('idle'); // idle | locating | error
   const [errorMsg, setErrorMsg] = useState('');
 
-  useEffect(() => {
-    try {
-      if (wardId) localStorage.setItem(STORAGE_KEY, wardId);
-      else localStorage.removeItem(STORAGE_KEY);
-    } catch {}
-  }, [wardId]);
+  function setWardId(id) {
+    setWardIdState(id);
+    saveWardId(id);
+  }
 
-  const normalizedWardId = wardId ? String(parseInt(wardId, 10)) : null;
-  const ward = TORONTO_WARDS.find(w => w.id === wardId || w.id === normalizedWardId);
-  const councillorName = normalizedWardId ? WARD_COUNCILLORS[normalizedWardId] : null;
+  const ward = wardId ? TORONTO_WARDS.find(w => w.id === wardId) : null;
+  const councillorName = wardId ? WARD_COUNCILLORS[wardId] : null;
 
 
   const handleLocate = async () => {
@@ -88,18 +81,23 @@ export default function YourWardCard({ motions }) {
       <motion.button
         initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
-        onClick={() => navigate(`/wards/${normalizedWardId ?? wardId}`)}
+        onClick={() => navigate(`/wards/${wardId}`)}
         className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col gap-3 h-full w-full text-left hover:border-[#004a99]/40 hover:shadow-sm transition-all"
       >
-        {/* Header */}
-        <div className="flex flex-col gap-1 flex-1">
-          <p className="text-[10px] text-slate-400 leading-snug">
-            Ward {wardId}{ward ? ` · ${ward.name}` : ''}
-          </p>
-          {councillorName && (
-            <p className="text-sm font-semibold text-slate-800 leading-snug">{councillorName}</p>
-          )}
+        {/* Top row */}
+        <div className="flex items-center justify-between gap-1">
+          <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-[#004a99]/10 text-[#004a99]">
+            Ward {wardId}
+          </span>
+          {ward && <span className="text-[9px] text-slate-400 truncate">{ward.name}</span>}
         </div>
+
+        {/* Councillor name */}
+        <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">
+          {councillorName ?? 'Your councillor'}
+        </p>
+
+        {/* Bottom row */}
         <div className="flex items-center justify-between mt-auto">
           <button
             onClick={e => { e.stopPropagation(); handleClear(); }}

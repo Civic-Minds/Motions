@@ -13,7 +13,13 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for pre-2.0.0 history.
 - **Clear filters button** — appears in the desktop sidebar when any filter is active. Resets topic, committee, vote type, year, notable-only, your-ward, and last-meeting filters in one click.
 - **Summary snippets on councillor profiles** — vote history rows now show a two-line plain-language excerpt when a summary exists, matching the dashboard treatment.
 - **Mobile year filter** — year pills added to the mobile filter pill row, consistent with the desktop sidebar.
-- **Toronto mini-map on homepage** — `TorontoMiniMap.jsx` fills the empty right column of the motion list grid. Shows all 25 ward boundaries + 218 geocoded motion pins (green = Adopted, red = Lost). All Leaflet interaction disabled; clicking anywhere navigates to `/wards`. Lazy-loaded, shares the Leaflet chunk with WardMotionMap.
+- **Toronto mini-map on homepage** — `TorontoMiniMap.jsx` fills the empty right column of the motion list grid. Shows all 25 ward boundaries + 218 geocoded motion pins (green = Adopted, red = Lost). All Leaflet interaction disabled; clicking anywhere navigates to `/wards`. Lazy-loaded, shares the Leaflet chunk with WardMotionMap. Auto-zooms to saved ward when ward boundaries load. Fixed to zoom 12 centered on Toronto — no surrounding cities visible.
+- **Compact filter sidebar** — replaced full-width button rows with small pill clusters in a fixed-height card (`h-[480px]`), matching the map height. Committee filter replaced with a search input: click to show all committees, type to narrow, select to apply.
+- **Your Ward bento card redesigned** — ward number pill + ward name in top row; councillor name as bold headline. Matches the visual structure of the Notable motion cards.
+- **"Show 20 more" pagination** — motion list now loads in increments of 20 (shows remaining count) instead of dumping all motions at once. Resets to 20 when filters change.
+- **Ward ID normalization** — `src/utils/storage.js` introduced with `getWardId()` / `setWardId()`. Eliminates leading-zero bug (`"09"` → `"9"`) and removes duplicated localStorage IIFEs across 6 components.
+- **Full Toronto map on Wards page** — `TorontoFullMap.jsx` replaces the ward card grid. Interactive map with all 25 ward polygons; hovering a card in the horizontal carousel flies the map to that ward. Saved ward highlighted in blue. Clicking any polygon or card navigates to the ward detail page.
+- **Mini-map click destination fixed** — clicking the homepage mini-map now navigates to `/wards/${wardId}` if a ward is saved (landing on the ward detail map), otherwise `/wards`.
 
 ## [2.1.0] - 2026-04-10
 

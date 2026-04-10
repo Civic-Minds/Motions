@@ -1,8 +1,10 @@
+import { getWardId } from '../utils/storage';
 import React, { useMemo, useState, useEffect, lazy, Suspense } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowRight, ChevronLeft, MapPin } from 'lucide-react';
+import { ChevronLeft, MapPin } from 'lucide-react';
 import YourWardCard from './YourWardCard';
 const WardMotionMap = lazy(() => import('./WardMotionMap'));
+const TorontoFullMap = lazy(() => import('./TorontoFullMap'));
 import { motion, AnimatePresence } from 'framer-motion';
 import { getWardActivityMetrics } from '../utils/analytics';
 import { WARD_COUNCILLORS, TOPIC_LIGHT } from '../constants/data';
@@ -52,7 +54,7 @@ export default function WardGrid({ motions }) {
   const wardActivity = useMemo(() => getWardActivityMetrics(motions), [motions]);
   const topWard = [...wardActivity].sort((a, b) => b.count - a.count)[0];
 
-  const foundWardId = (() => { try { return (() => { const r = localStorage.getItem('motions_ward_id'); return r ? String(parseInt(r, 10)) : null; })(); } catch { return null; } })();
+  const foundWardId = getWardId();
   const [geoData, setGeoData] = useState(null);
 
   const selectedWard = wardIdParam
@@ -118,66 +120,10 @@ export default function WardGrid({ motions }) {
             <YourWardCard motions={motions} />
           </div>
 
-          {/* Ward grid */}
-          <motion.div
-            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3"
-            initial="hidden"
-            animate="show"
-            variants={{ hidden: {}, show: { transition: { staggerChildren: 0.03 } } }}
-          >
-            {wardActivity.map((ward) => {
-              const isFound = ward.id === foundWardId;
-              const councillor = WARD_COUNCILLORS[ward.id];
-
-              return (
-                <motion.button
-                  key={ward.id}
-                  onClick={() => navigate(`/wards/${ward.id}`)}
-                  variants={{ hidden: { opacity: 0, scale: 0.95 }, show: { opacity: 1, scale: 1, transition: { type: 'spring', stiffness: 280, damping: 28 } } }}
-                  className={cn(
-                    "group relative bg-white border rounded-2xl p-4 flex flex-col gap-3 transition-all duration-200 text-left w-full",
-                    isFound
-                      ? 'border-[#004a99] shadow-lg shadow-blue-900/10 scale-[1.02]'
-                      : 'border-slate-200 hover:border-[#004a99]/40 hover:shadow-md hover:-translate-y-0.5'
-                  )}
-                >
-                  {isFound && (
-                    <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 text-[10px] font-bold bg-[#004a99] text-white px-2.5 py-0.5 rounded-full whitespace-nowrap">
-                      Your Ward
-                    </span>
-                  )}
-
-                  <div className="flex items-center justify-between">
-                    <span className={cn("text-[10px] font-bold uppercase tracking-wider", isFound ? 'text-[#004a99]' : 'text-slate-400')}>
-                      Ward {ward.id}
-                    </span>
-                    {ward.count > 0 && !isFound && (
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                    )}
-                  </div>
-
-                  <div className="flex-1">
-                    <p className={cn("text-sm font-semibold leading-snug transition-colors", isFound ? 'text-[#004a99]' : 'text-slate-900 group-hover:text-[#004a99]')}>
-                      {ward.name}
-                    </p>
-                    {councillor && (
-                      <p className="text-[10px] text-slate-400 mt-0.5 truncate">{councillor}</p>
-                    )}
-                  </div>
-
-                  <div className="flex items-end justify-between pt-2 border-t border-slate-100">
-                    <div>
-                      <span className={cn("text-2xl font-black leading-none", isFound ? 'text-[#004a99]' : 'text-slate-800')}>
-                        {ward.count}
-                      </span>
-                      <span className="text-[10px] text-slate-400 ml-1">motions</span>
-                    </div>
-                    <ArrowRight className={cn("w-3.5 h-3.5 transition-colors", isFound ? 'text-[#004a99]' : 'text-slate-200 group-hover:text-[#004a99]')} />
-                  </div>
-                </motion.button>
-              );
-            })}
-          </motion.div>
+          {/* Full Toronto map */}
+          <Suspense fallback={<div className="w-full h-[400px] rounded-2xl bg-slate-100 animate-pulse border border-slate-200" />}>
+            <TorontoFullMap geojson={geoData} wardActivity={wardActivity} />
+          </Suspense>
 
           <div className="flex items-start gap-3 p-4 bg-slate-50 border border-slate-200 rounded-2xl text-xs text-slate-500">
             <MapPin className="w-4 h-4 shrink-0 mt-0.5 text-slate-400" />

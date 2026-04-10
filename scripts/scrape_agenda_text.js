@@ -8,13 +8,13 @@
  * Only targets non-trivial primary motions (no parentId, significance >= 25).
  *
  * Usage:
- *   npx playwright install chromium   (first time only)
+ *   npm install playwright-core --save-dev   (first time only, no browser download)
  *   node scripts/scrape_agenda_text.js
  *   node scripts/scrape_agenda_text.js --min-sig=60   (notable only)
  *   node scripts/scrape_agenda_text.js --limit=10     (test run)
  */
 
-import { chromium } from 'playwright';
+import { chromium } from 'playwright-core';
 import fs from 'fs';
 import path from 'path';
 
@@ -85,7 +85,7 @@ async function main() {
     return;
   }
 
-  const browser = await chromium.launch({ headless: false });
+  const browser = await chromium.launch({ channel: 'chrome', headless: false });
   const context = await browser.newContext({
     viewport: { width: 1280, height: 800 },
     locale: 'en-CA',

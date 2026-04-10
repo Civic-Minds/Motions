@@ -1,3 +1,4 @@
+import { getWardId } from '../utils/storage';
 import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, GeoJSON, CircleMarker, useMap } from 'react-leaflet';
 import { useNavigate } from 'react-router-dom';
@@ -25,7 +26,7 @@ export default function TorontoMiniMap({ motions }) {
   const navigate = useNavigate();
   const [wards, setWards] = useState(null);
 
-  const savedWardId = (() => { try { const r = localStorage.getItem('motions_ward_id'); return r ? String(parseInt(r, 10)) : null; } catch { return null; } })();
+  const savedWardId = getWardId();
 
   useEffect(() => {
     fetch('/data/wards.geojson').then(r => r.json()).then(setWards).catch(() => {});
@@ -77,7 +78,7 @@ export default function TorontoMiniMap({ motions }) {
       {/* Click overlay — sits above Leaflet (z ≥ 400), captures all events */}
       <div
         className="absolute inset-0 z-[400] bg-transparent group-hover:bg-[#004a99]/5 transition-colors"
-        onClick={() => navigate('/wards')}
+        onClick={() => navigate(savedWardId ? `/wards/${savedWardId}` : '/wards')}
       />
 
       {/* Label */}

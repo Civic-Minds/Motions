@@ -139,6 +139,7 @@ export default function VersusOverlay({ selection, onClose, motions }) {
       </div>
 
       {/* ── Topic breakdown ── */}
+      {topicBreakdown.length > 0 && (
       <div>
         <h2 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">By topic</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -195,6 +196,7 @@ export default function VersusOverlay({ selection, onClose, motions }) {
           })}
         </div>
       </div>
+      )}
 
       {/* ── Top divergences ── */}
       {topDivergences.length > 0 && (

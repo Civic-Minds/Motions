@@ -1,3 +1,4 @@
+import { getWardId } from '../utils/storage';
 import React, { useMemo, useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { GitCompare, ChevronRight } from 'lucide-react';
@@ -30,7 +31,7 @@ export default function CouncillorList({ motions, councillors: contactData = [] 
   const { slug, slug2 } = useParams();
   const navigate = useNavigate();
 
-  const myWardId = (() => { try { return (() => { const r = localStorage.getItem('motions_ward_id'); return r ? String(parseInt(r, 10)) : null; })(); } catch { return null; } })();
+  const myWardId = getWardId();
   const myCouncillor = myWardId ? WARD_COUNCILLORS[myWardId] : null;
 
   const councillors = useMemo(() => {

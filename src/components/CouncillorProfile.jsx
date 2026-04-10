@@ -1,3 +1,4 @@
+import { getWardId } from '../utils/storage';
 import React, { useMemo, useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { GitCompare, Mail, Phone } from 'lucide-react';
@@ -111,7 +112,7 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
     [allNames, selected]);
 
 
-  const myWardId = (() => { try { return (() => { const r = localStorage.getItem('motions_ward_id'); return r ? String(parseInt(r, 10)) : null; })(); } catch { return null; } })();
+  const myWardId = getWardId();
   const myCouncillor = myWardId ? WARD_COUNCILLORS[myWardId] : null;
 
   if (!selected && allNames.length > 0) {

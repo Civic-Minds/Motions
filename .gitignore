@@ -24,4 +24,5 @@ dist-ssr
 *.sw?
 .vercel
 HANDOFF.md
+.env
 _legacy_v1

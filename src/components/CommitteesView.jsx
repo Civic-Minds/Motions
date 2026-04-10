@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { getCommittee, COMMITTEE_NAMES, TOPIC_LIGHT } from '../constants/data';
 import { nameToSlug } from '../utils/slug';
 import { cn } from '../lib/utils';
@@ -84,7 +84,12 @@ export default function CommitteesView({ motions }) {
     <div className="space-y-6">
 
       {/* Header */}
-      <div>
+      <div className="flex items-center gap-3">
+        {selectedCommittee && (
+          <button onClick={() => navigate('/committees')} className="p-1.5 hover:bg-slate-100 rounded-lg transition-colors">
+            <ArrowLeft className="w-5 h-5 text-slate-500" />
+          </button>
+        )}
         <h1 className="text-2xl font-black text-slate-900 tracking-tight">
           {selectedCommittee ? selectedCommittee.name : 'Committees'}
         </h1>
