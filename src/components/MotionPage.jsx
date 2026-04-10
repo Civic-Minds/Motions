@@ -260,6 +260,14 @@ export default function MotionPage({ motions = [] }) {
         </div>
       </div>
 
+      {/* Plain-language summary */}
+      {motion.summary && (
+        <div className="bg-slate-50 border border-slate-200 rounded-xl px-5 py-4">
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-2">Summary</p>
+          <p className="text-sm text-slate-700 leading-relaxed">{motion.summary}</p>
+        </div>
+      )}
+
       {/* Votes */}
       <div className="space-y-3">
         {isMultiVote ? (

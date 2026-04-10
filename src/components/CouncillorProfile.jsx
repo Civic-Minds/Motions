@@ -1,9 +1,10 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { GitCompare, Mail, Phone, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { GitCompare, Mail, Phone } from 'lucide-react';
+import VsPickerModal from './VsPickerModal';
+import { motion } from 'framer-motion';
 import { getAttendance, getVotedWith } from '../utils/analytics';
-import { TOPIC_PILL, WARD_COUNCILLORS, FORMER_MEMBERS, getCommittee } from '../constants/data';
+import { TOPIC_PILL, TOPIC_LIGHT, WARD_COUNCILLORS, FORMER_MEMBERS, getCommittee } from '../constants/data';
 import { TORONTO_WARDS } from '../constants/wards';
 import { nameToSlug, slugToName } from '../utils/slug';
 import { cn } from '../lib/utils';
@@ -14,19 +15,13 @@ Object.entries(WARD_COUNCILLORS).forEach(([wardId, name]) => {
   if (ward) COUNCILLOR_WARD[name] = { id: wardId, name: ward.name };
 });
 
-const TOPIC_LIGHT = {
-  Housing: 'bg-blue-50 text-blue-700',
-  Transit: 'bg-amber-50 text-amber-700',
-  Finance: 'bg-emerald-50 text-emerald-700',
-  Parks:   'bg-green-50 text-green-700',
-  Climate: 'bg-teal-50 text-teal-700',
-  General: 'bg-slate-100 text-slate-600',
-};
 
 export default function CouncillorProfile({ motions, councillors = [] }) {
   const { slug } = useParams();
   const navigate = useNavigate();
   const [topicFilter, setTopicFilter] = useState('All');
+  const [outcomeFilter, setOutcomeFilter] = useState('All');
+  const [sortBy, setSortBy] = useState('significance');
   const [notableOnly, setNotableOnly] = useState(false);
   const [vsPickerOpen, setVsPickerOpen] = useState(false);
   const [vsSearch, setVsSearch] = useState('');
@@ -86,8 +81,14 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
   const filteredVotes = useMemo(() => {
     return voteHistory
       .filter(m => topicFilter === 'All' || m.topic === topicFilter)
-      .filter(m => !notableOnly || m.significance >= 60);
-  }, [voteHistory, topicFilter, notableOnly]);
+      .filter(m => outcomeFilter === 'All' || m.votes?.[selected] === outcomeFilter)
+      .filter(m => !notableOnly || m.significance >= 60)
+      .sort((a, b) =>
+        sortBy === 'date'
+          ? (b.date ?? '').localeCompare(a.date ?? '')
+          : (b.significance ?? 0) - (a.significance ?? 0)
+      );
+  }, [voteHistory, topicFilter, outcomeFilter, notableOnly, sortBy, selected]);
 
   const committees = useMemo(() => {
     if (!selected) return [];
@@ -109,9 +110,6 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
     allNames.filter(n => n !== selected).sort(),
     [allNames, selected]);
 
-  const vsFiltered = vsSearch.trim()
-    ? vsPeers.filter(n => n.toLowerCase().includes(vsSearch.toLowerCase()))
-    : vsPeers;
 
   if (!selected && allNames.length > 0) {
     navigate('/councillors', { replace: true });
@@ -335,34 +333,72 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
         {/* ── Right: vote history ── */}
         <div>
           {/* Filters bar */}
-          <div className="flex items-center justify-between gap-3 mb-4 flex-wrap">
-            <div className="flex flex-wrap gap-1.5">
-              {voteTopics.map(topic => (
+          <div className="space-y-2 mb-4">
+            <div className="flex items-center justify-between gap-3 flex-wrap">
+              <div className="flex flex-wrap gap-1.5">
+                {voteTopics.map(topic => (
+                  <button
+                    key={topic}
+                    onClick={() => setTopicFilter(topic)}
+                    className={cn(
+                      "text-xs font-semibold px-2.5 py-1 rounded-lg border transition-colors",
+                      topicFilter === topic
+                        ? 'bg-[#004a99] text-white border-[#004a99]'
+                        : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300'
+                    )}
+                  >
+                    {topic}
+                  </button>
+                ))}
+              </div>
+              <div className="flex items-center gap-2 shrink-0">
+                <div className="flex rounded-lg border border-slate-200 overflow-hidden">
+                  {['significance', 'date'].map(s => (
+                    <button
+                      key={s}
+                      onClick={() => setSortBy(s)}
+                      className={cn(
+                        "text-xs font-semibold px-2.5 py-1 transition-colors",
+                        sortBy === s
+                          ? 'bg-slate-800 text-white'
+                          : 'bg-white text-slate-500 hover:bg-slate-50'
+                      )}
+                    >
+                      {s === 'significance' ? 'Impact' : 'Date'}
+                    </button>
+                  ))}
+                </div>
                 <button
-                  key={topic}
-                  onClick={() => setTopicFilter(topic)}
+                  onClick={() => setNotableOnly(s => !s)}
                   className={cn(
                     "text-xs font-semibold px-2.5 py-1 rounded-lg border transition-colors",
-                    topicFilter === topic
-                      ? 'bg-[#004a99] text-white border-[#004a99]'
+                    notableOnly
+                      ? 'bg-amber-50 text-amber-700 border-amber-200'
                       : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300'
                   )}
                 >
-                  {topic}
+                  Notable only
+                </button>
+              </div>
+            </div>
+            <div className="flex gap-1.5">
+              {['All', 'YES', 'NO'].map(outcome => (
+                <button
+                  key={outcome}
+                  onClick={() => setOutcomeFilter(outcome)}
+                  className={cn(
+                    "text-xs font-semibold px-2.5 py-1 rounded-lg border transition-colors",
+                    outcomeFilter === outcome
+                      ? outcome === 'YES' ? 'bg-emerald-600 text-white border-emerald-600'
+                        : outcome === 'NO' ? 'bg-rose-500 text-white border-rose-500'
+                        : 'bg-slate-800 text-white border-slate-800'
+                      : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300'
+                  )}
+                >
+                  {outcome}
                 </button>
               ))}
             </div>
-            <button
-              onClick={() => setNotableOnly(s => !s)}
-              className={cn(
-                "text-xs font-semibold px-2.5 py-1 rounded-lg border transition-colors shrink-0",
-                notableOnly
-                  ? 'bg-amber-50 text-amber-700 border-amber-200'
-                  : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300'
-              )}
-            >
-              Notable only
-            </button>
           </div>
 
           <p className="text-[10px] text-slate-400 mb-3">{filteredVotes.length} votes</p>
@@ -420,66 +456,15 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
         </div>
       </div>
 
-      {/* VS picker modal */}
-      <AnimatePresence>
-        {vsPickerOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[60]"
-              onClick={() => { setVsPickerOpen(false); setVsSearch(''); }}
-            />
-            <motion.div
-              initial={{ opacity: 0, scale: 0.97, y: 8 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.97, y: 8 }}
-              transition={{ type: 'spring', stiffness: 400, damping: 32 }}
-              className="fixed inset-0 z-[70] flex items-center justify-center p-4 pointer-events-none"
-            >
-              <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm pointer-events-auto overflow-hidden">
-                <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100">
-                  <p className="text-sm font-semibold text-slate-800">Compare {selected.split(' ').at(-1)} with…</p>
-                  <button onClick={() => { setVsPickerOpen(false); setVsSearch(''); }} className="p-1 hover:bg-slate-100 rounded-lg transition-colors">
-                    <X className="w-4 h-4 text-slate-400" />
-                  </button>
-                </div>
-                <div className="px-4 py-2 border-b border-slate-100">
-                  <input
-                    type="text"
-                    placeholder="Search councillors…"
-                    value={vsSearch}
-                    onChange={e => setVsSearch(e.target.value)}
-                    autoFocus
-                    className="w-full text-sm text-slate-900 placeholder:text-slate-400 outline-none bg-transparent py-1"
-                  />
-                </div>
-                <div className="max-h-64 overflow-y-auto py-1">
-                  {vsFiltered.map(name => (
-                    <button
-                      key={name}
-                      onClick={() => {
-                        setVsPickerOpen(false);
-                        setVsSearch('');
-                        navigate(`/councillors/${nameToSlug(selected)}/vs/${nameToSlug(name)}`);
-                      }}
-                      className="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 transition-colors text-left"
-                    >
-                      <div className="w-7 h-7 rounded-lg bg-slate-100 flex items-center justify-center shrink-0">
-                        <span className="text-[8px] font-bold text-slate-500 uppercase">
-                          {name.split(' ').map(n => n[0]).slice(0, 2).join('')}
-                        </span>
-                      </div>
-                      <span className="text-sm font-medium text-slate-700">{name}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+      <VsPickerModal
+        open={vsPickerOpen}
+        selectedName={selected}
+        peers={vsPeers}
+        search={vsSearch}
+        onSearchChange={setVsSearch}
+        onClose={() => { setVsPickerOpen(false); setVsSearch(''); }}
+        onSelect={(s1, s2) => { setVsPickerOpen(false); setVsSearch(''); navigate(`/councillors/${s1}/vs/${s2}`); }}
+      />
 
     </div>
   );

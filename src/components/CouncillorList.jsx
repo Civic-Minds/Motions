@@ -30,6 +30,9 @@ export default function CouncillorList({ motions, councillors: contactData = [] 
   const { slug, slug2 } = useParams();
   const navigate = useNavigate();
 
+  const myWardId = (() => { try { return localStorage.getItem('motions_ward_id'); } catch { return null; } })();
+  const myCouncillor = myWardId ? WARD_COUNCILLORS[myWardId] : null;
+
   const councillors = useMemo(() => {
     const voteCounts = {};
     motions.forEach(m => {
@@ -181,6 +184,7 @@ export default function CouncillorList({ motions, councillors: contactData = [] 
           const ward = COUNCILLOR_WARD[name];
           const isSelected = compareSlots.includes(name);
           const isFaded = compareMode && compareSlots.length === 2 && !isSelected;
+          const isMyCouncillor = name === myCouncillor;
           const initials = name.split(' ').map(n => n[0]).slice(0, 2).join('');
           const lastName = name.split(' ').at(-1);
           const photoUrl = `/images/councillors/${lastName}.jpg`;
@@ -192,14 +196,21 @@ export default function CouncillorList({ motions, councillors: contactData = [] 
               variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 280, damping: 28 } } }}
               onClick={() => compareMode ? handleCompareClick(name) : openProfile(name)}
               className={cn(
-                "group bg-white border rounded-2xl p-5 cursor-pointer transition-all duration-200",
+                "group relative bg-white border rounded-2xl p-5 cursor-pointer transition-all duration-200",
                 isSelected
+                  ? 'border-[#004a99] shadow-lg shadow-blue-900/10 scale-[1.02]'
+                  : isMyCouncillor
                   ? 'border-[#004a99] shadow-lg shadow-blue-900/10 scale-[1.02]'
                   : isFaded
                   ? 'border-slate-100 opacity-50'
                   : 'border-slate-200 hover:border-[#004a99]/40 hover:shadow-md hover:-translate-y-0.5'
               )}
             >
+              {isMyCouncillor && (
+                <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 text-[10px] font-bold bg-[#004a99] text-white px-2.5 py-0.5 rounded-full whitespace-nowrap">
+                  Your Councillor
+                </span>
+              )}
               {/* Avatar + name */}
               <div className="flex items-center gap-3 mb-4">
                 <div className={cn(

@@ -4,19 +4,11 @@ import { ArrowRight, ChevronLeft, MapPin } from 'lucide-react';
 import YourWardCard from './YourWardCard';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getWardActivityMetrics } from '../utils/analytics';
-import { WARD_COUNCILLORS } from '../constants/data';
+import { WARD_COUNCILLORS, TOPIC_LIGHT } from '../constants/data';
 import { TORONTO_WARDS } from '../constants/wards';
 import { cn } from '../lib/utils';
 import { fetchWardBoundaries, extractWardId, pointInFeature } from '../utils/ward';
-
-const TOPIC_LIGHT = {
-  Housing: 'bg-blue-50 text-blue-700',
-  Transit: 'bg-amber-50 text-amber-700',
-  Finance: 'bg-emerald-50 text-emerald-700',
-  Parks:   'bg-green-50 text-green-700',
-  Climate: 'bg-teal-50 text-teal-700',
-  General: 'bg-slate-100 text-slate-600',
-};
+import { nameToSlug } from '../utils/slug';
 
 // Simple SVG map of a ward polygon from GeoJSON feature
 function WardMap({ feature }) {
@@ -201,6 +193,38 @@ export default function WardGrid({ motions }) {
             exit={{ opacity: 0 }}
             className="space-y-4"
           >
+            {/* Councillor callout */}
+            {WARD_COUNCILLORS[selectedWard.id] && (() => {
+              const name = WARD_COUNCILLORS[selectedWard.id];
+              const lastName = name.split(' ').at(-1);
+              const initials = name.split(' ').map(n => n[0]).slice(0, 2).join('');
+              const isMyWard = selectedWard.id === foundWardId;
+              return (
+                <div className="flex items-center gap-4 bg-[#004a99]/5 border border-[#004a99]/20 rounded-2xl p-4">
+                  <div className="w-12 h-12 rounded-xl bg-[#004a99] flex items-center justify-center shrink-0 overflow-hidden">
+                    <img
+                      src={`/images/councillors/${lastName}.jpg`}
+                      alt={name}
+                      className="w-full h-full object-cover"
+                      onError={e => { e.currentTarget.style.display = 'none'; e.currentTarget.nextSibling.style.display = 'flex'; }}
+                    />
+                    <span className="text-white font-bold text-sm hidden w-full h-full items-center justify-center">{initials}</span>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[10px] font-bold text-[#004a99] uppercase tracking-wide mb-0.5">
+                      {isMyWard ? 'Your Councillor' : 'Councillor'}
+                    </p>
+                    <p className="text-sm font-semibold text-slate-900">{name}</p>
+                  </div>
+                  <button
+                    onClick={() => navigate(`/councillors/${nameToSlug(name)}`)}
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-[#004a99] text-white text-xs font-semibold rounded-lg hover:bg-[#003875] transition-colors shrink-0"
+                  >
+                    View profile <ArrowRight className="w-3 h-3" />
+                  </button>
+                </div>
+              );
+            })()}
             {wardMotions.length === 0 ? (
               <div className="text-center py-16 bg-white border border-dashed border-slate-200 rounded-2xl">
                 <p className="text-slate-400 text-sm">No ward-specific motions recorded.</p>

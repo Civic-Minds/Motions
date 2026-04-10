@@ -42,9 +42,9 @@ The long-term vision is to expand beyond Toronto — letting residents of any Ca
 ## Profiles & Comparison
 
 - [x] **Committees on councillor profiles** — committee membership pills derived from voting frequency. Clicking a committee navigates to that committee's page.
-- [ ] **Vote history controls** — add sort (by date / by significance) and filter (by topic, by outcome) to the vote history list on councillor profiles.
+- [x] **Vote history controls** — sort (Impact / Date) and outcome filter (All / YES / NO) added to the vote history list on councillor profiles.
 - [ ] **Formal committee & board memberships** — surface official committee assignments per councillor. See [Data Roadmap](ROADMAP_DATA.md) for sourcing approach.
-- [ ] **VersusOverlay: no-data edge case** — currently shows "100% UNANIMOUS" when two councillors share no recorded votes. Should display a clear "not enough shared data" state instead.
+- [x] **VersusOverlay: no-data edge case** — shows "No shared vote history" when two councillors share no recorded votes.
 
 ## Views
 

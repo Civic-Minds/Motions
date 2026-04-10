@@ -2,18 +2,9 @@ import React, { useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import { getCommittee, COMMITTEE_NAMES } from '../constants/data';
+import { getCommittee, COMMITTEE_NAMES, TOPIC_LIGHT } from '../constants/data';
 import { nameToSlug } from '../utils/slug';
 import { cn } from '../lib/utils';
-
-const TOPIC_LIGHT = {
-  Housing: 'bg-blue-50 text-blue-700',
-  Transit: 'bg-amber-50 text-amber-700',
-  Finance: 'bg-emerald-50 text-emerald-700',
-  Parks:   'bg-green-50 text-green-700',
-  Climate: 'bg-teal-50 text-teal-700',
-  General: 'bg-slate-100 text-slate-600',
-};
 
 function committeeToSlug(name) {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');

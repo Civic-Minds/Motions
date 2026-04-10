@@ -62,6 +62,28 @@ export const TOPIC_BADGE = {
     General: 'border-slate-300 text-slate-500 bg-slate-50',
 };
 
+/** Borderless light pill — used across motion lists, search, ward/committee views */
+export const TOPIC_LIGHT = {
+    Housing: 'bg-blue-50 text-blue-700',
+    Transit: 'bg-amber-50 text-amber-700',
+    Finance: 'bg-emerald-50 text-emerald-700',
+    Parks:   'bg-green-50 text-green-700',
+    Climate: 'bg-teal-50 text-teal-700',
+    Events:  'bg-purple-50 text-purple-700',
+    General: 'bg-slate-100 text-slate-600',
+};
+
+/** Solid dot/bar colour — used in sidebar filters and VersusOverlay bars */
+export const TOPIC_DOT = {
+    Housing: 'bg-blue-500',
+    Transit: 'bg-amber-500',
+    Finance: 'bg-emerald-500',
+    Parks:   'bg-green-500',
+    Climate: 'bg-teal-500',
+    Events:  'bg-purple-500',
+    General: 'bg-slate-400',
+};
+
 /** Borderless pill — used in ProfilePanel */
 export const TOPIC_PILL = {
     Housing: 'bg-blue-50 text-blue-600',

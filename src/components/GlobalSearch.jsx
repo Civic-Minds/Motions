@@ -4,15 +4,7 @@ import { Search, X, FileText, User } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../lib/utils';
 import { nameToSlug } from '../utils/slug';
-
-const TOPIC_LIGHT = {
-  Housing: 'bg-blue-50 text-blue-700',
-  Transit: 'bg-amber-50 text-amber-700',
-  Finance: 'bg-emerald-50 text-emerald-700',
-  Parks:   'bg-green-50 text-green-700',
-  Climate: 'bg-teal-50 text-teal-700',
-  General: 'bg-slate-100 text-slate-600',
-};
+import { TOPIC_LIGHT } from '../constants/data';
 
 function highlight(text, query) {
   if (!query || !text) return text;
@@ -250,10 +242,37 @@ export default function GlobalSearch({ motions, councillorNames, open, onClose }
                 </div>
               )}
 
-              {/* Hint when empty query */}
+              {/* Suggestions when empty query */}
               {query.trim().length < 2 && (
-                <div className="px-4 py-6 text-center">
-                  <p className="text-xs text-slate-400">Search by motion title, topic, councillor name, or motion ID</p>
+                <div className="px-4 py-5 space-y-4">
+                  <div>
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-2">Topics</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {['Housing', 'Transit', 'Finance', 'Parks', 'Climate'].map(t => (
+                        <button
+                          key={t}
+                          onClick={() => { setQuery(t); setCursor(0); }}
+                          className={cn("text-xs font-medium px-2.5 py-1 rounded-full transition-colors", TOPIC_LIGHT[t])}
+                        >
+                          {t}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-2">Common searches</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {['bike lane', 'budget', 'shelter', 'zoning', 'TTC', 'rent', 'development', 'police'].map(term => (
+                        <button
+                          key={term}
+                          onClick={() => { setQuery(term); setCursor(0); }}
+                          className="text-xs font-medium px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors"
+                        >
+                          {term}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               )}
             </div>

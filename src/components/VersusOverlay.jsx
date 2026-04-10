@@ -3,17 +3,9 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, ExternalLink } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { cn } from '../lib/utils';
+import { TOPIC_LIGHT, TOPIC_DOT } from '../constants/data';
 
 const TOPICS = ['Housing', 'Transit', 'Finance', 'Parks', 'Climate', 'General'];
-
-const TOPIC_COLOR = {
-  Housing:  { bar: 'bg-blue-500',    light: 'bg-blue-50 text-blue-700' },
-  Transit:  { bar: 'bg-amber-500',   light: 'bg-amber-50 text-amber-700' },
-  Finance:  { bar: 'bg-emerald-500', light: 'bg-emerald-50 text-emerald-700' },
-  Parks:    { bar: 'bg-green-500',   light: 'bg-green-50 text-green-700' },
-  Climate:  { bar: 'bg-teal-500',    light: 'bg-teal-50 text-teal-700' },
-  General:  { bar: 'bg-slate-400',   light: 'bg-slate-100 text-slate-600' },
-};
 
 function VoteBar({ pct, color }) {
   return (
@@ -151,7 +143,8 @@ export default function VersusOverlay({ selection, onClose, motions }) {
         <h2 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">By topic</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {topicBreakdown.map((t, i) => {
-            const colors = TOPIC_COLOR[t.topic] ?? TOPIC_COLOR.General;
+            const barColor = TOPIC_DOT[t.topic] ?? TOPIC_DOT.General;
+            const lightColor = TOPIC_LIGHT[t.topic] ?? TOPIC_LIGHT.General;
             return (
               <motion.div
                 key={t.topic}
@@ -161,7 +154,7 @@ export default function VersusOverlay({ selection, onClose, motions }) {
                 className="bg-white border border-slate-200 rounded-2xl p-5 space-y-4"
               >
                 <div className="flex items-center justify-between">
-                  <span className={cn("text-xs font-semibold px-2.5 py-1 rounded-full", colors.light)}>
+                  <span className={cn("text-xs font-semibold px-2.5 py-1 rounded-full", lightColor)}>
                     {t.topic}
                   </span>
                   {t.agreement !== null && (
@@ -182,7 +175,7 @@ export default function VersusOverlay({ selection, onClose, motions }) {
                     <span className="font-medium truncate max-w-[120px]">{c1Last}</span>
                     <span>{t.c1Yes != null ? `YES ${t.c1Yes}%` : '—'}</span>
                   </div>
-                  {t.c1Yes != null && <VoteBar pct={t.c1Yes} color={colors.bar} />}
+                  {t.c1Yes != null && <VoteBar pct={t.c1Yes} color={barColor} />}
                 </div>
 
                 {/* C2 bar */}

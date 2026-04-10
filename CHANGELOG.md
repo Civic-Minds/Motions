@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for pre-2.0.0 history.
 
+## [Unreleased]
+
+### Added
+- **Councillor card on ward detail pages** — every ward detail page now shows a councillor callout with photo, name, and a link to their profile. Labels as "Your Councillor" when viewing your own ward.
+- **"Your Councillor" highlight on councillors grid** — if a ward is saved, the matching councillor's card is highlighted with a blue border and "Your Councillor" pill, matching the "Your Ward" treatment on the wards page.
+- **Vote history sort + outcome filter on councillor profiles** — Impact / Date sort toggle and All / YES / NO outcome filter pills added to the vote history section.
+- **Vote type filter on dashboard** — sidebar and mobile pills now include Close vote, Unanimous, Defeated, and Landslide loss filters using the existing flags data.
+- **Search suggestion pills** — the global search empty state now shows clickable topic pills and common search terms instead of a plain text hint.
+- **Summary slot on motion pages** — `motion.summary` field renders below the title on motion detail pages; invisible until summaries are generated.
+- **TMMIS scraper** — `scripts/scrape_agenda_text.js` added; uses Playwright to scrape agenda item body text from toronto.ca and stores it as a `body` field on each motion, incrementally.
+
+### Changed
+- **Refactored topic colour constants** — `TOPIC_LIGHT` and `TOPIC_DOT` centralized in `src/constants/data.js`; removed local duplicate definitions from `WardGrid`, `CouncillorProfile`, `CommitteesView`, `DashboardView`, `GlobalSearch`, and `VersusOverlay`.
+- **Extracted VsPickerModal** — VS comparison picker modal split out of `CouncillorProfile.jsx` into its own `VsPickerModal.jsx` component.
+
 ## [2.0.2] - 2026-04-10
 
 ### Changed

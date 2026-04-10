@@ -3,35 +3,26 @@ import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, AlertCircle } from 'lucide-react';
 import { cn } from '../lib/utils';
-import { getCommittee } from '../constants/data';
+import { getCommittee, TOPIC_LIGHT, TOPIC_DOT } from '../constants/data';
 import YourWardCard from './YourWardCard';
 
 const TOPICS = ['Housing', 'Transit', 'Finance', 'Parks', 'Climate', 'General'];
-
-const TOPIC_COLORS = {
-  Housing: 'bg-blue-500',
-  Transit: 'bg-amber-500',
-  Finance: 'bg-emerald-500',
-  Parks:   'bg-green-500',
-  Climate: 'bg-teal-500',
-  General: 'bg-slate-400',
-};
-
-const TOPIC_LIGHT = {
-  Housing: 'bg-blue-50 text-blue-700',
-  Transit: 'bg-amber-50 text-amber-700',
-  Finance: 'bg-emerald-50 text-emerald-700',
-  Parks:   'bg-green-50 text-green-700',
-  Climate: 'bg-teal-50 text-teal-700',
-  General: 'bg-slate-100 text-slate-600',
-};
 
 export default function DashboardView({ motions, councillors }) {
   const navigate = useNavigate();
   const [selectedTopic, setSelectedTopic] = useState('All');
   const [selectedCommittee, setSelectedCommittee] = useState('All');
+  const [voteType, setVoteType] = useState('All');
   const [showNotableOnly, setShowNotableOnly] = useState(false);
   const [showAll, setShowAll] = useState(false);
+
+  const VOTE_TYPES = [
+    { label: 'All', value: 'All' },
+    { label: 'Close vote', value: 'close-vote' },
+    { label: 'Unanimous', value: 'unanimous' },
+    { label: 'Defeated', value: 'defeated' },
+    { label: 'Landslide loss', value: 'landslide-defeat' },
+  ];
 
   // Only primary entries (no parentId) for display and stats
   const primaryMotions = useMemo(() => motions.filter(m => !m.parentId), [motions]);
@@ -78,6 +69,7 @@ export default function DashboardView({ motions, councillors }) {
       .filter(m => {
         if (selectedTopic !== 'All' && m.topic !== selectedTopic) return false;
         if (selectedCommittee !== 'All' && (m.committee || getCommittee(m.id)) !== selectedCommittee) return false;
+        if (voteType !== 'All' && !m.flags?.includes(voteType)) return false;
         if (showNotableOnly && m.significance < 60) return false;
         return true;
       })
@@ -198,7 +190,7 @@ export default function DashboardView({ motions, councillors }) {
                 {topic !== 'All' && (
                   <span className={cn(
                     "w-2 h-2 rounded-full shrink-0",
-                    selectedTopic === topic ? 'bg-white/60' : TOPIC_COLORS[topic]
+                    selectedTopic === topic ? 'bg-white/60' : TOPIC_DOT[topic]
                   )} />
                 )}
                 {topic === 'All' ? 'All Topics' : topic}
@@ -220,6 +212,25 @@ export default function DashboardView({ motions, councillors }) {
                   )}
                 >
                   {c === 'All' ? 'All Committees' : c}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className="mt-4 pt-4 border-t border-slate-200">
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-2 px-3">Vote Type</p>
+            <div className="space-y-0.5">
+              {VOTE_TYPES.map(({ label, value }) => (
+                <button
+                  key={value}
+                  onClick={() => setVoteType(value)}
+                  className={cn(
+                    "w-full flex items-center px-3 py-2 rounded-xl text-sm font-medium text-left transition-all",
+                    voteType === value
+                      ? "bg-[#004a99] text-white"
+                      : "text-slate-600 hover:bg-slate-100"
+                  )}
+                >
+                  {label}
                 </button>
               ))}
             </div>
@@ -258,9 +269,23 @@ export default function DashboardView({ motions, councillors }) {
                 )}
               >
                 {topic !== 'All' && (
-                  <span className={cn("w-1.5 h-1.5 rounded-full", selectedTopic === topic ? 'bg-white/60' : TOPIC_COLORS[topic])} />
+                  <span className={cn("w-1.5 h-1.5 rounded-full", selectedTopic === topic ? 'bg-white/60' : TOPIC_DOT[topic])} />
                 )}
                 {topic === 'All' ? 'All Topics' : topic}
+              </button>
+            ))}
+            {VOTE_TYPES.filter(t => t.value !== 'All').map(({ label, value }) => (
+              <button
+                key={value}
+                onClick={() => setVoteType(v => v === value ? 'All' : value)}
+                className={cn(
+                  "px-3 py-1.5 rounded-full text-sm font-medium border transition-all",
+                  voteType === value
+                    ? "bg-[#004a99] text-white border-[#004a99]"
+                    : "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100"
+                )}
+              >
+                {label}
               </button>
             ))}
             <button
