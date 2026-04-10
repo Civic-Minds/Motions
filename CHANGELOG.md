@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Infrastructure
+- **Custom domain configuration** — successfully connected `yourcityatwork.ca` to Vercel. Configured root A record (`216.198.79.1`) and `www` CNAME (`fb8efec54f29146a.vercel-dns-017.com.`) in Spaceship.
+
+### Added
+- **Multi-vote agenda items** — `import_open_data.js` now emits one entry per distinct motion type per agenda item. Items with multiple votes (e.g. "Waive Notice" + "Waive Referral" + "Adopt Item") produce separate entries linked by a `parentId` field. Each entry has its own correct status and vote counts.
+- **"Other votes on this item" in MotionPanel** — when a motion has sibling votes (sharing `parentId`), a compact section lists each with its motion type label, status badge, and Yes–No count.
+- **Committees on councillor profiles** — each councillor profile now shows committee membership pills derived from voting frequency. Clicking a committee navigates to that committee's page.
+- **YourWardCard on Wards page** — the ward selection card appears in the stats strip at the top of the Wards page, consistent with the homepage. Geolocation machinery removed from WardGrid (YourWardCard handles it).
+- **Committee URL routing** — committees now use `/committees/:slug` URLs. Title and subtitle update when navigating into a committee. No more local state toggling.
+- **Committee members on committee pages** — each committee detail page shows a "Members" section with councillor pills derived from voting frequency (≥25% of that committee's motions). Clicking a member navigates to their profile.
+
+### Changed
+- **Dashboard layout unified** — homepage now uses two grids both with `[200px_1fr_220px]` column template so Notable cards and motion list share identical left/right edges. Filter sidebar is sticky; Last Meeting and Your Ward are not.
+- **"Defeated" → "Lost"** — all 135 motions in `motions.json` updated; `import_open_data.js` now outputs "Lost"; UI conditionals cleaned up.
+- **"Crushed" flag label renamed** — `landslide-defeat` flag now displays as "Landslide Loss".
+- **Ward/homepage localStorage sync** — `YourWardCard` and `WardGrid` both read/write the same `motions_ward_id` key. Setting your ward on either page is reflected on the other.
+- **Councillor back button removed** — redundant "← Councillors" link removed from profile header; nav tab serves the same purpose.
+- **CommitteesView title** — page title and subtitle now update to reflect the selected committee name and motion count.
+
 ### Added
 - **Councillor photos** — headshot images at `public/images/councillors/{LastName}.jpg` shown in profile header and list card avatars. Falls back to initials if no photo exists. Add new photos by filename with no code changes needed.
 - **Councillor tenure** — `build_tenure.js` script fetches all 5 historical term CSVs (2006–2026) and produces `public/data/tenure.json` with each member's first elected year and list of terms. CouncillorProfile now shows "on council since XXXX" in the header stats strip. Manual corrections applied: Olivia Chow → 1991, Jon Burnside → 2022 (removed erroneous 2014 entry), Neethan Shan → 2017 (by-election).

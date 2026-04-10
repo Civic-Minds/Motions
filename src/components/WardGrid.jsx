@@ -1,12 +1,13 @@
 import React, { useMemo, useState, useRef, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import MotionPanel from './MotionPanel';
-import { MapPin, Navigation, Loader2, X, AlertCircle, ArrowRight, ChevronLeft } from 'lucide-react';
+import { ArrowRight, ChevronLeft, MapPin } from 'lucide-react';
+import YourWardCard from './YourWardCard';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getWardActivityMetrics } from '../utils/analytics';
 import { WARD_COUNCILLORS } from '../constants/data';
 import { TORONTO_WARDS } from '../constants/wards';
 import { cn } from '../lib/utils';
+import { fetchWardBoundaries, extractWardId, pointInFeature } from '../utils/ward';
 
 const TOPIC_LIGHT = {
   Housing: 'bg-blue-50 text-blue-700',
@@ -16,8 +17,6 @@ const TOPIC_LIGHT = {
   Climate: 'bg-teal-50 text-teal-700',
   General: 'bg-slate-100 text-slate-600',
 };
-
-import { fetchWardBoundaries, extractWardId, pointInFeature } from '../utils/ward';
 
 // Simple SVG map of a ward polygon from GeoJSON feature
 function WardMap({ feature }) {
@@ -61,9 +60,7 @@ export default function WardGrid({ motions }) {
   const topWard = [...wardActivity].sort((a, b) => b.count - a.count)[0];
 
   const [selectedMotion, setSelectedMotion] = useState(null);
-  const [locateState, setLocateState] = useState('idle');
-  const [locateMsg, setLocateMsg] = useState('');
-  const [foundWardId, setFoundWardId] = useState(null);
+  const foundWardId = (() => { try { return localStorage.getItem('motions_ward_id'); } catch { return null; } })();
   const [geoData, setGeoData] = useState(null);
   const wardRefs = useRef({});
 
@@ -84,30 +81,6 @@ export default function WardGrid({ motions }) {
     }
   }, [foundWardId]);
 
-  const handleLocate = () => {
-    if (!navigator.geolocation) {
-      setLocateState('error');
-      setLocateMsg('Geolocation is not supported by your browser.');
-      return;
-    }
-    setLocateState('locating');
-    setFoundWardId(null);
-    import('../utils/ward').then(({ geolocateWard }) => {
-      setLocateState('loading');
-      geolocateWard()
-        .then(wardId => {
-          const knownWard = TORONTO_WARDS.find(w => w.id === wardId);
-          if (knownWard) { setFoundWardId(wardId); setLocateState('found'); }
-          else { setLocateState('not_found'); setLocateMsg('Your location appears to be outside Toronto.'); }
-        })
-        .catch(err => {
-          if (err.message === 'denied') { setLocateState('denied'); setLocateMsg('Location access was denied.'); }
-          else if (err.message === 'not_in_toronto') { setLocateState('not_found'); setLocateMsg('Your location appears to be outside Toronto.'); }
-          else { setLocateState('error'); setLocateMsg('Could not determine your location.'); }
-        });
-    });
-  };
-
   const wardMotions = useMemo(() => {
     if (!selectedWard) return [];
     return [...motions]
@@ -119,9 +92,6 @@ export default function WardGrid({ motions }) {
     if (!geoData || !selectedWard) return null;
     return geoData.features.find(f => extractWardId(f.properties) === selectedWard.id) ?? null;
   }, [geoData, selectedWard]);
-
-  const isSearching = locateState === 'locating' || locateState === 'loading';
-  const hasError = ['error', 'denied', 'not_found'].includes(locateState);
 
   return (
     <div className="space-y-8 pb-20">
@@ -145,66 +115,28 @@ export default function WardGrid({ motions }) {
             </p>
           </div>
         </div>
-        {!selectedWard && (
-          <div className="flex items-center gap-2">
-            {locateState === 'found' && (
-              <button
-                onClick={() => { setLocateState('idle'); setFoundWardId(null); setLocateMsg(''); }}
-                className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
-              >
-                <X className="w-4 h-4 text-slate-400" />
-              </button>
-            )}
-            <button
-              onClick={isSearching ? undefined : handleLocate}
-              disabled={isSearching}
-              className={cn(
-                "flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all",
-                locateState === 'found'
-                  ? 'bg-emerald-600 text-white'
-                  : 'bg-slate-900 text-white hover:bg-slate-700'
-              )}
-            >
-              {isSearching
-                ? <Loader2 className="w-4 h-4 animate-spin" />
-                : <Navigation className="w-4 h-4" />}
-              {locateState === 'idle'     && 'Find my ward'}
-              {locateState === 'locating' && 'Requesting...'}
-              {locateState === 'loading'  && 'Detecting...'}
-              {locateState === 'found'    && `Ward ${foundWardId} found`}
-              {hasError                   && 'Try again'}
-            </button>
-          </div>
-        )}
       </div>
-
-      {/* Error */}
-      {hasError && locateMsg && !selectedWard && (
-        <div className="flex items-center gap-3 p-4 bg-rose-50 border border-rose-200 rounded-2xl text-rose-700 text-sm">
-          <AlertCircle className="w-4 h-4 shrink-0" />
-          {locateMsg}
-        </div>
-      )}
 
       {!selectedWard ? (
         <>
-          {/* Stats strip */}
-          <div className="grid grid-cols-3 gap-4">
-            <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
+          {/* Stats strip + Your Ward */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 items-stretch">
+            <div className="bg-white border border-slate-200 rounded-2xl p-4">
               <p className="text-xs text-slate-400 font-medium uppercase tracking-wide mb-1">Most Active</p>
               <p className="text-sm font-bold text-slate-900 truncate">W{topWard?.id} · {topWard?.name}</p>
               <p className="text-xs text-slate-400 mt-0.5">{topWard?.count} motions</p>
             </div>
-            <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
+            <div className="bg-white border border-slate-200 rounded-2xl p-4">
               <p className="text-xs text-slate-400 font-medium uppercase tracking-wide mb-1">Total Motions</p>
               <p className="text-2xl font-black text-[#004a99]">{motions.length}</p>
               <p className="text-xs text-slate-400">2022–2026 term</p>
             </div>
-            <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
+            <div className="bg-white border border-slate-200 rounded-2xl p-4">
               <p className="text-xs text-slate-400 font-medium uppercase tracking-wide mb-1">Coverage</p>
               <p className="text-2xl font-black text-slate-900">25</p>
               <p className="text-xs text-slate-400">wards tracked</p>
             </div>
+            <YourWardCard motions={motions} />
           </div>
 
           {/* Ward grid */}
@@ -317,7 +249,7 @@ export default function WardGrid({ motions }) {
           </motion.div>
         </AnimatePresence>
       )}
-      <MotionPanel motion={selectedMotion} onClose={() => setSelectedMotion(null)} />
+      <MotionPanel motion={selectedMotion} onClose={() => setSelectedMotion(null)} allMotions={motions} />
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { cn } from './lib/utils';
 import { useMotions } from './hooks/useMotions';
 
 import DashboardView from './components/DashboardView';
+import MotionPage from './components/MotionPage';
 import CouncillorList from './components/CouncillorList';
 import CouncillorProfile from './components/CouncillorProfile';
 import WardGrid from './components/WardGrid';
@@ -175,13 +176,14 @@ function AppShell() {
       <main className="flex-1 max-w-[1400px] mx-auto w-full px-4 sm:px-6 py-8">
         <Routes>
           <Route path="/" element={<DashboardView motions={motions} />} />
-          <Route path="/motions/:motionId" element={<DashboardView motions={motions} />} />
+          <Route path="/motions/:motionId" element={<MotionPage motions={motions} />} />
           <Route path="/councillors" element={<CouncillorList motions={motions} councillors={councillors} />} />
           <Route path="/councillors/:slug" element={<CouncillorProfile motions={motions} councillors={councillors} />} />
           <Route path="/councillors/:slug/vs/:slug2" element={<CouncillorList motions={motions} councillors={councillors} />} />
           <Route path="/wards"          element={<WardGrid motions={motions} />} />
           <Route path="/wards/:wardId"  element={<WardGrid motions={motions} />} />
           <Route path="/committees" element={<CommitteesView motions={motions} />} />
+          <Route path="/committees/:committeeSlug" element={<CommitteesView motions={motions} />} />
           <Route path="/budget" element={<BudgetTranslator />} />
           <Route path="*"          element={<Navigate to="/" replace />} />
         </Routes>

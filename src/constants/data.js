@@ -139,7 +139,7 @@ export const FLAG_LABELS = {
     'close-vote':       'Close Vote',
     'defeated':         'Lost',
     'unanimous':        'Unanimous',
-    'landslide-defeat': 'Crushed',
+    'landslide-defeat': 'Landslide Loss',
 };
 
 export const FLAG_FILTER_STYLES = {

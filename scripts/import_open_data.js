@@ -166,7 +166,7 @@ function parseStatus(result) {
     if (!result) return 'Adopted';
     const lower = result.toLowerCase();
     if (lower.includes('carried') || lower.includes('adopted')) return 'Adopted';
-    if (lower.includes('lost') || lower.includes('defeated') || lower.includes('failed')) return 'Defeated';
+    if (lower.includes('lost') || lower.includes('defeated') || lower.includes('failed')) return 'Lost';
     if (lower.includes('referred')) return 'Referred';
     return 'Adopted';
 }
@@ -217,7 +217,7 @@ function computeSignificance(votes, status, motionTypes, multiDay, minutes, titl
     }
 
     // 2. Outcome (0–20 pts)
-    if (status === 'Defeated') score += 20;
+    if (status === 'Lost') score += 20;
     else if (status === 'Referred') score += 10;
     else if (no > 0) score += 5; // adopted but contested
 
@@ -265,11 +265,25 @@ function computeFlags(votes, status, score) {
     const margin = Math.abs(yes - no);
 
     if (score >= 25 && total >= 15 && margin <= 5) flags.push('close-vote');
-    if (score >= 25 && status === 'Defeated') flags.push('defeated');
+    if (score >= 25 && status === 'Lost') flags.push('defeated');
     if (score >= 25 && total >= 20 && no === 0) flags.push('unanimous');
-    if (score >= 25 && status === 'Defeated' && yes <= 5 && total >= 15) flags.push('landslide-defeat');
+    if (score >= 25 && status === 'Lost' && yes <= 5 && total >= 15) flags.push('landslide-defeat');
 
     return flags;
+}
+
+function slugifyType(type) {
+    return type.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+function normalizeVotes(councillorVotes) {
+    const votes = {};
+    for (const [name, vote] of councillorVotes) {
+        if (vote === 'Yes') votes[name] = 'YES';
+        else if (vote === 'No') votes[name] = 'NO';
+        else if (vote === 'Absent') votes[name] = 'ABSENT';
+    }
+    return votes;
 }
 
 // ---------------------------------------------------------------------------
@@ -309,6 +323,7 @@ async function main() {
 
     // -----------------------------------------------------------------------
     // Pass 1: Build item map with full signal data
+    // votesByType: Map<motionType, { meta, councillorVotes: Map<name, vote> }>
     // -----------------------------------------------------------------------
     const itemMap = new Map();
 
@@ -318,16 +333,17 @@ async function main() {
             itemMap.set(key, {
                 meta: row,
                 committee: row['Committee'] || '',
-                councillorVotes: new Map(),
                 motionTypesSeen: new Set(),
                 meetingDates: new Set(),
                 timestamps: [],
+                votesByType: new Map(),
             });
         }
         const entry = itemMap.get(key);
 
-        // Prefer "Adopt Item" metadata for title/result/date
-        const rowType = row['Motion Type'] || '';
+        const rowType = (row['Motion Type'] || '').trim();
+
+        // Prefer "Adopt Item" metadata for item-level title/date
         if (rowType === 'Adopt Item' && entry.meta['Motion Type'] !== 'Adopt Item') {
             entry.meta = row;
         }
@@ -335,11 +351,15 @@ async function main() {
         // Store committee name from CSV
         if (!entry.committee) entry.committee = row['Committee'] || '';
 
-        // Last vote per councillor wins (amendment → adoption sequence)
+        // Track per-type votes independently
+        if (!entry.votesByType.has(rowType)) {
+            entry.votesByType.set(rowType, { meta: row, councillorVotes: new Map() });
+        }
+        const typeEntry = entry.votesByType.get(rowType);
         const name = `${row['First Name']} ${row['Last Name']}`.trim();
-        entry.councillorVotes.set(name, row['Vote']);
+        typeEntry.councillorVotes.set(name, row['Vote']);
 
-        // Track signal data
+        // Track signal data at item level
         entry.motionTypesSeen.add(rowType);
         const dateOnly = (row['Date/Time'] || '').split(' ')[0];
         if (dateOnly) entry.meetingDates.add(dateOnly);
@@ -386,48 +406,72 @@ async function main() {
 
     // -----------------------------------------------------------------------
     // Pass 3: Build motion objects with significance scores
+    // Items with multiple motion types emit one entry per type:
+    //   - Primary (Adopt Item, or first Adopted result): id = baseId, no parentId
+    //   - Others: id = baseId-slugifiedType, parentId = baseId
     // -----------------------------------------------------------------------
     const motions = [];
+    let multiVoteItems = 0;
 
-    for (const [itemNum, { meta, councillorVotes, motionTypesSeen, meetingDates, committee }] of itemMap) {
+    for (const [itemNum, { meta, motionTypesSeen, meetingDates, committee, votesByType }] of itemMap) {
         const title = (meta['Agenda Item Title'] || '').trim() || 'Untitled';
-
-        const votes = {};
-        for (const [name, vote] of councillorVotes) {
-            if (vote === 'Yes') votes[name] = 'YES';
-            else if (vote === 'No') votes[name] = 'NO';
-            else if (vote === 'Absent') votes[name] = 'ABSENT';
-        }
-
-        const status   = parseStatus(meta['Result']);
         const multiDay = meetingDates.size > 1;
         const minutes  = timeSpentMap.get(itemNum) ?? null;
+        const baseId   = formatId(itemNum);
 
-        const significance = computeSignificance(
-            votes,
-            status,
-            motionTypesSeen.size,
-            multiDay,
-            minutes,
-            title
-        );
+        // Determine primary motion type — prefer the final adoption vote
+        const ADOPT_PRIORITY = ['Adopt Item', 'Adopt Item as Amended', 'Adopt Order Paper as Amended'];
+        let primaryType = null;
+        for (const preferred of ADOPT_PRIORITY) {
+            if (votesByType.has(preferred)) { primaryType = preferred; break; }
+        }
+        if (!primaryType) {
+            for (const [type, typeEntry] of votesByType) {
+                if (parseStatus(typeEntry.meta['Result']) === 'Adopted') { primaryType = type; break; }
+            }
+        }
+        if (!primaryType) primaryType = [...votesByType.keys()][0];
 
-        const trivial = significance < 25;
+        const isMulti = votesByType.size > 1;
+        if (isMulti) multiVoteItems++;
 
-        motions.push({
-            id: formatId(itemNum),
-            date: formatDate(meta['Date/Time']),
-            title,
-            status,
-            committee,
-            topic: classifyTopic(title),
-            trivial,
-            significance,
-            ward: classifyWard(title),
-            url: `https://secure.toronto.ca/council/agenda-item.do?item=${itemNum}`,
-            votes,
-            flags: computeFlags(votes, status, significance),
-        });
+        for (const [motionType, typeEntry] of votesByType) {
+            const isPrimary = motionType === primaryType;
+            const id       = isPrimary ? baseId : `${baseId}-${slugifyType(motionType)}`;
+            const parentId = isMulti && !isPrimary ? baseId : undefined;
+
+            const votes  = normalizeVotes(typeEntry.councillorVotes);
+            const status = parseStatus(typeEntry.meta['Result']);
+
+            const significance = computeSignificance(
+                votes,
+                status,
+                motionTypesSeen.size,
+                multiDay,
+                minutes,
+                title
+            );
+
+            const entry = {
+                id,
+                date: formatDate(typeEntry.meta['Date/Time'] || meta['Date/Time']),
+                title,
+                status,
+                committee,
+                topic: classifyTopic(title),
+                trivial: significance < 25,
+                significance,
+                ward: classifyWard(title),
+                url: `https://secure.toronto.ca/council/agenda-item.do?item=${itemNum}`,
+                votes,
+                flags: computeFlags(votes, status, significance),
+            };
+
+            if (isMulti) entry.motionType = motionType;
+            if (parentId !== undefined) entry.parentId = parentId;
+
+            motions.push(entry);
+        }
     }
 
     // Sort newest first
@@ -443,6 +487,7 @@ async function main() {
     const highSig       = motions.filter(m => m.significance >= 60).length;
 
     console.log(`\n✅ Written ${motions.length.toLocaleString()} motions to ${DATA_PATH}`);
+    console.log(`   ${multiVoteItems.toLocaleString()} agenda items had multiple votes (split into sub-entries)`);
     console.log(`   ${adoptedCount.toLocaleString()} adopted · ${(motions.length - adoptedCount).toLocaleString()} defeated/referred`);
     console.log(`   ${trivialCount.toLocaleString()} trivial (score < 25) · ${highSig.toLocaleString()} high-significance (score ≥ 60)`);
     console.log(`   Significance — median: ${median} · min: ${scores[0]} · max: ${scores[scores.length - 1]}`);

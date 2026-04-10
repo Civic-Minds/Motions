@@ -6,9 +6,18 @@ import { cn } from '../lib/utils';
 import { getCommittee } from '../constants/data';
 import { nameToSlug } from '../utils/slug';
 
-export default function MotionPanel({ motion: m, onClose }) {
+export default function MotionPanel({ motion: m, onClose, allMotions = [] }) {
   const yesVotes = m ? Object.values(m.votes ?? {}).filter(v => v === 'YES').length : 0;
   const noVotes  = m ? Object.values(m.votes ?? {}).filter(v => v === 'NO').length  : 0;
+
+  // All other votes on the same agenda item:
+  // - If this is the primary entry: find sub-entries (parentId === m.id)
+  // - If this is a sub-entry: find the primary + siblings (same parentId group, excluding self)
+  const relatedVotes = m ? (
+    m.parentId
+      ? allMotions.filter(other => (other.id === m.parentId || other.parentId === m.parentId) && other.id !== m.id)
+      : allMotions.filter(other => other.parentId === m.id)
+  ) : [];
 
   useEffect(() => {
     if (!m) return;
@@ -49,7 +58,7 @@ export default function MotionPanel({ motion: m, onClose }) {
                         "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold",
                         m.status === 'Adopted'
                           ? 'bg-emerald-50 text-emerald-700 ring-1 ring-inset ring-emerald-600/20'
-                          : (m.status === 'Lost' || m.status === 'Defeated')
+                          : m.status === 'Lost'
                           ? 'bg-red-50 text-red-700 ring-1 ring-inset ring-red-600/20'
                           : 'bg-slate-100 text-slate-700'
                       )}>
@@ -137,6 +146,39 @@ export default function MotionPanel({ motion: m, onClose }) {
                           </Link>
                         ))}
                     </div>
+                  </div>
+                )}
+
+                {/* Other votes on this item */}
+                {relatedVotes.length > 0 && (
+                  <div className="space-y-2">
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Other votes on this item</p>
+                    {relatedVotes.map(v => {
+                      const vYes = Object.values(v.votes ?? {}).filter(x => x === 'YES').length;
+                      const vNo  = Object.values(v.votes ?? {}).filter(x => x === 'NO').length;
+                      return (
+                        <div key={v.id} className="flex items-center justify-between rounded-lg border border-slate-100 bg-slate-50 px-3 py-2.5 text-xs">
+                          <div className="flex items-center gap-2 min-w-0">
+                            <span className={cn(
+                              "inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold shrink-0",
+                              v.status === 'Adopted'
+                                ? 'bg-emerald-50 text-emerald-700 ring-1 ring-inset ring-emerald-600/20'
+                                : v.status === 'Lost'
+                                ? 'bg-red-50 text-red-700 ring-1 ring-inset ring-red-600/20'
+                                : 'bg-slate-100 text-slate-700'
+                            )}>
+                              {v.status}
+                            </span>
+                            <span className="text-slate-600 font-medium truncate">{v.motionType}</span>
+                          </div>
+                          <span className="text-slate-400 font-mono shrink-0 ml-2">
+                            <span className="text-emerald-600 font-bold">{vYes}</span>
+                            {' – '}
+                            <span className="text-red-500 font-bold">{vNo}</span>
+                          </span>
+                        </div>
+                      );
+                    })}
                   </div>
                 )}
               </div>

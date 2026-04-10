@@ -1,9 +1,10 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { getCommittee, COMMITTEE_NAMES } from '../constants/data';
+import { nameToSlug } from '../utils/slug';
 import { cn } from '../lib/utils';
-import MotionPanel from './MotionPanel';
 
 const TOPIC_LIGHT = {
   Housing: 'bg-blue-50 text-blue-700',
@@ -14,13 +15,19 @@ const TOPIC_LIGHT = {
   General: 'bg-slate-100 text-slate-600',
 };
 
+function committeeToSlug(name) {
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
 export default function CommitteesView({ motions }) {
-  const [selected, setSelected] = useState(null);
-  const [selectedMotion, setSelectedMotion] = useState(null);
+  const { committeeSlug } = useParams();
+  const navigate = useNavigate();
+
+  const primaryMotions = useMemo(() => motions.filter(m => !m.parentId), [motions]);
 
   const committees = useMemo(() => {
     const map = {};
-    motions.forEach(m => {
+    primaryMotions.forEach(m => {
       const name = m.committee || getCommittee(m.id);
       if (!map[name]) map[name] = { name, motions: [] };
       map[name].motions.push(m);
@@ -41,21 +48,39 @@ export default function CommitteesView({ motions }) {
         const latest = c.motions
           .map(m => m.date)
           .sort((a, b) => new Date(b) - new Date(a))[0];
+
+        // Derive members: councillors who voted on this committee's motions most often
+        const voteCounts = {};
+        c.motions.forEach(m => {
+          Object.entries(m.votes ?? {}).forEach(([name, vote]) => {
+            if (vote === 'YES' || vote === 'NO') {
+              voteCounts[name] = (voteCounts[name] || 0) + 1;
+            }
+          });
+        });
+        const threshold = Math.max(1, c.motions.length * 0.25);
+        const members = Object.entries(voteCounts)
+          .filter(([, count]) => count >= threshold)
+          .sort((a, b) => b[1] - a[1])
+          .map(([name]) => name);
+
         return {
           ...c,
+          slug: committeeToSlug(c.name),
           total: c.motions.length,
           adopted,
           adoptionRate: Math.round((adopted / c.motions.length) * 100),
           substantive,
           topTopics,
           latest,
+          members,
         };
       })
       .sort((a, b) => b.total - a.total);
   }, [motions]);
 
-  const selectedCommittee = selected
-    ? committees.find(c => c.name === selected)
+  const selectedCommittee = committeeSlug
+    ? committees.find(c => c.slug === committeeSlug) ?? null
     : null;
 
   const committeeMotions = useMemo(() => {
@@ -68,33 +93,27 @@ export default function CommitteesView({ motions }) {
     <div className="space-y-6">
 
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight">Committees</h1>
-          <p className="text-sm text-slate-400 mt-1">
-            {committees.length} committees · {motions.length} total motions
-          </p>
-        </div>
-        {selected && (
-          <button
-            onClick={() => setSelected(null)}
-            className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors"
-          >
-            ← All committees
-          </button>
-        )}
+      <div>
+        <h1 className="text-2xl font-black text-slate-900 tracking-tight">
+          {selectedCommittee ? selectedCommittee.name : 'Committees'}
+        </h1>
+        <p className="text-sm text-slate-400 mt-1">
+          {selectedCommittee
+            ? `${committeeMotions.length} motions`
+            : `${committees.length} committees · ${motions.length} total motions`}
+        </p>
       </div>
 
-      {!selected ? (
+      {!selectedCommittee ? (
         /* ── Committee grid ── */
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {committees.map((c, i) => (
             <motion.button
               key={c.name}
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.04 }}
-              onClick={() => setSelected(c.name)}
+              onClick={() => navigate(`/committees/${c.slug}`)}
               className="bg-white border border-slate-200 rounded-2xl p-5 text-left hover:border-[#004a99]/40 hover:shadow-md transition-all group"
             >
               <div className="flex items-start justify-between gap-3">
@@ -135,9 +154,10 @@ export default function CommitteesView({ motions }) {
           ))}
         </div>
       ) : (
-        /* ── Committee detail: motion list ── */
-        <div className="space-y-3">
-          {/* Summary strip */}
+        /* ── Committee detail ── */
+        <div className="space-y-4">
+
+          {/* Stats strip */}
           <div className="grid grid-cols-3 gap-3">
             <div className="bg-white border border-slate-200 rounded-2xl p-4">
               <p className="text-xs text-slate-400 uppercase tracking-wide font-medium">Motions</p>
@@ -153,6 +173,24 @@ export default function CommitteesView({ motions }) {
             </div>
           </div>
 
+          {/* Members */}
+          {selectedCommittee.members.length > 0 && (
+            <div className="bg-white border border-slate-200 rounded-2xl p-4">
+              <p className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-3">Members</p>
+              <div className="flex flex-wrap gap-2">
+                {selectedCommittee.members.map(name => (
+                  <button
+                    key={name}
+                    onClick={() => navigate(`/councillors/${nameToSlug(name)}`)}
+                    className="text-xs font-medium px-3 py-1.5 rounded-full bg-slate-100 text-slate-700 hover:bg-[#004a99] hover:text-white transition-colors"
+                  >
+                    {name}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Motions */}
           <div className="space-y-2">
             {committeeMotions.map((m, i) => (
@@ -161,7 +199,7 @@ export default function CommitteesView({ motions }) {
                 initial={{ opacity: 0, y: 6 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: Math.min(i * 0.02, 0.3) }}
-                onClick={() => setSelectedMotion(m)}
+                onClick={() => navigate(`/motions/${m.id}`)}
                 className="w-full text-left bg-white border border-slate-200 rounded-2xl p-4 flex items-start gap-3 hover:border-[#004a99]/40 hover:shadow-sm transition-all group"
               >
                 <div className={cn("w-1 self-stretch rounded-full shrink-0", m.status === 'Adopted' ? 'bg-emerald-400' : 'bg-rose-400')} />
@@ -182,7 +220,6 @@ export default function CommitteesView({ motions }) {
         </div>
       )}
 
-      <MotionPanel motion={selectedMotion} onClose={() => setSelectedMotion(null)} />
     </div>
   );
 }

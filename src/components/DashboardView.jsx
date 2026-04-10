@@ -1,10 +1,9 @@
 import React, { useState, useMemo } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, AlertCircle } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { getCommittee } from '../constants/data';
-import MotionPanel from './MotionPanel';
 import YourWardCard from './YourWardCard';
 
 const TOPICS = ['Housing', 'Transit', 'Finance', 'Parks', 'Climate', 'General'];
@@ -28,29 +27,25 @@ const TOPIC_LIGHT = {
 };
 
 export default function DashboardView({ motions, councillors }) {
-  const { motionId } = useParams();
   const navigate = useNavigate();
   const [selectedTopic, setSelectedTopic] = useState('All');
   const [selectedCommittee, setSelectedCommittee] = useState('All');
   const [showNotableOnly, setShowNotableOnly] = useState(false);
   const [showAll, setShowAll] = useState(false);
 
+  // Only primary entries (no parentId) for display and stats
+  const primaryMotions = useMemo(() => motions.filter(m => !m.parentId), [motions]);
 
-  const selectedMotion = useMemo(
-    () => (motionId ? motions.find(m => m.id === motionId) ?? null : null),
-    [motions, motionId]
-  );
-
-  const adoptedCount = motions.filter(m => m.status === 'Adopted').length;
-  const substantiveCount = motions.filter(m => !m.trivial).length;
-  const adoptionRate = motions.length > 0 ? Math.round((adoptedCount / motions.length) * 100) : 0;
+  const adoptedCount = primaryMotions.filter(m => m.status === 'Adopted').length;
+  const substantiveCount = primaryMotions.filter(m => !m.trivial).length;
+  const adoptionRate = primaryMotions.length > 0 ? Math.round((adoptedCount / primaryMotions.length) * 100) : 0;
 
   const lastMeeting = useMemo(() => {
-    const dates = [...new Set(motions.map(m => m.date))].sort((a, b) => new Date(b) - new Date(a));
+    const dates = [...new Set(primaryMotions.map(m => m.date))].sort((a, b) => new Date(b) - new Date(a));
     const date = dates[0] ?? null;
-    const items = date ? motions.filter(m => m.date === date) : [];
+    const items = date ? primaryMotions.filter(m => m.date === date) : [];
     return { date, count: items.length, items };
-  }, [motions]);
+  }, [primaryMotions]);
 
   // Topics from only the last meeting
   const lastMeetingTopics = useMemo(() => {
@@ -65,21 +60,21 @@ export default function DashboardView({ motions, councillors }) {
 
   // Most recent notable motions
   const highlights = useMemo(() => {
-    return [...motions]
+    return [...primaryMotions]
       .filter(m => !m.trivial && m.significance >= 60)
       .sort((a, b) => new Date(b.date) - new Date(a.date))
       .slice(0, 4);
-  }, [motions]);
+  }, [primaryMotions]);
 
   // Available committees derived from motions
   const committees = useMemo(() => {
     const seen = new Set();
-    motions.forEach(m => seen.add(m.committee || getCommittee(m.id)));
+    primaryMotions.forEach(m => seen.add(m.committee || getCommittee(m.id)));
     return [...seen].sort();
-  }, [motions]);
+  }, [primaryMotions]);
 
   const sortedMotions = useMemo(() => {
-    return [...motions]
+    return [...primaryMotions]
       .filter(m => {
         if (selectedTopic !== 'All' && m.topic !== selectedTopic) return false;
         if (selectedCommittee !== 'All' && (m.committee || getCommittee(m.id)) !== selectedCommittee) return false;
@@ -91,14 +86,14 @@ export default function DashboardView({ motions, councillors }) {
         if (dateDiff !== 0) return dateDiff;
         return (b.significance ?? 0) - (a.significance ?? 0);
       });
-  }, [motions, selectedTopic, selectedCommittee, showNotableOnly]);
+  }, [primaryMotions, selectedTopic, selectedCommittee, showNotableOnly]);
 
   const visibleMotions = showAll ? sortedMotions : sortedMotions.slice(0, 20);
 
   return (
     <div className="space-y-4">
 
-      {/* ── Top section: three cards ── */}
+      {/* ── Bento row: Last Meeting | Notable | Your Ward ── */}
       <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr_220px] gap-3 items-stretch overflow-hidden">
 
         {/* Last Meeting */}
@@ -134,45 +129,45 @@ export default function DashboardView({ motions, councillors }) {
         <div className="flex flex-col gap-1.5 min-w-0">
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Most Recent Notable</p>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 items-stretch flex-1 min-w-0">
-              {highlights.map((m, i) => {
-                const yesCount = Object.values(m.votes ?? {}).filter(v => v === 'YES').length;
-                const noCount  = Object.values(m.votes ?? {}).filter(v => v === 'NO').length;
-                const total    = yesCount + noCount;
-                return (
-                  <motion.button
-                    key={m.id}
-                    initial={{ opacity: 0, scale: 0.97 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: i * 0.04 }}
-                    onClick={() => navigate(`/motions/${m.id}`)}
-                    className="bg-white border border-slate-200 rounded-2xl p-4 text-left group flex flex-col gap-2 hover:border-[#004a99]/40 hover:shadow-sm transition-all"
-                  >
-                    <div className="flex items-center justify-between gap-1">
-                      <span className={cn("text-[9px] font-semibold px-1.5 py-0.5 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>
-                        {m.topic}
+            {highlights.map((m, i) => {
+              const yesCount = Object.values(m.votes ?? {}).filter(v => v === 'YES').length;
+              const noCount  = Object.values(m.votes ?? {}).filter(v => v === 'NO').length;
+              const total    = yesCount + noCount;
+              return (
+                <motion.button
+                  key={m.id}
+                  initial={{ opacity: 0, scale: 0.97 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: i * 0.04 }}
+                  onClick={() => navigate(`/motions/${m.id}`)}
+                  className="bg-white border border-slate-200 rounded-2xl p-4 text-left group flex flex-col gap-2 hover:border-[#004a99]/40 hover:shadow-sm transition-all"
+                >
+                  <div className="flex items-center justify-between gap-1">
+                    <span className={cn("text-[9px] font-semibold px-1.5 py-0.5 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>
+                      {m.topic}
+                    </span>
+                    {total > 0 && (
+                      <span className="text-[9px] font-medium shrink-0">
+                        <span className="text-emerald-600 font-bold">{yesCount}</span>
+                        <span className="text-slate-300 mx-0.5">–</span>
+                        <span className="text-rose-500 font-bold">{noCount}</span>
                       </span>
-                      {total > 0 && (
-                        <span className="text-[9px] font-medium shrink-0">
-                          <span className="text-emerald-600 font-bold">{yesCount}</span>
-                          <span className="text-slate-300 mx-0.5">–</span>
-                          <span className="text-rose-500 font-bold">{noCount}</span>
-                        </span>
-                      )}
-                    </div>
-                    <p className="text-xs font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-3 leading-snug flex-1">
-                      {m.title}
-                    </p>
-                    <div className="flex items-center justify-between mt-auto">
-                      <span className="text-[9px] text-slate-400">{m.date}</span>
-                      <span className="text-[9px] font-semibold text-[#004a99] group-hover:underline">See more</span>
-                    </div>
-                  </motion.button>
-                );
-              })}
+                    )}
+                  </div>
+                  <p className="text-xs font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-3 leading-snug flex-1">
+                    {m.title}
+                  </p>
+                  <div className="flex items-center justify-between mt-auto">
+                    <span className="text-[9px] text-slate-400">{m.date}</span>
+                    <span className="text-[9px] font-semibold text-[#004a99] group-hover:underline">See more</span>
+                  </div>
+                </motion.button>
+              );
+            })}
           </div>
         </div>
 
-        {/* Your Ward — right */}
+        {/* Your Ward */}
         <div className="flex flex-col gap-1.5">
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Your Ward</p>
           <div className="flex-1 min-h-0 flex flex-col">
@@ -182,10 +177,10 @@ export default function DashboardView({ motions, councillors }) {
 
       </div>
 
-      {/* ── Main: sidebar + list ── */}
-      <div className="lg:grid lg:grid-cols-[180px_1fr] lg:gap-6 lg:items-start space-y-6 lg:space-y-0">
+      {/* ── Main: Filter sidebar + motion list (same column widths as bento) ── */}
+      <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr_220px] lg:gap-x-3 lg:items-start gap-y-4">
 
-        {/* ── Topic sidebar (desktop) ── */}
+        {/* Filter sidebar (desktop) */}
         <div className="hidden lg:block sticky top-24">
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-3 px-3">Filter</p>
           <div className="space-y-0.5">
@@ -196,9 +191,7 @@ export default function DashboardView({ motions, councillors }) {
                 className={cn(
                   "w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-medium text-left transition-all",
                   selectedTopic === topic
-                    ? topic === 'All'
-                      ? "bg-[#004a99] text-white"
-                      : "bg-[#004a99] text-white"
+                    ? "bg-[#004a99] text-white"
                     : "text-slate-600 hover:bg-slate-100"
                 )}
               >
@@ -248,8 +241,8 @@ export default function DashboardView({ motions, councillors }) {
           <p className="text-[10px] text-slate-400 mt-3 px-3">{sortedMotions.length} motions</p>
         </div>
 
-        {/* ── Right: mobile filter pills + list ── */}
-        <div className="space-y-4">
+        {/* Motion list */}
+        <div className="space-y-4 min-w-0">
 
           {/* Mobile topic pills */}
           <div className="lg:hidden flex flex-wrap gap-2">
@@ -284,7 +277,6 @@ export default function DashboardView({ motions, councillors }) {
             </button>
           </div>
 
-          {/* ── Motions list ── */}
           <div className="space-y-2">
             {visibleMotions.map((m, i) => (
               <motion.div key={m.id} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: Math.min(i * 0.02, 0.3) }}>
@@ -325,10 +317,12 @@ export default function DashboardView({ motions, councillors }) {
             )}
           </div>
         </div>
+
+        {/* Spacer — keeps motion list width matching Notable above */}
+        <div className="hidden lg:block" />
+
       </div>
 
-      {/* ── Motion detail panel ── */}
-      <MotionPanel motion={selectedMotion} onClose={() => navigate('/')} />
     </div>
   );
 }

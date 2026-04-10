@@ -1,9 +1,9 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { ChevronLeft, GitCompare, Mail, Phone, X } from 'lucide-react';
+import { GitCompare, Mail, Phone, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getAttendance, getVotedWith } from '../utils/analytics';
-import { TOPIC_PILL, WARD_COUNCILLORS, FORMER_MEMBERS } from '../constants/data';
+import { TOPIC_PILL, WARD_COUNCILLORS, FORMER_MEMBERS, getCommittee } from '../constants/data';
 import { TORONTO_WARDS } from '../constants/wards';
 import { nameToSlug, slugToName } from '../utils/slug';
 import { cn } from '../lib/utils';
@@ -91,6 +91,22 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
       .filter(m => !notableOnly || m.significance >= 60);
   }, [voteHistory, topicFilter, notableOnly]);
 
+  const committees = useMemo(() => {
+    if (!selected) return [];
+    const counts = {};
+    motions.forEach(m => {
+      if (m.votes?.[selected] === 'YES' || m.votes?.[selected] === 'NO') {
+        const c = m.committee || getCommittee(m.id);
+        counts[c] = (counts[c] || 0) + 1;
+      }
+    });
+    const threshold = Math.max(1, Object.values(counts).reduce((a, b) => a + b, 0) * 0.05);
+    return Object.entries(counts)
+      .filter(([, n]) => n >= threshold)
+      .sort((a, b) => b[1] - a[1])
+      .map(([name]) => name);
+  }, [selected, motions]);
+
   const vsPeers = useMemo(() =>
     allNames.filter(n => n !== selected).sort(),
     [allNames, selected]);
@@ -115,14 +131,7 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
   return (
     <div className="pb-20">
 
-      {/* Back link */}
-      <Link
-        to="/councillors"
-        className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-900 transition-colors mb-6 group"
-      >
-        <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
-        Councillors
-      </Link>
+
 
       {/* Former member notice */}
       {FORMER_MEMBERS[selected] && (
@@ -189,6 +198,21 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
                     </div>
                   </>
                 )}
+              </div>
+            )}
+
+            {/* Committees */}
+            {committees.length > 0 && (
+              <div className="flex flex-wrap gap-1.5 mt-3">
+                {committees.map(c => (
+                  <button
+                    key={c}
+                    onClick={() => navigate(`/committees/${c.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`)}
+                    className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 hover:bg-[#004a99] hover:text-white transition-colors"
+                  >
+                    {c}
+                  </button>
+                ))}
               </div>
             )}
 
@@ -459,7 +483,7 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
         )}
       </AnimatePresence>
 
-      <MotionPanel motion={selectedMotion} onClose={() => setSelectedMotion(null)} />
+      <MotionPanel motion={selectedMotion} onClose={() => setSelectedMotion(null)} allMotions={motions} />
     </div>
   );
 }
