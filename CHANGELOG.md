@@ -21,6 +21,14 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for pre-2.0.0 history.
 - **Full Toronto map on Wards page** — `TorontoFullMap.jsx` replaces the ward card grid. Interactive map with all 25 ward polygons; hovering a card in the horizontal carousel flies the map to that ward. Saved ward highlighted in blue. Clicking any polygon or card navigates to the ward detail page.
 - **Mini-map click destination fixed** — clicking the homepage mini-map now navigates to `/wards/${wardId}` if a ward is saved (landing on the ward detail map), otherwise `/wards`.
 
+## [2.1.1] - 2026-04-10
+
+### Fixed
+- **Ward detail page runtime fix** — imported the missing `ArrowRight` icon in `WardGrid.jsx`, restoring individual ward pages at `/wards/:wardId`.
+
+### Changed
+- **Package metadata version sync** — bumped `package.json` to `2.1.1` and aligned the root `package-lock.json` version fields.
+
 ## [2.1.0] - 2026-04-10
 
 ### Added

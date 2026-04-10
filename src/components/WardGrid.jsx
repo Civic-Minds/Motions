@@ -1,7 +1,7 @@
 import { getWardId } from '../utils/storage';
 import React, { useMemo, useState, useEffect, lazy, Suspense } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ChevronLeft, MapPin } from 'lucide-react';
+import { ArrowRight, ChevronLeft, MapPin } from 'lucide-react';
 import YourWardCard from './YourWardCard';
 const WardMotionMap = lazy(() => import('./WardMotionMap'));
 const TorontoFullMap = lazy(() => import('./TorontoFullMap'));
