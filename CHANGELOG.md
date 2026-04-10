@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for pre-2.0.0 history.
 
 ## [Unreleased]
 
+- **Clickable bento cards** — Last Meeting card toggles the motion list to that meeting's motions; Your Ward card navigates to the ward detail page.
+
 ## [2.1.0] - 2026-04-10
 
 ### Added

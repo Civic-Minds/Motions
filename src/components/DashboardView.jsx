@@ -15,6 +15,7 @@ export default function DashboardView({ motions, councillors }) {
   const [voteType, setVoteType] = useState('All');
   const [showNotableOnly, setShowNotableOnly] = useState(false);
   const [showMyWard, setShowMyWard] = useState(false);
+  const [showLastMeeting, setShowLastMeeting] = useState(false);
   const [showAll, setShowAll] = useState(false);
 
   const savedWardId = useMemo(() => { try { return localStorage.getItem('motions_ward_id'); } catch { return null; } }, []);
@@ -76,6 +77,7 @@ export default function DashboardView({ motions, councillors }) {
         if (voteType !== 'All' && !m.flags?.includes(voteType)) return false;
         if (showNotableOnly && m.significance < 60) return false;
         if (showMyWard && savedWardId && m.ward !== savedWardId) return false;
+        if (showLastMeeting && lastMeeting.date && m.date !== lastMeeting.date) return false;
         return true;
       })
       .sort((a, b) => {
@@ -83,7 +85,7 @@ export default function DashboardView({ motions, councillors }) {
         if (dateDiff !== 0) return dateDiff;
         return (b.significance ?? 0) - (a.significance ?? 0);
       });
-  }, [primaryMotions, selectedTopic, selectedCommittee, voteType, showNotableOnly]);
+  }, [primaryMotions, selectedTopic, selectedCommittee, voteType, showNotableOnly, showMyWard, savedWardId, showLastMeeting, lastMeeting.date]);
 
   const visibleMotions = showAll ? sortedMotions : sortedMotions.slice(0, 20);
 
@@ -96,7 +98,10 @@ export default function DashboardView({ motions, councillors }) {
         {/* Last Meeting */}
         <div className="flex flex-col gap-1.5">
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Last Meeting</p>
-          <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col gap-2 flex-1">
+          <button
+            onClick={() => setShowLastMeeting(s => !s)}
+            className={cn("bg-white rounded-2xl p-4 flex flex-col gap-2 flex-1 text-left transition-all border", showLastMeeting ? "border-[#004a99] shadow-sm" : "border-slate-200 hover:border-[#004a99]/40 hover:shadow-sm")}
+          >
             {lastMeetingTopics.length > 0 && (
               <div className="flex flex-wrap gap-1">
                 {lastMeetingTopics.map(topic => (
@@ -119,7 +124,7 @@ export default function DashboardView({ motions, councillors }) {
               </div>
             )}
             {lastMeeting.date && <p className="text-[9px] text-slate-400">{lastMeeting.date}</p>}
-          </div>
+          </button>
         </div>
 
         {/* Most Recent Notable */}
