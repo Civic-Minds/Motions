@@ -13,8 +13,8 @@ City council makes decisions that affect your rent, your commute, your neighbour
 
 ## Stack
 - **Frontend**: React 19, Vite, Tailwind CSS
-- **Data**: TMMIS Scraper (Cheerio) - extensible to other municipal data portals
-- **Visuals**: Recharts & Lucide React
+- **Data**: Toronto Open Data CSV (member voting records, 2006–2026)
+- **Visuals**: Lucide React, Framer Motion
 
 ---
 
