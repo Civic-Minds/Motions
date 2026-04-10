@@ -7,7 +7,6 @@ import { TOPIC_PILL, WARD_COUNCILLORS, FORMER_MEMBERS, getCommittee } from '../c
 import { TORONTO_WARDS } from '../constants/wards';
 import { nameToSlug, slugToName } from '../utils/slug';
 import { cn } from '../lib/utils';
-import MotionPanel from './MotionPanel';
 
 const COUNCILLOR_WARD = {};
 Object.entries(WARD_COUNCILLORS).forEach(([wardId, name]) => {
@@ -29,7 +28,6 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
   const navigate = useNavigate();
   const [topicFilter, setTopicFilter] = useState('All');
   const [notableOnly, setNotableOnly] = useState(false);
-  const [selectedMotion, setSelectedMotion] = useState(null);
   const [vsPickerOpen, setVsPickerOpen] = useState(false);
   const [vsSearch, setVsSearch] = useState('');
   const [tenure, setTenure] = useState({});
@@ -76,7 +74,7 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
   const voteHistory = useMemo(() => {
     if (!selected) return [];
     return motions
-      .filter(m => m.votes?.[selected] && !m.trivial)
+      .filter(m => !m.parentId && m.votes?.[selected] && !m.trivial)
       .sort((a, b) => (b.significance ?? 0) - (a.significance ?? 0));
   }, [selected, motions]);
 
@@ -379,7 +377,7 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
                   initial={{ opacity: 0, y: 4 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: Math.min(i * 0.01, 0.2) }}
-                  onClick={() => setSelectedMotion(m)}
+                  onClick={() => navigate(`/motions/${m.id}`)}
                   className="w-full text-left bg-white border border-slate-200 rounded-2xl p-4 hover:border-[#004a99]/40 hover:shadow-sm transition-all group flex items-start gap-3"
                 >
                   <div className={cn(
@@ -483,7 +481,6 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
         )}
       </AnimatePresence>
 
-      <MotionPanel motion={selectedMotion} onClose={() => setSelectedMotion(null)} allMotions={motions} />
     </div>
   );
 }

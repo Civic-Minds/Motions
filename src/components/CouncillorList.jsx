@@ -124,7 +124,6 @@ export default function CouncillorList({ motions, councillors: contactData = [] 
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-slate-900">Councillors</h1>
-          <p className="text-sm text-slate-500 mt-0.5">{filtered.length} members · 2022–2026 term</p>
         </div>
         <div className="flex items-center gap-3">
           <button

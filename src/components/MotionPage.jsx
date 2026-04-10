@@ -20,9 +20,24 @@ function StatusBadge({ status }) {
   );
 }
 
-function VoteBar({ votes }) {
-  const yes = Object.values(votes ?? {}).filter(v => v === 'YES').length;
-  const no  = Object.values(votes ?? {}).filter(v => v === 'NO').length;
+// Parse "Carried, 18-7" or "Lost, 10-13" → { yes, no } or null
+function parseResultTotals(resultText) {
+  const m = resultText?.match(/(\d+)\s*[-–]\s*(\d+)/);
+  if (!m) return null;
+  // First number is always YES (for/carried), second is NO
+  return { yes: parseInt(m[1], 10), no: parseInt(m[2], 10) };
+}
+
+function VoteBar({ votes, resultText }) {
+  const recorded = Object.values(votes ?? {});
+  const recYes = recorded.filter(v => v === 'YES').length;
+  const recNo  = recorded.filter(v => v === 'NO').length;
+
+  // Use result string totals when recorded votes are clearly incomplete
+  const totals = parseResultTotals(resultText);
+  const yes = (totals && totals.yes > recYes) ? totals.yes : recYes;
+  const no  = (totals && totals.no  > recNo)  ? totals.no  : recNo;
+
   if (yes === 0 && no === 0) return null;
   return (
     <div className="flex items-center gap-3">
@@ -38,39 +53,105 @@ function VoteBar({ votes }) {
   );
 }
 
-function CouncillorGrid({ votes }) {
-  if (!votes || Object.keys(votes).length === 0) return null;
-  const sorted = Object.entries(votes).sort(([, a], [, b]) => {
-    const order = { YES: 0, NO: 1, ABSENT: 2 };
-    return (order[a] ?? 3) - (order[b] ?? 3);
-  });
+function NameList({ names, colorClass, hoverClass }) {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 gap-1.5">
-      {sorted.map(([name, vote]) => (
+    <div className="space-y-1">
+      {names.map(name => (
         <Link
           key={name}
           to={`/councillors/${nameToSlug(name)}`}
-          className="flex items-center justify-between rounded-lg bg-slate-50 hover:bg-blue-50 px-3 py-2 text-xs transition-colors group"
+          className={cn("block text-xs font-medium py-1 px-2 rounded-lg transition-colors truncate", colorClass, hoverClass)}
         >
-          <span className="text-slate-700 font-medium truncate group-hover:text-[#004a99] transition-colors">
-            {name}
-          </span>
-          <span className={cn(
-            "ml-2 font-bold shrink-0",
-            vote === 'YES' ? 'text-emerald-600'
-            : vote === 'NO' ? 'text-red-500'
-            : 'text-slate-400'
-          )}>
-            {vote}
-          </span>
+          {name}
         </Link>
       ))}
     </div>
   );
 }
 
-function VoteSection({ label, motionType, status, votes, defaultOpen = false }) {
+function CouncillorGrid({ votes, resultText }) {
+  if (!votes || Object.keys(votes).length === 0) return null;
+
+  const yes     = Object.entries(votes).filter(([, v]) => v === 'YES').map(([n]) => n).sort();
+  const no      = Object.entries(votes).filter(([, v]) => v === 'NO').map(([n]) => n).sort();
+  const absent  = Object.entries(votes).filter(([, v]) => v === 'ABSENT').map(([n]) => n).sort();
+
+  const totals = parseResultTotals(resultText);
+  const isPartial = totals && (totals.yes > yes.length || totals.no > no.length);
+
+  const showYes = yes.length > 0;
+  const showNo  = no.length > 0;
+
+  return (
+    <div className="space-y-4">
+      {/* YES / NO split — only render columns with votes */}
+      {(showYes || showNo) && (
+        <div className={cn("gap-3", showYes && showNo ? "grid grid-cols-2" : "")}>
+          {showYes && (
+            <div>
+              <p className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest mb-2">
+                Yes · {yes.length}
+              </p>
+              <NameList
+                names={yes}
+                colorClass="text-slate-700 bg-emerald-50"
+                hoverClass="hover:bg-emerald-100 hover:text-emerald-900"
+              />
+            </div>
+          )}
+          {showNo && (
+            <div>
+              <p className="text-[10px] font-bold text-red-500 uppercase tracking-widest mb-2">
+                No · {no.length}
+              </p>
+              <NameList
+                names={no}
+                colorClass="text-slate-700 bg-red-50"
+                hoverClass="hover:bg-red-100 hover:text-red-900"
+              />
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Absent — compact inline */}
+      {absent.length > 0 && (
+        <div>
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">
+            Absent · {absent.length}
+          </p>
+          <div className="flex flex-wrap gap-1.5">
+            {absent.map(name => (
+              <Link
+                key={name}
+                to={`/councillors/${nameToSlug(name)}`}
+                className="text-xs text-slate-400 bg-slate-100 hover:bg-slate-200 hover:text-slate-600 px-2 py-1 rounded-lg transition-colors"
+              >
+                {name}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Partial data note for advisory committees */}
+      {isPartial && (
+        <p className="text-[10px] text-slate-400 pt-1">
+          Breakdown shows City Councillors only. {totals.yes}–{totals.no} total vote from all committee members.
+        </p>
+      )}
+    </div>
+  );
+}
+
+function VoteSection({ label, motionType, status, votes, resultText, defaultOpen = false }) {
   const [open, setOpen] = useState(defaultOpen);
+  const totals = parseResultTotals(resultText);
+  const recYes = Object.values(votes ?? {}).filter(v => v === 'YES').length;
+  const recNo  = Object.values(votes ?? {}).filter(v => v === 'NO').length;
+  const dispYes = (totals && totals.yes > recYes) ? totals.yes : recYes;
+  const dispNo  = (totals && totals.no  > recNo)  ? totals.no  : recNo;
+
   return (
     <div className="border border-slate-200 rounded-xl overflow-hidden">
       <button
@@ -85,9 +166,9 @@ function VoteSection({ label, motionType, status, votes, defaultOpen = false }) 
         <div className="flex items-center gap-3 shrink-0 ml-4">
           {!open && (
             <span className="text-xs text-slate-400">
-              <span className="text-emerald-600 font-bold">{Object.values(votes ?? {}).filter(v => v === 'YES').length}</span>
+              <span className="text-emerald-600 font-bold">{dispYes}</span>
               {' – '}
-              <span className="text-red-500 font-bold">{Object.values(votes ?? {}).filter(v => v === 'NO').length}</span>
+              <span className="text-red-500 font-bold">{dispNo}</span>
             </span>
           )}
           {open ? <ChevronUp className="w-4 h-4 text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
@@ -96,9 +177,9 @@ function VoteSection({ label, motionType, status, votes, defaultOpen = false }) 
       {open && (
         <div className="px-5 pb-5 space-y-4 border-t border-slate-100">
           <div className="pt-4">
-            <VoteBar votes={votes} />
+            <VoteBar votes={votes} resultText={resultText} />
           </div>
-          <CouncillorGrid votes={votes} />
+          <CouncillorGrid votes={votes} resultText={resultText} />
         </div>
       )}
     </div>
@@ -188,6 +269,7 @@ export default function MotionPage({ motions = [] }) {
               motionType={motion.motionType}
               status={motion.status}
               votes={motion.votes}
+              resultText={motion.resultText}
               defaultOpen
             />
 
@@ -201,6 +283,7 @@ export default function MotionPage({ motions = [] }) {
                   motionType={sub.motionType}
                   status={sub.status}
                   votes={sub.votes}
+                  resultText={sub.resultText}
                   defaultOpen={false}
                 />
               ))}
@@ -208,8 +291,8 @@ export default function MotionPage({ motions = [] }) {
           </>
         ) : (
           <div className="space-y-4 border border-slate-200 rounded-xl p-5">
-            <VoteBar votes={motion.votes} />
-            <CouncillorGrid votes={motion.votes} />
+            <VoteBar votes={motion.votes} resultText={motion.resultText} />
+            <CouncillorGrid votes={motion.votes} resultText={motion.resultText} />
           </div>
         )}
       </div>

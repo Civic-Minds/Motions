@@ -457,6 +457,7 @@ async function main() {
                 date: formatDate(typeEntry.meta['Date/Time'] || meta['Date/Time']),
                 title,
                 status,
+                resultText: (typeEntry.meta['Result'] || '').trim(),
                 committee,
                 topic: classifyTopic(title),
                 trivial: significance < 25,

@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useRef, useEffect } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowRight, ChevronLeft, MapPin } from 'lucide-react';
 import YourWardCard from './YourWardCard';
@@ -59,10 +59,8 @@ export default function WardGrid({ motions }) {
   const wardActivity = useMemo(() => getWardActivityMetrics(motions), [motions]);
   const topWard = [...wardActivity].sort((a, b) => b.count - a.count)[0];
 
-  const [selectedMotion, setSelectedMotion] = useState(null);
   const foundWardId = (() => { try { return localStorage.getItem('motions_ward_id'); } catch { return null; } })();
   const [geoData, setGeoData] = useState(null);
-  const wardRefs = useRef({});
 
   const selectedWard = wardIdParam
     ? TORONTO_WARDS.find(w => w.id === wardIdParam) ?? null
@@ -73,18 +71,11 @@ export default function WardGrid({ motions }) {
     fetchWardBoundaries().then(setGeoData).catch(() => {});
   }, []);
 
-  useEffect(() => {
-    if (foundWardId && wardRefs.current[foundWardId]) {
-      setTimeout(() => {
-        wardRefs.current[foundWardId].scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }, 300);
-    }
-  }, [foundWardId]);
 
   const wardMotions = useMemo(() => {
     if (!selectedWard) return [];
     return [...motions]
-      .filter(m => m.ward === selectedWard.id)
+      .filter(m => !m.parentId && m.ward === selectedWard.id)
       .sort((a, b) => (b.significance ?? 0) - (a.significance ?? 0));
   }, [selectedWard, motions]);
 
@@ -108,11 +99,6 @@ export default function WardGrid({ motions }) {
             <h1 className="text-2xl font-bold text-slate-900">
               {selectedWard ? `Ward ${selectedWard.id} · ${selectedWard.name}` : 'Wards'}
             </h1>
-            <p className="text-sm text-slate-500 mt-0.5">
-              {selectedWard
-                ? `${WARD_COUNCILLORS[selectedWard.id]} · ${wardMotions.length} ward-specific motions`
-                : '25 wards · 2022–2026 term'}
-            </p>
           </div>
         </div>
       </div>
@@ -153,7 +139,6 @@ export default function WardGrid({ motions }) {
               return (
                 <motion.button
                   key={ward.id}
-                  ref={el => { wardRefs.current[ward.id] = el; }}
                   onClick={() => navigate(`/wards/${ward.id}`)}
                   variants={{ hidden: { opacity: 0, scale: 0.95 }, show: { opacity: 1, scale: 1, transition: { type: 'spring', stiffness: 280, damping: 28 } } }}
                   className={cn(
@@ -228,7 +213,7 @@ export default function WardGrid({ motions }) {
                   initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: Math.min(i * 0.02, 0.3) }}
-                  onClick={() => setSelectedMotion(m)}
+                  onClick={() => navigate(`/motions/${m.id}`)}
                   className="w-full text-left bg-white border border-slate-200 rounded-2xl p-4 flex items-start gap-3 hover:border-[#004a99]/40 hover:shadow-sm transition-all group"
                 >
                   <div className={cn("w-1 self-stretch rounded-full shrink-0", m.status === 'Adopted' ? 'bg-emerald-400' : 'bg-rose-400')} />
@@ -249,7 +234,6 @@ export default function WardGrid({ motions }) {
           </motion.div>
         </AnimatePresence>
       )}
-      <MotionPanel motion={selectedMotion} onClose={() => setSelectedMotion(null)} allMotions={motions} />
     </div>
   );
 }

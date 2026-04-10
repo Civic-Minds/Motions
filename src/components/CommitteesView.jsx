@@ -97,11 +97,6 @@ export default function CommitteesView({ motions }) {
         <h1 className="text-2xl font-black text-slate-900 tracking-tight">
           {selectedCommittee ? selectedCommittee.name : 'Committees'}
         </h1>
-        <p className="text-sm text-slate-400 mt-1">
-          {selectedCommittee
-            ? `${committeeMotions.length} motions`
-            : `${committees.length} committees · ${motions.length} total motions`}
-        </p>
       </div>
 
       {!selectedCommittee ? (

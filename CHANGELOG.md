@@ -2,14 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [2.0.0] - 2026-04-10
 
 ### Infrastructure
 - **Custom domain configuration** — successfully connected `yourcityatwork.ca` to Vercel. Configured root A record (`216.198.79.1`) and `www` CNAME (`fb8efec54f29146a.vercel-dns-017.com.`) in Spaceship.
 
 ### Added
-- **Multi-vote agenda items** — `import_open_data.js` now emits one entry per distinct motion type per agenda item. Items with multiple votes (e.g. "Waive Notice" + "Waive Referral" + "Adopt Item") produce separate entries linked by a `parentId` field. Each entry has its own correct status and vote counts.
-- **"Other votes on this item" in MotionPanel** — when a motion has sibling votes (sharing `parentId`), a compact section lists each with its motion type label, status badge, and Yes–No count.
+- **Advisory committee vote totals** — motions now store `resultText` (e.g. "Carried, 7-3") from the CSV. On the motion page, the vote bar uses the actual totals when recorded councillor votes are a subset (e.g. advisory committees where most voters are community appointees, not City Councillors). A note clarifies when the breakdown is councillors-only.
+- **YES/NO split vote layout** — councillor votes now display as two side-by-side columns (YES green, NO red), alphabetical within each group. Absent members are de-emphasised as compact inline chips. Empty columns are hidden.
+- **Site renamed to Motions** — browser tab, OG tags, and navbar now say "Motions Toronto".
+- **Wards page auto-scroll removed** — no longer scrolls to the saved ward on page load.
+- **Page header subtitles removed** — "27 members · 2022–2026 term" style subtitles removed from Councillors, Committees, and Wards pages.
+- **Motion detail pages** — `/motions/:id` now renders a dedicated `MotionPage` instead of a modal overlay. For multi-vote items the final vote is shown expanded at the top; procedural votes (Waive Referral, amendments, etc.) appear as collapsible rows below. Sub-entry URLs redirect to their primary page. `MotionPanel` removed from all views.
+- **Multi-vote agenda items** — `import_open_data.js` now emits one entry per distinct motion type per agenda item. Items with multiple votes (e.g. "Waive Referral" + "Adopt Item") produce separate entries linked by a `parentId` field. Each entry has its own correct status and vote counts.
+- **Sub-entries filtered from all lists** — DashboardView, CouncillorProfile, CommitteesView, WardGrid, and GlobalSearch now only show primary entries (`!parentId`). The full vote breakdown is on the motion page.
 - **Committees on councillor profiles** — each councillor profile now shows committee membership pills derived from voting frequency. Clicking a committee navigates to that committee's page.
 - **YourWardCard on Wards page** — the ward selection card appears in the stats strip at the top of the Wards page, consistent with the homepage. Geolocation machinery removed from WardGrid (YourWardCard handles it).
 - **Committee URL routing** — committees now use `/committees/:slug` URLs. Title and subtitle update when navigating into a committee. No more local state toggling.

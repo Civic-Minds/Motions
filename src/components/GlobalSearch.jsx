@@ -61,12 +61,12 @@ export default function GlobalSearch({ motions, councillorNames, open, onClose }
     if (!q || q.length < 2) return { motions: [], councillors: [] };
 
     const matchedMotions = motions
-      .filter(m =>
+      .filter(m => !m.parentId && (
         m.title?.toLowerCase().includes(q) ||
         m.topic?.toLowerCase().includes(q) ||
         m.mover?.toLowerCase().includes(q) ||
         m.id?.toLowerCase().includes(q)
-      )
+      ))
       .sort((a, b) => {
         // Title matches rank higher
         const aTitle = a.title?.toLowerCase().includes(q);
