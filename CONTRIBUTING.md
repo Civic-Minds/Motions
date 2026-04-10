@@ -1,24 +1,14 @@
 # Contributing to Motions
 
-Thank you for helping us build better civic tools!
+Motions is a Civic Minds project. The codebase is public for transparency, but we're not accepting pull requests at this time.
 
-## Issues
-- **Bugs**: Create an issue with a description, reproduction steps, and your environment (OS/browser).
-- **Enhancements**: Search existing issues first, then open a new one labeled "enhancement".
+## Bugs & Feedback
 
-## Pull Requests
-1. Fork and branch (`feature/your-feature`).
-2. Commit descriptive changes.
-3. Push and open a Pull Request.
+Found a bug or have a suggestion? Open an issue on GitHub — we read everything.
 
 ## Local Development
+
 ```bash
 npm install
 npm run dev
 ```
-
-## Community
-Questions? Reach out via GitHub Issues.
-
----
-Civic Minds

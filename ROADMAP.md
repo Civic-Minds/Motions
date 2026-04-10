@@ -1,37 +1,26 @@
 # Roadmap
 
-Ideas and planned features for yourcityatwork.ca.
+Motions is a civic-intelligence engine for Toronto City Council. This roadmap outlines the path from a voting record browser to a comprehensive accountability layer.
+
+- **[Product](./ROADMAP_PRODUCT.md)** — features, views, and UX improvements
+- **[Data](./ROADMAP_DATA.md)** — pipeline improvements, new sources, and data quality
+- **[Technical](./ROADMAP_TECHNICAL.md)** — code quality, bugs, and structural improvements
 
 ---
 
-## "Who's responsible?" — Jurisdiction Tool
+## North Star
 
-People constantly blame the wrong level of government: municipal council for immigration policy, the federal government for healthcare wait times, etc. This feature would let users search an issue and learn which level of government (federal / provincial / municipal) actually controls it, what their specific jurisdiction covers, and surface any relevant Toronto council votes.
-
-Possible framing: **"Is this Toronto's problem?"** — designed to be shareable and educational.
-
-Could live as a standalone page or an embedded tool on the homepage.
+A resident of any Canadian city should be able to open Motions, type any issue they care about, and immediately understand: who voted on it, how it landed, and what it means for their neighbourhood.
 
 ---
 
-## Motion blurbs / plain-language summaries
+## Near-term priorities
 
-Each motion currently shows only its title. AI-generated plain-language summaries (or scraped from toronto.ca agenda items) would make motions accessible to people without a policy background.
-
----
-
-## Motion full-page view
-
-Full-page URLs per motion (`/motions/:id`) with room for a blurb, full vote breakdown, committee context, and a shareable link. Follows naturally from motion blurbs landing.
+- [ ] **Plain-language motion summaries** — AI-generated blurbs per motion making council decisions legible without a policy background
+- [ ] **Advisory committee full vote breakdowns** — toronto.ca agenda item pages contain the full member list (including community appointees not in the Open Data CSV); scrape these to show complete votes for advisory committees
+- [ ] **Ward digest email** — bi-weekly email summarizing your ward councillor's top votes, opt-in
+- [ ] **"Who's responsible?" jurisdiction tool** — lets users search any issue and learn which level of government actually controls it, with relevant Toronto council votes surfaced
 
 ---
 
-## Committees on councillor profiles
-
-Show which committees a councillor sits on, derived from the vote data.
-
----
-
-## Councillor photo crop consistency
-
-Batch-crop all headshot images to a consistent square aspect ratio so illustrated portraits render uniformly across cards and profile headers.
+[Back to README](./README.md)

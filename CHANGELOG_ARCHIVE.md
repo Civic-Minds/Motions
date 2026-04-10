@@ -1,0 +1,231 @@
+# Changelog Archive
+
+Pre-2.0.0 history. See [CHANGELOG.md](CHANGELOG.md) for current entries.
+
+## [1.2.0] - 2026-04-03
+
+### Added
+- **Clickable councillor names throughout** — councillor names in the motion detail vote breakdown (YES/NO/Absent), and the mover/seconder fields, are now interactive buttons that open that councillor's ProfilePanel. Names in the inline voter expansion in MotionTable are also clickable. Closes the loop between motions and people across the entire app.
+- **Motion cross-references** — motion detail pages now parse item IDs from titles (e.g. "Re-Opening and Amending Item 2024.EX15.3") and render a References section linking to the cited motion. A Referenced By section appears on the target motion showing what later items point back to it. Bidirectional, derived entirely from title text.
+- **Motion detail pages** (`/motions/:id`) — each motion now has a permanent, shareable URL. Shows full title, date, topic, outcome, mover/seconder, and a full YES/NO/Absent vote breakdown with all councillor names. Motion titles in the table are now links to their detail page.
+- **Vote breakdown in MotionTable** — clicking the "Voters" bar on any motion card expands an inline panel showing individual YES/NO/Absent voters by last name, without leaving the table. The bar also remains a link to the full detail page.
+- **Topic filter in ProfilePanel** — pill filters above the Notable Votes list let users drill into a specific topic (Housing, Transit, Finance, etc.) for the selected councillor.
+- **"Sort by Bloc" toggle on AlignmentMatrix** — reorders the pairwise matrix rows and columns by consensus alignment score, causing ideological clusters to emerge as visible blocks without any hardcoded groupings.
+- **Escape key closes panels** — pressing Escape dismisses the ProfilePanel or VersusOverlay (whichever is open), with the same navigate-back behaviour as the close button on councillor sub-routes.
+- **Pairwise alignment matrix** — new `AlignmentMatrix` component on the Analytics page showing agreement % between every pair of councillors as a colour-coded NxN grid. Computed in one pass via `getPairwiseAlignment()` in analytics.js. Hovering a cell dims all unrelated rows/columns and shows a callout with the exact pairing and percentage. The colour scale runs from rose (low agreement) through amber to emerald (high), making the progressive/conservative fault line visible at a glance without any hardcoded groupings.
+- **"Votes With" section in ProfilePanel** — shows the top 5 councillors this member agrees with most often (% agreement on shared non-trivial YES/NO votes, minimum 10 shared votes). A "Least aligned" row at the bottom shows the 3 most opposed councillors by last name + percentage. Powered by new `getVotedWith` utility in `analytics.js`.
+- **Legislative Activity timeline in Scorecard** — horizontal bar chart showing motions per session across the full term. Each bar is split into adopted (green) and non-adopted (blue) segments. Hovering a bar shows the session date, total count, and adopted count. Spans the full term chronologically.
+- **Shareable councillor URLs** — councillor profiles and VS comparisons now have permanent, linkable URLs:
+  - `/councillors/:slug` — opens that councillor's ProfilePanel directly (e.g. `/councillors/josh-matlow`)
+  - `/councillors/:slug/vs/:slug2` — opens the VersusOverlay for two councillors (e.g. `/councillors/josh-matlow/vs/gord-perks`)
+  - New `src/utils/slug.js` utility: `nameToSlug` and `slugToName` for converting between display names and URL-safe slugs
+  - Browser URL updates automatically when a card is clicked or a VS pair is completed
+  - Navigating directly to a profile/VS URL reopens the correct panel without needing to click through the UI
+  - Closing a panel from a sub-route navigates back to `/councillors`
+
+### Fixed
+- **Error state** — `App.jsx` now reads `error` from `useMotions` and renders a visible error card if `motions.json` fails to load. Previously the app would spin indefinitely.
+- **VersusOverlay: no shared vote history** — when two councillors share zero vote records, alignment score now shows "NO SHARED VOTES" in the header and "No shared vote history for these two councillors." in the divergence panel. Previously it displayed a misleading "100% UNANIMOUS" message.
+- **Alignment baseline** — `getMemberAlignmentScore` now returns `null` instead of an arbitrary 75% when a councillor has no recorded votes. `AlignmentHeatmap` and `CouncillorList` both guard against null.
+
+### Changed
+- **Centralized topic & flag styles** — `TOPIC_BADGE`, `TOPIC_PILL`, `TOPIC_COLOR`, `FLAG_STYLES`, `FLAG_LABELS`, and `FLAG_FILTER_STYLES` moved to `constants/data.js`. Removed duplicate definitions from `ContestBoard`, `VersusOverlay`, `ProfilePanel`, `MotionTable`, and `CouncillorList`.
+- **AlignmentHeatmap: threshold note** — footnote added below the heatmap grid explaining that councillors with fewer than 5 recorded votes are excluded.
+
+### Removed
+- **`services/scraper.js`** — unused stub file (mock data, random alignment math). All real data comes from `public/data/motions.json` via the import pipeline.
+
+### Added
+- **Mobile responsive pass** — full layout support for screens below 768px:
+  - **Navbar**: hamburger menu (Menu/X icon) collapses nav links into a sticky dropdown drawer on mobile. Desktop nav and Live Data indicator hidden on small screens.
+  - **Stats grid**: `dashboard-stats-row` switches to 2-column on mobile; the mainline card spans full width and stacks its content vertically.
+  - **Main content**: padding reduced from 32px to 16px on mobile.
+  - **ProfilePanel & VersusOverlay**: side panels expand to full-screen (100vw / 100dvh, no border-radius) on mobile. Panel header and content padding reduced.
+  - **MotionCard**: gap and padding tightened (`gap-2 p-3` → `gap-6 p-5` on `sm:`) and topic column narrowed (`w-[72px]` → `w-[88px]` on `sm:`) so motion titles have adequate room on 375px+ screens.
+  - **Scorecard impact cards**: icon hidden on mobile to reduce clutter in the Impact Pulse list.
+
+### Added
+- **Ward → Councillor connection** — each ward card on the Wards page now shows the councillor's name for the 2022–2026 term (by-election winners included). Clicking a ward card opens that councillor's ProfilePanel directly.
+- **Last Session widget** — compact strip on the Dashboard (between the stats row and filters) showing the most recent meeting date, adoption/defeat counts, and top 3 substantive motions. Gives return visitors immediate context without scrolling the full table.
+- **"Locate my ward" geolocation** — button on the Wards page requests the user's location, fetches Toronto's official ward boundary GeoJSON from Toronto Open Data (lazily, cached for the session), runs a client-side point-in-polygon lookup, highlights the matched ward card with a "Your Ward" badge, scrolls to it, and opens that councillor's ProfilePanel automatically. Gracefully handles permission denial, out-of-Toronto locations, and network errors.
+
+### Added
+- **Framer Motion** — installed `framer-motion` as a dependency for all animation work.
+- **Page transitions** — every route change fades and slides via `AnimatePresence` in `Layout.jsx`.
+- **Dashboard stat card stagger** — the four header stat cards spring in with an 80ms stagger on load (`DashboardView`).
+- **Topic filter pill animation** — active filter pill uses `layoutId` so the blue background slides between selections instead of snapping.
+- **Meeting group stagger** — meeting rows in `MotionTable` stagger in on load; expanding a meeting animates height open/closed via `AnimatePresence`.
+- **Motion card entrance** — individual motion cards stagger in with spring physics when a meeting is expanded.
+- **Councillor grid stagger** — councillor cards stagger in on load (`CouncillorList`).
+- **Alignment Heatmap stagger** — tier columns stagger in; member rows slide in from the left within each tier (`AlignmentHeatmap`).
+- **Ward grid pop-in** — all 25 ward cells scale in with a 30ms per-cell stagger (`WardGrid`).
+- **Scorecard animations** — stat cards stagger in; major adoption cards slide in from the left with stagger (`Scorecard`).
+- **Budget Translator animations** — stat cards stagger in; department detail panels animate height open/closed with stat tiles staggering in on expand (`BudgetTranslator`).
+- **Navbar refresh** — renamed logo to "Motions / Toronto Council", added explicit Dashboard nav link, added live data indicator dot on the right.
+
+### Changed
+- **MotionTable redesign** — replaced bloated glass-morphism accordion cards with a cleaner card-based feed. Meeting headers now use a solid `#004a99` MTG badge, visible `border-slate-200` card border, and `shadow-sm` at rest. Expanded motions render inside a `bg-slate-50/50` container with white motion cards. Motion cards use a coloured left border (green = adopted, red = defeated) as a quick-scan status indicator. Removed verbose "Official Council Meeting Transmission" subtitle.
+- **BudgetTranslator chart** — changed bar chart container from dark `bg-slate-900` to a white card matching the rest of the page. Each department now has a distinct bar colour (TTC blue, Police purple, Shelter orange, Fire red, Parks green, All Others light grey). Chart height reduced from 430px to 320px. Bottom "Net vs Gross" callout changed from dark card to a light blue info block.
+- **Scorecard sidebar** — Session Synopsis card changed from dark navy (`bg-slate-900`) to a white card with a blue border accent and icon that fills on hover. Legislative Fingerprint card changed from a solid green gradient to a white card with an emerald icon, eliminating the jarring colour contrast.
+- **WardGrid cards** — reduced `mb-8` gap on ward name to `mb-3`; item count bumped from `text-[10px]` to `text-2xl` so each card has a clear focal point.
+
+### Added
+- **Readability Restoration** — Purged excessive `uppercase` styling from motion titles, navigation labels, and primary dashboard metrics to restore text scanning efficiency.
+- **Jargon Elimination** — Replaced abstract terminology with standard, descriptive English:
+    - `Outcome Pulse` → `Outcome`
+    - `Consensus Flow` → `Votes`
+    - `System Volume` → `Motions` / `Total Activity`
+    - `Legislative Pulse` → `By Topic`
+    - `Registry` → `Records`
+- **Visual Spacing Refinement** — Abolished the `tracking-widest` and `tracking-[0.3em]` letter-spacing system across all `.pulse-label` and `.card-title` classes for a cleaner, modern look.
+- **Definitive Search Bar Geometric Fix** — Abolished absolute icon positioning in favor of a robust flexbox-based layout across all modules.
+- Standardized dashboard card rounding to `32px` for visual consistency across all modules.
+
+### Changed
+- **Typography Density** — Adjusted the global font architecture to prioritize legibility over "technical telemetry" aesthetics while maintaining the high-fidelity 32px rounding.
+- **Status Tags** — Standardized status indicators to use title-case labels and high-contrast semantic coloring without forced capitalization.
+- **Navigation Transparency** — Updated the global navigation and logo to standard casing to improve professional brand clarity.
+- **Old Jargon Elimination** — Purged abstract headers ("Legislative Ecosystem Feed") and ambiguous labels ("Active Cluster") in favor of direct, record-derived quantitative metrics.
+- **Global Design System** — Standardized legacy components to 32px rounded Motions UI containers (white-to-slate architecture).
+- **Motions UI Overhaul** — Purged experimental dark/tactical gradients in favor of high-fidelity "Pulse" white surfaces and diffused shadows.
+- **Legislative Stream (Motions)** — Abolished legacy card formats for 32px rounded white cards with segmented consensus tracks and large binary outcome labels.
+- **Metadata Vertical Rhythm** — Resolved typography collisions and overlap issues in categorical headers; optimized contrast for ID identifiers.
+- **Geographic & Fiscal Intelligence** — Overhauled Ward cards, Budget Translator, and Scorecard into high-fidelity "Analytics Alpha" diagnostic modules with 32px rounding.
+
+### Fixed
+- **Motion Feed Integrity** — Performed a full structural JSX recovery in `MotionTable.jsx`, resolving persistent syntax errors and orphaned code blocks.
+- **Search Terminal Interface** — Rectified the icon/placeholder overlap and geometric misalignment in the main query node.
+- **Consensus Score Relocation** — Alignment Heatmap moved from Dashboard to the top of the Councillors page as a full-width 'Alignment Atlas'.
+- **UI De-cluttering** — Removed redundant "Intelligence" and "Scorecard" labels; standardized on high-density metric tags and 10px tracking-widest labels.
+- **Side Panels (Profile/Versus)** — Upgraded to 32px rounded floating panels with backdrop-blur and refined 40px internal padding.
+- **Status Badges** — Swapped for high-density semantic tags with 9px font and 0.1em tracking.
+- **Tailwind CSS missing utility classes** — Resolved issue where all platform-wide CSS was silently unapplied due to missing `@import "tailwindcss"`.
+- **Export UI Redundancy** — Purged redundant CSV download triggers and legacy `/export` routes from the global architecture.
+- **Navbar Telemetry** — Corrected status indicator clutter by removing legacy meeting date/count strings from the sticky nav.
+- **DashboardView Labels** — Removed "Live" and "Live Database" prefixes from metric cards.
+
+## [1.1.0] - 2026-04-02
+
+### Added
+- **Councillor attendance** — ProfilePanel now shows meeting day attendance (e.g. 68/71 days · 96%) derived from vote records. A councillor is counted as present on a given day if they cast at least one YES or NO vote. Score coloured green ≥90%, amber ≥75%, rose below.
+- **ContestBoard: flag filter pills** — second row of filter pills for Close Vote, Unanimous, Crushed, and Defeated. Pills are styled per flag type (rose, emerald, slate). Deselects on second click. Empty state message when no motions match.
+- **ContestBoard: mover byline** — motion mover now shown inline in each row on wider screens.
+- **MotionTable: topic badge** — coloured topic pill (Housing, Transit, Finance, Parks, Climate, General) now displayed inline before each motion title.
+- **Councillors page** (`/councillors`) — card grid of all 26 councillors showing attendance %, alignment score, vote count, and top topic. Click any card to open the existing ProfilePanel. Accessible from the top navbar.
+- **Navbar** — replaces the sidebar. Sticky top bar with logo and links: Councillors, Wards, Analytics, Export, Budget. Shows live motion count and latest meeting date.
+- **Dashboard: topic filter pills** — All · Housing · Transit · Finance · Parks · Climate · General filter pills replace the per-topic routes. Filtering is now in-page state; topic routes removed.
+- **Dashboard: All Motions / Notable toggle** — two-button toggle above the motion list switches between the full MotionTable and the ContestBoard (notable/significant motions). Replaces the `/contested` route.
+
+### Changed
+- **Routes simplified** — removed `/contested`, `/housing`, `/transit`, `/finance`, `/parks`, `/climate`, `/general`. "Reports" route renamed to `/analytics`, "Open Data" renamed to `/export`.
+- **ContestBoard** — topic filter pills removed (parent DashboardView handles topic filtering now). Flag filter pills remain.
+- **Layout** — sidebar replaced by Navbar; main content now full-width centered at max 1400px.
+- **AlignmentHeatmap: score-coloured cards** — councillor cards now use a 4-tier colour scheme (green ≥85%, blue 70–84%, amber 55–69%, rose <55%) for both the card background/border and the score bar. Bars increased from 6px to 8px height for legibility.
+- **ContestBoard: live result count** — subtitle now shows the actual filtered count instead of hardcoded "TOP 50".
+- **ContestBoard: top-3 rank colouring** — #1 rank shown in amber, #2 in silver, #3 in bronze.
+- **MotionTable: flag badges** — moved flag badges (Minor, Close, Crushed, Unanimous) below the title text to reduce horizontal clutter.
+
+### Docs
+- **Roadmap restructured** — `ROADMAP.md` is now an index linking to three sub-roadmaps: `ROADMAP_PRODUCT.md` (features & UX), `ROADMAP_DATA.md` (pipelines & new sources), and `ROADMAP_TECHNICAL.md` (bugs & code quality). Populated with actionable items from the current codebase audit.
+
+### Fixed
+- **Sidebar logo underline** — `text-decoration: none` added to `.logo`; the site title was rendering as an underlined link.
+- **"TRIVIALITY SCORE" card renamed to AGENDA BREAKDOWN** — replaced the opaque "42% Focus on Core" metric with a plain count ("423 of 717 motions were substantive"), a split bar, and a two-item legend showing substantive vs procedural/minor counts.
+- **Layout header clutter** — removed "Live Analytics Engine" indicator, sparkle icon on page titles, "Export Insights" button, and "Reset View" button.
+
+## [1.0.0] - 2026-04-02
+
+### Added
+- **WardGrid: dynamic highest-activity card** — top 2 wards by motion count now computed from real data; was hardcoded to Ward 15/13.
+- **VersusOverlay: full topic badge coverage** — topic pills now style all 6 topics (Housing, Transit, Finance, Parks, Climate, General); previously only Housing and Transit had distinct colours.
+- **VersusOverlay: slide-in panel CSS** — `.versus-overlay` styles were completely missing from index.css, causing the panel to never appear. Added fixed-position panel with slide-in transition matching the Profile panel.
+- **DataModule: pagination** — table now renders 100 rows at a time with "Show more"; previously all 717 motions rendered at once.
+- **App.css cleanup** — removed conflicting Vite template defaults (`.card`, `.logo`) that were overriding index.css styles.
+- **Budget Translator overhaul** — expanded from 3 to 14 departments covering ~80% of the $18.8B operating budget. Each department includes 4 real-world translation stats with context.
+- **Budget Translator: spending breakdown chart** — horizontal bar chart ranking all departments by allocation with a tooltip showing per-resident cost. Remaining uncategorized budget shown as "All Other Services."
+- **Budget Translator: accordion cards** — department cards now collapse/expand on click. Gross vs. net budget shown where applicable.
+- **Vercel deployment config** — added `vercel.json` with explicit Vite framework, build command, output directory, and SPA rewrite rule.
+- **MotionTable filtering** — Filter button opens an inline filter bar with text search, status dropdown, and "Hide minor items" checkbox.
+- **Scorecard: real Efficiency metric** — replaced hardcoded 92% with a live calculation.
+- **Scorecard: dynamic Session Summary** — replaced static AI copy with a generated paragraph drawn from real data.
+- **Data Module** — new `/data` route with a searchable, full-dataset table and a Download CSV button.
+- **Vote column in MotionTable** — each motion row now shows a live YES–NO count.
+- **VersusOverlay: real DNA bars** — "Voter DNA" bars now compute YES% from actual vote records.
+- **Toronto Open Data pipeline** — new `scripts/import_open_data.js` downloads the City Council voting record CSV from Toronto Open Data (2022–2026 term, ~40k vote records, 717 agenda items) and converts it to `motions.json`. Replaces the 5-item TMMIS scraper output with the full term's data. Supports `--term=` flag for historical terms back to 2006.
+- **Climate topic** — added Climate as a distinct topic category with teal pill styling.
+- **Significance score** — each motion now has a `significance` field (0–100) computed from five signals: vote margin, outcome, motion complexity, multi-day, and time spent.
+- **Motion flags** — each motion now carries a `flags` array: `close-vote`, `defeated`, `unanimous`, `landslide-defeat`, all gated on significance ≥ 25.
+- **Flag badges in MotionTable** — Close, Unanimous, and Crushed badges render inline next to the motion title.
+- **MotionTable pagination** — renders 50 rows at a time with a "Show more" button.
+- **MotionTable: Notable filter + significance sort** — new "Notable only" checkbox and "Sort: Most Significant" option.
+- **AlignmentHeatmap: data-derived councillor list** — no longer uses a hardcoded constant. Derives all councillors with ≥5 recorded votes from the motions data.
+- **ProfilePanel rewrite** — voting DNA covers all 6 topics with vote counts. Notable votes sorted by significance score, top 20. Vote count shown in panel header.
+- **ProfilePanel: ABSENT vote styling** — absent votes now render amber.
+- **Most Contested view** (`/contested`) — ranked list of top 50 non-trivial motions by significance score.
+- **Topic routes expanded** — added `/finance`, `/parks`, `/climate`, `/general` routes.
+- **Sidebar overhaul** — adds Most Contested, Finance, Parks, Climate nav links; status widget shows live motion count and latest meeting date.
+- **CouncillorList** — 25-councillor card grid with alignment % and attendance % bars, search, compare mode.
+- **ProfilePanel** — slide-in panel showing voting DNA, most-aligned peers, top notable votes, topic filter pills, attendance stats.
+- **VersusOverlay** — slide-in split panel showing alignment score, YES/NO DNA bars, divergent motions list.
+- **WardGrid** — 25-ward card grid with motion counts, councillor names, "Find my ward" geolocation.
+- **MotionDetail** — dedicated page at `/motions/:id` with full vote breakdown, back navigation.
+- **MotionDetail: external link + committee + significance label** — each motion detail page now shows a "View on toronto.ca" link, committee name, and tiered significance label.
+- **CommitteesView** — new page at `/committees` listing all 15 committees. Each card shows total motions, adoption rate bar, substantive count, and top topics.
+- **Committee badge on motion rows** — `getCommittee(id)` utility derives committee name from motion ID prefix.
+- **COMMITTEE_NAMES mapping + `getCommittee()`** — added to `constants/data.js` with 15 committee code → full name entries.
+- **Scorecard** — ranked leaderboard of all 26 councillors at `/analytics`. Sortable by attendance, majority alignment, yes rate, or votes cast.
+
+### Changed
+- **Dashboard motions list** — replaced the date-grouped meeting accordion with a flat list sorted by significance.
+- **Dashboard stat card** — "Motions" card now shows the count from the most recent meeting date.
+- **Significance labels** — replaced raw score display with tiered labels: "High Impact" (90+) and "Notable" (60–89).
+- **Navbar** — removed redundant "Dashboard" tab. Removed "717 motions" live pill. Added "Committees" tab.
+- **Full clean rebuild** — moved project to `/Users/ryan/Desktop/Production/Motions`, rewrote entire frontend. Tailwind v4, React 19 + Vite 7, `framer-motion`, `react-router-dom` v7. Zero mock data.
+
+## [0.4.0] - 2026-02-28
+
+### Added
+- **Routing**: Implemented `react-router-dom` for robust structural navigation, enabling deep-linking to dedicated views (Dashboard, Wards, Reports).
+- **Custom Hooks**: Abstracted static JSON data fetching into a modular `useMotions` React hook for centralized state management.
+
+### Changed
+- **Documentation**: Refactored `CONTRIBUTING.md` to be more concise and direct.
+- **Architectural Modularity**: Extracted monolithic `App.jsx` layout into discrete `Layout` and `DashboardView` components.
+- **Business Logic Decoupling**: Migrated complex data analytics from inline React components to a dedicated `src/utils/analytics.js` service.
+
+## [0.3.0] - 2026-02-25
+
+### Added
+- **Ward Legislative Footprint**: New `Ward Impact` view to visualize motion concentration across Toronto's 25 wards.
+- **Geographic Data Model**: Defined exhaustive Toronto ward constants (`wards.js`) and neighborhood keyword mapping for automatic geolocation.
+- **Autonomous Scraper Intelligence**: Fully overhauled `fetch_motions.js` with automatic voting table parsing, neighborhood-to-ward resolution, and enhanced triviality logic.
+- **Session Monitoring UI**: Integrated real-time indicators for "Meeting 37" and "Meeting 38".
+- **Automated Workflow**: Created a standardized `.agents/workflows/add-data.md` for non-technical data updates.
+
+### Changed
+- **Data Fidelity**: Replaced mock data with real-world February 2026 council records.
+- **Triviality Engine**: Replaced character-length heuristics with a keyword-based impact vs. routine classifier.
+- **UI Navigation**: Integrated Ward Impact into the sidebar.
+- **Project Structure**: Formalized project lifecycle with `LICENSE`, `SECURITY.md`, and `CONTRIBUTING.md`.
+
+## [0.2.0] - 2026-02-13
+
+### Added
+- **Dynamic Data Architecture**: Fully decoupled frontend from hardcoded data; motions are now fetched from `public/data/motions.json`.
+- **Scorecard (Reports View)**: Comprehensive session performance analytics including Triviality Index and Top Dissenters.
+- **Versus Mode**: Real-time councillor comparison logic based on actual voting records.
+- **Voting DNA Profiles**: Data-driven profiles for each councillor showing support percentages across key categories.
+- **TMMIS Scraper Persistence**: Updated `fetch_motions.js` to automatically persist data to the JSON store.
+
+### Changed
+- Refactored `App.jsx` to support async data loading and prop-driven state.
+- Enhanced `AlignmentHeatmap` to calculate alignment based on consensus math.
+- Updated `Sidebar` with active TMMIS sync status.
+
+### Fixed
+- Resolved multiple JSX syntax and linting errors.
+- Fixed broken mover/seconder extraction in the scraping utility.
+
+## [0.1.0] - 2026-02-10
+- Initial prototype release.
+- Static dashboard layout with mock data.

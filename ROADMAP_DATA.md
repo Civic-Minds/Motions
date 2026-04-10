@@ -4,8 +4,9 @@ Pipeline improvements, new data sources, and data quality.
 
 ## New Sources
 
-- [ ] **Committee & board memberships** — surface which committees, boards, and panels each councillor sits on. Toronto Open Data has no feed for this. Best approach: a term-start scraper against the city's [Committees, Boards & Panels](https://www.toronto.ca/city-government/council/committees-other-bodies/) pages generating `public/data/committees.json`. Updated once per term (~every 4 years).
-- [ ] **Multi-city support** — expand data pipelines beyond Toronto's TMMIS to support other Canadian municipalities with Open Data portals (Ottawa, Vancouver, etc.).
+- [ ] **Advisory committee full votes** — the Open Data CSV only records City Councillors. Advisory committee votes include community appointees whose votes appear on toronto.ca agenda item pages but not in the CSV. A targeted scraper per item could fill this gap.
+- [ ] **Committee & board memberships** — Toronto Open Data has no feed for official committee assignments. Best approach: a term-start scraper against the city's [Committees, Boards & Panels](https://www.toronto.ca/city-government/council/committees-other-bodies/) pages generating `public/data/committees.json`. Updated once per term (~every 4 years).
+- [ ] **Multi-city support** — expand data pipelines to other Canadian municipalities with Open Data portals (Ottawa, Vancouver, etc.).
 
 ## Pipeline
 

@@ -2,6 +2,16 @@
 
 Features, views, and UX improvements.
 
+## Motion Pages & Detail
+
+- [x] **Motion full-page view** — dedicated `/motions/:id` pages with vote bar, YES/NO split layout, collapsible sub-votes, and shareable URLs. Replaced modal overlay in v2.0.0.
+- [x] **Multi-vote agenda items** — items with multiple distinct votes (e.g. Waive Referral + Adopt Item) split into separate entries with a parentId link. Final adoption vote shown as primary.
+- [ ] **Plain-language summaries** — AI-generated blurb per motion, shown below the title. Could source from toronto.ca agenda item text or generate via Claude API.
+- [ ] **Advisory committee full breakdowns** — toronto.ca pages include community appointee votes not in the Open Data CSV. Scrape these to show complete YES/NO/ABSENT for advisory committees.
+- [ ] **Motion search by vote margin** — filter by close votes (≤5 margin), landslide wins, unanimous, etc.
+
+---
+
 ## Multi-City Expansion
 
 The long-term vision is to expand beyond Toronto — letting residents of any Canadian (and eventually North American) city see what their council is actually doing.
@@ -31,8 +41,9 @@ The long-term vision is to expand beyond Toronto — letting residents of any Ca
 
 ## Profiles & Comparison
 
-- [ ] **ProfilePanel: vote history controls** — add sort (by date / by significance) and filter (by topic, by outcome) to the Notable Votes list. Currently fixed to top 20 by significance.
-- [ ] **ProfilePanel: committee & board memberships** — surface which committees and boards each councillor sits on. See [Data Roadmap](ROADMAP_DATA.md) for sourcing approach.
+- [x] **Committees on councillor profiles** — committee membership pills derived from voting frequency. Clicking a committee navigates to that committee's page.
+- [ ] **Vote history controls** — add sort (by date / by significance) and filter (by topic, by outcome) to the vote history list on councillor profiles.
+- [ ] **Formal committee & board memberships** — surface official committee assignments per councillor. See [Data Roadmap](ROADMAP_DATA.md) for sourcing approach.
 - [ ] **VersusOverlay: no-data edge case** — currently shows "100% UNANIMOUS" when two councillors share no recorded votes. Should display a clear "not enough shared data" state instead.
 
 ## Views
