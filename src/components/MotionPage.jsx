@@ -272,6 +272,42 @@ export default function MotionPage({ motions = [] }) {
         </div>
       )}
 
+      {/* Dollar amounts */}
+      {motion.amounts?.length > 0 && (
+        <div className="flex items-center gap-3 bg-slate-50 border border-slate-200 rounded-xl px-5 py-3">
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide shrink-0">Funding</p>
+          <div className="flex flex-wrap gap-2">
+            {motion.amounts.map((amt, i) => (
+              <span key={i} className="text-sm font-semibold text-slate-800">
+                ${amt >= 1_000_000_000
+                  ? `${(amt / 1_000_000_000).toFixed(1)}B`
+                  : amt >= 1_000_000
+                  ? `${(amt / 1_000_000).toFixed(1)}M`
+                  : `${(amt / 1_000).toFixed(0)}K`}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Related motions */}
+      {motion.relatedMotions?.length > 0 && (
+        <div className="bg-slate-50 border border-slate-200 rounded-xl px-5 py-4">
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-2">Referenced Motions</p>
+          <div className="flex flex-wrap gap-2">
+            {motion.relatedMotions.map(id => (
+              <Link
+                key={id}
+                to={`/motions/${id}`}
+                className="text-xs font-mono font-medium text-[#004a99] bg-white border border-[#004a99]/20 px-2.5 py-1 rounded-lg hover:bg-[#004a99]/5 transition-colors"
+              >
+                {id}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Your councillor callout */}
       {myCouncillor && myVote && (
         <div className={cn(

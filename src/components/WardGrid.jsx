@@ -1,7 +1,8 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState, useEffect, lazy, Suspense } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowRight, ChevronLeft, MapPin } from 'lucide-react';
 import YourWardCard from './YourWardCard';
+const WardMotionMap = lazy(() => import('./WardMotionMap'));
 import { motion, AnimatePresence } from 'framer-motion';
 import { getWardActivityMetrics } from '../utils/analytics';
 import { WARD_COUNCILLORS, TOPIC_LIGHT } from '../constants/data';
@@ -98,7 +99,7 @@ export default function WardGrid({ motions }) {
       {!selectedWard ? (
         <>
           {/* Stats strip + Your Ward */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 items-stretch">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 items-stretch [&>*]:h-full">
             <div className="bg-white border border-slate-200 rounded-2xl p-4">
               <p className="text-xs text-slate-400 font-medium uppercase tracking-wide mb-1">Most Active</p>
               <p className="text-sm font-bold text-slate-900 truncate">W{topWard?.id} · {topWard?.name}</p>
@@ -225,6 +226,16 @@ export default function WardGrid({ motions }) {
                 </div>
               );
             })()}
+            {/* Map */}
+            {(selectedWardFeature || wardMotions.some(m => m.locations?.length)) && (
+              <Suspense fallback={<div className="w-full h-72 rounded-2xl bg-slate-100 animate-pulse" />}>
+                <WardMotionMap
+                  wardFeature={selectedWardFeature}
+                  motions={wardMotions}
+                />
+              </Suspense>
+            )}
+
             {wardMotions.length === 0 ? (
               <div className="text-center py-16 bg-white border border-dashed border-slate-200 rounded-2xl">
                 <p className="text-slate-400 text-sm">No ward-specific motions recorded.</p>
