@@ -1,7 +1,9 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, lazy, Suspense } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, AlertCircle } from 'lucide-react';
+
+const TorontoMiniMap = lazy(() => import('./TorontoMiniMap'));
+import { ArrowRight, AlertCircle, X } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { getCommittee, TOPIC_LIGHT, TOPIC_DOT, WARD_COUNCILLORS } from '../constants/data';
 import YourWardCard from './YourWardCard';
@@ -17,8 +19,14 @@ export default function DashboardView({ motions, councillors }) {
   const [showMyWard, setShowMyWard] = useState(false);
   const [showLastMeeting, setShowLastMeeting] = useState(false);
   const [showAll, setShowAll] = useState(false);
+  const [selectedYear, setSelectedYear] = useState('All');
 
-  const savedWardId = useMemo(() => { try { return localStorage.getItem('motions_ward_id'); } catch { return null; } }, []);
+  const savedWardId = useMemo(() => {
+    try {
+      const raw = localStorage.getItem('motions_ward_id');
+      return raw ? String(parseInt(raw, 10)) : null;
+    } catch { return null; }
+  }, []);
   const savedCouncillor = savedWardId ? WARD_COUNCILLORS[savedWardId] : null;
 
   const VOTE_TYPES = [
@@ -69,6 +77,13 @@ export default function DashboardView({ motions, councillors }) {
     return [...seen].sort();
   }, [primaryMotions]);
 
+  // Available years derived from motions
+  const years = useMemo(() => {
+    const seen = new Set();
+    primaryMotions.forEach(m => { const y = m.date?.match(/\d{4}/)?.[0]; if (y) seen.add(y); });
+    return [...seen].sort((a, b) => b - a);
+  }, [primaryMotions]);
+
   const sortedMotions = useMemo(() => {
     return [...primaryMotions]
       .filter(m => {
@@ -78,6 +93,7 @@ export default function DashboardView({ motions, councillors }) {
         if (showNotableOnly && m.significance < 60) return false;
         if (showMyWard && savedWardId && m.ward !== savedWardId) return false;
         if (showLastMeeting && lastMeeting.date && m.date !== lastMeeting.date) return false;
+        if (selectedYear !== 'All' && m.date?.match(/\d{4}/)?.[0] !== selectedYear) return false;
         return true;
       })
       .sort((a, b) => {
@@ -85,7 +101,7 @@ export default function DashboardView({ motions, councillors }) {
         if (dateDiff !== 0) return dateDiff;
         return (b.significance ?? 0) - (a.significance ?? 0);
       });
-  }, [primaryMotions, selectedTopic, selectedCommittee, voteType, showNotableOnly, showMyWard, savedWardId, showLastMeeting, lastMeeting.date]);
+  }, [primaryMotions, selectedTopic, selectedCommittee, voteType, showNotableOnly, showMyWard, savedWardId, showLastMeeting, lastMeeting.date, selectedYear]);
 
   const visibleMotions = showAll ? sortedMotions : sortedMotions.slice(0, 20);
 
@@ -188,61 +204,66 @@ export default function DashboardView({ motions, councillors }) {
       <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr_220px] lg:gap-x-3 lg:items-start gap-y-4">
 
         {/* Filter sidebar (desktop) */}
-        <div className="hidden lg:block sticky top-24">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-3 px-3">Filter</p>
-          <div className="space-y-0.5">
-            {['All', ...TOPICS].map(topic => (
-              <button
-                key={topic}
-                onClick={() => setSelectedTopic(topic)}
-                className={cn(
-                  "w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-medium text-left transition-all",
-                  selectedTopic === topic
-                    ? "bg-[#004a99] text-white"
-                    : "text-slate-600 hover:bg-slate-100"
-                )}
-              >
-                {topic !== 'All' && (
-                  <span className={cn(
-                    "w-2 h-2 rounded-full shrink-0",
-                    selectedTopic === topic ? 'bg-white/60' : TOPIC_DOT[topic]
-                  )} />
-                )}
-                {topic === 'All' ? 'All Topics' : topic}
-              </button>
-            ))}
+        <div className="hidden lg:block sticky top-24 bg-white border border-slate-200 rounded-2xl p-3 space-y-3">
+
+          {/* Topic */}
+          <div>
+            <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wide mb-1.5">Topic</p>
+            <div className="flex flex-wrap gap-1">
+              {['All', ...TOPICS].map(topic => (
+                <button
+                  key={topic}
+                  onClick={() => setSelectedTopic(topic)}
+                  className={cn(
+                    "flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium transition-all",
+                    selectedTopic === topic
+                      ? "bg-[#004a99] text-white"
+                      : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                  )}
+                >
+                  {topic !== 'All' && (
+                    <span className={cn("w-1.5 h-1.5 rounded-full shrink-0", selectedTopic === topic ? 'bg-white/60' : TOPIC_DOT[topic])} />
+                  )}
+                  {topic === 'All' ? 'All' : topic}
+                </button>
+              ))}
+            </div>
           </div>
-          <div className="mt-4 pt-4 border-t border-slate-200">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-2 px-3">Committee</p>
-            <div className="space-y-0.5 max-h-48 overflow-y-auto">
+
+          {/* Committee */}
+          <div className="pt-2.5 border-t border-slate-100">
+            <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wide mb-1.5">Committee</p>
+            <div className="flex flex-wrap gap-1">
               {['All', ...committees].map(c => (
                 <button
                   key={c}
                   onClick={() => setSelectedCommittee(c)}
                   className={cn(
-                    "w-full flex items-center px-3 py-2 rounded-xl text-sm font-medium text-left transition-all",
+                    "px-2 py-0.5 rounded-full text-[11px] font-medium transition-all",
                     selectedCommittee === c
                       ? "bg-[#004a99] text-white"
-                      : "text-slate-600 hover:bg-slate-100"
+                      : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                   )}
                 >
-                  {c === 'All' ? 'All Committees' : c}
+                  {c === 'All' ? 'All' : c}
                 </button>
               ))}
             </div>
           </div>
-          <div className="mt-4 pt-4 border-t border-slate-200">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-2 px-3">Vote Type</p>
-            <div className="space-y-0.5">
+
+          {/* Vote Type */}
+          <div className="pt-2.5 border-t border-slate-100">
+            <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wide mb-1.5">Vote Type</p>
+            <div className="flex flex-wrap gap-1">
               {VOTE_TYPES.map(({ label, value }) => (
                 <button
                   key={value}
                   onClick={() => setVoteType(value)}
                   className={cn(
-                    "w-full flex items-center px-3 py-2 rounded-xl text-sm font-medium text-left transition-all",
+                    "px-2 py-0.5 rounded-full text-[11px] font-medium transition-all",
                     voteType === value
                       ? "bg-[#004a99] text-white"
-                      : "text-slate-600 hover:bg-slate-100"
+                      : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                   )}
                 >
                   {label}
@@ -250,39 +271,76 @@ export default function DashboardView({ motions, councillors }) {
               ))}
             </div>
           </div>
-          <div className="mt-4 pt-4 border-t border-slate-200">
+
+          {/* Year */}
+          <div className="pt-2.5 border-t border-slate-100">
+            <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wide mb-1.5">Year</p>
+            <div className="flex flex-wrap gap-1">
+              {['All', ...years].map(y => (
+                <button
+                  key={y}
+                  onClick={() => setSelectedYear(y)}
+                  className={cn(
+                    "px-2 py-0.5 rounded-full text-[11px] font-medium transition-all",
+                    selectedYear === y
+                      ? "bg-[#004a99] text-white"
+                      : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                  )}
+                >
+                  {y === 'All' ? 'All' : y}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Toggles */}
+          <div className="pt-2.5 border-t border-slate-100 flex flex-wrap gap-1">
             <button
               onClick={() => setShowNotableOnly(s => !s)}
               className={cn(
-                "w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-all",
+                "flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium transition-all",
                 showNotableOnly
-                  ? "bg-amber-50 text-amber-700 border border-amber-200"
-                  : "text-slate-500 hover:bg-slate-100"
+                  ? "bg-amber-100 text-amber-700"
+                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
               )}
             >
-              <AlertCircle className="w-4 h-4 shrink-0" />
-              Notable only
+              <AlertCircle className="w-3 h-3 shrink-0" /> Notable
             </button>
-          </div>
-          {savedCouncillor && (
-            <div className="mt-4 pt-4 border-t border-slate-200">
+            {savedCouncillor && (
               <button
                 onClick={() => setShowMyWard(s => !s)}
                 className={cn(
-                  "w-full flex flex-col items-start gap-0.5 px-3 py-2 rounded-xl text-sm font-medium transition-all",
+                  "px-2 py-0.5 rounded-full text-[11px] font-medium transition-all",
                   showMyWard
                     ? "bg-[#004a99] text-white"
-                    : "text-slate-600 hover:bg-slate-100"
+                    : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                 )}
               >
-                <span>Your Ward</span>
-                <span className={cn("text-[10px] font-normal", showMyWard ? "text-white/70" : "text-slate-400")}>
-                  {savedCouncillor}
-                </span>
+                My Ward
               </button>
-            </div>
-          )}
-          <p className="text-[10px] text-slate-400 mt-3 px-3">{sortedMotions.length} motions</p>
+            )}
+          </div>
+
+          {/* Footer */}
+          <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
+            <p className="text-[10px] text-slate-400">{sortedMotions.length} motions</p>
+            {(selectedTopic !== 'All' || selectedCommittee !== 'All' || voteType !== 'All' || selectedYear !== 'All' || showNotableOnly || showMyWard || showLastMeeting) && (
+              <button
+                onClick={() => {
+                  setSelectedTopic('All');
+                  setSelectedCommittee('All');
+                  setVoteType('All');
+                  setSelectedYear('All');
+                  setShowNotableOnly(false);
+                  setShowMyWard(false);
+                  setShowLastMeeting(false);
+                }}
+                className="flex items-center gap-1 text-[10px] font-medium text-slate-400 hover:text-slate-700 transition-colors"
+              >
+                <X className="w-3 h-3" /> Clear
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Motion list */}
@@ -335,6 +393,20 @@ export default function DashboardView({ motions, councillors }) {
                 {c}
               </button>
             ))}
+            {years.map(y => (
+              <button
+                key={y}
+                onClick={() => setSelectedYear(v => v === y ? 'All' : y)}
+                className={cn(
+                  "px-3 py-1.5 rounded-full text-sm font-medium border transition-all",
+                  selectedYear === y
+                    ? "bg-[#004a99] text-white border-[#004a99]"
+                    : "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100"
+                )}
+              >
+                {y}
+              </button>
+            ))}
             <button
               onClick={() => setShowNotableOnly(s => !s)}
               className={cn(
@@ -359,6 +431,9 @@ export default function DashboardView({ motions, councillors }) {
                   <div className={cn("w-1 self-stretch rounded-full shrink-0", m.status === 'Adopted' ? 'bg-emerald-400' : 'bg-rose-400')} />
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-2 leading-snug">{m.title}</p>
+                    {m.summary && (
+                      <p className="text-xs text-slate-500 line-clamp-2 mt-1 leading-snug">{m.summary}</p>
+                    )}
                     <div className="flex items-center gap-2 mt-2 flex-wrap">
                       <span className={cn("text-xs font-semibold px-2 py-0.5 rounded-full", m.status === 'Adopted' ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-700')}>{m.status}</span>
                       <span className={cn("text-xs px-2 py-0.5 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>{m.topic}</span>
@@ -390,8 +465,12 @@ export default function DashboardView({ motions, councillors }) {
           </div>
         </div>
 
-        {/* Spacer — keeps motion list width matching Notable above */}
-        <div className="hidden lg:block" />
+        {/* Toronto mini-map — click navigates to /wards */}
+        <div className="hidden lg:flex flex-col sticky top-24">
+          <Suspense fallback={<div className="rounded-2xl bg-slate-100 animate-pulse flex-1 min-h-[420px]" />}>
+            <TorontoMiniMap motions={motions} />
+          </Suspense>
+        </div>
 
       </div>
 

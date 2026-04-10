@@ -7,6 +7,13 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for pre-2.0.0 history.
 ## [Unreleased]
 
 - **Clickable bento cards** — Last Meeting card toggles the motion list to that meeting's motions; Your Ward card navigates to the ward detail page.
+- **Year filter** — sidebar filter (desktop) lets users narrow the motion list to a specific year (2022–2026). Derived dynamically from loaded motions.
+- **Summary snippets in motion list** — if a motion has a plain-language `summary`, a two-line excerpt is shown below the title in the list card.
+- **Global search includes summaries** — `summary` field now included in search index. Summary-only matches show a highlighted one-line excerpt below the title. Title matches still rank above summary matches.
+- **Clear filters button** — appears in the desktop sidebar when any filter is active. Resets topic, committee, vote type, year, notable-only, your-ward, and last-meeting filters in one click.
+- **Summary snippets on councillor profiles** — vote history rows now show a two-line plain-language excerpt when a summary exists, matching the dashboard treatment.
+- **Mobile year filter** — year pills added to the mobile filter pill row, consistent with the desktop sidebar.
+- **Toronto mini-map on homepage** — `TorontoMiniMap.jsx` fills the empty right column of the motion list grid. Shows all 25 ward boundaries + 218 geocoded motion pins (green = Adopted, red = Lost). All Leaflet interaction disabled; clicking anywhere navigates to `/wards`. Lazy-loaded, shares the Leaflet chunk with WardMotionMap.
 
 ## [2.1.0] - 2026-04-10
 

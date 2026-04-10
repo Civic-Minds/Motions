@@ -57,10 +57,11 @@ export default function GlobalSearch({ motions, councillorNames, open, onClose }
         m.title?.toLowerCase().includes(q) ||
         m.topic?.toLowerCase().includes(q) ||
         m.mover?.toLowerCase().includes(q) ||
-        m.id?.toLowerCase().includes(q)
+        m.id?.toLowerCase().includes(q) ||
+        m.summary?.toLowerCase().includes(q)
       ))
       .sort((a, b) => {
-        // Title matches rank higher
+        // Title matches rank higher than summary-only matches
         const aTitle = a.title?.toLowerCase().includes(q);
         const bTitle = b.title?.toLowerCase().includes(q);
         if (aTitle && !bTitle) return -1;
@@ -214,6 +215,11 @@ export default function GlobalSearch({ motions, councillorNames, open, onClose }
                               <p className="text-sm font-medium text-slate-800 line-clamp-2 leading-snug">
                                 {highlight(m.title, query)}
                               </p>
+                              {m.summary && !m.title?.toLowerCase().includes(query.trim().toLowerCase()) && (
+                                <p className="text-xs text-slate-500 line-clamp-1 mt-0.5 leading-snug">
+                                  {highlight(m.summary, query)}
+                                </p>
+                              )}
                               <div className="flex items-center gap-1.5 mt-1">
                                 {m.topic && (
                                   <span className={cn("text-[10px] font-medium px-1.5 py-0.5 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>

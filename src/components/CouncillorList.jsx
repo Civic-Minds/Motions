@@ -30,7 +30,7 @@ export default function CouncillorList({ motions, councillors: contactData = [] 
   const { slug, slug2 } = useParams();
   const navigate = useNavigate();
 
-  const myWardId = (() => { try { return localStorage.getItem('motions_ward_id'); } catch { return null; } })();
+  const myWardId = (() => { try { return (() => { const r = localStorage.getItem('motions_ward_id'); return r ? String(parseInt(r, 10)) : null; })(); } catch { return null; } })();
   const myCouncillor = myWardId ? WARD_COUNCILLORS[myWardId] : null;
 
   const councillors = useMemo(() => {
@@ -83,7 +83,6 @@ export default function CouncillorList({ motions, councillors: contactData = [] 
 
   const openVersus = (n1, n2) => {
     setVersusSelection([n1, n2]);
-    setSelectedProfile(null);
     navigate(`/councillors/${nameToSlug(n1)}/vs/${nameToSlug(n2)}`);
   };
 

@@ -25,8 +25,9 @@ export default function YourWardCard({ motions }) {
     } catch {}
   }, [wardId]);
 
-  const ward = TORONTO_WARDS.find(w => w.id === wardId);
-  const councillorName = wardId ? WARD_COUNCILLORS[wardId] : null;
+  const normalizedWardId = wardId ? String(parseInt(wardId, 10)) : null;
+  const ward = TORONTO_WARDS.find(w => w.id === wardId || w.id === normalizedWardId);
+  const councillorName = normalizedWardId ? WARD_COUNCILLORS[normalizedWardId] : null;
 
 
   const handleLocate = async () => {
@@ -87,16 +88,16 @@ export default function YourWardCard({ motions }) {
       <motion.button
         initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
-        onClick={() => navigate(`/wards/${wardId}`)}
+        onClick={() => navigate(`/wards/${normalizedWardId ?? wardId}`)}
         className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col gap-3 h-full w-full text-left hover:border-[#004a99]/40 hover:shadow-sm transition-all"
       >
         {/* Header */}
         <div className="flex flex-col gap-1 flex-1">
-          <p className="text-xs font-semibold text-slate-800 leading-snug">
+          <p className="text-[10px] text-slate-400 leading-snug">
             Ward {wardId}{ward ? ` · ${ward.name}` : ''}
           </p>
           {councillorName && (
-            <p className="text-[9px] text-slate-500">{councillorName}</p>
+            <p className="text-sm font-semibold text-slate-800 leading-snug">{councillorName}</p>
           )}
         </div>
         <div className="flex items-center justify-between mt-auto">

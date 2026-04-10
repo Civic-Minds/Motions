@@ -211,7 +211,7 @@ export default function MotionPage({ motions = [] }) {
   const committee = motion.committee || getCommittee(motion.id);
   const isMultiVote = subEntries.length > 0;
 
-  const myWardId = useMemo(() => { try { return localStorage.getItem('motions_ward_id'); } catch { return null; } }, []);
+  const myWardId = useMemo(() => { try { return (() => { const r = localStorage.getItem('motions_ward_id'); return r ? String(parseInt(r, 10)) : null; })(); } catch { return null; } }, []);
   const myCouncillor = myWardId ? WARD_COUNCILLORS[myWardId] : null;
   const myVote = myCouncillor ? (motion.votes?.[myCouncillor] ?? null) : null;
 

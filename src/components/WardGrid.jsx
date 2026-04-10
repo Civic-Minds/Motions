@@ -52,7 +52,7 @@ export default function WardGrid({ motions }) {
   const wardActivity = useMemo(() => getWardActivityMetrics(motions), [motions]);
   const topWard = [...wardActivity].sort((a, b) => b.count - a.count)[0];
 
-  const foundWardId = (() => { try { return localStorage.getItem('motions_ward_id'); } catch { return null; } })();
+  const foundWardId = (() => { try { return (() => { const r = localStorage.getItem('motions_ward_id'); return r ? String(parseInt(r, 10)) : null; })(); } catch { return null; } })();
   const [geoData, setGeoData] = useState(null);
 
   const selectedWard = wardIdParam

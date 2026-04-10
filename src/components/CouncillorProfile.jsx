@@ -4,7 +4,7 @@ import { GitCompare, Mail, Phone } from 'lucide-react';
 import VsPickerModal from './VsPickerModal';
 import { motion } from 'framer-motion';
 import { getAttendance, getVotedWith } from '../utils/analytics';
-import { TOPIC_PILL, TOPIC_LIGHT, WARD_COUNCILLORS, FORMER_MEMBERS, getCommittee } from '../constants/data';
+import { TOPIC_LIGHT, WARD_COUNCILLORS, FORMER_MEMBERS, getCommittee } from '../constants/data';
 import { TORONTO_WARDS } from '../constants/wards';
 import { nameToSlug, slugToName } from '../utils/slug';
 import { cn } from '../lib/utils';
@@ -111,6 +111,9 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
     [allNames, selected]);
 
 
+  const myWardId = (() => { try { return (() => { const r = localStorage.getItem('motions_ward_id'); return r ? String(parseInt(r, 10)) : null; })(); } catch { return null; } })();
+  const myCouncillor = myWardId ? WARD_COUNCILLORS[myWardId] : null;
+
   if (!selected && allNames.length > 0) {
     navigate('/councillors', { replace: true });
     return null;
@@ -123,11 +126,19 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
   const yesCount = voteHistory.filter(m => m.votes[selected] === 'YES').length;
   const noCount = voteHistory.filter(m => m.votes[selected] === 'NO').length;
   const yesRate = voteHistory.length > 0 ? Math.round((yesCount / voteHistory.length) * 100) : null;
+  const isMyCouncillor = myCouncillor === selected;
 
   return (
     <div className="pb-20">
 
-
+      {/* Back */}
+      <button
+        onClick={() => navigate(-1)}
+        className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-700 transition-colors mb-6"
+      >
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7"/></svg>
+        Back
+      </button>
 
       {/* Former member notice */}
       {FORMER_MEMBERS[selected] && (
@@ -150,14 +161,21 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
             <span className="text-white font-bold text-2xl hidden w-full h-full items-center justify-center">{initials}</span>
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-slate-900 leading-tight">{selected}</h1>
+            <div className="flex items-center gap-2.5 flex-wrap">
+              <h1 className="text-2xl font-bold text-slate-900 leading-tight">{selected}</h1>
+              {isMyCouncillor && (
+                <span className="text-[10px] font-bold bg-[#004a99] text-white px-2.5 py-0.5 rounded-full whitespace-nowrap">
+                  Your Councillor
+                </span>
+              )}
+            </div>
             <p className="text-sm text-slate-400 mt-0.5">
               {ward ? `Ward ${ward.id} · ${ward.name}` : 'Toronto City Council'}
             </p>
 
             {/* Stats strip */}
             {attendance && (
-              <div className="flex items-center gap-5 mt-3">
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-2 mt-3">
                 <div>
                   <span className="text-lg font-black text-slate-800">{totalVotes}</span>
                   <span className="text-xs text-slate-400 ml-1.5">votes</span>
@@ -424,6 +442,9 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
                     <p className="text-sm font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors leading-snug line-clamp-2">
                       {m.title}
                     </p>
+                    {m.summary && (
+                      <p className="text-xs text-slate-500 line-clamp-2 mt-1 leading-snug">{m.summary}</p>
+                    )}
                     <div className="flex items-center gap-2 mt-2 flex-wrap">
                       <span className={cn(
                         "text-[10px] font-bold px-2 py-0.5 rounded-full",
