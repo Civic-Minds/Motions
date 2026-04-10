@@ -33,6 +33,11 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for pre-2.0.0 history.
 ### Fixed
 - **Ward keyword coverage** — added geographic keywords for the 7 previously uncovered wards (6 York Centre, 7 Humber River–Black Creek, 17 Don Valley North, 20 Scarborough Southwest, 21 Scarborough Centre, 22 Scarborough–Agincourt, 24 Scarborough–Guildwood) in `import_open_data.js`. Previously 93.8% of motions fell through to "City".
 
+### Added
+- **Interactive map on ward detail pages** — `WardMotionMap.jsx` uses react-leaflet + OpenStreetMap tiles. Shows ward boundary (from GeoJSON) and coloured pins for motions with address data (green = Adopted, red = Lost). Click a pin to open the motion page. Lazy-loaded so it doesn't affect the main bundle.
+- **Referenced motions on motion pages** — when `relatedMotions[]` is present, motion pages show linked pills for each cross-referenced motion ID.
+- **Funding amounts on motion pages** — when `amounts[]` is present, a Funding strip shows normalized dollar values (e.g. $299.4M).
+
 ### Removed
 - **Dead component files** — deleted `MotionDetail.jsx`, `MotionPanel.jsx`, `ProfilePanel.jsx`, and `Scorecard.jsx`; all four were superseded and had no remaining imports.
 - **`scripts/fetch_motions.js`** — old import script using CKAN API and different status vocabulary. Superseded by `import_open_data.js`.
