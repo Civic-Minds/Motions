@@ -4,8 +4,9 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
-## [Unreleased]
+## [2.3.0] - 2026-04-13
 
+### Added
 - **Upcoming meetings strip** — "Coming Up" section on the dashboard shows the next 10 meetings (next 90 days, major committees only) as horizontal scrollable cards. City Council meetings are highlighted in blue. Powered by a new `fetch_meetings.js` script pulling from Toronto Open Data's meeting schedule CSV. `meetings.json` is now fetched on app load alongside `motions.json` and committed daily by GitHub Actions.
 
 ## [2.2.0] - 2026-04-13
