@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
-import { getCommittee, COMMITTEE_NAMES, TOPIC_LIGHT } from '../constants/data';
+import { ArrowRight, Star } from 'lucide-react';
+import { getCommittee, COMMITTEE_NAMES, TOPIC_LIGHT, COMMITTEE_DESCRIPTIONS } from '../constants/data';
 import { nameToSlug } from '../utils/slug';
 import { cn } from '../lib/utils';
 
@@ -10,7 +10,7 @@ function committeeToSlug(name) {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 }
 
-export default function CommitteesView({ motions }) {
+export default function CommitteesView({ motions, followedCommittees = [], onToggleFollow }) {
   const { committeeSlug } = useParams();
   const navigate = useNavigate();
 
@@ -65,9 +65,16 @@ export default function CommitteesView({ motions }) {
           topTopics,
           latest,
           members,
+          description: COMMITTEE_DESCRIPTIONS[c.name] ?? 'A committee focused on specific city mandates and legislative review.',
         };
       })
-      .sort((a, b) => b.total - a.total);
+      .sort((a, b) => {
+        const aFollowed = followedCommittees.includes(a.name);
+        const bFollowed = followedCommittees.includes(b.name);
+        if (aFollowed && !bFollowed) return -1;
+        if (!aFollowed && bFollowed) return 1;
+        return b.total - a.total;
+      });
   }, [motions]);
 
   const selectedCommittee = committeeSlug
@@ -84,7 +91,26 @@ export default function CommitteesView({ motions }) {
     <div className="space-y-6">
 
       {selectedCommittee && (
-        <h1 className="text-2xl font-bold text-slate-900">{selectedCommittee.name}</h1>
+        <div className="space-y-4">
+          <div className="flex items-center justify-between gap-4">
+            <h1 className="text-2xl font-bold text-slate-900">{selectedCommittee.name}</h1>
+            <button
+              onClick={() => onToggleFollow(selectedCommittee.name)}
+              className={cn(
+                "flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all border",
+                followedCommittees.includes(selectedCommittee.name)
+                  ? "bg-amber-50 border-amber-200 text-amber-700 shadow-sm"
+                  : "bg-white border-slate-200 text-slate-600 hover:border-slate-300"
+              )}
+            >
+              <Star className={cn("w-4 h-4", followedCommittees.includes(selectedCommittee.name) && "fill-current text-amber-500")} />
+              {followedCommittees.includes(selectedCommittee.name) ? 'Following' : 'Follow Committee'}
+            </button>
+          </div>
+          <p className="text-sm text-slate-500 max-w-2xl leading-relaxed">
+            {selectedCommittee.description}
+          </p>
+        </div>
       )}
 
       {!selectedCommittee ? (
@@ -103,8 +129,25 @@ export default function CommitteesView({ motions }) {
                 <p className="font-semibold text-slate-900 text-sm leading-snug group-hover:text-[#004a99] transition-colors">
                   {c.name}
                 </p>
-                <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-[#004a99] shrink-0 mt-0.5 transition-colors" />
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={(e) => { e.stopPropagation(); onToggleFollow(c.name); }}
+                    className={cn(
+                      "p-1.5 rounded-lg transition-colors border",
+                      followedCommittees.includes(c.name)
+                        ? "bg-amber-50 border-amber-200 text-amber-500"
+                        : "bg-slate-50 border-slate-100 text-slate-300 hover:text-slate-500"
+                    )}
+                  >
+                    <Star className={cn("w-3.5 h-3.5", followedCommittees.includes(c.name) && "fill-current")} />
+                  </button>
+                  <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-[#004a99] shrink-0 transition-colors" />
+                </div>
               </div>
+
+              <p className="mt-2 text-[11px] text-slate-400 line-clamp-2 leading-normal">
+                {c.description}
+              </p>
 
               <div className="mt-4 flex items-baseline gap-2">
                 <span className="text-4xl font-black text-slate-900 leading-none">{c.total}</span>

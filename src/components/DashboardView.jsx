@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect, lazy, Suspense } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, AlertCircle, X, Search } from 'lucide-react';
+import { ArrowRight, AlertCircle, X, Search, Star, Calendar } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { getCommittee, TOPIC_LIGHT, TOPIC_DOT, WARD_COUNCILLORS } from '../constants/data';
 import { getWardId } from '../utils/storage';
@@ -11,7 +11,7 @@ const TorontoMiniMap = lazy(() => import('./TorontoMiniMap'));
 
 const TOPICS = ['Housing', 'Transit', 'Finance', 'Parks', 'Climate', 'General'];
 
-export default function DashboardView({ motions, councillors, meetings = [] }) {
+export default function DashboardView({ motions, councillors, meetings = [], followedCommittees = [] }) {
   const navigate = useNavigate();
   const [selectedTopic, setSelectedTopic] = useState('All');
   const [selectedCommittee, setSelectedCommittee] = useState('All');
@@ -19,6 +19,7 @@ export default function DashboardView({ motions, councillors, meetings = [] }) {
   const [showNotableOnly, setShowNotableOnly] = useState(false);
   const [showMyWard, setShowMyWard] = useState(false);
   const [showLastMeeting, setShowLastMeeting] = useState(false);
+  const [showFollowingOnly, setShowFollowingOnly] = useState(false);
   const [visibleCount, setVisibleCount] = useState(20);
   const [selectedYear, setSelectedYear] = useState('All');
   const [committeeSearch, setCommitteeSearch] = useState('');
@@ -39,17 +40,25 @@ export default function DashboardView({ motions, councillors, meetings = [] }) {
   const primaryMotions = useMemo(() => motions.filter(m => !m.parentId), [motions]);
 
   const adoptedCount = primaryMotions.filter(m => m.status === 'Adopted').length;
-  const substantiveCount = primaryMotions.filter(m => !m.trivial).length;
   const adoptionRate = primaryMotions.length > 0 ? Math.round((adoptedCount / primaryMotions.length) * 100) : 0;
 
+  // 1. Calculate the Last Meeting first
   const lastMeeting = useMemo(() => {
-    const dates = [...new Set(primaryMotions.map(m => m.date))].sort((a, b) => new Date(b) - new Date(a));
+    const motionsToConsider = followedCommittees.length > 0
+      ? primaryMotions.filter(m => followedCommittees.includes(m.committee || getCommittee(m.id)))
+      : primaryMotions;
+    
+    const dates = [...new Set(motionsToConsider.map(m => m.date))].sort((a, b) => new Date(b) - new Date(a));
     const date = dates[0] ?? null;
-    const items = date ? primaryMotions.filter(m => m.date === date) : [];
-    return { date, count: items.length, items };
-  }, [primaryMotions]);
+    const items = date ? motionsToConsider.filter(m => m.date === date) : [];
+    
+    const committees = [...new Set(items.map(m => m.committee || getCommittee(m.id)))];
+    const committee = committees[0] || null;
 
-  // Topics from only the last meeting
+    return { date, count: items.length, items, isFollowed: followedCommittees.length > 0, committee };
+  }, [primaryMotions, followedCommittees]);
+
+  // 2. Derive topics and rates from the last meeting
   const lastMeetingTopics = useMemo(() => {
     return [...new Set(lastMeeting.items.map(m => m.topic).filter(Boolean))];
   }, [lastMeeting.items]);
@@ -60,13 +69,22 @@ export default function DashboardView({ motions, councillors, meetings = [] }) {
     return Math.round((adopted / lastMeeting.items.length) * 100);
   }, [lastMeeting.items]);
 
-  // Most recent notable motions
+  // Most recent notable motions (Global)
   const highlights = useMemo(() => {
     return [...primaryMotions]
       .filter(m => !m.trivial && m.significance >= 60)
       .sort((a, b) => new Date(b.date) - new Date(a.date))
       .slice(0, 4);
   }, [primaryMotions]);
+
+  // Personal Feed (Followed Committees)
+  const followedHighlights = useMemo(() => {
+    if (followedCommittees.length === 0) return [];
+    return [...primaryMotions]
+      .filter(m => followedCommittees.includes(m.committee || getCommittee(m.id)))
+      .sort((a,b) => new Date(b.date) - new Date(a.date))
+      .slice(0, 4);
+  }, [primaryMotions, followedCommittees]);
 
   // Available committees derived from motions
   const committees = useMemo(() => {
@@ -90,7 +108,7 @@ export default function DashboardView({ motions, councillors, meetings = [] }) {
         if (voteType !== 'All' && !m.flags?.includes(voteType)) return false;
         if (showNotableOnly && m.significance < 60) return false;
         if (showMyWard && savedWardId && m.ward !== savedWardId) return false;
-        if (showLastMeeting && lastMeeting.date && m.date !== lastMeeting.date) return false;
+        if (showFollowingOnly && !followedCommittees.includes(m.committee || getCommittee(m.id))) return false;
         if (selectedYear !== 'All' && m.date?.match(/\d{4}/)?.[0] !== selectedYear) return false;
         return true;
       })
@@ -102,7 +120,7 @@ export default function DashboardView({ motions, councillors, meetings = [] }) {
   }, [primaryMotions, selectedTopic, selectedCommittee, voteType, showNotableOnly, showMyWard, savedWardId, showLastMeeting, lastMeeting.date, selectedYear]);
 
   // Reset visible count when filters change
-  useEffect(() => { setVisibleCount(20); }, [selectedTopic, selectedCommittee, voteType, selectedYear, showNotableOnly, showMyWard, showLastMeeting]);
+  useEffect(() => { setVisibleCount(20); }, [selectedTopic, selectedCommittee, voteType, selectedYear, showNotableOnly, showMyWard, showLastMeeting, showFollowingOnly]);
 
   const visibleMotions = sortedMotions.slice(0, visibleCount);
 
@@ -112,39 +130,46 @@ export default function DashboardView({ motions, councillors, meetings = [] }) {
       {/* ── Bento row: Last Meeting | Notable | Your Ward ── */}
       <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr_220px] gap-3 items-stretch overflow-hidden">
 
-        {/* Last Meeting */}
-        <div className="flex flex-col gap-1.5">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Last Meeting</p>
-          <button
-            onClick={() => setShowLastMeeting(s => !s)}
-            className={cn("bg-white rounded-2xl p-4 flex flex-col gap-2 flex-1 text-left transition-all border", showLastMeeting ? "border-[#004a99] shadow-sm" : "border-slate-200 hover:border-[#004a99]/40 hover:shadow-sm")}
-          >
-            {lastMeetingTopics.length > 0 && (
-              <div className="flex flex-wrap gap-1">
-                {lastMeetingTopics.map(topic => (
-                  <span key={topic} className={cn("text-[9px] font-medium px-1.5 py-0.5 rounded-full", TOPIC_LIGHT[topic] || 'bg-slate-100 text-slate-600')}>
-                    {topic}
+        {/* 1. Left Col: Your Following (ONE Card) */}
+        <div className="flex flex-col gap-1.5 min-w-0">
+          <div className="flex items-center justify-between px-1">
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Your Following</p>
+            <Star className="w-3 h-3 text-amber-500 fill-current shrink-0" />
+          </div>
+          {(() => {
+            const m = followedHighlights[0];
+            if (!m) return (
+              <Link to="/committees" className="bg-slate-50 border border-dashed border-slate-200 rounded-2xl p-6 flex flex-col items-center justify-center text-center flex-1 group hover:bg-slate-100 transition-colors">
+                <Star className="w-5 h-5 text-slate-300 mb-2" />
+                <p className="text-[10px] font-bold text-slate-400 leading-tight">Follow committees to see your feed</p>
+              </Link>
+            );
+            return (
+              <motion.button
+                initial={{ opacity: 0, scale: 0.97 }}
+                animate={{ opacity: 1, scale: 1 }}
+                onClick={() => navigate(`/motions/${m.id}`)}
+                className="bg-white border border-slate-200 rounded-2xl p-4 text-left group flex flex-col gap-2 hover:border-[#004a99]/40 hover:shadow-sm transition-all flex-1"
+              >
+                <div className="flex items-center justify-between gap-1">
+                  <span className={cn("text-[9px] font-semibold px-1.5 py-0.5 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>
+                    {m.topic}
                   </span>
-                ))}
-              </div>
-            )}
-            <p className="text-xs font-semibold text-slate-800">{lastMeeting.count} motion{lastMeeting.count !== 1 ? 's' : ''}</p>
-            {adoptionRateLastMeeting !== null && (
-              <div className="mt-auto">
-                <div className="flex justify-between text-[9px] mb-1">
-                  <span className="text-slate-500 font-medium">Adopted</span>
-                  <span className="font-bold text-emerald-600">{adoptionRateLastMeeting}%</span>
+                  <span className="text-[8px] font-bold text-[#004a99] uppercase truncate ml-1">{m.committee || getCommittee(m.id)}</span>
                 </div>
-                <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
-                  <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${adoptionRateLastMeeting}%` }} />
+                <p className="text-xs font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-3 leading-snug flex-1">
+                  {m.title}
+                </p>
+                <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
+                  <span className="text-[9px] text-slate-400">{m.date.split(',')[0]}</span>
+                  <span className="text-[9px] font-semibold text-[#004a99]">See more</span>
                 </div>
-              </div>
-            )}
-            {lastMeeting.date && <p className="text-[9px] text-slate-400">{lastMeeting.date}</p>}
-          </button>
+              </motion.button>
+            );
+          })()}
         </div>
 
-        {/* Most Recent Notable */}
+        {/* 2. Middle: Most Recent Notable (FOUR Cards) */}
         <div className="flex flex-col gap-1.5 min-w-0">
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Most Recent Notable</p>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 items-stretch flex-1 min-w-0">
@@ -178,11 +203,14 @@ export default function DashboardView({ motions, councillors, meetings = [] }) {
                       </span>
                     )}
                   </div>
-                  <p className="text-xs font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-3 leading-snug flex-1">
+                  <p 
+                    className="text-xs font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-3 leading-snug flex-1"
+                    title={m.title}
+                  >
                     {m.title}
                   </p>
-                  <div className="flex items-center justify-between mt-auto">
-                    <span className="text-[9px] text-slate-400">{m.date}</span>
+                  <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
+                    <span className="text-[9px] text-slate-400">{m.date.split(',')[0]}</span>
                     <span className="text-[9px] font-semibold text-[#004a99] group-hover:underline">See more</span>
                   </div>
                 </motion.button>
@@ -191,45 +219,63 @@ export default function DashboardView({ motions, councillors, meetings = [] }) {
           </div>
         </div>
 
-        {/* Your Ward */}
-        <div className="flex flex-col gap-1.5">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Your Ward</p>
-          <div className="flex-1 min-h-0 flex flex-col">
-            <YourWardCard motions={motions} />
+        {/* 3. Right: Coming Up (ONE Card) */}
+        <div className="flex flex-col gap-1.5 overflow-hidden">
+          <div className="flex items-center justify-between px-1">
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Coming Up</p>
+            <Calendar className="w-3 h-3 text-slate-300" />
           </div>
-        </div>
+          {(() => {
+            const meeting = meetings[0];
+            const topic = meeting ? (meeting.isCouncil ? 'Council' : (() => {
+              const name = meeting.committee.toLowerCase();
+              if (name.includes('housing')) return 'Housing';
+              if (name.includes('transit')) return 'Transit';
+              if (name.includes('budget') || name.includes('finance')) return 'Finance';
+              if (name.includes('parks') || name.includes('environment')) return 'Parks';
+              if (name.includes('climate')) return 'Climate';
+              return 'Committee';
+            })()) : null;
 
+            return (
+              <div className={cn(
+                "rounded-2xl p-4 flex flex-col gap-2 transition-all border text-left flex-1",
+                meeting
+                  ? "bg-white border-slate-200 hover:border-[#004a99]/40 hover:shadow-sm"
+                  : "bg-white border-dashed border-slate-200 text-slate-400"
+              )}>
+                {meeting ? (
+                  <>
+                    <div className="flex items-center justify-between gap-1">
+                      <span className={cn(
+                        "text-[9px] font-semibold px-1.5 py-0.5 rounded-full",
+                        topic === 'Council' ? "bg-blue-600 text-white" : (TOPIC_LIGHT[topic] || 'bg-slate-100 text-slate-600')
+                      )}>
+                        {topic}
+                      </span>
+                    </div>
+                    <p 
+                      className="text-xs font-semibold text-slate-800 line-clamp-3 leading-snug flex-1"
+                      title={meeting.committee}
+                    >
+                      {meeting.committee}
+                    </p>
+                    <div className="flex items-center justify-between mt-auto">
+                      <span className="text-[9px] text-slate-400 whitespace-nowrap">{meeting.displayDate}</span>
+                      <span className="text-[9px] font-semibold text-[#004a99] shrink-0 ml-1">{meeting.startTime}</span>
+                    </div>
+                  </>
+                ) : (
+                  <p className="text-[10px] font-medium my-auto text-center italic opacity-60">
+                    No further meetings
+                  </p>
+                )}
+              </div>
+            );
+          })()}
+        </div>
       </div>
 
-      {/* ── Coming Up ── */}
-      {meetings.length > 0 && (
-        <div>
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1 mb-1.5">Coming Up</p>
-          <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
-            {meetings.slice(0, 10).map((m, i) => (
-              <div
-                key={i}
-                className={cn(
-                  "flex-shrink-0 rounded-2xl border px-3 py-2.5 flex flex-col gap-1 min-w-[160px] max-w-[200px]",
-                  m.isCouncil
-                    ? "bg-[#004a99] border-[#004a99] text-white"
-                    : "bg-white border-slate-200"
-                )}
-              >
-                <p className={cn("text-[9px] font-bold uppercase tracking-wide", m.isCouncil ? "text-blue-200" : "text-slate-400")}>
-                  {m.displayDate}
-                </p>
-                <p className={cn("text-xs font-semibold leading-snug", m.isCouncil ? "text-white" : "text-slate-800")}>
-                  {m.committee}
-                </p>
-                <p className={cn("text-[9px]", m.isCouncil ? "text-blue-200" : "text-slate-400")}>
-                  {m.startTime}{m.location ? ` · ${m.location.split(',')[0]}` : ''}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
 
       {/* ── Main: Filter sidebar + motion list (same column widths as bento) ── */}
       <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr_220px] lg:gap-x-3 lg:items-start gap-y-4">
@@ -352,7 +398,25 @@ export default function DashboardView({ motions, councillors, meetings = [] }) {
           {/* Toggles */}
           <div className="pt-2.5 border-t border-slate-100 flex flex-wrap gap-1">
             <button
-              onClick={() => setShowNotableOnly(s => !s)}
+              onClick={() => {
+                setShowFollowingOnly(!showFollowingOnly);
+                setShowNotableOnly(false);
+                setShowMyWard(false);
+              }}
+              className={cn(
+                "flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium transition-all text-left",
+                showFollowingOnly
+                  ? "bg-[#004a99] text-white"
+                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+              )}
+            >
+              <Star className={cn("w-3 h-3 shrink-0", showFollowingOnly ? "fill-current" : "")} /> Following
+            </button>
+            <button
+              onClick={() => {
+                setShowNotableOnly(s => !s);
+                setShowFollowingOnly(false);
+              }}
               className={cn(
                 "flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium transition-all",
                 showNotableOnly
@@ -380,7 +444,7 @@ export default function DashboardView({ motions, councillors, meetings = [] }) {
           {/* Footer */}
           <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
             <p className="text-[10px] text-slate-400">{sortedMotions.length} motions</p>
-            {(selectedTopic !== 'All' || selectedCommittee !== 'All' || voteType !== 'All' || selectedYear !== 'All' || showNotableOnly || showMyWard || showLastMeeting) && (
+            {(selectedTopic !== 'All' || selectedCommittee !== 'All' || voteType !== 'All' || selectedYear !== 'All' || showNotableOnly || showMyWard || showLastMeeting || showFollowingOnly) && (
               <button
                 onClick={() => {
                   setSelectedTopic('All');
@@ -390,6 +454,7 @@ export default function DashboardView({ motions, councillors, meetings = [] }) {
                   setShowNotableOnly(false);
                   setShowMyWard(false);
                   setShowLastMeeting(false);
+                  setShowFollowingOnly(false);
                 }}
                 className="flex items-center gap-1 text-[10px] font-medium text-slate-400 hover:text-slate-700 transition-colors"
               >
@@ -523,7 +588,7 @@ export default function DashboardView({ motions, councillors, meetings = [] }) {
 
         {/* Toronto mini-map — click navigates to /wards */}
         <div className="hidden lg:flex flex-col sticky top-24">
-          <Suspense fallback={<div className="rounded-2xl bg-slate-100 animate-pulse flex-1 min-h-[420px]" />}>
+          <Suspense fallback={<div className="rounded-2xl bg-slate-100 animate-pulse h-[480px] border border-slate-200" />}>
             <TorontoMiniMap motions={motions} />
           </Suspense>
         </div>

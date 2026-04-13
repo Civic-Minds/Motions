@@ -105,6 +105,23 @@ export const TOPIC_COLOR = {
 
 // ─── Committee names (derived from motion ID prefix) ─────────────────────────
 
+export const COMMITTEE_DESCRIPTIONS = {
+  'City Council': 'The main decision-making body for the City of Toronto, composed of the Mayor and 25 Councillors.',
+  'Executive Committee': 'Monitors city-wide priorities, financial planning, and intergovernmental relations. Often the first stop for major policy shifts.',
+  'Planning & Housing Committee': 'Oversees the city’s growth and development, including urban planning, development apps, and affordable housing strategy.',
+  'Infrastructure & Environment Committee': 'Focuses on the city’s physical systems: roads, transit infrastructure, water, waste, and climate change action.',
+  'Economic & Community Development Committee': 'Covers social services, recreation, culture, public health, and business development across Toronto.',
+  'General Government & Licensing Committee': 'Oversees city internal operations, property management, corporate assets, and various licensing matters.',
+  'Audit Committee': 'Ensures accountability by reviewing the work of the Auditor General and city financial statements.',
+  'Board of Health': 'Focuses on public health policy and the operations of Toronto Public Health.',
+  'Budget Committee': 'A specialized group that reviews the city’s annual multi-billion dollar operating and capital budgets.',
+  'Toronto & East York Community Council': 'Handles local planning, traffic, and neighborhood-specific matters for the downtown core and East York.',
+  'North York Community Council': 'Deliberates on local issues across North York, including neighborhood developments and local safety requests.',
+  'Scarborough Community Council': 'Manages community-level decisions and local planning applications for the Scarborough area.',
+  'Etobicoke York Community Council': 'Reviews local planning and service issues specifically for the Etobicoke and York regions.',
+  'TTC Board': 'Oversees the operations, policies, and multi-year planning of the Toronto Transit Commission.',
+};
+
 export const COMMITTEE_NAMES = {
   MM:  'City Council',
   CC:  'City Council',

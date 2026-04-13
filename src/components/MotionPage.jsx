@@ -155,7 +155,7 @@ const MOTION_TYPE_INFO = {
   'Direction':        'A directive from council to staff on how to proceed.',
 };
 
-function VoteSection({ label, motionType, title, status, votes, resultText, defaultOpen = false }) {
+function VoteSection({ label, motionType, title, status, votes, resultText, defaultOpen = false, hideStatus = false }) {
   const [open, setOpen] = useState(defaultOpen);
   const totals = parseResultTotals(resultText);
   const recYes = Object.values(votes ?? {}).filter(v => v === 'YES').length;
@@ -172,7 +172,7 @@ function VoteSection({ label, motionType, title, status, votes, resultText, defa
         <div className="flex items-center gap-3">
           {label && <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{label}</span>}
           {motionType && <span className="text-sm font-semibold text-slate-800">{motionType}</span>}
-          <StatusBadge status={status} />
+          {!hideStatus && <StatusBadge status={status} />}
         </div>
         <div className="flex items-center gap-3 shrink-0 ml-4">
           {!open && (
@@ -230,6 +230,32 @@ export default function MotionPage({ motions = [] }) {
   const myCouncillor = myWardId ? WARD_COUNCILLORS[myWardId] : null;
   const myVote = myCouncillor ? (motion.votes?.[myCouncillor] ?? null) : null;
 
+  // Parse "by Councillor [Mover], seconded by Councillor [Seconder]"
+  const authorship = useMemo(() => {
+    // 1. Check for explicit fields first
+    const mover = motion.mover;
+    const seconder = motion.seconder;
+    
+    if (mover) {
+      return {
+        mover: mover.trim(),
+        seconder: seconder?.trim(),
+        displayTitle: motion.title.split('- by')[0].trim()
+      };
+    }
+
+    // 2. Fallback to title parsing
+    const m = motion.title.match(/-\s*by\s+Councillor\s+([^,]+)(?:,\s*seconded\s+by\s+Councillor\s+([^.]+))?/i);
+    if (!m) return null;
+    return {
+      mover: m[1].trim(),
+      seconder: m[2]?.trim(),
+      displayTitle: motion.title.split('- by')[0].trim()
+    };
+  }, [motion.title, motion.mover, motion.seconder]);
+
+  const displayTitle = authorship ? authorship.displayTitle : motion.title;
+
   return (
     <div className="max-w-2xl mx-auto space-y-6 py-2">
 
@@ -254,7 +280,7 @@ export default function MotionPage({ motions = [] }) {
           )}
         </div>
 
-        <h1 className="text-xl font-bold text-slate-900 leading-snug">{motion.title}</h1>
+        <h1 className="text-xl font-bold text-slate-900 leading-snug">{displayTitle}</h1>
 
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-400">
           <span className="font-mono">{motion.id}</span>
@@ -279,11 +305,39 @@ export default function MotionPage({ motions = [] }) {
         </div>
       </div>
 
-      {/* Plain-language summary */}
-      {motion.summary && (
-        <div className="bg-slate-50 border border-slate-200 rounded-xl px-5 py-4">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-2">Summary</p>
-          <p className="text-sm text-slate-700 leading-relaxed">{motion.summary}</p>
+      {/* Context / Authorship / Summary */}
+      {(authorship || motion.summary) && (
+        <div className="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden">
+          {authorship && (
+            <div className="px-5 py-4 bg-white border-b border-slate-200 flex flex-wrap items-center gap-x-8 gap-y-2">
+              <div className="flex items-center gap-3">
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest shrink-0">Mover</span>
+                <Link
+                  to={`/councillors/${nameToSlug(authorship.mover)}`}
+                  className="text-sm font-bold text-[#004a99] hover:underline decoration-2 underline-offset-4"
+                >
+                  {authorship.mover}
+                </Link>
+              </div>
+              {authorship.seconder && (
+                <div className="flex items-center gap-3">
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest shrink-0">Seconder</span>
+                  <Link
+                    to={`/councillors/${nameToSlug(authorship.seconder)}`}
+                    className="text-sm font-bold text-[#004a99] hover:underline decoration-2 underline-offset-4"
+                  >
+                    {authorship.seconder}
+                  </Link>
+                </div>
+              )}
+            </div>
+          )}
+          {motion.summary && (
+            <div className="px-5 py-4">
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-2">Motion Summary</p>
+              <p className="text-sm text-slate-700 leading-relaxed">{motion.summary}</p>
+            </div>
+          )}
         </div>
       )}
 
@@ -421,10 +475,14 @@ export default function MotionPage({ motions = [] }) {
             <p className="text-sm text-slate-400">No recorded votes for this item.</p>
           </div>
         ) : (
-          <div className="space-y-4 border border-slate-200 rounded-xl p-5">
-            <VoteBar votes={motion.votes} resultText={motion.resultText} />
-            <CouncillorGrid votes={motion.votes} resultText={motion.resultText} />
-          </div>
+          <VoteSection
+            motionType={motion.motionType}
+            status={motion.status}
+            votes={motion.votes}
+            resultText={motion.resultText}
+            defaultOpen={true}
+            hideStatus={true}
+          />
         )}
       </div>
     </div>

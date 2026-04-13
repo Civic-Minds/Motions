@@ -64,12 +64,12 @@ export default function YourWardCard({ motions }) {
         <button
           onClick={handleLocate}
           disabled={status === 'locating'}
-          className="flex items-center gap-2 px-3 py-1.5 bg-[#004a99] text-white text-xs font-semibold rounded-lg hover:bg-[#003875] disabled:opacity-60 transition-colors w-fit"
+          className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-slate-50 border border-slate-200 text-slate-600 text-[10px] font-bold rounded-xl hover:bg-slate-100 hover:border-slate-300 disabled:opacity-60 transition-all group"
         >
           {status === 'locating' ? (
-            <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Locating…</>
+            <><Loader2 className="w-3.5 h-3.5 animate-spin text-[#004a99]" /> <span className="text-[#004a99]">Locating…</span></>
           ) : (
-            <><MapPin className="w-3.5 h-3.5" /> Find my ward</>
+            <><MapPin className="w-3.5 h-3.5 text-[#004a99] group-hover:scale-110 transition-transform" /> <span>Find my ward</span></>
           )}
         </button>
       </div>

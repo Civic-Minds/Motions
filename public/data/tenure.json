@@ -3,7 +3,8 @@
     "since": 2006,
     "terms": [
       2006
-    ]
+    ],
+    "totalYears": 4
   },
   "Absent Carried": {
     "since": 2006,
@@ -13,7 +14,8 @@
       2014,
       2018,
       2022
-    ]
+    ],
+    "totalYears": 20
   },
   "Absent Lost": {
     "since": 2006,
@@ -22,20 +24,23 @@
       2010,
       2014,
       2018
-    ]
+    ],
+    "totalYears": 16
   },
   "Adam Giambrone": {
     "since": 2006,
     "terms": [
       2006
-    ]
+    ],
+    "totalYears": 4
   },
   "Adam Vaughan": {
     "since": 2006,
     "terms": [
       2006,
       2010
-    ]
+    ],
+    "totalYears": 8
   },
   "Adopt Item Absent": {
     "since": 2010,
@@ -43,33 +48,38 @@
       2010,
       2014,
       2018
-    ]
+    ],
+    "totalYears": 12
   },
   "Adopt Item as Amended Absent": {
     "since": 2010,
     "terms": [
       2010,
       2014
-    ]
+    ],
+    "totalYears": 8
   },
   "Adopt Item as Amended No": {
     "since": 2010,
     "terms": [
       2010
-    ]
+    ],
+    "totalYears": 4
   },
   "Adopt Item as Amended Yes": {
     "since": 2010,
     "terms": [
       2010,
       2014
-    ]
+    ],
+    "totalYears": 8
   },
   "Adopt Item No": {
     "since": 2010,
     "terms": [
       2010
-    ]
+    ],
+    "totalYears": 4
   },
   "Adopt Item Yes": {
     "since": 2010,
@@ -77,58 +87,67 @@
       2010,
       2014,
       2018
-    ]
+    ],
+    "totalYears": 12
   },
   "Alejandra Bravo": {
     "since": 2022,
     "terms": [
       2022
-    ]
+    ],
+    "totalYears": 4
   },
   "Amber Morley": {
     "since": 2022,
     "terms": [
       2022
-    ]
+    ],
+    "totalYears": 4
   },
   "Amend Item (Additional) Absent": {
     "since": 2010,
     "terms": [
       2010
-    ]
+    ],
+    "totalYears": 4
   },
   "Amend Item (Additional) No": {
     "since": 2010,
     "terms": [
       2010
-    ]
+    ],
+    "totalYears": 4
   },
   "Amend Item (Additional) Yes": {
     "since": 2010,
     "terms": [
       2010
-    ]
+    ],
+    "totalYears": 4
   },
   "Amend Item Absent": {
     "since": 2006,
     "terms": [
       2006,
       2010
-    ]
+    ],
+    "totalYears": 8
   },
   "Amend Item No": {
     "since": 2006,
     "terms": [
       2006,
       2010
-    ]
+    ],
+    "totalYears": 8
   },
   "Amend Item Yes": {
     "since": 2006,
     "terms": [
       2006,
       2010
-    ]
+    ],
+    "totalYears": 8
   },
   "Ana BailÃ£o": {
     "since": 2010,
@@ -136,7 +155,8 @@
       2010,
       2014,
       2018
-    ]
+    ],
+    "totalYears": 12
   },
   "Anthony Perruzza": {
     "since": 2006,
@@ -146,38 +166,44 @@
       2014,
       2018,
       2022
-    ]
+    ],
+    "totalYears": 20
   },
   "Ausma Malik": {
     "since": 2022,
     "terms": [
       2022
-    ]
+    ],
+    "totalYears": 4
   },
   "Bill Saundercook": {
     "since": 2006,
     "terms": [
       2006
-    ]
+    ],
+    "totalYears": 4
   },
   "Brad Bradford": {
     "since": 2018,
     "terms": [
       2018,
       2022
-    ]
+    ],
+    "totalYears": 8
   },
   "Brian Ashton": {
     "since": 2006,
     "terms": [
       2006
-    ]
+    ],
+    "totalYears": 4
   },
   "Case Ootes": {
     "since": 2006,
     "terms": [
       2006
-    ]
+    ],
+    "totalYears": 4
   },
   "Cesar Palacio": {
     "since": 2006,
@@ -185,13 +211,15 @@
       2006,
       2010,
       2014
-    ]
+    ],
+    "totalYears": 12
   },
   "Ceta Ramkhalawansingh": {
     "since": 2010,
     "terms": [
       2010
-    ]
+    ],
+    "totalYears": 4
   },
   "Chin Lee": {
     "since": 2006,
@@ -199,37 +227,43 @@
       2006,
       2010,
       2014
-    ]
+    ],
+    "totalYears": 12
   },
   "Chris Moise": {
     "since": 2022,
     "terms": [
       2022
-    ]
+    ],
+    "totalYears": 4
   },
   "Christin Carmichael Greb": {
     "since": 2014,
     "terms": [
       2014
-    ]
+    ],
+    "totalYears": 4
   },
   "Cliff Jenkins": {
     "since": 2006,
     "terms": [
       2006
-    ]
+    ],
+    "totalYears": 4
   },
   "Cynthia Lai": {
     "since": 2018,
     "terms": [
       2018
-    ]
+    ],
+    "totalYears": 4
   },
   "David Miller": {
     "since": 2006,
     "terms": [
       2006
-    ]
+    ],
+    "totalYears": 4
   },
   "David Shiner": {
     "since": 2006,
@@ -237,7 +271,8 @@
       2006,
       2010,
       2014
-    ]
+    ],
+    "totalYears": 12
   },
   "Denzil Minnan-Wong": {
     "since": 2006,
@@ -246,54 +281,65 @@
       2010,
       2014,
       2018
-    ]
+    ],
+    "totalYears": 16
   },
   "Dianne Saxe": {
     "since": 2022,
     "terms": [
       2022
-    ]
+    ],
+    "totalYears": 4
   },
   "Doug Ford": {
     "since": 2010,
     "terms": [
       2010
-    ]
+    ],
+    "totalYears": 4
   },
   "Doug Holyday": {
     "since": 2006,
     "terms": [
       2006,
       2010
-    ]
+    ],
+    "totalYears": 8
   },
   "Extend Speaking Time Absent": {
     "since": 2010,
     "terms": [
       2010
-    ]
+    ],
+    "totalYears": 4
   },
   "Extend Speaking Time No": {
     "since": 2010,
     "terms": [
       2010
-    ]
+    ],
+    "totalYears": 4
   },
   "Extend Speaking Time Yes": {
     "since": 2010,
     "terms": [
       2010
-    ]
+    ],
+    "totalYears": 4
   },
   "Frances Nunziata": {
-    "since": 2006,
+    "since": 1997,
     "terms": [
+      1997,
+      2000,
+      2003,
       2006,
       2010,
       2014,
       2018,
       2022
-    ]
+    ],
+    "totalYears": 29
   },
   "Frank Di Giorgio": {
     "since": 2006,
@@ -301,7 +347,8 @@
       2006,
       2010,
       2014
-    ]
+    ],
+    "totalYears": 12
   },
   "Gary Crawford": {
     "since": 2010,
@@ -310,13 +357,15 @@
       2014,
       2018,
       2022
-    ]
+    ],
+    "totalYears": 16
   },
   "General to adopt Signage Master Plans for 89 premises and locations containing McDonald's Restaurants  (Ward All) referred by City Council on October 24 and 25 2011": {
     "since": 2010,
     "terms": [
       2010
-    ]
+    ],
+    "totalYears": 4
   },
   "Giorgio Mammoliti": {
     "since": 2006,
@@ -324,7 +373,8 @@
       2006,
       2010,
       2014
-    ]
+    ],
+    "totalYears": 12
   },
   "Glenn De Baeremaeker": {
     "since": 2006,
@@ -332,14 +382,16 @@
       2006,
       2010,
       2014
-    ]
+    ],
+    "totalYears": 12
   },
   "Gloria Lindsay Luby": {
     "since": 2006,
     "terms": [
       2006,
       2010
-    ]
+    ],
+    "totalYears": 8
   },
   "Gord Perks": {
     "since": 2006,
@@ -349,43 +401,50 @@
       2014,
       2018,
       2022
-    ]
+    ],
+    "totalYears": 20
   },
   "Howard Moscoe": {
     "since": 2006,
     "terms": [
       2006
-    ]
+    ],
+    "totalYears": 4
   },
   "Introduce Motion without Notice Absent": {
     "since": 2010,
     "terms": [
       2010
-    ]
+    ],
+    "totalYears": 4
   },
   "Introduce Motion without Notice No": {
     "since": 2010,
     "terms": [
       2010
-    ]
+    ],
+    "totalYears": 4
   },
   "Introduce Motion without Notice Yes": {
     "since": 2010,
     "terms": [
       2010
-    ]
+    ],
+    "totalYears": 4
   },
   "Jamaal Myers": {
     "since": 2022,
     "terms": [
       2022
-    ]
+    ],
+    "totalYears": 4
   },
   "James Maloney": {
     "since": 2010,
     "terms": [
       2010
-    ]
+    ],
+    "totalYears": 4
   },
   "James Pasternak": {
     "since": 2010,
@@ -394,7 +453,8 @@
       2014,
       2018,
       2022
-    ]
+    ],
+    "totalYears": 16
   },
   "Janet Davis": {
     "since": 2006,
@@ -402,7 +462,8 @@
       2006,
       2010,
       2014
-    ]
+    ],
+    "totalYears": 12
   },
   "Jaye Robinson": {
     "since": 2010,
@@ -411,34 +472,39 @@
       2014,
       2018,
       2022
-    ]
+    ],
+    "totalYears": 16
   },
   "Jennifer McKelvie": {
     "since": 2018,
     "terms": [
       2018,
       2022
-    ]
+    ],
+    "totalYears": 8
   },
   "Jim Hart": {
     "since": 2014,
     "terms": [
       2014
-    ]
+    ],
+    "totalYears": 4
   },
   "Jim Karygiannis": {
     "since": 2014,
     "terms": [
       2014,
       2018
-    ]
+    ],
+    "totalYears": 8
   },
   "Joe Cressy": {
     "since": 2014,
     "terms": [
       2014,
       2018
-    ]
+    ],
+    "totalYears": 8
   },
   "Joe Mihevc": {
     "since": 2006,
@@ -447,19 +513,22 @@
       2010,
       2014,
       2018
-    ]
+    ],
+    "totalYears": 16
   },
   "Joe Pantalone": {
     "since": 2006,
     "terms": [
       2006
-    ]
+    ],
+    "totalYears": 4
   },
   "John Campbell": {
     "since": 2014,
     "terms": [
       2014
-    ]
+    ],
+    "totalYears": 4
   },
   "John Filion": {
     "since": 2006,
@@ -468,14 +537,16 @@
       2010,
       2014,
       2018
-    ]
+    ],
+    "totalYears": 16
   },
   "John Parker": {
     "since": 2006,
     "terms": [
       2006,
       2010
-    ]
+    ],
+    "totalYears": 8
   },
   "John Tory": {
     "since": 2014,
@@ -483,26 +554,31 @@
       2014,
       2018,
       2022
-    ]
+    ],
+    "totalYears": 12
   },
   "Jon Burnside": {
-    "since": 2022,
+    "since": 2014,
     "terms": [
+      2014,
       2022
-    ]
+    ],
+    "totalYears": 8
   },
   "Jonathan Tsao": {
     "since": 2014,
     "terms": [
       2014
-    ]
+    ],
+    "totalYears": 4
   },
   "Josh Colle": {
     "since": 2010,
     "terms": [
       2010,
       2014
-    ]
+    ],
+    "totalYears": 8
   },
   "Josh Matlow": {
     "since": 2010,
@@ -511,20 +587,23 @@
       2014,
       2018,
       2022
-    ]
+    ],
+    "totalYears": 16
   },
   "Justin J. Di Ciano": {
     "since": 2014,
     "terms": [
       2014
-    ]
+    ],
+    "totalYears": 4
   },
   "Karen Stintz": {
     "since": 2006,
     "terms": [
       2006,
       2010
-    ]
+    ],
+    "totalYears": 8
   },
   "Kristyn Wong-Tam": {
     "since": 2010,
@@ -532,25 +611,29 @@
       2010,
       2014,
       2018
-    ]
+    ],
+    "totalYears": 12
   },
   "Kyle Rae": {
     "since": 2006,
     "terms": [
       2006
-    ]
+    ],
+    "totalYears": 4
   },
   "Lily Cheng": {
     "since": 2022,
     "terms": [
       2022
-    ]
+    ],
+    "totalYears": 4
   },
   "Lucy Troisi": {
     "since": 2014,
     "terms": [
       2014
-    ]
+    ],
+    "totalYears": 4
   },
   "Maria Augimeri": {
     "since": 2006,
@@ -558,7 +641,8 @@
       2006,
       2010,
       2014
-    ]
+    ],
+    "totalYears": 12
   },
   "Mark Grimes": {
     "since": 2006,
@@ -567,28 +651,32 @@
       2010,
       2014,
       2018
-    ]
+    ],
+    "totalYears": 16
   },
   "Mary Fragedakis": {
     "since": 2010,
     "terms": [
       2010,
       2014
-    ]
+    ],
+    "totalYears": 8
   },
   "Mary-Margaret McMahon": {
     "since": 2010,
     "terms": [
       2010,
       2014
-    ]
+    ],
+    "totalYears": 8
   },
   "Michael Ford": {
     "since": 2014,
     "terms": [
       2014,
       2018
-    ]
+    ],
+    "totalYears": 8
   },
   "Michael Thompson": {
     "since": 2006,
@@ -598,52 +686,60 @@
       2014,
       2018,
       2022
-    ]
+    ],
+    "totalYears": 20
   },
   "Michael Walker": {
     "since": 2006,
     "terms": [
       2006
-    ]
+    ],
+    "totalYears": 4
   },
   "Michelle Berardinetti": {
     "since": 2010,
     "terms": [
       2010,
       2014
-    ]
+    ],
+    "totalYears": 8
   },
   "Michelle Holland": {
     "since": 2014,
     "terms": [
       2014
-    ]
+    ],
+    "totalYears": 4
   },
   "Miganoush Megardichian": {
     "since": 2014,
     "terms": [
       2014
-    ]
+    ],
+    "totalYears": 4
   },
   "Mike Colle": {
     "since": 2018,
     "terms": [
       2018,
       2022
-    ]
+    ],
+    "totalYears": 8
   },
   "Mike Del Grande": {
     "since": 2006,
     "terms": [
       2006,
       2010
-    ]
+    ],
+    "totalYears": 8
   },
   "Mike Feldman": {
     "since": 2006,
     "terms": [
       2006
-    ]
+    ],
+    "totalYears": 4
   },
   "Mike Layton": {
     "since": 2010,
@@ -651,21 +747,24 @@
       2010,
       2014,
       2018
-    ]
+    ],
+    "totalYears": 12
   },
   "Neethan Shan": {
-    "since": 2017,
+    "since": 2014,
     "terms": [
       2014,
       2022
-    ]
+    ],
+    "totalYears": 8
   },
   "Nick Mantas": {
     "since": 2018,
     "terms": [
       2018,
       2022
-    ]
+    ],
+    "totalYears": 8
   },
   "No Carried": {
     "since": 2006,
@@ -674,7 +773,8 @@
       2010,
       2014,
       2018
-    ]
+    ],
+    "totalYears": 16
   },
   "No Lost": {
     "since": 2006,
@@ -683,13 +783,15 @@
       2010,
       2014,
       2018
-    ]
+    ],
+    "totalYears": 16
   },
   "No Lost (tie)": {
     "since": 2010,
     "terms": [
       2010
-    ]
+    ],
+    "totalYears": 4
   },
   "Norman Kelly": {
     "since": 2006,
@@ -697,13 +799,20 @@
       2006,
       2010,
       2014
-    ]
+    ],
+    "totalYears": 12
   },
   "Olivia Chow": {
     "since": 1991,
     "terms": [
+      1991,
+      1994,
+      1997,
+      2000,
+      2003,
       2022
-    ]
+    ],
+    "totalYears": 19
   },
   "Pam McConnell": {
     "since": 2006,
@@ -711,13 +820,15 @@
       2006,
       2010,
       2014
-    ]
+    ],
+    "totalYears": 12
   },
   "Parthi Kandavel": {
     "since": 2022,
     "terms": [
       2022
-    ]
+    ],
+    "totalYears": 4
   },
   "Paul Ainslie": {
     "since": 2006,
@@ -727,7 +838,8 @@
       2014,
       2018,
       2022
-    ]
+    ],
+    "totalYears": 20
   },
   "Paula Fletcher": {
     "since": 2006,
@@ -737,26 +849,30 @@
       2014,
       2018,
       2022
-    ]
+    ],
+    "totalYears": 20
   },
   "Peter Leon": {
     "since": 2010,
     "terms": [
       2010
-    ]
+    ],
+    "totalYears": 4
   },
   "Peter Milczyn": {
     "since": 2006,
     "terms": [
       2006,
       2010
-    ]
+    ],
+    "totalYears": 8
   },
   "Rachel Chernos Lin": {
-    "since": 2024,
+    "since": 2022,
     "terms": [
-      2024
-    ]
+      2022
+    ],
+    "totalYears": 4
   },
   "Raymond Cho": {
     "since": 2006,
@@ -764,25 +880,29 @@
       2006,
       2010,
       2014
-    ]
+    ],
+    "totalYears": 12
   },
   "Remove from Committee Absent": {
     "since": 2006,
     "terms": [
       2006
-    ]
+    ],
+    "totalYears": 4
   },
   "Remove from Committee No": {
     "since": 2006,
     "terms": [
       2006
-    ]
+    ],
+    "totalYears": 4
   },
   "Remove from Committee Yes": {
     "since": 2006,
     "terms": [
       2006
-    ]
+    ],
+    "totalYears": 4
   },
   "Rob Ford": {
     "since": 2006,
@@ -790,13 +910,15 @@
       2006,
       2010,
       2014
-    ]
+    ],
+    "totalYears": 12
   },
   "Robin Buxton Potts": {
     "since": 2018,
     "terms": [
       2018
-    ]
+    ],
+    "totalYears": 4
   },
   "Ron Moeser": {
     "since": 2006,
@@ -804,26 +926,30 @@
       2006,
       2010,
       2014
-    ]
+    ],
+    "totalYears": 12
   },
   "Rose Milczyn": {
     "since": 2018,
     "terms": [
       2018
-    ]
+    ],
+    "totalYears": 4
   },
   "Sandra Bussin": {
     "since": 2006,
     "terms": [
       2006
-    ]
+    ],
+    "totalYears": 4
   },
   "Sarah Doucette": {
     "since": 2010,
     "terms": [
       2010,
       2014
-    ]
+    ],
+    "totalYears": 8
   },
   "Shelley Carroll": {
     "since": 2006,
@@ -833,7 +959,8 @@
       2014,
       2018,
       2022
-    ]
+    ],
+    "totalYears": 20
   },
   "Stephen Holyday": {
     "since": 2014,
@@ -841,13 +968,15 @@
       2014,
       2018,
       2022
-    ]
+    ],
+    "totalYears": 12
   },
   "Suzan Hall": {
     "since": 2006,
     "terms": [
       2006
-    ]
+    ],
+    "totalYears": 4
   },
   "Vincent Crisanti": {
     "since": 2010,
@@ -855,39 +984,45 @@
       2010,
       2014,
       2022
-    ]
+    ],
+    "totalYears": 12
   },
   "Waive Notice Absent": {
     "since": 2010,
     "terms": [
       2010
-    ]
+    ],
+    "totalYears": 4
   },
   "Waive Notice Yes": {
     "since": 2010,
     "terms": [
       2010
-    ]
+    ],
+    "totalYears": 4
   },
   "Waive Referral Absent": {
     "since": 2010,
     "terms": [
       2010,
       2014
-    ]
+    ],
+    "totalYears": 8
   },
   "Waive Referral No": {
     "since": 2010,
     "terms": [
       2010
-    ]
+    ],
+    "totalYears": 4
   },
   "Waive Referral Yes": {
     "since": 2010,
     "terms": [
       2010,
       2014
-    ]
+    ],
+    "totalYears": 8
   },
   "Yes Carried": {
     "since": 2006,
@@ -897,7 +1032,8 @@
       2014,
       2018,
       2022
-    ]
+    ],
+    "totalYears": 20
   },
   "Yes Lost": {
     "since": 2006,
@@ -906,12 +1042,14 @@
       2010,
       2014,
       2018
-    ]
+    ],
+    "totalYears": 16
   },
   "Yes Lost (tie)": {
     "since": 2010,
     "terms": [
       2010
-    ]
+    ],
+    "totalYears": 4
   }
 }

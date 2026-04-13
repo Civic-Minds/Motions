@@ -13,6 +13,19 @@ import path from 'path';
 
 const OUT_PATH = path.join(process.cwd(), 'public/data/tenure.json');
 
+// Pre-2006 terms not captured by Open Data CSVs.
+// Pre-amalgamation/pre-2006 Toronto terms were 3 years each (1988 reform).
+// Post-2006 terms are 4 years. Term year = election year.
+const TERM_YEARS = { 1988: 3, 1991: 3, 1994: 3, 1997: 3, 2000: 3, 2003: 3 };
+const termYears = year => TERM_YEARS[year] ?? 4;
+
+// Councillors with known service predating the Open Data CSV record (2006).
+// Only post-amalgamation (1997+) Toronto City/Metro Council terms are counted.
+const SUPPLEMENTAL_TERMS = {
+  'Olivia Chow':      [1991, 1994, 1997, 2000, 2003], // Metro/City council before going federal
+  'Frances Nunziata': [1997, 2000, 2003],              // post-amalgamation pre-2006 terms
+};
+
 const TERMS = [
   { year: 2006, url: 'https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/7f5232d6-0d2a-4f95-864a-417cbf341cc4/resource/01655cbd-dc66-4339-9f27-891e64413cbf/download/member-voting-record-2006-2010.csv' },
   { year: 2010, url: 'https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/7f5232d6-0d2a-4f95-864a-417cbf341cc4/resource/6c7dd98b-08d0-4f68-bee7-a0ba77a7da92/download/member-voting-record-2010-2014.csv' },
@@ -54,11 +67,20 @@ async function main() {
     }
   }
 
+  // Merge supplemental pre-2006 terms
+  for (const [name, extraTerms] of Object.entries(SUPPLEMENTAL_TERMS)) {
+    if (!memberTerms[name]) memberTerms[name] = [];
+    for (const t of extraTerms) {
+      if (!memberTerms[name].includes(t)) memberTerms[name].push(t);
+    }
+  }
+
   // Build output: only include members with a known since year
   const tenure = {};
   for (const [name, terms] of Object.entries(memberTerms)) {
     terms.sort((a, b) => a - b);
-    tenure[name] = { since: terms[0], terms };
+    const totalYears = terms.reduce((sum, t) => sum + termYears(t), 0);
+    tenure[name] = { since: terms[0], terms, totalYears };
   }
 
   // Sort by name

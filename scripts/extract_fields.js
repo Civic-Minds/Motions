@@ -45,14 +45,27 @@ const AMOUNT_RE = /\$\s*([\d,]+(?:\.\d+)?)\s*(million|billion|thousand)?/gi;
 const MULTIPLIERS = { thousand: 1_000, million: 1_000_000, billion: 1_000_000_000 };
 
 function extractAmounts(text) {
-  const amounts = new Set();
+  const seen = new Set();
+  const results = [];
+
   for (const match of text.matchAll(AMOUNT_RE)) {
     const raw = parseFloat(match[1].replace(/,/g, ''));
     const mult = MULTIPLIERS[match[2]?.toLowerCase()] ?? 1;
     const value = Math.round(raw * mult);
-    if (value >= 1000) amounts.add(value); // ignore trivial amounts under $1k
+    if (value < 1000 || seen.has(value)) continue;
+    seen.add(value);
+
+    // Capture the line containing this match as context
+    const pos = match.index;
+    const lineStart = text.lastIndexOf('\n', pos) + 1;
+    const lineEnd = text.indexOf('\n', pos);
+    const line = text.slice(lineStart, lineEnd < 0 ? text.length : lineEnd).trim();
+    const context = line.slice(0, 200) || null;
+
+    results.push({ value, context });
   }
-  return [...amounts].sort((a, b) => b - a); // largest first
+
+  return results.sort((a, b) => b.value - a.value); // largest first
 }
 
 // ─── Developer/applicant extraction ──────────────────────────────────────────

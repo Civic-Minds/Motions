@@ -3,7 +3,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { Users, Map, Building2, Menu, X, Search, GitCompare, MapPin } from 'lucide-react';
-import { getWardId, setWardId as saveWardId } from './utils/storage';
+import { getWardId, setWardId as saveWardId, getFollowedCommittees, setFollowedCommittees as saveFollowedCommittees } from './utils/storage';
 import { WARD_COUNCILLORS } from './constants/data';
 import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from './lib/utils';
@@ -91,7 +91,7 @@ function Navbar({ onSearchOpen, compareMode, onCompareModeToggle, wardId, onLoca
               className="hidden sm:flex items-center gap-1.5 px-3 py-2 text-sm text-slate-500 bg-white border border-slate-200 rounded-xl hover:border-slate-400 transition-all"
             >
               <MapPin className="w-3.5 h-3.5" />
-              My ward
+              Find My Ward
             </button>
           )}
           {onCouncillors && (
@@ -173,6 +173,8 @@ function AppShell() {
   const [compareMode, setCompareMode] = useState(false);
   const toggleCompareMode = () => setCompareMode(m => !m);
   const [wardId, setWardId] = useState(() => getWardId());
+  const [followedCommittees, setFollowedCommittees] = useState(() => getFollowedCommittees());
+
   const handleLocate = async () => {
     const { geolocateWard } = await import('./utils/ward');
     const id = await geolocateWard();
@@ -180,6 +182,14 @@ function AppShell() {
     saveWardId(id);
   };
   const handleClearWard = () => { setWardId(null); saveWardId(null); };
+
+  const handleToggleFollow = (name) => {
+    const next = followedCommittees.includes(name)
+      ? followedCommittees.filter(c => c !== name)
+      : [...followedCommittees, name];
+    setFollowedCommittees(next);
+    saveFollowedCommittees(next);
+  };
 
   const councillorNames = useMemo(() => {
     if (!motions) return [];
@@ -224,7 +234,7 @@ function AppShell() {
       <Navbar onSearchOpen={() => setSearchOpen(true)} compareMode={compareMode} onCompareModeToggle={toggleCompareMode} wardId={wardId} onLocate={handleLocate} onClearWard={handleClearWard} />
       <main className="flex-1 max-w-[1400px] mx-auto w-full px-4 sm:px-6 py-8">
         <Routes>
-          <Route path="/" element={<DashboardView motions={motions} meetings={meetings} />} />
+          <Route path="/" element={<DashboardView motions={motions} meetings={meetings} followedCommittees={followedCommittees} />} />
           <Route path="/motions/:motionId" element={<MotionPage motions={motions} />} />
           <Route path="/councillors" element={<CouncillorList motions={motions} councillors={councillors} compareMode={compareMode} onCompareModeToggle={toggleCompareMode} />} />
           <Route path="/councillors/:slug" element={<CouncillorProfile motions={motions} councillors={councillors} />} />
@@ -232,8 +242,8 @@ function AppShell() {
           <Route path="/councillors/:slug/vs/:slug2" element={<CouncillorList motions={motions} councillors={councillors} />} />
           <Route path="/wards"          element={<WardGrid motions={motions} />} />
           <Route path="/wards/:wardId"  element={<WardGrid motions={motions} />} />
-          <Route path="/committees" element={<CommitteesView motions={motions} />} />
-          <Route path="/committees/:committeeSlug" element={<CommitteesView motions={motions} />} />
+          <Route path="/committees" element={<CommitteesView motions={motions} followedCommittees={followedCommittees} onToggleFollow={handleToggleFollow} />} />
+          <Route path="/committees/:committeeSlug" element={<CommitteesView motions={motions} followedCommittees={followedCommittees} onToggleFollow={handleToggleFollow} />} />
           <Route path="/budget" element={<BudgetTranslator />} />
           <Route path="*"          element={<Navigate to="/" replace />} />
         </Routes>

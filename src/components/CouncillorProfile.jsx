@@ -1,7 +1,7 @@
 import { getWardId } from '../utils/storage';
 import React, { useMemo, useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { Mail, Phone } from 'lucide-react';
+import { Mail, Phone, ArrowRight } from 'lucide-react';
 import VsPickerModal from './VsPickerModal';
 import { motion } from 'framer-motion';
 import { getAttendance, getVotedWith } from '../utils/analytics';
@@ -71,9 +71,9 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
   const recentVotes = useMemo(() => {
     if (!selected) return [];
     return motions
-      .filter(m => !m.parentId && m.votes?.[selected] && m.significance >= 60)
-      .sort((a, b) => (b.date ?? '').localeCompare(a.date ?? ''))
-      .slice(0, 4);
+      .filter(m => !m.parentId && m.votes?.[selected])
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
+      .slice(0, 10);
   }, [selected, motions]);
 
   const totalVoteCount = useMemo(() =>
@@ -202,7 +202,7 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
             <div className="flex flex-col gap-1.5">
               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Votes cast</p>
               <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col flex-1">
-                <p className="text-2xl font-black text-slate-900">{totalVotes}</p>
+                <p className="text-2xl font-black text-slate-900">{totalVotes.toLocaleString()}</p>
                 <p className="text-[10px] text-slate-400 mt-auto pt-2">all recorded votes</p>
               </div>
             </div>
@@ -370,43 +370,50 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
         {/* Center: Recent Notable Votes as mini-cards */}
         <div>
           <div className="flex items-center justify-between mb-3">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Recent Notable Votes</p>
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Most Recent Votes</p>
             <button onClick={() => navigate(`/councillors/${slug}/votes`)} className="text-xs font-semibold text-[#004a99] hover:underline">
               See all {totalVoteCount} →
             </button>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="space-y-2">
             {recentVotes.map((m, i) => {
               const vote = m.votes[selected];
               return (
-                <motion.button
+                <motion.div
                   key={m.id}
-                  initial={{ opacity: 0, scale: 0.97 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: i * 0.04 }}
-                  onClick={() => navigate(`/motions/${m.id}`)}
-                  className="bg-white border border-slate-200 rounded-2xl p-4 text-left group flex flex-col gap-2 hover:border-[#004a99]/40 hover:shadow-sm transition-all"
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.03 }}
                 >
-                  <div className="flex items-center justify-between gap-1">
-                    {m.topic
-                      ? <span className={cn("text-[9px] font-semibold px-1.5 py-0.5 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>{m.topic}</span>
-                      : <span />}
-                    <span className={cn(
-                      "text-[9px] font-bold px-1.5 py-0.5 rounded-full shrink-0",
-                      vote === 'YES' ? 'bg-emerald-50 text-emerald-700' : vote === 'NO' ? 'bg-rose-50 text-rose-600' : 'bg-slate-100 text-slate-500'
-                    )}>
-                      {vote === 'YES' ? 'Yes' : vote === 'NO' ? 'No' : vote}
-                    </span>
+                  <div
+                    onClick={() => navigate(`/motions/${m.id}`)}
+                    className="bg-white border border-slate-200 rounded-2xl p-4 flex items-start gap-3 hover:border-[#004a99]/40 hover:shadow-sm transition-all group cursor-pointer"
+                  >
+                    <div className={cn("w-1 self-stretch rounded-full shrink-0", m.status === 'Adopted' ? 'bg-emerald-400' : 'bg-rose-400')} />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-start justify-between gap-4">
+                        <p className="text-sm font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-2 leading-snug" title={m.title}>
+                          {m.title}
+                        </p>
+                        <span className={cn(
+                          "text-[10px] font-bold px-2 py-1 rounded-lg shrink-0",
+                          vote === 'YES' ? 'bg-emerald-50 text-emerald-700' : vote === 'NO' ? 'bg-rose-50 text-rose-700' : 'bg-slate-100 text-slate-500'
+                        )}>
+                          Voted {vote === 'YES' ? 'Yes' : vote === 'NO' ? 'No' : vote}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2 mt-2 flex-wrap">
+                        <span className={cn("text-[10px] font-semibold px-2 py-0.5 rounded-full", m.status === 'Adopted' ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-700')}>{m.status}</span>
+                        {m.topic && <span className={cn("text-[10px] px-2 py-0.5 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>{m.topic}</span>}
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-500">{m.committee || getCommittee(m.id)}</span>
+                        {m.significance >= 90 && <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-600">High Impact</span>}
+                        <span className="text-[10px] text-slate-400 ml-auto">{m.date}</span>
+                      </div>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-[#004a99] shrink-0 mt-0.5 transition-colors" />
                   </div>
-                  <p className="text-xs font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-3 leading-snug flex-1">
-                    {m.title}
-                  </p>
-                  <div className="flex items-center justify-between mt-auto">
-                    <span className="text-[9px] text-slate-400">{m.date}</span>
-                    {m.significance >= 90 && <span className="text-[9px] font-semibold text-amber-600">High Impact</span>}
-                  </div>
-                </motion.button>
+                </motion.div>
               );
             })}
           </div>
