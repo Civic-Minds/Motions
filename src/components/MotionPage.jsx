@@ -499,7 +499,6 @@ export default function MotionPage({ motions = [] }) {
           )}
         </div>
       </div>
-    </div>      </div>
     </div>
   );
 }
