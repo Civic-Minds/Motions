@@ -7,17 +7,17 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 ## [Unreleased]
 
 ### Added
-- **Bento Grid Recentering** — promoted "Your Following" to the main 4-card centerpiece and transitioned "Global Notable" to the 1-card side anchor for a more persona-centric experience.
-- **Unified Motion Cards** — standardized all dashboard header items as high-density Motion Cards, ensuring visual consistency across the 1-4-1 bento grid.
-- **Sidebar Height Alignment** — scaled the Toronto Mini-Map to 480px to perfectly match the height of the filter sidebar, creating a balanced and stable frame for the main feed.
+- **Multi-committee following** — users can now follow multiple committees simultaneously.
+- **Aggregated dashboard feed** — the "Your Following" card now displays the most recent meeting across all favorite committees, with automatic label pivoting.
+- **Committee Educational Blurbs** — added descriptive mission statements for all major committees to help users understand their specific mandates and civic impact.
+- **Bento 1-4-1 Layout** — restructured the dashboard header into a perfectly balanced grid: 1 followed card, 4 notable motion cards, and 1 upcoming meeting card.
+- **Ward sidebar** — centralized "Your Ward" details and the Ward Map into the right-hand sidebar for a cleaner main feed.
+- **Motion Authorship Cards** — extracted Mover and Seconder data into dedicated, interactive pills within the motion summary, including automatic title cleanup of redundant "by Councillor" text.
+- **Title Clamping & Tooltips** — enforced a strict 3-line height limit for all cards across the app, paired with a full-text hover tooltip for accessibility.
+- **Expanded Councillor History** — increased the "Recent Notable Votes" visibility on councillor profiles from 4 items to 10 for better retrospective analysis.
+- **Sidebar Height Alignment** — scaled the Toronto Mini-Map to 480px to perfectly match the height of the filter sidebar.
 - **"Find My Ward" Global Onboarding** — updated the Navbar label to "Find My Ward" to improve clarity for new users.
-- **Multi-committee Activity Aggregation** — implemented intelligent labeling (e.g., "Multiple Committees") in the dashboard feed to handle overlapping meeting schedules for followed groups.
-
-### Changed
-- **Councillor Feed Pivot** — transitioned councillor vote history from a horizontal scroll to a chronologically sorted (latest first) vertical feed.
-- **Improved Vote Context** — expanded councillor vote items to include topic tags and specific meeting dates for better scanability.
-- **Layout Harmonization** — removed the redundant "Your Ward" card to streamline the spatial intelligence column.
-- **Typography Standardization** — refined Motion Page header typography and removed italics from "Motion Summary" for an editorial look.
+- **Multi-committee Activity Aggregation** — implemented intelligent labeling (e.g., "Multiple Committees") in the dashboard feed to handle overlapping meeting schedules.
 
 ### Changed
 - **Header Synchronization** — standardized column widths across the entire dashboard (200px | 1fr | 220px) for a seamless vertical flow.
@@ -25,6 +25,10 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Data Density** — increased the "Most Recent Notable" slice to 4 items to fill the expanded central grid.
 - **Refined Labels** — removed redundant all-caps labels ("YOUR WARD", "WARD MAP") to reduce UI noise.
 - **Status Deduplication** — removed redundant status badges from the final vote record on single-vote motions for a cleaner detail view.
+- **Layout Harmonization** — removed the redundant "Your Ward" card to streamline the spatial intelligence column.
+- **Typography Standardization** — refined Motion Page header typography and removed italics from "Motion Summary" for an editorial look.
+- **Councillor Feed Pivot** — transitioned councillor vote history from a horizontal scroll to a chronologically sorted (latest first) vertical feed.
+- **Improved Vote Context** — expanded councillor vote items to include topic tags and specific meeting dates for better scanability.
 
 ## [2.3.0] - 2026-04-13
 
