@@ -41,7 +41,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Councillor Callout Link** — the "Your Councillor" card on motion pages now uses a clickable blue link matching the Mover/Seconder format, linking directly to the councillor's profile.
 - **Ward Motion Sorting** — ward detail pages now sort motions by date (newest first) instead of significance only.
 - **Explicit Vote Breakdowns** — updated the vote breakdown UI to explicitly list non-councillor votes (e.g., "+ 2 non-councillors") inline with the Yes/No lists, replacing the easily missed footnote, and preventing supposedly "empty" columns from disappearing.
-- **Motion Page Layout** — refactored the motion detail page into a dense 2-column grid to reduce vertical scrolling, separating the primary reading content (Summary, Votes) from the contextual metadata (Mover/Seconder, Funding, Related items).
+- **Motion Page Layout** — refactored the motion detail page into a dense 2-column grid to reduce vertical scrolling, and made the "Back" button hang dynamically in the left gutter on large screens to reduce vertical space usage.
 ## [2.3.0] - 2026-04-13
 
 ### Added

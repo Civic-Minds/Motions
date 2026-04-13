@@ -261,9 +261,19 @@ export default function MotionPage({ motions = [] }) {
   const displayTitle = authorship ? authorship.displayTitle : motion.title;
 
   return (
-    <div className="max-w-5xl mx-auto py-2 px-4 sm:px-6 lg:px-8">
-      {/* Back */}
-      <div className="mb-6">
+    <div className="max-w-5xl mx-auto py-2 px-4 sm:px-6 lg:px-8 relative">
+
+      {/* Back Button (Desktop - Floating Left) */}
+      <button
+        onClick={() => navigate(-1)}
+        className="hidden xl:flex absolute -left-12 top-2 mt-0.5 items-center gap-1.5 text-sm text-slate-400 hover:text-slate-700 transition-colors"
+      >
+        <ArrowLeft className="w-4 h-4 text-slate-300" />
+        Back
+      </button>
+
+      {/* Back Button (Mobile/Tablet - Stacked) */}
+      <div className="mb-6 xl:hidden">
         <button
           onClick={() => navigate(-1)}
           className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-700 transition-colors"
