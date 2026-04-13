@@ -273,46 +273,46 @@ export default function MotionPage({ motions = [] }) {
         </button>
       </div>
 
+      {/* Header (Full Width) */}
+      <div className="space-y-3 mb-8">
+        <div className="flex flex-wrap items-center gap-2">
+          <StatusBadge status={motion.status} />
+          {motion.significance >= 90 && (
+            <span className="text-xs font-semibold text-amber-600 bg-amber-50 px-2.5 py-0.5 rounded-full">High Impact</span>
+          )}
+          {motion.significance >= 60 && motion.significance < 90 && (
+            <span className="text-xs font-semibold text-amber-600 bg-amber-50 px-2.5 py-0.5 rounded-full">Notable</span>
+          )}
+        </div>
+
+        <h1 className="text-xl font-bold text-slate-900 leading-snug lg:w-4/5">{displayTitle}</h1>
+
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-400">
+          <span className="font-mono">{motion.id}</span>
+          <span>·</span>
+          <span>{motion.date}</span>
+          <span>·</span>
+          <span>{committee}</span>
+          {motion.topic && <><span>·</span><span>{motion.topic}</span></>}
+          {motion.url && (
+            <>
+              <span>·</span>
+              <a
+                href={motion.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-[#004a99] hover:underline font-medium"
+              >
+                toronto.ca <ExternalLink className="w-3 h-3" />
+              </a>
+            </>
+          )}
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
         {/* LEFT COLUMN: Main Content */}
         <div className="lg:col-span-2 space-y-6">
-          {/* Header */}
-          <div className="space-y-3">
-            <div className="flex flex-wrap items-center gap-2">
-              <StatusBadge status={motion.status} />
-              {motion.significance >= 90 && (
-                <span className="text-xs font-semibold text-amber-600 bg-amber-50 px-2.5 py-0.5 rounded-full">High Impact</span>
-              )}
-              {motion.significance >= 60 && motion.significance < 90 && (
-                <span className="text-xs font-semibold text-amber-600 bg-amber-50 px-2.5 py-0.5 rounded-full">Notable</span>
-              )}
-            </div>
-
-            <h1 className="text-xl font-bold text-slate-900 leading-snug">{displayTitle}</h1>
-
-            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-400">
-              <span className="font-mono">{motion.id}</span>
-              <span>·</span>
-              <span>{motion.date}</span>
-              <span>·</span>
-              <span>{committee}</span>
-              {motion.topic && <><span>·</span><span>{motion.topic}</span></>}
-              {motion.url && (
-                <>
-                  <span>·</span>
-                  <a
-                    href={motion.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-[#004a99] hover:underline font-medium"
-                  >
-                    toronto.ca <ExternalLink className="w-3 h-3" />
-                  </a>
-                </>
-              )}
-            </div>
-          </div>
-
           {/* Summary */}
           {motion.summary && (
             <div className="bg-white border border-slate-200 rounded-xl px-5 py-4">
