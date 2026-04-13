@@ -11,7 +11,7 @@ const TorontoMiniMap = lazy(() => import('./TorontoMiniMap'));
 
 const TOPICS = ['Housing', 'Transit', 'Finance', 'Parks', 'Climate', 'General'];
 
-export default function DashboardView({ motions, councillors }) {
+export default function DashboardView({ motions, councillors, meetings = [] }) {
   const navigate = useNavigate();
   const [selectedTopic, setSelectedTopic] = useState('All');
   const [selectedCommittee, setSelectedCommittee] = useState('All');
@@ -200,6 +200,36 @@ export default function DashboardView({ motions, councillors }) {
         </div>
 
       </div>
+
+      {/* ── Coming Up ── */}
+      {meetings.length > 0 && (
+        <div>
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1 mb-1.5">Coming Up</p>
+          <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
+            {meetings.slice(0, 10).map((m, i) => (
+              <div
+                key={i}
+                className={cn(
+                  "flex-shrink-0 rounded-2xl border px-3 py-2.5 flex flex-col gap-1 min-w-[160px] max-w-[200px]",
+                  m.isCouncil
+                    ? "bg-[#004a99] border-[#004a99] text-white"
+                    : "bg-white border-slate-200"
+                )}
+              >
+                <p className={cn("text-[9px] font-bold uppercase tracking-wide", m.isCouncil ? "text-blue-200" : "text-slate-400")}>
+                  {m.displayDate}
+                </p>
+                <p className={cn("text-xs font-semibold leading-snug", m.isCouncil ? "text-white" : "text-slate-800")}>
+                  {m.committee}
+                </p>
+                <p className={cn("text-[9px]", m.isCouncil ? "text-blue-200" : "text-slate-400")}>
+                  {m.startTime}{m.location ? ` · ${m.location.split(',')[0]}` : ''}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* ── Main: Filter sidebar + motion list (same column widths as bento) ── */}
       <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr_220px] lg:gap-x-3 lg:items-start gap-y-4">

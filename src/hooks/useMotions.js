@@ -7,6 +7,7 @@ import { calculateTrivialityMetrics } from '../utils/analytics';
 export function useMotions() {
     const [motions, setMotions] = useState([]);
     const [councillors, setCouncillors] = useState([]);
+    const [meetings, setMeetings] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -15,19 +16,22 @@ export function useMotions() {
 
         async function loadData() {
             try {
-                const [motionsRes, councillorsRes] = await Promise.all([
+                const [motionsRes, councillorsRes, meetingsRes] = await Promise.all([
                     fetch('/data/motions.json'),
                     fetch('/data/councillors.json'),
+                    fetch('/data/meetings.json'),
                 ]);
                 if (!motionsRes.ok) throw new Error('Failed to fetch data');
-                const [motionsData, councillorsData] = await Promise.all([
+                const [motionsData, councillorsData, meetingsData] = await Promise.all([
                     motionsRes.json(),
                     councillorsRes.ok ? councillorsRes.json() : Promise.resolve([]),
+                    meetingsRes.ok ? meetingsRes.json() : Promise.resolve([]),
                 ]);
 
                 if (isMounted) {
                     setMotions(motionsData);
                     setCouncillors(councillorsData);
+                    setMeetings(meetingsData);
                     setLoading(false);
                 }
             } catch (err) {
@@ -50,6 +54,7 @@ export function useMotions() {
     return {
         motions,
         councillors,
+        meetings,
         loading,
         error,
         ...metrics

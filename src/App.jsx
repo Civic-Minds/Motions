@@ -168,7 +168,7 @@ function ScrollToTop() {
 }
 
 function AppShell() {
-  const { motions, councillors, loading, error } = useMotions();
+  const { motions, councillors, meetings, loading, error } = useMotions();
   const [searchOpen, setSearchOpen] = useState(false);
   const [compareMode, setCompareMode] = useState(false);
   const toggleCompareMode = () => setCompareMode(m => !m);
@@ -224,7 +224,7 @@ function AppShell() {
       <Navbar onSearchOpen={() => setSearchOpen(true)} compareMode={compareMode} onCompareModeToggle={toggleCompareMode} wardId={wardId} onLocate={handleLocate} onClearWard={handleClearWard} />
       <main className="flex-1 max-w-[1400px] mx-auto w-full px-4 sm:px-6 py-8">
         <Routes>
-          <Route path="/" element={<DashboardView motions={motions} />} />
+          <Route path="/" element={<DashboardView motions={motions} meetings={meetings} />} />
           <Route path="/motions/:motionId" element={<MotionPage motions={motions} />} />
           <Route path="/councillors" element={<CouncillorList motions={motions} councillors={councillors} compareMode={compareMode} onCompareModeToggle={toggleCompareMode} />} />
           <Route path="/councillors/:slug" element={<CouncillorProfile motions={motions} councillors={councillors} />} />

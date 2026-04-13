@@ -20,21 +20,23 @@ Run in order when refreshing data:
 4. `node --env-file=.env scripts/generate_summaries.js`
 5. `node scripts/geocode_addresses.js`
 6. `node scripts/strip_body.js`
+7. `node scripts/fetch_meetings.js` (can run independently — fetches upcoming meeting schedule)
 
 ## Logging
 
 After every session, update:
-- `CHANGELOG.md` — under `[Unreleased]`
+- `CHANGELOG.md` — add to the current `[Unreleased]` section, or create one if it doesn't exist
 - MotionsLog Notion DB (ID: `3289563c-9a49-8133-82a6-000b5e36402d`)
 
 ## Data sources
 
-All data refreshes are **manual** — there is no automation or scheduled pipeline.
+Most data refreshes are **manual**. `motions.json` and `meetings.json` are refreshed automatically by GitHub Actions daily at 6am UTC.
 
 | File | Source | How to update |
 |---|---|---|
-| `motions.json` (votes) | Toronto Open Data — City Council Voting Record CSV | Run `import_open_data.js` |
+| `motions.json` (votes) | Toronto Open Data — City Council Voting Record CSV | Run `import_open_data.js` (automated daily) |
 | `motions.json` (summaries) | TMMIS agenda scraper + Gemini AI | Run scripts 2–4 in order (scrape → extract → summarize). Requires `GEMINI_API_KEY`. Slow — only run when new motions need summaries. |
+| `meetings.json` | Toronto Open Data — Meeting Schedule CSV | Run `fetch_meetings.js` (automated daily). Upcoming 90 days, major committees only. |
 | `councillors.json` | Hand-maintained from toronto.ca councillor pages | Edit manually when councillors change |
 | `tenure.json` | Derived from voting record + manual overrides | Run `build_tenure.js` after importing new voting data |
 | `expenses.json` | City of Toronto annual remuneration PDF (published each March) | Hand-encode from new PDF. See Manual checks below. Quarterly HTML table also at `secure.toronto.ca/tcer2/` — check manually if mid-year updates are needed. |
