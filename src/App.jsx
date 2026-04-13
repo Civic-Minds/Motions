@@ -2,7 +2,9 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { Users, Map, Building2, Menu, X, Search } from 'lucide-react';
+import { Users, Map, Building2, Menu, X, Search, GitCompare, MapPin } from 'lucide-react';
+import { getWardId, setWardId as saveWardId } from './utils/storage';
+import { WARD_COUNCILLORS } from './constants/data';
 import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from './lib/utils';
 import { useMotions } from './hooks/useMotions';
@@ -11,6 +13,7 @@ import DashboardView from './components/DashboardView';
 import MotionPage from './components/MotionPage';
 import CouncillorList from './components/CouncillorList';
 import CouncillorProfile from './components/CouncillorProfile';
+import CouncillorVotes from './components/CouncillorVotes';
 import WardGrid from './components/WardGrid';
 import BudgetTranslator from './components/BudgetTranslator';
 import CommitteesView from './components/CommitteesView';
@@ -22,10 +25,13 @@ const TABS = [
   { path: '/wards',       label: 'Wards',       icon: Map },
 ];
 
-function Navbar({ onSearchOpen }) {
+function Navbar({ onSearchOpen, compareMode, onCompareModeToggle, wardId, onLocate, onClearWard }) {
   const location = useLocation();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const onCouncillors = location.pathname.startsWith('/councillors') && !location.pathname.includes('/vs/');
+  const councillorName = wardId ? WARD_COUNCILLORS[wardId] : null;
+  const wardLastName = councillorName ? councillorName.split(' ').at(-1) : null;
 
   const active = TABS.find(t =>
     t.path === '/' ? location.pathname === '/' : location.pathname.startsWith(t.path)
@@ -69,8 +75,39 @@ function Navbar({ onSearchOpen }) {
           })}
         </nav>
 
-        {/* Right: search + mobile toggle */}
+        {/* Right: compare + search + mobile toggle */}
         <div className="flex items-center gap-2">
+          {wardId ? (
+            <button
+              onClick={onClearWard}
+              className="hidden sm:flex items-center gap-1.5 px-3 py-2 text-sm text-slate-600 bg-white border border-slate-200 rounded-xl hover:border-slate-400 transition-all"
+            >
+              <MapPin className="w-3.5 h-3.5 text-[#004a99]" />
+              W{wardId}{wardLastName ? ` · ${wardLastName}` : ''}
+            </button>
+          ) : (
+            <button
+              onClick={onLocate}
+              className="hidden sm:flex items-center gap-1.5 px-3 py-2 text-sm text-slate-500 bg-white border border-slate-200 rounded-xl hover:border-slate-400 transition-all"
+            >
+              <MapPin className="w-3.5 h-3.5" />
+              My ward
+            </button>
+          )}
+          {onCouncillors && (
+            <button
+              onClick={onCompareModeToggle}
+              className={cn(
+                "hidden sm:flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-xl border transition-all",
+                compareMode
+                  ? 'bg-slate-900 text-white border-slate-900'
+                  : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400'
+              )}
+            >
+              <GitCompare className="w-3.5 h-3.5" />
+              {compareMode ? 'Cancel' : 'Compare'}
+            </button>
+          )}
           <button
             onClick={onSearchOpen}
             className="flex items-center gap-2 px-3 py-2 text-sm text-slate-400 bg-slate-100 hover:bg-slate-150 border border-slate-200 rounded-xl transition-all w-48 hidden sm:flex"
@@ -133,6 +170,16 @@ function ScrollToTop() {
 function AppShell() {
   const { motions, councillors, loading, error } = useMotions();
   const [searchOpen, setSearchOpen] = useState(false);
+  const [compareMode, setCompareMode] = useState(false);
+  const toggleCompareMode = () => setCompareMode(m => !m);
+  const [wardId, setWardId] = useState(() => getWardId());
+  const handleLocate = async () => {
+    const { geolocateWard } = await import('./utils/ward');
+    const id = await geolocateWard();
+    setWardId(id);
+    saveWardId(id);
+  };
+  const handleClearWard = () => { setWardId(null); saveWardId(null); };
 
   const councillorNames = useMemo(() => {
     if (!motions) return [];
@@ -174,13 +221,14 @@ function AppShell() {
   return (
     <div className="min-h-screen flex flex-col">
       <ScrollToTop />
-      <Navbar onSearchOpen={() => setSearchOpen(true)} />
+      <Navbar onSearchOpen={() => setSearchOpen(true)} compareMode={compareMode} onCompareModeToggle={toggleCompareMode} wardId={wardId} onLocate={handleLocate} onClearWard={handleClearWard} />
       <main className="flex-1 max-w-[1400px] mx-auto w-full px-4 sm:px-6 py-8">
         <Routes>
           <Route path="/" element={<DashboardView motions={motions} />} />
           <Route path="/motions/:motionId" element={<MotionPage motions={motions} />} />
-          <Route path="/councillors" element={<CouncillorList motions={motions} councillors={councillors} />} />
+          <Route path="/councillors" element={<CouncillorList motions={motions} councillors={councillors} compareMode={compareMode} onCompareModeToggle={toggleCompareMode} />} />
           <Route path="/councillors/:slug" element={<CouncillorProfile motions={motions} councillors={councillors} />} />
+          <Route path="/councillors/:slug/votes" element={<CouncillorVotes motions={motions} />} />
           <Route path="/councillors/:slug/vs/:slug2" element={<CouncillorList motions={motions} councillors={councillors} />} />
           <Route path="/wards"          element={<WardGrid motions={motions} />} />
           <Route path="/wards/:wardId"  element={<WardGrid motions={motions} />} />

@@ -3,6 +3,7 @@
  */
 
 import { TORONTO_WARDS } from '../constants/wards';
+import { FORMER_MEMBERS } from '../constants/data';
 
 /**
  * Calculates the triviality score and focus score.
@@ -94,7 +95,7 @@ export function getVotedWith(motions, memberName, minShared = 10) {
     });
 
     return Object.entries(peerCounts)
-        .filter(([, total]) => total >= minShared)
+        .filter(([name, total]) => total >= minShared && !(name in FORMER_MEMBERS))
         .map(([name, total]) => ({
             name,
             pct: Math.round(((sharedCounts[name] || 0) / total) * 100),

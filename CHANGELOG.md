@@ -6,6 +6,29 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for pre-2.0.0 history.
 
 ## [Unreleased]
 
+- **Councillor profile redesigned** — header integrates photo/name alongside stat bento cards (Votes, Attendance, Yes Rate, Tenure, Office Spend) in one row. Body is a 3-column layout: Voting DNA + alignment in left sidebar; 4 recent notable votes as equal-height 2×2 card grid in the centre; 2025 expenses detail in right sidebar. Back button removed; Compare button uses the navbar. Most Aligned With and Least Aligned now use councillor photos with initials fallback, and Least Aligned matches the same row style as Most Aligned. Former members filtered from alignment list.
+- **Ward finder moved to navbar** — "My ward" / "W{id} · {Last name}" button always visible in the navbar regardless of page; removed from the councillors list page.
+- **Sub-motion context added** — when expanding a sub-vote on a motion page (e.g. "Refer Item"), a plain-language description of what that motion type means is shown, plus the sub-entry's title if it differs from the parent.
+- **VS page redesigned for density** — topics and divergences sit side by side in matching cards; topic breakdown is now a compact table (columns: topic, C1 yes%, C2 yes%, agree%); divergences capped at 6 to match 6 topics; both cards stretch to equal height with equal-height rows; motion ID shown on each divergence row.
+- **Compare button moved to navbar** — appears beside the search bar only when on the councillors page; state lifted to AppShell.
+- **Ward finder on councillors page** — compact "Find my ward / change" bar at top of councillor list so users can set or clear their ward without going to the dashboard.
+- **Councillor voting record split to its own page** — `/councillors/:slug/votes` shows every motion (no trivial filter), newest first, with topic and yes/no filters. Profile page now shows only 5 recent notable votes and a "See all N votes →" link, making the profile about the councillor rather than a vote dump.
+- **Committees back arrow replaced with breadcrumb** — the `←` icon on committee detail pages is replaced with a plain "Committees" text link above the title.
+- **2025 councillor expenses added** — `expenses.json` sourced from the City of Toronto's annual remuneration report (year ended December 31, 2025, published March 2026). Councillor profiles now show an office expenses card in the left sidebar: total spent vs. the $60,053 constituency services budget, a utilization bar, and a breakdown of the top spending categories (communication, meetings, advertising, etc.).
+
+- **Councillor profile filter bar consolidated** — category, vote (Yes/No), and sort controls merged into a single row with "Category", "Vote", and "Sort" section labels matching the "Voting DNA" style.
+- **Multi-select filters on councillor page** — category and vote filters now toggle independently; multiple selections can be active simultaneously. Empty selection shows all.
+- **Redundant badges hidden when filtering** — Yes/No badge, topic badge, and Notable/High Impact badge each hide when their respective filter makes them self-evident.
+- **Impact sort removed** — vote history now always sorts newest first; the opaque significance score is no longer exposed to users.
+- **Yes/No casing corrected** — vote labels display as "Yes" / "No" throughout the councillor page (pills, cards, and DNA chart).
+- **Stats strip consolidated** — committee badges and contact info (email, phone) merged into the same flex row as vote/attendance stats, separated by dividers.
+- **"Years on council" stat added** — displays accurate total years based on actual terms served. `build_tenure.js` now includes a `SUPPLEMENTAL_TERMS` override for pre-2006 service (Olivia Chow since 1991, Frances Nunziata since 1997) and a `TERM_YEARS` map for correct pre-2006 3-year term lengths. Stores `totalYears` in tenure.json.
+- **Councillor vote history defaults to newest first** — sort order changed from significance to date on initial load.
+- **Funding panel capped at 3 amounts** — motions with many dollar figures now show the first 3 with a "+N more" label instead of an unlabeled wall of numbers.
+- **Funding panel hidden for high-volume motions** — panel is suppressed when a motion has >10 amounts (e.g. budget docs), where the figures are noise without labels.
+- **Labeled amount extraction** — `extract_fields.js` now stores `{ value, context }[]` instead of bare `number[]`; each amount carries the line of body text it came from. Existing data unchanged until next pipeline run; UI handles both formats with graceful fallback and hover tooltip.
+- **Gemini-labeled keyAmounts** — `generate_summaries.js` now extracts up to 2 key financial figures alongside the summary. Each has a plain-language label, value, unit (`$` or `%`), and type. New `--fill-amounts` flag backfills existing summaries (uses summary text when body is stripped). UI uses `keyAmounts` when present and falls back to raw `amounts` otherwise. Backfill complete: 363/363 processed, 26 with financial figures.
+
 - **Clickable bento cards** — Last Meeting card toggles the motion list to that meeting's motions; Your Ward card navigates to the ward detail page.
 - **Year filter** — sidebar filter (desktop) lets users narrow the motion list to a specific year (2022–2026). Derived dynamically from loaded motions.
 - **Summary snippets in motion list** — if a motion has a plain-language `summary`, a two-line excerpt is shown below the title in the list card.

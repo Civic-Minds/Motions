@@ -82,21 +82,11 @@ export default function WardGrid({ motions }) {
   return (
     <div className="space-y-8 pb-20">
 
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          {selectedWard && (
-            <button onClick={() => navigate('/wards')} className="p-1.5 hover:bg-slate-100 rounded-lg transition-colors">
-              <ChevronLeft className="w-5 h-5 text-slate-500" />
-            </button>
-          )}
-          <div>
-            <h1 className="text-2xl font-bold text-slate-900">
-              {selectedWard ? `Ward ${selectedWard.id} · ${selectedWard.name}` : 'Wards'}
-            </h1>
-          </div>
-        </div>
-      </div>
+      {selectedWard && (
+        <h1 className="text-2xl font-bold text-slate-900">
+          Ward {selectedWard.id} · {selectedWard.name}
+        </h1>
+      )}
 
       {!selectedWard ? (
         <>

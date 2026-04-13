@@ -1,7 +1,7 @@
 import { getWardId } from '../utils/storage';
 import React, { useMemo, useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { GitCompare, Mail, Phone } from 'lucide-react';
+import { Mail, Phone } from 'lucide-react';
 import VsPickerModal from './VsPickerModal';
 import { motion } from 'framer-motion';
 import { getAttendance, getVotedWith } from '../utils/analytics';
@@ -20,16 +20,17 @@ Object.entries(WARD_COUNCILLORS).forEach(([wardId, name]) => {
 export default function CouncillorProfile({ motions, councillors = [] }) {
   const { slug } = useParams();
   const navigate = useNavigate();
-  const [topicFilter, setTopicFilter] = useState('All');
-  const [outcomeFilter, setOutcomeFilter] = useState('All');
-  const [sortBy, setSortBy] = useState('significance');
-  const [notableOnly, setNotableOnly] = useState(false);
   const [vsPickerOpen, setVsPickerOpen] = useState(false);
   const [vsSearch, setVsSearch] = useState('');
   const [tenure, setTenure] = useState({});
+  const [expenses, setExpenses] = useState(null);
 
   useEffect(() => {
     fetch('/data/tenure.json').then(r => r.json()).then(setTenure).catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    fetch('/data/expenses.json').then(r => r.json()).then(setExpenses).catch(() => {});
   }, []);
 
   const allNames = useMemo(() => {
@@ -67,29 +68,17 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
     selected ? getVotedWith(motions, selected) : [],
     [selected, motions]);
 
-  const voteHistory = useMemo(() => {
+  const recentVotes = useMemo(() => {
     if (!selected) return [];
     return motions
-      .filter(m => !m.parentId && m.votes?.[selected] && !m.trivial)
-      .sort((a, b) => (b.significance ?? 0) - (a.significance ?? 0));
+      .filter(m => !m.parentId && m.votes?.[selected] && m.significance >= 60)
+      .sort((a, b) => (b.date ?? '').localeCompare(a.date ?? ''))
+      .slice(0, 4);
   }, [selected, motions]);
 
-  const voteTopics = useMemo(() => {
-    const topics = [...new Set(voteHistory.map(m => m.topic).filter(Boolean))];
-    return ['All', ...topics];
-  }, [voteHistory]);
-
-  const filteredVotes = useMemo(() => {
-    return voteHistory
-      .filter(m => topicFilter === 'All' || m.topic === topicFilter)
-      .filter(m => outcomeFilter === 'All' || m.votes?.[selected] === outcomeFilter)
-      .filter(m => !notableOnly || m.significance >= 60)
-      .sort((a, b) =>
-        sortBy === 'date'
-          ? (b.date ?? '').localeCompare(a.date ?? '')
-          : (b.significance ?? 0) - (a.significance ?? 0)
-      );
-  }, [voteHistory, topicFilter, outcomeFilter, notableOnly, sortBy, selected]);
+  const totalVoteCount = useMemo(() =>
+    selected ? motions.filter(m => !m.parentId && m.votes?.[selected]).length : 0,
+    [selected, motions]);
 
   const committees = useMemo(() => {
     if (!selected) return [];
@@ -111,6 +100,11 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
     allNames.filter(n => n !== selected).sort(),
     [allNames, selected]);
 
+  const expenseRecord = useMemo(() => {
+    if (!expenses || !ward) return null;
+    return expenses.councillors.find(c => c.ward === ward.id) ?? null;
+  }, [expenses, ward]);
+
 
   const myWardId = getWardId();
   const myCouncillor = myWardId ? WARD_COUNCILLORS[myWardId] : null;
@@ -124,124 +118,76 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
   const initials = selected.split(' ').map(n => n[0]).slice(0, 2).join('');
   const lastName = selected.split(' ').at(-1);
   const photoUrl = `/images/councillors/${lastName}.jpg`;
+  const voteHistory = motions.filter(m => m.votes?.[selected]);
   const yesCount = voteHistory.filter(m => m.votes[selected] === 'YES').length;
   const noCount = voteHistory.filter(m => m.votes[selected] === 'NO').length;
   const yesRate = voteHistory.length > 0 ? Math.round((yesCount / voteHistory.length) * 100) : null;
   const isMyCouncillor = myCouncillor === selected;
 
+  const EXPENSE_LABELS = {
+    communication: 'Communication',
+    constituency_and_business_meetings: 'Meetings',
+    advertising_and_promotion: 'Advertising',
+    professional_and_technical_services: 'Professional services',
+    office_equipment_and_supplies: 'Equipment & supplies',
+    transportation_kilometrage_parking: 'Transportation',
+    telecom_services: 'Telecom',
+    city_hall_civic_centre_rent_constituency_office: 'Office rent',
+    other_expenses: 'Other',
+  };
+
   return (
     <div className="pb-20">
 
-      {/* Back */}
-      <button
-        onClick={() => navigate(-1)}
-        className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-700 transition-colors mb-6"
-      >
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7"/></svg>
-        Back
-      </button>
-
       {/* Former member notice */}
       {FORMER_MEMBERS[selected] && (
-        <div className="mb-6 flex items-center gap-2.5 px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-500">
+        <div className="mb-5 flex items-center gap-2.5 px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-500">
           <span className="w-1.5 h-1.5 rounded-full bg-slate-400 shrink-0" />
           {FORMER_MEMBERS[selected]} · Historical record only
         </div>
       )}
 
-      {/* Profile header */}
-      <div className="flex items-start justify-between gap-6 mb-8">
-        <div className="flex items-start gap-5">
-          <div className="w-24 h-24 rounded-2xl bg-[#004a99] flex items-center justify-center shrink-0 overflow-hidden">
+      {/* Profile header + stats integrated */}
+      <div className="flex flex-col sm:flex-row sm:items-stretch gap-4 mb-6">
+
+        {/* Identity */}
+        <div className="flex items-center gap-4 shrink-0">
+          <div className="w-16 h-16 rounded-2xl bg-[#004a99] flex items-center justify-center shrink-0 overflow-hidden">
             <img
               src={photoUrl}
               alt={selected}
               className="w-full h-full object-cover"
               onError={e => { e.currentTarget.style.display = 'none'; e.currentTarget.nextSibling.style.display = 'flex'; }}
             />
-            <span className="text-white font-bold text-2xl hidden w-full h-full items-center justify-center">{initials}</span>
+            <span className="text-white font-bold text-xl hidden w-full h-full items-center justify-center">{initials}</span>
           </div>
-          <div>
-            <div className="flex items-center gap-2.5 flex-wrap">
-              <h1 className="text-2xl font-bold text-slate-900 leading-tight">{selected}</h1>
+          <div className="min-w-[160px]">
+            <div className="flex items-center gap-2 flex-wrap">
+              <h1 className="text-xl font-bold text-slate-900 leading-tight">{selected}</h1>
               {isMyCouncillor && (
-                <span className="text-[10px] font-bold bg-[#004a99] text-white px-2.5 py-0.5 rounded-full whitespace-nowrap">
-                  Your Councillor
-                </span>
+                <span className="text-[10px] font-bold bg-[#004a99] text-white px-2.5 py-0.5 rounded-full">Your Councillor</span>
               )}
+              {committees.map(c => (
+                <button
+                  key={c}
+                  onClick={() => navigate(`/committees/${c.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`)}
+                  className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 hover:bg-[#004a99] hover:text-white transition-colors"
+                >
+                  {c}
+                </button>
+              ))}
             </div>
-            <p className="text-sm text-slate-400 mt-0.5">
-              {ward ? `Ward ${ward.id} · ${ward.name}` : 'Toronto City Council'}
-            </p>
-
-            {/* Stats strip */}
-            {attendance && (
-              <div className="flex flex-wrap items-center gap-x-5 gap-y-2 mt-3">
-                <div>
-                  <span className="text-lg font-black text-slate-800">{totalVotes}</span>
-                  <span className="text-xs text-slate-400 ml-1.5">votes</span>
-                </div>
-                <div className="w-px h-4 bg-slate-200" />
-                <div>
-                  <span className={cn("text-lg font-black", attendance.pct >= 90 ? 'text-emerald-600' : attendance.pct >= 75 ? 'text-amber-500' : 'text-rose-500')}>
-                    {attendance.daysPresent}/{attendance.totalDays}
-                  </span>
-                  <span className="text-xs text-slate-400 ml-1.5">meeting days</span>
-                </div>
-                <div className="w-px h-4 bg-slate-200" />
-                <div>
-                  <span className={cn("text-lg font-black", attendance.pct >= 90 ? 'text-emerald-600' : attendance.pct >= 75 ? 'text-amber-500' : 'text-rose-500')}>
-                    {attendance.pct}%
-                  </span>
-                  <span className="text-xs text-slate-400 ml-1.5">attendance</span>
-                </div>
-                {yesRate !== null && (
-                  <>
-                    <div className="w-px h-4 bg-slate-200" />
-                    <div>
-                      <span className="text-lg font-black text-slate-800">{yesRate}%</span>
-                      <span className="text-xs text-slate-400 ml-1.5">yes rate</span>
-                    </div>
-                  </>
-                )}
-                {tenure[selected] && (
-                  <>
-                    <div className="w-px h-4 bg-slate-200" />
-                    <div>
-                      <span className="text-lg font-black text-slate-800">{tenure[selected].since}</span>
-                      <span className="text-xs text-slate-400 ml-1.5">on council since</span>
-                    </div>
-                  </>
-                )}
-              </div>
-            )}
-
-            {/* Committees */}
-            {committees.length > 0 && (
-              <div className="flex flex-wrap gap-1.5 mt-3">
-                {committees.map(c => (
-                  <button
-                    key={c}
-                    onClick={() => navigate(`/committees/${c.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`)}
-                    className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 hover:bg-[#004a99] hover:text-white transition-colors"
-                  >
-                    {c}
-                  </button>
-                ))}
-              </div>
-            )}
-
-            {/* Contact */}
+            <p className="text-sm text-slate-400 mt-0.5">{ward ? `Ward ${ward.id} · ${ward.name}` : 'Toronto City Council'}</p>
             {contact && (contact.email || contact.phone) && (
-              <div className="flex flex-wrap gap-4 mt-3">
-                {contact.email && (
-                  <a href={`mailto:${contact.email}`} className="flex items-center gap-1.5 text-xs text-[#004a99] hover:underline">
-                    <Mail className="w-3.5 h-3.5" />{contact.email}
+              <div className="flex items-center gap-3 mt-1.5 flex-wrap">
+                {contact.phone && (
+                  <a href={`tel:${contact.phone}`} className="flex items-center gap-1 text-xs text-slate-500 hover:text-slate-800 transition-colors">
+                    <Phone className="w-3 h-3" />{contact.phone}
                   </a>
                 )}
-                {contact.phone && (
-                  <a href={`tel:${contact.phone}`} className="flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-800 transition-colors">
-                    <Phone className="w-3.5 h-3.5" />{contact.phone}
+                {contact.email && (
+                  <a href={`mailto:${contact.email}`} className="flex items-center gap-1 text-xs text-[#004a99] hover:underline">
+                    <Mail className="w-3 h-3" />{contact.email}
                   </a>
                 )}
               </div>
@@ -249,20 +195,78 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
           </div>
         </div>
 
-        {/* VS button */}
-        <button
-          onClick={() => setVsPickerOpen(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-[#004a99] text-white text-sm font-semibold rounded-xl hover:bg-[#003875] transition-colors shrink-0"
-        >
-          <GitCompare className="w-4 h-4" /> Compare
-        </button>
+        {/* Stat cards */}
+        {attendance && (
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 flex-1">
+
+            <div className="flex flex-col gap-1.5">
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Votes cast</p>
+              <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col flex-1">
+                <p className="text-2xl font-black text-slate-900">{totalVotes}</p>
+                <p className="text-[10px] text-slate-400 mt-auto pt-2">all recorded votes</p>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Attendance</p>
+              <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col flex-1">
+                <p className={cn("text-2xl font-black", attendance.pct >= 90 ? 'text-emerald-600' : attendance.pct >= 75 ? 'text-amber-500' : 'text-rose-500')}>
+                  {attendance.pct}%
+                </p>
+                <p className="text-[10px] text-slate-400 mt-0.5">{attendance.daysPresent}/{attendance.totalDays} days</p>
+                <div className="mt-auto pt-2 h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                  <div className={cn("h-full rounded-full", attendance.pct >= 90 ? 'bg-emerald-500' : attendance.pct >= 75 ? 'bg-amber-400' : 'bg-rose-500')} style={{ width: `${attendance.pct}%` }} />
+                </div>
+              </div>
+            </div>
+
+            {yesRate !== null && (
+              <div className="flex flex-col gap-1.5">
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Yes rate</p>
+                <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col flex-1">
+                  <p className="text-2xl font-black text-slate-900">{yesRate}%</p>
+                  <p className="text-[10px] text-slate-400 mt-0.5">{yesCount} yes · {noCount} no</p>
+                  <div className="mt-auto pt-2 h-1.5 w-full bg-slate-100 rounded-full overflow-hidden flex">
+                    <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${yesRate}%` }} />
+                    <div className="h-full bg-rose-400 rounded-full" style={{ width: `${100 - yesRate}%` }} />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {tenure[selected]?.totalYears > 0 && (
+              <div className="flex flex-col gap-1.5">
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">On council</p>
+                <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col flex-1">
+                  <p className="text-2xl font-black text-slate-900">{tenure[selected].totalYears}<span className="text-sm font-semibold text-slate-400 ml-1">yr</span></p>
+                  {tenure[selected].firstYear && <p className="text-[10px] text-slate-400 mt-0.5">since {tenure[selected].firstYear}</p>}
+                </div>
+              </div>
+            )}
+
+            {expenseRecord && (
+              <div className="flex flex-col gap-1.5">
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">2025 office spend</p>
+                <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col flex-1">
+                  <p className="text-2xl font-black text-slate-900">${Math.round(expenseRecord.office_expenses / 1000)}K</p>
+                  <p className="text-[10px] text-slate-400 mt-0.5">{Math.min(100, Math.round((expenseRecord.office_expenses / 60053) * 100))}% of budget</p>
+                  <div className="mt-auto pt-2 h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                    <div className="h-full bg-[#004a99] rounded-full" style={{ width: `${Math.min(100, Math.round((expenseRecord.office_expenses / 60053) * 100))}%` }} />
+                  </div>
+                </div>
+              </div>
+            )}
+
+          </div>
+        )}
+
       </div>
 
-      {/* Two-column body */}
-      <div className="lg:grid lg:grid-cols-[260px_1fr] lg:gap-8 lg:items-start space-y-8 lg:space-y-0">
+      {/* Body: sidebar | vote cards | expenses */}
+      <div className={cn("lg:grid lg:gap-8 lg:items-start", expenseRecord ? "lg:grid-cols-[220px_1fr_220px]" : "lg:grid-cols-[220px_1fr]")}>
 
-        {/* ── Left sidebar ── */}
-        <div className="space-y-5 lg:sticky lg:top-24">
+        {/* Left sidebar */}
+        <div className="space-y-4 lg:sticky lg:top-24 mb-6 lg:mb-0">
 
           {/* Voting DNA */}
           {dna.length > 0 && (
@@ -274,10 +278,8 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
                     <div className="flex justify-between items-end mb-1.5">
                       <span className="text-xs font-semibold text-slate-700">{topic}</span>
                       <div className="flex items-center gap-2">
-                        <span className="text-[10px] text-slate-400">{total} votes</span>
-                        <span className={cn("text-[10px] font-bold", yesPct >= 50 ? 'text-emerald-600' : 'text-rose-500')}>
-                          {yesPct}% YES
-                        </span>
+                        <span className="text-[10px] text-slate-400">{total}</span>
+                        <span className={cn("text-[10px] font-bold", yesPct >= 50 ? 'text-emerald-600' : 'text-rose-500')}>{yesPct}%</span>
                       </div>
                     </div>
                     <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden flex">
@@ -299,183 +301,180 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
                   <div key={i} className="flex items-center gap-3">
                     <Link
                       to={`/councillors/${nameToSlug(peer.name)}`}
-                      className="w-7 h-7 rounded-lg bg-slate-100 hover:bg-[#004a99] flex items-center justify-center shrink-0 transition-colors group"
+                      className="w-7 h-7 rounded-lg bg-slate-100 hover:bg-[#004a99] flex items-center justify-center shrink-0 transition-colors group relative overflow-hidden"
                     >
                       <span className="text-[8px] font-bold text-slate-500 group-hover:text-white uppercase transition-colors">
                         {peer.name.split(' ').map(n => n[0]).slice(0, 2).join('')}
                       </span>
+                      <img
+                        src={`/images/councillors/${peer.name.split(' ').at(-1)}.jpg`}
+                        alt={peer.name}
+                        className="absolute inset-0 w-full h-full object-cover"
+                        onError={e => { e.currentTarget.style.display = 'none'; }}
+                      />
                     </Link>
                     <div className="flex-1 min-w-0">
                       <div className="flex justify-between items-center mb-1">
-                        <Link
-                          to={`/councillors/${nameToSlug(peer.name)}`}
-                          className="text-xs font-medium text-slate-700 hover:text-[#004a99] truncate transition-colors"
-                        >
+                        <Link to={`/councillors/${nameToSlug(peer.name)}`} className="text-xs font-medium text-slate-700 hover:text-[#004a99] truncate transition-colors">
                           {peer.name}
                         </Link>
-                        <span className={cn("text-[10px] font-bold shrink-0 ml-2",
-                          peer.pct >= 80 ? 'text-emerald-600' : peer.pct >= 60 ? 'text-[#004a99]' : 'text-amber-500')}>
+                        <span className={cn("text-[10px] font-bold shrink-0 ml-2", peer.pct >= 80 ? 'text-emerald-600' : peer.pct >= 60 ? 'text-[#004a99]' : 'text-amber-500')}>
                           {peer.pct}%
                         </span>
                       </div>
                       <div className="h-1 w-full bg-slate-100 rounded-full overflow-hidden">
-                        <div
-                          className={cn("h-full rounded-full", peer.pct >= 80 ? 'bg-emerald-500' : peer.pct >= 60 ? 'bg-[#004a99]' : 'bg-amber-400')}
-                          style={{ width: `${peer.pct}%` }}
-                        />
+                        <div className={cn("h-full rounded-full", peer.pct >= 80 ? 'bg-emerald-500' : peer.pct >= 60 ? 'bg-[#004a99]' : 'bg-amber-400')} style={{ width: `${peer.pct}%` }} />
                       </div>
                     </div>
                   </div>
                 ))}
               </div>
-
               {votedWith.length > 5 && (
-                <div className="mt-4 pt-3 border-t border-slate-100">
-                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-2">Least Aligned</p>
-                  <div className="flex gap-1.5 flex-wrap">
-                    {votedWith.slice(-3).reverse().map((peer, i) => (
+                <div className="mt-4 pt-3 border-t border-slate-100 space-y-2.5">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Least Aligned</p>
+                  {votedWith.slice(-3).reverse().map((peer, i) => (
+                    <div key={i} className="flex items-center gap-3">
                       <Link
-                        key={i}
                         to={`/councillors/${nameToSlug(peer.name)}`}
-                        className="text-[10px] font-medium text-rose-500 bg-rose-50 border border-rose-100 px-2 py-0.5 rounded-lg hover:bg-rose-100 transition-colors"
+                        className="w-7 h-7 rounded-lg bg-rose-50 hover:bg-rose-100 flex items-center justify-center shrink-0 transition-colors relative overflow-hidden"
                       >
-                        {peer.name.split(' ').at(-1)} {peer.pct}%
+                        <span className="text-[8px] font-bold text-rose-400 uppercase">
+                          {peer.name.split(' ').map(n => n[0]).slice(0, 2).join('')}
+                        </span>
+                        <img
+                          src={`/images/councillors/${peer.name.split(' ').at(-1)}.jpg`}
+                          alt={peer.name}
+                          className="absolute inset-0 w-full h-full object-cover"
+                          onError={e => { e.currentTarget.style.display = 'none'; }}
+                        />
                       </Link>
-                    ))}
-                  </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex justify-between items-center mb-1">
+                          <Link to={`/councillors/${nameToSlug(peer.name)}`} className="text-xs font-medium text-slate-700 hover:text-[#004a99] truncate transition-colors">
+                            {peer.name}
+                          </Link>
+                          <span className="text-[10px] font-bold text-rose-500 shrink-0 ml-2">{peer.pct}%</span>
+                        </div>
+                        <div className="h-1 w-full bg-slate-100 rounded-full overflow-hidden">
+                          <div className="h-full bg-rose-400 rounded-full" style={{ width: `${peer.pct}%` }} />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               )}
             </div>
           )}
         </div>
 
-        {/* ── Right: vote history ── */}
+        {/* Center: Recent Notable Votes as mini-cards */}
         <div>
-          {/* Filters bar */}
-          <div className="space-y-2 mb-4">
-            <div className="flex items-center justify-between gap-3 flex-wrap">
-              <div className="flex flex-wrap gap-1.5">
-                {voteTopics.map(topic => (
-                  <button
-                    key={topic}
-                    onClick={() => setTopicFilter(topic)}
-                    className={cn(
-                      "text-xs font-semibold px-2.5 py-1 rounded-lg border transition-colors",
-                      topicFilter === topic
-                        ? 'bg-[#004a99] text-white border-[#004a99]'
-                        : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300'
-                    )}
-                  >
-                    {topic}
-                  </button>
-                ))}
-              </div>
-              <div className="flex items-center gap-2 shrink-0">
-                <div className="flex rounded-lg border border-slate-200 overflow-hidden">
-                  {['significance', 'date'].map(s => (
-                    <button
-                      key={s}
-                      onClick={() => setSortBy(s)}
-                      className={cn(
-                        "text-xs font-semibold px-2.5 py-1 transition-colors",
-                        sortBy === s
-                          ? 'bg-slate-800 text-white'
-                          : 'bg-white text-slate-500 hover:bg-slate-50'
-                      )}
-                    >
-                      {s === 'significance' ? 'Impact' : 'Date'}
-                    </button>
-                  ))}
-                </div>
-                <button
-                  onClick={() => setNotableOnly(s => !s)}
-                  className={cn(
-                    "text-xs font-semibold px-2.5 py-1 rounded-lg border transition-colors",
-                    notableOnly
-                      ? 'bg-amber-50 text-amber-700 border-amber-200'
-                      : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300'
-                  )}
-                >
-                  Notable only
-                </button>
-              </div>
-            </div>
-            <div className="flex gap-1.5">
-              {['All', 'YES', 'NO'].map(outcome => (
-                <button
-                  key={outcome}
-                  onClick={() => setOutcomeFilter(outcome)}
-                  className={cn(
-                    "text-xs font-semibold px-2.5 py-1 rounded-lg border transition-colors",
-                    outcomeFilter === outcome
-                      ? outcome === 'YES' ? 'bg-emerald-600 text-white border-emerald-600'
-                        : outcome === 'NO' ? 'bg-rose-500 text-white border-rose-500'
-                        : 'bg-slate-800 text-white border-slate-800'
-                      : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300'
-                  )}
-                >
-                  {outcome}
-                </button>
-              ))}
-            </div>
+          <div className="flex items-center justify-between mb-3">
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Recent Notable Votes</p>
+            <button onClick={() => navigate(`/councillors/${slug}/votes`)} className="text-xs font-semibold text-[#004a99] hover:underline">
+              See all {totalVoteCount} →
+            </button>
           </div>
 
-          <p className="text-[10px] text-slate-400 mb-3">{filteredVotes.length} votes</p>
-
-          {/* Vote rows */}
-          <div className="space-y-2">
-            {filteredVotes.map((m, i) => {
+          <div className="grid grid-cols-2 gap-3">
+            {recentVotes.map((m, i) => {
               const vote = m.votes[selected];
               return (
                 <motion.button
                   key={m.id}
-                  initial={{ opacity: 0, y: 4 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: Math.min(i * 0.01, 0.2) }}
+                  initial={{ opacity: 0, scale: 0.97 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: i * 0.04 }}
                   onClick={() => navigate(`/motions/${m.id}`)}
-                  className="w-full text-left bg-white border border-slate-200 rounded-2xl p-4 hover:border-[#004a99]/40 hover:shadow-sm transition-all group flex items-start gap-3"
+                  className="bg-white border border-slate-200 rounded-2xl p-4 text-left group flex flex-col gap-2 hover:border-[#004a99]/40 hover:shadow-sm transition-all"
                 >
-                  <div className={cn(
-                    "mt-0.5 w-1 self-stretch rounded-full shrink-0",
-                    vote === 'YES' ? 'bg-emerald-400' : vote === 'NO' ? 'bg-rose-400' : 'bg-slate-200'
-                  )} />
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors leading-snug line-clamp-2">
-                      {m.title}
-                    </p>
-                    {m.summary && (
-                      <p className="text-xs text-slate-500 line-clamp-2 mt-1 leading-snug">{m.summary}</p>
-                    )}
-                    <div className="flex items-center gap-2 mt-2 flex-wrap">
-                      <span className={cn(
-                        "text-[10px] font-bold px-2 py-0.5 rounded-full",
-                        vote === 'YES' ? 'bg-emerald-50 text-emerald-700'
-                        : vote === 'NO' ? 'bg-rose-50 text-rose-600'
-                        : 'bg-slate-100 text-slate-500'
-                      )}>
-                        {vote}
-                      </span>
-                      {m.topic && (
-                        <span className={cn("text-[10px] px-2 py-0.5 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>
-                          {m.topic}
-                        </span>
-                      )}
-                      {m.significance >= 90 && <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-600">High Impact</span>}
-                      {m.significance >= 60 && m.significance < 90 && <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-600">Notable</span>}
-                      <span className="text-[10px] text-slate-400 ml-auto">{m.date}</span>
-                    </div>
+                  <div className="flex items-center justify-between gap-1">
+                    {m.topic
+                      ? <span className={cn("text-[9px] font-semibold px-1.5 py-0.5 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>{m.topic}</span>
+                      : <span />}
+                    <span className={cn(
+                      "text-[9px] font-bold px-1.5 py-0.5 rounded-full shrink-0",
+                      vote === 'YES' ? 'bg-emerald-50 text-emerald-700' : vote === 'NO' ? 'bg-rose-50 text-rose-600' : 'bg-slate-100 text-slate-500'
+                    )}>
+                      {vote === 'YES' ? 'Yes' : vote === 'NO' ? 'No' : vote}
+                    </span>
+                  </div>
+                  <p className="text-xs font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-3 leading-snug flex-1">
+                    {m.title}
+                  </p>
+                  <div className="flex items-center justify-between mt-auto">
+                    <span className="text-[9px] text-slate-400">{m.date}</span>
+                    {m.significance >= 90 && <span className="text-[9px] font-semibold text-amber-600">High Impact</span>}
                   </div>
                 </motion.button>
               );
             })}
-
-            {filteredVotes.length === 0 && (
-              <div className="text-center py-16 bg-white border border-dashed border-slate-200 rounded-2xl">
-                <p className="text-slate-400 text-sm">No votes match the current filters.</p>
-              </div>
-            )}
           </div>
+
+          <button
+            onClick={() => navigate(`/councillors/${slug}/votes`)}
+            className="w-full mt-3 py-3 text-sm font-semibold text-[#004a99] bg-white border border-slate-200 rounded-2xl hover:border-[#004a99]/40 hover:shadow-sm transition-all"
+          >
+            See all {totalVoteCount} votes →
+          </button>
         </div>
+
+        {/* Right: Expenses detail */}
+        {expenseRecord && (
+          <div className="lg:sticky lg:top-24 mt-6 lg:mt-0">
+            <div className="bg-white border border-slate-200 rounded-2xl p-5">
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">2025 Expenses</p>
+                <a href={expenses.source_url} target="_blank" rel="noopener noreferrer" className="text-[10px] text-slate-400 hover:text-[#004a99] transition-colors">Source ↗</a>
+              </div>
+
+              {(() => {
+                const BUDGET = 60053;
+                const spent = expenseRecord.office_expenses;
+                const pct = Math.min(100, Math.round((spent / BUDGET) * 100));
+                const over = spent > BUDGET;
+                return (
+                  <div className="mb-4">
+                    <div className="flex items-end justify-between mb-1.5">
+                      <span className="text-lg font-black text-slate-800">${spent.toLocaleString()}</span>
+                      <span className={cn("text-[10px] font-bold", over ? 'text-amber-600' : 'text-slate-400')}>{pct}%</span>
+                    </div>
+                    <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                      <div className={cn("h-full rounded-full", over ? 'bg-amber-400' : 'bg-[#004a99]')} style={{ width: `${pct}%` }} />
+                    </div>
+                    <p className="text-[10px] text-slate-400 mt-1">of ${BUDGET.toLocaleString()} budget</p>
+                  </div>
+                );
+              })()}
+
+              {expenseRecord.office_expense_breakdown && (() => {
+                const breakdown = expenseRecord.office_expense_breakdown;
+                const top = Object.entries(EXPENSE_LABELS)
+                  .map(([k, label]) => ({ label, value: breakdown[k] ?? 0 }))
+                  .filter(d => d.value > 0)
+                  .sort((a, b) => b.value - a.value)
+                  .slice(0, 5);
+                const maxVal = top[0]?.value ?? 1;
+                return (
+                  <div className="space-y-2">
+                    {top.map(({ label, value }) => (
+                      <div key={label}>
+                        <div className="flex justify-between items-center mb-0.5">
+                          <span className="text-[10px] text-slate-500">{label}</span>
+                          <span className="text-[10px] font-semibold text-slate-700">${value.toLocaleString()}</span>
+                        </div>
+                        <div className="h-1 w-full bg-slate-100 rounded-full overflow-hidden">
+                          <div className="h-full bg-slate-300 rounded-full" style={{ width: `${Math.round((value / maxVal) * 100)}%` }} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                );
+              })()}
+            </div>
+          </div>
+        )}
+
       </div>
 
       <VsPickerModal

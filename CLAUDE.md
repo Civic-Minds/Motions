@@ -26,3 +26,25 @@ Run in order when refreshing data:
 After every session, update:
 - `CHANGELOG.md` — under `[Unreleased]`
 - MotionsLog Notion DB (ID: `3289563c-9a49-8133-82a6-000b5e36402d`)
+
+## Data sources
+
+All data refreshes are **manual** — there is no automation or scheduled pipeline.
+
+| File | Source | How to update |
+|---|---|---|
+| `motions.json` (votes) | Toronto Open Data — City Council Voting Record CSV | Run `import_open_data.js` |
+| `motions.json` (summaries) | TMMIS agenda scraper + Gemini AI | Run scripts 2–4 in order (scrape → extract → summarize). Requires `GEMINI_API_KEY`. Slow — only run when new motions need summaries. |
+| `councillors.json` | Hand-maintained from toronto.ca councillor pages | Edit manually when councillors change |
+| `tenure.json` | Derived from voting record + manual overrides | Run `build_tenure.js` after importing new voting data |
+| `expenses.json` | City of Toronto annual remuneration PDF (published each March) | Hand-encode from new PDF. See Manual checks below. Quarterly HTML table also at `secure.toronto.ca/tcer2/` — check manually if mid-year updates are needed. |
+| `budget.json` | Unknown | — |
+| `wards.geojson` | Toronto Open Data — Ward Boundaries | Stable (25 wards since 2018) — unlikely to change |
+
+## Manual checks
+
+- **Councillor expenses** — the City publishes a new annual PDF each March at:
+  `https://www.toronto.ca/wp-content/uploads/YYYY/MM/[hash]-[year]-Remuneration-Report-Members-of-Council.pdf`
+  The URL changes each year (check `toronto.ca` search for "remuneration report members of council"). When new data drops, update `public/data/expenses.json` and the `source_url` field inside it.
+  Current data: year ended December 31, 2025 (fetched April 2026).
+  **Check again: ~July 2026** for Q2 2026 data at `secure.toronto.ca/tcer2/`.

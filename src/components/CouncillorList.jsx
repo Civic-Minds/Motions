@@ -1,7 +1,7 @@
-import { getWardId } from '../utils/storage';
 import React, { useMemo, useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { GitCompare, ChevronRight } from 'lucide-react';
+import { getWardId } from '../utils/storage';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getMemberAlignmentScore, getAttendance } from '../utils/analytics';
 import { nameToSlug, slugToName } from '../utils/slug';
@@ -24,8 +24,7 @@ const attendanceBg = (pct) =>
 
 const MAYOR = 'Olivia Chow';
 
-export default function CouncillorList({ motions, councillors: contactData = [] }) {
-  const [compareMode, setCompareMode] = useState(false);
+export default function CouncillorList({ motions, councillors: contactData = [], compareMode, onCompareModeToggle }) {
   const [compareSlots, setCompareSlots] = useState([]);
   const [versusSelection, setVersusSelection] = useState([]);
   const { slug, slug2 } = useParams();
@@ -103,7 +102,7 @@ export default function CouncillorList({ motions, councillors: contactData = [] 
   const launchCompare = () => {
     if (compareSlots.length === 2) {
       openVersus(compareSlots[0], compareSlots[1]);
-      setCompareMode(false);
+      onCompareModeToggle();
       setCompareSlots([]);
     }
   };
@@ -123,26 +122,6 @@ export default function CouncillorList({ motions, councillors: contactData = [] 
 
   return (
     <div className="space-y-8 pb-20">
-      {/* Page header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-900">Councillors</h1>
-        </div>
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => { setCompareMode(m => !m); setCompareSlots([]); }}
-            className={cn(
-              "flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border transition-all",
-              compareMode
-                ? 'bg-slate-900 text-white border-slate-900'
-                : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400'
-            )}
-          >
-            <GitCompare className="w-4 h-4" />
-            {compareMode ? 'Cancel' : 'Compare'}
-          </button>
-        </div>
-      </div>
 
       {/* Compare banner */}
       <AnimatePresence>

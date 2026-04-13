@@ -145,7 +145,17 @@ function CouncillorGrid({ votes, resultText }) {
   );
 }
 
-function VoteSection({ label, motionType, status, votes, resultText, defaultOpen = false }) {
+const MOTION_TYPE_INFO = {
+  'Refer Item':       'A vote to send this item to a committee or staff for further study rather than deciding it now.',
+  'Amendment':        'A proposed change to the wording or scope of the main motion.',
+  'Reconsideration':  'A vote on whether to revisit a decision that was already made.',
+  'Defer':            'A vote to postpone consideration of this item to a later date.',
+  'Procedural':       'A procedural vote governing how the meeting or debate is conducted.',
+  'Adoption':         'A vote to formally adopt the main item as presented.',
+  'Direction':        'A directive from council to staff on how to proceed.',
+};
+
+function VoteSection({ label, motionType, title, status, votes, resultText, defaultOpen = false }) {
   const [open, setOpen] = useState(defaultOpen);
   const totals = parseResultTotals(resultText);
   const recYes = Object.values(votes ?? {}).filter(v => v === 'YES').length;
@@ -177,9 +187,13 @@ function VoteSection({ label, motionType, status, votes, resultText, defaultOpen
       </button>
       {open && (
         <div className="px-5 pb-5 space-y-4 border-t border-slate-100">
-          <div className="pt-4">
-            <VoteBar votes={votes} resultText={resultText} />
-          </div>
+          {title && <p className="pt-4 text-sm text-slate-600 leading-snug">{title}</p>}
+          {MOTION_TYPE_INFO[motionType] && (
+            <p className={cn("text-xs text-slate-400 leading-relaxed", title ? "" : "pt-4")}>
+              {MOTION_TYPE_INFO[motionType]}
+            </p>
+          )}
+          <VoteBar votes={votes} resultText={resultText} />
           <CouncillorGrid votes={votes} resultText={resultText} />
         </div>
       )}
@@ -273,23 +287,63 @@ export default function MotionPage({ motions = [] }) {
         </div>
       )}
 
-      {/* Dollar amounts */}
-      {motion.amounts?.length > 0 && (
-        <div className="flex items-center gap-3 bg-slate-50 border border-slate-200 rounded-xl px-5 py-3">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide shrink-0">Funding</p>
-          <div className="flex flex-wrap gap-2">
-            {motion.amounts.map((amt, i) => (
-              <span key={i} className="text-sm font-semibold text-slate-800">
-                ${amt >= 1_000_000_000
-                  ? `${(amt / 1_000_000_000).toFixed(1)}B`
-                  : amt >= 1_000_000
-                  ? `${(amt / 1_000_000).toFixed(1)}M`
-                  : `${(amt / 1_000).toFixed(0)}K`}
-              </span>
-            ))}
-          </div>
-        </div>
-      )}
+      {/* Funding — prefer Gemini-labeled keyAmounts; fall back to raw amounts */}
+      {(() => {
+        // keyAmounts: [{label, value, unit, type}] — set by generate_summaries.js
+        if (motion.keyAmounts?.length > 0) {
+          const fmtDollar = v =>
+            v >= 1_000_000_000 ? `${(v / 1_000_000_000).toFixed(1)}B`
+            : v >= 1_000_000   ? `${(v / 1_000_000).toFixed(1)}M`
+            : v >= 1_000       ? `${(v / 1_000).toFixed(0)}K`
+            :                    `${v}`;
+          const fmtAmt = ({ value, unit }) =>
+            unit === '$' ? `$${fmtDollar(value)}`
+            : unit === '%' ? `${value}%`
+            : `${value} ${unit}`;
+
+          return (
+            <div className="bg-slate-50 border border-slate-200 rounded-xl px-5 py-3">
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-2">Funding</p>
+              <div className="flex flex-col gap-1.5">
+                {motion.keyAmounts.map((amt, i) => (
+                  <div key={i} className="flex items-baseline justify-between gap-4">
+                    <span className="text-xs text-slate-500">{amt.label}</span>
+                    <span className="text-sm font-semibold text-slate-800 shrink-0">{fmtAmt(amt)}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        }
+
+        // Fallback: raw amounts (no labels) — hide if too many (budget docs etc.)
+        if (motion.amounts?.length > 0 && motion.amounts.length <= 10) {
+          const fmt = v =>
+            v >= 1_000_000_000 ? `${(v / 1_000_000_000).toFixed(1)}B`
+            : v >= 1_000_000   ? `${(v / 1_000_000).toFixed(1)}M`
+            :                    `${(v / 1_000).toFixed(0)}K`;
+          const items = motion.amounts.map(a =>
+            typeof a === 'number' ? { value: a } : a
+          );
+          return (
+            <div className="flex items-center gap-3 bg-slate-50 border border-slate-200 rounded-xl px-5 py-3">
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide shrink-0">Funding</p>
+              <div className="flex flex-wrap gap-2 items-center">
+                {items.slice(0, 3).map((amt, i) => (
+                  <span key={i} className="text-sm font-semibold text-slate-800">
+                    ${fmt(amt.value)}
+                  </span>
+                ))}
+                {items.length > 3 && (
+                  <span className="text-xs text-slate-400">+{items.length - 3} more</span>
+                )}
+              </div>
+            </div>
+          );
+        }
+
+        return null;
+      })()}
 
       {/* Related motions */}
       {motion.relatedMotions?.length > 0 && (
@@ -353,6 +407,7 @@ export default function MotionPage({ motions = [] }) {
                 <VoteSection
                   key={sub.id}
                   motionType={sub.motionType}
+                  title={sub.title !== motion.title ? sub.title : undefined}
                   status={sub.status}
                   votes={sub.votes}
                   resultText={sub.resultText}
