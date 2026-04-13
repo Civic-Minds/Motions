@@ -39,7 +39,7 @@ function Navbar({ onSearchOpen, compareMode, onCompareModeToggle, wardId, onLoca
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 bg-white/80 backdrop-blur-xl">
-      <div className="max-w-[1400px] mx-auto px-6 h-16 flex items-center justify-between">
+      <div className="max-w-[1400px] mx-auto px-6 h-16 flex items-center justify-between relative">
 
         {/* Logo */}
         <div className="flex items-center gap-3 cursor-pointer select-none" onClick={() => navigate('/')}>
@@ -52,8 +52,8 @@ function Navbar({ onSearchOpen, compareMode, onCompareModeToggle, wardId, onLoca
           </span>
         </div>
 
-        {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-1">
+        {/* Desktop nav — absolutely centered so it never shifts */}
+        <nav className="hidden md:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
           {TABS.map(tab => {
             const Icon = tab.icon;
             const isActive = active?.path === tab.path;
@@ -77,23 +77,6 @@ function Navbar({ onSearchOpen, compareMode, onCompareModeToggle, wardId, onLoca
 
         {/* Right: compare + search + mobile toggle */}
         <div className="flex items-center gap-2">
-          {wardId ? (
-            <button
-              onClick={onClearWard}
-              className="hidden sm:flex items-center gap-1.5 px-3 py-2 text-sm text-slate-600 bg-white border border-slate-200 rounded-xl hover:border-slate-400 transition-all"
-            >
-              <MapPin className="w-3.5 h-3.5 text-[#004a99]" />
-              W{wardId}{wardLastName ? ` · ${wardLastName}` : ''}
-            </button>
-          ) : (
-            <button
-              onClick={onLocate}
-              className="hidden sm:flex items-center gap-1.5 px-3 py-2 text-sm text-slate-500 bg-white border border-slate-200 rounded-xl hover:border-slate-400 transition-all"
-            >
-              <MapPin className="w-3.5 h-3.5" />
-              Find My Ward
-            </button>
-          )}
           {onCouncillors && (
             <button
               onClick={onCompareModeToggle}
@@ -106,6 +89,23 @@ function Navbar({ onSearchOpen, compareMode, onCompareModeToggle, wardId, onLoca
             >
               <GitCompare className="w-3.5 h-3.5" />
               {compareMode ? 'Cancel' : 'Compare'}
+            </button>
+          )}
+          {wardId ? (
+            <button
+              onClick={() => navigate(`/wards/${wardId}`)}
+              className="hidden sm:flex items-center gap-1.5 px-3 py-2 text-sm text-slate-600 bg-white border border-slate-200 rounded-xl hover:border-[#004a99]/40 transition-all"
+            >
+              <MapPin className="w-3.5 h-3.5 text-[#004a99]" />
+              Ward {wardId}{wardLastName ? ` · ${wardLastName}` : ''}
+            </button>
+          ) : (
+            <button
+              onClick={onLocate}
+              className="hidden sm:flex items-center gap-1.5 px-3 py-2 text-sm text-slate-500 bg-white border border-slate-200 rounded-xl hover:border-slate-400 transition-all"
+            >
+              <MapPin className="w-3.5 h-3.5" />
+              Find My Ward
             </button>
           )}
           <button

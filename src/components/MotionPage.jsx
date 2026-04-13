@@ -425,9 +425,14 @@ export default function MotionPage({ motions = [] }) {
           myVote === 'NO'  ? 'bg-red-50 border-red-200' :
                              'bg-slate-50 border-slate-200'
         )}>
-          <div>
-            <p className="text-[10px] font-bold uppercase tracking-wide text-slate-400 mb-0.5">Your Councillor</p>
-            <p className="text-sm font-semibold text-slate-800">{myCouncillor}</p>
+          <div className="flex items-center gap-3">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400 shrink-0">Your Councillor</span>
+            <Link
+              to={`/councillors/${nameToSlug(myCouncillor)}`}
+              className="text-sm font-bold text-[#004a99] hover:underline decoration-2 underline-offset-4"
+            >
+              {myCouncillor}
+            </Link>
           </div>
           <span className={cn(
             "text-sm font-bold px-3 py-1 rounded-full",

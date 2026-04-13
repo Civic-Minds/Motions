@@ -10,7 +10,12 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Multi-committee following** — users can now follow multiple committees simultaneously.
 - **Aggregated dashboard feed** — the "Your Following" card now displays the most recent meeting across all favorite committees, with automatic label pivoting.
 - **Committee Educational Blurbs** — added descriptive mission statements for all major committees to help users understand their specific mandates and civic impact.
-- **Bento 1-4-1 Layout** — restructured the dashboard header into a perfectly balanced grid: 1 followed card, 4 notable motion cards, and 1 upcoming meeting card.
+- **Bento 1-4-1 Layout** — restructured the dashboard header into a balanced grid: 1 followed card, 2 notable + 2 ward motion cards, and 1 upcoming meeting card. When no ward is set, all 4 center cards show notable motions.
+- **Your Ward in Bento Grid** — the center grid now includes 2 cards showing the most recent motions your ward councillor voted on, with a dedicated "Your Ward" section label.
+- **Bento Card Deduplication** — motions shown in "Your Following" are excluded from "Most Recent Notable", and both are excluded from "Your Ward", preventing duplicates across the dashboard header.
+- **Ward Button Navigation** — the navbar ward button ("Ward 7 · Perruzza") now navigates to your ward page instead of clearing your ward.
+- **Coming Up Clickthrough** — the Coming Up card now shows the meeting room/location and clicks through to the committee page.
+- **Complete Committee Blurbs** — added descriptions for all 30 committees in the dataset, including TO Live, Toronto Zoo, FIFA World Cup Subcommittee, and Confronting Anti-Black Racism Advisory Committee.
 - **Ward sidebar** — centralized "Your Ward" details and the Ward Map into the right-hand sidebar for a cleaner main feed.
 - **Motion Authorship Cards** — extracted Mover and Seconder data into dedicated, interactive pills within the motion summary, including automatic title cleanup of redundant "by Councillor" text.
 - **Title Clamping & Tooltips** — enforced a strict 3-line height limit for all cards across the app, paired with a full-text hover tooltip for accessibility.
@@ -20,6 +25,9 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Multi-committee Activity Aggregation** — implemented intelligent labeling (e.g., "Multiple Committees") in the dashboard feed to handle overlapping meeting schedules.
 
 ### Changed
+- **Navbar Centering** — absolutely centered the Councillors/Committees/Wards nav so it no longer shifts when the Compare button appears or disappears.
+- **Navbar Button Order** — Compare button now appears before the Ward button for better visual hierarchy.
+- **Number Formatting** — added comma separators to motion counts (e.g., "1,234 motions" instead of "1234").
 - **Header Synchronization** — standardized column widths across the entire dashboard (200px | 1fr | 220px) for a seamless vertical flow.
 - **Improved Action styling** — redesigned the "Find my ward" button with a soft, integrated aesthetic for better sidebar fit.
 - **Data Density** — increased the "Most Recent Notable" slice to 4 items to fill the expanded central grid.
@@ -29,6 +37,9 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Typography Standardization** — refined Motion Page header typography and removed italics from "Motion Summary" for an editorial look.
 - **Councillor Feed Pivot** — transitioned councillor vote history from a horizontal scroll to a chronologically sorted (latest first) vertical feed.
 - **Improved Vote Context** — expanded councillor vote items to include topic tags and specific meeting dates for better scanability.
+- **Global Cursor Pointer** — all buttons, links, and interactive elements now show the hand cursor on hover.
+- **Councillor Callout Link** — the "Your Councillor" card on motion pages now uses a clickable blue link matching the Mover/Seconder format, linking directly to the councillor's profile.
+- **Ward Motion Sorting** — ward detail pages now sort motions by date (newest first) instead of significance only.
 
 ## [2.3.0] - 2026-04-13
 

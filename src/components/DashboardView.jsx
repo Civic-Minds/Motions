@@ -69,15 +69,7 @@ export default function DashboardView({ motions, councillors, meetings = [], fol
     return Math.round((adopted / lastMeeting.items.length) * 100);
   }, [lastMeeting.items]);
 
-  // Most recent notable motions (Global)
-  const highlights = useMemo(() => {
-    return [...primaryMotions]
-      .filter(m => !m.trivial && m.significance >= 60)
-      .sort((a, b) => new Date(b.date) - new Date(a.date))
-      .slice(0, 4);
-  }, [primaryMotions]);
-
-  // Personal Feed (Followed Committees)
+  // 1. Personal Feed (Followed Committees) — picks first
   const followedHighlights = useMemo(() => {
     if (followedCommittees.length === 0) return [];
     return [...primaryMotions]
@@ -85,6 +77,29 @@ export default function DashboardView({ motions, councillors, meetings = [], fol
       .sort((a,b) => new Date(b.date) - new Date(a.date))
       .slice(0, 4);
   }, [primaryMotions, followedCommittees]);
+
+  // 2. Most recent notable (Global) — excludes anything already in Following
+  const highlights = useMemo(() => {
+    const usedIds = new Set(followedHighlights.map(m => m.id));
+    const count = savedWardId ? 2 : 4;
+    return [...primaryMotions]
+      .filter(m => !m.trivial && m.significance >= 60 && !usedIds.has(m.id))
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
+      .slice(0, count);
+  }, [primaryMotions, savedWardId, followedHighlights]);
+
+  // 3. Ward motions — excludes anything in Following or Notable
+  const wardHighlights = useMemo(() => {
+    if (!savedCouncillor) return [];
+    const usedIds = new Set([
+      ...followedHighlights.map(m => m.id),
+      ...highlights.map(m => m.id),
+    ]);
+    return [...primaryMotions]
+      .filter(m => m.votes && m.votes[savedCouncillor] && !usedIds.has(m.id))
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
+      .slice(0, 2);
+  }, [primaryMotions, savedCouncillor, followedHighlights, highlights]);
 
   // Available committees derived from motions
   const committees = useMemo(() => {
@@ -169,19 +184,25 @@ export default function DashboardView({ motions, councillors, meetings = [], fol
           })()}
         </div>
 
-        {/* 2. Middle: Most Recent Notable (FOUR Cards) */}
+        {/* 2. Middle: Notable + Your Ward (4-card Grid) */}
         <div className="flex flex-col gap-1.5 min-w-0">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Most Recent Notable</p>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 px-1">
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide col-span-2">Most Recent Notable</p>
+            {wardHighlights.length > 0 && (
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide col-span-2">Your Ward</p>
+            )}
+          </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 items-stretch flex-1 min-w-0">
-            {highlights.length === 0 && (
+            {highlights.length === 0 && wardHighlights.length === 0 && (
               <div className="col-span-2 lg:col-span-4 flex items-center justify-center py-10 bg-white border border-dashed border-slate-200 rounded-2xl">
                 <p className="text-xs text-slate-400">No notable motions yet.</p>
               </div>
             )}
-            {highlights.map((m, i) => {
+            {[...highlights, ...wardHighlights].map((m, i) => {
               const yesCount = Object.values(m.votes ?? {}).filter(v => v === 'YES').length;
               const noCount  = Object.values(m.votes ?? {}).filter(v => v === 'NO').length;
               const total    = yesCount + noCount;
+              const isWard   = i >= highlights.length;
               return (
                 <motion.button
                   key={m.id}
@@ -236,14 +257,18 @@ export default function DashboardView({ motions, councillors, meetings = [], fol
               if (name.includes('climate')) return 'Climate';
               return 'Committee';
             })()) : null;
+            const slug = meeting ? meeting.committee.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') : '';
 
             return (
-              <div className={cn(
-                "rounded-2xl p-4 flex flex-col gap-2 transition-all border text-left flex-1",
-                meeting
-                  ? "bg-white border-slate-200 hover:border-[#004a99]/40 hover:shadow-sm"
-                  : "bg-white border-dashed border-slate-200 text-slate-400"
-              )}>
+              <button
+                onClick={() => meeting && navigate(`/committees/${slug}`)}
+                className={cn(
+                  "rounded-2xl p-4 flex flex-col gap-2 transition-all border text-left flex-1",
+                  meeting
+                    ? "bg-white border-slate-200 hover:border-[#004a99]/40 hover:shadow-sm cursor-pointer group"
+                    : "bg-white border-dashed border-slate-200 text-slate-400 cursor-default"
+                )}
+              >
                 {meeting ? (
                   <>
                     <div className="flex items-center justify-between gap-1">
@@ -255,12 +280,17 @@ export default function DashboardView({ motions, councillors, meetings = [], fol
                       </span>
                     </div>
                     <p 
-                      className="text-xs font-semibold text-slate-800 line-clamp-3 leading-snug flex-1"
+                      className="text-xs font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-2 leading-snug"
                       title={meeting.committee}
                     >
                       {meeting.committee}
                     </p>
-                    <div className="flex items-center justify-between mt-auto">
+                    {meeting.location && (
+                      <p className="text-[9px] text-slate-400 leading-tight line-clamp-1" title={meeting.location}>
+                        {meeting.location}
+                      </p>
+                    )}
+                    <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
                       <span className="text-[9px] text-slate-400 whitespace-nowrap">{meeting.displayDate}</span>
                       <span className="text-[9px] font-semibold text-[#004a99] shrink-0 ml-1">{meeting.startTime}</span>
                     </div>
@@ -270,7 +300,7 @@ export default function DashboardView({ motions, councillors, meetings = [], fol
                     No further meetings
                   </p>
                 )}
-              </div>
+              </button>
             );
           })()}
         </div>
@@ -443,7 +473,7 @@ export default function DashboardView({ motions, councillors, meetings = [], fol
 
           {/* Footer */}
           <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
-            <p className="text-[10px] text-slate-400">{sortedMotions.length} motions</p>
+            <p className="text-[10px] text-slate-400">{sortedMotions.length.toLocaleString()} motions</p>
             {(selectedTopic !== 'All' || selectedCommittee !== 'All' || voteType !== 'All' || selectedYear !== 'All' || showNotableOnly || showMyWard || showLastMeeting || showFollowingOnly) && (
               <button
                 onClick={() => {

@@ -71,7 +71,11 @@ export default function WardGrid({ motions }) {
     if (!selectedWard) return [];
     return [...motions]
       .filter(m => !m.parentId && m.ward === selectedWard.id)
-      .sort((a, b) => (b.significance ?? 0) - (a.significance ?? 0));
+      .sort((a, b) => {
+        const dateDiff = new Date(b.date) - new Date(a.date);
+        if (dateDiff !== 0) return dateDiff;
+        return (b.significance ?? 0) - (a.significance ?? 0);
+      });
   }, [selectedWard, motions]);
 
   const selectedWardFeature = useMemo(() => {
@@ -99,7 +103,7 @@ export default function WardGrid({ motions }) {
             </div>
             <div className="bg-white border border-slate-200 rounded-2xl p-4">
               <p className="text-xs text-slate-400 font-medium uppercase tracking-wide mb-1">Total Motions</p>
-              <p className="text-2xl font-black text-[#004a99]">{motions.length}</p>
+              <p className="text-2xl font-black text-[#004a99]">{motions.length.toLocaleString()}</p>
               <p className="text-xs text-slate-400">2022–2026 term</p>
             </div>
             <div className="bg-white border border-slate-200 rounded-2xl p-4">

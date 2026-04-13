@@ -65,7 +65,7 @@ export default function CommitteesView({ motions, followedCommittees = [], onTog
           topTopics,
           latest,
           members,
-          description: COMMITTEE_DESCRIPTIONS[c.name] ?? 'A committee focused on specific city mandates and legislative review.',
+          description: COMMITTEE_DESCRIPTIONS[c.name] ?? 'A Toronto city committee reviewing motions and policy.',
         };
       })
       .sort((a, b) => {
