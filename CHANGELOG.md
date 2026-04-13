@@ -40,6 +40,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Global Cursor Pointer** — all buttons, links, and interactive elements now show the hand cursor on hover.
 - **Councillor Callout Link** — the "Your Councillor" card on motion pages now uses a clickable blue link matching the Mover/Seconder format, linking directly to the councillor's profile.
 - **Ward Motion Sorting** — ward detail pages now sort motions by date (newest first) instead of significance only.
+- **Explicit Vote Breakdowns** — updated the vote breakdown UI to explicitly list non-councillor votes (e.g., "+ 2 non-councillors") inline with the Yes/No lists, replacing the easily missed footnote, and preventing supposedly "empty" columns from disappearing.
 
 ## [2.3.0] - 2026-04-13
 

@@ -78,38 +78,49 @@ function CouncillorGrid({ votes, resultText }) {
   const absent  = Object.entries(votes).filter(([, v]) => v === 'ABSENT').map(([n]) => n).sort();
 
   const totals = parseResultTotals(resultText);
-  const isPartial = totals && (totals.yes > yes.length || totals.no > no.length);
+  const dispYesCount = (totals && totals.yes > yes.length) ? totals.yes : yes.length;
+  const dispNoCount  = (totals && totals.no > no.length) ? totals.no : no.length;
 
-  const showYes = yes.length > 0;
-  const showNo  = no.length > 0;
+  const showYes = dispYesCount > 0;
+  const showNo  = dispNoCount > 0;
 
   return (
     <div className="space-y-4">
-      {/* YES / NO split — only render columns with votes */}
+      {/* YES / NO split — render if there are any votes (even non-councillor) */}
       {(showYes || showNo) && (
         <div className={cn("gap-3", showYes && showNo ? "grid grid-cols-2" : "")}>
           {showYes && (
             <div>
               <p className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest mb-2">
-                Yes · {yes.length}
+                Yes · {dispYesCount}
               </p>
               <NameList
                 names={yes}
                 colorClass="text-slate-700 bg-emerald-50"
                 hoverClass="hover:bg-emerald-100 hover:text-emerald-900"
               />
+              {totals && totals.yes > yes.length && (
+                <div className="text-xs font-medium py-1 px-2 text-slate-500 italic">
+                  + {totals.yes - yes.length} non-councillors
+                </div>
+              )}
             </div>
           )}
           {showNo && (
             <div>
               <p className="text-[10px] font-bold text-red-500 uppercase tracking-widest mb-2">
-                No · {no.length}
+                No · {dispNoCount}
               </p>
               <NameList
                 names={no}
                 colorClass="text-slate-700 bg-red-50"
                 hoverClass="hover:bg-red-100 hover:text-red-900"
               />
+              {totals && totals.no > no.length && (
+                <div className="text-xs font-medium py-1 px-2 text-slate-500 italic">
+                  + {totals.no - no.length} non-councillors
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -133,13 +144,6 @@ function CouncillorGrid({ votes, resultText }) {
             ))}
           </div>
         </div>
-      )}
-
-      {/* Partial data note for advisory committees */}
-      {isPartial && (
-        <p className="text-[10px] text-slate-400 pt-1">
-          Breakdown shows City Councillors only. {totals.yes}–{totals.no} total vote from all committee members.
-        </p>
       )}
     </div>
   );
