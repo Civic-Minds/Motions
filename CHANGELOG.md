@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
+## [Unreleased]
+
+### Fixed
+- **Daily import no longer wipes summaries** — `import_open_data.js` now merges enriched fields (`summary`, `keyAmounts`, `notabilityRank`, etc.) from the previous motions.json before writing, so GitHub Actions daily runs preserve all AI-generated data.
+
+### Changed
+- **Scraper targets all primary motions** — removed the `significance >= 25` filter from `scrape_agenda_text.js`. All 926 primary motions now scraped. Significance threshold was a bad proxy; pairwise notability will replace it.
+- **Navbar M logo removed** — logo icon removed from navbar; just "Motions · Toronto" text now.
+- **VISION.md added** — north star statement moved from ROADMAP.md into its own file, linked from the roadmap index.
+- **README updated** — stack reordered (AI first), stale entries removed, vision one-liner added.
+
 ## [2.4.3] - 2026-04-14
 
 ### Added
