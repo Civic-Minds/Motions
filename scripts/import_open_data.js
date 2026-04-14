@@ -482,6 +482,20 @@ async function main() {
         }
     }
 
+    // Preserve enriched fields from previous run (summary, keyAmounts, notabilityRank, etc.)
+    const PRESERVE = ['summary', 'keyAmounts', 'notabilityRank', 'mover', 'seconder', 'body', 'locations'];
+    if (fs.existsSync(DATA_PATH)) {
+        const existing = JSON.parse(fs.readFileSync(DATA_PATH, 'utf8'));
+        const existingMap = Object.fromEntries(existing.map(m => [m.id, m]));
+        for (const motion of motions) {
+            const prev = existingMap[motion.id];
+            if (!prev) continue;
+            for (const field of PRESERVE) {
+                if (prev[field] !== undefined) motion[field] = prev[field];
+            }
+        }
+    }
+
     // Sort newest first
     motions.sort((a, b) => new Date(b.date) - new Date(a.date));
 
