@@ -50,7 +50,7 @@ function Navbar({ onSearchOpen, compareMode, onCompareModeToggle, wardId, onLoca
         </div>
 
         {/* Desktop nav — absolutely centered so it never shifts */}
-        <nav className="hidden md:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
+        <nav className="hidden lg:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
           {TABS.map(tab => {
             const Icon = tab.icon;
             const isActive = active?.path === tab.path;
@@ -119,7 +119,7 @@ function Navbar({ onSearchOpen, compareMode, onCompareModeToggle, wardId, onLoca
           >
             <Search className="w-4 h-4" />
           </button>
-          <button className="md:hidden p-2 rounded-lg hover:bg-slate-100" onClick={() => setOpen(o => !o)}>
+          <button className="lg:hidden p-2 rounded-lg hover:bg-slate-100" onClick={() => setOpen(o => !o)}>
             {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
@@ -132,7 +132,7 @@ function Navbar({ onSearchOpen, compareMode, onCompareModeToggle, wardId, onLoca
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            className="md:hidden absolute w-full bg-white border-b border-slate-200 px-4 py-3 space-y-1 shadow-lg"
+            className="lg:hidden absolute w-full bg-white border-b border-slate-200 px-4 py-3 space-y-1 shadow-lg"
           >
             {TABS.map(tab => {
               const Icon = tab.icon;

@@ -5,12 +5,12 @@
  * Stores the result in a `body` field on each motion in motions.json.
  * Incremental — skips motions that already have a `body` field.
  *
- * Only targets non-trivial primary motions (no parentId, significance >= 25).
+ * Targets all primary motions (no parentId). Significance filter removed —
+ * pairwise notability scoring requires summaries for all motions.
  *
  * Usage:
  *   npm install playwright-core --save-dev   (first time only, no browser download)
  *   node scripts/scrape_agenda_text.js
- *   node scripts/scrape_agenda_text.js --min-sig=60   (notable only)
  *   node scripts/scrape_agenda_text.js --limit=10     (test run)
  */
 
@@ -26,7 +26,6 @@ const args = Object.fromEntries(
     .map(a => { const [k, v] = a.slice(2).split('='); return [k, v ?? true]; })
 );
 
-const MIN_SIG = parseInt(args['min-sig'] ?? '25', 10);
 const LIMIT   = args['limit'] ? parseInt(args['limit'], 10) : Infinity;
 const DELAY_MS = 1200; // be polite
 
@@ -68,15 +67,13 @@ async function main() {
 
   const targets = motions.filter(m =>
     !m.parentId &&
-    !m.trivial &&
-    m.significance >= MIN_SIG &&
     m.url &&
     !m.body
   );
 
   const queue = targets.slice(0, LIMIT);
 
-  console.log(`\n🎯 ${targets.length} motions need scraping (sig ≥ ${MIN_SIG})`);
+  console.log(`\n🎯 ${targets.length} motions need scraping`);
   if (LIMIT < Infinity) console.log(`   Running first ${queue.length} (--limit=${LIMIT})`);
   console.log(`   ${motions.filter(m => m.body).length} already have body text\n`);
 

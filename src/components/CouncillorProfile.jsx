@@ -150,7 +150,7 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
       <div className="flex flex-col sm:flex-row sm:items-stretch gap-4 mb-6">
 
         {/* Identity */}
-        <div className="flex items-center gap-4 shrink-0">
+        <div className="flex items-center gap-4 min-w-0 shrink-0 w-full sm:w-[280px] md:w-[320px] lg:w-[360px] xl:w-[420px]">
           <div className="w-16 h-16 rounded-2xl bg-[#004a99] flex items-center justify-center shrink-0 overflow-hidden">
             <img
               src={photoUrl}
@@ -160,35 +160,42 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
             />
             <span className="text-white font-bold text-xl hidden w-full h-full items-center justify-center">{initials}</span>
           </div>
-          <div className="min-w-[160px]">
+          <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2 flex-wrap">
-              <h1 className="text-xl font-bold text-slate-900 leading-tight">{selected}</h1>
+              <h1 className="text-xl font-bold text-slate-900 leading-tight truncate">{selected}</h1>
               {isMyCouncillor && (
                 <span className="text-[10px] font-bold bg-[#004a99] text-white px-2.5 py-0.5 rounded-full">Your Councillor</span>
               )}
-              {committees.map(c => (
-                <button
-                  key={c}
-                  onClick={() => navigate(`/committees/${c.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`)}
-                  className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 hover:bg-[#004a99] hover:text-white transition-colors"
-                >
-                  {c}
-                </button>
-              ))}
             </div>
-            <p className="text-sm text-slate-400 mt-0.5">{ward ? `Ward ${ward.id} · ${ward.name}` : 'Toronto City Council'}</p>
+            <p className="text-sm text-slate-400 mt-0.5 break-words">{ward ? `Ward ${ward.id} · ${ward.name}` : 'Toronto City Council'}</p>
             {contact && (contact.email || contact.phone) && (
               <div className="flex items-center gap-3 mt-1.5 flex-wrap">
                 {contact.phone && (
-                  <a href={`tel:${contact.phone}`} className="flex items-center gap-1 text-xs text-slate-500 hover:text-slate-800 transition-colors">
-                    <Phone className="w-3 h-3" />{contact.phone}
+                  <a href={`tel:${contact.phone}`} className="flex items-center gap-1 text-xs text-slate-500 hover:text-slate-800 transition-colors break-all">
+                    <Phone className="w-3 h-3 shrink-0" />{contact.phone}
                   </a>
                 )}
                 {contact.email && (
-                  <a href={`mailto:${contact.email}`} className="flex items-center gap-1 text-xs text-[#004a99] hover:underline">
-                    <Mail className="w-3 h-3" />{contact.email}
+                  <a href={`mailto:${contact.email}`} className="flex items-center gap-1 text-xs text-[#004a99] hover:underline break-all">
+                    <Mail className="w-3 h-3 shrink-0" />{contact.email}
                   </a>
                 )}
+              </div>
+            )}
+            {committees.length > 0 && (
+              <div className="text-xs text-slate-500 leading-snug mt-2.5">
+                <span className="font-semibold text-slate-400 text-[10px] uppercase tracking-wider mr-2">Committees</span>
+                {committees.map((c, i) => (
+                  <span key={c}>
+                    <button
+                      onClick={() => navigate(`/committees/${c.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`)}
+                      className="hover:text-[#004a99] hover:underline transition-colors text-left"
+                    >
+                      {c}
+                    </button>
+                    {i < committees.length - 1 && <span className="mr-1.5 text-slate-300">,</span>}
+                  </span>
+                ))}
               </div>
             )}
           </div>
@@ -368,13 +375,6 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
 
         {/* Center: Recent Notable Votes as mini-cards */}
         <div>
-          <div className="flex items-center justify-between mb-3">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Most Recent Votes</p>
-            <button onClick={() => navigate(`/councillors/${slug}/votes`)} className="text-xs font-semibold text-[#004a99] hover:underline">
-              See all {totalVoteCount} →
-            </button>
-          </div>
-
           <div className="space-y-2">
             {recentVotes.map((m, i) => {
               const vote = m.votes[selected];

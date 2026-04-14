@@ -4,17 +4,33 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
-## [Unreleased]
+## [2.4.3] - 2026-04-14
+
+### Fixed
+- **Councillor header responsiveness** — fixed a flexbox bug that was aggressively crushing the right-hand stat cards by restricting the width of the main Identity container.
+- **Committee pills aesthetic** — transformed the bulky gray committee pills next to councillor names into a clean, space-saving, comma-separated text inline string positioned below the contact info.
+- **Recent votes cleanup** — removed redundant header text ("Most Recent Votes" and small duplicated link) to focus attention on the main "See all N votes →" call to action button.
+- **Navbar collapse breakpoint** — updated the mobile-menu (`Menu`) breakpoint from `md` to `lg` to prevent the desktop navigation bar from overlapping utility right-side buttons on medium width screens (e.g., 900px-1024px).
+
+## [2.4.2] - 2026-04-14
 
 ### Changed
-- **Rebranded to Motions** — site name updated from "Your City at Work" to "Motions" and domain updated to `motions.watch` across all metadata, OG tags, canonical URL, nav logo, and scripts.
-- **Your Following column hidden when empty** — instead of a blank placeholder card, the column disappears and Notable expands to fill the space.
-- **Most Notable bento label** — renamed from "Most Recent Notable" to "Most Notable".
-- **Notable cards prefer last 45 days** — bento highlights now prioritise motions from the last 45 days, falling back to older motions only if the window is empty.
 - **Councillor committee threshold fixed** — committee pills on councillor profiles now use a fixed minimum of 5 votes instead of a percentage-based threshold that was filtering out all non-City-Council committees.
 
 ### Added
 - **Upcoming meetings on committee pages** — committee detail pages now show a scheduled meetings section above the motions list, pulling from meetings.json.
+
+## [2.4.1] - 2026-04-14
+
+### Changed
+- **Your Following column hidden when empty** — instead of a blank placeholder card, the column disappears and Notable expands to fill the space.
+- **Most Notable bento label** — renamed from "Most Recent Notable" to "Most Notable".
+- **Notable cards prefer last 45 days** — bento highlights now prioritise motions from the last 45 days, falling back to older motions only if the window is empty.
+
+## [2.4.0] - 2026-04-14
+
+### Changed
+- **Rebranded to Motions** — site name updated from "Your City at Work" to "Motions" and domain updated to `motions.watch` across all metadata, OG tags, canonical URL, nav logo, and scripts.
 
 ### Added
 - **Multi-committee following** — users can now follow multiple committees simultaneously.
