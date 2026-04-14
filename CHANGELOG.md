@@ -6,6 +6,9 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [2.4.3] - 2026-04-14
 
+### Added
+- **Multi-select filtering** — the Dashboard filter sidebar and mobile filters now support selecting multiple topics, committees, vote types, and years simultaneously. Selected committees are displayed as removable inline chips below the search bar.
+
 ### Fixed
 - **Councillor header responsiveness** — fixed a flexbox bug that was aggressively crushing the right-hand stat cards by restricting the width of the main Identity container.
 - **Committee pills aesthetic** — transformed the bulky gray committee pills next to councillor names into a clean, space-saving, comma-separated text inline string positioned below the contact info.

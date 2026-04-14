@@ -13,15 +13,15 @@ const TOPICS = ['Housing', 'Transit', 'Finance', 'Parks', 'Climate', 'General'];
 
 export default function DashboardView({ motions, councillors, meetings = [], followedCommittees = [] }) {
   const navigate = useNavigate();
-  const [selectedTopic, setSelectedTopic] = useState('All');
-  const [selectedCommittee, setSelectedCommittee] = useState('All');
-  const [voteType, setVoteType] = useState('All');
+  const [selectedTopics, setSelectedTopics] = useState([]);
+  const [selectedCommittees, setSelectedCommittees] = useState([]);
+  const [selectedVoteTypes, setSelectedVoteTypes] = useState([]);
   const [showNotableOnly, setShowNotableOnly] = useState(false);
   const [showMyWard, setShowMyWard] = useState(false);
   const [showLastMeeting, setShowLastMeeting] = useState(false);
   const [showFollowingOnly, setShowFollowingOnly] = useState(false);
   const [visibleCount, setVisibleCount] = useState(20);
-  const [selectedYear, setSelectedYear] = useState('All');
+  const [selectedYears, setSelectedYears] = useState([]);
   const [committeeSearch, setCommitteeSearch] = useState('');
   const [committeeOpen, setCommitteeOpen] = useState(false);
 
@@ -123,13 +123,13 @@ export default function DashboardView({ motions, councillors, meetings = [], fol
   const sortedMotions = useMemo(() => {
     return [...primaryMotions]
       .filter(m => {
-        if (selectedTopic !== 'All' && m.topic !== selectedTopic) return false;
-        if (selectedCommittee !== 'All' && (m.committee || getCommittee(m.id)) !== selectedCommittee) return false;
-        if (voteType !== 'All' && !m.flags?.includes(voteType)) return false;
+        if (selectedTopics.length > 0 && !selectedTopics.includes(m.topic)) return false;
+        if (selectedCommittees.length > 0 && !selectedCommittees.includes(m.committee || getCommittee(m.id))) return false;
+        if (selectedVoteTypes.length > 0 && !selectedVoteTypes.some(vt => m.flags?.includes(vt))) return false;
         if (showNotableOnly && m.significance < 60) return false;
         if (showMyWard && savedWardId && m.ward !== savedWardId) return false;
         if (showFollowingOnly && !followedCommittees.includes(m.committee || getCommittee(m.id))) return false;
-        if (selectedYear !== 'All' && m.date?.match(/\d{4}/)?.[0] !== selectedYear) return false;
+        if (selectedYears.length > 0 && !selectedYears.includes(m.date?.match(/\d{4}/)?.[0])) return false;
         return true;
       })
       .sort((a, b) => {
@@ -137,10 +137,10 @@ export default function DashboardView({ motions, councillors, meetings = [], fol
         if (dateDiff !== 0) return dateDiff;
         return (b.significance ?? 0) - (a.significance ?? 0);
       });
-  }, [primaryMotions, selectedTopic, selectedCommittee, voteType, showNotableOnly, showMyWard, savedWardId, showLastMeeting, lastMeeting.date, selectedYear]);
+  }, [primaryMotions, selectedTopics, selectedCommittees, selectedVoteTypes, showNotableOnly, showMyWard, savedWardId, showLastMeeting, lastMeeting.date, selectedYears]);
 
   // Reset visible count when filters change
-  useEffect(() => { setVisibleCount(20); }, [selectedTopic, selectedCommittee, voteType, selectedYear, showNotableOnly, showMyWard, showLastMeeting, showFollowingOnly]);
+  useEffect(() => { setVisibleCount(20); }, [selectedTopics, selectedCommittees, selectedVoteTypes, selectedYears, showNotableOnly, showMyWard, showLastMeeting, showFollowingOnly]);
 
   const visibleMotions = sortedMotions.slice(0, visibleCount);
 
@@ -322,16 +322,19 @@ export default function DashboardView({ motions, councillors, meetings = [], fol
               {['All', ...TOPICS].map(topic => (
                 <button
                   key={topic}
-                  onClick={() => setSelectedTopic(topic)}
+                  onClick={() => {
+                    if (topic === 'All') setSelectedTopics([]);
+                    else setSelectedTopics(prev => prev.includes(topic) ? prev.filter(t => t !== topic) : [...prev, topic]);
+                  }}
                   className={cn(
                     "flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium transition-all",
-                    selectedTopic === topic
+                    (topic === 'All' && selectedTopics.length === 0) || selectedTopics.includes(topic)
                       ? "bg-[#004a99] text-white"
                       : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                   )}
                 >
                   {topic !== 'All' && (
-                    <span className={cn("w-1.5 h-1.5 rounded-full shrink-0", selectedTopic === topic ? 'bg-white/60' : TOPIC_DOT[topic])} />
+                    <span className={cn("w-1.5 h-1.5 rounded-full shrink-0", selectedTopics.includes(topic) ? 'bg-white/60' : TOPIC_DOT[topic])} />
                   )}
                   {topic === 'All' ? 'All' : topic}
                 </button>
@@ -342,6 +345,16 @@ export default function DashboardView({ motions, councillors, meetings = [], fol
           {/* Committee */}
           <div className="pt-2.5 border-t border-slate-100">
             <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wide mb-1.5">Committee</p>
+            {selectedCommittees.length > 0 && (
+              <div className="flex flex-wrap gap-1 mb-1.5">
+                {selectedCommittees.map(c => (
+                  <span key={c} className="flex items-center gap-1 bg-[#004a99] text-white px-2 py-0.5 rounded-full text-[10px] font-medium leading-tight">
+                    <span className="truncate max-w-[130px]">{c}</span>
+                    <X className="w-3 h-3 cursor-pointer shrink-0 hover:opacity-75" onClick={() => setSelectedCommittees(prev => prev.filter(item => item !== c))} />
+                  </span>
+                ))}
+              </div>
+            )}
             <div className="relative">
               <Search className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-400 pointer-events-none" />
               <input
@@ -350,12 +363,12 @@ export default function DashboardView({ motions, councillors, meetings = [], fol
                 onChange={e => setCommitteeSearch(e.target.value)}
                 onFocus={() => setCommitteeOpen(true)}
                 onBlur={() => setTimeout(() => setCommitteeOpen(false), 150)}
-                placeholder={selectedCommittee !== 'All' ? selectedCommittee : 'Search…'}
+                placeholder={selectedCommittees.length > 0 ? 'Add another…' : 'Search…'}
                 className="w-full pl-6 pr-2 py-1 text-[11px] bg-slate-100 rounded-lg outline-none placeholder:text-slate-400 text-slate-700 focus:ring-1 focus:ring-[#004a99]/30"
               />
-              {(committeeSearch || selectedCommittee !== 'All') && (
+              {committeeSearch && (
                 <button
-                  onClick={() => { setCommitteeSearch(''); setSelectedCommittee('All'); }}
+                  onClick={() => setCommitteeSearch('')}
                   className="absolute right-1.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
                 >
                   <X className="w-3 h-3" />
@@ -366,16 +379,12 @@ export default function DashboardView({ motions, councillors, meetings = [], fol
               <div className="mt-1 space-y-0.5">
                 {committees
                   .filter(c => !committeeSearch || c.toLowerCase().includes(committeeSearch.toLowerCase()))
+                  .filter(c => !selectedCommittees.includes(c))
                   .map(c => (
                     <button
                       key={c}
-                      onClick={() => { setSelectedCommittee(c); setCommitteeSearch(''); }}
-                      className={cn(
-                        "w-full text-left px-2 py-0.5 rounded-lg text-[11px] font-medium transition-all",
-                        selectedCommittee === c
-                          ? "bg-[#004a99] text-white"
-                          : "text-slate-600 hover:bg-slate-100"
-                      )}
+                      onClick={() => { setSelectedCommittees(prev => [...prev, c]); setCommitteeSearch(''); }}
+                      className="w-full text-left px-2 py-0.5 rounded-lg text-[11px] font-medium transition-all text-slate-600 hover:bg-slate-100"
                     >
                       {c}
                     </button>
@@ -392,10 +401,13 @@ export default function DashboardView({ motions, councillors, meetings = [], fol
               {VOTE_TYPES.map(({ label, value }) => (
                 <button
                   key={value}
-                  onClick={() => setVoteType(value)}
+                  onClick={() => {
+                    if (value === 'All') setSelectedVoteTypes([]);
+                    else setSelectedVoteTypes(prev => prev.includes(value) ? prev.filter(v => v !== value) : [...prev, value]);
+                  }}
                   className={cn(
                     "px-2 py-0.5 rounded-full text-[11px] font-medium transition-all",
-                    voteType === value
+                    (value === 'All' && selectedVoteTypes.length === 0) || selectedVoteTypes.includes(value)
                       ? "bg-[#004a99] text-white"
                       : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                   )}
@@ -413,10 +425,13 @@ export default function DashboardView({ motions, councillors, meetings = [], fol
               {['All', ...years].map(y => (
                 <button
                   key={y}
-                  onClick={() => setSelectedYear(y)}
+                  onClick={() => {
+                    if (y === 'All') setSelectedYears([]);
+                    else setSelectedYears(prev => prev.includes(y) ? prev.filter(v => v !== y) : [...prev, y]);
+                  }}
                   className={cn(
                     "px-2 py-0.5 rounded-full text-[11px] font-medium transition-all",
-                    selectedYear === y
+                    (y === 'All' && selectedYears.length === 0) || selectedYears.includes(y)
                       ? "bg-[#004a99] text-white"
                       : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                   )}
@@ -476,13 +491,13 @@ export default function DashboardView({ motions, councillors, meetings = [], fol
           {/* Footer */}
           <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
             <p className="text-[10px] text-slate-400">{sortedMotions.length.toLocaleString()} motions</p>
-            {(selectedTopic !== 'All' || selectedCommittee !== 'All' || voteType !== 'All' || selectedYear !== 'All' || showNotableOnly || showMyWard || showLastMeeting || showFollowingOnly) && (
+            {(selectedTopics.length > 0 || selectedCommittees.length > 0 || selectedVoteTypes.length > 0 || selectedYears.length > 0 || showNotableOnly || showMyWard || showLastMeeting || showFollowingOnly) && (
               <button
                 onClick={() => {
-                  setSelectedTopic('All');
-                  setSelectedCommittee('All');
-                  setVoteType('All');
-                  setSelectedYear('All');
+                  setSelectedTopics([]);
+                  setSelectedCommittees([]);
+                  setSelectedVoteTypes([]);
+                  setSelectedYears([]);
                   setShowNotableOnly(false);
                   setShowMyWard(false);
                   setShowLastMeeting(false);
@@ -504,16 +519,19 @@ export default function DashboardView({ motions, councillors, meetings = [], fol
             {['All', ...TOPICS].map(topic => (
               <button
                 key={topic}
-                onClick={() => setSelectedTopic(topic)}
+                onClick={() => {
+                  if (topic === 'All') setSelectedTopics([]);
+                  else setSelectedTopics(prev => prev.includes(topic) ? prev.filter(t => t !== topic) : [...prev, topic]);
+                }}
                 className={cn(
                   "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-all border",
-                  selectedTopic === topic
+                  (topic === 'All' && selectedTopics.length === 0) || selectedTopics.includes(topic)
                     ? "bg-[#004a99] text-white border-[#004a99]"
                     : "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100"
                 )}
               >
                 {topic !== 'All' && (
-                  <span className={cn("w-1.5 h-1.5 rounded-full", selectedTopic === topic ? 'bg-white/60' : TOPIC_DOT[topic])} />
+                  <span className={cn("w-1.5 h-1.5 rounded-full", selectedTopics.includes(topic) ? 'bg-white/60' : TOPIC_DOT[topic])} />
                 )}
                 {topic === 'All' ? 'All Topics' : topic}
               </button>
@@ -521,10 +539,10 @@ export default function DashboardView({ motions, councillors, meetings = [], fol
             {VOTE_TYPES.filter(t => t.value !== 'All').map(({ label, value }) => (
               <button
                 key={value}
-                onClick={() => setVoteType(v => v === value ? 'All' : value)}
+                onClick={() => setSelectedVoteTypes(prev => prev.includes(value) ? prev.filter(v => v !== value) : [...prev, value])}
                 className={cn(
                   "px-3 py-1.5 rounded-full text-sm font-medium border transition-all",
-                  voteType === value
+                  selectedVoteTypes.includes(value)
                     ? "bg-[#004a99] text-white border-[#004a99]"
                     : "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100"
                 )}
@@ -535,10 +553,10 @@ export default function DashboardView({ motions, councillors, meetings = [], fol
             {committees.map(c => (
               <button
                 key={c}
-                onClick={() => setSelectedCommittee(v => v === c ? 'All' : c)}
+                onClick={() => setSelectedCommittees(prev => prev.includes(c) ? prev.filter(item => item !== c) : [...prev, c])}
                 className={cn(
                   "px-3 py-1.5 rounded-full text-sm font-medium border transition-all",
-                  selectedCommittee === c
+                  selectedCommittees.includes(c)
                     ? "bg-[#004a99] text-white border-[#004a99]"
                     : "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100"
                 )}
@@ -549,10 +567,10 @@ export default function DashboardView({ motions, councillors, meetings = [], fol
             {years.map(y => (
               <button
                 key={y}
-                onClick={() => setSelectedYear(v => v === y ? 'All' : y)}
+                onClick={() => setSelectedYears(prev => prev.includes(y) ? prev.filter(v => v !== y) : [...prev, y])}
                 className={cn(
                   "px-3 py-1.5 rounded-full text-sm font-medium border transition-all",
-                  selectedYear === y
+                  selectedYears.includes(y)
                     ? "bg-[#004a99] text-white border-[#004a99]"
                     : "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100"
                 )}
