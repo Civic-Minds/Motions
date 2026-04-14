@@ -6,10 +6,10 @@ A resident of any Canadian city should be able to open Motions, type any issue t
 City council makes decisions that affect your rent, your commute, your neighbourhood — but following what's actually happening requires wading through thousands of pages of records most people will never read. Motions makes that legible.
 
 ## Stack
-- **Frontend**: React 19, Vite 7, Tailwind CSS v4, react-router-dom v7, Framer Motion
+- **AI**: Google Gemini 2.5 Flash
+- **Frontend**: React 19, Vite 7, Tailwind CSS v4, Framer Motion
 - **Maps**: Leaflet, react-leaflet
-- **Data**: Toronto Open Data CSV (member voting records, 2006–2026)
-- **AI**: Gemini 2.5 Flash (plain-language motion summaries)
+- **Data**: Toronto Open Data
 - **Deployment**: Vercel
 
 ---

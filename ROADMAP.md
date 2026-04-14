@@ -2,6 +2,7 @@
 
 Motions is a civic-intelligence engine for Toronto City Council. This roadmap outlines the path from a voting record browser to a comprehensive accountability layer.
 
+- **[Vision](./VISION.md)** — north star and long-term goals
 - **[Product](./ROADMAP_PRODUCT.md)** — features, views, and UX improvements
 - **[Data](./ROADMAP_DATA.md)** — pipeline improvements, new sources, and data quality
 - **[Technical](./ROADMAP_TECHNICAL.md)** — code quality, bugs, and structural improvements
