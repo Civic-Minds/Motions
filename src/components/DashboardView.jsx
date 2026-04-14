@@ -78,14 +78,19 @@ export default function DashboardView({ motions, councillors, meetings = [], fol
       .slice(0, 4);
   }, [primaryMotions, followedCommittees]);
 
-  // 2. Most recent notable (Global) — excludes anything already in Following
+  // 2. Most notable (Global) — prefers last 45 days, falls back to older if needed
   const highlights = useMemo(() => {
     const usedIds = new Set(followedHighlights.map(m => m.id));
     const count = savedWardId ? 2 : 4;
-    return [...primaryMotions]
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - 45);
+
+    const pool = [...primaryMotions]
       .filter(m => !m.trivial && m.significance >= 60 && !usedIds.has(m.id))
-      .sort((a, b) => new Date(b.date) - new Date(a.date))
-      .slice(0, count);
+      .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    const recent = pool.filter(m => new Date(m.date) >= cutoff);
+    return (recent.length >= count ? recent : pool).slice(0, count);
   }, [primaryMotions, savedWardId, followedHighlights]);
 
   // 3. Ward motions — excludes anything in Following or Notable
@@ -184,7 +189,7 @@ export default function DashboardView({ motions, councillors, meetings = [], fol
         {/* 2. Middle: Notable + Your Ward (4-card Grid) */}
         <div className="flex flex-col gap-1.5 min-w-0">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 px-1">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide col-span-2">Most Recent Notable</p>
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide col-span-2">Most Notable</p>
             {wardHighlights.length > 0 && (
               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide col-span-2">Your Ward</p>
             )}
