@@ -8,6 +8,9 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Changed
 - **Rebranded to Motions** — site name updated from "Your City at Work" to "Motions" and domain updated to `motions.watch` across all metadata, OG tags, canonical URL, nav logo, and scripts.
+- **Your Following column hidden when empty** — instead of a blank placeholder card, the column disappears and Notable expands to fill the space.
+- **Most Notable bento label** — renamed from "Most Recent Notable" to "Most Notable".
+- **Notable cards prefer last 45 days** — bento highlights now prioritise motions from the last 45 days, falling back to older motions only if the window is empty.
 
 ### Added
 - **Multi-committee following** — users can now follow multiple committees simultaneously.
