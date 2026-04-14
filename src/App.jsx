@@ -242,8 +242,8 @@ function AppShell() {
           <Route path="/councillors/:slug/vs/:slug2" element={<CouncillorList motions={motions} councillors={councillors} />} />
           <Route path="/wards"          element={<WardGrid motions={motions} />} />
           <Route path="/wards/:wardId"  element={<WardGrid motions={motions} />} />
-          <Route path="/committees" element={<CommitteesView motions={motions} followedCommittees={followedCommittees} onToggleFollow={handleToggleFollow} />} />
-          <Route path="/committees/:committeeSlug" element={<CommitteesView motions={motions} followedCommittees={followedCommittees} onToggleFollow={handleToggleFollow} />} />
+          <Route path="/committees" element={<CommitteesView motions={motions} meetings={meetings} followedCommittees={followedCommittees} onToggleFollow={handleToggleFollow} />} />
+          <Route path="/committees/:committeeSlug" element={<CommitteesView motions={motions} meetings={meetings} followedCommittees={followedCommittees} onToggleFollow={handleToggleFollow} />} />
           <Route path="/budget" element={<BudgetTranslator />} />
           <Route path="*"          element={<Navigate to="/" replace />} />
         </Routes>

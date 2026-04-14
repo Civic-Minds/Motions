@@ -24,6 +24,10 @@ The long-term vision is to expand beyond Toronto — letting residents of any Ca
 - [ ] **Motion map** — geospatial layer showing motions localized to city blocks/neighbourhoods (not just ward-level). Show what's changing near you on a map.
 - [ ] **Topics** — user-defined or curated topic pages (e.g. "Bike Lanes", "Shelter Beds", "Zoning") that aggregate all motions, votes, and councillor positions around a named issue over time. Different from the current topic tags (which are broad categories) — Topics would be specific, named civic issues residents actually care about.
 
+## Significance Scoring
+
+- [ ] **AI pairwise significance scoring** — replace the current keyword-based significance scorer with anchor-based pairwise comparisons via Gemini. Hand-pick 10–15 anchor motions spanning the full significance range, then for each motion ask "is this more or less significant than these examples?" Output a 0–100 score with a short reason. Can be generated alongside summaries in the same pipeline call and throttled incrementally. Fixes the current over-inflation of scores for motions that mention common keywords like "transit" or "police".
+
 ## Open Questions
 
 - [ ] **Export page strategy** — the Export page (full motion table + CSV download) exposes the raw Toronto Open Data voting record, which is already public. The enriched data (significance scores, topic tags, flags) is the proprietary work. Decide: keep CSV download, remove it, or remove the Export page entirely and surface browsing via a renamed "Explore" view.

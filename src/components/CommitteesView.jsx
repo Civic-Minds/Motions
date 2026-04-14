@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, Star } from 'lucide-react';
+import { ArrowRight, Star, Calendar } from 'lucide-react';
 import { getCommittee, COMMITTEE_NAMES, TOPIC_LIGHT, COMMITTEE_DESCRIPTIONS } from '../constants/data';
 import { nameToSlug } from '../utils/slug';
 import { cn } from '../lib/utils';
@@ -10,7 +10,7 @@ function committeeToSlug(name) {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 }
 
-export default function CommitteesView({ motions, followedCommittees = [], onToggleFollow }) {
+export default function CommitteesView({ motions, meetings = [], followedCommittees = [], onToggleFollow }) {
   const { committeeSlug } = useParams();
   const navigate = useNavigate();
 
@@ -216,6 +216,31 @@ export default function CommitteesView({ motions, followedCommittees = [], onTog
               </div>
             </div>
           )}
+
+          {/* Upcoming meetings */}
+          {(() => {
+            const upcoming = meetings.filter(m => m.committee === selectedCommittee.name);
+            if (!upcoming.length) return null;
+            return (
+              <div className="bg-white border border-slate-200 rounded-2xl p-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <Calendar className="w-3.5 h-3.5 text-slate-400" />
+                  <p className="text-xs font-bold text-slate-400 uppercase tracking-wide">Upcoming Meetings</p>
+                </div>
+                <div className="space-y-2">
+                  {upcoming.map((m, i) => (
+                    <div key={i} className="flex items-center justify-between text-sm">
+                      <span className="text-slate-700 font-medium">{m.displayDate}</span>
+                      <div className="flex items-center gap-3">
+                        {m.location && <span className="text-xs text-slate-400">{m.location}</span>}
+                        <span className="text-xs font-semibold text-[#004a99]">{m.startTime}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })()}
 
           {/* Motions */}
           <div className="space-y-2">

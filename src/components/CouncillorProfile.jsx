@@ -89,9 +89,8 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
         counts[c] = (counts[c] || 0) + 1;
       }
     });
-    const threshold = Math.max(1, Object.values(counts).reduce((a, b) => a + b, 0) * 0.05);
     return Object.entries(counts)
-      .filter(([, n]) => n >= threshold)
+      .filter(([, n]) => n >= 5)
       .sort((a, b) => b[1] - a[1])
       .map(([name]) => name);
   }, [selected, motions]);

@@ -11,6 +11,10 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Your Following column hidden when empty** — instead of a blank placeholder card, the column disappears and Notable expands to fill the space.
 - **Most Notable bento label** — renamed from "Most Recent Notable" to "Most Notable".
 - **Notable cards prefer last 45 days** — bento highlights now prioritise motions from the last 45 days, falling back to older motions only if the window is empty.
+- **Councillor committee threshold fixed** — committee pills on councillor profiles now use a fixed minimum of 5 votes instead of a percentage-based threshold that was filtering out all non-City-Council committees.
+
+### Added
+- **Upcoming meetings on committee pages** — committee detail pages now show a scheduled meetings section above the motions list, pulling from meetings.json.
 
 ### Added
 - **Multi-committee following** — users can now follow multiple committees simultaneously.
