@@ -43,9 +43,6 @@ function Navbar({ onSearchOpen, compareMode, onCompareModeToggle, wardId, onLoca
 
         {/* Logo */}
         <div className="flex items-center gap-3 cursor-pointer select-none" onClick={() => navigate('/')}>
-          <div className="w-9 h-9 rounded-xl bg-[#004a99] flex items-center justify-center shadow-sm">
-            <span className="text-white font-black text-lg leading-none">M</span>
-          </div>
           <span className="text-base leading-none">
             <span className="font-bold text-slate-900">Motions</span>
             <span className="font-normal text-slate-500 ml-1.5">Toronto</span>
