@@ -143,23 +143,20 @@ export default function DashboardView({ motions, councillors, meetings = [], fol
     <div className="space-y-4">
 
       {/* ── Bento row: Last Meeting | Notable | Your Ward ── */}
-      <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr_220px] gap-3 items-stretch overflow-hidden">
+      <div className={cn(
+        "grid grid-cols-1 gap-3 items-stretch overflow-hidden",
+        followedHighlights.length > 0 ? "lg:grid-cols-[200px_1fr_220px]" : "lg:grid-cols-[1fr_220px]"
+      )}>
 
-        {/* 1. Left Col: Your Following (ONE Card) */}
-        <div className="flex flex-col gap-1.5 min-w-0">
-          <div className="flex items-center justify-between px-1">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Your Following</p>
-            <Star className="w-3 h-3 text-amber-500 fill-current shrink-0" />
-          </div>
-          {(() => {
-            const m = followedHighlights[0];
-            if (!m) return (
-              <Link to="/committees" className="bg-slate-50 border border-dashed border-slate-200 rounded-2xl p-6 flex flex-col items-center justify-center text-center flex-1 group hover:bg-slate-100 transition-colors">
-                <Star className="w-5 h-5 text-slate-300 mb-2" />
-                <p className="text-[10px] font-bold text-slate-400 leading-tight">Follow committees to see your feed</p>
-              </Link>
-            );
-            return (
+        {/* 1. Left Col: Your Following (ONE Card) — hidden when nothing followed */}
+        {followedHighlights.length > 0 && (() => {
+          const m = followedHighlights[0];
+          return (
+            <div className="flex flex-col gap-1.5 min-w-0">
+              <div className="flex items-center justify-between px-1">
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Your Following</p>
+                <Star className="w-3 h-3 text-amber-500 fill-current shrink-0" />
+              </div>
               <motion.button
                 initial={{ opacity: 0, scale: 0.97 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -180,9 +177,9 @@ export default function DashboardView({ motions, councillors, meetings = [], fol
                   <span className="text-[9px] font-semibold text-[#004a99]">See more</span>
                 </div>
               </motion.button>
-            );
-          })()}
-        </div>
+            </div>
+          );
+        })()}
 
         {/* 2. Middle: Notable + Your Ward (4-card Grid) */}
         <div className="flex flex-col gap-1.5 min-w-0">
