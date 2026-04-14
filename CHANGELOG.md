@@ -6,6 +6,9 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+### Changed
+- **Rebranded to Motions** — site name updated from "Your City at Work" to "Motions" and domain updated to `motions.watch` across all metadata, OG tags, canonical URL, nav logo, and scripts.
+
 ### Added
 - **Multi-committee following** — users can now follow multiple committees simultaneously.
 - **Aggregated dashboard feed** — the "Your Following" card now displays the most recent meeting across all favorite committees, with automatic label pivoting.

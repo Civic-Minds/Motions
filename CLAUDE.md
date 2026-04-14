@@ -1,4 +1,4 @@
-# Claude Notes — Motions / Your City at Work
+# Claude Notes — Motions (motions.watch)
 
 ## Environment
 

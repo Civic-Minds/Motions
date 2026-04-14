@@ -46,7 +46,7 @@ async function geocode(address) {
   const url = `https://nominatim.openstreetmap.org/search?q=${query}&format=json&limit=1&countrycodes=ca`;
 
   const res = await fetch(url, {
-    headers: { 'User-Agent': 'YourCityAtWork/1.0 (yourcityatwork.ca)' }
+    headers: { 'User-Agent': 'Motions/1.0 (motions.watch)' }
   });
 
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
