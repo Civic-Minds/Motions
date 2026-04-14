@@ -1,28 +1,20 @@
 # Motions
 
-You elected them. Here’s what they’ve done.
+A resident of any Canadian city should be able to open Motions, type any issue they care about, and immediately understand: who voted on it, how it landed, and what it means for their neighbourhood.
 
 ## Problem
-City council makes decisions that affect your rent, your commute, your neighbourhood — but following what’s actually happening requires wading through thousands of pages of records most people will never read. Motions makes that legible.
-
-## Features
-- **Triviality Score**: A data-driven metric that separates high-impact civic priorities from minor administrative items.
-- **Member Alignment**: Dynamic heatmaps and coalition analysis based on historical voting patterns.
-- **Councilor Comparison**: Side-by-side analysis of voting records to surface policy divergence and alignment.
-- **Budget Translator**: An automated layer that clarifies the real-world impact of complex financial motions.
+City council makes decisions that affect your rent, your commute, your neighbourhood — but following what's actually happening requires wading through thousands of pages of records most people will never read. Motions makes that legible.
 
 ## Stack
-- **Frontend**: React 19, Vite, Tailwind CSS
+- **Frontend**: React 19, Vite 7, Tailwind CSS v4, react-router-dom v7, Framer Motion
+- **Maps**: Leaflet, react-leaflet
 - **Data**: Toronto Open Data CSV (member voting records, 2006–2026)
-- **Visuals**: Lucide React, Framer Motion
+- **AI**: Gemini 2.5 Flash (plain-language motion summaries)
+- **Deployment**: Vercel
 
 ---
 
 - [Roadmap](./ROADMAP.md)
 - [Changelog](./CHANGELOG.md)
-- [Security](./SECURITY.md)
-- [Contributing](./CONTRIBUTING.md)
-- [License](./LICENSE)
 
 Created by Civic Minds
-
