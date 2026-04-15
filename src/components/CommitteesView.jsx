@@ -97,7 +97,7 @@ export default function CommitteesView({ motions, meetings = [], followedCommitt
             className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-700 transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
-            Committees
+            Back
           </button>
           <div className="flex items-start justify-between gap-4">
             <div>

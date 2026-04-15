@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Calendar, Clock, MapPin, ExternalLink, Lock, FileText } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Lock, FileText } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 function committeeToSlug(name) {
@@ -25,42 +25,38 @@ export default function MeetingPage({ meetings }) {
   const hasAgenda = meeting.agendaItems?.length > 0;
 
   return (
-    <div className="max-w-5xl mx-auto py-2 px-4 sm:px-6 lg:px-8">
+    <div className="max-w-5xl mx-auto py-2 px-4 sm:px-6 lg:px-8 relative">
 
-      {/* Back */}
-      <div className="mb-6">
+      {/* Back — desktop floating left */}
+      <button
+        onClick={() => navigate(`/committees/${committeeSlug}`)}
+        className="hidden xl:flex absolute -left-12 top-1 items-center gap-1.5 text-sm text-slate-400 hover:text-slate-700 transition-colors"
+      >
+        <ArrowLeft className="w-4 h-4 text-slate-300" />
+        Back
+      </button>
+
+      {/* Back — mobile/tablet stacked */}
+      <div className="mb-6 xl:hidden">
         <button
           onClick={() => navigate(`/committees/${committeeSlug}`)}
           className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-700 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
-          {meeting.committee}
+          Back
         </button>
       </div>
 
       {/* Header */}
-      <div className="space-y-2 mb-8">
-        <p className="text-xs font-mono text-slate-400">{meeting.meetingReference}</p>
+      <div className="space-y-3 mb-8">
         <h1 className="text-xl font-bold text-slate-900">{meeting.committee}</h1>
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-400">
-          <span className="flex items-center gap-1">
-            <Calendar className="w-3.5 h-3.5" />
-            {meeting.displayDate}
-          </span>
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-400">
+          <span className="font-mono">{meeting.meetingReference}</span>
           <span>·</span>
-          <span className="flex items-center gap-1">
-            <Clock className="w-3.5 h-3.5" />
-            {meeting.startTime}
-          </span>
-          {meeting.location && (
-            <>
-              <span>·</span>
-              <span className="flex items-center gap-1">
-                <MapPin className="w-3.5 h-3.5" />
-                {meeting.location}
-              </span>
-            </>
-          )}
+          <span>{meeting.displayDate}</span>
+          <span>·</span>
+          <span>{meeting.startTime}</span>
+          {meeting.location && <><span>·</span><span>{meeting.location}</span></>}
         </div>
       </div>
 
@@ -129,28 +125,6 @@ export default function MeetingPage({ meetings }) {
 
         {/* RIGHT: Sidebar */}
         <div className="lg:col-span-1 space-y-4 lg:sticky lg:top-8">
-
-          {/* Meeting details */}
-          <div className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-4 space-y-3">
-            <div>
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Date</p>
-              <p className="text-sm font-semibold text-slate-800">{meeting.displayDate}</p>
-            </div>
-            <div>
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Time</p>
-              <p className="text-sm font-semibold text-slate-800">{meeting.startTime}</p>
-            </div>
-            {meeting.location && (
-              <div>
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Location</p>
-                <p className="text-sm font-semibold text-slate-800">{meeting.location}</p>
-              </div>
-            )}
-            <div>
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Meeting</p>
-              <p className="text-sm font-semibold text-slate-800">#{meeting.meetingNumber} · {meeting.meetingReference}</p>
-            </div>
-          </div>
 
           {/* Agenda status */}
           <div className={cn(

@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
-## [Unreleased]
+## [2.4.4] - 2026-04-14
 
 ### Added
 - **Meeting pages** — new `/meetings/:ref` route (e.g. `/meetings/2026.PH29`) with full agenda item list, ward tags, in-camera badges, and links out to TMMIS. Two-column layout: agenda left, meeting meta sidebar right.
@@ -16,6 +16,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Mini map navigates to full map** — clicking the Toronto map on the dashboard now always goes to `/wards` (the choropleth full map) instead of `/wards/:id` (the ward motion list).
 
 ### Changed
+- **Meeting page header matches MotionPage pattern** — date, time, and location moved from sidebar card into a metadata row below the h1 (`reference · date · time · location`). Sidebar now contains only agenda status and committee link.
 - **Committee detail redesigned** — two-column layout matching MotionPage: motions on the left (2/3), sticky sidebar on the right with stats (adoption bar), upcoming meetings, and member pills. Back button added.
 - **Upcoming meeting rows link to meeting pages** — clicking a meeting row in the committee sidebar or dashboard "Coming Up" card now navigates to `/meetings/:ref`.
 - **Scraper targets all primary motions** — removed the `significance >= 25` filter from `scrape_agenda_text.js`. All 926 primary motions now scraped.
