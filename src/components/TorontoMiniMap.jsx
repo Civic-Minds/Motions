@@ -78,13 +78,13 @@ export default function TorontoMiniMap({ motions }) {
       {/* Click overlay — sits above Leaflet (z ≥ 400), captures all events */}
       <div
         className="absolute inset-0 z-[400] bg-transparent group-hover:bg-[#004a99]/5 transition-colors"
-        onClick={() => navigate(savedWardId ? `/wards/${savedWardId}` : '/wards')}
+        onClick={() => navigate('/wards')}
       />
 
       {/* Label */}
       <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-[500] pointer-events-none">
         <span className="bg-white/90 backdrop-blur-sm border border-slate-200 rounded-full px-3 py-1 text-xs font-semibold text-[#004a99] shadow-sm group-hover:bg-[#004a99] group-hover:text-white transition-colors whitespace-nowrap">
-          {savedWardId ? `Ward ${savedWardId} · Explore wards →` : 'Explore wards →'}
+          Explore wards →
         </span>
       </div>
     </div>

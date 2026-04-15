@@ -6,13 +6,21 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+### Added
+- **Meeting pages** — new `/meetings/:ref` route (e.g. `/meetings/2026.PH29`) with full agenda item list, ward tags, in-camera badges, and links out to TMMIS. Two-column layout: agenda left, meeting meta sidebar right.
+- **TMMIS agenda API integration** — `fetch_meetings.js` now pulls published agendas from `secure.toronto.ca/council/api` for each upcoming meeting. Stores `agendaItems` (reference, title, wards, inCamera, url) and `meetingReference` on each meeting object. Uses browser-level headers to bypass Akamai WAF.
+- **`rank_notability.js` written** — pairwise quicksort script using Gemini API. Batches 10 motions per API call against a random pivot, recurses into groups, writes `notabilityRank` to motions.json. Caches comparison results for resumability. Ready to run after summaries complete.
+
 ### Fixed
 - **Daily import no longer wipes summaries** — `import_open_data.js` now merges enriched fields (`summary`, `keyAmounts`, `notabilityRank`, etc.) from the previous motions.json before writing, so GitHub Actions daily runs preserve all AI-generated data.
+- **Mini map navigates to full map** — clicking the Toronto map on the dashboard now always goes to `/wards` (the choropleth full map) instead of `/wards/:id` (the ward motion list).
 
 ### Changed
-- **Scraper targets all primary motions** — removed the `significance >= 25` filter from `scrape_agenda_text.js`. All 926 primary motions now scraped. Significance threshold was a bad proxy; pairwise notability will replace it.
-- **Navbar M logo removed** — logo icon removed from navbar; just "Motions · Toronto" text now.
-- **VISION.md added** — north star statement moved from ROADMAP.md into its own file, linked from the roadmap index.
+- **Committee detail redesigned** — two-column layout matching MotionPage: motions on the left (2/3), sticky sidebar on the right with stats (adoption bar), upcoming meetings, and member pills. Back button added.
+- **Upcoming meeting rows link to meeting pages** — clicking a meeting row in the committee sidebar or dashboard "Coming Up" card now navigates to `/meetings/:ref`.
+- **Scraper targets all primary motions** — removed the `significance >= 25` filter from `scrape_agenda_text.js`. All 926 primary motions now scraped.
+- **Navbar M logo removed** — just "Motions · Toronto" text.
+- **VISION.md added** — north star statement extracted from ROADMAP.md into its own file.
 - **README updated** — stack reordered (AI first), stale entries removed, vision one-liner added.
 
 ## [2.4.3] - 2026-04-14

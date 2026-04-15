@@ -7,7 +7,88 @@
     "endTime": "18:00 PM",
     "location": "Committee Room 1, City Hall",
     "meetingNumber": 29,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27155,
+    "meetingReference": "2026.PH29",
+    "agendaItems": [
+      {
+        "reference": "2026.PH29.1",
+        "title": "601, 625, and 673 Lake Shore Boulevard East, 185 Villiers Street, and 300 Commissioners Street - City-initiated \"Meanwhile Use\" enabling Policy and Zoning, and Update on McCleary District Planning Work",
+        "wards": "14",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH29.1"
+      },
+      {
+        "reference": "2026.PH29.2",
+        "title": "Little Jamaica and Oakwood Vaughan Planning Framework - Proposals Report",
+        "wards": "5, 8, 9, 12",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH29.2"
+      },
+      {
+        "reference": "2026.PH29.3",
+        "title": "Status Update Report on Transit Oriented Communities",
+        "wards": "All",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH29.3"
+      },
+      {
+        "reference": "2026.PH29.4",
+        "title": "RentSafeTO Update Report",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH29.4"
+      },
+      {
+        "reference": "2026.PH29.5",
+        "title": "Advancing the City’s Affordable Housing Access System",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH29.5"
+      },
+      {
+        "reference": "2026.PH29.6",
+        "title": "105-109 Vanderhoof Avenue and 10 Brentcliffe Road - Official Plan Amendment Application - Appeal Report",
+        "wards": "15",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH29.6"
+      },
+      {
+        "reference": "2026.PH29.7",
+        "title": "108-162 Vine Avenue - Official Plan Amendment Application - Appeal Report",
+        "wards": "4",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH29.7"
+      },
+      {
+        "reference": "2026.PH29.8",
+        "title": "110 West Toronto Street - Official Plan Amendment Application - Appeal Report",
+        "wards": "5",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH29.8"
+      },
+      {
+        "reference": "2026.PH29.9",
+        "title": "2700 Dufferin Street - Official Plan Amendment Application - Appeal Report",
+        "wards": "8",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH29.9"
+      },
+      {
+        "reference": "2026.PH29.10",
+        "title": "817 Mount Pleasant Road - Notice of Intention to Designate a Property under Part IV, Section 29 of the Ontario Heritage Act",
+        "wards": "15",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH29.10"
+      },
+      {
+        "reference": "2026.PH29.11",
+        "title": "Impact Assessment of Extended Flightpath at Billy Bishop Airport",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH29.11"
+      }
+    ]
   },
   {
     "committee": "Executive Committee",
@@ -17,7 +98,67 @@
     "endTime": "18:00 PM",
     "location": "Committee Room 1, City Hall",
     "meetingNumber": 30,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27178,
+    "meetingReference": "2026.EX30",
+    "agendaItems": [
+      {
+        "reference": "2026.EX30.1",
+        "title": "Critical Investments in Streetlight Infrastructure for Public Safety",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX30.1"
+      },
+      {
+        "reference": "2026.EX30.2",
+        "title": "Toronto Personal Watercraft Safety Plan",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX30.2"
+      },
+      {
+        "reference": "2026.EX30.3",
+        "title": "Towards a Beautiful City: Update on Priority Items",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX30.3"
+      },
+      {
+        "reference": "2026.EX30.4",
+        "title": "2026 Property Tax Clawback Rate Report",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX30.4"
+      },
+      {
+        "reference": "2026.EX30.6",
+        "title": "FIFA World Cup 2026 Toronto: By-law Exemptions to Facilitate Planning and Delivery of the FIFA World Cup 2026 Events at Fort York and the Bentway, and at Nathan Phillips Square",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX30.6"
+      },
+      {
+        "reference": "2026.EX30.7",
+        "title": "FIFA World Cup 2026 Toronto Mobility Plan: Temporary Adjustments to Traffic and Parking Regulations",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX30.7"
+      },
+      {
+        "reference": "2026.EX30.8",
+        "title": "Leveraging Data to Drive Service Excellence in Parks and Recreation and Transportation Services",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX30.8"
+      },
+      {
+        "reference": "2026.EX30.9",
+        "title": "Service Standard Dashboard: An Update on Static and Interactive Reporting Tools",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX30.9"
+      }
+    ]
   },
   {
     "committee": "Toronto Transit Commission",
@@ -27,7 +168,109 @@
     "endTime": "18:00 PM",
     "location": "Committee Room 2, City Hall",
     "meetingNumber": 14,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27512,
+    "meetingReference": "2026.TTC14",
+    "agendaItems": [
+      {
+        "reference": "2026.TTC14.1",
+        "title": "Chief Executive Officer’s Report - April 2026",
+        "wards": null,
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC14.1"
+      },
+      {
+        "reference": "2026.TTC14.2",
+        "title": "Approved Minutes of the Advisory Committee on Accessible Transit (ACAT) General Monthly Meeting of January 29 and February 26, 2026",
+        "wards": null,
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC14.2"
+      },
+      {
+        "reference": "2026.TTC14.3",
+        "title": "Improving LRT and Streetcar Speed and Reliability",
+        "wards": null,
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC14.3"
+      },
+      {
+        "reference": "2026.TTC14.4",
+        "title": "TTC Special Constable Service 2025 Annual Report",
+        "wards": null,
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC14.4"
+      },
+      {
+        "reference": "2026.TTC14.5",
+        "title": "Updates to the CEO’s Delegated Authority",
+        "wards": null,
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC14.5"
+      },
+      {
+        "reference": "2026.TTC14.6",
+        "title": "Financial and Major Projects Update for the Year Ended December 31, 2025",
+        "wards": null,
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC14.6"
+      },
+      {
+        "reference": "2026.TTC14.7",
+        "title": "Fare Collection Update",
+        "wards": null,
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC14.7"
+      },
+      {
+        "reference": "2026.TTC14.8",
+        "title": "Litigation Update",
+        "wards": null,
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC14.8"
+      },
+      {
+        "reference": "2026.TTC14.9",
+        "title": "Collective Bargaining Update",
+        "wards": null,
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC14.9"
+      },
+      {
+        "reference": "2026.TTC14.10",
+        "title": "Chief Executive Officer Performance and Objectives",
+        "wards": null,
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC14.10"
+      },
+      {
+        "reference": "2026.TTC14.11",
+        "title": "Procurement Authorization - Wheel-Trans Mobile Data Terminal and Automatic Vehicle Location Solution and Support Services",
+        "wards": null,
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC14.11"
+      },
+      {
+        "reference": "2026.TTC14.12",
+        "title": "Updates to the Audit & Risk Management Committee Terms of Reference",
+        "wards": null,
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC14.12"
+      },
+      {
+        "reference": "2026.TTC14.13",
+        "title": "Amendments to the TTC Records Retention Schedule (Municipal Code Chapter 219, Records, Corporate (Local Boards))",
+        "wards": null,
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC14.13"
+      },
+      {
+        "reference": "2026.TTC14.14",
+        "title": "Audible Stop Announcements on Line 5 and Line 6 - by Commissioner Dianne Saxe, seconded by Chair Jamaal Myers",
+        "wards": null,
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC14.14"
+      }
+    ]
   },
   {
     "committee": "Civic Appointments Committee",
@@ -37,7 +280,32 @@
     "endTime": "18:00 PM",
     "location": "Committee Room 3, City Hall",
     "meetingNumber": 34,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27773,
+    "meetingReference": "2026.CA34",
+    "agendaItems": [
+      {
+        "reference": "2026.CA34.1",
+        "title": "Selection of Candidates for Interview for the Board of Directors of TO Live",
+        "wards": "All",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CA34.1"
+      },
+      {
+        "reference": "2026.CA34.2",
+        "title": "Appointment of Public Members to the Toronto Zoo Board",
+        "wards": "All",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CA34.2"
+      },
+      {
+        "reference": "2026.CA34.3",
+        "title": "Appointment of a Public Member to the Exhibition Place Board",
+        "wards": "All",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CA34.3"
+      }
+    ]
   },
   {
     "committee": "City Council",
@@ -47,7 +315,10 @@
     "endTime": "20:00 PM",
     "location": "Council Chamber, City Hall",
     "meetingNumber": 40,
-    "isCouncil": true
+    "isCouncil": true,
+    "meetingId": 27172,
+    "meetingReference": "2026.CC40",
+    "agendaItems": []
   },
   {
     "committee": "City Council",
@@ -57,7 +328,10 @@
     "endTime": "20:00 PM",
     "location": "Council Chamber, City Hall",
     "meetingNumber": 40,
-    "isCouncil": true
+    "isCouncil": true,
+    "meetingId": 27172,
+    "meetingReference": "2026.CC40",
+    "agendaItems": []
   },
   {
     "committee": "City Council",
@@ -67,7 +341,10 @@
     "endTime": "20:00 PM",
     "location": "Council Chamber, City Hall",
     "meetingNumber": 40,
-    "isCouncil": true
+    "isCouncil": true,
+    "meetingId": 27172,
+    "meetingReference": "2026.CC40",
+    "agendaItems": []
   },
   {
     "committee": "Toronto Preservation Board",
@@ -77,7 +354,10 @@
     "endTime": "18:00 PM",
     "location": "Committee Room 1, City Hall",
     "meetingNumber": 43,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27278,
+    "meetingReference": "2026.PB43",
+    "agendaItems": []
   },
   {
     "committee": "FIFA World Cup 2026 Subcommittee",
@@ -87,7 +367,10 @@
     "endTime": "18:00 PM",
     "location": "Committee Room 2, City Hall",
     "meetingNumber": 12,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27674,
+    "meetingReference": "2026.FWC12",
+    "agendaItems": []
   },
   {
     "committee": "Etobicoke York Community Council",
@@ -97,7 +380,10 @@
     "endTime": "18:00 PM",
     "location": "Council Chamber, Etobicoke Civic Centre",
     "meetingNumber": 31,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27163,
+    "meetingReference": "2026.EY31",
+    "agendaItems": []
   },
   {
     "committee": "North York Community Council",
@@ -107,7 +393,10 @@
     "endTime": "18:00 PM",
     "location": "Council Chamber, North York Civic Centre",
     "meetingNumber": 32,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27208,
+    "meetingReference": "2026.NY32",
+    "agendaItems": []
   },
   {
     "committee": "Scarborough Community Council",
@@ -117,7 +406,10 @@
     "endTime": "18:00 PM",
     "location": "Council Chamber, Scarborough Civic Centre",
     "meetingNumber": 31,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27223,
+    "meetingReference": "2026.SC31",
+    "agendaItems": []
   },
   {
     "committee": "Toronto and East York Community Council",
@@ -127,7 +419,10 @@
     "endTime": "18:00 PM",
     "location": "Committee Room 1, City Hall",
     "meetingNumber": 32,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27159,
+    "meetingReference": "2026.TE32",
+    "agendaItems": []
   },
   {
     "committee": "Audit Committee",
@@ -137,7 +432,10 @@
     "endTime": "18:00 PM",
     "location": "Committee Room 1, City Hall",
     "meetingNumber": 12,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27251,
+    "meetingReference": "2026.AU12",
+    "agendaItems": []
   },
   {
     "committee": "Board of Health",
@@ -147,7 +445,10 @@
     "endTime": "18:00 PM",
     "location": "Committee Room 1, City Hall",
     "meetingNumber": 32,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27185,
+    "meetingReference": "2026.HL32",
+    "agendaItems": []
   },
   {
     "committee": "Economic and Community Development Committee",
@@ -157,7 +458,10 @@
     "endTime": "18:00 PM",
     "location": "Committee Room 1, City Hall",
     "meetingNumber": 28,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27214,
+    "meetingReference": "2026.EC28",
+    "agendaItems": []
   },
   {
     "committee": "Infrastructure and Environment Committee",
@@ -167,7 +471,10 @@
     "endTime": "18:00 PM",
     "location": "Committee Room 1, City Hall",
     "meetingNumber": 29,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27204,
+    "meetingReference": "2026.IE29",
+    "agendaItems": []
   },
   {
     "committee": "Planning and Housing Committee",
@@ -177,7 +484,10 @@
     "endTime": "18:00 PM",
     "location": "Committee Room 1, City Hall",
     "meetingNumber": 30,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27156,
+    "meetingReference": "2026.PH30",
+    "agendaItems": []
   },
   {
     "committee": "General Government Committee",
@@ -187,7 +497,10 @@
     "endTime": "18:00 PM",
     "location": "Committee Room 1, City Hall",
     "meetingNumber": 29,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27215,
+    "meetingReference": "2026.GG29",
+    "agendaItems": []
   },
   {
     "committee": "Executive Committee",
@@ -197,7 +510,10 @@
     "endTime": "18:00 PM",
     "location": "Committee Room 1, City Hall",
     "meetingNumber": 31,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27179,
+    "meetingReference": "2026.EX31",
+    "agendaItems": []
   },
   {
     "committee": "Toronto Preservation Board",
@@ -207,7 +523,10 @@
     "endTime": "18:00 PM",
     "location": "Committee Room 2, City Hall",
     "meetingNumber": 44,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27279,
+    "meetingReference": "2026.PB44",
+    "agendaItems": []
   },
   {
     "committee": "Service Excellence Committee",
@@ -217,7 +536,10 @@
     "endTime": "18:00 PM",
     "location": "Committee Room 2, City Hall",
     "meetingNumber": 12,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27633,
+    "meetingReference": "2026.SE12",
+    "agendaItems": []
   },
   {
     "committee": "Civic Appointments Committee",
@@ -227,7 +549,10 @@
     "endTime": "18:00 PM",
     "location": "Committee Room 3, City Hall",
     "meetingNumber": 35,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27774,
+    "meetingReference": "2026.CA35",
+    "agendaItems": []
   },
   {
     "committee": "City Council",
@@ -237,7 +562,10 @@
     "endTime": "20:00 PM",
     "location": "Council Chamber, City Hall",
     "meetingNumber": 41,
-    "isCouncil": true
+    "isCouncil": true,
+    "meetingId": 27173,
+    "meetingReference": "2026.CC41",
+    "agendaItems": []
   },
   {
     "committee": "City Council",
@@ -247,7 +575,10 @@
     "endTime": "20:00 PM",
     "location": "Council Chamber, City Hall",
     "meetingNumber": 41,
-    "isCouncil": true
+    "isCouncil": true,
+    "meetingId": 27173,
+    "meetingReference": "2026.CC41",
+    "agendaItems": []
   },
   {
     "committee": "City Council",
@@ -257,7 +588,10 @@
     "endTime": "20:00 PM",
     "location": "Council Chamber, City Hall",
     "meetingNumber": 41,
-    "isCouncil": true
+    "isCouncil": true,
+    "meetingId": 27173,
+    "meetingReference": "2026.CC41",
+    "agendaItems": []
   },
   {
     "committee": "Etobicoke York Community Council",
@@ -267,7 +601,10 @@
     "endTime": "18:00 PM",
     "location": "Council Chamber, Etobicoke Civic Centre",
     "meetingNumber": 32,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27209,
+    "meetingReference": "2026.EY32",
+    "agendaItems": []
   },
   {
     "committee": "North York Community Council",
@@ -277,7 +614,10 @@
     "endTime": "18:00 PM",
     "location": "Council Chamber, North York Civic Centre",
     "meetingNumber": 33,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27164,
+    "meetingReference": "2026.NY33",
+    "agendaItems": []
   },
   {
     "committee": "Scarborough Community Council",
@@ -287,7 +627,10 @@
     "endTime": "18:00 PM",
     "location": "Council Chamber, Scarborough Civic Centre",
     "meetingNumber": 32,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27165,
+    "meetingReference": "2026.SC32",
+    "agendaItems": []
   },
   {
     "committee": "Toronto and East York Community Council",
@@ -297,7 +640,10 @@
     "endTime": "18:00 PM",
     "location": "Committee Room 1, City Hall",
     "meetingNumber": 33,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27160,
+    "meetingReference": "2026.TE33",
+    "agendaItems": []
   },
   {
     "committee": "Board of Health",
@@ -307,7 +653,10 @@
     "endTime": "18:00 PM",
     "location": "Committee Room 1, City Hall",
     "meetingNumber": 33,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27186,
+    "meetingReference": "2026.HL33",
+    "agendaItems": []
   },
   {
     "committee": "General Government Committee",
@@ -317,7 +666,10 @@
     "endTime": "18:00 PM",
     "location": "Committee Room 1, City Hall",
     "meetingNumber": 30,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27216,
+    "meetingReference": "2026.GG30",
+    "agendaItems": []
   },
   {
     "committee": "FIFA World Cup 2026 Subcommittee",
@@ -327,7 +679,10 @@
     "endTime": "18:00 PM",
     "location": "Committee Room 2, City Hall",
     "meetingNumber": 13,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27675,
+    "meetingReference": "2026.FWC13",
+    "agendaItems": []
   },
   {
     "committee": "Toronto Transit Commission",
@@ -337,7 +692,10 @@
     "endTime": "18:00 PM",
     "location": "Council Chamber, Etobicoke Civic Centre",
     "meetingNumber": 15,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27513,
+    "meetingReference": "2026.TTC15",
+    "agendaItems": []
   },
   {
     "committee": "Civic Appointments Committee",
@@ -347,7 +705,10 @@
     "endTime": "18:00 PM",
     "location": "Committee Room 3, City Hall",
     "meetingNumber": 36,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27775,
+    "meetingReference": "2026.CA36",
+    "agendaItems": []
   },
   {
     "committee": "Toronto Preservation Board",
@@ -357,7 +718,10 @@
     "endTime": "18:00 PM",
     "location": "Committee Room 1, City Hall",
     "meetingNumber": 45,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27280,
+    "meetingReference": "2026.PB45",
+    "agendaItems": []
   },
   {
     "committee": "Economic and Community Development Committee",
@@ -367,7 +731,10 @@
     "endTime": "18:00 PM",
     "location": "Committee Room 1, City Hall",
     "meetingNumber": 29,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27217,
+    "meetingReference": "2026.EC29",
+    "agendaItems": []
   },
   {
     "committee": "Infrastructure and Environment Committee",
@@ -377,7 +744,10 @@
     "endTime": "18:00 PM",
     "location": "Committee Room 1, City Hall",
     "meetingNumber": 30,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27205,
+    "meetingReference": "2026.IE30",
+    "agendaItems": []
   },
   {
     "committee": "Planning and Housing Committee",
@@ -387,7 +757,10 @@
     "endTime": "18:00 PM",
     "location": "Committee Room 1, City Hall",
     "meetingNumber": 31,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27200,
+    "meetingReference": "2026.PH31",
+    "agendaItems": []
   },
   {
     "committee": "Executive Committee",
@@ -397,7 +770,10 @@
     "endTime": "18:00 PM",
     "location": "Committee Room 1, City Hall",
     "meetingNumber": 32,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27180,
+    "meetingReference": "2026.EX32",
+    "agendaItems": []
   },
   {
     "committee": "City Council",
@@ -407,7 +783,10 @@
     "endTime": "20:00 PM",
     "location": "Council Chamber, City Hall",
     "meetingNumber": 42,
-    "isCouncil": true
+    "isCouncil": true,
+    "meetingId": 27174,
+    "meetingReference": "2026.CC42",
+    "agendaItems": []
   },
   {
     "committee": "City Council",
@@ -417,7 +796,10 @@
     "endTime": "20:00 PM",
     "location": "Council Chamber, City Hall",
     "meetingNumber": 42,
-    "isCouncil": true
+    "isCouncil": true,
+    "meetingId": 27174,
+    "meetingReference": "2026.CC42",
+    "agendaItems": []
   },
   {
     "committee": "City Council",
@@ -427,7 +809,10 @@
     "endTime": "20:00 PM",
     "location": "Council Chamber, City Hall",
     "meetingNumber": 42,
-    "isCouncil": true
+    "isCouncil": true,
+    "meetingId": 27174,
+    "meetingReference": "2026.CC42",
+    "agendaItems": []
   },
   {
     "committee": "Civic Appointments Committee",
@@ -437,7 +822,10 @@
     "endTime": "18:00 PM",
     "location": "Committee Room 3, City Hall",
     "meetingNumber": 37,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27776,
+    "meetingReference": "2026.CA37",
+    "agendaItems": []
   },
   {
     "committee": "Service Excellence Committee",
@@ -447,7 +835,10 @@
     "endTime": "18:00 PM",
     "location": "Committee Room 2, City Hall",
     "meetingNumber": 13,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27634,
+    "meetingReference": "2026.SE13",
+    "agendaItems": []
   },
   {
     "committee": "Toronto Preservation Board",
@@ -457,7 +848,10 @@
     "endTime": "18:00 PM",
     "location": "Committee Room 1, City Hall",
     "meetingNumber": 46,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27281,
+    "meetingReference": "2026.PB46",
+    "agendaItems": []
   },
   {
     "committee": "FIFA World Cup 2026 Subcommittee",
@@ -467,7 +861,10 @@
     "endTime": "18:00 PM",
     "location": "Committee Room 2, City Hall",
     "meetingNumber": 14,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27676,
+    "meetingReference": "2026.FWC14",
+    "agendaItems": []
   },
   {
     "committee": "Etobicoke York Community Council",
@@ -477,7 +874,10 @@
     "endTime": "18:00 PM",
     "location": "Council Chamber, Etobicoke Civic Centre",
     "meetingNumber": 33,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27220,
+    "meetingReference": "2026.EY33",
+    "agendaItems": []
   },
   {
     "committee": "North York Community Council",
@@ -487,7 +887,10 @@
     "endTime": "18:00 PM",
     "location": "Council Chamber, North York Civic Centre",
     "meetingNumber": 34,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27221,
+    "meetingReference": "2026.NY34",
+    "agendaItems": []
   },
   {
     "committee": "Scarborough Community Council",
@@ -497,7 +900,10 @@
     "endTime": "18:00 PM",
     "location": "Council Chamber, Scarborough Civic Centre",
     "meetingNumber": 33,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27222,
+    "meetingReference": "2026.SC33",
+    "agendaItems": []
   },
   {
     "committee": "Toronto and East York Community Council",
@@ -507,7 +913,10 @@
     "endTime": "18:00 PM",
     "location": "Committee Room 1, City Hall",
     "meetingNumber": 34,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27161,
+    "meetingReference": "2026.TE34",
+    "agendaItems": []
   },
   {
     "committee": "Audit Committee",
@@ -517,6 +926,9 @@
     "endTime": "18:00 PM",
     "location": "Committee Room 1, City Hall",
     "meetingNumber": 13,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27252,
+    "meetingReference": "2026.AU13",
+    "agendaItems": []
   }
 ]

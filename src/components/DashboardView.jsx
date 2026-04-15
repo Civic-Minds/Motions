@@ -260,10 +260,13 @@ export default function DashboardView({ motions, councillors, meetings = [], fol
               return 'Committee';
             })()) : null;
             const slug = meeting ? meeting.committee.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') : '';
+            const meetingDest = meeting?.meetingReference
+              ? `/meetings/${meeting.meetingReference}`
+              : meeting ? `/committees/${slug}` : null;
 
             return (
               <button
-                onClick={() => meeting && navigate(`/committees/${slug}`)}
+                onClick={() => meetingDest && navigate(meetingDest)}
                 className={cn(
                   "rounded-2xl p-4 flex flex-col gap-2 transition-all border text-left flex-1",
                   meeting
