@@ -4,12 +4,27 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
+## [2.4.5] - 2026-04-15
+
+### Added
+- **AI summaries generated** — Gemini 2.5 Flash summaries written for 926 primary motions.
+- **Geocoding complete** — 221 motions with street addresses geocoded to lat/lng via Nominatim for ward map pins.
+- **City-scoped URLs** — all routes now live under `/toronto/` (e.g. `/toronto/committees`, `/toronto/motions/:id`). Implemented via React Router `basename`. Root `/` redirects to `/toronto`. Designed for future multi-city expansion.
+- **Elo notability ranking** — `rank_notability.js` rewritten to use Elo rating system. Strict 1v1 Gemini matchups, scores persist across runs, new motions can be added incrementally. Writes `eloScore` to motions.json.
+
+### Fixed
+- **Compare mode resets on navigation** — leaving the councillors section now automatically cancels compare mode.
+- **Compare from profile page** — clicking Compare while on a councillor profile now navigates to the councillors list first.
+
+### Changed
+- **Body text stripped** — raw scraped body removed from motions.json (12.1 MB saved); summaries retained.
+
 ## [2.4.4] - 2026-04-14
 
 ### Added
 - **Meeting pages** — new `/meetings/:ref` route (e.g. `/meetings/2026.PH29`) with full agenda item list, ward tags, in-camera badges, and links out to TMMIS. Two-column layout: agenda left, meeting meta sidebar right.
 - **TMMIS agenda API integration** — `fetch_meetings.js` now pulls published agendas from `secure.toronto.ca/council/api` for each upcoming meeting. Stores `agendaItems` (reference, title, wards, inCamera, url) and `meetingReference` on each meeting object. Uses browser-level headers to bypass Akamai WAF.
-- **`rank_notability.js` written** — pairwise quicksort script using Gemini API. Batches 10 motions per API call against a random pivot, recurses into groups, writes `notabilityRank` to motions.json. Caches comparison results for resumability. Ready to run after summaries complete.
+- **`rank_notability.js` written** — pairwise quicksort script using Gemini API. Strict 1v1 comparisons against a random pivot, recurses into groups, writes `notabilityRank` to motions.json. Caches comparison results for resumability. Ready to run.
 
 ### Fixed
 - **Daily import no longer wipes summaries** — `import_open_data.js` now merges enriched fields (`summary`, `keyAmounts`, `notabilityRank`, etc.) from the previous motions.json before writing, so GitHub Actions daily runs preserve all AI-generated data.

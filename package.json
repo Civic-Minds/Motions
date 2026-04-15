@@ -2,7 +2,7 @@
   "name": "motions",
   "description": "A civic-intelligence engine that filters municipal noise to surface real legislative impact.",
   "private": true,
-  "version": "2.4.4",
+  "version": "2.4.5",
   "type": "module",
   "scripts": {
     "dev": "vite",

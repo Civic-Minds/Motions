@@ -31,6 +31,7 @@ function Navbar({ onSearchOpen, compareMode, onCompareModeToggle, wardId, onLoca
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const onCouncillors = location.pathname.startsWith('/councillors') && !location.pathname.includes('/vs/');
+  const onCouncillorsList = location.pathname === '/councillors';
   const councillorName = wardId ? WARD_COUNCILLORS[wardId] : null;
   const wardLastName = councillorName ? councillorName.split(' ').at(-1) : null;
 
@@ -77,7 +78,7 @@ function Navbar({ onSearchOpen, compareMode, onCompareModeToggle, wardId, onLoca
         <div className="flex items-center gap-2">
           {onCouncillors && (
             <button
-              onClick={onCompareModeToggle}
+              onClick={() => { if (!onCouncillorsList && !compareMode) navigate('/councillors'); onCompareModeToggle(); }}
               className={cn(
                 "hidden sm:flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-xl border transition-all",
                 compareMode
@@ -170,6 +171,10 @@ function AppShell() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [compareMode, setCompareMode] = useState(false);
   const toggleCompareMode = () => setCompareMode(m => !m);
+  const location = useLocation();
+  useEffect(() => {
+    if (!location.pathname.startsWith('/councillors')) setCompareMode(false);
+  }, [location.pathname]);
   const [wardId, setWardId] = useState(() => getWardId());
   const [followedCommittees, setFollowedCommittees] = useState(() => getFollowedCommittees());
 
@@ -267,5 +272,5 @@ function AppShell() {
 }
 
 export default function App() {
-  return <BrowserRouter><AppShell /><Analytics /><SpeedInsights /></BrowserRouter>;
+  return <BrowserRouter basename="/toronto"><AppShell /><Analytics /><SpeedInsights /></BrowserRouter>;
 }
