@@ -1,96 +1,5 @@
 [
   {
-    "committee": "Planning and Housing Committee",
-    "date": "2026-04-14",
-    "displayDate": "Tue, Apr 14, 2026",
-    "startTime": "09:30 AM",
-    "endTime": "18:00 PM",
-    "location": "Committee Room 1, City Hall",
-    "meetingNumber": 29,
-    "isCouncil": false,
-    "meetingId": 27155,
-    "meetingReference": "2026.PH29",
-    "agendaItems": [
-      {
-        "reference": "2026.PH29.1",
-        "title": "601, 625, and 673 Lake Shore Boulevard East, 185 Villiers Street, and 300 Commissioners Street - City-initiated \"Meanwhile Use\" enabling Policy and Zoning, and Update on McCleary District Planning Work",
-        "wards": "14",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH29.1"
-      },
-      {
-        "reference": "2026.PH29.2",
-        "title": "Little Jamaica and Oakwood Vaughan Planning Framework - Proposals Report",
-        "wards": "5, 8, 9, 12",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH29.2"
-      },
-      {
-        "reference": "2026.PH29.3",
-        "title": "Status Update Report on Transit Oriented Communities",
-        "wards": "All",
-        "inCamera": true,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH29.3"
-      },
-      {
-        "reference": "2026.PH29.4",
-        "title": "RentSafeTO Update Report",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH29.4"
-      },
-      {
-        "reference": "2026.PH29.5",
-        "title": "Advancing the City’s Affordable Housing Access System",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH29.5"
-      },
-      {
-        "reference": "2026.PH29.6",
-        "title": "105-109 Vanderhoof Avenue and 10 Brentcliffe Road - Official Plan Amendment Application - Appeal Report",
-        "wards": "15",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH29.6"
-      },
-      {
-        "reference": "2026.PH29.7",
-        "title": "108-162 Vine Avenue - Official Plan Amendment Application - Appeal Report",
-        "wards": "4",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH29.7"
-      },
-      {
-        "reference": "2026.PH29.8",
-        "title": "110 West Toronto Street - Official Plan Amendment Application - Appeal Report",
-        "wards": "5",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH29.8"
-      },
-      {
-        "reference": "2026.PH29.9",
-        "title": "2700 Dufferin Street - Official Plan Amendment Application - Appeal Report",
-        "wards": "8",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH29.9"
-      },
-      {
-        "reference": "2026.PH29.10",
-        "title": "817 Mount Pleasant Road - Notice of Intention to Designate a Property under Part IV, Section 29 of the Ontario Heritage Act",
-        "wards": "15",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH29.10"
-      },
-      {
-        "reference": "2026.PH29.11",
-        "title": "Impact Assessment of Extended Flightpath at Billy Bishop Airport",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH29.11"
-      }
-    ]
-  },
-  {
     "committee": "Executive Committee",
     "date": "2026-04-15",
     "displayDate": "Wed, Apr 15, 2026",
@@ -929,6 +838,19 @@
     "isCouncil": false,
     "meetingId": 27252,
     "meetingReference": "2026.AU13",
+    "agendaItems": []
+  },
+  {
+    "committee": "Board of Health",
+    "date": "2026-07-13",
+    "displayDate": "Mon, Jul 13, 2026",
+    "startTime": "09:30 AM",
+    "endTime": "18:00 PM",
+    "location": "Committee Room 1, City Hall",
+    "meetingNumber": 34,
+    "isCouncil": false,
+    "meetingId": 27187,
+    "meetingReference": "2026.HL34",
     "agendaItems": []
   }
 ]
