@@ -1,75 +1,5 @@
 [
   {
-    "committee": "Executive Committee",
-    "date": "2026-04-15",
-    "displayDate": "Wed, Apr 15, 2026",
-    "startTime": "09:30 AM",
-    "endTime": "18:00 PM",
-    "location": "Committee Room 1, City Hall",
-    "meetingNumber": 30,
-    "isCouncil": false,
-    "meetingId": 27178,
-    "meetingReference": "2026.EX30",
-    "agendaItems": [
-      {
-        "reference": "2026.EX30.1",
-        "title": "Critical Investments in Streetlight Infrastructure for Public Safety",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX30.1"
-      },
-      {
-        "reference": "2026.EX30.2",
-        "title": "Toronto Personal Watercraft Safety Plan",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX30.2"
-      },
-      {
-        "reference": "2026.EX30.3",
-        "title": "Towards a Beautiful City: Update on Priority Items",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX30.3"
-      },
-      {
-        "reference": "2026.EX30.4",
-        "title": "2026 Property Tax Clawback Rate Report",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX30.4"
-      },
-      {
-        "reference": "2026.EX30.6",
-        "title": "FIFA World Cup 2026 Toronto: By-law Exemptions to Facilitate Planning and Delivery of the FIFA World Cup 2026 Events at Fort York and the Bentway, and at Nathan Phillips Square",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX30.6"
-      },
-      {
-        "reference": "2026.EX30.7",
-        "title": "FIFA World Cup 2026 Toronto Mobility Plan: Temporary Adjustments to Traffic and Parking Regulations",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX30.7"
-      },
-      {
-        "reference": "2026.EX30.8",
-        "title": "Leveraging Data to Drive Service Excellence in Parks and Recreation and Transportation Services",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX30.8"
-      },
-      {
-        "reference": "2026.EX30.9",
-        "title": "Service Standard Dashboard: An Update on Static and Interactive Reporting Tools",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX30.9"
-      }
-    ]
-  },
-  {
     "committee": "Toronto Transit Commission",
     "date": "2026-04-16",
     "displayDate": "Thu, Apr 16, 2026",
@@ -851,6 +781,19 @@
     "isCouncil": false,
     "meetingId": 27187,
     "meetingReference": "2026.HL34",
+    "agendaItems": []
+  },
+  {
+    "committee": "Economic and Community Development Committee",
+    "date": "2026-07-14",
+    "displayDate": "Tue, Jul 14, 2026",
+    "startTime": "09:30 AM",
+    "endTime": "18:00 PM",
+    "location": "Committee Room 1, City Hall",
+    "meetingNumber": 30,
+    "isCouncil": false,
+    "meetingId": 27218,
+    "meetingReference": "2026.EC30",
     "agendaItems": []
   }
 ]

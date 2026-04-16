@@ -1,5 +1,75 @@
 [
   {
+    "id": "EC27.2",
+    "date": "Apr 9, 2026",
+    "title": "Review of Toronto's Street Vending and Artists By-laws",
+    "status": "Adopted",
+    "resultText": "Carried, 6-0",
+    "committee": "Economic and Community Development Committee",
+    "topic": "General",
+    "trivial": true,
+    "significance": 0,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EC27.2",
+    "votes": {
+      "Alejandra Bravo": "YES",
+      "Shelley Carroll": "YES",
+      "Parthi Kandavel": "YES",
+      "Ausma Malik": "YES",
+      "Chris Moise": "YES",
+      "Neethan Shan": "YES"
+    },
+    "flags": [],
+    "motionType": "Adopt Item as Amended"
+  },
+  {
+    "id": "EC27.2-amend-item-additional",
+    "date": "Apr 9, 2026",
+    "title": "Review of Toronto's Street Vending and Artists By-laws",
+    "status": "Adopted",
+    "resultText": "Carried, 6-0",
+    "committee": "Economic and Community Development Committee",
+    "topic": "General",
+    "trivial": true,
+    "significance": 0,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EC27.2",
+    "votes": {
+      "Alejandra Bravo": "YES",
+      "Shelley Carroll": "YES",
+      "Parthi Kandavel": "YES",
+      "Ausma Malik": "YES",
+      "Chris Moise": "YES",
+      "Neethan Shan": "YES"
+    },
+    "flags": [],
+    "motionType": "Amend Item (Additional)",
+    "parentId": "EC27.2"
+  },
+  {
+    "id": "EC27.6",
+    "date": "Apr 9, 2026",
+    "title": "Applegrove Community Complex: Update on Relocation Options",
+    "status": "Adopted",
+    "resultText": "Carried, 6-0",
+    "committee": "Economic and Community Development Committee",
+    "topic": "General",
+    "trivial": true,
+    "significance": 0,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EC27.6",
+    "votes": {
+      "Alejandra Bravo": "YES",
+      "Shelley Carroll": "YES",
+      "Parthi Kandavel": "YES",
+      "Ausma Malik": "YES",
+      "Nick Mantas": "ABSENT",
+      "Chris Moise": "YES",
+      "Neethan Shan": "YES"
+    },
+    "flags": []
+  },
+  {
     "id": "IE28.4",
     "date": "Apr 7, 2026",
     "title": "The Electrification Advantage",
@@ -21965,6 +22035,30 @@
     "keyAmounts": []
   },
   {
+    "id": "SC18.17",
+    "date": "Dec 6, 2024",
+    "title": "Lawrence Avenue East and Valia Road/Private Driveway - Traffic Control Signals",
+    "status": "Adopted",
+    "resultText": "Carried, 6-0",
+    "committee": "Scarborough Community Council",
+    "topic": "Transit",
+    "trivial": true,
+    "significance": 0,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.SC18.17",
+    "votes": {
+      "Paul Ainslie": "YES",
+      "Parthi Kandavel": "YES",
+      "Nick Mantas": "YES",
+      "Jennifer McKelvie": "YES",
+      "Jamaal Myers": "YES",
+      "Michael Thompson": "YES"
+    },
+    "flags": [],
+    "summary": "Toronto City Council has approved the installation of new traffic lights at Lawrence Avenue East and Valia Road/Private Driveway. This decision aims to improve safety for drivers, pedestrians, and transit riders in the area.",
+    "keyAmounts": []
+  },
+  {
     "id": "SC18.9",
     "date": "Dec 6, 2024",
     "title": "20 Shirley Crescent - Application to Remove a Private Tree",
@@ -22067,30 +22161,6 @@
     },
     "flags": [],
     "summary": "Scarborough Community Council has approved the installation of 13 speed humps on Rouge Hills Drive, between Island Road and Lawrence Avenue East. This decision aims to improve road safety by reducing speeding, and also includes lowering the speed limit in this area from 40 km/h to 30 km/h.",
-    "keyAmounts": []
-  },
-  {
-    "id": "SC18.17",
-    "date": "Dec 6, 2024",
-    "title": "Lawrence Avenue East and Valia Road/Private Driveway - Traffic Control Signals",
-    "status": "Adopted",
-    "resultText": "Carried, 6-0",
-    "committee": "Scarborough Community Council",
-    "topic": "Transit",
-    "trivial": true,
-    "significance": 0,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.SC18.17",
-    "votes": {
-      "Paul Ainslie": "YES",
-      "Parthi Kandavel": "YES",
-      "Nick Mantas": "YES",
-      "Jennifer McKelvie": "YES",
-      "Jamaal Myers": "YES",
-      "Michael Thompson": "YES"
-    },
-    "flags": [],
-    "summary": "Toronto City Council has approved the installation of new traffic lights at Lawrence Avenue East and Valia Road/Private Driveway. This decision aims to improve safety for drivers, pedestrians, and transit riders in the area.",
     "keyAmounts": []
   },
   {
@@ -24438,29 +24508,6 @@
     "keyAmounts": []
   },
   {
-    "id": "NY18.12",
-    "date": "Oct 29, 2024",
-    "title": "230 and 240 The Donway West - Official Plan Amendment and Zoning Amendment Application - Decision Report - Approval",
-    "status": "Adopted",
-    "resultText": "Carried, 4-1",
-    "committee": "North York Community Council",
-    "topic": "Housing",
-    "trivial": false,
-    "significance": 35,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY18.12",
-    "votes": {
-      "Jon Burnside": "YES",
-      "Shelley Carroll": "YES",
-      "Lily Cheng": "NO",
-      "Mike Colle": "YES",
-      "James Pasternak": "YES"
-    },
-    "flags": [],
-    "summary": "New development is coming to 230 and 240 The Donway West after Toronto City Council approved changes to the area's Official Plan and zoning. This decision requires the developer to create a new public park spanning over 513 square metres, adding green space for local residents.",
-    "keyAmounts": []
-  },
-  {
     "id": "NY18.4",
     "date": "Oct 29, 2024",
     "title": "85 Helendale Avenue - Application to Remove a Private Tree",
@@ -24573,6 +24620,29 @@
     "parentId": "NY18.27"
   },
   {
+    "id": "NY18.12",
+    "date": "Oct 29, 2024",
+    "title": "230 and 240 The Donway West - Official Plan Amendment and Zoning Amendment Application - Decision Report - Approval",
+    "status": "Adopted",
+    "resultText": "Carried, 4-1",
+    "committee": "North York Community Council",
+    "topic": "Housing",
+    "trivial": false,
+    "significance": 35,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY18.12",
+    "votes": {
+      "Jon Burnside": "YES",
+      "Shelley Carroll": "YES",
+      "Lily Cheng": "NO",
+      "Mike Colle": "YES",
+      "James Pasternak": "YES"
+    },
+    "flags": [],
+    "summary": "New development is coming to 230 and 240 The Donway West after Toronto City Council approved changes to the area's Official Plan and zoning. This decision requires the developer to create a new public park spanning over 513 square metres, adding green space for local residents.",
+    "keyAmounts": []
+  },
+  {
     "id": "TE17.8",
     "date": "Oct 24, 2024",
     "title": "985 Woodbine Avenue and 2078, 2086, 2100, 2102 and 2106 Danforth Avenue - Zoning By-law Amendment and Rental Housing Demolition Applications - Decision Report - Approval",
@@ -24589,7 +24659,7 @@
       "Alejandra Bravo": "YES",
       "Paula Fletcher": "YES",
       "Ausma Malik": "YES",
-      "Josh Matlow": "ABSENT",
+      "Josh Matlow": "YES",
       "Chris Moise": "YES",
       "Gord Perks": "ABSENT",
       "Dianne Saxe": "YES"
@@ -28712,6 +28782,31 @@
     "keyAmounts": []
   },
   {
+    "id": "NY15.4-refer-item",
+    "date": "Jul 9, 2024",
+    "title": "1875 Steeles Avenue West - Zoning By-law Amendment and Rental Housing Demolition and Conversion Applications - Decision Report - Approval",
+    "status": "Lost",
+    "resultText": "Lost, 1-4",
+    "committee": "North York Community Council",
+    "topic": "Housing",
+    "trivial": false,
+    "significance": 37,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY15.4",
+    "votes": {
+      "Jon Burnside": "NO",
+      "Shelley Carroll": "YES",
+      "Lily Cheng": "NO",
+      "Mike Colle": "NO",
+      "James Pasternak": "NO"
+    },
+    "flags": [
+      "defeated"
+    ],
+    "motionType": "Refer Item",
+    "parentId": "NY15.4"
+  },
+  {
     "id": "NY15.4",
     "date": "Jul 9, 2024",
     "title": "1875 Steeles Avenue West - Zoning By-law Amendment and Rental Housing Demolition and Conversion Applications - Decision Report - Approval",
@@ -28741,31 +28836,6 @@
         "lng": -79.4684736
       }
     ]
-  },
-  {
-    "id": "NY15.4-refer-item",
-    "date": "Jul 9, 2024",
-    "title": "1875 Steeles Avenue West - Zoning By-law Amendment and Rental Housing Demolition and Conversion Applications - Decision Report - Approval",
-    "status": "Lost",
-    "resultText": "Lost, 1-4",
-    "committee": "North York Community Council",
-    "topic": "Housing",
-    "trivial": false,
-    "significance": 37,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY15.4",
-    "votes": {
-      "Jon Burnside": "NO",
-      "Shelley Carroll": "YES",
-      "Lily Cheng": "NO",
-      "Mike Colle": "NO",
-      "James Pasternak": "NO"
-    },
-    "flags": [
-      "defeated"
-    ],
-    "motionType": "Refer Item",
-    "parentId": "NY15.4"
   },
   {
     "id": "IE15.3",
@@ -34722,6 +34792,39 @@
     "parentId": "PH11.9"
   },
   {
+    "id": "NY12.26",
+    "date": "Apr 2, 2024",
+    "title": "Re-opening NY10.22 - 31 Norden Crescent - Application for Fence Exemption",
+    "status": "Lost",
+    "resultText": "Lost, 2-3",
+    "committee": "North York Community Council",
+    "topic": "General",
+    "trivial": false,
+    "significance": 40,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY12.26",
+    "votes": {
+      "Jon Burnside": "NO",
+      "Shelley Carroll": "YES",
+      "Lily Cheng": "YES",
+      "Mike Colle": "NO",
+      "James Pasternak": "NO",
+      "Jaye Robinson": "ABSENT"
+    },
+    "flags": [
+      "defeated"
+    ],
+    "summary": "North York Community Council approved an exemption for the property owner at 31 Norden Crescent, allowing their existing pool fence and gate to remain as constructed. This means the fence can stay, despite not fully meeting current city safety rules regarding how close the gate is to climbable surfaces, but any future replacement must comply with those rules.",
+    "keyAmounts": [],
+    "locations": [
+      {
+        "address": "22 - 31 Norden Crescent",
+        "lat": 43.737393,
+        "lng": -79.3516692
+      }
+    ]
+  },
+  {
     "id": "NY12.12-amend-item",
     "date": "Apr 2, 2024",
     "title": "1837-1845 Bayview Avenue - Residential Demolition Applications",
@@ -34827,39 +34930,6 @@
     "motionType": "Adopt Item",
     "summary": "North York Community Council decided not to install all-way stop signs at the intersection of Broadlands Boulevard and Castlegrove Boulevard. City staff reviewed the location and determined that it did not meet the necessary criteria for all-way stop control, meaning traffic flow will remain unchanged for residents in the area.",
     "keyAmounts": []
-  },
-  {
-    "id": "NY12.26",
-    "date": "Apr 2, 2024",
-    "title": "Re-opening NY10.22 - 31 Norden Crescent - Application for Fence Exemption",
-    "status": "Lost",
-    "resultText": "Lost, 2-3",
-    "committee": "North York Community Council",
-    "topic": "General",
-    "trivial": false,
-    "significance": 40,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY12.26",
-    "votes": {
-      "Jon Burnside": "NO",
-      "Shelley Carroll": "YES",
-      "Lily Cheng": "YES",
-      "Mike Colle": "NO",
-      "James Pasternak": "NO",
-      "Jaye Robinson": "ABSENT"
-    },
-    "flags": [
-      "defeated"
-    ],
-    "summary": "North York Community Council approved an exemption for the property owner at 31 Norden Crescent, allowing their existing pool fence and gate to remain as constructed. This means the fence can stay, despite not fully meeting current city safety rules regarding how close the gate is to climbable surfaces, but any future replacement must comply with those rules.",
-    "keyAmounts": [],
-    "locations": [
-      {
-        "address": "22 - 31 Norden Crescent",
-        "lat": 43.737393,
-        "lng": -79.3516692
-      }
-    ]
   },
   {
     "id": "NY12.27",
@@ -36318,52 +36388,6 @@
     "keyAmounts": []
   },
   {
-    "id": "PB15.2-amend-item-additional",
-    "date": "Mar 18, 2024",
-    "title": "6 and 8 Cawthra Square - Notice of Intention to Designate a Property under Part IV, Section 29 of the Ontario Heritage Act",
-    "status": "Adopted",
-    "resultText": "Carried, 8-0",
-    "committee": "Toronto Preservation Board",
-    "topic": "Housing",
-    "trivial": true,
-    "significance": 12,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PB15.2",
-    "votes": {
-      "Parthi Kandavel": "ABSENT"
-    },
-    "flags": [],
-    "motionType": "Amend Item (Additional)",
-    "parentId": "PB15.2"
-  },
-  {
-    "id": "PB15.2",
-    "date": "Mar 18, 2024",
-    "title": "6 and 8 Cawthra Square - Notice of Intention to Designate a Property under Part IV, Section 29 of the Ontario Heritage Act",
-    "status": "Adopted",
-    "resultText": "Carried, 8-0",
-    "committee": "Toronto Preservation Board",
-    "topic": "Housing",
-    "trivial": true,
-    "significance": 12,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PB15.2",
-    "votes": {
-      "Parthi Kandavel": "ABSENT"
-    },
-    "flags": [],
-    "motionType": "Adopt Item as Amended",
-    "summary": "City Council intends to designate the historic homes at 6 and 8 Cawthra Square as heritage properties, protecting these 1892 Queen Anne Revival-style houses from significant alterations or demolition. This action helps preserve Toronto's architectural legacy and character within the Church-Wellesley village area.",
-    "keyAmounts": [],
-    "locations": [
-      {
-        "address": "8 Cawthra Square",
-        "lat": 43.6670594,
-        "lng": -79.3793756
-      }
-    ]
-  },
-  {
     "id": "PB15.11",
     "date": "Mar 18, 2024",
     "title": "625 Yonge Street (Including 627, 629, 631, 633, 635 and 637 Yonge Street and 1, 3 and 5 Isabella Street) - Alterations to a Heritage Property and Authority to Enter into a Heritage Easement Agreement",
@@ -36400,6 +36424,32 @@
     ]
   },
   {
+    "id": "PB15.10",
+    "date": "Mar 18, 2024",
+    "title": "49 and 51 Yonge Street - Alterations to Heritage Properties, Demolition of Heritage Attributes and Authority to Enter into a Heritage Easement Agreement",
+    "status": "Lost",
+    "resultText": "Lost, 4-5",
+    "committee": "Toronto Preservation Board",
+    "topic": "Housing",
+    "trivial": true,
+    "significance": 20,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PB15.10",
+    "votes": {
+      "Parthi Kandavel": "ABSENT"
+    },
+    "flags": [],
+    "summary": "The Toronto Preservation Board recently considered a plan to allow alterations and the demolition of interior features at 49 and 51 Yonge Street to make way for a 62-storey mixed-use building. The Board ultimately chose not to recommend approval of these changes to City Council. This means City Council will need to decide how to balance new high-rise development with the preservation of heritage properties at this downtown location.",
+    "keyAmounts": [],
+    "locations": [
+      {
+        "address": "51 Yonge Street",
+        "lat": 43.6481821,
+        "lng": -79.3771855
+      }
+    ]
+  },
+  {
     "id": "PB15.13",
     "date": "Mar 18, 2024",
     "title": "1779-1787 Bayview Avenue - Official Plan and Zoning By-law Amendment and Site Plan Control Applications - Heritage Matters",
@@ -36426,30 +36476,50 @@
     ]
   },
   {
-    "id": "PB15.10",
+    "id": "PB15.2",
     "date": "Mar 18, 2024",
-    "title": "49 and 51 Yonge Street - Alterations to Heritage Properties, Demolition of Heritage Attributes and Authority to Enter into a Heritage Easement Agreement",
-    "status": "Lost",
-    "resultText": "Lost, 4-5",
+    "title": "6 and 8 Cawthra Square - Notice of Intention to Designate a Property under Part IV, Section 29 of the Ontario Heritage Act",
+    "status": "Adopted",
+    "resultText": "Carried, 8-0",
     "committee": "Toronto Preservation Board",
     "topic": "Housing",
     "trivial": true,
-    "significance": 20,
+    "significance": 12,
     "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PB15.10",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PB15.2",
     "votes": {
       "Parthi Kandavel": "ABSENT"
     },
     "flags": [],
-    "summary": "The Toronto Preservation Board recently considered a plan to allow alterations and the demolition of interior features at 49 and 51 Yonge Street to make way for a 62-storey mixed-use building. The Board ultimately chose not to recommend approval of these changes to City Council. This means City Council will need to decide how to balance new high-rise development with the preservation of heritage properties at this downtown location.",
+    "motionType": "Adopt Item as Amended",
+    "summary": "City Council intends to designate the historic homes at 6 and 8 Cawthra Square as heritage properties, protecting these 1892 Queen Anne Revival-style houses from significant alterations or demolition. This action helps preserve Toronto's architectural legacy and character within the Church-Wellesley village area.",
     "keyAmounts": [],
     "locations": [
       {
-        "address": "51 Yonge Street",
-        "lat": 43.6481821,
-        "lng": -79.3771855
+        "address": "8 Cawthra Square",
+        "lat": 43.6670594,
+        "lng": -79.3793756
       }
     ]
+  },
+  {
+    "id": "PB15.2-amend-item-additional",
+    "date": "Mar 18, 2024",
+    "title": "6 and 8 Cawthra Square - Notice of Intention to Designate a Property under Part IV, Section 29 of the Ontario Heritage Act",
+    "status": "Adopted",
+    "resultText": "Carried, 8-0",
+    "committee": "Toronto Preservation Board",
+    "topic": "Housing",
+    "trivial": true,
+    "significance": 12,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PB15.2",
+    "votes": {
+      "Parthi Kandavel": "ABSENT"
+    },
+    "flags": [],
+    "motionType": "Amend Item (Additional)",
+    "parentId": "PB15.2"
   },
   {
     "id": "CA14.2",
@@ -36479,20 +36549,20 @@
     "date": "Feb 27, 2024",
     "title": "Congestion Management Plan 2023-2026 - Update",
     "status": "Adopted",
-    "resultText": "Carried, 3-2",
+    "resultText": "Carried, 4-1",
     "committee": "Infrastructure and Environment Committee",
     "topic": "General",
-    "trivial": false,
-    "significance": 25,
+    "trivial": true,
+    "significance": 0,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.IE11.1",
     "votes": {
       "Mike Colle": "YES",
       "Jennifer McKelvie": "YES",
-      "Amber Morley": "NO",
+      "Amber Morley": "YES",
       "James Pasternak": "ABSENT",
-      "Anthony Perruzza": "NO",
-      "Dianne Saxe": "NO"
+      "Anthony Perruzza": "YES",
+      "Dianne Saxe": "YES"
     },
     "flags": [],
     "summary": "Toronto City Council has approved updates to its Congestion Management Plan, aiming to improve traffic flow and safety across the city. The plan includes developing strategies for better enforcement of blocked intersections and bike lanes, exploring new fees for road occupancy, and considering peak hour delivery restrictions. It also involves a pilot for accessible construction information and new transportation technology trials.",
@@ -38410,37 +38480,6 @@
     "keyAmounts": []
   },
   {
-    "id": "SC10.3",
-    "date": "Jan 19, 2024",
-    "title": "2031 Kennedy Road - Zoning Amendment Application - Decision Report - Approval",
-    "status": "Adopted",
-    "resultText": "Carried, 4-0",
-    "committee": "Scarborough Community Council",
-    "topic": "Housing",
-    "trivial": true,
-    "significance": 20,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.SC10.3",
-    "votes": {
-      "Paul Ainslie": "YES",
-      "Parthi Kandavel": "YES",
-      "Nick Mantas": "ABSENT",
-      "Jennifer McKelvie": "ABSENT",
-      "Jamaal Myers": "YES",
-      "Michael Thompson": "YES"
-    },
-    "flags": [],
-    "summary": "Toronto City Council has approved changes to the zoning rules for the properties at 2031 and 2301 Kennedy Road in Scarborough. This decision allows for new types of development or altered uses for these lands, impacting the future shape of the Agincourt neighbourhood.",
-    "keyAmounts": [],
-    "locations": [
-      {
-        "address": "2031 Kennedy Road",
-        "lat": 43.7717499,
-        "lng": -79.2829632
-      }
-    ]
-  },
-  {
     "id": "SC10.5",
     "date": "Jan 19, 2024",
     "title": "54-62 Glen Everest Road - Rental Housing Demolition Application - Decision Report - Approval",
@@ -38468,6 +38507,37 @@
         "address": "54-62 Glen Everest Road",
         "lat": 43.7021417,
         "lng": -79.2528498
+      }
+    ]
+  },
+  {
+    "id": "SC10.3",
+    "date": "Jan 19, 2024",
+    "title": "2031 Kennedy Road - Zoning Amendment Application - Decision Report - Approval",
+    "status": "Adopted",
+    "resultText": "Carried, 4-0",
+    "committee": "Scarborough Community Council",
+    "topic": "Housing",
+    "trivial": true,
+    "significance": 20,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.SC10.3",
+    "votes": {
+      "Paul Ainslie": "YES",
+      "Parthi Kandavel": "YES",
+      "Nick Mantas": "ABSENT",
+      "Jennifer McKelvie": "ABSENT",
+      "Jamaal Myers": "YES",
+      "Michael Thompson": "YES"
+    },
+    "flags": [],
+    "summary": "Toronto City Council has approved changes to the zoning rules for the properties at 2031 and 2301 Kennedy Road in Scarborough. This decision allows for new types of development or altered uses for these lands, impacting the future shape of the Agincourt neighbourhood.",
+    "keyAmounts": [],
+    "locations": [
+      {
+        "address": "2031 Kennedy Road",
+        "lat": 43.7717499,
+        "lng": -79.2829632
       }
     ]
   },
