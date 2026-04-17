@@ -1,117 +1,5 @@
 [
   {
-    "committee": "Toronto Transit Commission",
-    "date": "2026-04-16",
-    "displayDate": "Thu, Apr 16, 2026",
-    "startTime": "09:30 AM",
-    "endTime": "18:00 PM",
-    "location": "Committee Room 2, City Hall",
-    "meetingNumber": 14,
-    "isCouncil": false,
-    "meetingId": 27512,
-    "meetingReference": "2026.TTC14",
-    "agendaItems": [
-      {
-        "reference": "2026.TTC14.1",
-        "title": "Chief Executive Officer’s Report - April 2026",
-        "wards": null,
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC14.1"
-      },
-      {
-        "reference": "2026.TTC14.2",
-        "title": "Approved Minutes of the Advisory Committee on Accessible Transit (ACAT) General Monthly Meeting of January 29 and February 26, 2026",
-        "wards": null,
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC14.2"
-      },
-      {
-        "reference": "2026.TTC14.3",
-        "title": "Improving LRT and Streetcar Speed and Reliability",
-        "wards": null,
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC14.3"
-      },
-      {
-        "reference": "2026.TTC14.4",
-        "title": "TTC Special Constable Service 2025 Annual Report",
-        "wards": null,
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC14.4"
-      },
-      {
-        "reference": "2026.TTC14.5",
-        "title": "Updates to the CEO’s Delegated Authority",
-        "wards": null,
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC14.5"
-      },
-      {
-        "reference": "2026.TTC14.6",
-        "title": "Financial and Major Projects Update for the Year Ended December 31, 2025",
-        "wards": null,
-        "inCamera": true,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC14.6"
-      },
-      {
-        "reference": "2026.TTC14.7",
-        "title": "Fare Collection Update",
-        "wards": null,
-        "inCamera": true,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC14.7"
-      },
-      {
-        "reference": "2026.TTC14.8",
-        "title": "Litigation Update",
-        "wards": null,
-        "inCamera": true,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC14.8"
-      },
-      {
-        "reference": "2026.TTC14.9",
-        "title": "Collective Bargaining Update",
-        "wards": null,
-        "inCamera": true,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC14.9"
-      },
-      {
-        "reference": "2026.TTC14.10",
-        "title": "Chief Executive Officer Performance and Objectives",
-        "wards": null,
-        "inCamera": true,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC14.10"
-      },
-      {
-        "reference": "2026.TTC14.11",
-        "title": "Procurement Authorization - Wheel-Trans Mobile Data Terminal and Automatic Vehicle Location Solution and Support Services",
-        "wards": null,
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC14.11"
-      },
-      {
-        "reference": "2026.TTC14.12",
-        "title": "Updates to the Audit & Risk Management Committee Terms of Reference",
-        "wards": null,
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC14.12"
-      },
-      {
-        "reference": "2026.TTC14.13",
-        "title": "Amendments to the TTC Records Retention Schedule (Municipal Code Chapter 219, Records, Corporate (Local Boards))",
-        "wards": null,
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC14.13"
-      },
-      {
-        "reference": "2026.TTC14.14",
-        "title": "Audible Stop Announcements on Line 5 and Line 6 - by Commissioner Dianne Saxe, seconded by Chair Jamaal Myers",
-        "wards": null,
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC14.14"
-      }
-    ]
-  },
-  {
     "committee": "Civic Appointments Committee",
     "date": "2026-04-17",
     "displayDate": "Fri, Apr 17, 2026",
@@ -794,6 +682,19 @@
     "isCouncil": false,
     "meetingId": 27218,
     "meetingReference": "2026.EC30",
+    "agendaItems": []
+  },
+  {
+    "committee": "Infrastructure and Environment Committee",
+    "date": "2026-07-15",
+    "displayDate": "Wed, Jul 15, 2026",
+    "startTime": "09:30 AM",
+    "endTime": "18:00 PM",
+    "location": "Committee Room 1, City Hall",
+    "meetingNumber": 31,
+    "isCouncil": false,
+    "meetingId": 27206,
+    "meetingReference": "2026.IE31",
     "agendaItems": []
   }
 ]

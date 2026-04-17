@@ -1,5 +1,48 @@
 [
   {
+    "id": "PH29.4",
+    "date": "Apr 14, 2026",
+    "title": "RentSafeTO Update Report",
+    "status": "Adopted",
+    "resultText": "Carried, 4-0",
+    "committee": "Planning and Housing Committee",
+    "topic": "Housing",
+    "trivial": true,
+    "significance": 20,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH29.4",
+    "votes": {
+      "Brad Bradford": "ABSENT",
+      "Vincent Crisanti": "ABSENT",
+      "Josh Matlow": "YES",
+      "Jamaal Myers": "YES",
+      "Frances Nunziata": "YES",
+      "Gord Perks": "YES"
+    },
+    "flags": []
+  },
+  {
+    "id": "PH29.6",
+    "date": "Apr 14, 2026",
+    "title": "105-109 Vanderhoof Avenue and 10 Brentcliffe Road - Official Plan Amendment Application - Appeal Report",
+    "status": "Adopted",
+    "resultText": "Carried, 4-0",
+    "committee": "Planning and Housing Committee",
+    "topic": "Housing",
+    "trivial": true,
+    "significance": 20,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH29.6",
+    "votes": {
+      "Vincent Crisanti": "ABSENT",
+      "Josh Matlow": "YES",
+      "Jamaal Myers": "YES",
+      "Frances Nunziata": "YES",
+      "Gord Perks": "YES"
+    },
+    "flags": []
+  },
+  {
     "id": "EC27.2",
     "date": "Apr 9, 2026",
     "title": "Review of Toronto's Street Vending and Artists By-laws",
@@ -24508,6 +24551,29 @@
     "keyAmounts": []
   },
   {
+    "id": "NY18.12",
+    "date": "Oct 29, 2024",
+    "title": "230 and 240 The Donway West - Official Plan Amendment and Zoning Amendment Application - Decision Report - Approval",
+    "status": "Adopted",
+    "resultText": "Carried, 4-1",
+    "committee": "North York Community Council",
+    "topic": "Housing",
+    "trivial": false,
+    "significance": 35,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY18.12",
+    "votes": {
+      "Jon Burnside": "YES",
+      "Shelley Carroll": "YES",
+      "Lily Cheng": "NO",
+      "Mike Colle": "YES",
+      "James Pasternak": "YES"
+    },
+    "flags": [],
+    "summary": "New development is coming to 230 and 240 The Donway West after Toronto City Council approved changes to the area's Official Plan and zoning. This decision requires the developer to create a new public park spanning over 513 square metres, adding green space for local residents.",
+    "keyAmounts": []
+  },
+  {
     "id": "NY18.4",
     "date": "Oct 29, 2024",
     "title": "85 Helendale Avenue - Application to Remove a Private Tree",
@@ -24618,29 +24684,6 @@
     ],
     "motionType": "Amend Item",
     "parentId": "NY18.27"
-  },
-  {
-    "id": "NY18.12",
-    "date": "Oct 29, 2024",
-    "title": "230 and 240 The Donway West - Official Plan Amendment and Zoning Amendment Application - Decision Report - Approval",
-    "status": "Adopted",
-    "resultText": "Carried, 4-1",
-    "committee": "North York Community Council",
-    "topic": "Housing",
-    "trivial": false,
-    "significance": 35,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY18.12",
-    "votes": {
-      "Jon Burnside": "YES",
-      "Shelley Carroll": "YES",
-      "Lily Cheng": "NO",
-      "Mike Colle": "YES",
-      "James Pasternak": "YES"
-    },
-    "flags": [],
-    "summary": "New development is coming to 230 and 240 The Donway West after Toronto City Council approved changes to the area's Official Plan and zoning. This decision requires the developer to create a new public park spanning over 513 square metres, adding green space for local residents.",
-    "keyAmounts": []
   },
   {
     "id": "TE17.8",
@@ -28759,29 +28802,6 @@
     ]
   },
   {
-    "id": "NY15.30",
-    "date": "Jul 9, 2024",
-    "title": "North York Civic Centre 2025 - Strategic Plan",
-    "status": "Adopted",
-    "resultText": "Carried, 4-1",
-    "committee": "North York Community Council",
-    "topic": "General",
-    "trivial": true,
-    "significance": 15,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY15.30",
-    "votes": {
-      "Jon Burnside": "YES",
-      "Shelley Carroll": "NO",
-      "Lily Cheng": "YES",
-      "Mike Colle": "YES",
-      "James Pasternak": "YES"
-    },
-    "flags": [],
-    "summary": "City Council has decided to create a detailed plan for how community spaces are used at the North York Civic Centre. This plan will focus on addressing local needs, ensuring affordability, and will involve input from residents and local school boards. This means the Civic Centre's community spaces could become more accessible and better meet the needs of North York residents.",
-    "keyAmounts": []
-  },
-  {
     "id": "NY15.4-refer-item",
     "date": "Jul 9, 2024",
     "title": "1875 Steeles Avenue West - Zoning By-law Amendment and Rental Housing Demolition and Conversion Applications - Decision Report - Approval",
@@ -28836,6 +28856,29 @@
         "lng": -79.4684736
       }
     ]
+  },
+  {
+    "id": "NY15.30",
+    "date": "Jul 9, 2024",
+    "title": "North York Civic Centre 2025 - Strategic Plan",
+    "status": "Adopted",
+    "resultText": "Carried, 4-1",
+    "committee": "North York Community Council",
+    "topic": "General",
+    "trivial": true,
+    "significance": 15,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY15.30",
+    "votes": {
+      "Jon Burnside": "YES",
+      "Shelley Carroll": "NO",
+      "Lily Cheng": "YES",
+      "Mike Colle": "YES",
+      "James Pasternak": "YES"
+    },
+    "flags": [],
+    "summary": "City Council has decided to create a detailed plan for how community spaces are used at the North York Civic Centre. This plan will focus on addressing local needs, ensuring affordability, and will involve input from residents and local school boards. This means the Civic Centre's community spaces could become more accessible and better meet the needs of North York residents.",
+    "keyAmounts": []
   },
   {
     "id": "IE15.3",
@@ -36388,6 +36431,52 @@
     "keyAmounts": []
   },
   {
+    "id": "PB15.2-amend-item-additional",
+    "date": "Mar 18, 2024",
+    "title": "6 and 8 Cawthra Square - Notice of Intention to Designate a Property under Part IV, Section 29 of the Ontario Heritage Act",
+    "status": "Adopted",
+    "resultText": "Carried, 8-0",
+    "committee": "Toronto Preservation Board",
+    "topic": "Housing",
+    "trivial": true,
+    "significance": 12,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PB15.2",
+    "votes": {
+      "Parthi Kandavel": "ABSENT"
+    },
+    "flags": [],
+    "motionType": "Amend Item (Additional)",
+    "parentId": "PB15.2"
+  },
+  {
+    "id": "PB15.2",
+    "date": "Mar 18, 2024",
+    "title": "6 and 8 Cawthra Square - Notice of Intention to Designate a Property under Part IV, Section 29 of the Ontario Heritage Act",
+    "status": "Adopted",
+    "resultText": "Carried, 8-0",
+    "committee": "Toronto Preservation Board",
+    "topic": "Housing",
+    "trivial": true,
+    "significance": 12,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PB15.2",
+    "votes": {
+      "Parthi Kandavel": "ABSENT"
+    },
+    "flags": [],
+    "motionType": "Adopt Item as Amended",
+    "summary": "City Council intends to designate the historic homes at 6 and 8 Cawthra Square as heritage properties, protecting these 1892 Queen Anne Revival-style houses from significant alterations or demolition. This action helps preserve Toronto's architectural legacy and character within the Church-Wellesley village area.",
+    "keyAmounts": [],
+    "locations": [
+      {
+        "address": "8 Cawthra Square",
+        "lat": 43.6670594,
+        "lng": -79.3793756
+      }
+    ]
+  },
+  {
     "id": "PB15.11",
     "date": "Mar 18, 2024",
     "title": "625 Yonge Street (Including 627, 629, 631, 633, 635 and 637 Yonge Street and 1, 3 and 5 Isabella Street) - Alterations to a Heritage Property and Authority to Enter into a Heritage Easement Agreement",
@@ -36424,32 +36513,6 @@
     ]
   },
   {
-    "id": "PB15.10",
-    "date": "Mar 18, 2024",
-    "title": "49 and 51 Yonge Street - Alterations to Heritage Properties, Demolition of Heritage Attributes and Authority to Enter into a Heritage Easement Agreement",
-    "status": "Lost",
-    "resultText": "Lost, 4-5",
-    "committee": "Toronto Preservation Board",
-    "topic": "Housing",
-    "trivial": true,
-    "significance": 20,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PB15.10",
-    "votes": {
-      "Parthi Kandavel": "ABSENT"
-    },
-    "flags": [],
-    "summary": "The Toronto Preservation Board recently considered a plan to allow alterations and the demolition of interior features at 49 and 51 Yonge Street to make way for a 62-storey mixed-use building. The Board ultimately chose not to recommend approval of these changes to City Council. This means City Council will need to decide how to balance new high-rise development with the preservation of heritage properties at this downtown location.",
-    "keyAmounts": [],
-    "locations": [
-      {
-        "address": "51 Yonge Street",
-        "lat": 43.6481821,
-        "lng": -79.3771855
-      }
-    ]
-  },
-  {
     "id": "PB15.13",
     "date": "Mar 18, 2024",
     "title": "1779-1787 Bayview Avenue - Official Plan and Zoning By-law Amendment and Site Plan Control Applications - Heritage Matters",
@@ -36476,50 +36539,30 @@
     ]
   },
   {
-    "id": "PB15.2",
+    "id": "PB15.10",
     "date": "Mar 18, 2024",
-    "title": "6 and 8 Cawthra Square - Notice of Intention to Designate a Property under Part IV, Section 29 of the Ontario Heritage Act",
-    "status": "Adopted",
-    "resultText": "Carried, 8-0",
+    "title": "49 and 51 Yonge Street - Alterations to Heritage Properties, Demolition of Heritage Attributes and Authority to Enter into a Heritage Easement Agreement",
+    "status": "Lost",
+    "resultText": "Lost, 4-5",
     "committee": "Toronto Preservation Board",
     "topic": "Housing",
     "trivial": true,
-    "significance": 12,
+    "significance": 20,
     "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PB15.2",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PB15.10",
     "votes": {
       "Parthi Kandavel": "ABSENT"
     },
     "flags": [],
-    "motionType": "Adopt Item as Amended",
-    "summary": "City Council intends to designate the historic homes at 6 and 8 Cawthra Square as heritage properties, protecting these 1892 Queen Anne Revival-style houses from significant alterations or demolition. This action helps preserve Toronto's architectural legacy and character within the Church-Wellesley village area.",
+    "summary": "The Toronto Preservation Board recently considered a plan to allow alterations and the demolition of interior features at 49 and 51 Yonge Street to make way for a 62-storey mixed-use building. The Board ultimately chose not to recommend approval of these changes to City Council. This means City Council will need to decide how to balance new high-rise development with the preservation of heritage properties at this downtown location.",
     "keyAmounts": [],
     "locations": [
       {
-        "address": "8 Cawthra Square",
-        "lat": 43.6670594,
-        "lng": -79.3793756
+        "address": "51 Yonge Street",
+        "lat": 43.6481821,
+        "lng": -79.3771855
       }
     ]
-  },
-  {
-    "id": "PB15.2-amend-item-additional",
-    "date": "Mar 18, 2024",
-    "title": "6 and 8 Cawthra Square - Notice of Intention to Designate a Property under Part IV, Section 29 of the Ontario Heritage Act",
-    "status": "Adopted",
-    "resultText": "Carried, 8-0",
-    "committee": "Toronto Preservation Board",
-    "topic": "Housing",
-    "trivial": true,
-    "significance": 12,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PB15.2",
-    "votes": {
-      "Parthi Kandavel": "ABSENT"
-    },
-    "flags": [],
-    "motionType": "Amend Item (Additional)",
-    "parentId": "PB15.2"
   },
   {
     "id": "CA14.2",
@@ -36553,13 +36596,13 @@
     "committee": "Infrastructure and Environment Committee",
     "topic": "General",
     "trivial": true,
-    "significance": 0,
+    "significance": 15,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.IE11.1",
     "votes": {
       "Mike Colle": "YES",
       "Jennifer McKelvie": "YES",
-      "Amber Morley": "YES",
+      "Amber Morley": "NO",
       "James Pasternak": "ABSENT",
       "Anthony Perruzza": "YES",
       "Dianne Saxe": "YES"
@@ -36687,12 +36730,12 @@
     "id": "SC11.1",
     "date": "Feb 16, 2024",
     "title": "2157 to 2183 Lawrence Avenue East - Zoning Amendment Application - Decision Report - Approval",
-    "status": "Lost",
-    "resultText": "Lost (tie), 2-2",
+    "status": "Adopted",
+    "resultText": "Carried, 3-1",
     "committee": "Scarborough Community Council",
     "topic": "Housing",
     "trivial": false,
-    "significance": 52,
+    "significance": 37,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.SC11.1",
     "votes": {
@@ -36703,9 +36746,7 @@
       "Jamaal Myers": "YES",
       "Michael Thompson": "NO"
     },
-    "flags": [
-      "defeated"
-    ],
+    "flags": [],
     "motionType": "Adopt Item",
     "summary": "City Council has approved a zoning change for the properties located at 2157 to 2183 Lawrence Avenue East. This decision paves the way for new development on these lands, which will change the type and scale of buildings allowed in this part of Scarborough.",
     "keyAmounts": [],
@@ -38480,37 +38521,6 @@
     "keyAmounts": []
   },
   {
-    "id": "SC10.5",
-    "date": "Jan 19, 2024",
-    "title": "54-62 Glen Everest Road - Rental Housing Demolition Application - Decision Report - Approval",
-    "status": "Adopted",
-    "resultText": "Carried, 3-2",
-    "committee": "Scarborough Community Council",
-    "topic": "Housing",
-    "trivial": false,
-    "significance": 45,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.SC10.5",
-    "votes": {
-      "Paul Ainslie": "NO",
-      "Parthi Kandavel": "YES",
-      "Nick Mantas": "ABSENT",
-      "Jennifer McKelvie": "YES",
-      "Jamaal Myers": "YES",
-      "Michael Thompson": "NO"
-    },
-    "flags": [],
-    "summary": "City Council has approved the demolition of 68 rental homes on Glen Everest Road in Scarborough. This approval comes with conditions requiring the developer to build 68 new rental units on the same site, with many designated as affordable and mid-range for at least 10 years, and to provide support for existing tenants to relocate.",
-    "keyAmounts": [],
-    "locations": [
-      {
-        "address": "54-62 Glen Everest Road",
-        "lat": 43.7021417,
-        "lng": -79.2528498
-      }
-    ]
-  },
-  {
     "id": "SC10.3",
     "date": "Jan 19, 2024",
     "title": "2031 Kennedy Road - Zoning Amendment Application - Decision Report - Approval",
@@ -38538,6 +38548,37 @@
         "address": "2031 Kennedy Road",
         "lat": 43.7717499,
         "lng": -79.2829632
+      }
+    ]
+  },
+  {
+    "id": "SC10.5",
+    "date": "Jan 19, 2024",
+    "title": "54-62 Glen Everest Road - Rental Housing Demolition Application - Decision Report - Approval",
+    "status": "Adopted",
+    "resultText": "Carried, 3-2",
+    "committee": "Scarborough Community Council",
+    "topic": "Housing",
+    "trivial": false,
+    "significance": 45,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.SC10.5",
+    "votes": {
+      "Paul Ainslie": "NO",
+      "Parthi Kandavel": "YES",
+      "Nick Mantas": "ABSENT",
+      "Jennifer McKelvie": "YES",
+      "Jamaal Myers": "YES",
+      "Michael Thompson": "NO"
+    },
+    "flags": [],
+    "summary": "City Council has approved the demolition of 68 rental homes on Glen Everest Road in Scarborough. This approval comes with conditions requiring the developer to build 68 new rental units on the same site, with many designated as affordable and mid-range for at least 10 years, and to provide support for existing tenants to relocate.",
+    "keyAmounts": [],
+    "locations": [
+      {
+        "address": "54-62 Glen Everest Road",
+        "lat": 43.7021417,
+        "lng": -79.2528498
       }
     ]
   },
