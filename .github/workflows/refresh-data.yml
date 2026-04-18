@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 jobs:
   refresh:
@@ -34,3 +35,19 @@ jobs:
           git add public/data/motions.json public/data/meetings.json
           git diff --staged --quiet || git commit -m "chore: refresh council data"
           git push
+
+      - name: Check for motions missing summaries
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          MISSING=$(node scripts/check_missing_summaries.js)
+          if [ -n "$MISSING" ]; then
+            COUNT=$(echo "$MISSING" | wc -l | tr -d ' ')
+            gh issue create \
+              --title "🔔 $COUNT new motion(s) need summaries" \
+              --body "The daily import found motions without summaries. Run the pipeline locally (scripts 2–4) to process them.
+
+          $MISSING" \
+              --label "needs-summaries" \
+              --repo ${{ github.repository }} || true
+          fi
