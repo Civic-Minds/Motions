@@ -84,7 +84,11 @@ export default function CommitteesView({ motions, meetings = [], followedCommitt
   const committeeMotions = useMemo(() => {
     if (!selectedCommittee) return [];
     return [...selectedCommittee.motions]
-      .sort((a, b) => (b.significance ?? 0) - (a.significance ?? 0));
+      .sort((a, b) => {
+        const dateDiff = new Date(b.date) - new Date(a.date);
+        if (dateDiff !== 0) return dateDiff;
+        return (b.significance ?? 0) - (a.significance ?? 0);
+      });
   }, [selectedCommittee]);
 
   return (

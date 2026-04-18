@@ -482,16 +482,29 @@ async function main() {
         }
     }
 
-    // Preserve enriched fields from previous run (summary, keyAmounts, notabilityRank, etc.)
+    // Preserve enriched fields — check summaries_cache.json first (authoritative backup),
+    // then fall back to existing motions.json for other enriched fields.
     const PRESERVE = ['summary', 'keyAmounts', 'notabilityRank', 'mover', 'seconder', 'body', 'locations'];
+    const CACHE_PATH = path.join(process.cwd(), 'scripts/cache/summaries_cache.json');
+    const summariesCache = fs.existsSync(CACHE_PATH)
+        ? JSON.parse(fs.readFileSync(CACHE_PATH, 'utf8'))
+        : {};
+
     if (fs.existsSync(DATA_PATH)) {
         const existing = JSON.parse(fs.readFileSync(DATA_PATH, 'utf8'));
         const existingMap = Object.fromEntries(existing.map(m => [m.id, m]));
         for (const motion of motions) {
             const prev = existingMap[motion.id];
-            if (!prev) continue;
-            for (const field of PRESERVE) {
-                if (prev[field] !== undefined) motion[field] = prev[field];
+            if (prev) {
+                for (const field of PRESERVE) {
+                    if (prev[field] !== undefined) motion[field] = prev[field];
+                }
+            }
+            // Cache wins for summary/keyAmounts — protects against motions.json wipe
+            const cached = summariesCache[motion.id];
+            if (cached) {
+                if (cached.summary !== undefined) motion.summary = cached.summary;
+                if (cached.keyAmounts !== undefined) motion.keyAmounts = cached.keyAmounts;
             }
         }
     }

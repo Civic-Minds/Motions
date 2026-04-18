@@ -3,7 +3,7 @@
  *
  * Uses Playwright to scrape agenda item text from toronto.ca for each motion.
  * Stores the result in a `body` field on each motion in motions.json.
- * Incremental — skips motions that already have a `body` field.
+ * Incremental — skips motions that already have a `body` field or a `summary` (already processed).
  *
  * Targets all primary motions (no parentId). Significance filter removed —
  * pairwise notability scoring requires summaries for all motions.
@@ -68,7 +68,8 @@ async function main() {
   const targets = motions.filter(m =>
     !m.parentId &&
     m.url &&
-    !m.body
+    !m.body &&
+    !m.summary  // already summarized (body was stripped) — no need to re-scrape
   );
 
   const queue = targets.slice(0, LIMIT);

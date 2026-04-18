@@ -19,7 +19,8 @@ import { GoogleGenAI } from '@google/genai';
 import fs from 'fs';
 import path from 'path';
 
-const DATA_PATH = path.join(process.cwd(), 'public/data/motions.json');
+const DATA_PATH  = path.join(process.cwd(), 'public/data/motions.json');
+const CACHE_PATH = path.join(process.cwd(), 'scripts/cache/summaries_cache.json');
 
 const args = Object.fromEntries(
   process.argv.slice(2)
@@ -130,6 +131,18 @@ ${context}`;
   return Array.isArray(parsed) ? parsed : [];
 }
 
+function saveCache(motions) {
+  const existing = fs.existsSync(CACHE_PATH)
+    ? JSON.parse(fs.readFileSync(CACHE_PATH, 'utf8'))
+    : {};
+  for (const m of motions) {
+    if (m.summary !== undefined || m.keyAmounts !== undefined) {
+      existing[m.id] = { summary: m.summary, keyAmounts: m.keyAmounts };
+    }
+  }
+  fs.writeFileSync(CACHE_PATH, JSON.stringify(existing, null, 2));
+}
+
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 async function main() {
@@ -171,6 +184,7 @@ async function main() {
 
       if (done % SAVE_EVERY === 0) {
         fs.writeFileSync(DATA_PATH, JSON.stringify(motions, null, 2));
+        saveCache(motions);
         console.log(`   💾 Saved (${done} done)`);
       }
 
@@ -183,6 +197,7 @@ async function main() {
   }
 
   fs.writeFileSync(DATA_PATH, JSON.stringify(motions, null, 2));
+  saveCache(motions);
   console.log(`\n✅ Done — ${done} processed, ${failed} failed`);
   console.log(`   With summary:    ${motions.filter(m => m.summary).length}`);
   console.log(`   With keyAmounts: ${motions.filter(m => m.keyAmounts !== undefined).length}`);

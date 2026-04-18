@@ -31,7 +31,7 @@ export default function CouncillorVotes({ motions }) {
     if (!selected) return [];
     return motions
       .filter(m => !m.parentId && m.votes?.[selected])
-      .sort((a, b) => (b.date ?? '').localeCompare(a.date ?? ''));
+      .sort((a, b) => new Date(b.date) - new Date(a.date));
   }, [selected, motions]);
 
   const voteTopics = useMemo(() =>

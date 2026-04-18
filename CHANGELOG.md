@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
+## [Unreleased]
+
+### Added
+- **Summaries cache** — `generate_summaries.js` now writes all generated summaries and keyAmounts to `scripts/cache/summaries_cache.json`. `import_open_data.js` reads from this cache during the PRESERVE step, so summaries survive even if `motions.json` is rebuilt from scratch.
+- **Scraper skips summarized motions** — `scrape_agenda_text.js` now filters out motions that already have a `summary`, preventing a full re-scrape of 900+ motions after `strip_body.js` has run.
+- **38 new motions summarized** — scraped, extracted, and summarized all March 26 2026 council session motions (952 total now have summaries).
+
+### Added
+- **Multi-jurisdictional roadmap** — established a hierarchical roadmap structure for expansion beyond Toronto. Created dedicated sub-roadmaps for Ontario (`ROADMAP_DATA_ONTARIO.md`), Canada (`ROADMAP_DATA_CANADA.md`), and major municipal targets (`ROADMAP_DATA_CITIES.md`).
+- **Technical refactor plan** — updated `ROADMAP_TECHNICAL.md` with specifications for a centralized jurisdiction registry and dynamic routing to support regional branding and varying legislative terminology (e.g., MP vs. Councillor).
+
+### Fixed
+- **Newest-first sorting order** — resolved an issue where `CommitteesView.jsx` prioritized significance score over date, causing old motions to appear at the top.
+- **Date sorting in Councillor record** — fixed `CouncillorVotes.jsx` to use reliable date-based sorting instead of string comparison, ensuring accurate chronological order for all voting histories.
+
 ## [2.4.5] - 2026-04-15
 
 ### Added

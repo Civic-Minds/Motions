@@ -14,6 +14,14 @@ Code quality, bugs, and structural improvements.
 - [x] **Centralize FLAG_STYLES** — same issue as TOPIC_STYLES; flag badge styles (`close-vote`, `unanimous`, etc.) are duplicated across `ContestBoard.jsx` and `MotionTable.jsx`.
 
 
+## Architecture
+
+- [ ] **Multi-jurisdiction refactor** — transition from a Toronto-centric model to a generic engine.
+    - Remove hardcoded `/toronto` basename in `App.jsx`.
+    - Refactor `useMotions` to support dynamic loading from `/data/{jurisdiction}/motions.json`.
+    - Create a shared `representatives.json` schema to handle MPs, MPPs, and Councillors.
+- [ ] **Jurisdiction Registry** — implement a centralized registry (`src/constants/jurisdictions.js`) to manage regional branding, representative types (MP vs Councillor), and geography terms (Riding vs Ward).
+
 ## Performance
 
 - [ ] **DataModule pagination** — currently renders 100 rows at a time. Consider virtualizing the list (e.g. `react-window`) if dataset grows significantly beyond 717 motions.

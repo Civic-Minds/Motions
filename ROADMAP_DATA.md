@@ -7,6 +7,9 @@ Pipeline improvements, new data sources, and data quality.
 - [ ] **Advisory committee full votes** — the Open Data CSV only records City Councillors. Advisory committee votes include community appointees whose votes appear on toronto.ca agenda item pages but not in the CSV. A targeted scraper per item could fill this gap.
 - [ ] **Committee & board memberships** — Toronto Open Data has no feed for official committee assignments. Best approach: a term-start scraper against the city's [Committees, Boards & Panels](https://www.toronto.ca/city-government/council/committees-other-bodies/) pages generating `public/data/committees.json`. Updated once per term (~every 4 years).
 - [ ] **Multi-city support** — expand data pipelines to other Canadian municipalities with Open Data portals (Ottawa, Vancouver, etc.).
+- [ ] **Ontario (Provincial) Support** — See the dedicated **[Ontario Data Roadmap](./ROADMAP_DATA_ONTARIO.md)**.
+- [ ] **Canada (Federal) Support** — See the dedicated **[Federal Data Roadmap](./ROADMAP_DATA_CANADA.md)**.
+- [ ] **Other Canadian Cities** — See the dedicated **[Municipal Data Roadmap](./ROADMAP_DATA_CITIES.md)**.
 
 ## Pipeline
 
