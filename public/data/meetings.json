@@ -1,40 +1,5 @@
 [
   {
-    "committee": "Civic Appointments Committee",
-    "date": "2026-04-17",
-    "displayDate": "Fri, Apr 17, 2026",
-    "startTime": "09:30 AM",
-    "endTime": "18:00 PM",
-    "location": "Committee Room 3, City Hall",
-    "meetingNumber": 34,
-    "isCouncil": false,
-    "meetingId": 27773,
-    "meetingReference": "2026.CA34",
-    "agendaItems": [
-      {
-        "reference": "2026.CA34.1",
-        "title": "Selection of Candidates for Interview for the Board of Directors of TO Live",
-        "wards": "All",
-        "inCamera": true,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CA34.1"
-      },
-      {
-        "reference": "2026.CA34.2",
-        "title": "Appointment of Public Members to the Toronto Zoo Board",
-        "wards": "All",
-        "inCamera": true,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CA34.2"
-      },
-      {
-        "reference": "2026.CA34.3",
-        "title": "Appointment of a Public Member to the Exhibition Place Board",
-        "wards": "All",
-        "inCamera": true,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CA34.3"
-      }
-    ]
-  },
-  {
     "committee": "City Council",
     "date": "2026-04-22",
     "displayDate": "Wed, Apr 22, 2026",
@@ -45,7 +10,330 @@
     "isCouncil": true,
     "meetingId": 27172,
     "meetingReference": "2026.CC40",
-    "agendaItems": []
+    "agendaItems": [
+      {
+        "reference": "2026.RM40.1",
+        "title": "Call to Order",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.RM40.1"
+      },
+      {
+        "reference": "2026.RM40.2",
+        "title": "Confirmation of Minutes",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.RM40.2"
+      },
+      {
+        "reference": "2026.RM40.3",
+        "title": "Introduction of Committee Reports and New Business from City Officials",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.RM40.3"
+      },
+      {
+        "reference": "2026.RM40.4",
+        "title": "Declarations of Interest",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.RM40.4"
+      },
+      {
+        "reference": "2026.RM40.5",
+        "title": "Petitions",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.RM40.5"
+      },
+      {
+        "reference": "2026.RM40.6",
+        "title": "Presentations, Introductions and Announcements",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.RM40.6"
+      },
+      {
+        "reference": "2026.RM40.7",
+        "title": "Review of the Order Paper",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.RM40.7"
+      },
+      {
+        "reference": "2026.CC40.1",
+        "title": "Payment of Legal Expenses Related to an Integrity Commissioner Investigation",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CC40.1"
+      },
+      {
+        "reference": "2026.CC40.2",
+        "title": "Appointment of Public Members to the Sign Variance Committee",
+        "wards": "All",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CC40.2"
+      },
+      {
+        "reference": "2026.CC40.3",
+        "title": "Appointment of Public Members to the Administrative Penalty Tribunal",
+        "wards": "All",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CC40.3"
+      },
+      {
+        "reference": "2026.CC40.4",
+        "title": "Legal Options to Defend City of Toronto's Interests at Billy Bishop Airport Lands and Other City-Owned Waterfront Lands",
+        "wards": "All",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CC40.4"
+      },
+      {
+        "reference": "2026.CC40.5",
+        "title": "34 to 70 Montgomery Avenue - Ontario Land Tribunal Hearing - Request for Consent to Review Tribunal Decision",
+        "wards": "8",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CC40.5"
+      },
+      {
+        "reference": "2026.CC40.6",
+        "title": "2461 to 2475 Dundas Street West - Ontario Land Tribunal Hearing - Request for Directions",
+        "wards": "4",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CC40.6"
+      },
+      {
+        "reference": "2026.CC40.7",
+        "title": "110 Sheppard Avenue East - Ontario Land Tribunal Hearing - Request for Directions",
+        "wards": "18",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CC40.7"
+      },
+      {
+        "reference": "2026.CC40.8",
+        "title": "59 to 81 Lawton Boulevard - Ontario Land Tribunal Hearing - Request for Directions",
+        "wards": "12",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CC40.8"
+      },
+      {
+        "reference": "2026.CC40.9",
+        "title": "Expropriation of 1430 Gerrard Street East - Request for Directions Regarding Ontario Land Tribunal Hearing",
+        "wards": "14",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CC40.9"
+      },
+      {
+        "reference": "2026.MM40.1",
+        "title": "Prioritizing Expansion of Roseneath Park - by Councillor Alejandra Bravo, seconded by Councillor Josh Matlow",
+        "wards": "9",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.1"
+      },
+      {
+        "reference": "2026.MM40.2",
+        "title": "Improving Pedestrian Safety at Ossington Avenue and Dupont Street - by Councillor Alejandra Bravo, seconded by Councillor Dianne Saxe",
+        "wards": "9",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.2"
+      },
+      {
+        "reference": "2026.MM40.3",
+        "title": "Re-opening and Amending Item 2025.NY28.10 - 2925 Keele Street (Stanley Greene Block G) Subdivision - Assumption of Services, Correction to Reference Registered Plan 66M-2554 - by Councillor James Pasternak, seconded by Councillor Jon Burnside",
+        "wards": "6",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.3"
+      },
+      {
+        "reference": "2026.MM40.4",
+        "title": "1666 St. Clair Avenue West - Liquor Licence Application - Sporting Clube Portugues de Toronto - Licence 3605953 - by Councillor Alejandra Bravo, seconded by Councillor Gord Perks",
+        "wards": "9",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.4"
+      },
+      {
+        "reference": "2026.MM40.5",
+        "title": "Addressing Inaccurate Supporting Documentation Submitted to the Committee of Adjustment - by Councillor Rachel Chernos Lin, seconded by Councillor Alejandra Bravo",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.5"
+      },
+      {
+        "reference": "2026.MM40.6",
+        "title": "Clarifying the Distinction Between Duplexes and Secondary Suites - by Councillor Rachel Chernos Lin, seconded by Councillor James Pasternak",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.6"
+      },
+      {
+        "reference": "2026.MM40.7",
+        "title": "Proclaiming November 19 as Early Age Onset Cancer Awareness Day - by Councillor Rachel Chernos Lin, seconded by Councillor Lily Cheng",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.7"
+      },
+      {
+        "reference": "2026.MM40.8",
+        "title": "Proclaiming April as Nepali Heritage Month - by Councillor Neethan Shan, seconded by Councillor Amber Morley",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.8"
+      },
+      {
+        "reference": "2026.MM40.9",
+        "title": "Celebrating Cricket Day - by Councillor Neethan Shan, seconded by Mayor Olivia Chow",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.9"
+      },
+      {
+        "reference": "2026.MM40.10",
+        "title": "Authorization to Release Section 42 Funds to the Wigmore Park Improvements Project - by Councillor Jon Burnside, seconded by Councillor Brad Bradford",
+        "wards": "16",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.10"
+      },
+      {
+        "reference": "2026.MM40.11",
+        "title": "Authorization to Release Section 42 Funds to the Ferrand Park Improvements Project - by Councillor Jon Burnside, seconded by Councillor Brad Bradford",
+        "wards": "16",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.11"
+      },
+      {
+        "reference": "2026.MM40.12",
+        "title": "Metrolinx Accountability on Joe Shuster Way Fence Graffiti and Public Art  - by Deputy Mayor Ausma Malik, seconded by Councillor Gord Perks",
+        "wards": "10",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.12"
+      },
+      {
+        "reference": "2026.MM40.13",
+        "title": "\"Have Your Say\" Amplified: Enhancing Public Consultations and Surveys - Councillor Chris Moise, seconded by Deputy Mayor Ausma Malik",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.13"
+      },
+      {
+        "reference": "2026.MM40.14",
+        "title": "Renewing Official Recognition of Toronto as a Certified Bird Friendly City - by Deputy Mayor Ausma Malik, seconded by Councillor Paula Fletcher",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.14"
+      },
+      {
+        "reference": "2026.MM40.15",
+        "title": "Strengthening Racial Equity in City Programs and Services - by Councillor Neethan Shan, seconded by Councillor Paula Fletcher",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.15"
+      },
+      {
+        "reference": "2026.MM40.16",
+        "title": "Responding to Bill 98, Building Homes and Improving Transportation Infrastructure Act, 2026 - by Councillor Jamaal Myers, seconded by Councillor Alejandra Bravo",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.16"
+      },
+      {
+        "reference": "2026.MM40.17",
+        "title": "171 Parkside Drive - Request for City Solicitor to Attend at the Toronto Local Appeal Body - by Councillor Gord Perks, seconded by Councillor Chris Moise",
+        "wards": "4",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.17"
+      },
+      {
+        "reference": "2026.MM40.18",
+        "title": "Authorization to Release Section 42 Funds to the Dieppe Park Baseball Lighting Improvements Project - by Councillor Paula Fletcher, seconded by Councillor Frances Nunziata",
+        "wards": "14",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.18"
+      },
+      {
+        "reference": "2026.MM40.19",
+        "title": "Towards a Vision for a Design Standard for Future Toronto Subway Stations - by Councillor Lily Cheng, seconded by Councillor Jamaal Myers",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.19"
+      },
+      {
+        "reference": "2026.MM40.20",
+        "title": "Reinstating Paddle the Don for 2027 - by Councillor Paula Fletcher, seconded by Councillor Frances Nunziata",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.20"
+      },
+      {
+        "reference": "2026.MM40.21",
+        "title": "Authorization to Release Section 37 Funds for the Acquisition of Community Space in the Church Wellesley Village - by Councillor Chris Moise, seconded by Mayor Olivia Chow",
+        "wards": "13",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.21"
+      },
+      {
+        "reference": "2026.MM40.22",
+        "title": "It’s Time to Reinstate Cummer Station for the North York Centre - by Councillor Lily Cheng, seconded by Councillor Jamaal Myers",
+        "wards": "18",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.22"
+      },
+      {
+        "reference": "2026.MM40.23",
+        "title": "Update on the Bathurst Quay Neighbourhood Transportation Study - by Deputy Mayor Ausma Malik, seconded by Councillor Paula Fletcher",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.23"
+      },
+      {
+        "reference": "2026.MM40.24",
+        "title": "Urgent Action to Address Safety and Public Realm Conditions at 464-470 Queen Street West - by Deputy Mayor Ausma Malik, seconded by Councillor Amber Morley",
+        "wards": "10",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.24"
+      },
+      {
+        "reference": "2026.MM40.25",
+        "title": "Community Engagement Process to Assess Local Community Support for Echoes and Nighttime Closure of Barbara Hall Park - by Councillor Chris Moise, seconded by Councillor Jamaal Myers",
+        "wards": "13",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.25"
+      },
+      {
+        "reference": "2026.MM40.26",
+        "title": "Support for Minister’s Zoning Order (MZO) to Maintain Lands in the City of Toronto as Employment Lands to Protect the Ontario Food Terminal - by Councillor Amber Morley, seconded by Mayor Olivia Chow",
+        "wards": "3",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.26"
+      },
+      {
+        "reference": "2026.MM40.27",
+        "title": "Accepting a Donation from the Friends of University Avenue for the Lighting Installation at University Median Park, Between Elm Street and College Street on University Avenue - by Councillor Dianne Saxe, seconded by Councillor Jamaal Myers",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.27"
+      },
+      {
+        "reference": "2026.MM40.28",
+        "title": "Direction to Finalize Section 37 Agreement for 765 Steeles Avenue West - by Councillor Lily Cheng, seconded by Councillor James Pasternak",
+        "wards": "18",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.28"
+      },
+      {
+        "reference": "2026.MM40.29",
+        "title": "Cabbagetown Cycling Connects - Ontario Street Parking By-law Amendments - by Councillor Chris Moise, seconded by Deputy Mayor Ausma Malik",
+        "wards": "13",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.29"
+      },
+      {
+        "reference": "2026.MM40.30",
+        "title": "Ward-Based Maintenance Teams Pilot - by Councillor Anthony Perruzza, seconded by Councillor Nick Mantas",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.30"
+      }
+    ]
   },
   {
     "committee": "City Council",
@@ -58,7 +346,330 @@
     "isCouncil": true,
     "meetingId": 27172,
     "meetingReference": "2026.CC40",
-    "agendaItems": []
+    "agendaItems": [
+      {
+        "reference": "2026.RM40.1",
+        "title": "Call to Order",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.RM40.1"
+      },
+      {
+        "reference": "2026.RM40.2",
+        "title": "Confirmation of Minutes",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.RM40.2"
+      },
+      {
+        "reference": "2026.RM40.3",
+        "title": "Introduction of Committee Reports and New Business from City Officials",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.RM40.3"
+      },
+      {
+        "reference": "2026.RM40.4",
+        "title": "Declarations of Interest",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.RM40.4"
+      },
+      {
+        "reference": "2026.RM40.5",
+        "title": "Petitions",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.RM40.5"
+      },
+      {
+        "reference": "2026.RM40.6",
+        "title": "Presentations, Introductions and Announcements",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.RM40.6"
+      },
+      {
+        "reference": "2026.RM40.7",
+        "title": "Review of the Order Paper",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.RM40.7"
+      },
+      {
+        "reference": "2026.CC40.1",
+        "title": "Payment of Legal Expenses Related to an Integrity Commissioner Investigation",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CC40.1"
+      },
+      {
+        "reference": "2026.CC40.2",
+        "title": "Appointment of Public Members to the Sign Variance Committee",
+        "wards": "All",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CC40.2"
+      },
+      {
+        "reference": "2026.CC40.3",
+        "title": "Appointment of Public Members to the Administrative Penalty Tribunal",
+        "wards": "All",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CC40.3"
+      },
+      {
+        "reference": "2026.CC40.4",
+        "title": "Legal Options to Defend City of Toronto's Interests at Billy Bishop Airport Lands and Other City-Owned Waterfront Lands",
+        "wards": "All",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CC40.4"
+      },
+      {
+        "reference": "2026.CC40.5",
+        "title": "34 to 70 Montgomery Avenue - Ontario Land Tribunal Hearing - Request for Consent to Review Tribunal Decision",
+        "wards": "8",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CC40.5"
+      },
+      {
+        "reference": "2026.CC40.6",
+        "title": "2461 to 2475 Dundas Street West - Ontario Land Tribunal Hearing - Request for Directions",
+        "wards": "4",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CC40.6"
+      },
+      {
+        "reference": "2026.CC40.7",
+        "title": "110 Sheppard Avenue East - Ontario Land Tribunal Hearing - Request for Directions",
+        "wards": "18",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CC40.7"
+      },
+      {
+        "reference": "2026.CC40.8",
+        "title": "59 to 81 Lawton Boulevard - Ontario Land Tribunal Hearing - Request for Directions",
+        "wards": "12",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CC40.8"
+      },
+      {
+        "reference": "2026.CC40.9",
+        "title": "Expropriation of 1430 Gerrard Street East - Request for Directions Regarding Ontario Land Tribunal Hearing",
+        "wards": "14",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CC40.9"
+      },
+      {
+        "reference": "2026.MM40.1",
+        "title": "Prioritizing Expansion of Roseneath Park - by Councillor Alejandra Bravo, seconded by Councillor Josh Matlow",
+        "wards": "9",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.1"
+      },
+      {
+        "reference": "2026.MM40.2",
+        "title": "Improving Pedestrian Safety at Ossington Avenue and Dupont Street - by Councillor Alejandra Bravo, seconded by Councillor Dianne Saxe",
+        "wards": "9",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.2"
+      },
+      {
+        "reference": "2026.MM40.3",
+        "title": "Re-opening and Amending Item 2025.NY28.10 - 2925 Keele Street (Stanley Greene Block G) Subdivision - Assumption of Services, Correction to Reference Registered Plan 66M-2554 - by Councillor James Pasternak, seconded by Councillor Jon Burnside",
+        "wards": "6",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.3"
+      },
+      {
+        "reference": "2026.MM40.4",
+        "title": "1666 St. Clair Avenue West - Liquor Licence Application - Sporting Clube Portugues de Toronto - Licence 3605953 - by Councillor Alejandra Bravo, seconded by Councillor Gord Perks",
+        "wards": "9",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.4"
+      },
+      {
+        "reference": "2026.MM40.5",
+        "title": "Addressing Inaccurate Supporting Documentation Submitted to the Committee of Adjustment - by Councillor Rachel Chernos Lin, seconded by Councillor Alejandra Bravo",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.5"
+      },
+      {
+        "reference": "2026.MM40.6",
+        "title": "Clarifying the Distinction Between Duplexes and Secondary Suites - by Councillor Rachel Chernos Lin, seconded by Councillor James Pasternak",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.6"
+      },
+      {
+        "reference": "2026.MM40.7",
+        "title": "Proclaiming November 19 as Early Age Onset Cancer Awareness Day - by Councillor Rachel Chernos Lin, seconded by Councillor Lily Cheng",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.7"
+      },
+      {
+        "reference": "2026.MM40.8",
+        "title": "Proclaiming April as Nepali Heritage Month - by Councillor Neethan Shan, seconded by Councillor Amber Morley",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.8"
+      },
+      {
+        "reference": "2026.MM40.9",
+        "title": "Celebrating Cricket Day - by Councillor Neethan Shan, seconded by Mayor Olivia Chow",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.9"
+      },
+      {
+        "reference": "2026.MM40.10",
+        "title": "Authorization to Release Section 42 Funds to the Wigmore Park Improvements Project - by Councillor Jon Burnside, seconded by Councillor Brad Bradford",
+        "wards": "16",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.10"
+      },
+      {
+        "reference": "2026.MM40.11",
+        "title": "Authorization to Release Section 42 Funds to the Ferrand Park Improvements Project - by Councillor Jon Burnside, seconded by Councillor Brad Bradford",
+        "wards": "16",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.11"
+      },
+      {
+        "reference": "2026.MM40.12",
+        "title": "Metrolinx Accountability on Joe Shuster Way Fence Graffiti and Public Art  - by Deputy Mayor Ausma Malik, seconded by Councillor Gord Perks",
+        "wards": "10",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.12"
+      },
+      {
+        "reference": "2026.MM40.13",
+        "title": "\"Have Your Say\" Amplified: Enhancing Public Consultations and Surveys - Councillor Chris Moise, seconded by Deputy Mayor Ausma Malik",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.13"
+      },
+      {
+        "reference": "2026.MM40.14",
+        "title": "Renewing Official Recognition of Toronto as a Certified Bird Friendly City - by Deputy Mayor Ausma Malik, seconded by Councillor Paula Fletcher",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.14"
+      },
+      {
+        "reference": "2026.MM40.15",
+        "title": "Strengthening Racial Equity in City Programs and Services - by Councillor Neethan Shan, seconded by Councillor Paula Fletcher",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.15"
+      },
+      {
+        "reference": "2026.MM40.16",
+        "title": "Responding to Bill 98, Building Homes and Improving Transportation Infrastructure Act, 2026 - by Councillor Jamaal Myers, seconded by Councillor Alejandra Bravo",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.16"
+      },
+      {
+        "reference": "2026.MM40.17",
+        "title": "171 Parkside Drive - Request for City Solicitor to Attend at the Toronto Local Appeal Body - by Councillor Gord Perks, seconded by Councillor Chris Moise",
+        "wards": "4",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.17"
+      },
+      {
+        "reference": "2026.MM40.18",
+        "title": "Authorization to Release Section 42 Funds to the Dieppe Park Baseball Lighting Improvements Project - by Councillor Paula Fletcher, seconded by Councillor Frances Nunziata",
+        "wards": "14",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.18"
+      },
+      {
+        "reference": "2026.MM40.19",
+        "title": "Towards a Vision for a Design Standard for Future Toronto Subway Stations - by Councillor Lily Cheng, seconded by Councillor Jamaal Myers",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.19"
+      },
+      {
+        "reference": "2026.MM40.20",
+        "title": "Reinstating Paddle the Don for 2027 - by Councillor Paula Fletcher, seconded by Councillor Frances Nunziata",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.20"
+      },
+      {
+        "reference": "2026.MM40.21",
+        "title": "Authorization to Release Section 37 Funds for the Acquisition of Community Space in the Church Wellesley Village - by Councillor Chris Moise, seconded by Mayor Olivia Chow",
+        "wards": "13",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.21"
+      },
+      {
+        "reference": "2026.MM40.22",
+        "title": "It’s Time to Reinstate Cummer Station for the North York Centre - by Councillor Lily Cheng, seconded by Councillor Jamaal Myers",
+        "wards": "18",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.22"
+      },
+      {
+        "reference": "2026.MM40.23",
+        "title": "Update on the Bathurst Quay Neighbourhood Transportation Study - by Deputy Mayor Ausma Malik, seconded by Councillor Paula Fletcher",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.23"
+      },
+      {
+        "reference": "2026.MM40.24",
+        "title": "Urgent Action to Address Safety and Public Realm Conditions at 464-470 Queen Street West - by Deputy Mayor Ausma Malik, seconded by Councillor Amber Morley",
+        "wards": "10",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.24"
+      },
+      {
+        "reference": "2026.MM40.25",
+        "title": "Community Engagement Process to Assess Local Community Support for Echoes and Nighttime Closure of Barbara Hall Park - by Councillor Chris Moise, seconded by Councillor Jamaal Myers",
+        "wards": "13",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.25"
+      },
+      {
+        "reference": "2026.MM40.26",
+        "title": "Support for Minister’s Zoning Order (MZO) to Maintain Lands in the City of Toronto as Employment Lands to Protect the Ontario Food Terminal - by Councillor Amber Morley, seconded by Mayor Olivia Chow",
+        "wards": "3",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.26"
+      },
+      {
+        "reference": "2026.MM40.27",
+        "title": "Accepting a Donation from the Friends of University Avenue for the Lighting Installation at University Median Park, Between Elm Street and College Street on University Avenue - by Councillor Dianne Saxe, seconded by Councillor Jamaal Myers",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.27"
+      },
+      {
+        "reference": "2026.MM40.28",
+        "title": "Direction to Finalize Section 37 Agreement for 765 Steeles Avenue West - by Councillor Lily Cheng, seconded by Councillor James Pasternak",
+        "wards": "18",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.28"
+      },
+      {
+        "reference": "2026.MM40.29",
+        "title": "Cabbagetown Cycling Connects - Ontario Street Parking By-law Amendments - by Councillor Chris Moise, seconded by Deputy Mayor Ausma Malik",
+        "wards": "13",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.29"
+      },
+      {
+        "reference": "2026.MM40.30",
+        "title": "Ward-Based Maintenance Teams Pilot - by Councillor Anthony Perruzza, seconded by Councillor Nick Mantas",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.30"
+      }
+    ]
   },
   {
     "committee": "City Council",
@@ -71,7 +682,330 @@
     "isCouncil": true,
     "meetingId": 27172,
     "meetingReference": "2026.CC40",
-    "agendaItems": []
+    "agendaItems": [
+      {
+        "reference": "2026.RM40.1",
+        "title": "Call to Order",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.RM40.1"
+      },
+      {
+        "reference": "2026.RM40.2",
+        "title": "Confirmation of Minutes",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.RM40.2"
+      },
+      {
+        "reference": "2026.RM40.3",
+        "title": "Introduction of Committee Reports and New Business from City Officials",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.RM40.3"
+      },
+      {
+        "reference": "2026.RM40.4",
+        "title": "Declarations of Interest",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.RM40.4"
+      },
+      {
+        "reference": "2026.RM40.5",
+        "title": "Petitions",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.RM40.5"
+      },
+      {
+        "reference": "2026.RM40.6",
+        "title": "Presentations, Introductions and Announcements",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.RM40.6"
+      },
+      {
+        "reference": "2026.RM40.7",
+        "title": "Review of the Order Paper",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.RM40.7"
+      },
+      {
+        "reference": "2026.CC40.1",
+        "title": "Payment of Legal Expenses Related to an Integrity Commissioner Investigation",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CC40.1"
+      },
+      {
+        "reference": "2026.CC40.2",
+        "title": "Appointment of Public Members to the Sign Variance Committee",
+        "wards": "All",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CC40.2"
+      },
+      {
+        "reference": "2026.CC40.3",
+        "title": "Appointment of Public Members to the Administrative Penalty Tribunal",
+        "wards": "All",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CC40.3"
+      },
+      {
+        "reference": "2026.CC40.4",
+        "title": "Legal Options to Defend City of Toronto's Interests at Billy Bishop Airport Lands and Other City-Owned Waterfront Lands",
+        "wards": "All",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CC40.4"
+      },
+      {
+        "reference": "2026.CC40.5",
+        "title": "34 to 70 Montgomery Avenue - Ontario Land Tribunal Hearing - Request for Consent to Review Tribunal Decision",
+        "wards": "8",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CC40.5"
+      },
+      {
+        "reference": "2026.CC40.6",
+        "title": "2461 to 2475 Dundas Street West - Ontario Land Tribunal Hearing - Request for Directions",
+        "wards": "4",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CC40.6"
+      },
+      {
+        "reference": "2026.CC40.7",
+        "title": "110 Sheppard Avenue East - Ontario Land Tribunal Hearing - Request for Directions",
+        "wards": "18",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CC40.7"
+      },
+      {
+        "reference": "2026.CC40.8",
+        "title": "59 to 81 Lawton Boulevard - Ontario Land Tribunal Hearing - Request for Directions",
+        "wards": "12",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CC40.8"
+      },
+      {
+        "reference": "2026.CC40.9",
+        "title": "Expropriation of 1430 Gerrard Street East - Request for Directions Regarding Ontario Land Tribunal Hearing",
+        "wards": "14",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CC40.9"
+      },
+      {
+        "reference": "2026.MM40.1",
+        "title": "Prioritizing Expansion of Roseneath Park - by Councillor Alejandra Bravo, seconded by Councillor Josh Matlow",
+        "wards": "9",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.1"
+      },
+      {
+        "reference": "2026.MM40.2",
+        "title": "Improving Pedestrian Safety at Ossington Avenue and Dupont Street - by Councillor Alejandra Bravo, seconded by Councillor Dianne Saxe",
+        "wards": "9",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.2"
+      },
+      {
+        "reference": "2026.MM40.3",
+        "title": "Re-opening and Amending Item 2025.NY28.10 - 2925 Keele Street (Stanley Greene Block G) Subdivision - Assumption of Services, Correction to Reference Registered Plan 66M-2554 - by Councillor James Pasternak, seconded by Councillor Jon Burnside",
+        "wards": "6",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.3"
+      },
+      {
+        "reference": "2026.MM40.4",
+        "title": "1666 St. Clair Avenue West - Liquor Licence Application - Sporting Clube Portugues de Toronto - Licence 3605953 - by Councillor Alejandra Bravo, seconded by Councillor Gord Perks",
+        "wards": "9",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.4"
+      },
+      {
+        "reference": "2026.MM40.5",
+        "title": "Addressing Inaccurate Supporting Documentation Submitted to the Committee of Adjustment - by Councillor Rachel Chernos Lin, seconded by Councillor Alejandra Bravo",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.5"
+      },
+      {
+        "reference": "2026.MM40.6",
+        "title": "Clarifying the Distinction Between Duplexes and Secondary Suites - by Councillor Rachel Chernos Lin, seconded by Councillor James Pasternak",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.6"
+      },
+      {
+        "reference": "2026.MM40.7",
+        "title": "Proclaiming November 19 as Early Age Onset Cancer Awareness Day - by Councillor Rachel Chernos Lin, seconded by Councillor Lily Cheng",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.7"
+      },
+      {
+        "reference": "2026.MM40.8",
+        "title": "Proclaiming April as Nepali Heritage Month - by Councillor Neethan Shan, seconded by Councillor Amber Morley",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.8"
+      },
+      {
+        "reference": "2026.MM40.9",
+        "title": "Celebrating Cricket Day - by Councillor Neethan Shan, seconded by Mayor Olivia Chow",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.9"
+      },
+      {
+        "reference": "2026.MM40.10",
+        "title": "Authorization to Release Section 42 Funds to the Wigmore Park Improvements Project - by Councillor Jon Burnside, seconded by Councillor Brad Bradford",
+        "wards": "16",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.10"
+      },
+      {
+        "reference": "2026.MM40.11",
+        "title": "Authorization to Release Section 42 Funds to the Ferrand Park Improvements Project - by Councillor Jon Burnside, seconded by Councillor Brad Bradford",
+        "wards": "16",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.11"
+      },
+      {
+        "reference": "2026.MM40.12",
+        "title": "Metrolinx Accountability on Joe Shuster Way Fence Graffiti and Public Art  - by Deputy Mayor Ausma Malik, seconded by Councillor Gord Perks",
+        "wards": "10",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.12"
+      },
+      {
+        "reference": "2026.MM40.13",
+        "title": "\"Have Your Say\" Amplified: Enhancing Public Consultations and Surveys - Councillor Chris Moise, seconded by Deputy Mayor Ausma Malik",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.13"
+      },
+      {
+        "reference": "2026.MM40.14",
+        "title": "Renewing Official Recognition of Toronto as a Certified Bird Friendly City - by Deputy Mayor Ausma Malik, seconded by Councillor Paula Fletcher",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.14"
+      },
+      {
+        "reference": "2026.MM40.15",
+        "title": "Strengthening Racial Equity in City Programs and Services - by Councillor Neethan Shan, seconded by Councillor Paula Fletcher",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.15"
+      },
+      {
+        "reference": "2026.MM40.16",
+        "title": "Responding to Bill 98, Building Homes and Improving Transportation Infrastructure Act, 2026 - by Councillor Jamaal Myers, seconded by Councillor Alejandra Bravo",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.16"
+      },
+      {
+        "reference": "2026.MM40.17",
+        "title": "171 Parkside Drive - Request for City Solicitor to Attend at the Toronto Local Appeal Body - by Councillor Gord Perks, seconded by Councillor Chris Moise",
+        "wards": "4",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.17"
+      },
+      {
+        "reference": "2026.MM40.18",
+        "title": "Authorization to Release Section 42 Funds to the Dieppe Park Baseball Lighting Improvements Project - by Councillor Paula Fletcher, seconded by Councillor Frances Nunziata",
+        "wards": "14",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.18"
+      },
+      {
+        "reference": "2026.MM40.19",
+        "title": "Towards a Vision for a Design Standard for Future Toronto Subway Stations - by Councillor Lily Cheng, seconded by Councillor Jamaal Myers",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.19"
+      },
+      {
+        "reference": "2026.MM40.20",
+        "title": "Reinstating Paddle the Don for 2027 - by Councillor Paula Fletcher, seconded by Councillor Frances Nunziata",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.20"
+      },
+      {
+        "reference": "2026.MM40.21",
+        "title": "Authorization to Release Section 37 Funds for the Acquisition of Community Space in the Church Wellesley Village - by Councillor Chris Moise, seconded by Mayor Olivia Chow",
+        "wards": "13",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.21"
+      },
+      {
+        "reference": "2026.MM40.22",
+        "title": "It’s Time to Reinstate Cummer Station for the North York Centre - by Councillor Lily Cheng, seconded by Councillor Jamaal Myers",
+        "wards": "18",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.22"
+      },
+      {
+        "reference": "2026.MM40.23",
+        "title": "Update on the Bathurst Quay Neighbourhood Transportation Study - by Deputy Mayor Ausma Malik, seconded by Councillor Paula Fletcher",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.23"
+      },
+      {
+        "reference": "2026.MM40.24",
+        "title": "Urgent Action to Address Safety and Public Realm Conditions at 464-470 Queen Street West - by Deputy Mayor Ausma Malik, seconded by Councillor Amber Morley",
+        "wards": "10",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.24"
+      },
+      {
+        "reference": "2026.MM40.25",
+        "title": "Community Engagement Process to Assess Local Community Support for Echoes and Nighttime Closure of Barbara Hall Park - by Councillor Chris Moise, seconded by Councillor Jamaal Myers",
+        "wards": "13",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.25"
+      },
+      {
+        "reference": "2026.MM40.26",
+        "title": "Support for Minister’s Zoning Order (MZO) to Maintain Lands in the City of Toronto as Employment Lands to Protect the Ontario Food Terminal - by Councillor Amber Morley, seconded by Mayor Olivia Chow",
+        "wards": "3",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.26"
+      },
+      {
+        "reference": "2026.MM40.27",
+        "title": "Accepting a Donation from the Friends of University Avenue for the Lighting Installation at University Median Park, Between Elm Street and College Street on University Avenue - by Councillor Dianne Saxe, seconded by Councillor Jamaal Myers",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.27"
+      },
+      {
+        "reference": "2026.MM40.28",
+        "title": "Direction to Finalize Section 37 Agreement for 765 Steeles Avenue West - by Councillor Lily Cheng, seconded by Councillor James Pasternak",
+        "wards": "18",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.28"
+      },
+      {
+        "reference": "2026.MM40.29",
+        "title": "Cabbagetown Cycling Connects - Ontario Street Parking By-law Amendments - by Councillor Chris Moise, seconded by Deputy Mayor Ausma Malik",
+        "wards": "13",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.29"
+      },
+      {
+        "reference": "2026.MM40.30",
+        "title": "Ward-Based Maintenance Teams Pilot - by Councillor Anthony Perruzza, seconded by Councillor Nick Mantas",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.30"
+      }
+    ]
   },
   {
     "committee": "Toronto Preservation Board",
@@ -110,7 +1044,176 @@
     "isCouncil": false,
     "meetingId": 27163,
     "meetingReference": "2026.EY31",
-    "agendaItems": []
+    "agendaItems": [
+      {
+        "reference": "2026.EY31.1",
+        "title": "750 Queen's Plate Drive - Zoning By-law Amendment Application - Decision Report - Approval",
+        "wards": "1",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EY31.1"
+      },
+      {
+        "reference": "2026.EY31.2",
+        "title": "2 to 4 Mendota Road - Official Plan and Zoning By-law Amendment - Decision Report - Approval",
+        "wards": "3",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EY31.2"
+      },
+      {
+        "reference": "2026.EY31.3",
+        "title": "2915, 2917, 2939, 2941 and 2943 Bloor Street West - Zoning By-law Amendment Application - Appeal Report",
+        "wards": "3",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EY31.3"
+      },
+      {
+        "reference": "2026.EY31.4",
+        "title": "4, 6, 8 Montgomery Road - Residential Demolition Application",
+        "wards": "3",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EY31.4"
+      },
+      {
+        "reference": "2026.EY31.5",
+        "title": "31 Queen Anne Road - Application to Remove a Private Tree",
+        "wards": "3",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EY31.5"
+      },
+      {
+        "reference": "2026.EY31.6",
+        "title": "51 Burnhamthorpe Crescent - Application to Remove Two Private Trees",
+        "wards": "3",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EY31.6"
+      },
+      {
+        "reference": "2026.EY31.7",
+        "title": "280 Driftwood Avenue - Request for a Fence Exemption to the Toronto Municipal Code, Chapter 447",
+        "wards": "7",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EY31.7"
+      },
+      {
+        "reference": "2026.EY31.8",
+        "title": "271 Valermo Drive - Request for a Fence Exemption to the Toronto Municipal Code, Chapter 447",
+        "wards": "3",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EY31.8"
+      },
+      {
+        "reference": "2026.EY31.9",
+        "title": "Naming of a Public Lane Located West of Scarlett Road, North of Leggett Avenue",
+        "wards": "2",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EY31.9"
+      },
+      {
+        "reference": "2026.EY31.10",
+        "title": "69 Widdicombe Hill Boulevard - Construction Staging Area",
+        "wards": "2",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EY31.10"
+      },
+      {
+        "reference": "2026.EY31.11",
+        "title": "Maple Leaf and Rustic Neighbourhood Streets Plan",
+        "wards": "5",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EY31.11"
+      },
+      {
+        "reference": "2026.EY31.12",
+        "title": "Maple Leaf Drive and Falstaff Avenue - Traffic Safety Improvements",
+        "wards": "5",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EY31.12"
+      },
+      {
+        "reference": "2026.EY31.13",
+        "title": "Through Highway - Elsmere Avenue between the east side of Weston Road and easterly limit of Elsmere Avenue",
+        "wards": "5",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EY31.13"
+      },
+      {
+        "reference": "2026.EY31.14",
+        "title": "Canon Jackson Drive - Parking and Traffic Regulation Amendments",
+        "wards": "5",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EY31.14"
+      },
+      {
+        "reference": "2026.EY31.15",
+        "title": "Delta Street, Gamma Street and Beta Street - Traffic Calming (Speed Humps)",
+        "wards": "3",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EY31.15"
+      },
+      {
+        "reference": "2026.EY31.16",
+        "title": "Shockley Drive, Minglehaze Drive, Alabaster Road, Gihon Spring Drive, and Plowshare Crescent - Traffic Calming (Speed Humps)",
+        "wards": "1",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EY31.16"
+      },
+      {
+        "reference": "2026.EY31.17",
+        "title": "Temporary Traffic Control Signal and Compulsory Stop Control on Highway 27, Royalcrest Road, Baywood Road, and Mars Road",
+        "wards": "1",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EY31.17"
+      },
+      {
+        "reference": "2026.EY31.18",
+        "title": "On-Street Electric Vehicle Charging Stations on Kinsdale Boulevard and The Kingsway - Parking Amendments (Delegated Locations)",
+        "wards": "2, 3",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EY31.18"
+      },
+      {
+        "reference": "2026.EY31.19",
+        "title": "On-Street Electric Vehicle Charging Stations on Lake Shore Boulevard West and Weston Road - Parking Amendments (Non-Delegated Locations)",
+        "wards": "3, 5",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EY31.19"
+      },
+      {
+        "reference": "2026.EY31.20",
+        "title": "Hackett Avenue - Accessible Parking Space",
+        "wards": "7",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EY31.20"
+      },
+      {
+        "reference": "2026.EY31.21",
+        "title": "Marquis Avenue - Parking Amendments",
+        "wards": "3",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EY31.21"
+      },
+      {
+        "reference": "2026.EY31.22",
+        "title": "Caledon Road - Parking Amendments",
+        "wards": "3",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EY31.22"
+      },
+      {
+        "reference": "2026.EY31.23",
+        "title": "Changes to Business Improvement Area Boards of Management",
+        "wards": "3, 5",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EY31.23"
+      },
+      {
+        "reference": "2026.EY31.24",
+        "title": "135, 135A, 137,139 Wendell Avenue - Designation of Fire Routes and amendment to Chapter 880 - Fire Routes",
+        "wards": "5",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EY31.24"
+      }
+    ]
   },
   {
     "committee": "North York Community Council",
@@ -123,7 +1226,183 @@
     "isCouncil": false,
     "meetingId": 27208,
     "meetingReference": "2026.NY32",
-    "agendaItems": []
+    "agendaItems": [
+      {
+        "reference": "2026.NY32.1",
+        "title": "15 Marchwood Drive - Application to Remove a Private Tree",
+        "wards": "6",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.NY32.1"
+      },
+      {
+        "reference": "2026.NY32.2",
+        "title": "8 Parmbelle Crescent - Zoning Amendment Application - Final Report - Refusal",
+        "wards": "16",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.NY32.2"
+      },
+      {
+        "reference": "2026.NY32.3",
+        "title": "Wynford - Concorde Focused Area Study - Final Report",
+        "wards": "16",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.NY32.3"
+      },
+      {
+        "reference": "2026.NY32.4",
+        "title": "179 and 181 Finch Avenue East - Official Plan Amendment and Zoning Amendment Application - Approval",
+        "wards": "18",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.NY32.4"
+      },
+      {
+        "reference": "2026.NY32.5",
+        "title": "Yonge North Subway Extension and Ontario Line City-initiated Zoning By-law Amendments to Implement - Decision Report - Approval",
+        "wards": "18",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.NY32.5"
+      },
+      {
+        "reference": "2026.NY32.6",
+        "title": "3140, 3150 and 3170 Dufferin Street and 60 and 68 Apex Road - Class 4 Noise Area Classification (NPC-300) - Final Report",
+        "wards": "8",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.NY32.6"
+      },
+      {
+        "reference": "2026.NY32.7",
+        "title": "3180 Dufferin Street - Class 4 Noise Area Classification (NPC-300) - Final Report",
+        "wards": "8",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.NY32.7"
+      },
+      {
+        "reference": "2026.NY32.8",
+        "title": "19 Lytton Boulevard - Application to Remove a Private Tree",
+        "wards": "8",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.NY32.8"
+      },
+      {
+        "reference": "2026.NY32.9",
+        "title": "103 Roslin Avenue - Application to Remove a City Owned Tree",
+        "wards": "15",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.NY32.9"
+      },
+      {
+        "reference": "2026.NY32.10",
+        "title": "14 Prestbury Street - Application to Remove a Private Tree",
+        "wards": "16",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.NY32.10"
+      },
+      {
+        "reference": "2026.NY32.11",
+        "title": "Wilson Avenue, between Bathurst Street and Wilson Heights Boulevard - Corridor Safety Review",
+        "wards": "6",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.NY32.11"
+      },
+      {
+        "reference": "2026.NY32.12",
+        "title": "Clyde Avenue and Brooke Avenue - All-Way Stop Control",
+        "wards": "8",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.NY32.12"
+      },
+      {
+        "reference": "2026.NY32.13",
+        "title": "Rowley Avenue - Removal of Accessible Parking Space",
+        "wards": "15",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.NY32.13"
+      },
+      {
+        "reference": "2026.NY32.14",
+        "title": "Vision Zero Road Safety Plan - Speed Limit Reductions to 30 kilometres per hour on Local Roads, Public Lanes and Adding Existing 30 kilometres per hour Collector Roads in Ward 15 into Schedule 45 of Municipal Code Chapter 950 (Traffic and Parking)",
+        "wards": "15",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.NY32.14"
+      },
+      {
+        "reference": "2026.NY32.15",
+        "title": "Chipstead Road - Traffic Calming (Speed Humps)",
+        "wards": "15",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.NY32.15"
+      },
+      {
+        "reference": "2026.NY32.16",
+        "title": "The Peanut Streets Plan",
+        "wards": "17",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.NY32.16"
+      },
+      {
+        "reference": "2026.NY32.17",
+        "title": "The Peanut Streets Plan - Protected Pedestrian Crossings",
+        "wards": "17",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.NY32.17"
+      },
+      {
+        "reference": "2026.NY32.18",
+        "title": "Adra Grado Way and Okra Tomar Crescent - Pay-and-Display Parking",
+        "wards": "17",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.NY32.18"
+      },
+      {
+        "reference": "2026.NY32.19",
+        "title": "Francine Drive - Traffic Calming (Speed Humps)",
+        "wards": "17",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.NY32.19"
+      },
+      {
+        "reference": "2026.NY32.20",
+        "title": "Ruddington Drive - Traffic Calming (Speed Humps)",
+        "wards": "17",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.NY32.20"
+      },
+      {
+        "reference": "2026.NY32.21",
+        "title": "Duplex Avenue - On-Street Electric Vehicle Charging Stations - Parking Amendments (Delegated Locations)",
+        "wards": "18",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.NY32.21"
+      },
+      {
+        "reference": "2026.NY32.22",
+        "title": "Appointment of Stakeholder Representative to the North Toronto Memorial Arena Board",
+        "wards": "8",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.NY32.22"
+      },
+      {
+        "reference": "2026.NY32.23",
+        "title": "Re-Opening Item NY31.9  - 71 Paperbirch Drive - Application to Remove a Private Tree.",
+        "wards": "16",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.NY32.23"
+      },
+      {
+        "reference": "2026.NY32.24",
+        "title": "Bradgate Road and Chatfield Drive - Parking By-law Amendment to Implement “No Parking” from 12 a.m. to 6 a.m.",
+        "wards": "16",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.NY32.24"
+      },
+      {
+        "reference": "2026.NY32.25",
+        "title": "Draycott Drive - Amend Speed Limit from 50 Kilometres per Hour to 40 Kilometres per Hour",
+        "wards": "16",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.NY32.25"
+      }
+    ]
   },
   {
     "committee": "Scarborough Community Council",
@@ -695,6 +1974,19 @@
     "isCouncil": false,
     "meetingId": 27206,
     "meetingReference": "2026.IE31",
+    "agendaItems": []
+  },
+  {
+    "committee": "Planning and Housing Committee",
+    "date": "2026-07-16",
+    "displayDate": "Thu, Jul 16, 2026",
+    "startTime": "09:30 AM",
+    "endTime": "18:00 PM",
+    "location": "Committee Room 1, City Hall",
+    "meetingNumber": 32,
+    "isCouncil": false,
+    "meetingId": 27201,
+    "meetingReference": "2026.PH32",
     "agendaItems": []
   }
 ]
