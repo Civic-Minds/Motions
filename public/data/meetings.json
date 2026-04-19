@@ -1899,6 +1899,19 @@
     "agendaItems": []
   },
   {
+    "committee": "Toronto and East York Community Council",
+    "date": "2026-07-08",
+    "displayDate": "Wed, Jul 8, 2026",
+    "startTime": "09:30 AM",
+    "endTime": "18:00 PM",
+    "location": "Committee Room 1, City Hall",
+    "meetingNumber": 34,
+    "isCouncil": false,
+    "meetingId": 27161,
+    "meetingReference": "2026.TE34",
+    "agendaItems": []
+  },
+  {
     "committee": "Scarborough Community Council",
     "date": "2026-07-09",
     "displayDate": "Thu, Jul 9, 2026",
@@ -1987,6 +2000,19 @@
     "isCouncil": false,
     "meetingId": 27201,
     "meetingReference": "2026.PH32",
+    "agendaItems": []
+  },
+  {
+    "committee": "Civic Appointments Committee",
+    "date": "2026-07-17",
+    "displayDate": "Fri, Jul 17, 2026",
+    "startTime": "09:30 AM",
+    "endTime": "18:00 PM",
+    "location": "Committee Room 3, City Hall",
+    "meetingNumber": 38,
+    "isCouncil": false,
+    "meetingId": 27777,
+    "meetingReference": "2026.CA38",
     "agendaItems": []
   }
 ]
