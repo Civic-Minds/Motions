@@ -6,6 +6,9 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+### Fixed
+- **Phantom "non-councillors" votes**: When a motion's `resultText` was from a different sub-vote (e.g. an amendment procedural round), its NO total was being used to fabricate NO votes that didn't exist in the named record, showing "+ N non-councillors" erroneously. Fix: result text totals are now only trusted when `resultText.yes >= namedYes`; if named YES votes exceed the result string's YES count, the result string is discarded entirely. Label also renamed from "non-councillors" to "additional votes".
+
 ### Added
 - **Summaries cache** — `generate_summaries.js` now writes all generated summaries and keyAmounts to `scripts/cache/summaries_cache.json`. `import_open_data.js` reads from this cache during the PRESERVE step, so summaries survive even if `motions.json` is rebuilt from scratch.
 - **Scraper skips summarized motions** — `scrape_agenda_text.js` now filters out motions that already have a `summary`, preventing a full re-scrape of 900+ motions after `strip_body.js` has run.

@@ -34,8 +34,10 @@ function VoteBar({ votes, resultText }) {
   const recYes = recorded.filter(v => v === 'YES').length;
   const recNo  = recorded.filter(v => v === 'NO').length;
 
-  // Use result string totals when recorded votes are clearly incomplete
-  const totals = parseResultTotals(resultText);
+  // Only trust result string totals when they're consistent with named votes.
+  // If named YES > resultText YES, the result string is from a different sub-vote.
+  const parsed = parseResultTotals(resultText);
+  const totals = (parsed && parsed.yes >= recYes) ? parsed : null;
   const yes = (totals && totals.yes > recYes) ? totals.yes : recYes;
   const no  = (totals && totals.no  > recNo)  ? totals.no  : recNo;
 
@@ -77,7 +79,8 @@ function CouncillorGrid({ votes, resultText }) {
   const no      = Object.entries(votes).filter(([, v]) => v === 'NO').map(([n]) => n).sort();
   const absent  = Object.entries(votes).filter(([, v]) => v === 'ABSENT').map(([n]) => n).sort();
 
-  const totals = parseResultTotals(resultText);
+  const parsed = parseResultTotals(resultText);
+  const totals = (parsed && parsed.yes >= yes.length) ? parsed : null;
   const dispYesCount = (totals && totals.yes > yes.length) ? totals.yes : yes.length;
   const dispNoCount  = (totals && totals.no > no.length) ? totals.no : no.length;
 
@@ -101,7 +104,7 @@ function CouncillorGrid({ votes, resultText }) {
               />
               {totals && totals.yes > yes.length && (
                 <div className="text-xs font-medium py-1 px-2 text-slate-500 italic">
-                  + {totals.yes - yes.length} non-councillors
+                  + {totals.yes - yes.length} additional votes
                 </div>
               )}
             </div>
@@ -118,7 +121,7 @@ function CouncillorGrid({ votes, resultText }) {
               />
               {totals && totals.no > no.length && (
                 <div className="text-xs font-medium py-1 px-2 text-slate-500 italic">
-                  + {totals.no - no.length} non-councillors
+                  + {totals.no - no.length} additional votes
                 </div>
               )}
             </div>
