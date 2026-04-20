@@ -24,6 +24,7 @@ export default function MeetingsListView({ meetings = [] }) {
   const [searchParams] = useSearchParams();
   const committeeFilter = searchParams.get('committee'); // slug or null
   const [filter, setFilter] = useState('upcoming');
+  const [typeFilter, setTypeFilter] = useState('all');
 
   const sorted = useMemo(() => {
     const base = committeeFilter
@@ -35,7 +36,22 @@ export default function MeetingsListView({ meetings = [] }) {
   const upcoming = useMemo(() => sorted.filter(m => m.date >= TODAY), [sorted]);
   const past     = useMemo(() => sorted.filter(m => m.date < TODAY).reverse(), [sorted]);
 
-  const displayed = filter === 'upcoming' ? upcoming : past;
+  const byTime = filter === 'upcoming' ? upcoming : past;
+
+  // Derive available type chips from the current time-filtered set
+  const typeOptions = useMemo(() => {
+    const counts = { all: byTime.length };
+    byTime.forEach(m => {
+      const t = getTypeBadge(m).label;
+      counts[t] = (counts[t] || 0) + 1;
+    });
+    return counts;
+  }, [byTime]);
+
+  const displayed = useMemo(() => {
+    if (typeFilter === 'all') return byTime;
+    return byTime.filter(m => getTypeBadge(m).label === typeFilter);
+  }, [byTime, typeFilter]);
 
   // Group by month
   const grouped = useMemo(() => {
@@ -78,15 +94,15 @@ export default function MeetingsListView({ meetings = [] }) {
         </div>
       </div>
 
-      {/* Filter tabs */}
-      <div className="flex gap-1 mb-6 bg-slate-100 rounded-xl p-1 w-fit">
+      {/* Upcoming / Past toggle */}
+      <div className="flex gap-1 mb-3 bg-slate-100 rounded-xl p-1 w-fit">
         {[
           { id: 'upcoming', label: `Upcoming · ${upcoming.length}` },
           { id: 'past',     label: `Past · ${past.length}` },
         ].map(f => (
           <button
             key={f.id}
-            onClick={() => setFilter(f.id)}
+            onClick={() => { setFilter(f.id); setTypeFilter('all'); }}
             className={cn(
               "px-4 py-1.5 rounded-lg text-xs font-semibold transition-colors",
               filter === f.id ? "bg-white text-slate-800 shadow-sm" : "text-slate-500 hover:text-slate-700"
@@ -96,6 +112,28 @@ export default function MeetingsListView({ meetings = [] }) {
           </button>
         ))}
       </div>
+
+      {/* Type filter chips */}
+      {Object.keys(typeOptions).length > 2 && (
+        <div className="flex items-center gap-1.5 flex-wrap mb-6">
+          {['all', ...Object.keys(typeOptions).filter(k => k !== 'all')].map(type => (
+            typeOptions[type] ? (
+              <button
+                key={type}
+                onClick={() => setTypeFilter(type)}
+                className={cn(
+                  "px-2.5 py-1 rounded-full text-[11px] font-semibold transition-colors",
+                  typeFilter === type
+                    ? "bg-[#004a99] text-white"
+                    : "bg-slate-100 text-slate-500 hover:bg-slate-200"
+                )}
+              >
+                {type === 'all' ? 'All' : type}{type !== 'all' ? ` · ${typeOptions[type]}` : ''}
+              </button>
+            ) : null
+          ))}
+        </div>
+      )}
 
       {/* Grouped list */}
       {grouped.length === 0 ? (
