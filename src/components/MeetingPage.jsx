@@ -194,6 +194,19 @@ export default function MeetingPage({ meetings }) {
             <span>View committee page</span>
             <ChevronRight className="w-3 h-3" />
           </button>
+
+          {/* External TMMIS link */}
+          {meeting.meetingReference && (
+            <a
+              href={`https://secure.toronto.ca/council/agenda-item.do?item=${meeting.meetingReference}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full text-left px-4 py-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-500 hover:border-[#004a99]/40 hover:text-[#004a99] transition-colors flex items-center justify-between"
+            >
+              <span>View on toronto.ca</span>
+              <ExternalLink className="w-3 h-3" />
+            </a>
+          )}
         </div>
       </div>
     </div>
