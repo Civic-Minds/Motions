@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, ExternalLink, Lock, FileText } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Lock, FileText, ChevronRight } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 const PROCEDURAL_TITLES = /^(call to order|confirmation of minutes|declarations of interest|petitions|review of the order paper|introduction of committee reports|presentations, introductions|adjournment|questions of privilege|other business)/i;
@@ -192,7 +192,7 @@ export default function MeetingPage({ meetings }) {
             className="w-full text-left px-4 py-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-500 hover:border-[#004a99]/40 hover:text-[#004a99] transition-colors flex items-center justify-between"
           >
             <span>View committee page</span>
-            <ExternalLink className="w-3 h-3" />
+            <ChevronRight className="w-3 h-3" />
           </button>
         </div>
       </div>
