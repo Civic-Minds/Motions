@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { Calendar, Lock, FileText, ChevronRight } from 'lucide-react';
+import { Calendar, Lock, FileText, ChevronRight, ChevronDown } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 const TODAY = new Date().toISOString().slice(0, 10);
@@ -22,23 +22,28 @@ function getTypeBadge(meeting) {
 export default function MeetingsListView({ meetings = [] }) {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const committeeFilter = searchParams.get('committee'); // slug or null
-  const [filter, setFilter] = useState('upcoming');
-  const [typeFilter, setTypeFilter] = useState('all');
+  const urlCommittee = searchParams.get('committee');
+
+  const [timeFilter, setTimeFilter]           = useState('upcoming');
+  const [typeFilter, setTypeFilter]           = useState('all');
+  const [committeeSelect, setCommitteeSelect] = useState(urlCommittee ?? 'all');
+  const [agendaFilter, setAgendaFilter]       = useState(false); // true = published only
+  const [inCameraFilter, setInCameraFilter]   = useState(false); // true = has in-camera only
 
   const sorted = useMemo(() => {
-    const base = committeeFilter
-      ? meetings.filter(m => committeeToSlug(m.committee) === committeeFilter)
-      : meetings;
-    return [...base].sort((a, b) => new Date(a.date) - new Date(b.date));
-  }, [meetings, committeeFilter]);
+    return [...meetings].sort((a, b) => new Date(a.date) - new Date(b.date));
+  }, [meetings]);
 
   const upcoming = useMemo(() => sorted.filter(m => m.date >= TODAY), [sorted]);
-  const past     = useMemo(() => sorted.filter(m => m.date < TODAY).reverse(), [sorted]);
+  const past     = useMemo(() => sorted.filter(m => m.date <  TODAY).reverse(), [sorted]);
+  const byTime   = timeFilter === 'upcoming' ? upcoming : past;
 
-  const byTime = filter === 'upcoming' ? upcoming : past;
+  // Unique committee names for dropdown
+  const committeeNames = useMemo(() => {
+    return [...new Set(sorted.map(m => m.committee))].sort();
+  }, [sorted]);
 
-  // Derive available type chips from the current time-filtered set
+  // Type counts from time-filtered set
   const typeOptions = useMemo(() => {
     const counts = { all: byTime.length };
     byTime.forEach(m => {
@@ -49,16 +54,25 @@ export default function MeetingsListView({ meetings = [] }) {
   }, [byTime]);
 
   const displayed = useMemo(() => {
-    if (typeFilter === 'all') return byTime;
-    return byTime.filter(m => getTypeBadge(m).label === typeFilter);
-  }, [byTime, typeFilter]);
+    let list = byTime;
+    if (typeFilter !== 'all')     list = list.filter(m => getTypeBadge(m).label === typeFilter);
+    if (committeeSelect !== 'all') list = list.filter(m => committeeToSlug(m.committee) === committeeSelect);
+    if (agendaFilter)              list = list.filter(m => m.agendaItems?.length > 0);
+    if (inCameraFilter)            list = list.filter(m => m.agendaItems?.some(a => a.inCamera));
+    return list;
+  }, [byTime, typeFilter, committeeSelect, agendaFilter, inCameraFilter]);
+
+  const activeFilterCount = (typeFilter !== 'all' ? 1 : 0)
+    + (committeeSelect !== 'all' ? 1 : 0)
+    + (agendaFilter ? 1 : 0)
+    + (inCameraFilter ? 1 : 0);
 
   // Group by month
   const grouped = useMemo(() => {
     const groups = [];
     let current = null;
     displayed.forEach(m => {
-      const month = m.date.slice(0, 7); // "2026-04"
+      const month = m.date.slice(0, 7);
       if (month !== current) {
         current = month;
         groups.push({ month, label: new Date(m.date + 'T12:00:00').toLocaleString('en-CA', { month: 'long', year: 'numeric' }), items: [] });
@@ -68,6 +82,13 @@ export default function MeetingsListView({ meetings = [] }) {
     return groups;
   }, [displayed]);
 
+  function clearAll() {
+    setTypeFilter('all');
+    setCommitteeSelect('all');
+    setAgendaFilter(false);
+    setInCameraFilter(false);
+  }
+
   return (
     <div className="max-w-3xl mx-auto py-2 px-4 sm:px-6">
 
@@ -75,73 +96,125 @@ export default function MeetingsListView({ meetings = [] }) {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-xl font-bold text-slate-900">Meetings</h1>
-          <p className="text-xs text-slate-400 mt-0.5">
-            {committeeFilter
-              ? meetings.find(m => committeeToSlug(m.committee) === committeeFilter)?.committee ?? committeeFilter
-              : 'Toronto City Council & committees'}
-          </p>
+          <p className="text-xs text-slate-400 mt-0.5">Toronto City Council &amp; committees</p>
         </div>
-        <div className="flex items-center gap-3">
-          {committeeFilter && (
-            <button
-              onClick={() => navigate('/meetings')}
-              className="text-[11px] text-slate-400 hover:text-slate-600 transition-colors"
-            >
-              Show all
-            </button>
-          )}
-          <Calendar className="w-5 h-5 text-slate-300" />
-        </div>
+        <Calendar className="w-5 h-5 text-slate-300" />
       </div>
 
-      {/* Filter bar */}
-      <div className="flex items-center gap-1.5 flex-wrap mb-6">
-        {/* Upcoming / Past */}
-        {[
-          { id: 'upcoming', label: 'Upcoming', count: upcoming.length },
-          { id: 'past',     label: 'Past',     count: past.length },
-        ].map(f => (
-          <button
-            key={f.id}
-            onClick={() => { setFilter(f.id); setTypeFilter('all'); }}
-            className={cn(
-              "px-3 py-1 rounded-full text-[11px] font-semibold transition-colors",
-              filter === f.id
-                ? "bg-slate-800 text-white"
-                : "bg-slate-100 text-slate-500 hover:bg-slate-200"
-            )}
-          >
-            {f.label}{f.count > 0 ? ` · ${f.count}` : ''}
-          </button>
-        ))}
+      {/* Filter section */}
+      <div className="space-y-2 mb-6">
 
-        {/* Divider */}
-        {Object.keys(typeOptions).length > 2 && (
-          <span className="w-px h-4 bg-slate-200 mx-1" />
-        )}
-
-        {/* Type chips */}
-        {Object.keys(typeOptions).length > 2 && ['all', ...Object.keys(typeOptions).filter(k => k !== 'all')].map(type => (
-          typeOptions[type] ? (
+        {/* Row 1: time + type chips */}
+        <div className="flex items-center gap-1.5 flex-wrap">
+          {[
+            { id: 'upcoming', label: 'Upcoming', count: upcoming.length },
+            { id: 'past',     label: 'Past',     count: past.length },
+          ].map(f => (
             <button
-              key={type}
-              onClick={() => setTypeFilter(type)}
+              key={f.id}
+              onClick={() => { setTimeFilter(f.id); setTypeFilter('all'); }}
               className={cn(
                 "px-3 py-1 rounded-full text-[11px] font-semibold transition-colors",
-                typeFilter === type
-                  ? "bg-[#004a99] text-white"
-                  : "bg-slate-100 text-slate-500 hover:bg-slate-200"
+                timeFilter === f.id ? "bg-slate-800 text-white" : "bg-slate-100 text-slate-500 hover:bg-slate-200"
               )}
             >
-              {type === 'all' ? 'All types' : type}{type !== 'all' && typeOptions[type] ? ` · ${typeOptions[type]}` : ''}
+              {f.label}{f.count > 0 ? ` · ${f.count}` : ''}
             </button>
-          ) : null
-        ))}
+          ))}
+
+          {Object.keys(typeOptions).length > 2 && <span className="w-px h-4 bg-slate-200 mx-0.5" />}
+
+          {Object.keys(typeOptions).length > 2 && ['all', ...Object.keys(typeOptions).filter(k => k !== 'all')].map(type =>
+            typeOptions[type] ? (
+              <button
+                key={type}
+                onClick={() => setTypeFilter(type)}
+                className={cn(
+                  "px-3 py-1 rounded-full text-[11px] font-semibold transition-colors",
+                  typeFilter === type ? "bg-[#004a99] text-white" : "bg-slate-100 text-slate-500 hover:bg-slate-200"
+                )}
+              >
+                {type === 'all' ? 'All types' : type}{type !== 'all' && typeOptions[type] ? ` · ${typeOptions[type]}` : ''}
+              </button>
+            ) : null
+          )}
+        </div>
+
+        {/* Row 2: committee + toggles */}
+        <div className="flex items-center gap-2 flex-wrap">
+
+          {/* Committee dropdown */}
+          <div className="relative">
+            <select
+              value={committeeSelect}
+              onChange={e => setCommitteeSelect(e.target.value)}
+              className={cn(
+                "appearance-none pl-3 pr-7 py-1 rounded-full text-[11px] font-semibold border transition-colors cursor-pointer",
+                committeeSelect !== 'all'
+                  ? "bg-[#004a99] text-white border-[#004a99]"
+                  : "bg-slate-100 text-slate-500 border-transparent hover:bg-slate-200"
+              )}
+            >
+              <option value="all">All committees</option>
+              {committeeNames.map(name => (
+                <option key={name} value={committeeToSlug(name)}>{name}</option>
+              ))}
+            </select>
+            <ChevronDown className={cn(
+              "absolute right-2 top-1/2 -translate-y-1/2 w-3 h-3 pointer-events-none",
+              committeeSelect !== 'all' ? "text-white" : "text-slate-400"
+            )} />
+          </div>
+
+          {/* Agenda published toggle */}
+          <button
+            onClick={() => setAgendaFilter(v => !v)}
+            className={cn(
+              "flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold border transition-colors",
+              agendaFilter
+                ? "bg-emerald-600 text-white border-emerald-600"
+                : "bg-slate-100 text-slate-500 border-transparent hover:bg-slate-200"
+            )}
+          >
+            <FileText className="w-3 h-3" />
+            Agenda published
+          </button>
+
+          {/* Has in-camera toggle */}
+          <button
+            onClick={() => setInCameraFilter(v => !v)}
+            className={cn(
+              "flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold border transition-colors",
+              inCameraFilter
+                ? "bg-amber-500 text-white border-amber-500"
+                : "bg-slate-100 text-slate-500 border-transparent hover:bg-slate-200"
+            )}
+          >
+            <Lock className="w-3 h-3" />
+            Has in-camera
+          </button>
+
+          {/* Clear filters */}
+          {activeFilterCount > 0 && (
+            <button
+              onClick={clearAll}
+              className="text-[11px] text-slate-400 hover:text-slate-600 transition-colors ml-1"
+            >
+              Clear · {activeFilterCount}
+            </button>
+          )}
+        </div>
       </div>
+
+      {/* Results count */}
+      <p className="text-[11px] text-slate-400 mb-4">
+        {displayed.length} meeting{displayed.length !== 1 ? 's' : ''}
+        {activeFilterCount > 0 ? ' matching filters' : ''}
+      </p>
 
       {/* Grouped list */}
       {grouped.length === 0 ? (
-        <div className="py-20 text-center text-slate-400 text-sm">No meetings found.</div>
+        <div className="py-20 text-center text-slate-400 text-sm">No meetings match these filters.</div>
       ) : (
         <div className="space-y-8">
           {grouped.map(group => (
@@ -164,7 +237,6 @@ export default function MeetingsListView({ meetings = [] }) {
                       onClick={() => navigate(dest)}
                       className="w-full flex items-center gap-4 px-5 py-4 hover:bg-slate-50 transition-colors group text-left"
                     >
-                      {/* Date block */}
                       <div className="shrink-0 w-10 text-center">
                         <p className="text-[11px] font-bold text-slate-400 uppercase leading-none">
                           {new Date(meeting.date + 'T12:00:00').toLocaleString('en-CA', { month: 'short' })}
@@ -174,7 +246,6 @@ export default function MeetingsListView({ meetings = [] }) {
                         </p>
                       </div>
 
-                      {/* Details */}
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-0.5">
                           <span className={cn("text-[9px] font-bold px-1.5 py-0.5 rounded-full", badge.style)}>
