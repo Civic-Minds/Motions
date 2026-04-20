@@ -250,9 +250,17 @@ export default function CommitteesView({ motions, meetings = [], followedCommitt
               if (!upcoming.length) return null;
               return (
                 <div className="bg-white border border-slate-200 rounded-xl p-4">
-                  <div className="flex items-center gap-2 mb-3">
-                    <Calendar className="w-3.5 h-3.5 text-slate-400" />
-                    <p className="text-xs font-bold text-slate-400 uppercase tracking-wide">Upcoming Meetings</p>
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-2">
+                      <Calendar className="w-3.5 h-3.5 text-slate-400" />
+                      <p className="text-xs font-bold text-slate-400 uppercase tracking-wide">Upcoming Meetings</p>
+                    </div>
+                    <button
+                      onClick={() => navigate(`/meetings?committee=${selectedCommittee.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`)}
+                      className="text-[11px] font-semibold text-[#004a99]/60 hover:text-[#004a99] transition-colors"
+                    >
+                      See all
+                    </button>
                   </div>
                   <div className="space-y-1">
                     {upcoming.map((m, i) => {

@@ -18,6 +18,7 @@ import WardGrid from './components/WardGrid';
 import BudgetTranslator from './components/BudgetTranslator';
 import CommitteesView from './components/CommitteesView';
 import MeetingPage from './components/MeetingPage';
+import MeetingsListView from './components/MeetingsListView';
 import GlobalSearch from './components/GlobalSearch';
 
 const TABS = [
@@ -247,6 +248,7 @@ function AppShell() {
           <Route path="/wards/:wardId"  element={<WardGrid motions={motions} />} />
           <Route path="/committees" element={<CommitteesView motions={motions} meetings={meetings} followedCommittees={followedCommittees} onToggleFollow={handleToggleFollow} />} />
           <Route path="/committees/:committeeSlug" element={<CommitteesView motions={motions} meetings={meetings} followedCommittees={followedCommittees} onToggleFollow={handleToggleFollow} />} />
+          <Route path="/meetings" element={<MeetingsListView meetings={meetings} />} />
           <Route path="/meetings/:meetingRef" element={<MeetingPage meetings={meetings} />} />
           <Route path="/budget" element={<BudgetTranslator />} />
           <Route path="*"          element={<Navigate to="/" replace />} />

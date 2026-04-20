@@ -7,6 +7,11 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 ## [Unreleased]
 
 ### Added
+- **`/meetings` list page**: Dedicated page showing all upcoming and past meetings grouped by month. Filterable by upcoming/past. Shows committee type badge, agenda item count, in-camera count, and time. Links through to individual meeting pages.
+- **Committee pre-filter**: `/meetings?committee=slug` pre-filters the list to a specific committee. CommitteesView "Upcoming Meetings" module now has a "See all" link that uses this. Header shows committee name and a "Show all" link to clear the filter.
+- **Dashboard "See more"** now links to `/meetings` instead of `/committees`.
+
+### Added
 - **Agenda item filters**: Meeting pages now have filter chips (All / Substantive / In Camera / Procedural) in the agenda header. Procedural items are detected by `RM`-prefixed references and known title patterns; in-camera items use the existing `inCamera` flag. Chips only appear for categories that have at least one item.
 - **"See more" link on Coming Up**: Dashboard Coming Up section now has a "See more" link to `/committees` so users can browse the full upcoming meeting schedule.
 

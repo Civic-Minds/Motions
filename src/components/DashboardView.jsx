@@ -246,7 +246,7 @@ export default function DashboardView({ motions, councillors, meetings = [], fol
         <div className="flex flex-col gap-1.5 overflow-hidden">
           <div className="flex items-center justify-between px-1">
             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Coming Up</p>
-            <Link to="/committees" className="text-[10px] font-semibold text-[#004a99]/60 hover:text-[#004a99] transition-colors">
+            <Link to="/meetings" className="text-[10px] font-semibold text-[#004a99]/60 hover:text-[#004a99] transition-colors">
               See more
             </Link>
           </div>
