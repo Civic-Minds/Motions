@@ -94,46 +94,50 @@ export default function MeetingsListView({ meetings = [] }) {
         </div>
       </div>
 
-      {/* Upcoming / Past toggle */}
-      <div className="flex gap-1 mb-3 bg-slate-100 rounded-xl p-1 w-fit">
+      {/* Filter bar */}
+      <div className="flex items-center gap-1.5 flex-wrap mb-6">
+        {/* Upcoming / Past */}
         {[
-          { id: 'upcoming', label: `Upcoming · ${upcoming.length}` },
-          { id: 'past',     label: `Past · ${past.length}` },
+          { id: 'upcoming', label: 'Upcoming', count: upcoming.length },
+          { id: 'past',     label: 'Past',     count: past.length },
         ].map(f => (
           <button
             key={f.id}
             onClick={() => { setFilter(f.id); setTypeFilter('all'); }}
             className={cn(
-              "px-4 py-1.5 rounded-lg text-xs font-semibold transition-colors",
-              filter === f.id ? "bg-white text-slate-800 shadow-sm" : "text-slate-500 hover:text-slate-700"
+              "px-3 py-1 rounded-full text-[11px] font-semibold transition-colors",
+              filter === f.id
+                ? "bg-slate-800 text-white"
+                : "bg-slate-100 text-slate-500 hover:bg-slate-200"
             )}
           >
-            {f.label}
+            {f.label}{f.count > 0 ? ` · ${f.count}` : ''}
           </button>
         ))}
-      </div>
 
-      {/* Type filter chips */}
-      {Object.keys(typeOptions).length > 2 && (
-        <div className="flex items-center gap-1.5 flex-wrap mb-6">
-          {['all', ...Object.keys(typeOptions).filter(k => k !== 'all')].map(type => (
-            typeOptions[type] ? (
-              <button
-                key={type}
-                onClick={() => setTypeFilter(type)}
-                className={cn(
-                  "px-2.5 py-1 rounded-full text-[11px] font-semibold transition-colors",
-                  typeFilter === type
-                    ? "bg-[#004a99] text-white"
-                    : "bg-slate-100 text-slate-500 hover:bg-slate-200"
-                )}
-              >
-                {type === 'all' ? 'All' : type}{type !== 'all' ? ` · ${typeOptions[type]}` : ''}
-              </button>
-            ) : null
-          ))}
-        </div>
-      )}
+        {/* Divider */}
+        {Object.keys(typeOptions).length > 2 && (
+          <span className="w-px h-4 bg-slate-200 mx-1" />
+        )}
+
+        {/* Type chips */}
+        {Object.keys(typeOptions).length > 2 && ['all', ...Object.keys(typeOptions).filter(k => k !== 'all')].map(type => (
+          typeOptions[type] ? (
+            <button
+              key={type}
+              onClick={() => setTypeFilter(type)}
+              className={cn(
+                "px-3 py-1 rounded-full text-[11px] font-semibold transition-colors",
+                typeFilter === type
+                  ? "bg-[#004a99] text-white"
+                  : "bg-slate-100 text-slate-500 hover:bg-slate-200"
+              )}
+            >
+              {type === 'all' ? 'All types' : type}{type !== 'all' && typeOptions[type] ? ` · ${typeOptions[type]}` : ''}
+            </button>
+          ) : null
+        ))}
+      </div>
 
       {/* Grouped list */}
       {grouped.length === 0 ? (
