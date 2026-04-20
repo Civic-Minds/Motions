@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, ExternalLink, Lock, FileText } from 'lucide-react';
 import { cn } from '../lib/utils';
+
+const PROCEDURAL_TITLES = /^(call to order|confirmation of minutes|declarations of interest|petitions|review of the order paper|introduction of committee reports|presentations, introductions|adjournment|questions of privilege|other business)/i;
+
+function classifyItem(item) {
+  if (item.reference.includes('.RM') || PROCEDURAL_TITLES.test(item.title)) return 'procedural';
+  if (item.inCamera) return 'inCamera';
+  return 'substantive';
+}
 
 function committeeToSlug(name) {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -10,6 +18,7 @@ function committeeToSlug(name) {
 export default function MeetingPage({ meetings }) {
   const { meetingRef } = useParams();
   const navigate = useNavigate();
+  const [filter, setFilter] = useState('all');
 
   const meeting = meetings?.find(m => m.meetingReference === meetingRef);
 
@@ -23,6 +32,26 @@ export default function MeetingPage({ meetings }) {
 
   const committeeSlug = committeeToSlug(meeting.committee);
   const hasAgenda = meeting.agendaItems?.length > 0;
+
+  const counts = useMemo(() => {
+    if (!meeting.agendaItems) return {};
+    const c = { all: meeting.agendaItems.length, substantive: 0, inCamera: 0, procedural: 0 };
+    meeting.agendaItems.forEach(item => { c[classifyItem(item)]++; });
+    return c;
+  }, [meeting.agendaItems]);
+
+  const filteredItems = useMemo(() => {
+    if (!meeting.agendaItems) return [];
+    if (filter === 'all') return meeting.agendaItems;
+    return meeting.agendaItems.filter(item => classifyItem(item) === filter);
+  }, [meeting.agendaItems, filter]);
+
+  const FILTERS = [
+    { id: 'all', label: 'All' },
+    { id: 'substantive', label: 'Substantive' },
+    { id: 'inCamera', label: 'In Camera' },
+    { id: 'procedural', label: 'Procedural' },
+  ];
 
   return (
     <div className="max-w-5xl mx-auto py-2 px-4 sm:px-6 lg:px-8 relative">
@@ -66,10 +95,30 @@ export default function MeetingPage({ meetings }) {
         {/* LEFT: Agenda */}
         <div className="lg:col-span-2">
           <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
-            <div className="px-5 py-3.5 border-b border-slate-100">
+            <div className="px-5 py-3.5 border-b border-slate-100 flex items-center justify-between gap-4 flex-wrap">
               <p className="text-xs font-bold text-slate-400 uppercase tracking-wide">
                 {hasAgenda ? `Agenda · ${meeting.agendaItems.length} items` : 'Agenda'}
               </p>
+              {hasAgenda && (
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  {FILTERS.map(f => (
+                    counts[f.id] > 0 || f.id === 'all' ? (
+                      <button
+                        key={f.id}
+                        onClick={() => setFilter(f.id)}
+                        className={cn(
+                          "px-2.5 py-1 rounded-full text-[11px] font-semibold transition-colors",
+                          filter === f.id
+                            ? "bg-[#004a99] text-white"
+                            : "bg-slate-100 text-slate-500 hover:bg-slate-200"
+                        )}
+                      >
+                        {f.label}{f.id !== 'all' && counts[f.id] ? ` · ${counts[f.id]}` : ''}
+                      </button>
+                    ) : null
+                  ))}
+                </div>
+              )}
             </div>
 
             {!hasAgenda ? (
@@ -80,7 +129,7 @@ export default function MeetingPage({ meetings }) {
               </div>
             ) : (
               <div className="divide-y divide-slate-100">
-                {meeting.agendaItems.map((item, i) => (
+                {filteredItems.map((item, i) => (
                   <a
                     key={i}
                     href={item.url}

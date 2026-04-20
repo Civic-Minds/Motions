@@ -6,6 +6,10 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+### Added
+- **Agenda item filters**: Meeting pages now have filter chips (All / Substantive / In Camera / Procedural) in the agenda header. Procedural items are detected by `RM`-prefixed references and known title patterns; in-camera items use the existing `inCamera` flag. Chips only appear for categories that have at least one item.
+- **"See more" link on Coming Up**: Dashboard Coming Up section now has a "See more" link to `/committees` so users can browse the full upcoming meeting schedule.
+
 ### Fixed
 - **Phantom "non-councillors" votes**: When a motion's `resultText` was from a different sub-vote (e.g. an amendment procedural round), its NO total was being used to fabricate NO votes that didn't exist in the named record, showing "+ N non-councillors" erroneously. Fix: result text totals are now only trusted when `resultText.yes >= namedYes`; if named YES votes exceed the result string's YES count, the result string is discarded entirely. Label also renamed from "non-councillors" to "additional votes".
 
