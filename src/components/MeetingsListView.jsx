@@ -10,13 +10,47 @@ function committeeToSlug(name) {
 }
 
 function getTypeBadge(meeting) {
-  if (meeting.isCouncil) return { label: 'Council', style: 'bg-blue-600 text-white' };
+  if (meeting.isCouncil) return { label: 'Council', style: 'bg-blue-100 text-blue-700' };
   const name = meeting.committee.toLowerCase();
-  if (name.includes('budget') || name.includes('finance')) return { label: 'Finance', style: 'bg-amber-100 text-amber-700' };
-  if (name.includes('housing') || name.includes('planning')) return { label: 'Planning', style: 'bg-violet-100 text-violet-700' };
-  if (name.includes('transit') || name.includes('infrastructure')) return { label: 'Transit', style: 'bg-cyan-100 text-cyan-700' };
-  if (name.includes('parks') || name.includes('environment')) return { label: 'Parks', style: 'bg-emerald-100 text-emerald-700' };
-  return { label: 'Committee', style: 'bg-slate-100 text-slate-600' };
+
+  // Community Councils
+  if (name.includes('community council')) return { label: 'Community Council', style: 'bg-indigo-100 text-indigo-700' };
+
+  // Transit
+  if (name.includes('transit commission') || name.includes('parking authority') || name.includes('infrastructure'))
+    return { label: 'Transit', style: 'bg-cyan-100 text-cyan-700' };
+
+  // Nominating panels / tribunals / sign variance / bid award — check before Finance to avoid audit keyword collision
+  if (name.includes('nominating') || name.includes('tribunal') || name.includes('sign variance') ||
+      name.includes('bid award') || name.includes('striking') || name.includes('appointments') ||
+      name.includes('corporations nominating'))
+    return { label: 'Appointments', style: 'bg-slate-100 text-slate-600' };
+
+  // Boards & Corporations — check before Finance so TO Live subcommittees stay under Boards
+  if (name.includes('createto') || name.includes('exhibition place') || name.startsWith('to live') ||
+      name.includes('toronto zoo') || name.includes('atmospheric fund') || name.includes('fifa') ||
+      name.includes('film') || name.includes('music') || name.includes('toronto parking'))
+    return { label: 'Boards', style: 'bg-orange-100 text-orange-700' };
+
+  // Finance
+  if (name.includes('budget') || name.includes('audit') || name.includes('finance') || name.includes('investment') || name.includes('debenture'))
+    return { label: 'Finance', style: 'bg-amber-100 text-amber-700' };
+
+  // Planning & Housing
+  if (name.includes('planning') || name.includes('housing') || name.includes('property standards') || name.includes('preservation'))
+    return { label: 'Planning', style: 'bg-violet-100 text-violet-700' };
+
+  // Health & Social
+  if (name.includes('health') || name.includes('long-term care') || name.includes('accessibility'))
+    return { label: 'Health', style: 'bg-rose-100 text-rose-700' };
+
+  // Advisory committees
+  if (name.includes('advisory') || name.includes('francophone') || name.includes('anti-black racism') ||
+      name.includes('two-spirit') || name.includes('city-school'))
+    return { label: 'Advisory', style: 'bg-teal-100 text-teal-700' };
+
+  // Everything else (Executive, General Government, Economic, Service Excellence, etc.)
+  return { label: 'Governance', style: 'bg-slate-100 text-slate-600' };
 }
 
 export default function MeetingsListView({ meetings = [] }) {
@@ -100,7 +134,7 @@ export default function MeetingsListView({ meetings = [] }) {
   }
 
   return (
-    <div className="max-w-3xl mx-auto py-2 px-4 sm:px-6">
+    <div className="max-w-5xl mx-auto py-2 px-4 sm:px-6">
 
       {/* Header */}
       <div className="flex items-center justify-between mb-6">

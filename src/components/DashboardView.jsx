@@ -254,7 +254,8 @@ export default function DashboardView({ motions, councillors, meetings = [], fol
             </div>
           </div>
           {(() => {
-            const meeting = meetings[0];
+            const TODAY = new Date().toISOString().slice(0, 10);
+            const meeting = meetings.find(m => m.date >= TODAY);
             const topic = meeting ? (meeting.isCouncil ? 'Council' : (() => {
               const name = meeting.committee.toLowerCase();
               if (name.includes('housing')) return 'Housing';
@@ -284,7 +285,7 @@ export default function DashboardView({ motions, councillors, meetings = [], fol
                     <div className="flex items-center justify-between gap-1">
                       <span className={cn(
                         "text-[9px] font-semibold px-1.5 py-0.5 rounded-full",
-                        topic === 'Council' ? "bg-blue-600 text-white" : (TOPIC_LIGHT[topic] || 'bg-slate-100 text-slate-600')
+                        TOPIC_LIGHT[topic] || (topic === 'Council' ? "bg-blue-100 text-blue-700" : 'bg-slate-100 text-slate-600')
                       )}>
                         {topic}
                       </span>

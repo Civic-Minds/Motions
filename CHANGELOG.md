@@ -4,19 +4,41 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
-## [Unreleased]
+## [2.6.0] - 2026-04-21
+
+### Added
+- **Global search** (⌘K): fuzzy search via Fuse.js across 950+ motions (title, summary, committee, topic), all councillors, and all committees. Results grouped by type with keyboard navigation (↑↓ to move, ↵ to open, ESC to close). Empty state shows topic chips and common search terms as quick-launch shortcuts.
+- **Boards & Other Bodies section** on `/committees`: bodies that appear in meetings data but have no motions (advisory committees, boards, tribunals, etc.) now surface in a compact list below the main committee grid, sorted by upcoming count then alphabetically with next meeting date shown. Clicking opens a detail page with full meeting history and a sidebar linking to the pre-filtered `/meetings` page.
+- **10 meeting type badges**: `getTypeBadge()` now classifies all 65+ committees into Council, Community Council, Transit, Finance, Planning, Health, Boards, Appointments, Advisory, and Governance — up from 5 types. Enables meaningful filtering on the `/meetings` page.
+
+### Changed
+- **Meetings-only body detail sort**: upcoming meetings shown first (nearest first), past meetings below (most recent first). Previously sorted purely newest-first, surfacing far-future dates at the top.
+- **CommitteesView sidebar "Upcoming Meetings"**: now filters to `date >= today` and sorts ascending. Previously showed all meetings including past ones after the data window was expanded.
+- **Dashboard "Coming Up"**: now finds the first upcoming meeting via `find(m => m.date >= TODAY)` instead of `meetings[0]`, which was pointing to a past meeting after the data window was expanded to include 365 days of history.
+- **Consistent page widths**: detail and list views (`MeetingPage`, `MeetingsListView`, CommitteesView detail) all use `max-w-5xl`. Previously each set its own width independently (`max-w-3xl`, `max-w-5xl`, or unconstrained).
+
+### Fixed
+- **`SUPPL` agenda items dropped**: `fetch_meetings.js` was filtering to `publishTypeCd === 'MAIN'` only, silently dropping supplementary items (e.g. FIFA World Cup Subcommittee meetings had all items as `SUPPL`). Filter removed — all agenda item types now included.
+- **Ward map missing on some wards**: GeoJSON `AREA_SHORT_CODE` uses zero-padded strings (`"01"`) but app ward IDs are unpadded (`"1"`). `extractWardId()` now strips leading zeros so all 25 ward boundaries render correctly.
+
+## [2.5.0] - 2026-04-19
+
+### Changed
+- **Council badge in Coming Up** now uses soft `bg-blue-100 text-blue-700` to match the pastel pill style used elsewhere, replacing the hard `bg-blue-600 text-white` solid badge.
+- **Meeting fetcher covers all committees**: `fetch_meetings.js` now dynamically fetches all decision bodies from TMMIS instead of filtering to a hardcoded whitelist — picks up advisory committees, boards, subcommittees, and any new bodies automatically.
+- **Meeting fetcher merge logic**: Re-running `fetch_meetings.js` preserves already-fetched agenda items for past meetings instead of re-fetching them every time. New/future meetings still get fresh agenda data.
+- **Extended date window**: Lookahead extended from 90 → 180 days; past meetings from the last 365 days are now included in `meetings.json`.
 
 ### Added
 - **`/meetings` list page**: Dedicated page showing all upcoming and past meetings grouped by month. Filterable by upcoming/past. Shows committee type badge, agenda item count, in-camera count, and time. Links through to individual meeting pages.
-- **Committee pre-filter**: `/meetings?committee=slug` pre-filters the list to a specific committee. CommitteesView "Upcoming Meetings" module now has a "See all" link that uses this. Header shows committee name and a "Show all" link to clear the filter.
+- **Committee pre-filter**: `/meetings?committee=slug` pre-filters the list to a specific committee. CommitteesView "Upcoming Meetings" module now has a "See all" link that uses this.
 - **Dashboard "See more"** now links to `/meetings` instead of `/committees`.
-
-### Added
-- **Agenda item filters**: Meeting pages now have filter chips (All / Substantive / In Camera / Procedural) in the agenda header. Procedural items are detected by `RM`-prefixed references and known title patterns; in-camera items use the existing `inCamera` flag. Chips only appear for categories that have at least one item.
-- **"See more" link on Coming Up**: Dashboard Coming Up section now has a "See more" link to `/committees` so users can browse the full upcoming meeting schedule.
+- **Agenda item filters**: Meeting pages now have filter chips (All / Substantive / In Camera / Procedural) in the agenda header.
+- **Dual meeting page buttons**: MeetingPage sidebar now has separate "View committee page" (internal) and "View on toronto.ca" (external) buttons with correct icons.
+- **Calendar icon restored** in Coming Up / Dashboard header alongside "See more" link.
 
 ### Fixed
-- **Phantom "non-councillors" votes**: When a motion's `resultText` was from a different sub-vote (e.g. an amendment procedural round), its NO total was being used to fabricate NO votes that didn't exist in the named record, showing "+ N non-councillors" erroneously. Fix: result text totals are now only trusted when `resultText.yes >= namedYes`; if named YES votes exceed the result string's YES count, the result string is discarded entirely. Label also renamed from "non-councillors" to "additional votes".
+- **Phantom "non-councillors" votes**: Result text totals now only trusted when `resultText.yes >= namedYes`; otherwise discarded. Label renamed from "non-councillors" to "additional votes".
 
 ### Added
 - **Summaries cache** — `generate_summaries.js` now writes all generated summaries and keyAmounts to `scripts/cache/summaries_cache.json`. `import_open_data.js` reads from this cache during the PRESERVE step, so summaries survive even if `motions.json` is rebuilt from scratch.

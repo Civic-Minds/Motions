@@ -1,10 +1,15 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, X, FileText, User } from 'lucide-react';
+import { Search, X, FileText, User, Building2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Fuse from 'fuse.js';
 import { cn } from '../lib/utils';
 import { nameToSlug } from '../utils/slug';
 import { TOPIC_LIGHT } from '../constants/data';
+
+function committeeToSlug(name) {
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
 
 function highlight(text, query) {
   if (!query || !text) return text;
@@ -26,6 +31,38 @@ export default function GlobalSearch({ motions, councillorNames, open, onClose }
   const listRef = useRef(null);
   const navigate = useNavigate();
 
+  // Build Fuse indexes once
+  const primaryMotions = useMemo(() => motions.filter(m => !m.parentId), [motions]);
+
+  const motionFuse = useMemo(() => new Fuse(primaryMotions, {
+    keys: [
+      { name: 'title',     weight: 0.5 },
+      { name: 'summary',   weight: 0.3 },
+      { name: 'committee', weight: 0.1 },
+      { name: 'topic',     weight: 0.1 },
+    ],
+    threshold: 0.35,
+    minMatchCharLength: 2,
+    includeScore: true,
+  }), [primaryMotions]);
+
+  const councillorFuse = useMemo(() => new Fuse(councillorNames, {
+    threshold: 0.3,
+    minMatchCharLength: 2,
+  }), [councillorNames]);
+
+  const committees = useMemo(() => {
+    const seen = new Set();
+    return primaryMotions
+      .filter(m => m.committee && !seen.has(m.committee) && seen.add(m.committee))
+      .map(m => m.committee);
+  }, [primaryMotions]);
+
+  const committeeFuse = useMemo(() => new Fuse(committees, {
+    threshold: 0.3,
+    minMatchCharLength: 2,
+  }), [committees]);
+
   // Focus input when opened
   useEffect(() => {
     if (open) {
@@ -35,13 +72,10 @@ export default function GlobalSearch({ motions, councillorNames, open, onClose }
     }
   }, [open]);
 
-  // Cmd+K global listener
+  // Cmd+K / ESC
   useEffect(() => {
     const handler = (e) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault();
-        open ? onClose() : null; // toggling handled by parent
-      }
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); }
       if (e.key === 'Escape' && open) onClose();
     };
     window.addEventListener('keydown', handler);
@@ -49,36 +83,19 @@ export default function GlobalSearch({ motions, councillorNames, open, onClose }
   }, [open, onClose]);
 
   const results = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (!q || q.length < 2) return { motions: [], councillors: [] };
+    const q = query.trim();
+    if (!q || q.length < 2) return { motions: [], councillors: [], committees: [] };
 
-    const matchedMotions = motions
-      .filter(m => !m.parentId && (
-        m.title?.toLowerCase().includes(q) ||
-        m.topic?.toLowerCase().includes(q) ||
-        m.mover?.toLowerCase().includes(q) ||
-        m.id?.toLowerCase().includes(q) ||
-        m.summary?.toLowerCase().includes(q)
-      ))
-      .sort((a, b) => {
-        // Title matches rank higher than summary-only matches
-        const aTitle = a.title?.toLowerCase().includes(q);
-        const bTitle = b.title?.toLowerCase().includes(q);
-        if (aTitle && !bTitle) return -1;
-        if (!aTitle && bTitle) return 1;
-        return (b.significance ?? 0) - (a.significance ?? 0);
-      })
-      .slice(0, 6);
-
-    const matchedCouncillors = councillorNames
-      .filter(n => n.toLowerCase().includes(q))
-      .slice(0, 3);
-
-    return { motions: matchedMotions, councillors: matchedCouncillors };
-  }, [query, motions, councillorNames]);
+    return {
+      motions:     motionFuse.search(q, { limit: 6 }).map(r => r.item),
+      councillors: councillorFuse.search(q, { limit: 3 }).map(r => r.item),
+      committees:  committeeFuse.search(q, { limit: 2 }).map(r => r.item),
+    };
+  }, [query, motionFuse, councillorFuse, committeeFuse]);
 
   const flat = [
     ...results.councillors.map(n => ({ type: 'councillor', name: n })),
+    ...results.committees.map(c => ({ type: 'committee', name: c })),
     ...results.motions.map(m => ({ type: 'motion', motion: m })),
   ];
   const total = flat.length;
@@ -102,11 +119,9 @@ export default function GlobalSearch({ motions, councillorNames, open, onClose }
   }, [cursor]);
 
   function selectItem(item) {
-    if (item.type === 'councillor') {
-      navigate(`/councillors/${nameToSlug(item.name)}`);
-    } else {
-      navigate(`/motions/${item.motion.id}`);
-    }
+    if (item.type === 'councillor') navigate(`/councillors/${nameToSlug(item.name)}`);
+    else if (item.type === 'committee') navigate(`/committees/${committeeToSlug(item.name)}`);
+    else navigate(`/motions/${item.motion.id}`);
     onClose();
   }
 
@@ -192,11 +207,40 @@ export default function GlobalSearch({ motions, councillorNames, open, onClose }
                     </div>
                   )}
 
+                  {results.committees.length > 0 && (
+                    <div>
+                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-4 pt-2 pb-1">Committees</p>
+                      {results.committees.map((name, i) => {
+                        const idx = results.councillors.length + i;
+                        const isActive = cursor === idx;
+                        return (
+                          <button
+                            key={name}
+                            onClick={() => selectItem({ type: 'committee', name })}
+                            onMouseEnter={() => setCursor(idx)}
+                            className={cn(
+                              "w-full flex items-center gap-3 px-4 py-2.5 text-left transition-colors",
+                              isActive ? "bg-slate-50" : "hover:bg-slate-50"
+                            )}
+                          >
+                            <div className="w-7 h-7 rounded-lg bg-violet-100 flex items-center justify-center shrink-0">
+                              <Building2 className="w-3.5 h-3.5 text-violet-600" />
+                            </div>
+                            <span className="text-sm font-medium text-slate-800">
+                              {highlight(name, query)}
+                            </span>
+                            {isActive && <span className="ml-auto text-[10px] text-slate-400">↵</span>}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+
                   {results.motions.length > 0 && (
                     <div>
                       <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-4 pt-2 pb-1">Motions</p>
                       {results.motions.map((m, i) => {
-                        const idx = results.councillors.length + i;
+                        const idx = results.councillors.length + results.committees.length + i;
                         const isActive = cursor === idx;
                         return (
                           <button

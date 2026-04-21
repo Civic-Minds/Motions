@@ -77,8 +77,38 @@ export default function CommitteesView({ motions, meetings = [], followedCommitt
       });
   }, [motions]);
 
+  const TODAY = new Date().toISOString().slice(0, 10);
+
+  // Bodies that appear in meetings data but have no motions — advisory boards, tribunals, etc.
+  const meetingsOnlyBodies = useMemo(() => {
+    const committeeNames = new Set(committees.map(c => c.name));
+    const bodyMap = {};
+    meetings.forEach(m => {
+      if (committeeNames.has(m.committee)) return; // already covered in main grid
+      if (!bodyMap[m.committee]) bodyMap[m.committee] = { name: m.committee, meetings: [] };
+      bodyMap[m.committee].meetings.push(m);
+    });
+    return Object.values(bodyMap)
+      .map(b => {
+        const upcoming = b.meetings.filter(m => m.date >= TODAY);
+        const next = upcoming.sort((a, z) => a.date.localeCompare(z.date))[0] ?? null;
+        return { ...b, slug: committeeToSlug(b.name), upcomingCount: upcoming.length, next };
+      })
+      .sort((a, b) => {
+        // Bodies with upcoming meetings first, then alphabetical
+        if (a.upcomingCount > 0 && b.upcomingCount === 0) return -1;
+        if (a.upcomingCount === 0 && b.upcomingCount > 0) return 1;
+        return a.name.localeCompare(b.name);
+      });
+  }, [committees, meetings]);
+
   const selectedCommittee = committeeSlug
     ? committees.find(c => c.slug === committeeSlug) ?? null
+    : null;
+
+  // Check if the slug matches a meetings-only body (no motions)
+  const selectedBody = !selectedCommittee && committeeSlug
+    ? meetingsOnlyBodies.find(b => b.slug === committeeSlug) ?? null
     : null;
 
   const committeeMotions = useMemo(() => {
@@ -93,6 +123,100 @@ export default function CommitteesView({ motions, meetings = [], followedCommitt
 
   return (
     <div className="space-y-6">
+
+      {/* ── Meetings-only body detail ── */}
+      {selectedBody && (
+        <div className="space-y-4 max-w-5xl mx-auto">
+          <button
+            onClick={() => navigate('/committees')}
+            className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-700 transition-colors"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            Back
+          </button>
+          <h1 className="text-xl font-bold text-slate-900">{selectedBody.name}</h1>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+            <div className="lg:col-span-2">
+              <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
+                <div className="px-5 py-3.5 border-b border-slate-100">
+                  <p className="text-xs font-bold text-slate-400 uppercase tracking-wide">
+                    Meetings · {selectedBody.meetings.length} total
+                  </p>
+                </div>
+                <div className="divide-y divide-slate-100">
+                  {[...selectedBody.meetings]
+                    .sort((a, b) => {
+                      const aUp = a.date >= TODAY;
+                      const bUp = b.date >= TODAY;
+                      if (aUp && !bUp) return -1;   // upcoming before past
+                      if (!aUp && bUp) return 1;
+                      if (aUp) return a.date.localeCompare(b.date);   // upcoming: nearest first
+                      return b.date.localeCompare(a.date);             // past: most recent first
+                    })
+                    .map((m, i) => (
+                      <button
+                        key={i}
+                        onClick={() => m.meetingReference ? navigate(`/meetings/${m.meetingReference}`) : null}
+                        className={cn(
+                          "w-full flex items-center gap-4 px-5 py-3.5 text-left transition-colors",
+                          m.meetingReference ? "hover:bg-slate-50 group" : "cursor-default"
+                        )}
+                      >
+                        <div className="shrink-0 w-10 text-center">
+                          <p className="text-[10px] font-bold text-slate-400 uppercase leading-none">
+                            {new Date(m.date + 'T12:00:00').toLocaleString('en-CA', { month: 'short' })}
+                          </p>
+                          <p className="text-lg font-black text-slate-700 leading-tight">
+                            {new Date(m.date + 'T12:00:00').getDate()}
+                          </p>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className={cn("text-sm font-medium text-slate-700 transition-colors", m.meetingReference && "group-hover:text-[#004a99]")}>
+                            {m.displayDate}
+                          </p>
+                          <div className="flex items-center gap-3 mt-0.5">
+                            {m.startTime && <span className="text-[11px] text-slate-400">{m.startTime}</span>}
+                            {m.agendaItems?.length > 0 && (
+                              <span className="text-[11px] text-slate-400">{m.agendaItems.length} agenda items</span>
+                            )}
+                            {m.date >= TODAY
+                              ? <span className="text-[10px] font-semibold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-full">Upcoming</span>
+                              : <span className="text-[10px] text-slate-300">Past</span>
+                            }
+                          </div>
+                        </div>
+                        {m.meetingReference && (
+                          <ArrowRight className="w-4 h-4 text-slate-200 group-hover:text-[#004a99] shrink-0 transition-colors" />
+                        )}
+                      </button>
+                    ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-1 space-y-4 lg:sticky lg:top-8">
+              <div className="bg-white border border-slate-200 rounded-xl p-4 space-y-3">
+                <div className="flex items-baseline justify-between">
+                  <span className="text-xs text-slate-400 font-medium uppercase tracking-wide">Total meetings</span>
+                  <span className="text-2xl font-black text-slate-900">{selectedBody.meetings.length}</span>
+                </div>
+                <div className="flex items-baseline justify-between">
+                  <span className="text-xs text-slate-400 font-medium uppercase tracking-wide">Upcoming</span>
+                  <span className="text-sm font-bold text-emerald-600">{selectedBody.upcomingCount}</span>
+                </div>
+              </div>
+              <button
+                onClick={() => navigate(`/meetings?committee=${selectedBody.slug}`)}
+                className="w-full text-left px-4 py-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-500 hover:border-[#004a99]/40 hover:text-[#004a99] transition-colors flex items-center justify-between"
+              >
+                <span>View all meetings</span>
+                <ArrowRight className="w-3 h-3" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {selectedCommittee && (
         <div className="space-y-3 mb-2">
@@ -124,8 +248,9 @@ export default function CommitteesView({ motions, meetings = [], followedCommitt
         </div>
       )}
 
-      {!selectedCommittee ? (
+      {!selectedCommittee && !selectedBody ? (
         /* ── Committee grid ── */
+        <div className="space-y-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {committees.map((c, i) => (
             <motion.button
@@ -190,9 +315,45 @@ export default function CommitteesView({ motions, meetings = [], followedCommitt
             </motion.button>
           ))}
         </div>
-      ) : (
+
+        {/* ── Boards & other bodies ── */}
+        {meetingsOnlyBodies.length > 0 && (
+          <div>
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3 px-1">
+              Boards &amp; Other Bodies
+            </p>
+            <div className="bg-white border border-slate-200 rounded-xl overflow-hidden divide-y divide-slate-100">
+              {meetingsOnlyBodies.map((b, i) => (
+                <button
+                  key={b.name}
+                  onClick={() => navigate(`/committees/${b.slug}`)}
+                  className="w-full flex items-center gap-4 px-5 py-3.5 hover:bg-slate-50 transition-colors group text-left"
+                >
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium text-slate-800 group-hover:text-[#004a99] transition-colors truncate">
+                      {b.name}
+                    </p>
+                    {b.next && (
+                      <p className="text-[11px] text-slate-400 mt-0.5">
+                        Next: {b.next.displayDate}
+                      </p>
+                    )}
+                  </div>
+                  {b.upcomingCount > 0 && (
+                    <span className="shrink-0 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700">
+                      {b.upcomingCount} upcoming
+                    </span>
+                  )}
+                  <ArrowRight className="w-4 h-4 text-slate-200 group-hover:text-[#004a99] shrink-0 transition-colors" />
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+        </div>
+      ) : (selectedCommittee) ? (
         /* ── Committee detail ── */
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start max-w-5xl mx-auto">
 
           {/* LEFT: Motions */}
           <div className="lg:col-span-2 space-y-2">
@@ -246,7 +407,9 @@ export default function CommitteesView({ motions, meetings = [], followedCommitt
 
             {/* Upcoming meetings */}
             {(() => {
-              const upcoming = meetings.filter(m => m.committee === selectedCommittee.name);
+              const upcoming = meetings
+                .filter(m => m.committee === selectedCommittee.name && m.date >= TODAY)
+                .sort((a, b) => a.date.localeCompare(b.date));
               if (!upcoming.length) return null;
               return (
                 <div className="bg-white border border-slate-200 rounded-xl p-4">
@@ -309,7 +472,7 @@ export default function CommitteesView({ motions, meetings = [], followedCommitt
 
           </div>
         </div>
-      )}
+      ) : null}
 
     </div>
   );

@@ -20,7 +20,8 @@ import path from 'path';
 const DATA_PATH = path.join(process.cwd(), 'public/data/meetings.json');
 const CSV_URL = 'https://ckan0.cf.opendata.inter.prod-toronto.ca/datastore/dump/08c8aedb-afba-41f5-830e-bbfb305ebbc7';
 const TMMIS_BASE = 'https://secure.toronto.ca/council/api';
-const LOOKAHEAD_DAYS = 90;
+const LOOKAHEAD_DAYS = 180;
+const LOOKBACK_DAYS  = 365;
 
 // Headers needed to pass Akamai WAF (plain node-fetch won't work without these)
 const BROWSER_HEADERS = {
@@ -37,50 +38,27 @@ const BROWSER_HEADERS = {
     'sec-fetch-site': 'same-origin',
 };
 
-// Committees to include from CSV
-const INCLUDED_COMMITTEES = new Set([
-    'City Council',
-    'Executive Committee',
-    'Planning and Housing Committee',
-    'General Government Committee',
-    'Infrastructure and Environment Committee',
-    'Economic and Community Development Committee',
-    'Budget Committee',
-    'Board of Health',
-    'Toronto Transit Commission',
-    'Toronto and East York Community Council',
-    'North York Community Council',
-    'Etobicoke York Community Council',
-    'Scarborough Community Council',
-    'Toronto Preservation Board',
-    'Audit Committee',
-    'Civic Appointments Committee',
-    'FIFA World Cup 2026 Subcommittee',
-    'Service Excellence Committee',
-]);
+// Term ID for current Council term (2022–2026)
+const TERM_ID = 8;
 
-// TMMIS decisionBodyId for each included committee
-// Source: secure.toronto.ca/council/api/multiple/decisionbody-list.json?termId=8
-const DECISION_BODY_IDS = {
-    'City Council':                              2462,
-    'Executive Committee':                       2468,
-    'Planning and Housing Committee':            2565,
-    'General Government Committee':              2542,
-    'Infrastructure and Environment Committee':  2566,
-    'Economic and Community Development Committee': 2563,
-    'Budget Committee':                          2562,
-    'Board of Health':                           2564,
-    'Toronto Transit Commission':                2944,
-    'Toronto and East York Community Council':   2466,
-    'North York Community Council':              2465,
-    'Etobicoke York Community Council':          2464,
-    'Scarborough Community Council':             2467,
-    'Toronto Preservation Board':                2511,
-    'Audit Committee':                           2582,
-    'Civic Appointments Committee':              2583,
-    'FIFA World Cup 2026 Subcommittee':          2904,
-    'Service Excellence Committee':              2784,
-};
+// Fetches all decision bodies for the term and returns a name→id map.
+// Names are normalised to lowercase for matching.
+async function fetchDecisionBodyIds() {
+    const res = await fetch(
+        `${TMMIS_BASE}/multiple/decisionbody-list.json?termId=${TERM_ID}`,
+        { headers: BROWSER_HEADERS }
+    );
+    if (!res.ok) throw new Error(`decision-body-list HTTP ${res.status}`);
+    const data = await res.json();
+    const map = {};
+    (data?.Records ?? []).forEach(r => {
+        if (r.decisionBodyName && r.decisionBodyId) {
+            map[r.decisionBodyName.trim()] = r.decisionBodyId;
+        }
+    });
+    console.log(`   Loaded ${Object.keys(map).length} TMMIS decision bodies`);
+    return map;
+}
 
 // ─── CSV helpers ──────────────────────────────────────────────────────────────
 
@@ -151,7 +129,6 @@ async function getAgendaItems(meetingId) {
     const items = data?.Record?.sections?.flatMap(s => s.agendaItems ?? []) ?? [];
 
     return items
-        .filter(i => i.publishTypeCd === 'MAIN') // skip procedural/consent items
         .map(i => ({
             reference: `${i.nativeTermYear}.${i.referenceNumber}`,
             title: i.agendaItemTitle,
@@ -164,7 +141,26 @@ async function getAgendaItems(meetingId) {
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 async function main() {
-    console.log('📥 Downloading meeting schedule CSV...');
+    // ── Load existing data for merging ───────────────────────────────────────
+    let existingByKey = {};
+    if (fs.existsSync(DATA_PATH)) {
+        try {
+            const existing = JSON.parse(fs.readFileSync(DATA_PATH, 'utf8'));
+            existing.forEach(m => {
+                // Key: meetingReference if we have it, else committee+date+meetingNumber
+                const key = m.meetingReference ?? `${m.committee}|${m.date}|${m.meetingNumber}`;
+                existingByKey[key] = m;
+            });
+            console.log(`📂 Loaded ${Object.keys(existingByKey).length} existing meetings to merge against`);
+        } catch { /* ignore parse errors, start fresh */ }
+    }
+
+    // ── Decision bodies ───────────────────────────────────────────────────────
+    console.log('\n🏛  Fetching TMMIS decision body list...');
+    const decisionBodyIds = await fetchDecisionBodyIds();
+
+    // ── CSV download ──────────────────────────────────────────────────────────
+    console.log('\n📥 Downloading meeting schedule CSV...');
     const csvResponse = await fetch(CSV_URL);
     if (!csvResponse.ok) throw new Error(`HTTP ${csvResponse.status}`);
     const text = await csvResponse.text();
@@ -174,21 +170,25 @@ async function main() {
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
+    const todayStr = today.toISOString().slice(0, 10);
     const cutoff = new Date(today);
     cutoff.setDate(cutoff.getDate() + LOOKAHEAD_DAYS);
+    const earliest = new Date(today);
+    earliest.setDate(earliest.getDate() - LOOKBACK_DAYS);
 
     const meetings = [];
 
     for (const row of rows) {
         const committee = row['Committee'] || '';
-        if (!INCLUDED_COMMITTEES.has(committee)) continue;
+        // Include any committee that exists in TMMIS (covers all boards/committees)
+        if (!committee) continue;
 
         const dateStr = row['Date'] || '';
         if (!dateStr) continue;
 
         const date = new Date(dateStr + 'T12:00:00');
         if (isNaN(date.getTime())) continue;
-        if (date < today || date > cutoff) continue;
+        if (date < earliest || date > cutoff) continue;
 
         meetings.push({
             committee,
@@ -208,13 +208,27 @@ async function main() {
         return a.startTime.localeCompare(b.startTime);
     });
 
-    // ── Enrich with TMMIS agenda items ───────────────────────────────────────
+    // ── Enrich with TMMIS agenda items (skip if already fetched) ─────────────
 
-    console.log(`\n📋 Fetching agendas for ${meetings.length} upcoming meetings...`);
+    console.log(`\n📋 Fetching agendas for ${meetings.length} meetings (past ${LOOKBACK_DAYS}d → next ${LOOKAHEAD_DAYS}d)...`);
 
     for (const meeting of meetings) {
-        const decisionBodyId = DECISION_BODY_IDS[meeting.committee];
+        const decisionBodyId = decisionBodyIds[meeting.committee];
         if (!decisionBodyId || !meeting.meetingNumber) continue;
+
+        // Try to find an existing record we can reuse
+        // (we don't have meetingReference yet, so key by committee+date+number)
+        const tempKey = `${meeting.committee}|${meeting.date}|${meeting.meetingNumber}`;
+        const prior = existingByKey[tempKey];
+
+        // Carry forward existing agenda items for past meetings — no need to re-fetch
+        if (prior?.agendaItems?.length > 0 && meeting.date < todayStr) {
+            meeting.meetingId        = prior.meetingId;
+            meeting.meetingReference = prior.meetingReference;
+            meeting.agendaItems      = prior.agendaItems;
+            process.stdout.write(`   ${meeting.committee} #${meeting.meetingNumber} [cached ${prior.agendaItems.length} items]\n`);
+            continue;
+        }
 
         process.stdout.write(`   ${meeting.committee} #${meeting.meetingNumber}… `);
         try {
@@ -223,6 +237,16 @@ async function main() {
 
             meeting.meetingId = meta.meetingId;
             meeting.meetingReference = meta.meetingReference;
+
+            // Also rekey the prior lookup now that we have the reference
+            const refKey = meta.meetingReference;
+            const refPrior = existingByKey[refKey];
+            if (refPrior?.agendaItems?.length > 0 && meeting.date < todayStr) {
+                meeting.agendaItems = refPrior.agendaItems;
+                console.log(`[cached ${refPrior.agendaItems.length} items]`);
+                continue;
+            }
+
             const items = await getAgendaItems(meta.meetingId);
             meeting.agendaItems = items;
             console.log(`${items.length} items`);
@@ -237,11 +261,12 @@ async function main() {
     fs.writeFileSync(DATA_PATH, JSON.stringify(meetings, null, 2));
 
     const withAgenda = meetings.filter(m => m.agendaItems?.length > 0).length;
-    const councilCount = meetings.filter(m => m.isCouncil).length;
-    console.log(`\n✅ Written ${meetings.length} upcoming meetings (${withAgenda} with agendas)`);
-    console.log(`   ${councilCount} City Council meeting(s) in the next ${LOOKAHEAD_DAYS} days`);
-    console.log('\n📅 Next 5:');
-    meetings.slice(0, 5).forEach(m => console.log(`   ${m.date} — ${m.committee} (${m.agendaItems?.length ?? 0} agenda items)`));
+    const upcomingCount = meetings.filter(m => m.date >= todayStr).length;
+    const pastCount = meetings.length - upcomingCount;
+    console.log(`\n✅ Written ${meetings.length} meetings (${pastCount} past, ${upcomingCount} upcoming, ${withAgenda} with agendas)`);
+    console.log('\n📅 Next 5 upcoming:');
+    meetings.filter(m => m.date >= todayStr).slice(0, 5)
+      .forEach(m => console.log(`   ${m.date} — ${m.committee} (${m.agendaItems?.length ?? 0} agenda items)`));
 }
 
 main().catch(err => { console.error('❌', err.message); process.exit(1); });

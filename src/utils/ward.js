@@ -9,11 +9,15 @@ export async function fetchWardBoundaries() {
 
 export function extractWardId(props) {
   for (const key of ['AREA_SHORT_CODE', 'WARD_NUM', 'WARD', 'ward_num', 'ward']) {
-    if (props[key] != null) return String(props[key]);
+    if (props[key] != null) {
+      // Strip leading zeros so "01" matches "1"
+      const val = String(props[key]).replace(/^0+/, '');
+      return val || '0';
+    }
   }
   const name = props.AREA_NAME ?? props.area_name ?? '';
   const m = name.match(/\((\d+)\)/);
-  return m ? m[1] : null;
+  return m ? String(Number(m[1])) : null;
 }
 
 function pointInRing(point, ring) {
