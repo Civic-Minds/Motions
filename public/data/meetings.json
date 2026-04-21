@@ -1018,7 +1018,64 @@
     "isCouncil": false,
     "meetingId": 27278,
     "meetingReference": "2026.PB43",
-    "agendaItems": []
+    "agendaItems": [
+      {
+        "reference": "2026.PB43.1",
+        "title": "30-32 and 38-40 Huntley Street and 122-124 Isabella Street - Notice of Intention to Designate a Property under Part IV, Section 29 of the Ontario Heritage Act",
+        "wards": "13",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PB43.1"
+      },
+      {
+        "reference": "2026.PB43.2",
+        "title": "65 Heward Avenue - Notice of Intention to Designate a Property under Part IV, Section 29 of the Ontario Heritage Act",
+        "wards": "14",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PB43.2"
+      },
+      {
+        "reference": "2026.PB43.3",
+        "title": "Property Included on the City's Heritage Register - Consideration of Objection for 1767 Bayview Avenue, 1773 Bayview Avenue and 73 Niagara Street",
+        "wards": "10",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PB43.3"
+      },
+      {
+        "reference": "2026.PB43.4",
+        "title": "958 Broadview Avenue - Alterations to a Heritage Property under Section 33 of the Ontario Heritage Act and Authority to Amend a Heritage Easement Agreement",
+        "wards": "14",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PB43.4"
+      },
+      {
+        "reference": "2026.PB43.5",
+        "title": "17-19, 23 and 25 Toronto Street and 55 Adelaide Street East - Alterations to Heritage Properties, Demolition of a Building within the St. Lawrence Neighbourhood Heritage Conservation District, Approval of a Replacement Building and Authority to Enter into a Heritage Easement Agreement",
+        "wards": "13",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PB43.5"
+      },
+      {
+        "reference": "2026.PB43.6",
+        "title": "54 - 66 Fraser Avenue and 68 Fraser Avenue (147 Liberty Street) - Alterations to a Designated Heritage Property, Demolition of Heritage Attributes and the Demolition of a Building under Sections 33, 34(1)1 and 34(1)2 of the Ontario Heritage Act - Refusal",
+        "wards": "10",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PB43.6"
+      },
+      {
+        "reference": "2026.PB43.7",
+        "title": "Liberty Village Cultural Heritage Resource Assessment - Final Report",
+        "wards": "10",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PB43.7"
+      },
+      {
+        "reference": "2026.PB43.8",
+        "title": "2026 Toronto Heritage Grant Awards - Second Round",
+        "wards": "11, 13",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PB43.8"
+      }
+    ]
   },
   {
     "committee": "FIFA World Cup 2026 Subcommittee",
@@ -1415,7 +1472,127 @@
     "isCouncil": false,
     "meetingId": 27223,
     "meetingReference": "2026.SC31",
-    "agendaItems": []
+    "agendaItems": [
+      {
+        "reference": "2026.SC31.1",
+        "title": "3307 and 3313 Ellesmere Road - Official Plan Amendment and Zoning By-law Amendment - Decision Report - Approval",
+        "wards": "25",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SC31.1"
+      },
+      {
+        "reference": "2026.SC31.2",
+        "title": "3718 and 3730 Kingston Road - Zoning By-law Amendment - Decision Report - Approval",
+        "wards": "24",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SC31.2"
+      },
+      {
+        "reference": "2026.SC31.3",
+        "title": "1710 and 1712 Ellesmere Road - Official Plan Amendment, Zoning By-law Amendment and Draft Plan of Subdivision Applications - Decision Report - Approval",
+        "wards": "24",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SC31.3"
+      },
+      {
+        "reference": "2026.SC31.4",
+        "title": "3000, 3004, 3008, 3012 and 3020 Kennedy Road - Draft Plan of Subdivision Application - Decision Report - Approval",
+        "wards": "22",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SC31.4"
+      },
+      {
+        "reference": "2026.SC31.5",
+        "title": "3130 and 3150 Danforth Avenue - Zoning By-law Amendment Application - Decision Report - Approval",
+        "wards": "20",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SC31.5"
+      },
+      {
+        "reference": "2026.SC31.6",
+        "title": "614 Danforth Road - Zoning By-law Amendment - Decision Report - Refusal",
+        "wards": "20",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SC31.6"
+      },
+      {
+        "reference": "2026.SC31.7",
+        "title": "Changes to the Kennedy Road Business Improvement Area Board of Management",
+        "wards": "21, 22",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SC31.7"
+      },
+      {
+        "reference": "2026.SC31.8",
+        "title": "226 Scarboro Crescent - Application to Remove a Private Tree",
+        "wards": "20",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SC31.8"
+      },
+      {
+        "reference": "2026.SC31.9",
+        "title": "2 Fairfax Crescent - Application to Remove a Private Tree",
+        "wards": "20",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SC31.9"
+      },
+      {
+        "reference": "2026.SC31.10",
+        "title": "Naming of a Proposed Private Street for a Development at 253 Markham Road, 12, 20 and 30 Dunelm Street",
+        "wards": "24",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SC31.10"
+      },
+      {
+        "reference": "2026.SC31.11",
+        "title": "777 Victoria Park Avenue - Construction Staging Area",
+        "wards": "20",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SC31.11"
+      },
+      {
+        "reference": "2026.SC31.12",
+        "title": "Metrolinx Scarborough Subway Extension - Temporary Traffic Modifications and Public Highway Dedications - Kennedy Station Connection, Emergency Exit Building-3, and Scarborough Centre Station",
+        "wards": "20, 21, 23, 24",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SC31.12"
+      },
+      {
+        "reference": "2026.SC31.13",
+        "title": "Metrolinx GO Expansion Program - Reconstruction of Birchmount Road Bridge - Temporary Road Closures and Transportation Impacts",
+        "wards": "20",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SC31.13"
+      },
+      {
+        "reference": "2026.SC31.14",
+        "title": "Scarborough Village Streets Plan",
+        "wards": "20, 24",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SC31.14"
+      },
+      {
+        "reference": "2026.SC31.15",
+        "title": "Scarborough Golf Club Road from Kingston Road to Hill Crescent / Guildcrest Drive - Traffic Calming (Speed Humps)",
+        "wards": "24",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SC31.15"
+      },
+      {
+        "reference": "2026.SC31.16",
+        "title": "Ingleton Boulevard (Alton Towers Neighbourhood Connections) - Traffic Calming (Speed Humps)",
+        "wards": "23",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SC31.16"
+      },
+      {
+        "reference": "2026.SC31.17",
+        "title": "Nashdene Road and Tiffield Road - All-Way Stop Control",
+        "wards": "23",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SC31.17"
+      }
+    ]
   },
   {
     "committee": "Toronto and East York Community Council",
@@ -1428,7 +1605,281 @@
     "isCouncil": false,
     "meetingId": 27159,
     "meetingReference": "2026.TE32",
-    "agendaItems": []
+    "agendaItems": [
+      {
+        "reference": "2026.TE32.1",
+        "title": "Naming of a Public Lane Located South of Deforest Road, extending West from Durie Street",
+        "wards": "4",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.1"
+      },
+      {
+        "reference": "2026.TE32.2",
+        "title": "Naming of an existing Public Lane South of King Street West, extending between Cowan Avenue and Spencer Avenue",
+        "wards": "4",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.2"
+      },
+      {
+        "reference": "2026.TE32.3",
+        "title": "Naming of a Public Lane West of Grace Street, extending between Harbord Street and North of College Street",
+        "wards": "11",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.3"
+      },
+      {
+        "reference": "2026.TE32.4",
+        "title": "Naming of the extension of Augusta Avenue, South of Dundas Street West, Described as Block 3 on 66M-2582",
+        "wards": "10",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.4"
+      },
+      {
+        "reference": "2026.TE32.5",
+        "title": "1233 Yonge Street and 9 Woodlawn Avenue East - Official Plan and Zoning By-law Amendment Application - Decision Report - Approval",
+        "wards": "11",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.5"
+      },
+      {
+        "reference": "2026.TE32.6",
+        "title": "1233 Yonge Street and 9 Woodlawn Avenue East - Rental Housing Demolition Application - Decision Report - Approval",
+        "wards": "11",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.6"
+      },
+      {
+        "reference": "2026.TE32.7",
+        "title": "221, 225 and 227 Sterling Road - Rental Housing Demolition Application - Decision Report - Approval",
+        "wards": "9",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.7"
+      },
+      {
+        "reference": "2026.TE32.8",
+        "title": "221, 225 and 227 Sterling Road - Community Benefits Charge In-Kind Contribution",
+        "wards": "9",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.8"
+      },
+      {
+        "reference": "2026.TE32.9",
+        "title": "390, 394, 396 and 398 Spadina Road - Zoning By-law Amendment Application - Decision Report - Approval",
+        "wards": "12",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.9"
+      },
+      {
+        "reference": "2026.TE32.10",
+        "title": "17-19, 23 and 25 Toronto Street and 55 and 57 Adelaide Street East - Zoning By-law Amendment Application - Decision Report - Approval",
+        "wards": "13",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.10"
+      },
+      {
+        "reference": "2026.TE32.11",
+        "title": "17-19, 23 and 25 Toronto Street and 55 Adelaide Street East - Alterations to Heritage Properties, Demolition of a Building within the St. Lawrence Neighbourhood Heritage Conservation District, Approval of a Replacement Building and Authority to Enter into a Heritage Easement Agreement",
+        "wards": "13",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.11"
+      },
+      {
+        "reference": "2026.TE32.12",
+        "title": "954, 956 and 958 Broadview Avenue and 72 Chester Hill Road - Official Plan Amendment and Zoning By-law Amendment Application - Decision Report - Approval",
+        "wards": "14",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.12"
+      },
+      {
+        "reference": "2026.TE32.13",
+        "title": "958 Broadview Avenue - Alterations to a Heritage Property under Section 33 of the Ontario Heritage Act and Authority to Amend a Heritage Easement Agreement",
+        "wards": "14",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.13"
+      },
+      {
+        "reference": "2026.TE32.14",
+        "title": "26 to 36 Mountview Avenue and 21 to 29 Oakmount Road - Official Plan and Zoning By-law Amendment - Appeal Report",
+        "wards": "4",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.14"
+      },
+      {
+        "reference": "2026.TE32.15",
+        "title": "257, 259 and 291 Lake Shore Boulevard East, 2 Small Street and 200 Queens Quay East - Class 4 Noise Area Classification (NPC-300)",
+        "wards": "10",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.15"
+      },
+      {
+        "reference": "2026.TE32.16",
+        "title": "54 - 66 Fraser Avenue and 68 Fraser Avenue (147 Liberty Street) - Alterations to a Designated Heritage Property, Demolition of Heritage Attributes and the Demolition of a Building under Sections 33, 34(1)1 and 34(1)2 of the Ontario Heritage Act - Refusal",
+        "wards": "10",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.16"
+      },
+      {
+        "reference": "2026.TE32.17",
+        "title": "55 Grange Avenue - Residential Demolition Application",
+        "wards": "10",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.17"
+      },
+      {
+        "reference": "2026.TE32.18",
+        "title": "183, 185, 187 and 195 St. Clair Avenue West and 273 Poplar Plains Road - Residential Demolition Applications",
+        "wards": "12",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.18"
+      },
+      {
+        "reference": "2026.TE32.19",
+        "title": "295 Woodfield Road - Application for Fence Exemption",
+        "wards": "14",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.19"
+      },
+      {
+        "reference": "2026.TE32.20",
+        "title": "54 Gormley Avenue - Application to Remove a City Owned Tree",
+        "wards": "12",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.20"
+      },
+      {
+        "reference": "2026.TE32.21",
+        "title": "40 Myrtle Avenue - Application to Remove a Private Tree",
+        "wards": "14",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.21"
+      },
+      {
+        "reference": "2026.TE32.22",
+        "title": "326 Durie Street - Application to Remove a City-Owned Tree",
+        "wards": "4",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.22"
+      },
+      {
+        "reference": "2026.TE32.23",
+        "title": "Changes to Business Improvement Area Boards of Management",
+        "wards": "9, 10, 11, 12, 13, 14",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.23"
+      },
+      {
+        "reference": "2026.TE32.24",
+        "title": "914 Bathurst Street - Construction Staging Area",
+        "wards": "11",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.24"
+      },
+      {
+        "reference": "2026.TE32.25",
+        "title": "Spadina Road, between Lowther Avenue and Kendal Avenue - Toronto Transit Commission Subway Ventilation Equipment Replacement - Construction Staging Area",
+        "wards": "11",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.25"
+      },
+      {
+        "reference": "2026.TE32.26",
+        "title": "83-97 River Street and 2-4 Labatt Avenue - Construction Staging Area Time Extension",
+        "wards": "13",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.26"
+      },
+      {
+        "reference": "2026.TE32.27",
+        "title": "363-391 Yonge Street - Construction Staging Area Time Extension",
+        "wards": "13",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.27"
+      },
+      {
+        "reference": "2026.TE32.28",
+        "title": "16 Afton Avenue - Encroachment Appeal - Various Encroachments",
+        "wards": "9",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.28"
+      },
+      {
+        "reference": "2026.TE32.29",
+        "title": "33 Yorkville Avenue - Amendment to Pedestrian Tunnel Encroachment Agreement",
+        "wards": "11",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.29"
+      },
+      {
+        "reference": "2026.TE32.30",
+        "title": "150 Sterling Road - Designation of Fire Routes and amendment to Chapter 880 - Fire Routes",
+        "wards": "9",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.30"
+      },
+      {
+        "reference": "2026.TE32.31",
+        "title": "Safety Improvements on Davenport Road, Cottingham Road, Poplar Plains Road and Macpherson Avenue",
+        "wards": "12",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.31"
+      },
+      {
+        "reference": "2026.TE32.32",
+        "title": "Traffic Management in Ward 14 related to the King Street East and Church Street Intersection Project",
+        "wards": "14",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.32"
+      },
+      {
+        "reference": "2026.TE32.33",
+        "title": "Accessible Parking Spaces - April 30, 2026 (Delegated)",
+        "wards": "4, 9, 11, 14, 19",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.33"
+      },
+      {
+        "reference": "2026.TE32.34",
+        "title": "On-Street Electric Vehicle Charging Stations on Prince Arthur Avenue - Parking Amendments (Delegated Locations)",
+        "wards": "11",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.34"
+      },
+      {
+        "reference": "2026.TE32.35",
+        "title": "Sorauren Avenue and Marion Street - Compulsory Stop Control",
+        "wards": "4",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.35"
+      },
+      {
+        "reference": "2026.TE32.36",
+        "title": "Traffic Improvements: Left Turn Prohibition-Bathurst Street and Albert Wiggan Lane",
+        "wards": "12",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.36"
+      },
+      {
+        "reference": "2026.TE32.37",
+        "title": "Traffic Calming (Speed Humps) - Various Streets in Ward 4",
+        "wards": "4",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.37"
+      },
+      {
+        "reference": "2026.TE32.38",
+        "title": "Public lane west of Crawford Street and north of Harbord Street, between Harbord Street and the second lane south of Bloor Street West, west of Crawford Street - Speed Bumps",
+        "wards": "11",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.38"
+      },
+      {
+        "reference": "2026.TE32.39",
+        "title": "Lake Shore Boulevard East and Woodbine Avenue - Backlit Chevron Pilot Update",
+        "wards": "19",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.39"
+      }
+    ]
   },
   {
     "committee": "Audit Committee",
