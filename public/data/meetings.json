@@ -1,89 +1,5 @@
 [
   {
-    "committee": "Property Standards - Scarborough Panel",
-    "date": "2025-04-22",
-    "displayDate": "Tue, Apr 22, 2025",
-    "startTime": "09:30 AM",
-    "endTime": "18:00 PM",
-    "location": "Video Conference",
-    "meetingNumber": 17,
-    "isCouncil": false,
-    "meetingId": 26531,
-    "meetingReference": "2025.SX17",
-    "agendaItems": [
-      {
-        "reference": "2025.SX17.1",
-        "title": "93 Heale Avenue - Appeal of Property Standards Order - Folder 25 123799 PRS 00 IV",
-        "wards": "20",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.SX17.1"
-      },
-      {
-        "reference": "2025.SX17.2",
-        "title": "1343 Warden Avenue - Appeal of Property Standards Order - Folder Number 25 124406 PRS 00 IV",
-        "wards": "21",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.SX17.2"
-      }
-    ]
-  },
-  {
-    "committee": "CreateTO",
-    "date": "2025-04-22",
-    "displayDate": "Tue, Apr 22, 2025",
-    "startTime": "13:30 PM",
-    "endTime": "18:00 PM",
-    "location": "Committee Room 1, City Hall",
-    "meetingNumber": 18,
-    "isCouncil": false,
-    "meetingId": 26086,
-    "meetingReference": "2025.RA18",
-    "agendaItems": [
-      {
-        "reference": "2025.RA18.1",
-        "title": "705 Progress Avenue - City-initiated Development Master Plan and Planning Approval Process",
-        "wards": "24",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.RA18.1"
-      },
-      {
-        "reference": "2025.RA18.2",
-        "title": "Old City Hall - Future Uses Analysis",
-        "wards": "13",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.RA18.2"
-      },
-      {
-        "reference": "2025.RA18.3",
-        "title": "Request for Information on Public Consultations Regarding the City's Policy Framework - City Response to Demonstrations - Status Update",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.RA18.3"
-      },
-      {
-        "reference": "2025.RA18.4",
-        "title": "Housing Progress Update",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.RA18.4"
-      },
-      {
-        "reference": "2025.RA18.5",
-        "title": "CreateTO 2024 Financial Results",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.RA18.5"
-      },
-      {
-        "reference": "2025.RA18.6",
-        "title": "First Quarter 2025 Financial Results",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.RA18.6"
-      }
-    ]
-  },
-  {
     "committee": "City Council",
     "date": "2025-04-23",
     "displayDate": "Wed, Apr 23, 2025",
@@ -50842,7 +50758,7 @@
         "reference": "2026.EX30.11",
         "title": "Fighting for the Scarborough East Rapid Transit Line",
         "wards": "All",
-        "inCamera": false,
+        "inCamera": true,
         "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX30.11"
       },
       {
@@ -50851,6 +50767,20 @@
         "wards": "9",
         "inCamera": false,
         "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX30.12"
+      },
+      {
+        "reference": "2026.CA34.2",
+        "title": "Appointment of Public Members to the Toronto Zoo Board",
+        "wards": "All",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CA34.2"
+      },
+      {
+        "reference": "2026.CA34.3",
+        "title": "Appointment of a Public Member to the Exhibition Place Board",
+        "wards": "All",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CA34.3"
       },
       {
         "reference": "2026.NC28.1",
@@ -51064,7 +50994,7 @@
       },
       {
         "reference": "2026.PH29.4",
-        "title": "RentSafeTO Update Report",
+        "title": "RentSafeTO Update",
         "wards": "All",
         "inCamera": false,
         "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH29.4"
@@ -51782,6 +51712,76 @@
         "wards": "All",
         "inCamera": false,
         "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.32"
+      },
+      {
+        "reference": "2026.MM40.33",
+        "title": "State of Good Repair at the Jarvis and Sherbourne Underpasses Within the Union Station Rail Corridor - by Deputy Mayor Ausma Malik, seconded by Councillor Jamaal Myers",
+        "wards": "10",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.33"
+      },
+      {
+        "reference": "2026.MM40.34",
+        "title": "Authorization to Release Section 42 Funds for Advancing Safety Improvements Through an Upgraded Playground Structure at Canoe Landing - by Deputy Mayor Ausma Malik, seconded by Councillor Amber Morley",
+        "wards": "10",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.34"
+      },
+      {
+        "reference": "2026.MM40.35",
+        "title": "Amending Item 2025.TE19.8 - 1 to 19 Thelma Avenue - Rental Housing Demolition Application - Decision Report - Approval - by Councillor Josh Matlow, seconded by Councillor Mike Colle",
+        "wards": "12",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.35"
+      },
+      {
+        "reference": "2026.MM40.36",
+        "title": "Community Mailboxes: Protecting our Public Space - by Councillor Josh Matlow, seconded by Councillor Rachel Chernos Lin",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.36"
+      },
+      {
+        "reference": "2026.MM40.37",
+        "title": "109 Knox Avenue - Request for City Solicitor to Attend at the Toronto Local Appeal Body - by Councillor Paula Fletcher, seconded by Councillor Alejandra Bravo",
+        "wards": "14",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.37"
+      },
+      {
+        "reference": "2026.MM40.38",
+        "title": "Improving Communication for Planned Cinematic “Shock and Awe” Explosion and Fireball Effects in Movie Production near Local Neighbourhoods: Lessons Learned from Downsview - by Councillor James Pasternak, seconded by Councillor Anthony Perruzza",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.38"
+      },
+      {
+        "reference": "2026.MM40.39",
+        "title": "Requesting an Equitable Approach to the Canada Post Community Mailbox Conversions in Ward 1 - by Councillor Vincent Crisanti, seconded by Councillor Stephen Holyday",
+        "wards": "1",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.39"
+      },
+      {
+        "reference": "2026.MM40.40",
+        "title": "Starting Construction of the Waterfront East Rapid Transit Line in 2026 - by Mayor Olivia Chow, seconded by Deputy Mayor Ausma Malik",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.40"
+      },
+      {
+        "reference": "2026.MM40.41",
+        "title": "Authorization to Release Section 37 Funds to Midtown Yonge Business Improvement Area for Implementation Two Interactive Public Murals at 2075 Yonge Street and 1980 Yonge Street - by Councillor Josh Matlow, seconded by Councillor Mike Colle",
+        "wards": "8, 12",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.41"
+      },
+      {
+        "reference": "2026.BL40.1",
+        "title": "Introduction of General Bills and Confirming Bills",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.BL40.1"
       }
     ]
   },
@@ -51906,7 +51906,7 @@
         "reference": "2026.EX30.11",
         "title": "Fighting for the Scarborough East Rapid Transit Line",
         "wards": "All",
-        "inCamera": false,
+        "inCamera": true,
         "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX30.11"
       },
       {
@@ -51915,6 +51915,20 @@
         "wards": "9",
         "inCamera": false,
         "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX30.12"
+      },
+      {
+        "reference": "2026.CA34.2",
+        "title": "Appointment of Public Members to the Toronto Zoo Board",
+        "wards": "All",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CA34.2"
+      },
+      {
+        "reference": "2026.CA34.3",
+        "title": "Appointment of a Public Member to the Exhibition Place Board",
+        "wards": "All",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CA34.3"
       },
       {
         "reference": "2026.NC28.1",
@@ -52128,7 +52142,7 @@
       },
       {
         "reference": "2026.PH29.4",
-        "title": "RentSafeTO Update Report",
+        "title": "RentSafeTO Update",
         "wards": "All",
         "inCamera": false,
         "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH29.4"
@@ -52846,6 +52860,76 @@
         "wards": "All",
         "inCamera": false,
         "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.32"
+      },
+      {
+        "reference": "2026.MM40.33",
+        "title": "State of Good Repair at the Jarvis and Sherbourne Underpasses Within the Union Station Rail Corridor - by Deputy Mayor Ausma Malik, seconded by Councillor Jamaal Myers",
+        "wards": "10",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.33"
+      },
+      {
+        "reference": "2026.MM40.34",
+        "title": "Authorization to Release Section 42 Funds for Advancing Safety Improvements Through an Upgraded Playground Structure at Canoe Landing - by Deputy Mayor Ausma Malik, seconded by Councillor Amber Morley",
+        "wards": "10",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.34"
+      },
+      {
+        "reference": "2026.MM40.35",
+        "title": "Amending Item 2025.TE19.8 - 1 to 19 Thelma Avenue - Rental Housing Demolition Application - Decision Report - Approval - by Councillor Josh Matlow, seconded by Councillor Mike Colle",
+        "wards": "12",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.35"
+      },
+      {
+        "reference": "2026.MM40.36",
+        "title": "Community Mailboxes: Protecting our Public Space - by Councillor Josh Matlow, seconded by Councillor Rachel Chernos Lin",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.36"
+      },
+      {
+        "reference": "2026.MM40.37",
+        "title": "109 Knox Avenue - Request for City Solicitor to Attend at the Toronto Local Appeal Body - by Councillor Paula Fletcher, seconded by Councillor Alejandra Bravo",
+        "wards": "14",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.37"
+      },
+      {
+        "reference": "2026.MM40.38",
+        "title": "Improving Communication for Planned Cinematic “Shock and Awe” Explosion and Fireball Effects in Movie Production near Local Neighbourhoods: Lessons Learned from Downsview - by Councillor James Pasternak, seconded by Councillor Anthony Perruzza",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.38"
+      },
+      {
+        "reference": "2026.MM40.39",
+        "title": "Requesting an Equitable Approach to the Canada Post Community Mailbox Conversions in Ward 1 - by Councillor Vincent Crisanti, seconded by Councillor Stephen Holyday",
+        "wards": "1",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.39"
+      },
+      {
+        "reference": "2026.MM40.40",
+        "title": "Starting Construction of the Waterfront East Rapid Transit Line in 2026 - by Mayor Olivia Chow, seconded by Deputy Mayor Ausma Malik",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.40"
+      },
+      {
+        "reference": "2026.MM40.41",
+        "title": "Authorization to Release Section 37 Funds to Midtown Yonge Business Improvement Area for Implementation Two Interactive Public Murals at 2075 Yonge Street and 1980 Yonge Street - by Councillor Josh Matlow, seconded by Councillor Mike Colle",
+        "wards": "8, 12",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM40.41"
+      },
+      {
+        "reference": "2026.BL40.1",
+        "title": "Introduction of General Bills and Confirming Bills",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.BL40.1"
       }
     ]
   },
@@ -53658,7 +53742,36 @@
     "isCouncil": false,
     "meetingId": 27976,
     "meetingReference": "2026.SY28",
-    "agendaItems": []
+    "agendaItems": [
+      {
+        "reference": "2026.SY28.1",
+        "title": "2818 Bayview Avenue - Appeal of Property Standards Order - Folder Number: 26 111236 PRS 00 IV",
+        "wards": "18",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SY28.1"
+      },
+      {
+        "reference": "2026.SY28.2",
+        "title": "34 St. Dennis Drive, 102 - Appeal of Property Standards Order - Folder Number: 26 106720 PRS 00 IV",
+        "wards": "16",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SY28.2"
+      },
+      {
+        "reference": "2026.SY28.3",
+        "title": "1 Walder Avenue  - Appeal of Property Standards Order - Folder Number 26 116561 PRS 00 IV",
+        "wards": "15",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SY28.3"
+      },
+      {
+        "reference": "2026.SY28.4",
+        "title": "24 Mission Drive -  Appeal of Property Standards Order - Folder Number 25 268890 PRS 00 IV",
+        "wards": "16",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SY28.4"
+      }
+    ]
   },
   {
     "committee": "Toronto Zoo",
@@ -53671,7 +53784,85 @@
     "isCouncil": false,
     "meetingId": 27572,
     "meetingReference": "2026.ZB21",
-    "agendaItems": []
+    "agendaItems": [
+      {
+        "reference": "2026.ZB21.1",
+        "title": "Public Appointments to the Board",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.ZB21.1"
+      },
+      {
+        "reference": "2026.ZB21.2",
+        "title": "Toronto Zoo Operational Update",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.ZB21.2"
+      },
+      {
+        "reference": "2026.ZB21.3",
+        "title": "Request for Extension of 3-Year Strategic Plan",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.ZB21.3"
+      },
+      {
+        "reference": "2026.ZB21.4",
+        "title": "Community Conservation Centre Design-Build Retail Increase in Commitment",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.ZB21.4"
+      },
+      {
+        "reference": "2026.ZB21.5",
+        "title": "Toronto Zoo Creative and Media Buying Services - Award",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.ZB21.5"
+      },
+      {
+        "reference": "2026.ZB21.6",
+        "title": "Toronto Zoo Responsible, Secure and Effective Use of AI Tools and Technology Policy",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.ZB21.6"
+      },
+      {
+        "reference": "2026.ZB21.7",
+        "title": "Toronto Zoo Social Procurement Policy - First-Year Update",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.ZB21.7"
+      },
+      {
+        "reference": "2026.ZB21.8",
+        "title": "2025 Sustainability Report",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.ZB21.8"
+      },
+      {
+        "reference": "2026.ZB21.9",
+        "title": "Attendance and Revenue Report - March 2026",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.ZB21.9"
+      },
+      {
+        "reference": "2026.ZB21.10",
+        "title": "2025 Disposal of Surplus Property",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.ZB21.10"
+      },
+      {
+        "reference": "2026.ZB21.11",
+        "title": "Electrical Infrastructure Improvements for the Lantern Festival Project - Request for Proposal Award",
+        "wards": "All",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.ZB21.11"
+      }
+    ]
   },
   {
     "committee": "Scarborough Community Council",
@@ -55612,6 +55803,32 @@
     "isCouncil": false,
     "meetingId": 27574,
     "meetingReference": "2026.ZB24",
+    "agendaItems": []
+  },
+  {
+    "committee": "Property Standards - Toronto and East York Panel",
+    "date": "2026-10-19",
+    "displayDate": "Mon, Oct 19, 2026",
+    "startTime": "09:30 AM",
+    "endTime": "18:00 PM",
+    "location": "Video Conference",
+    "meetingNumber": 46,
+    "isCouncil": false,
+    "meetingId": 27973,
+    "meetingReference": "2026.SZ46",
+    "agendaItems": []
+  },
+  {
+    "committee": "Toronto Parking Authority",
+    "date": "2026-10-19",
+    "displayDate": "Mon, Oct 19, 2026",
+    "startTime": "09:30 AM",
+    "endTime": "18:00 PM",
+    "location": "Committee Room 1, City Hall",
+    "meetingNumber": 21,
+    "isCouncil": false,
+    "meetingId": 27373,
+    "meetingReference": "2026.PA21",
     "agendaItems": []
   }
 ]
