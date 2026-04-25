@@ -24,10 +24,11 @@ I'm continuing work on **Motions** — a Toronto City Council voting transparenc
 5. `scripts/rank_notability.js` — *(planned)* pairwise notability ranking via Gemini quicksort. Writes `notabilityRank` field. Run after summaries are complete.
 6. `scripts/geocode_addresses.js` — extracts street addresses from titles, geocodes via Nominatim (free, no key), stores `locations: [{address, lat, lng}]`. Rate-limited to 1.1s/request.
 7. `scripts/strip_body.js` — removes `body` field from all motions before committing (body is pipeline-only, not needed in the browser)
+8. `scripts/fetch_meetings.js` — fetches all TMMIS decision bodies dynamically (no hardcoded list), pulls 365d past + 180d future meetings with agenda items. Merge-on-rerun: preserves existing past agendas, only re-fetches new/upcoming ones.
 
 **Key data files:**
 - `public/data/motions.json` — 1,288 motions (926 primary + 362 sub-entries)
-- `public/data/meetings.json` — upcoming 90 days of meetings, refreshed daily by GitHub Actions
+- `public/data/meetings.json` — 520 meetings (383 past, 137 upcoming), all 76 TMMIS committees/boards, 397 with agendas. Refreshed daily by GitHub Actions.
 - `public/data/councillors.json` — 26 councillors (name, ward, email, phone, slug)
 - `public/data/tenure.json` — first elected year + term list per councillor
 - `public/data/wards.geojson` — Toronto ward boundaries for geolocation
@@ -43,16 +44,29 @@ I'm continuing work on **Motions** — a Toronto City Council voting transparenc
 - `/councillors` — CouncillorList grid (highlights "Your Councillor" if ward is saved)
 - `/councillors/:slug` — CouncillorProfile full page (committees, voting DNA, sort/filter controls, VS button)
 - `/councillors/:slug/vs/:slug2` — VersusOverlay comparison
-- `/committees` — CommitteesView (grid of all committees with stats)
-- `/committees/:slug` — committee detail with upcoming meetings + motion list + member pills
+- `/committees` — CommitteesView (committee grid with motion stats + "Boards & Other Bodies" section for meetings-only bodies)
+- `/committees/:slug` — committee detail with upcoming meetings + motion list + member pills; also handles meetings-only bodies (boards/advisory committees) that appear in meetings.json but not motions
+- `/meetings` — MeetingsListView (all meetings, grouped by month, filterable by time/type/committee)
+- `/meetings/:ref` — individual meeting detail page
 - `/wards` — WardGrid
+- `/wards/:id` — ward detail with map (uses GeoJSON; extractWardId strips leading zeros so "01" matches "1")
 
-## Current data state (as of April 14, 2026)
+**Global search (⌘K):**
+- `src/components/GlobalSearch.jsx` — Fuse.js fuzzy search across motions, councillors, and committees
+- Weighted keys: title (0.5), summary (0.3), committee (0.1), topic (0.1); threshold 0.35
+- Results grouped: Councillors (3), Committees (2), Motions (6)
+- Keyboard nav: ↑↓ arrows, Enter to select, Escape to close
+
+**Meeting type badges (`MeetingsListView.getTypeBadge`):**
+10 badge types in priority order: Council, Community Council, Transit, Appointments, Boards, Finance, Planning, Health, Advisory, Governance. Order matters — Appointments check before Finance (avoids "Compliance Audit Committee" → Finance collision); Boards before Finance (avoids "TO Live Finance & Audit" → Finance collision).
+
+## Current data state (as of April 20, 2026)
 
 - 1,288 total motions in motions.json
 - **926 primary motions all scraped** (body text ready in local motions.json, not committed)
 - **0 summaries** — GitHub Actions daily run wiped them before they were committed. Fix is now in place (import preserves enriched fields going forward).
 - **Summaries need to be regenerated** — run `generate_summaries.js` on a stable internet connection. ~2.5 hours at 10s/request.
+- 520 meetings across 76 TMMIS decision bodies; 397 have agenda items fetched
 - `.env` file at project root with `GEMINI_API_KEY` — do not commit
 
 ## Pipeline — what's left to do
@@ -84,6 +98,17 @@ git push
 **Significance scoring:** The current keyword-based significance score is known to be over-inflated (common words like "transit" give +20pts). Pairwise notability ranking (`notabilityRank`) will replace it as the primary signal for surfacing notable motions. Frontend currently uses `significance >= 60` as the Notable threshold — this will be updated to use `notabilityRank` once available.
 
 **Ward 15:** Updated to Rachel Chernos Lin (won by-election November 4, 2024). Jaye Robinson remains in `FORMER_MEMBERS` for historical context.
+
+**meetings.json merge logic:** `fetch_meetings.js` keys meetings by `meetingReference || "{committee}|{date}|{number}"`. On re-run, past meetings with cached agendaItems are preserved without re-fetching — only new/upcoming meetings hit the TMMIS API. This keeps daily runs fast and avoids overwriting data.
+
+**SUPPL agenda items:** `publishTypeCd` filter was removed from `getAgendaItems()` — both `'MAIN'` and `'SUPPL'` types are included. Previously, boards like FIFA World Cup that only publish SUPPL items showed 0 agenda items.
+
+## Known remaining work / roadmap
+
+- Popular motions (upvoting via Upstash Redis) — deferred, needs backend
+- "Who's responsible?" jurisdiction tool — roadmap feature; maps issues to the right gov't body
+- Notability ranking script (`rank_notability.js`) — not yet written
+- GitHub Actions: `fetch_meetings.js` is not yet in the daily workflow (currently only `import_open_data.js` runs). Add it so meetings stay fresh automatically.
 
 ## Verify build before anything else
 

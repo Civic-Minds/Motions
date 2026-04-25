@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
+## [Unreleased]
+
+### Added
+- **Data refresh logging**: `import_open_data.js` and `fetch_meetings.js` now append a JSON line to `logs/data-refresh.log` after each run. Captures timestamp, motion/meeting counts, missing summary count, newest motion ID, and next upcoming meeting.
+
 ## [2.6.0] - 2026-04-21
 
 ### Added

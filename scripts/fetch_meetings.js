@@ -265,8 +265,22 @@ async function main() {
     const pastCount = meetings.length - upcomingCount;
     console.log(`\n✅ Written ${meetings.length} meetings (${pastCount} past, ${upcomingCount} upcoming, ${withAgenda} with agendas)`);
     console.log('\n📅 Next 5 upcoming:');
-    meetings.filter(m => m.date >= todayStr).slice(0, 5)
-      .forEach(m => console.log(`   ${m.date} — ${m.committee} (${m.agendaItems?.length ?? 0} agenda items)`));
+    const nextFive = meetings.filter(m => m.date >= todayStr).slice(0, 5);
+    nextFive.forEach(m => console.log(`   ${m.date} — ${m.committee} (${m.agendaItems?.length ?? 0} agenda items)`));
+
+    // Append to refresh log
+    const logLine = JSON.stringify({
+        ts: new Date().toISOString(),
+        script: 'fetch_meetings',
+        total: meetings.length,
+        past: pastCount,
+        upcoming: upcomingCount,
+        withAgenda,
+        nextMeeting: nextFive[0] ? { date: nextFive[0].date, committee: nextFive[0].committee } : null,
+    });
+    const logPath = path.join(process.cwd(), 'logs/data-refresh.log');
+    fs.mkdirSync(path.dirname(logPath), { recursive: true });
+    fs.appendFileSync(logPath, logLine + '\n');
 }
 
 main().catch(err => { console.error('❌', err.message); process.exit(1); });

@@ -533,6 +533,23 @@ async function main() {
     const top10 = [...motions].sort((a, b) => b.significance - a.significance).slice(0, 10);
     console.log('🔥 Top 10 by significance:');
     top10.forEach(m => console.log(`   [${m.significance}] ${m.date} — ${m.title.slice(0, 65)}`));
+
+    // Append to refresh log
+    const primaryMotions = motions.filter(m => !m.parentId);
+    const withSummary = primaryMotions.filter(m => m.summary).length;
+    const newest = primaryMotions[0];
+    const logLine = JSON.stringify({
+        ts: new Date().toISOString(),
+        script: 'import_open_data',
+        total: motions.length,
+        primary: primaryMotions.length,
+        withSummary,
+        missingSummary: primaryMotions.length - withSummary,
+        newestMotion: newest ? { id: newest.id, date: newest.date } : null,
+    });
+    const logPath = path.join(process.cwd(), 'logs/data-refresh.log');
+    fs.mkdirSync(path.dirname(logPath), { recursive: true });
+    fs.appendFileSync(logPath, logLine + '\n');
 }
 
 main().catch(err => { console.error('❌', err.message); process.exit(1); });
