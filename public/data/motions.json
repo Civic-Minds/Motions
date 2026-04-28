@@ -1,5 +1,27 @@
 [
   {
+    "id": "TTC14.18",
+    "date": "Apr 16, 2026",
+    "title": "Motion without Notice - Responding to Bill 98, Building Homes and Improving Transportation Infrastructure Act, 2026 - by Chair Jamaal Myers, seconded by Commissioner Alejandra Bravo",
+    "status": "Adopted",
+    "resultText": "Carried, 7-0",
+    "committee": "Toronto Transit Commission",
+    "topic": "General",
+    "trivial": true,
+    "significance": 0,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC14.18",
+    "votes": {
+      "Paul Ainslie": "ABSENT",
+      "Alejandra Bravo": "ABSENT",
+      "Ausma Malik": "YES",
+      "Josh Matlow": "YES",
+      "Jamaal Myers": "YES",
+      "Dianne Saxe": "YES"
+    },
+    "flags": []
+  },
+  {
     "id": "PH29.4",
     "date": "Apr 14, 2026",
     "title": "RentSafeTO Update",
@@ -22123,30 +22145,6 @@
     "keyAmounts": []
   },
   {
-    "id": "SC18.12",
-    "date": "Dec 6, 2024",
-    "title": "Metrolinx Scarborough Subway Extension - Long-term Temporary Road Closures and Public Highway Dedication - Kennedy Station Connection, Emergency Exit Building-1, and Lawrence East Station",
-    "status": "Adopted",
-    "resultText": "Carried, 6-0",
-    "committee": "Scarborough Community Council",
-    "topic": "Transit",
-    "trivial": true,
-    "significance": 20,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.SC18.12",
-    "votes": {
-      "Paul Ainslie": "YES",
-      "Parthi Kandavel": "YES",
-      "Nick Mantas": "YES",
-      "Jennifer McKelvie": "YES",
-      "Jamaal Myers": "YES",
-      "Michael Thompson": "YES"
-    },
-    "flags": [],
-    "summary": "To allow for continued construction of the Scarborough Subway Extension, City Council has approved several temporary road and sidewalk closures in Scarborough. Drivers and pedestrians in areas like McCowan Road and Eglinton Avenue East will experience disruptions and detours for periods lasting up to six years.",
-    "keyAmounts": []
-  },
-  {
     "id": "SC18.20",
     "date": "Dec 6, 2024",
     "title": "Renaming Rosebank Park in Memory of Councillor Cynthia Lai",
@@ -22297,6 +22295,30 @@
     },
     "flags": [],
     "summary": "Scarborough Community Council has approved the installation of 13 speed humps on Rouge Hills Drive, between Island Road and Lawrence Avenue East. This decision aims to improve road safety by reducing speeding, and also includes lowering the speed limit in this area from 40 km/h to 30 km/h.",
+    "keyAmounts": []
+  },
+  {
+    "id": "SC18.12",
+    "date": "Dec 6, 2024",
+    "title": "Metrolinx Scarborough Subway Extension - Long-term Temporary Road Closures and Public Highway Dedication - Kennedy Station Connection, Emergency Exit Building-1, and Lawrence East Station",
+    "status": "Adopted",
+    "resultText": "Carried, 6-0",
+    "committee": "Scarborough Community Council",
+    "topic": "Transit",
+    "trivial": true,
+    "significance": 20,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.SC18.12",
+    "votes": {
+      "Paul Ainslie": "YES",
+      "Parthi Kandavel": "YES",
+      "Nick Mantas": "YES",
+      "Jennifer McKelvie": "YES",
+      "Jamaal Myers": "YES",
+      "Michael Thompson": "YES"
+    },
+    "flags": [],
+    "summary": "To allow for continued construction of the Scarborough Subway Extension, City Council has approved several temporary road and sidewalk closures in Scarborough. Drivers and pedestrians in areas like McCowan Road and Eglinton Avenue East will experience disruptions and detours for periods lasting up to six years.",
     "keyAmounts": []
   },
   {
@@ -24644,29 +24666,6 @@
     "keyAmounts": []
   },
   {
-    "id": "NY18.12",
-    "date": "Oct 29, 2024",
-    "title": "230 and 240 The Donway West - Official Plan Amendment and Zoning Amendment Application - Decision Report - Approval",
-    "status": "Adopted",
-    "resultText": "Carried, 4-1",
-    "committee": "North York Community Council",
-    "topic": "Housing",
-    "trivial": false,
-    "significance": 35,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY18.12",
-    "votes": {
-      "Jon Burnside": "YES",
-      "Shelley Carroll": "YES",
-      "Lily Cheng": "NO",
-      "Mike Colle": "YES",
-      "James Pasternak": "YES"
-    },
-    "flags": [],
-    "summary": "New development is coming to 230 and 240 The Donway West after Toronto City Council approved changes to the area's Official Plan and zoning. This decision requires the developer to create a new public park spanning over 513 square metres, adding green space for local residents.",
-    "keyAmounts": []
-  },
-  {
     "id": "NY18.4",
     "date": "Oct 29, 2024",
     "title": "85 Helendale Avenue - Application to Remove a Private Tree",
@@ -24777,6 +24776,29 @@
     ],
     "motionType": "Amend Item",
     "parentId": "NY18.27"
+  },
+  {
+    "id": "NY18.12",
+    "date": "Oct 29, 2024",
+    "title": "230 and 240 The Donway West - Official Plan Amendment and Zoning Amendment Application - Decision Report - Approval",
+    "status": "Adopted",
+    "resultText": "Carried, 4-1",
+    "committee": "North York Community Council",
+    "topic": "Housing",
+    "trivial": false,
+    "significance": 35,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY18.12",
+    "votes": {
+      "Jon Burnside": "YES",
+      "Shelley Carroll": "YES",
+      "Lily Cheng": "NO",
+      "Mike Colle": "YES",
+      "James Pasternak": "YES"
+    },
+    "flags": [],
+    "summary": "New development is coming to 230 and 240 The Donway West after Toronto City Council approved changes to the area's Official Plan and zoning. This decision requires the developer to create a new public park spanning over 513 square metres, adding green space for local residents.",
+    "keyAmounts": []
   },
   {
     "id": "TE17.8",
@@ -28895,31 +28917,6 @@
     ]
   },
   {
-    "id": "NY15.4-refer-item",
-    "date": "Jul 9, 2024",
-    "title": "1875 Steeles Avenue West - Zoning By-law Amendment and Rental Housing Demolition and Conversion Applications - Decision Report - Approval",
-    "status": "Lost",
-    "resultText": "Lost, 1-4",
-    "committee": "North York Community Council",
-    "topic": "Housing",
-    "trivial": false,
-    "significance": 37,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY15.4",
-    "votes": {
-      "Jon Burnside": "NO",
-      "Shelley Carroll": "YES",
-      "Lily Cheng": "NO",
-      "Mike Colle": "NO",
-      "James Pasternak": "NO"
-    },
-    "flags": [
-      "defeated"
-    ],
-    "motionType": "Refer Item",
-    "parentId": "NY15.4"
-  },
-  {
     "id": "NY15.4",
     "date": "Jul 9, 2024",
     "title": "1875 Steeles Avenue West - Zoning By-law Amendment and Rental Housing Demolition and Conversion Applications - Decision Report - Approval",
@@ -28949,6 +28946,31 @@
         "lng": -79.4684736
       }
     ]
+  },
+  {
+    "id": "NY15.4-refer-item",
+    "date": "Jul 9, 2024",
+    "title": "1875 Steeles Avenue West - Zoning By-law Amendment and Rental Housing Demolition and Conversion Applications - Decision Report - Approval",
+    "status": "Lost",
+    "resultText": "Lost, 1-4",
+    "committee": "North York Community Council",
+    "topic": "Housing",
+    "trivial": false,
+    "significance": 37,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY15.4",
+    "votes": {
+      "Jon Burnside": "NO",
+      "Shelley Carroll": "YES",
+      "Lily Cheng": "NO",
+      "Mike Colle": "NO",
+      "James Pasternak": "NO"
+    },
+    "flags": [
+      "defeated"
+    ],
+    "motionType": "Refer Item",
+    "parentId": "NY15.4"
   },
   {
     "id": "NY15.30",
@@ -31407,30 +31429,6 @@
     "keyAmounts": []
   },
   {
-    "id": "SC14.18",
-    "date": "Jun 12, 2024",
-    "title": "Brimley Road and McNicoll Avenue - Intersection Safety Review",
-    "status": "Adopted",
-    "resultText": "Carried, 5-0",
-    "committee": "Scarborough Community Council",
-    "topic": "Transit",
-    "trivial": true,
-    "significance": 0,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.SC14.18",
-    "votes": {
-      "Paul Ainslie": "ABSENT",
-      "Parthi Kandavel": "YES",
-      "Nick Mantas": "YES",
-      "Jennifer McKelvie": "YES",
-      "Jamaal Myers": "YES",
-      "Michael Thompson": "YES"
-    },
-    "flags": [],
-    "summary": "City Council has approved a new traffic rule prohibiting eastbound right turns on a red light at the intersection of Brimley Road and McNicoll Avenue. This change aims to improve safety for all road users, including pedestrians, cyclists, and drivers, especially given that TTC transit operates through this busy Scarborough intersection.",
-    "keyAmounts": []
-  },
-  {
     "id": "SC14.5",
     "date": "Jun 12, 2024",
     "title": "4201 to 4203 Kingston Road and 120 Galloway Road -  Zoning Amendment Application - Decision Report - Approval",
@@ -31465,6 +31463,30 @@
         "lng": -79.1946488
       }
     ]
+  },
+  {
+    "id": "SC14.18",
+    "date": "Jun 12, 2024",
+    "title": "Brimley Road and McNicoll Avenue - Intersection Safety Review",
+    "status": "Adopted",
+    "resultText": "Carried, 5-0",
+    "committee": "Scarborough Community Council",
+    "topic": "Transit",
+    "trivial": true,
+    "significance": 0,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.SC14.18",
+    "votes": {
+      "Paul Ainslie": "ABSENT",
+      "Parthi Kandavel": "YES",
+      "Nick Mantas": "YES",
+      "Jennifer McKelvie": "YES",
+      "Jamaal Myers": "YES",
+      "Michael Thompson": "YES"
+    },
+    "flags": [],
+    "summary": "City Council has approved a new traffic rule prohibiting eastbound right turns on a red light at the intersection of Brimley Road and McNicoll Avenue. This change aims to improve safety for all road users, including pedestrians, cyclists, and drivers, especially given that TTC transit operates through this busy Scarborough intersection.",
+    "keyAmounts": []
   },
   {
     "id": "EY14.2",
@@ -36526,25 +36548,6 @@
     "keyAmounts": []
   },
   {
-    "id": "PB15.2-amend-item-additional",
-    "date": "Mar 18, 2024",
-    "title": "6 and 8 Cawthra Square - Notice of Intention to Designate a Property under Part IV, Section 29 of the Ontario Heritage Act",
-    "status": "Adopted",
-    "resultText": "Carried, 8-0",
-    "committee": "Toronto Preservation Board",
-    "topic": "Housing",
-    "trivial": true,
-    "significance": 12,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PB15.2",
-    "votes": {
-      "Parthi Kandavel": "ABSENT"
-    },
-    "flags": [],
-    "motionType": "Amend Item (Additional)",
-    "parentId": "PB15.2"
-  },
-  {
     "id": "PB15.2",
     "date": "Mar 18, 2024",
     "title": "6 and 8 Cawthra Square - Notice of Intention to Designate a Property under Part IV, Section 29 of the Ontario Heritage Act",
@@ -36570,6 +36573,25 @@
         "lng": -79.3793756
       }
     ]
+  },
+  {
+    "id": "PB15.2-amend-item-additional",
+    "date": "Mar 18, 2024",
+    "title": "6 and 8 Cawthra Square - Notice of Intention to Designate a Property under Part IV, Section 29 of the Ontario Heritage Act",
+    "status": "Adopted",
+    "resultText": "Carried, 8-0",
+    "committee": "Toronto Preservation Board",
+    "topic": "Housing",
+    "trivial": true,
+    "significance": 12,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PB15.2",
+    "votes": {
+      "Parthi Kandavel": "ABSENT"
+    },
+    "flags": [],
+    "motionType": "Amend Item (Additional)",
+    "parentId": "PB15.2"
   },
   {
     "id": "PB15.11",
@@ -36687,7 +36709,7 @@
     "date": "Feb 27, 2024",
     "title": "Congestion Management Plan 2023-2026 - Update",
     "status": "Adopted",
-    "resultText": "Carried, 4-1",
+    "resultText": "Carried, 3-2",
     "committee": "Infrastructure and Environment Committee",
     "topic": "General",
     "trivial": true,
@@ -36697,9 +36719,9 @@
     "votes": {
       "Mike Colle": "YES",
       "Jennifer McKelvie": "YES",
-      "Amber Morley": "NO",
+      "Amber Morley": "YES",
       "James Pasternak": "ABSENT",
-      "Anthony Perruzza": "YES",
+      "Anthony Perruzza": "NO",
       "Dianne Saxe": "YES"
     },
     "flags": [],
@@ -36796,6 +36818,40 @@
     ]
   },
   {
+    "id": "SC11.1",
+    "date": "Feb 16, 2024",
+    "title": "2157 to 2183 Lawrence Avenue East - Zoning Amendment Application - Decision Report - Approval",
+    "status": "Lost",
+    "resultText": "Lost (tie), 2-2",
+    "committee": "Scarborough Community Council",
+    "topic": "Housing",
+    "trivial": false,
+    "significance": 52,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.SC11.1",
+    "votes": {
+      "Paul Ainslie": "YES",
+      "Parthi Kandavel": "NO",
+      "Nick Mantas": "ABSENT",
+      "Jennifer McKelvie": "ABSENT",
+      "Jamaal Myers": "YES",
+      "Michael Thompson": "NO"
+    },
+    "flags": [
+      "defeated"
+    ],
+    "motionType": "Adopt Item",
+    "summary": "City Council has approved a zoning change for the properties located at 2157 to 2183 Lawrence Avenue East. This decision paves the way for new development on these lands, which will change the type and scale of buildings allowed in this part of Scarborough.",
+    "keyAmounts": [],
+    "locations": [
+      {
+        "address": "2157 to 2183 Lawrence Avenue East",
+        "lat": 43.747431,
+        "lng": -79.2845393
+      }
+    ]
+  },
+  {
     "id": "SC11.1-amend-item-additional",
     "date": "Feb 16, 2024",
     "title": "2157 to 2183 Lawrence Avenue East - Zoning Amendment Application - Decision Report - Approval",
@@ -36820,62 +36876,6 @@
     ],
     "motionType": "Amend Item (Additional)",
     "parentId": "SC11.1"
-  },
-  {
-    "id": "SC11.1",
-    "date": "Feb 16, 2024",
-    "title": "2157 to 2183 Lawrence Avenue East - Zoning Amendment Application - Decision Report - Approval",
-    "status": "Adopted",
-    "resultText": "Carried, 3-1",
-    "committee": "Scarborough Community Council",
-    "topic": "Housing",
-    "trivial": false,
-    "significance": 37,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.SC11.1",
-    "votes": {
-      "Paul Ainslie": "YES",
-      "Parthi Kandavel": "NO",
-      "Nick Mantas": "ABSENT",
-      "Jennifer McKelvie": "ABSENT",
-      "Jamaal Myers": "YES",
-      "Michael Thompson": "NO"
-    },
-    "flags": [],
-    "motionType": "Adopt Item",
-    "summary": "City Council has approved a zoning change for the properties located at 2157 to 2183 Lawrence Avenue East. This decision paves the way for new development on these lands, which will change the type and scale of buildings allowed in this part of Scarborough.",
-    "keyAmounts": [],
-    "locations": [
-      {
-        "address": "2157 to 2183 Lawrence Avenue East",
-        "lat": 43.747431,
-        "lng": -79.2845393
-      }
-    ]
-  },
-  {
-    "id": "SC11.10",
-    "date": "Feb 16, 2024",
-    "title": "Metrolinx Scarborough Subway Extension - Time Extension of Temporary Sidewalk Closure on McCowan Road",
-    "status": "Adopted",
-    "resultText": "Carried, 3-1",
-    "committee": "Scarborough Community Council",
-    "topic": "Transit",
-    "trivial": true,
-    "significance": 5,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.SC11.10",
-    "votes": {
-      "Paul Ainslie": "YES",
-      "Parthi Kandavel": "YES",
-      "Nick Mantas": "ABSENT",
-      "Jennifer McKelvie": "ABSENT",
-      "Jamaal Myers": "YES",
-      "Michael Thompson": "NO"
-    },
-    "flags": [],
-    "summary": "City Council has approved extending the temporary closure of the east sidewalk on McCowan Road, between Sheppard Avenue East and Nugget Avenue, until December 31, 2024. This allows Metrolinx to continue tunnel construction for the Scarborough Subway Extension, with the City requiring the sidewalk to be fully restored to its original condition or better once the project is complete.",
-    "keyAmounts": []
   },
   {
     "id": "SC11.3",
@@ -36907,6 +36907,30 @@
         "lng": -79.1843922
       }
     ]
+  },
+  {
+    "id": "SC11.10",
+    "date": "Feb 16, 2024",
+    "title": "Metrolinx Scarborough Subway Extension - Time Extension of Temporary Sidewalk Closure on McCowan Road",
+    "status": "Adopted",
+    "resultText": "Carried, 3-1",
+    "committee": "Scarborough Community Council",
+    "topic": "Transit",
+    "trivial": true,
+    "significance": 5,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.SC11.10",
+    "votes": {
+      "Paul Ainslie": "YES",
+      "Parthi Kandavel": "YES",
+      "Nick Mantas": "ABSENT",
+      "Jennifer McKelvie": "ABSENT",
+      "Jamaal Myers": "YES",
+      "Michael Thompson": "NO"
+    },
+    "flags": [],
+    "summary": "City Council has approved extending the temporary closure of the east sidewalk on McCowan Road, between Sheppard Avenue East and Nugget Avenue, until December 31, 2024. This allows Metrolinx to continue tunnel construction for the Scarborough Subway Extension, with the City requiring the sidewalk to be fully restored to its original condition or better once the project is complete.",
+    "keyAmounts": []
   },
   {
     "id": "MPB15.1",
