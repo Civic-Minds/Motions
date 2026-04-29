@@ -1,173 +1,5 @@
 [
   {
-    "committee": "Exhibition Place",
-    "date": "2025-04-28",
-    "displayDate": "Mon, Apr 28, 2025",
-    "startTime": "09:30 AM",
-    "endTime": "18:00 PM",
-    "location": "Exhibition Place, Automotive Bldg, Room 204, 105 Princes' Blvd",
-    "meetingNumber": 16,
-    "isCouncil": false,
-    "meetingId": 25881,
-    "meetingReference": "2025.EP16",
-    "agendaItems": [
-      {
-        "reference": "2025.EP16.1",
-        "title": "Emergency Generator Replacement at the General Services Building",
-        "wards": "10",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EP16.1"
-      },
-      {
-        "reference": "2025.EP16.2",
-        "title": "Business Travel IAVM and participation in Venue Management School",
-        "wards": "10",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EP16.2"
-      },
-      {
-        "reference": "2025.EP16.3",
-        "title": "2026 - 2028 Rentals Price List for Show Management",
-        "wards": "10",
-        "inCamera": true,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EP16.3"
-      },
-      {
-        "reference": "2025.EP16.4",
-        "title": "Exhibition Place Hotel X - Phase 1 - Consent to Change of Control of Tenant",
-        "wards": "10",
-        "inCamera": true,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EP16.4"
-      },
-      {
-        "reference": "2025.EP16.5",
-        "title": "Exhibition Place Security Report - Year-End 2024",
-        "wards": "10",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EP16.5"
-      },
-      {
-        "reference": "2025.EP16.6",
-        "title": "Exhibition Place Management Report - 4th Quarter December 31, 2024",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EP16.6"
-      },
-      {
-        "reference": "2025.EP16.7",
-        "title": "Recognition of Staff at Exhibition Place",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EP16.7"
-      },
-      {
-        "reference": "2025.EP16.8",
-        "title": "Grievance Update and 2024 Year-end Grievance Summary",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EP16.8"
-      },
-      {
-        "reference": "2025.EP16.9",
-        "title": "Community Liaison Meeting - November 27, 2024",
-        "wards": "10",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EP16.9"
-      },
-      {
-        "reference": "2025.EP16.10",
-        "title": "Proposed Collective Agreement with The United Association of Journeymen and Apprentices of the Plumbing and Pipe Fitting Industry of the United States and Canada, Local Union 46",
-        "wards": "10",
-        "inCamera": true,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EP16.10"
-      },
-      {
-        "reference": "2025.EP16.11",
-        "title": "Strategic Plan - 2024 Key Results and Initiatives",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EP16.11"
-      },
-      {
-        "reference": "2025.EP16.12",
-        "title": "2024 Capital Works Program - Year End Report",
-        "wards": "10",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EP16.12"
-      },
-      {
-        "reference": "2025.EP16.13",
-        "title": "Horse Palace Riding Ring Upgrade",
-        "wards": "10",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EP16.13"
-      },
-      {
-        "reference": "2025.EP16.14",
-        "title": "HVAC Upgrades at the General Services Building",
-        "wards": "10",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EP16.14"
-      },
-      {
-        "reference": "2025.EP16.15",
-        "title": "Lease of West Annex Office Space",
-        "wards": "10",
-        "inCamera": true,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EP16.15"
-      },
-      {
-        "reference": "2025.EP16.16",
-        "title": "License Agreement West Annex Team Space",
-        "wards": "10",
-        "inCamera": true,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EP16.16"
-      },
-      {
-        "reference": "2025.EP16.17",
-        "title": "Ontario Line Update - Metrolinx Presentation",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EP16.17"
-      },
-      {
-        "reference": "2025.EP16.18",
-        "title": "Gardiner Expressway Rehabilitation Project Update - Presentation",
-        "wards": "10",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EP16.18"
-      },
-      {
-        "reference": "2025.EP16.19",
-        "title": "High Voltage Feeders A34T and A35T West Replacement at Exhibition Place",
-        "wards": "10",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EP16.19"
-      },
-      {
-        "reference": "2025.EP16.20",
-        "title": "Enercare Centre Roof Rehabilitation",
-        "wards": "10",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EP16.20"
-      },
-      {
-        "reference": "2025.EP16.21",
-        "title": "Re-open Item EP15.3, Titled: “Nighttime Economy - Municipally Significant Designation\"",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EP16.21"
-      },
-      {
-        "reference": "2025.EP16.22",
-        "title": "Authorizing the Wastewater Energy Project at Exhibition Place",
-        "wards": "10",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EP16.22"
-      }
-    ]
-  },
-  {
     "committee": "Aboriginal Affairs Advisory Committee",
     "date": "2025-04-29",
     "displayDate": "Tue, Apr 29, 2025",
@@ -6496,14 +6328,60 @@
     ]
   },
   {
-    "committee": "Toronto Transit Commission - Audit & Risk Management Committee",
+    "committee": "Toronto Transit Commission - Audit, Finance and Risk Management Committee",
     "date": "2025-06-09",
     "displayDate": "Mon, Jun 9, 2025",
     "startTime": "12:00 PM",
     "endTime": "16:00 PM",
     "location": "McBrien Building  7th Floor Board Room",
     "meetingNumber": 2,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 26582,
+    "meetingReference": "2025.TTA2",
+    "agendaItems": [
+      {
+        "reference": "2025.TTA2.1",
+        "title": "KPMG LLP Audit Findings Report on the Toronto Transit Commission Consolidated Financial Statements for the Year Ended December 31, 2024",
+        "wards": null,
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TTA2.1"
+      },
+      {
+        "reference": "2025.TTA2.2",
+        "title": "Draft Consolidated Financial Statements of Toronto Transit Commission for the Year Ended December 31, 2024",
+        "wards": null,
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TTA2.2"
+      },
+      {
+        "reference": "2025.TTA2.3",
+        "title": "Draft Annual Report for the Toronto Transit Commission for 2024",
+        "wards": null,
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TTA2.3"
+      },
+      {
+        "reference": "2025.TTA2.4",
+        "title": "2024 Uncollectible Accounts Receivable",
+        "wards": null,
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TTA2.4"
+      },
+      {
+        "reference": "2025.TTA2.5",
+        "title": "Annual Review of TTC’s Safety, Health & Environment (SH&E) Management System",
+        "wards": null,
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TTA2.5"
+      },
+      {
+        "reference": "2025.TTA2.6",
+        "title": "Fare Compliance Action Plan - Update",
+        "wards": null,
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TTA2.6"
+      }
+    ]
   },
   {
     "committee": "Aboriginal Affairs Advisory Committee",
@@ -20464,14 +20342,39 @@
     ]
   },
   {
-    "committee": "Toronto Transit Commission - Audit & Risk Management Committee",
+    "committee": "Toronto Transit Commission - Audit, Finance and Risk Management Committee",
     "date": "2025-09-22",
     "displayDate": "Mon, Sep 22, 2025",
     "startTime": "10:00 AM",
     "endTime": "18:00 PM",
     "location": "McBrien Building  7th Floor Board Room",
     "meetingNumber": 3,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 26580,
+    "meetingReference": "2025.TTA3",
+    "agendaItems": [
+      {
+        "reference": "2025.TTA3.1",
+        "title": "Asset Management - International Association of Public Transport (UITP) Peer Review",
+        "wards": null,
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TTA3.1"
+      },
+      {
+        "reference": "2025.TTA3.2",
+        "title": "2024 Uncollectible Accounts Receivable (Referred from the June 9, 2025 Audit & Risk Management Committee meeting)",
+        "wards": null,
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TTA3.2"
+      },
+      {
+        "reference": "2025.TTA3.3",
+        "title": "Audit, Risk and Compliance - 2025 Audit Plan Status Update",
+        "wards": null,
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TTA3.3"
+      }
+    ]
   },
   {
     "committee": "Debenture Committee",
@@ -30274,14 +30177,46 @@
     ]
   },
   {
-    "committee": "Toronto Transit Commission - Audit & Risk Management Committee",
+    "committee": "Toronto Transit Commission - Audit, Finance and Risk Management Committee",
     "date": "2025-12-01",
     "displayDate": "Mon, Dec 1, 2025",
     "startTime": "10:00 AM",
     "endTime": "18:00 PM",
     "location": "McBrien Building  7th Floor Board Room",
     "meetingNumber": 4,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 26581,
+    "meetingReference": "2025.TTA4",
+    "agendaItems": [
+      {
+        "reference": "2025.TTA4.1",
+        "title": "KPMG LLP’s Audit Plan for Year Ended December 31, 2025",
+        "wards": null,
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TTA4.1"
+      },
+      {
+        "reference": "2025.TTA4.2",
+        "title": "Audit, Risk and Compliance - 2026 Audit Plan and Departmental Evaluation",
+        "wards": null,
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TTA4.2"
+      },
+      {
+        "reference": "2025.TTA4.3",
+        "title": "Audit, Risk and Compliance - 2025 Year-End Enterprise Risk Management Update",
+        "wards": null,
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TTA4.3"
+      },
+      {
+        "reference": "2025.TTA4.4",
+        "title": "Fare Compliance Action Plan - Update",
+        "wards": null,
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TTA4.4"
+      }
+    ]
   },
   {
     "committee": "Toronto Zoo",
@@ -41414,14 +41349,39 @@
     ]
   },
   {
-    "committee": "Toronto Transit Commission - Audit & Risk Management Committee",
+    "committee": "Toronto Transit Commission - Audit, Finance and Risk Management Committee",
     "date": "2026-03-11",
     "displayDate": "Wed, Mar 11, 2026",
     "startTime": "09:30 AM",
     "endTime": "18:00 PM",
     "location": "McBrien Building  7th Floor Board Room",
     "meetingNumber": 5,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27515,
+    "meetingReference": "2026.TTA5",
+    "agendaItems": [
+      {
+        "reference": "2026.TTA5.1",
+        "title": "Audit, Risk, and Compliance - Audit Plan Status Update",
+        "wards": null,
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTA5.1"
+      },
+      {
+        "reference": "2026.TTA5.2",
+        "title": "Asset Management - International Association of Public Transport (UITP) Peer Review - Management Response Update",
+        "wards": null,
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTA5.2"
+      },
+      {
+        "reference": "2026.TTA5.3",
+        "title": "Audit, Risk and Compliance - Executive Compliance Certificates - General Counsel Submission (2025)",
+        "wards": null,
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTA5.3"
+      }
+    ]
   },
   {
     "committee": "Nominating Panel - Sign Variance Committee",
@@ -50338,6 +50298,13 @@
         "wards": "5",
         "inCamera": false,
         "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EY31.24"
+      },
+      {
+        "reference": "2026.EY31.25",
+        "title": "Temporary Signage Permit for the Etobicoke Rotary Ribfest 2026 Community Event",
+        "wards": "3",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EY31.25"
       }
     ]
   },
@@ -50527,6 +50494,13 @@
         "wards": "16",
         "inCamera": false,
         "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.NY32.25"
+      },
+      {
+        "reference": "2026.NY32.26",
+        "title": "Lawrence Avenue West - Road Alterations, Parking Amendments and TTC Queue-jump Lane",
+        "wards": "8",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.NY32.26"
       }
     ]
   },
@@ -50660,6 +50634,20 @@
         "wards": "All",
         "inCamera": true,
         "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.ZB21.11"
+      },
+      {
+        "reference": "2026.ZB21.12",
+        "title": "Results of Collective Bargaining Between Toronto Zoo and Canadian Union of Public Employees, Local 1600",
+        "wards": "All",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.ZB21.12"
+      },
+      {
+        "reference": "2026.ZB21.13",
+        "title": "Public Appointments to the Board",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.ZB21.13"
       }
     ]
   },
@@ -50705,7 +50693,7 @@
       },
       {
         "reference": "2026.SC31.5",
-        "title": "3130 and 3150 Danforth Avenue - Zoning By-law Amendment Application - Decision Report - Approval",
+        "title": "3130 Danforth Avenue - Zoning By-law Amendment Application - Decision Report - Approval",
         "wards": "20",
         "inCamera": false,
         "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SC31.5"
@@ -51241,7 +51229,50 @@
     "isCouncil": false,
     "meetingId": 27214,
     "meetingReference": "2026.EC28",
-    "agendaItems": []
+    "agendaItems": [
+      {
+        "reference": "2026.EC28.1",
+        "title": "Sidewalks to Skylines: A 10-Year Action Plan for Toronto’s Economy (2025-2035) - Update on Implementation",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EC28.1"
+      },
+      {
+        "reference": "2026.EC28.2",
+        "title": "Economic Development and Culture Grants - 2025 Funding Allocation and Museums and Heritage Grants",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EC28.2"
+      },
+      {
+        "reference": "2026.EC28.3",
+        "title": "Riverside District Business Improvement Area Expansion Poll Results",
+        "wards": "14",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EC28.3"
+      },
+      {
+        "reference": "2026.EC28.4",
+        "title": "2027 Shelter Infrastructure Plan",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EC28.4"
+      },
+      {
+        "reference": "2026.EC28.5",
+        "title": "Early Local Registration Expansion Update and Outcomes",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EC28.5"
+      },
+      {
+        "reference": "2026.EC28.6",
+        "title": "Access to Outdoor Ovens in Parks: Progress Update",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EC28.6"
+      }
+    ]
   },
   {
     "committee": "Nominating Panel - Toronto Licensing Tribunal",
@@ -51254,7 +51285,15 @@
     "isCouncil": false,
     "meetingId": 28074,
     "meetingReference": "2026.NL4",
-    "agendaItems": []
+    "agendaItems": [
+      {
+        "reference": "2026.NL4.1",
+        "title": "Appointment of Public Members to the Toronto Licensing Tribunal",
+        "wards": "All",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.NL4.1"
+      }
+    ]
   },
   {
     "committee": "Infrastructure and Environment Committee",
@@ -51543,14 +51582,17 @@
     "agendaItems": []
   },
   {
-    "committee": "Toronto Transit Commission - Audit & Risk Management Committee",
+    "committee": "Toronto Transit Commission - Audit, Finance and Risk Management Committee",
     "date": "2026-05-26",
     "displayDate": "Tue, May 26, 2026",
     "startTime": "13:30 PM",
     "endTime": "18:00 PM",
     "location": "McBrien Building  7th Floor Board Room",
     "meetingNumber": 6,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27516,
+    "meetingReference": "2026.TTA6",
+    "agendaItems": []
   },
   {
     "committee": "Confronting Anti-Black Racism Advisory Committee",
