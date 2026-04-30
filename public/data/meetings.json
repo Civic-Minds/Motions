@@ -1,243 +1,5 @@
 [
   {
-    "committee": "Aboriginal Affairs Advisory Committee",
-    "date": "2025-04-29",
-    "displayDate": "Tue, Apr 29, 2025",
-    "startTime": "09:30 AM",
-    "endTime": "18:00 PM",
-    "location": "Committee Room 2, City Hall",
-    "meetingNumber": 5,
-    "isCouncil": false,
-    "meetingId": 26490,
-    "meetingReference": "2025.AA5",
-    "agendaItems": [
-      {
-        "reference": "2025.AA5.1",
-        "title": "Housing Panel Discussion",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.AA5.1"
-      },
-      {
-        "reference": "2025.AA5.2",
-        "title": "Committee Discussion Regarding Executive Committee Item EX21.14",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.AA5.2"
-      },
-      {
-        "reference": "2025.AA5.3",
-        "title": "City Manager’s Office Staff Update on Action Items",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.AA5.3"
-      },
-      {
-        "reference": "2025.AA5.4",
-        "title": "Agenda Planning",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.AA5.4"
-      },
-      {
-        "reference": "2025.AA5.5",
-        "title": "New Appointment to the Aboriginal Affairs Advisory Committee",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.AA5.5"
-      }
-    ]
-  },
-  {
-    "committee": "Corporations Nominating Panel",
-    "date": "2025-04-29",
-    "displayDate": "Tue, Apr 29, 2025",
-    "startTime": "09:30 AM",
-    "endTime": "18:00 PM",
-    "location": "Committee Room 4, City Hall",
-    "meetingNumber": 16,
-    "isCouncil": false,
-    "meetingId": 26890,
-    "meetingReference": "2025.NC16",
-    "agendaItems": [
-      {
-        "reference": "2025.NC16.1",
-        "title": "Appointment of Public Member to the Toronto Hydro Board",
-        "wards": "All",
-        "inCamera": true,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NC16.1"
-      }
-    ]
-  },
-  {
-    "committee": "Toronto Atmospheric Fund",
-    "date": "2025-04-29",
-    "displayDate": "Tue, Apr 29, 2025",
-    "startTime": "09:30 AM",
-    "endTime": "18:00 PM",
-    "location": "Committee Room 3, City Hall",
-    "meetingNumber": 10,
-    "isCouncil": false,
-    "meetingId": 25909,
-    "meetingReference": "2025.TA10",
-    "agendaItems": [
-      {
-        "reference": "2025.TA10.1",
-        "title": "Draft Audited Consolidated Financial Statements for the Year Ended December 31, 2024",
-        "wards": null,
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TA10.1"
-      },
-      {
-        "reference": "2025.TA10.2",
-        "title": "Chief Executive Officer’s Report",
-        "wards": null,
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TA10.2"
-      },
-      {
-        "reference": "2025.TA10.3",
-        "title": "Draft Minutes of the Investment Committee Meeting Held March 20, 2025",
-        "wards": null,
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TA10.3"
-      },
-      {
-        "reference": "2025.TA10.4",
-        "title": "Draft Minutes of the Direct Investment Committee Meeting Held April 1, 2025",
-        "wards": null,
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TA10.4"
-      },
-      {
-        "reference": "2025.TA10.5",
-        "title": "Direct Investment Request 2025.A",
-        "wards": null,
-        "inCamera": true,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TA10.5"
-      },
-      {
-        "reference": "2025.TA10.6",
-        "title": "Direct Investment Request 2025.B",
-        "wards": null,
-        "inCamera": true,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TA10.6"
-      },
-      {
-        "reference": "2025.TA10.7",
-        "title": "Draft Minutes of the Grants and Programs Committee Meeting Held April 03, 2025",
-        "wards": null,
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TA10.7"
-      },
-      {
-        "reference": "2025.TA10.8",
-        "title": "Grant and Program Allocation Recommendations",
-        "wards": null,
-        "inCamera": true,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TA10.8"
-      },
-      {
-        "reference": "2025.TA10.9",
-        "title": "Draft Minutes of the Human Resources Committee meeting held April 25, 2025",
-        "wards": null,
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TA10.9"
-      },
-      {
-        "reference": "2025.TA10.10",
-        "title": "Human Resources Matters - CEO Compensation and Performance Review",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TA10.10"
-      }
-    ]
-  },
-  {
-    "committee": "Two-Spirit, Lesbian, Gay, Bisexual, Transgender and Queer Advisory Committee",
-    "date": "2025-04-29",
-    "displayDate": "Tue, Apr 29, 2025",
-    "startTime": "09:30 AM",
-    "endTime": "18:00 PM",
-    "location": "Committee Room 1, City Hall",
-    "meetingNumber": 7,
-    "isCouncil": false,
-    "meetingId": 25907,
-    "meetingReference": "2025.QS7",
-    "agendaItems": [
-      {
-        "reference": "2025.QS7.1",
-        "title": "Vacancy on Two-Spirit, Lesbian, Gay, Bisexual, Transgender and Queer Advisory Committee",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.QS7.1"
-      },
-      {
-        "reference": "2025.QS7.2",
-        "title": "Poverty Reduction Office Presentation to the 2SLGBTQ+ Committee",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.QS7.2"
-      },
-      {
-        "reference": "2025.QS7.3",
-        "title": "Toronto Island Park Master Plan",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.QS7.3"
-      },
-      {
-        "reference": "2025.QS7.4",
-        "title": "Supporting the Capacity of QTBIPOC Non-Profit Founders",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.QS7.4"
-      },
-      {
-        "reference": "2025.QS7.5",
-        "title": "Enhanced Workplace Protection for 2SLGBTQIA City Service Employees Living With HIV",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.QS7.5"
-      }
-    ]
-  },
-  {
-    "committee": "Members of the Toronto Atmospheric Fund",
-    "date": "2025-04-29",
-    "displayDate": "Tue, Apr 29, 2025",
-    "startTime": "09:45 AM",
-    "endTime": "18:00 PM",
-    "location": "Committee Room 3, City Hall",
-    "meetingNumber": 4,
-    "isCouncil": false,
-    "meetingId": 25924,
-    "meetingReference": "2025.AF4",
-    "agendaItems": [
-      {
-        "reference": "2025.AF4.1",
-        "title": "Draft Audited Consolidated Financial Statements for the Year Ended December 31, 2024 and the Auditors’ Report as Required by the Toronto Atmospheric Fund Act, 2005",
-        "wards": null,
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.AF4.1"
-      },
-      {
-        "reference": "2025.AF4.2",
-        "title": "Appointment of Auditor to Hold Office Until the Next Annual General Meeting",
-        "wards": null,
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.AF4.2"
-      },
-      {
-        "reference": "2025.AF4.3",
-        "title": "Confirmation of the Acts of the Directors and Officers to the Date of this Meeting",
-        "wards": null,
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.AF4.3"
-      }
-    ]
-  },
-  {
     "committee": "Etobicoke York Community Council",
     "date": "2025-04-30",
     "displayDate": "Wed, Apr 30, 2025",
@@ -50781,6 +50543,13 @@
         "wards": "23",
         "inCamera": false,
         "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SC31.17"
+      },
+      {
+        "reference": "2026.SC31.18",
+        "title": "Youth Innovation Hub Initiative at Scarborough Civic Centre",
+        "wards": "21",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SC31.18"
       }
     ]
   },
@@ -51075,6 +50844,83 @@
         "wards": "10, 14",
         "inCamera": false,
         "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.40"
+      },
+      {
+        "reference": "2026.TE32.41",
+        "title": "Establishing an Accessible Loading Zone on Oakwood Avenue",
+        "wards": "9",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.41"
+      },
+      {
+        "reference": "2026.TE32.42",
+        "title": "Expanding Parking Availability on Dufferin Park Avenue",
+        "wards": "9",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.42"
+      },
+      {
+        "reference": "2026.TE32.43",
+        "title": "Improving Safety and Vehicle Access on Margueretta Street",
+        "wards": "9",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.43"
+      },
+      {
+        "reference": "2026.TE32.44",
+        "title": "Improving Traffic and Pedestrian Safety on Lansdowne Avenue",
+        "wards": "9",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.44"
+      },
+      {
+        "reference": "2026.TE32.45",
+        "title": "Parking Amendments on Geary Avenue",
+        "wards": "9",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.45"
+      },
+      {
+        "reference": "2026.TE32.46",
+        "title": "Pedestrianizing Church Street Pilot",
+        "wards": "13",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.46"
+      },
+      {
+        "reference": "2026.TE32.47",
+        "title": "Lake Shore Boulevard East Landscape Plan",
+        "wards": "14",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.47"
+      },
+      {
+        "reference": "2026.TE32.48",
+        "title": "Cadorna Avenue - Accessible Parking Space - Re-opening Item TE26.26",
+        "wards": "14",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.48"
+      },
+      {
+        "reference": "2026.TE32.49",
+        "title": "Main Street - Parking Amendments",
+        "wards": "19",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.49"
+      },
+      {
+        "reference": "2026.TE32.50",
+        "title": "Norwood Road and Benlamond Avenue/Glen Oak Drive - Compulsory Stop Controls",
+        "wards": "19",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.50"
+      },
+      {
+        "reference": "2026.TE32.51",
+        "title": "Review of the Queen Street East Urban Design Guidelines",
+        "wards": "19",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.51"
       }
     ]
   },
@@ -51280,7 +51126,7 @@
     "displayDate": "Tue, May 5, 2026",
     "startTime": "09:30 AM",
     "endTime": "18:00 PM",
-    "location": "Committee Room 3, City Hall",
+    "location": "Video Conference",
     "meetingNumber": 4,
     "isCouncil": false,
     "meetingId": 28074,
@@ -51306,7 +51152,71 @@
     "isCouncil": false,
     "meetingId": 27204,
     "meetingReference": "2026.IE29",
-    "agendaItems": []
+    "agendaItems": [
+      {
+        "reference": "2026.IE29.1",
+        "title": "2025-2026 Annual Winter Maintenance Report and Amendment to Blanket Contracts with Rafat General Contractor Inc. for the Non-Exclusive Supply of All Labour, Equipment and Materials Necessary to Provide Single Axle, Tandem and Tri Axle Dump Trucks with Operators for Trucking Services",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.IE29.1"
+      },
+      {
+        "reference": "2026.IE29.2",
+        "title": "Forensic Audit of the 2021 Winter Maintenance Procurement",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.IE29.2"
+      },
+      {
+        "reference": "2026.IE29.3",
+        "title": "Transition of the Blue Box Program to Extended Producer Responsibility: First Quarter 2026 Post-Transition Implementation Update",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.IE29.3"
+      },
+      {
+        "reference": "2026.IE29.4",
+        "title": "2026 Annual Strategic Capital Coordination Report and Progress Update on Enhancing Capital Construction Delivery",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.IE29.4"
+      },
+      {
+        "reference": "2026.IE29.5",
+        "title": "2026 Road Classification Amendments",
+        "wards": "3, 7, 10, 21",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.IE29.5"
+      },
+      {
+        "reference": "2026.IE29.6",
+        "title": "Amending the Foundation Drainage Policy and Storm Sewer Quality Limit for Manganese",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.IE29.6"
+      },
+      {
+        "reference": "2026.IE29.7",
+        "title": "Feasibility of Requiring Side Guards on Contractor Commercial Vehicles Operating in the City of Toronto",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.IE29.7"
+      },
+      {
+        "reference": "2026.IE29.8",
+        "title": "Update on MM28.22 - Improving Toronto's Public Washrooms",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.IE29.8"
+      },
+      {
+        "reference": "2026.IE29.9",
+        "title": "Odour from the Ashbridges Bay Wastewater Treatment Plant",
+        "wards": "14",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.IE29.9"
+      }
+    ]
   },
   {
     "committee": "Toronto Transit Commission - People, Culture and Governance Committee",
@@ -51319,7 +51229,15 @@
     "isCouncil": false,
     "meetingId": 27518,
     "meetingReference": "2026.TTH8",
-    "agendaItems": []
+    "agendaItems": [
+      {
+        "reference": "2026.TTH8.1",
+        "title": "Collective Bargaining and Labour Update",
+        "wards": null,
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTH8.1"
+      }
+    ]
   },
   {
     "committee": "Planning and Housing Committee",
@@ -51421,7 +51339,7 @@
     "location": "Video Conference",
     "meetingNumber": 22,
     "isCouncil": false,
-    "meetingId": 27780,
+    "meetingId": 28232,
     "meetingReference": "2026.SB22",
     "agendaItems": []
   },
@@ -51928,7 +51846,7 @@
     "location": "Video Conference",
     "meetingNumber": 23,
     "isCouncil": false,
-    "meetingId": 27781,
+    "meetingId": 27780,
     "meetingReference": "2026.SB23",
     "agendaItems": []
   },
@@ -52643,7 +52561,7 @@
     "location": "Video Conference",
     "meetingNumber": 24,
     "isCouncil": false,
-    "meetingId": 27782,
+    "meetingId": 27781,
     "meetingReference": "2026.SB24",
     "agendaItems": []
   },
@@ -52786,7 +52704,7 @@
     "location": "Video Conference",
     "meetingNumber": 25,
     "isCouncil": false,
-    "meetingId": 27783,
+    "meetingId": 27782,
     "meetingReference": "2026.SB25",
     "agendaItems": []
   }
