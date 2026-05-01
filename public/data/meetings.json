@@ -1,516 +1,5 @@
 [
   {
-    "committee": "Etobicoke York Community Council",
-    "date": "2025-04-30",
-    "displayDate": "Wed, Apr 30, 2025",
-    "startTime": "09:30 AM",
-    "endTime": "18:00 PM",
-    "location": "Council Chamber, Etobicoke Civic Centre",
-    "meetingNumber": 22,
-    "isCouncil": false,
-    "meetingId": 25798,
-    "meetingReference": "2025.EY22",
-    "agendaItems": [
-      {
-        "reference": "2025.EY22.1",
-        "title": "21-25 Windsor Street, 18 Buckingham Street, 60 Newcastle Street and 95 Portland Street - Official Plan and Zoning By-law Amendment Application - Decision Report - Approval",
-        "wards": "3",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY22.1"
-      },
-      {
-        "reference": "2025.EY22.2",
-        "title": "2595 St. Clair Avenue West - Official Plan and Zoning By-law Amendment Application - Decision Report - Approval",
-        "wards": "5",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY22.2"
-      },
-      {
-        "reference": "2025.EY22.3",
-        "title": "1798-1812 Weston Road - Zoning By-law Amendment - Decision Report - Approval",
-        "wards": "5",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY22.3"
-      },
-      {
-        "reference": "2025.EY22.4",
-        "title": "1798, 1800, 1802, 1804, 1806, 1808, and 1812 Weston Road - Rental Housing Demolition Application- Decision Report - Approval",
-        "wards": "5",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY22.4"
-      },
-      {
-        "reference": "2025.EY22.5",
-        "title": "Mount Dennis Zoning By-law and Urban Design Guidelines Study - Status Report",
-        "wards": "5",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY22.5"
-      },
-      {
-        "reference": "2025.EY22.6",
-        "title": "Visioning Study for Jane and Wilson Area - Status Report",
-        "wards": "7",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY22.6"
-      },
-      {
-        "reference": "2025.EY22.7",
-        "title": "1736 and 1746 Weston Road - Non-Residential Demolition Application",
-        "wards": "5",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY22.7"
-      },
-      {
-        "reference": "2025.EY22.8",
-        "title": "18 Fallowfield Road - Application to Remove a Private Tree",
-        "wards": "1",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY22.8"
-      },
-      {
-        "reference": "2025.EY22.9",
-        "title": "21 Elderfield Crescent - Application to Remove a Private Tree",
-        "wards": "2",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY22.9"
-      },
-      {
-        "reference": "2025.EY22.10",
-        "title": "3210 Weston Road - Application for Fence Exemption",
-        "wards": "7",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY22.10"
-      },
-      {
-        "reference": "2025.EY22.11",
-        "title": "1 Jenson Court - Application for Fence Exemption",
-        "wards": "1",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY22.11"
-      },
-      {
-        "reference": "2025.EY22.12",
-        "title": "63 Glenaden Avenue East - Request for a Fence Exemption to the Toronto Municipal Code, Chapter 447",
-        "wards": "3",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY22.12"
-      },
-      {
-        "reference": "2025.EY22.13",
-        "title": "95 Stavely Crescent - Application for Fence Exemption",
-        "wards": "1",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY22.13"
-      },
-      {
-        "reference": "2025.EY22.14",
-        "title": "Assumption of Services Fernbrook Homes (Lawrence) Limited, 66M-2569, 14 110017 WET 12 SB, Wild Rose Gardens, Creekbank Road",
-        "wards": "5",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY22.14"
-      },
-      {
-        "reference": "2025.EY22.15",
-        "title": "Changes to the Lakeshore Village Business Improvement Area Board of Management",
-        "wards": "3",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY22.15"
-      },
-      {
-        "reference": "2025.EY22.16",
-        "title": "8-16 Locust Street - Construction Staging Area",
-        "wards": "5",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY22.16"
-      },
-      {
-        "reference": "2025.EY22.17",
-        "title": "Torbarrie Road and Judy Sgro Avenue - Pedestrian Crossing Protection",
-        "wards": "7",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY22.17"
-      },
-      {
-        "reference": "2025.EY22.18",
-        "title": "Permanent Closure of a Portion of Montesson Street",
-        "wards": "3",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY22.18"
-      },
-      {
-        "reference": "2025.EY22.19",
-        "title": "Thistle Down Boulevard - Parking Amendments",
-        "wards": "1",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY22.19"
-      },
-      {
-        "reference": "2025.EY22.20",
-        "title": "Thistle Down Boulevard - Traffic Calming (Speed Cushions)",
-        "wards": "1",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY22.20"
-      },
-      {
-        "reference": "2025.EY22.21",
-        "title": "Leigh Street and Feltham Avenue - All-Way Stop Control",
-        "wards": "5",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY22.21"
-      },
-      {
-        "reference": "2025.EY22.22",
-        "title": "Dundas Street West at Dundas Street West - Traffic Regulation Amendments",
-        "wards": "3",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY22.22"
-      },
-      {
-        "reference": "2025.EY22.23",
-        "title": "Earlington Avenue and Dundas Street West - Temporary Left-Turn Prohibition",
-        "wards": "3",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY22.23"
-      },
-      {
-        "reference": "2025.EY22.24",
-        "title": "Oakdale Road and Eddystone Avenue - Traffic Control Signals",
-        "wards": "7",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY22.24"
-      },
-      {
-        "reference": "2025.EY22.25",
-        "title": "Twenty Sixth Street - Parking Amendment",
-        "wards": "3",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY22.25"
-      },
-      {
-        "reference": "2025.EY22.26",
-        "title": "Accessible Parking Spaces - April 2025 (Delegated)",
-        "wards": "5",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY22.26"
-      },
-      {
-        "reference": "2025.EY22.27",
-        "title": "St. Clair Avenue West - Pay-and-Display Parking",
-        "wards": "5",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY22.27"
-      },
-      {
-        "reference": "2025.EY22.28",
-        "title": "Shaver Avenue South - Parking Amendments",
-        "wards": "3",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY22.28"
-      },
-      {
-        "reference": "2025.EY22.29",
-        "title": "Goldthorne Avenue - Parking Amendments",
-        "wards": "3",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY22.29"
-      },
-      {
-        "reference": "2025.EY22.30",
-        "title": "720 Humberwood Boulevard - Reallocation of Section 37 Benefit Contribution",
-        "wards": "1",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY22.30"
-      },
-      {
-        "reference": "2025.EY22.31",
-        "title": "Converting Ryding Avenue into a One-Way Street",
-        "wards": "5",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY22.31"
-      },
-      {
-        "reference": "2025.EY22.32",
-        "title": "Introduction of By-laws",
-        "wards": "1, 2, 3, 5, 7",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.EY22.32"
-      }
-    ]
-  },
-  {
-    "committee": "North York Community Council",
-    "date": "2025-04-30",
-    "displayDate": "Wed, Apr 30, 2025",
-    "startTime": "09:30 AM",
-    "endTime": "18:00 PM",
-    "location": "Council Chamber, North York Civic Centre",
-    "meetingNumber": 23,
-    "isCouncil": false,
-    "meetingId": 25871,
-    "meetingReference": "2025.NY23",
-    "agendaItems": [
-      {
-        "reference": "2025.NY23.1",
-        "title": "19 Ianhall Road - Request for a Fence Exemption to the Toronto Municipal Code, Chapter 447",
-        "wards": "6",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY23.1"
-      },
-      {
-        "reference": "2025.NY23.2",
-        "title": "Nymark Avenue - Traffic Calming (Speed Humps)",
-        "wards": "17",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY23.2"
-      },
-      {
-        "reference": "2025.NY23.3",
-        "title": "499 Briar Hill Avenue - Request for a Fence Exemption to the Toronto Municipal Code, Chapter 447",
-        "wards": "8",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY23.3"
-      },
-      {
-        "reference": "2025.NY23.4",
-        "title": "390 Glencairn Avenue - Application to Remove a Private Tree",
-        "wards": "8",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY23.4"
-      },
-      {
-        "reference": "2025.NY23.5",
-        "title": "250, 252, 254, 258 Viewmount Avenue - Official Plan Amendment, Zoning By-law Amendment Applications - Appeal",
-        "wards": "8",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY23.5"
-      },
-      {
-        "reference": "2025.NY23.6",
-        "title": "253, 255, 259, 263 Viewmount Avenue and 12, 14, 16, 18 Romar Crescent - Official Plan Amendment, Zoning By-law Amendment Applications - Appeal",
-        "wards": "8",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY23.6"
-      },
-      {
-        "reference": "2025.NY23.7",
-        "title": "Growing Glencairn Phase 1 Report: Emerging Vision and Guiding Principles",
-        "wards": "8",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY23.7"
-      },
-      {
-        "reference": "2025.NY23.8",
-        "title": "586 Eglinton Avenue East - Official Plan Amendment Application - Appeal",
-        "wards": "15",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY23.8"
-      },
-      {
-        "reference": "2025.NY23.9",
-        "title": "895 Lawrence Avenue East - Official Plan Amendment and Zoning By-law Amendment - Decision Report - Appeal",
-        "wards": "16",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY23.9"
-      },
-      {
-        "reference": "2025.NY23.10",
-        "title": "123 and 123A Parkway Forest Drive - Official Plan Amendment and Zoning By-law Amendment Application - Decision Report - Approval",
-        "wards": "17",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY23.10"
-      },
-      {
-        "reference": "2025.NY23.11",
-        "title": "23-29 Greenbriar Road - Official Plan Amendment and Zoning By-law Amendment Applications - Decision Report - Approval",
-        "wards": "17",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY23.11"
-      },
-      {
-        "reference": "2025.NY23.12",
-        "title": "23-29 Greenbriar Road - Rental Housing Demolition Application - Decision Report - Approval",
-        "wards": "17",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY23.12"
-      },
-      {
-        "reference": "2025.NY23.13",
-        "title": "3386-3398 Bayview Avenue and 32 Brenham Crescent - Zoning By-law Amendment - Decision Report - Appeal",
-        "wards": "18",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY23.13"
-      },
-      {
-        "reference": "2025.NY23.14",
-        "title": "Miranda Avenue - Accessible Parking Spaces",
-        "wards": "8",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY23.14"
-      },
-      {
-        "reference": "2025.NY23.15",
-        "title": "2555 Yonge Street - Refusal of a Sidewalk Café Permit Application Located at Sherwood Avenue flankage",
-        "wards": "15",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY23.15"
-      },
-      {
-        "reference": "2025.NY23.16",
-        "title": "Elvina Gardens - Parking Amendments",
-        "wards": "15",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY23.16"
-      },
-      {
-        "reference": "2025.NY23.17",
-        "title": "30 Scarsdale Road - Designation of Fire Routes and Amendment to Chapter 880 - Fire Routes",
-        "wards": "16",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY23.17"
-      },
-      {
-        "reference": "2025.NY23.18",
-        "title": "William Sylvester Drive and Shinleaf Terrace - Parking and Traffic Amendments",
-        "wards": "17",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY23.18"
-      },
-      {
-        "reference": "2025.NY23.19",
-        "title": "243-255 Consumers Road, North York - Assumption of Services, Registered Plan 66M-2545",
-        "wards": "17",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY23.19"
-      },
-      {
-        "reference": "2025.NY23.20",
-        "title": "Green Belt Drive - Parking Amendments",
-        "wards": "16",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY23.20"
-      },
-      {
-        "reference": "2025.NY23.21",
-        "title": "716 Gordon Baker Road - Designation of Fire Routes and Amendment to Chapter 880 - Fire Routes",
-        "wards": "17",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY23.21"
-      },
-      {
-        "reference": "2025.NY23.22",
-        "title": "Glendora Avenue and Dudley Avenue - Compulsory Stop Control",
-        "wards": "18",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY23.22"
-      },
-      {
-        "reference": "2025.NY23.23",
-        "title": "Appointment of a Public Member to the Larry Grossman Forest Hill Memorial Arena Board",
-        "wards": "8",
-        "inCamera": true,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY23.23"
-      },
-      {
-        "reference": "2025.NY23.24",
-        "title": "Waiver of the Public Appointments Policy and Appointment of a Public Member to the Larry Grossman Forest Hill Memorial Arena Board",
-        "wards": "8",
-        "inCamera": true,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY23.24"
-      },
-      {
-        "reference": "2025.NY23.25",
-        "title": "Appointment of Public Members to the Leaside Memorial Community Gardens Arena Board",
-        "wards": "15",
-        "inCamera": true,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY23.25"
-      },
-      {
-        "reference": "2025.NY23.26",
-        "title": "Turn Prohibitions onto Eglinton Avenue East from Brentcliffe Road and Don Avon Drive",
-        "wards": "15",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY23.26"
-      },
-      {
-        "reference": "2025.NY23.27",
-        "title": "Avonwick Gate from Rustywood Drive to Beveridge Drive - Amend Speed Limit from 50 kilometres per hour to 40 kilometres per hour",
-        "wards": "16",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY23.27"
-      },
-      {
-        "reference": "2025.NY23.28",
-        "title": "Maniza Road - Parking Restrictions",
-        "wards": "6",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY23.28"
-      },
-      {
-        "reference": "2025.NY23.29",
-        "title": "Plewes Road, Spalding Road, and Katherine Road - Parking Restrictions",
-        "wards": "6",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY23.29"
-      },
-      {
-        "reference": "2025.NY23.30",
-        "title": "34 to 70 Montgomery Avenue - Residential Demolition Application",
-        "wards": "8",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY23.30"
-      },
-      {
-        "reference": "2025.NY23.31",
-        "title": "Maxome Avenue and Bishop Avenue - Report Back on Removal of Turn Prohibitions",
-        "wards": "18",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY23.31"
-      },
-      {
-        "reference": "2025.NY23.32",
-        "title": "Introduction of By-laws",
-        "wards": "6, 8, 15, 16, 17, 18",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NY23.32"
-      }
-    ]
-  },
-  {
-    "committee": "Bid Award Panel",
-    "date": "2025-04-30",
-    "displayDate": "Wed, Apr 30, 2025",
-    "startTime": "14:00 PM",
-    "endTime": "18:00 PM",
-    "location": "Video Conference",
-    "meetingNumber": 130,
-    "isCouncil": false,
-    "meetingId": 25956,
-    "meetingReference": "2025.BA130",
-    "agendaItems": [
-      {
-        "reference": "2025.BA130.1",
-        "title": "Award of Doc4898593115 to 2246706 Ontario Inc. O/A Tiki Taxi for Marine Water Taxi Services for Toronto Water Division",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.BA130.1"
-      },
-      {
-        "reference": "2025.BA130.2",
-        "title": "Award of Doc4919130062 to South Central Inc. for the Union Station Procurement and Installation of Hostile Vehicle Mitigation Barriers Located at Front Street West for Corporate Real Estate Management",
-        "wards": "10",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.BA130.2"
-      },
-      {
-        "reference": "2025.BA130.3",
-        "title": "Award of Doc5020378835 to Weston Forest Products Inc. for the Non-exclusive Supply and Delivery of Various Lumber Items for Various Divisions",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.BA130.3"
-      }
-    ]
-  },
-  {
     "committee": "Scarborough Community Council",
     "date": "2025-05-01",
     "displayDate": "Thu, May 1, 2025",
@@ -51250,7 +50739,85 @@
     "isCouncil": false,
     "meetingId": 27156,
     "meetingReference": "2026.PH30",
-    "agendaItems": []
+    "agendaItems": [
+      {
+        "reference": "2026.PH30.1",
+        "title": "Ookwemin Minising - City-Initiated Official Plan and Zoning By-law Amendment, and Precinct Plan Update - Decision Report - Approval",
+        "wards": "14",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH30.1"
+      },
+      {
+        "reference": "2026.PH30.2",
+        "title": "Toronto Builds: 970 Kipling Avenue - Zoning By-law Amendment Application - Decision Report - Approval",
+        "wards": "3",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH30.2"
+      },
+      {
+        "reference": "2026.PH30.3",
+        "title": "3838 Bloor Street West - Official Plan and Zoning By-law Amendment Application - Decision Report - Approval",
+        "wards": "2",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH30.3"
+      },
+      {
+        "reference": "2026.PH30.4",
+        "title": "65-87 Heward Avenue - Official Plan Amendment Application - Appeal Report",
+        "wards": "14",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH30.4"
+      },
+      {
+        "reference": "2026.PH30.5",
+        "title": "65 Heward Avenue - Notice of Intention to Designate a Property under Part IV, Section 29 of the Ontario Heritage Act",
+        "wards": "14",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH30.5"
+      },
+      {
+        "reference": "2026.PH30.6",
+        "title": "Building Toronto's Housing Future - Housing Development Office 2026 Annual Toronto Builds Update and Three-Year Work Plan",
+        "wards": "All",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH30.6"
+      },
+      {
+        "reference": "2026.PH30.7",
+        "title": "Redevelopment Framework for 835-841 Queen Street East",
+        "wards": "14",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH30.7"
+      },
+      {
+        "reference": "2026.PH30.8",
+        "title": "Mid-Rise Housing Implementation Initiative - Proposals Report",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH30.8"
+      },
+      {
+        "reference": "2026.PH30.9",
+        "title": "2026 Toronto Heritage Grant Awards - Second Round",
+        "wards": "11, 13",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH30.9"
+      },
+      {
+        "reference": "2026.PH30.10",
+        "title": "30-32 and 38-40 Huntley Street and 122-124 Isabella Street - Notice of Intention to Designate a Property under Part IV, Section 29 of the Ontario Heritage Act",
+        "wards": "13",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH30.10"
+      },
+      {
+        "reference": "2026.PH30.11",
+        "title": "Property Included on the City's Heritage Register - Consideration of Objection for 1767 Bayview Avenue, 1773 Bayview Avenue and 73 Niagara Street",
+        "wards": "10, 15",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH30.11"
+      }
+    ]
   },
   {
     "committee": "General Government Committee",
@@ -51341,7 +50908,22 @@
     "isCouncil": false,
     "meetingId": 28232,
     "meetingReference": "2026.SB22",
-    "agendaItems": []
+    "agendaItems": [
+      {
+        "reference": "2026.SB22.1",
+        "title": "Roles and Expectations of Public Members on the Sign Variance Committee",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SB22.1"
+      },
+      {
+        "reference": "2026.SB22.2",
+        "title": "Overview of Sign By-law and City Policy and Procedures",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SB22.2"
+      }
+    ]
   },
   {
     "committee": "City Council",
@@ -52706,6 +52288,19 @@
     "isCouncil": false,
     "meetingId": 27782,
     "meetingReference": "2026.SB25",
+    "agendaItems": []
+  },
+  {
+    "committee": "Property Standards - Etobicoke York Panel",
+    "date": "2026-10-27",
+    "displayDate": "Tue, Oct 27, 2026",
+    "startTime": "09:30 AM",
+    "endTime": "18:00 PM",
+    "location": "Video Conference",
+    "meetingNumber": 40,
+    "isCouncil": false,
+    "meetingId": 28038,
+    "meetingReference": "2026.SV40",
     "agendaItems": []
   }
 ]
