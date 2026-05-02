@@ -27,11 +27,13 @@ I'm continuing work on **Motions** — a Toronto City Council voting transparenc
 8. `scripts/fetch_meetings.js` — fetches all TMMIS decision bodies dynamically (no hardcoded list), pulls 365d past + 180d future meetings with agenda items. Merge-on-rerun: preserves existing past agendas, only re-fetches new/upcoming ones.
 
 **Key data files:**
-- `public/data/motions.json` — 1,288 motions (926 primary + 362 sub-entries)
-- `public/data/meetings.json` — 520 meetings (383 past, 137 upcoming), all 76 TMMIS committees/boards, 397 with agendas. Refreshed daily by GitHub Actions.
-- `public/data/councillors.json` — 26 councillors (name, ward, email, phone, slug)
-- `public/data/tenure.json` — first elected year + term list per councillor
-- `public/data/wards.geojson` — Toronto ward boundaries for geolocation
+- `public/data/motions.json` — local copy; live version served from Vercel Blob
+- `public/data/meetings.json` — local copy; live version served from Vercel Blob
+- `public/data/councillors.json` — local copy; live version served from Vercel Blob
+- `public/data/tenure.json` — first elected year + term list per councillor (committed to repo)
+- `public/data/wards.geojson` — Toronto ward boundaries for geolocation (committed to repo)
+
+**Vercel Blob:** `motions.json`, `meetings.json`, and `councillors.json` are uploaded to `https://qcbqayy3ivvb6sia.public.blob.vercel-storage.com`. Run `node --env-file=.env scripts/upload_to_blob.js` after any manual data edit. GitHub Actions uploads automatically after each daily refresh — no commits to the repo for data updates.
 
 **Frontend:**
 - `src/App.jsx` — routes + data loading via `useMotions`

@@ -15,11 +15,15 @@ export function useMotions() {
         let isMounted = true;
 
         async function loadData() {
+            const blobBase = import.meta.env.VITE_BLOB_BASE_URL;
+            const motionsUrl     = blobBase ? `${blobBase}/motions.json`     : '/data/motions.json';
+            const meetingsUrl    = blobBase ? `${blobBase}/meetings.json`    : '/data/meetings.json';
+            const councillorsUrl = blobBase ? `${blobBase}/councillors.json` : '/data/councillors.json';
             try {
                 const [motionsRes, councillorsRes, meetingsRes] = await Promise.all([
-                    fetch('/data/motions.json'),
-                    fetch('/data/councillors.json'),
-                    fetch('/data/meetings.json'),
+                    fetch(motionsUrl),
+                    fetch(councillorsUrl),
+                    fetch(meetingsUrl),
                 ]);
                 if (!motionsRes.ok) throw new Error('Failed to fetch data');
                 const [motionsData, councillorsData, meetingsData] = await Promise.all([

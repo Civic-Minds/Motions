@@ -4,10 +4,16 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
-## [Unreleased]
+## [2.7.0] - 2026-05-02
 
 ### Added
+- **Vercel Blob storage**: `motions.json`, `meetings.json`, and `councillors.json` are now served from Vercel Blob (`https://qcbqayy3ivvb6sia.public.blob.vercel-storage.com`). Frontend fetches from Blob in production, falls back to `/data/` locally.
+- **`scripts/upload_to_blob.js`**: uploads all three data files to Blob. Run manually after editing councillors, or automatically via the refreshed Actions workflow.
 - **Data refresh logging**: `import_open_data.js` and `fetch_meetings.js` now append a JSON line to `logs/data-refresh.log` after each run. Captures timestamp, motion/meeting counts, missing summary count, newest motion ID, and next upcoming meeting.
+
+### Changed
+- **GitHub Actions workflow**: data refresh no longer commits `motions.json` or `meetings.json` back to the repo. Files are uploaded to Vercel Blob instead — eliminates daily bot commits from the repository history.
+- **Actions Node.js 20 → 24**: updated `actions/setup-node` to Node.js 24 ahead of the June 2, 2026 deprecation deadline.
 
 ## [2.6.0] - 2026-04-21
 
