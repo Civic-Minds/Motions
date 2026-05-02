@@ -1,502 +1,5 @@
 [
   {
-    "committee": "Scarborough Community Council",
-    "date": "2025-05-01",
-    "displayDate": "Thu, May 1, 2025",
-    "startTime": "09:30 AM",
-    "endTime": "18:00 PM",
-    "location": "Council Chamber, Scarborough Civic Centre",
-    "meetingNumber": 22,
-    "isCouncil": false,
-    "meetingId": 25868,
-    "meetingReference": "2025.SC22",
-    "agendaItems": [
-      {
-        "reference": "2025.SC22.1",
-        "title": "799 Brimley Road - Zoning Amendment Application - Decision Report - Approval",
-        "wards": "21",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.SC22.1"
-      },
-      {
-        "reference": "2025.SC22.2",
-        "title": "1251 Bridletowne Circle - City-Initiated Zoning By-law Amendment - Re-allocating Section 37 Funds within Ward 22 - Decision Report - Approval",
-        "wards": "22",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.SC22.2"
-      },
-      {
-        "reference": "2025.SC22.3",
-        "title": "1555 Midland Avenue - Part Lot Control Exemption Application - Decision Report - Approval",
-        "wards": "21",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.SC22.3"
-      },
-      {
-        "reference": "2025.SC22.4",
-        "title": "27 Lyncroft Drive - Application to Remove a Private Tree",
-        "wards": "24",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.SC22.4"
-      },
-      {
-        "reference": "2025.SC22.5",
-        "title": "49 Bellamy Road South - Application to Remove a Private Tree",
-        "wards": "20",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.SC22.5"
-      },
-      {
-        "reference": "2025.SC22.6",
-        "title": "Beran Drive  - Traffic Calming (Speed Humps)",
-        "wards": "24",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.SC22.6"
-      },
-      {
-        "reference": "2025.SC22.7",
-        "title": "Colonel Danforth Trail - Traffic Calming (Speed Humps)",
-        "wards": "25",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.SC22.7"
-      },
-      {
-        "reference": "2025.SC22.8",
-        "title": "Confederation Drive - Traffic Calming (Speed Humps)",
-        "wards": "24",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.SC22.8"
-      },
-      {
-        "reference": "2025.SC22.9",
-        "title": "Holmfirth Terrace - Traffic Calming (Speed Humps)",
-        "wards": "24",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.SC22.9"
-      },
-      {
-        "reference": "2025.SC22.10",
-        "title": "Huntsmill Boulevard - Traffic Calming (Speed Humps)",
-        "wards": "22",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.SC22.10"
-      },
-      {
-        "reference": "2025.SC22.11",
-        "title": "Kollar Drive - Traffic Calming (Speed Humps)",
-        "wards": "24",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.SC22.11"
-      },
-      {
-        "reference": "2025.SC22.12",
-        "title": "Ranstone Gardens - Traffic Calming (Speed Humps)",
-        "wards": "21",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.SC22.12"
-      },
-      {
-        "reference": "2025.SC22.13",
-        "title": "Stevenwood Road - Traffic Calming (Speed Humps)",
-        "wards": "24",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.SC22.13"
-      },
-      {
-        "reference": "2025.SC22.14",
-        "title": "Brockley Drive - Parking Amendments",
-        "wards": "21",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.SC22.14"
-      },
-      {
-        "reference": "2025.SC22.15",
-        "title": "361A Old Finch Avenue, 2000 Meadowvale Road - Designation of Fire Routes and amendment to Chapter 880 - Fire Routes",
-        "wards": "25",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.SC22.15"
-      },
-      {
-        "reference": "2025.SC22.16",
-        "title": "Brimwood Boulevard - Speed Humps",
-        "wards": "23",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.SC22.16"
-      },
-      {
-        "reference": "2025.SC22.17",
-        "title": "Introduction of By-laws",
-        "wards": "20, 21, 22, 23, 24, 25",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.SC22.17"
-      }
-    ]
-  },
-  {
-    "committee": "Toronto and East York Community Council",
-    "date": "2025-05-01",
-    "displayDate": "Thu, May 1, 2025",
-    "startTime": "09:30 AM",
-    "endTime": "18:00 PM",
-    "location": "Committee Room 1, City Hall",
-    "meetingNumber": 22,
-    "isCouncil": false,
-    "meetingId": 25848,
-    "meetingReference": "2025.TE22",
-    "agendaItems": [
-      {
-        "reference": "2025.TE22.1",
-        "title": "Naming of an existing Public Lane West of Huron Street, extending between Sussex Avenue and Glen Morris Street",
-        "wards": "11",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.1"
-      },
-      {
-        "reference": "2025.TE22.2",
-        "title": "Renaming a section of Eastern Avenue extending westerly from Lawren Harris Square",
-        "wards": "13",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.2"
-      },
-      {
-        "reference": "2025.TE22.3",
-        "title": "72 Perth Avenue - Zoning By-law Amendment Application - Decision Report - Approval",
-        "wards": "9",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.3"
-      },
-      {
-        "reference": "2025.TE22.4",
-        "title": "229 Richmond Street West - Temporary Use Zoning By-law - Decision Report - Approval",
-        "wards": "10",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.4"
-      },
-      {
-        "reference": "2025.TE22.5",
-        "title": "1251-1311 Yonge Street - Official Plan and Zoning By-law Amendment - Decision Report - Approval",
-        "wards": "11",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.5"
-      },
-      {
-        "reference": "2025.TE22.6",
-        "title": "77, 81 and 83 Mutual Street - Extension of Part Lot Control Exemption Application - Decision Report - Approval",
-        "wards": "13",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.6"
-      },
-      {
-        "reference": "2025.TE22.7",
-        "title": "11 Pleasant Boulevard - Zoning By-law Amendment Application - Appeal Report",
-        "wards": "12",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.7"
-      },
-      {
-        "reference": "2025.TE22.8",
-        "title": "Residential Demolition Applications at 19-21 Brownlow Avenue, 214-216 Soudan Avenue and 220-224 Soudan Avenue",
-        "wards": "12",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.8"
-      },
-      {
-        "reference": "2025.TE22.9",
-        "title": "447 Pacific Avenue - Application to Remove a Private Tree",
-        "wards": "4",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.9"
-      },
-      {
-        "reference": "2025.TE22.10",
-        "title": "Changes to Business Improvement Area Boards of Management",
-        "wards": "9, 10, 11, 12",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.10"
-      },
-      {
-        "reference": "2025.TE22.11",
-        "title": "Encroachment Appeal - 495-517 Wellington Street West - Proposed Ground Sign",
-        "wards": "10",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.11"
-      },
-      {
-        "reference": "2025.TE22.12",
-        "title": "3194-3206 Dundas Street West - Construction Staging Area",
-        "wards": "4",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.12"
-      },
-      {
-        "reference": "2025.TE22.13",
-        "title": "980 Dufferin Street and 1141 Bloor Street West (Croatia Street) - Construction Staging Area",
-        "wards": "9",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.13"
-      },
-      {
-        "reference": "2025.TE22.14",
-        "title": "Quayside Infrastructure and Public Realm Project - Construction Staging Area",
-        "wards": "10",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.14"
-      },
-      {
-        "reference": "2025.TE22.15",
-        "title": "5 Scrivener Square - Construction Staging Area Time Extension",
-        "wards": "11",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.15"
-      },
-      {
-        "reference": "2025.TE22.16",
-        "title": "125 George Street - Construction Staging Area Time Extension",
-        "wards": "13",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.16"
-      },
-      {
-        "reference": "2025.TE22.17",
-        "title": "Temporary Street Closure - Market Street",
-        "wards": "13",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.17"
-      },
-      {
-        "reference": "2025.TE22.18",
-        "title": "Assumption of Services, Reference Plan 66R-21894, Bastion Street, part of Grand Magazine Street and Sloping Sky Mews",
-        "wards": "10",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.18"
-      },
-      {
-        "reference": "2025.TE22.19",
-        "title": "2024 Distillery Winter Village: Post-Event Review",
-        "wards": "10, 13",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.19"
-      },
-      {
-        "reference": "2025.TE22.20",
-        "title": "Accessible Parking Spaces - May 2025 (Delegated)",
-        "wards": "4, 9, 10, 14, 19",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.20"
-      },
-      {
-        "reference": "2025.TE22.21",
-        "title": "Bellevue Avenue and Denison Square - Accessible Parking Spaces",
-        "wards": "11",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.21"
-      },
-      {
-        "reference": "2025.TE22.22",
-        "title": "Riverdale Avenue (Non-Delegated) - Accessible Parking Space",
-        "wards": "14",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.22"
-      },
-      {
-        "reference": "2025.TE22.23",
-        "title": "Charles Street West - Commercial Loading Zone",
-        "wards": "13",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.23"
-      },
-      {
-        "reference": "2025.TE22.24",
-        "title": "Draper Street - Streetscape Improvements and Parking By-law Amendments",
-        "wards": "10",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.24"
-      },
-      {
-        "reference": "2025.TE22.25",
-        "title": "Breadalbane Street - Streetscape Improvements and Parking Bylaw Amendments",
-        "wards": "13",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.25"
-      },
-      {
-        "reference": "2025.TE22.26",
-        "title": "Albany Avenue - Parking Amendments",
-        "wards": "11",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.26"
-      },
-      {
-        "reference": "2025.TE22.27",
-        "title": "Peveril Hill North - Parking Amendments",
-        "wards": "12",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.27"
-      },
-      {
-        "reference": "2025.TE22.28",
-        "title": "Corktown, Distillery and Canary Districts - Parking Amendments",
-        "wards": "13",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.28"
-      },
-      {
-        "reference": "2025.TE22.29",
-        "title": "George Street South - Parking Amendments",
-        "wards": "13",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.29"
-      },
-      {
-        "reference": "2025.TE22.30",
-        "title": "Huntley Street - Parking Amendments",
-        "wards": "13",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.30"
-      },
-      {
-        "reference": "2025.TE22.31",
-        "title": "Poulett Street - Parking Amendments",
-        "wards": "13",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.31"
-      },
-      {
-        "reference": "2025.TE22.32",
-        "title": "Dockside Drive - Parking and Traffic Amendments",
-        "wards": "10",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.32"
-      },
-      {
-        "reference": "2025.TE22.33",
-        "title": "Hannaford Street - Permit Parking Amendments",
-        "wards": "19",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.33"
-      },
-      {
-        "reference": "2025.TE22.34",
-        "title": "Willard Avenue and Hanley Street - All-Way Stop Control",
-        "wards": "4",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.34"
-      },
-      {
-        "reference": "2025.TE22.35",
-        "title": "Mill Street and Rolling Mills Road - All-Way Stop Control",
-        "wards": "10, 13",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.35"
-      },
-      {
-        "reference": "2025.TE22.36",
-        "title": "Canniff Street - Traffic Calming (Speed Humps)",
-        "wards": "10",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.36"
-      },
-      {
-        "reference": "2025.TE22.37",
-        "title": "Crawford Street - Traffic Calming (Speed Humps)",
-        "wards": "11",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.37"
-      },
-      {
-        "reference": "2025.TE22.38",
-        "title": "Tracy Street - Traffic Calming (Speed Hump)",
-        "wards": "13",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.38"
-      },
-      {
-        "reference": "2025.TE22.39",
-        "title": "Cavaliere Gino Cucchi Lane - Vehicle Width Restriction",
-        "wards": "9",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.39"
-      },
-      {
-        "reference": "2025.TE22.40",
-        "title": "Vehicle Width Restriction - Lane north of Hallam Street, east of Delaware Avenue",
-        "wards": "9",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.40"
-      },
-      {
-        "reference": "2025.TE22.41",
-        "title": "Vehicle Width Restriction - Lane north of Lappin Avenue, east of Emerson Avenue",
-        "wards": "9",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.41"
-      },
-      {
-        "reference": "2025.TE22.42",
-        "title": "Vehicle Width Restriction - Lane north of St. Clair Avenue West, east of Cloverdale Road",
-        "wards": "9",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.42"
-      },
-      {
-        "reference": "2025.TE22.43",
-        "title": "Everden Road - Entry Prohibition",
-        "wards": "12",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.43"
-      },
-      {
-        "reference": "2025.TE22.44",
-        "title": "Harvie Avenue - Parking Amendments",
-        "wards": "9",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.44"
-      },
-      {
-        "reference": "2025.TE22.45",
-        "title": "1113 Dundas Street West - Residential Demolition Application",
-        "wards": "10",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.45"
-      },
-      {
-        "reference": "2025.TE22.46",
-        "title": "Re-opening of Item TE21.26 - 1 Roxborough Street West - Construction Staging Area",
-        "wards": "11",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.46"
-      },
-      {
-        "reference": "2025.TE22.47",
-        "title": "Riverdale Avenue - Accessible Parking Space - Re-opening item TE18.25",
-        "wards": "14",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.47"
-      },
-      {
-        "reference": "2025.TE22.48",
-        "title": "Speed Humps on Logan Avenue between McConnell Avenue and Danforth Avenue",
-        "wards": "14",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.48"
-      },
-      {
-        "reference": "2025.TE22.49",
-        "title": "Designating a Community Safety Zone at the Vaughan Road and Bathurst Street Corridor",
-        "wards": "12",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.49"
-      },
-      {
-        "reference": "2025.TE22.50",
-        "title": "Introduction of By-laws",
-        "wards": "4, 9, 10, 11, 12, 13, 14, 19",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TE22.50"
-      }
-    ]
-  },
-  {
     "committee": "Civic Appointments Committee",
     "date": "2025-05-02",
     "displayDate": "Fri, May 2, 2025",
@@ -50550,6 +50053,13 @@
         "wards": null,
         "inCamera": false,
         "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.DI17.4"
+      },
+      {
+        "reference": "2026.DI17.5",
+        "title": "Breaking Barriers: Housing Access for Women with Disabilities - Centering Lived Experiences in Toronto’s Affordable Housing System",
+        "wards": null,
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.DI17.5"
       }
     ]
   },
@@ -50820,6 +50330,34 @@
     ]
   },
   {
+    "committee": "Sign Variance Committee",
+    "date": "2026-05-08",
+    "displayDate": "Fri, May 8, 2026",
+    "startTime": "13:00 PM",
+    "endTime": "18:00 PM",
+    "location": "Video Conference",
+    "meetingNumber": 22,
+    "isCouncil": false,
+    "meetingId": 28232,
+    "meetingReference": "2026.SB22",
+    "agendaItems": [
+      {
+        "reference": "2026.SB22.1",
+        "title": "Roles and Expectations of Public Members on the Sign Variance Committee",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SB22.1"
+      },
+      {
+        "reference": "2026.SB22.2",
+        "title": "Overview of Sign By-law and City Policy and Procedures",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SB22.2"
+      }
+    ]
+  },
+  {
     "committee": "General Government Committee",
     "date": "2026-05-11",
     "displayDate": "Mon, May 11, 2026",
@@ -50904,26 +50442,11 @@
     "startTime": "09:30 AM",
     "endTime": "18:00 PM",
     "location": "Video Conference",
-    "meetingNumber": 22,
+    "meetingNumber": 23,
     "isCouncil": false,
-    "meetingId": 28232,
-    "meetingReference": "2026.SB22",
-    "agendaItems": [
-      {
-        "reference": "2026.SB22.1",
-        "title": "Roles and Expectations of Public Members on the Sign Variance Committee",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SB22.1"
-      },
-      {
-        "reference": "2026.SB22.2",
-        "title": "Overview of Sign By-law and City Policy and Procedures",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SB22.2"
-      }
-    ]
+    "meetingId": 27780,
+    "meetingReference": "2026.SB23",
+    "agendaItems": []
   },
   {
     "committee": "City Council",
@@ -50947,7 +50470,7 @@
     "location": "Video Conference",
     "meetingNumber": 34,
     "isCouncil": false,
-    "meetingId": 27957,
+    "meetingId": 27958,
     "meetingReference": "2026.DG34",
     "agendaItems": []
   },
@@ -51376,7 +50899,7 @@
     "location": "Video Conference",
     "meetingNumber": 35,
     "isCouncil": false,
-    "meetingId": 27958,
+    "meetingId": 27959,
     "meetingReference": "2026.DG35",
     "agendaItems": []
   },
@@ -51426,10 +50949,10 @@
     "startTime": "09:30 AM",
     "endTime": "18:00 PM",
     "location": "Video Conference",
-    "meetingNumber": 23,
+    "meetingNumber": 24,
     "isCouncil": false,
-    "meetingId": 27780,
-    "meetingReference": "2026.SB23",
+    "meetingId": 27781,
+    "meetingReference": "2026.SB24",
     "agendaItems": []
   },
   {
@@ -51870,7 +51393,7 @@
     "location": "Video Conference",
     "meetingNumber": 36,
     "isCouncil": false,
-    "meetingId": 27959,
+    "meetingId": 27960,
     "meetingReference": "2026.DG36",
     "agendaItems": []
   },
@@ -52117,7 +51640,7 @@
     "location": "Video Conference",
     "meetingNumber": 37,
     "isCouncil": false,
-    "meetingId": 27960,
+    "meetingId": 27961,
     "meetingReference": "2026.DG37",
     "agendaItems": []
   },
@@ -52141,10 +51664,10 @@
     "startTime": "09:30 AM",
     "endTime": "18:00 PM",
     "location": "Video Conference",
-    "meetingNumber": 24,
+    "meetingNumber": 25,
     "isCouncil": false,
-    "meetingId": 27781,
-    "meetingReference": "2026.SB24",
+    "meetingId": 27782,
+    "meetingReference": "2026.SB25",
     "agendaItems": []
   },
   {
@@ -52272,10 +51795,7 @@
     "endTime": "18:00 PM",
     "location": "Video Conference",
     "meetingNumber": 38,
-    "isCouncil": false,
-    "meetingId": 27961,
-    "meetingReference": "2026.DG38",
-    "agendaItems": []
+    "isCouncil": false
   },
   {
     "committee": "Sign Variance Committee",
@@ -52284,10 +51804,10 @@
     "startTime": "09:30 AM",
     "endTime": "18:00 PM",
     "location": "Video Conference",
-    "meetingNumber": 25,
+    "meetingNumber": 26,
     "isCouncil": false,
-    "meetingId": 27782,
-    "meetingReference": "2026.SB25",
+    "meetingId": 27783,
+    "meetingReference": "2026.SB26",
     "agendaItems": []
   },
   {
@@ -52301,6 +51821,19 @@
     "isCouncil": false,
     "meetingId": 28038,
     "meetingReference": "2026.SV40",
+    "agendaItems": []
+  },
+  {
+    "committee": "Property Standards - North York Panel",
+    "date": "2026-10-28",
+    "displayDate": "Wed, Oct 28, 2026",
+    "startTime": "09:30 AM",
+    "endTime": "18:00 PM",
+    "location": "Video Conference",
+    "meetingNumber": 33,
+    "isCouncil": false,
+    "meetingId": 27965,
+    "meetingReference": "2026.SY33",
     "agendaItems": []
   }
 ]
