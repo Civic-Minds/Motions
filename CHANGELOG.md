@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
+## [Unreleased]
+
+### Added
+- **2026 Election Dashboard**: Built a comprehensive candidate tracking dashboard at `/toronto/election`. Designed as a segregated internal-first feature for tracking the upcoming municipal election.
+- **Automated Candidate Scraper**: Developed `scripts/fetch_candidates.js` using Playwright to ingest official candidate registrations for Mayor and City Council directly from the City of Toronto portal.
+- **The 2026 Field**: Integrated a dual-focus explorer that allows users to toggle between city-wide Mayor candidates and local Ward candidates.
+- **Track Records**: Side-by-side performance cards for the Mayor and Ward Councillors, linking directly to their 2022–2026 voting history.
+- **Re-election Tracking**: Added live badges that indicate if an incumbent has officially registered to run again.
+- **Ballot Education**: Added a "Your Ballot" section to educate voters on the three-vote structure (Mayor, Councillor, and School Board Trustee).
+
+### Changed
+- **Terminology Standardization**: Standardized UI language to use "new candidates" for non-incumbents for better clarity and neutrality.
+
+### Fixed
+- **Election Page Routing**: Corrected internal links and routing to use the standardized `/toronto/election` path.
+- **State Management**: Fixed a runtime error in `ElectionView.jsx` caused by an undefined view state.
+
 ## [2.7.0] - 2026-05-02
 
 ### Added
@@ -12,6 +29,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Data refresh logging**: `import_open_data.js` and `fetch_meetings.js` now append a JSON line to `logs/data-refresh.log` after each run. Captures timestamp, motion/meeting counts, missing summary count, newest motion ID, and next upcoming meeting.
 
 ### Changed
+- **Ward reset in Navbar**: added a 'Clear' (X) button to the ward indicator in the header. Users can now reset their ward preference from any page without navigating back to the dashboard.
 - **GitHub Actions workflow**: data refresh no longer commits `motions.json` or `meetings.json` back to the repo. Files are uploaded to Vercel Blob instead — eliminates daily bot commits from the repository history.
 - **Actions Node.js 20 → 24**: updated `actions/setup-node` to Node.js 24 ahead of the June 2, 2026 deprecation deadline.
 

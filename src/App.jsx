@@ -20,6 +20,7 @@ import CommitteesView from './components/CommitteesView';
 import MeetingPage from './components/MeetingPage';
 import MeetingsListView from './components/MeetingsListView';
 import GlobalSearch from './components/GlobalSearch';
+import ElectionView from './components/ElectionView';
 
 const TABS = [
   { path: '/councillors', label: 'Councillors', icon: Users },
@@ -92,13 +93,22 @@ function Navbar({ onSearchOpen, compareMode, onCompareModeToggle, wardId, onLoca
             </button>
           )}
           {wardId ? (
-            <button
-              onClick={() => navigate(`/wards/${wardId}`)}
-              className="hidden sm:flex items-center gap-1.5 px-3 py-2 text-sm text-slate-600 bg-white border border-slate-200 rounded-xl hover:border-[#004a99]/40 transition-all"
-            >
-              <MapPin className="w-3.5 h-3.5 text-[#004a99]" />
-              Ward {wardId}{wardLastName ? ` · ${wardLastName}` : ''}
-            </button>
+            <div className="hidden sm:flex items-center gap-0 bg-white border border-slate-200 rounded-xl hover:border-[#004a99]/40 transition-all group/ward">
+              <button
+                onClick={() => navigate(`/wards/${wardId}`)}
+                className="flex items-center gap-1.5 px-3 py-2 text-sm text-slate-600 font-medium"
+              >
+                <MapPin className="w-3.5 h-3.5 text-[#004a99]" />
+                Ward {wardId}{wardLastName ? ` · ${wardLastName}` : ''}
+              </button>
+              <button
+                onClick={(e) => { e.stopPropagation(); onClearWard(); }}
+                className="pr-2.5 py-2 text-slate-300 hover:text-rose-500 transition-colors"
+                title="Clear my ward"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            </div>
           ) : (
             <button
               onClick={onLocate}
@@ -250,6 +260,7 @@ function AppShell() {
           <Route path="/committees/:committeeSlug" element={<CommitteesView motions={motions} meetings={meetings} followedCommittees={followedCommittees} onToggleFollow={handleToggleFollow} />} />
           <Route path="/meetings" element={<MeetingsListView meetings={meetings} />} />
           <Route path="/meetings/:meetingRef" element={<MeetingPage meetings={meetings} />} />
+          <Route path="/election" element={<ElectionView />} />
           <Route path="/budget" element={<BudgetTranslator />} />
           <Route path="*"          element={<Navigate to="/" replace />} />
         </Routes>

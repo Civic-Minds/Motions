@@ -1,0 +1,321 @@
+{
+  "updatedAt": "2026-05-04T20:52:34.140Z",
+  "mayor": [
+    {
+      "name": "Brad Bradford",
+      "email": "",
+      "phone": "",
+      "nominationDate": "01-May-2026",
+      "type": "Mayor"
+    },
+    {
+      "name": "Cory Deville",
+      "email": "vote@deville2026.ca",
+      "phone": "",
+      "nominationDate": "01-May-2026",
+      "type": "Mayor"
+    },
+    {
+      "name": "Laura Ellis",
+      "email": "",
+      "phone": "",
+      "nominationDate": "01-May-2026",
+      "type": "Mayor"
+    },
+    {
+      "name": "Peter Handjis",
+      "email": "",
+      "phone": "",
+      "nominationDate": "01-May-2026",
+      "type": "Mayor"
+    },
+    {
+      "name": "Heather He",
+      "email": "",
+      "phone": "",
+      "nominationDate": "01-May-2026",
+      "type": "Mayor"
+    },
+    {
+      "name": "Isidoros Kyrlangitses",
+      "email": "",
+      "phone": "",
+      "nominationDate": "01-May-2026",
+      "type": "Mayor"
+    },
+    {
+      "name": "Sarah McVie",
+      "email": "",
+      "phone": "",
+      "nominationDate": "01-May-2026",
+      "type": "Mayor"
+    },
+    {
+      "name": "Lyall Sanders",
+      "email": "",
+      "phone": "",
+      "nominationDate": "01-May-2026",
+      "type": "Mayor"
+    }
+  ],
+  "wards": {
+    "1": [
+      {
+        "name": "Ala'a Adib",
+        "email": "",
+        "phone": "",
+        "nominationDate": "01-May-2026",
+        "type": "Councillor"
+      },
+      {
+        "name": "Saima Babar",
+        "email": "",
+        "phone": "",
+        "nominationDate": "01-May-2026",
+        "type": "Councillor"
+      }
+    ],
+    "2": [
+      {
+        "name": "Jennifer Alexander",
+        "email": "info@jenalexander.ca",
+        "phone": "",
+        "nominationDate": "01-May-2026",
+        "type": "Councillor"
+      }
+    ],
+    "4": [
+      {
+        "name": "Nadia Guerrera",
+        "email": "",
+        "phone": "",
+        "nominationDate": "01-May-2026",
+        "type": "Councillor"
+      },
+      {
+        "name": "Diana Chan McNally",
+        "email": "",
+        "phone": "",
+        "nominationDate": "01-May-2026",
+        "type": "Councillor"
+      },
+      {
+        "name": "Adam Pham",
+        "email": "",
+        "phone": "",
+        "nominationDate": "01-May-2026",
+        "type": "Councillor"
+      },
+      {
+        "name": "Vanessa Raponi",
+        "email": "info@vanessaraponi.ca",
+        "phone": "",
+        "nominationDate": "01-May-2026",
+        "type": "Councillor"
+      }
+    ],
+    "5": [
+      {
+        "name": "Daniel Di Giorgio",
+        "email": "",
+        "phone": "",
+        "nominationDate": "01-May-2026",
+        "type": "Councillor"
+      },
+      {
+        "name": "Chiara Padovani",
+        "email": "chiara@chiarapadovani.ca",
+        "phone": "647-479-9796",
+        "nominationDate": "01-May-2026",
+        "type": "Councillor"
+      }
+    ],
+    "7": [
+      {
+        "name": "Amanda Coombs",
+        "email": "",
+        "phone": "",
+        "nominationDate": "01-May-2026",
+        "type": "Councillor"
+      }
+    ],
+    "8": [
+      {
+        "name": "Mike Colle",
+        "email": "",
+        "phone": "",
+        "nominationDate": "01-May-2026",
+        "type": "Councillor"
+      },
+      {
+        "name": "Daniel Trayes",
+        "email": "dantrayes@gmail.com",
+        "phone": "647-512-5145",
+        "nominationDate": "01-May-2026",
+        "type": "Councillor"
+      }
+    ],
+    "10": [
+      {
+        "name": "Paul Nash",
+        "email": "nashp1071@gmail.com",
+        "phone": "",
+        "nominationDate": "01-May-2026",
+        "type": "Councillor"
+      }
+    ],
+    "11": [
+      {
+        "name": "Gabriel Blanc",
+        "email": "gabriel.blanc@rogers.com",
+        "phone": "",
+        "nominationDate": "01-May-2026",
+        "type": "Councillor"
+      },
+      {
+        "name": "Keenan Courtis",
+        "email": "",
+        "phone": "",
+        "nominationDate": "01-May-2026",
+        "type": "Councillor"
+      },
+      {
+        "name": "Terri Hawkes",
+        "email": "",
+        "phone": "",
+        "nominationDate": "01-May-2026",
+        "type": "Councillor"
+      },
+      {
+        "name": "Alice Li",
+        "email": "",
+        "phone": "",
+        "nominationDate": "04-May-2026",
+        "type": "Councillor"
+      }
+    ],
+    "13": [
+      {
+        "name": "Walied Khogali Ali",
+        "email": "",
+        "phone": "",
+        "nominationDate": "01-May-2026",
+        "type": "Councillor"
+      },
+      {
+        "name": "Curran Stikuts",
+        "email": "",
+        "phone": "",
+        "nominationDate": "01-May-2026",
+        "type": "Councillor"
+      },
+      {
+        "name": "Nicki Ward",
+        "email": "info@nickiward.ca",
+        "phone": "",
+        "nominationDate": "01-May-2026",
+        "type": "Councillor"
+      }
+    ],
+    "17": [
+      {
+        "name": "Shelley Carroll",
+        "email": "",
+        "phone": "",
+        "nominationDate": "04-May-2026",
+        "type": "Councillor"
+      },
+      {
+        "name": "Sabrina Zuniga",
+        "email": "",
+        "phone": "",
+        "nominationDate": "01-May-2026",
+        "type": "Councillor"
+      }
+    ],
+    "18": [
+      {
+        "name": "Natik Yusifov",
+        "email": "",
+        "phone": "",
+        "nominationDate": "01-May-2026",
+        "type": "Councillor"
+      }
+    ],
+    "19": [
+      {
+        "name": "James Dann",
+        "email": "",
+        "phone": "",
+        "nominationDate": "01-May-2026",
+        "type": "Councillor"
+      },
+      {
+        "name": "Tycen Legg",
+        "email": "",
+        "phone": "",
+        "nominationDate": "01-May-2026",
+        "type": "Councillor"
+      },
+      {
+        "name": "Adam Smith",
+        "email": "",
+        "phone": "",
+        "nominationDate": "01-May-2026",
+        "type": "Councillor"
+      }
+    ],
+    "20": [
+      {
+        "name": "Ariel-Rachel Karokis",
+        "email": "",
+        "phone": "",
+        "nominationDate": "01-May-2026",
+        "type": "Councillor"
+      },
+      {
+        "name": "Philip Mills",
+        "email": "",
+        "phone": "",
+        "nominationDate": "01-May-2026",
+        "type": "Councillor"
+      }
+    ],
+    "21": [
+      {
+        "name": "Krissan Veerasingam",
+        "email": "",
+        "phone": "",
+        "nominationDate": "01-May-2026",
+        "type": "Councillor"
+      }
+    ],
+    "22": [
+      {
+        "name": "Dan Lovell",
+        "email": "danlovell4ward22@gmail.com",
+        "phone": "",
+        "nominationDate": "01-May-2026",
+        "type": "Councillor"
+      }
+    ],
+    "23": [
+      {
+        "name": "Kevin Li",
+        "email": "",
+        "phone": "",
+        "nominationDate": "01-May-2026",
+        "type": "Councillor"
+      }
+    ],
+    "25": [
+      {
+        "name": "Shawn Allen",
+        "email": "",
+        "phone": "",
+        "nominationDate": "01-May-2026",
+        "type": "Councillor"
+      }
+    ]
+  }
+}

@@ -57,6 +57,15 @@ The long-term vision is to expand beyond Toronto — letting residents of any Ca
 - [x] **AlignmentHeatmap: threshold note** — the grid silently excludes councillors with fewer than 5 recorded votes. Add a small label like "Showing 26 members with 5+ recorded votes."
 
 
+## Election 2026
+
+- [/] **Election 2026 Dashboard** — a central page for the upcoming October 26 municipal election. (Hidden draft at `/election`)
+- [x] **Countdown & Key Dates** — live countdown to election day and tracking of the nomination period.
+- [x] **Candidate Tracker** — automated scraper (`scripts/fetch_candidates.js`) pulls real-time data from toronto.ca.
+- [/] **Incumbent Performance** — linking candidates to their voting records.
+
+---
+
 ## Data Module
 
 - [ ] **Data Module: topic filter column** — the table has no topic filter; add a topic dropdown alongside the existing search and status filters.
