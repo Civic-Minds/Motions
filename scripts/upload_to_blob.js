@@ -18,6 +18,7 @@ for (const filename of FILES) {
   const { url } = await put(filename, content, {
     access: 'public',
     addRandomSuffix: false,
+    allowOverwrite: true,
     contentType: 'application/json',
   });
   console.log(`✅ Uploaded ${filename} → ${url}`);

@@ -15,11 +15,14 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Ballot Education**: Added a "Your Ballot" section to educate voters on the three-vote structure (Mayor, Councillor, and School Board Trustee).
 
 ### Changed
+- **Election Dashboard Redesign**: Complete visual overhaul of the 2026 Election Dashboard. Implemented a premium, high-fidelity aesthetic using glassmorphism, bold gradients, and staggered animations.
 - **Terminology Standardization**: Standardized UI language to use "new candidates" for non-incumbents for better clarity and neutrality.
+- **Global Scrollbar**: Added a custom, slim scrollbar style for dark containers and interactive registries.
 
 ### Fixed
 - **Election Page Routing**: Corrected internal links and routing to use the standardized `/toronto/election` path.
 - **State Management**: Fixed a runtime error in `ElectionView.jsx` caused by an undefined view state.
+- **Vercel Blob Upload**: Added `allowOverwrite: true` to `scripts/upload_to_blob.js` to resolve `BlobError` and fix the automated data refresh pipeline.
 
 ## [2.7.0] - 2026-05-02
 
