@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
-## [Unreleased]
+## [2.8.0] - 2026-05-05
 
 ### Added
 - **2026 Election Dashboard**: Built a comprehensive candidate tracking dashboard at `/toronto/election`. Designed as a segregated internal-first feature for tracking the upcoming municipal election.
