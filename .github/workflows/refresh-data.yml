@@ -46,7 +46,7 @@ jobs:
             
             BODY="The daily import found motions without summaries. Run the pipeline locally (scripts 2–4) to process them.
 
-$MISSING"
+            $MISSING"
             
             # Check if an open issue with this label already exists
             EXISTING_ISSUE=$(gh issue list --label "needs-summaries" --state open --limit 1 --json number --jq '.[0].number' --repo ${{ github.repository }})
