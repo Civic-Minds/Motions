@@ -43,26 +43,22 @@ jobs:
           if [ -n "$MISSING" ]; then
             COUNT=$(echo "$MISSING" | wc -l | tr -d ' ')
             TITLE="🔔 $COUNT new motion(s) need summaries"
-            
-            BODY="The daily import found motions without summaries. Run the pipeline locally (scripts 2–4) to process them.
+            BODY="The latest data import found new motions without summaries.
 
             $MISSING"
             
-            # Check if an open issue with this label already exists
-            EXISTING_ISSUE=$(gh issue list --label "needs-summaries" --state open --limit 1 --json number --jq '.[0].number' --repo ${{ github.repository }})
-            
-            if [ -n "$EXISTING_ISSUE" ] && [ "$EXISTING_ISSUE" != "null" ]; then
-              echo "Updating existing issue #$EXISTING_ISSUE"
-              gh issue edit "$EXISTING_ISSUE" \
-                --title "$TITLE" \
-                --body "$BODY" \
-                --repo ${{ github.repository }} || true
-            else
-              echo "Creating new issue"
-              gh issue create \
-                --title "$TITLE" \
-                --body "$BODY" \
-                --label "needs-summaries" \
-                --repo ${{ github.repository }} || true
-            fi
+            echo "Creating new issue for $COUNT new motions"
+            gh issue create \
+              --title "$TITLE" \
+              --body "$BODY" \
+              --label "needs-summaries" \
+              --repo ${{ github.repository }} || true
           fi
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/data/*.json
+          # Only commit and push if there are actual changes
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: automated data refresh" && git push)
