@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
+## [2.8.1] - 2026-05-08
+
+### Fixed
+- **Daily Workflow Issue Deduplication**: Modified `refresh-data.yml` to update the existing `needs-summaries` GitHub issue rather than creating duplicate issues every day when motions are missing summaries.
+
 ## [2.8.0] - 2026-05-05
 
 ### Added
