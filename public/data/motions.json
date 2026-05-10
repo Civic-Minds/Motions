@@ -1,5 +1,27 @@
 [
   {
+    "id": "PH30.3",
+    "date": "May 7, 2026",
+    "title": "3838 Bloor Street West - Official Plan and Zoning By-law Amendment Application - Decision Report - Approval",
+    "status": "Adopted",
+    "resultText": "Carried, 6-0",
+    "committee": "Planning and Housing Committee",
+    "topic": "Housing",
+    "trivial": true,
+    "significance": 0,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PH30.3",
+    "votes": {
+      "Brad Bradford": "YES",
+      "Vincent Crisanti": "YES",
+      "Josh Matlow": "YES",
+      "Jamaal Myers": "YES",
+      "Frances Nunziata": "YES",
+      "Gord Perks": "YES"
+    },
+    "flags": []
+  },
+  {
     "id": "SC31.3",
     "date": "Apr 30, 2026",
     "title": "1710 and 1712 Ellesmere Road - Official Plan Amendment, Zoning By-law Amendment and Draft Plan of Subdivision Applications - Decision Report - Approval",
@@ -40,6 +62,30 @@
       "Jamaal Myers": "YES",
       "Neethan Shan": "YES",
       "Michael Thompson": "YES"
+    },
+    "flags": []
+  },
+  {
+    "id": "TE32.46",
+    "date": "Apr 30, 2026",
+    "title": "Pedestrianizing Church Street Pilot",
+    "status": "Adopted",
+    "resultText": "Carried, 6-0",
+    "committee": "Toronto and East York Community Council",
+    "topic": "Transit",
+    "trivial": true,
+    "significance": 0,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.46",
+    "votes": {
+      "Brad Bradford": "ABSENT",
+      "Alejandra Bravo": "YES",
+      "Paula Fletcher": "ABSENT",
+      "Ausma Malik": "YES",
+      "Josh Matlow": "YES",
+      "Chris Moise": "YES",
+      "Gord Perks": "YES",
+      "Dianne Saxe": "YES"
     },
     "flags": []
   },
@@ -97,30 +143,6 @@
     "motionType": "Adopt Item"
   },
   {
-    "id": "TE32.46",
-    "date": "Apr 30, 2026",
-    "title": "Pedestrianizing Church Street Pilot",
-    "status": "Adopted",
-    "resultText": "Carried, 6-0",
-    "committee": "Toronto and East York Community Council",
-    "topic": "Transit",
-    "trivial": true,
-    "significance": 0,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.46",
-    "votes": {
-      "Brad Bradford": "ABSENT",
-      "Alejandra Bravo": "YES",
-      "Paula Fletcher": "ABSENT",
-      "Ausma Malik": "YES",
-      "Josh Matlow": "YES",
-      "Chris Moise": "YES",
-      "Gord Perks": "YES",
-      "Dianne Saxe": "YES"
-    },
-    "flags": []
-  },
-  {
     "id": "TE32.2",
     "date": "Apr 30, 2026",
     "title": "Naming of an existing Public Lane South of King Street West, extending between Cowan Avenue and Spencer Avenue",
@@ -169,57 +191,6 @@
     "flags": []
   },
   {
-    "id": "NY32.9-amend-item",
-    "date": "Apr 29, 2026",
-    "title": "103 Roslin Avenue - Application to Remove a City Owned Tree",
-    "status": "Lost",
-    "resultText": "Lost (tie), 3-3",
-    "committee": "North York Community Council",
-    "topic": "General",
-    "trivial": false,
-    "significance": 57,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.NY32.9",
-    "votes": {
-      "Jon Burnside": "NO",
-      "Shelley Carroll": "NO",
-      "Lily Cheng": "NO",
-      "Rachel Chernos Lin": "YES",
-      "Mike Colle": "YES",
-      "James Pasternak": "YES"
-    },
-    "flags": [
-      "defeated"
-    ],
-    "motionType": "Amend Item",
-    "parentId": "NY32.9"
-  },
-  {
-    "id": "NY32.9",
-    "date": "Apr 29, 2026",
-    "title": "103 Roslin Avenue - Application to Remove a City Owned Tree",
-    "status": "Lost",
-    "resultText": "Lost (tie), 3-3",
-    "committee": "North York Community Council",
-    "topic": "General",
-    "trivial": false,
-    "significance": 57,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.NY32.9",
-    "votes": {
-      "Jon Burnside": "YES",
-      "Shelley Carroll": "YES",
-      "Lily Cheng": "YES",
-      "Rachel Chernos Lin": "NO",
-      "Mike Colle": "NO",
-      "James Pasternak": "NO"
-    },
-    "flags": [
-      "defeated"
-    ],
-    "motionType": "Adopt Item"
-  },
-  {
     "id": "NY32.10",
     "date": "Apr 29, 2026",
     "title": "14 Prestbury Street - Application to Remove a Private Tree",
@@ -262,6 +233,57 @@
       "James Pasternak": "YES"
     },
     "flags": []
+  },
+  {
+    "id": "NY32.9",
+    "date": "Apr 29, 2026",
+    "title": "103 Roslin Avenue - Application to Remove a City Owned Tree",
+    "status": "Lost",
+    "resultText": "Lost (tie), 3-3",
+    "committee": "North York Community Council",
+    "topic": "General",
+    "trivial": false,
+    "significance": 57,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.NY32.9",
+    "votes": {
+      "Jon Burnside": "YES",
+      "Shelley Carroll": "YES",
+      "Lily Cheng": "YES",
+      "Rachel Chernos Lin": "NO",
+      "Mike Colle": "NO",
+      "James Pasternak": "NO"
+    },
+    "flags": [
+      "defeated"
+    ],
+    "motionType": "Adopt Item"
+  },
+  {
+    "id": "NY32.9-amend-item",
+    "date": "Apr 29, 2026",
+    "title": "103 Roslin Avenue - Application to Remove a City Owned Tree",
+    "status": "Lost",
+    "resultText": "Lost (tie), 3-3",
+    "committee": "North York Community Council",
+    "topic": "General",
+    "trivial": false,
+    "significance": 57,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.NY32.9",
+    "votes": {
+      "Jon Burnside": "NO",
+      "Shelley Carroll": "NO",
+      "Lily Cheng": "NO",
+      "Rachel Chernos Lin": "YES",
+      "Mike Colle": "YES",
+      "James Pasternak": "YES"
+    },
+    "flags": [
+      "defeated"
+    ],
+    "motionType": "Amend Item",
+    "parentId": "NY32.9"
   },
   {
     "id": "EY31.3",
@@ -23464,6 +23486,35 @@
     "keyAmounts": []
   },
   {
+    "id": "EX19.6",
+    "date": "Dec 10, 2024",
+    "title": "Assessment of Scarborough Rapid Transit Adaptive Reuse and Next Steps",
+    "status": "Adopted",
+    "resultText": "Carried, 8-0",
+    "committee": "Executive Committee",
+    "topic": "Transit",
+    "trivial": true,
+    "significance": 20,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.EX19.6",
+    "votes": {
+      "Paul Ainslie": "YES",
+      "Alejandra Bravo": "ABSENT",
+      "Shelley Carroll": "YES",
+      "Olivia Chow": "YES",
+      "Mike Colle": "ABSENT",
+      "Paula Fletcher": "YES",
+      "Ausma Malik": "ABSENT",
+      "Josh Matlow": "YES",
+      "Jennifer McKelvie": "YES",
+      "Amber Morley": "YES",
+      "Gord Perks": "YES"
+    },
+    "flags": [],
+    "summary": "City Council has decided to remove the old Scarborough RT infrastructure that is no longer needed for transit. This decision paves the way for public consultations in 2026 to explore new uses for the corridor, such as parks, trails, and other community spaces, with future capital costs to be determined.",
+    "keyAmounts": []
+  },
+  {
     "id": "EX19.26",
     "date": "Dec 10, 2024",
     "title": "Guild Park and Gardens Revenue New Source",
@@ -23493,32 +23544,27 @@
     "keyAmounts": []
   },
   {
-    "id": "EX19.6",
-    "date": "Dec 10, 2024",
-    "title": "Assessment of Scarborough Rapid Transit Adaptive Reuse and Next Steps",
+    "id": "SC18.12",
+    "date": "Dec 6, 2024",
+    "title": "Metrolinx Scarborough Subway Extension - Long-term Temporary Road Closures and Public Highway Dedication - Kennedy Station Connection, Emergency Exit Building-1, and Lawrence East Station",
     "status": "Adopted",
-    "resultText": "Carried, 8-0",
-    "committee": "Executive Committee",
+    "resultText": "Carried, 6-0",
+    "committee": "Scarborough Community Council",
     "topic": "Transit",
     "trivial": true,
     "significance": 20,
     "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.EX19.6",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.SC18.12",
     "votes": {
       "Paul Ainslie": "YES",
-      "Alejandra Bravo": "ABSENT",
-      "Shelley Carroll": "YES",
-      "Olivia Chow": "YES",
-      "Mike Colle": "ABSENT",
-      "Paula Fletcher": "YES",
-      "Ausma Malik": "ABSENT",
-      "Josh Matlow": "YES",
+      "Parthi Kandavel": "YES",
+      "Nick Mantas": "YES",
       "Jennifer McKelvie": "YES",
-      "Amber Morley": "YES",
-      "Gord Perks": "YES"
+      "Jamaal Myers": "YES",
+      "Michael Thompson": "YES"
     },
     "flags": [],
-    "summary": "City Council has decided to remove the old Scarborough RT infrastructure that is no longer needed for transit. This decision paves the way for public consultations in 2026 to explore new uses for the corridor, such as parks, trails, and other community spaces, with future capital costs to be determined.",
+    "summary": "To allow for continued construction of the Scarborough Subway Extension, City Council has approved several temporary road and sidewalk closures in Scarborough. Drivers and pedestrians in areas like McCowan Road and Eglinton Avenue East will experience disruptions and detours for periods lasting up to six years.",
     "keyAmounts": []
   },
   {
@@ -23672,30 +23718,6 @@
     },
     "flags": [],
     "summary": "Scarborough Community Council has approved the installation of 13 speed humps on Rouge Hills Drive, between Island Road and Lawrence Avenue East. This decision aims to improve road safety by reducing speeding, and also includes lowering the speed limit in this area from 40 km/h to 30 km/h.",
-    "keyAmounts": []
-  },
-  {
-    "id": "SC18.12",
-    "date": "Dec 6, 2024",
-    "title": "Metrolinx Scarborough Subway Extension - Long-term Temporary Road Closures and Public Highway Dedication - Kennedy Station Connection, Emergency Exit Building-1, and Lawrence East Station",
-    "status": "Adopted",
-    "resultText": "Carried, 6-0",
-    "committee": "Scarborough Community Council",
-    "topic": "Transit",
-    "trivial": true,
-    "significance": 20,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.SC18.12",
-    "votes": {
-      "Paul Ainslie": "YES",
-      "Parthi Kandavel": "YES",
-      "Nick Mantas": "YES",
-      "Jennifer McKelvie": "YES",
-      "Jamaal Myers": "YES",
-      "Michael Thompson": "YES"
-    },
-    "flags": [],
-    "summary": "To allow for continued construction of the Scarborough Subway Extension, City Council has approved several temporary road and sidewalk closures in Scarborough. Drivers and pedestrians in areas like McCowan Road and Eglinton Avenue East will experience disruptions and detours for periods lasting up to six years.",
     "keyAmounts": []
   },
   {
@@ -26043,6 +26065,62 @@
     "keyAmounts": []
   },
   {
+    "id": "NY18.27-amend-item",
+    "date": "Oct 29, 2024",
+    "title": "110 Caines Avenue  - Application to Remove a City Tree",
+    "status": "Lost",
+    "resultText": "Lost, 2-3",
+    "committee": "North York Community Council",
+    "topic": "General",
+    "trivial": false,
+    "significance": 52,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY18.27",
+    "votes": {
+      "Jon Burnside": "NO",
+      "Shelley Carroll": "NO",
+      "Lily Cheng": "NO",
+      "Mike Colle": "YES",
+      "James Pasternak": "YES"
+    },
+    "flags": [
+      "defeated"
+    ],
+    "motionType": "Amend Item",
+    "parentId": "NY18.27"
+  },
+  {
+    "id": "NY18.27",
+    "date": "Oct 29, 2024",
+    "title": "110 Caines Avenue  - Application to Remove a City Tree",
+    "status": "Adopted",
+    "resultText": "Carried, 3-2",
+    "committee": "North York Community Council",
+    "topic": "General",
+    "trivial": false,
+    "significance": 37,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY18.27",
+    "votes": {
+      "Jon Burnside": "YES",
+      "Shelley Carroll": "YES",
+      "Lily Cheng": "YES",
+      "Mike Colle": "NO",
+      "James Pasternak": "NO"
+    },
+    "flags": [],
+    "motionType": "Adopt Item",
+    "summary": "North York Community Council has decided to deny a resident's request to remove a City-owned red oak tree at 110 Caines Avenue. This decision means the healthy tree, which the resident wanted to remove for a driveway construction, will be protected and remain part of the city's urban forest.",
+    "keyAmounts": [],
+    "locations": [
+      {
+        "address": "110 Caines Avenue",
+        "lat": 43.784066,
+        "lng": -79.4372293
+      }
+    ]
+  },
+  {
     "id": "NY18.4",
     "date": "Oct 29, 2024",
     "title": "85 Helendale Avenue - Application to Remove a Private Tree",
@@ -26099,62 +26177,6 @@
     "parentId": "NY18.4"
   },
   {
-    "id": "NY18.27",
-    "date": "Oct 29, 2024",
-    "title": "110 Caines Avenue  - Application to Remove a City Tree",
-    "status": "Adopted",
-    "resultText": "Carried, 3-2",
-    "committee": "North York Community Council",
-    "topic": "General",
-    "trivial": false,
-    "significance": 37,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY18.27",
-    "votes": {
-      "Jon Burnside": "YES",
-      "Shelley Carroll": "YES",
-      "Lily Cheng": "YES",
-      "Mike Colle": "NO",
-      "James Pasternak": "NO"
-    },
-    "flags": [],
-    "motionType": "Adopt Item",
-    "summary": "North York Community Council has decided to deny a resident's request to remove a City-owned red oak tree at 110 Caines Avenue. This decision means the healthy tree, which the resident wanted to remove for a driveway construction, will be protected and remain part of the city's urban forest.",
-    "keyAmounts": [],
-    "locations": [
-      {
-        "address": "110 Caines Avenue",
-        "lat": 43.784066,
-        "lng": -79.4372293
-      }
-    ]
-  },
-  {
-    "id": "NY18.27-amend-item",
-    "date": "Oct 29, 2024",
-    "title": "110 Caines Avenue  - Application to Remove a City Tree",
-    "status": "Lost",
-    "resultText": "Lost, 2-3",
-    "committee": "North York Community Council",
-    "topic": "General",
-    "trivial": false,
-    "significance": 52,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY18.27",
-    "votes": {
-      "Jon Burnside": "NO",
-      "Shelley Carroll": "NO",
-      "Lily Cheng": "NO",
-      "Mike Colle": "YES",
-      "James Pasternak": "YES"
-    },
-    "flags": [
-      "defeated"
-    ],
-    "motionType": "Amend Item",
-    "parentId": "NY18.27"
-  },
-  {
     "id": "NY18.12",
     "date": "Oct 29, 2024",
     "title": "230 and 240 The Donway West - Official Plan Amendment and Zoning Amendment Application - Decision Report - Approval",
@@ -26178,6 +26200,32 @@
     "keyAmounts": []
   },
   {
+    "id": "TE17.8-amend-item",
+    "date": "Oct 24, 2024",
+    "title": "985 Woodbine Avenue and 2078, 2086, 2100, 2102 and 2106 Danforth Avenue - Zoning By-law Amendment and Rental Housing Demolition Applications - Decision Report - Approval",
+    "status": "Adopted",
+    "resultText": "Carried, 7-0",
+    "committee": "Toronto and East York Community Council",
+    "topic": "Housing",
+    "trivial": true,
+    "significance": 7,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.TE17.8",
+    "votes": {
+      "Brad Bradford": "YES",
+      "Alejandra Bravo": "YES",
+      "Paula Fletcher": "YES",
+      "Ausma Malik": "YES",
+      "Josh Matlow": "YES",
+      "Chris Moise": "YES",
+      "Gord Perks": "ABSENT",
+      "Dianne Saxe": "YES"
+    },
+    "flags": [],
+    "motionType": "Amend Item",
+    "parentId": "TE17.8"
+  },
+  {
     "id": "TE17.8",
     "date": "Oct 24, 2024",
     "title": "985 Woodbine Avenue and 2078, 2086, 2100, 2102 and 2106 Danforth Avenue - Zoning By-law Amendment and Rental Housing Demolition Applications - Decision Report - Approval",
@@ -26186,13 +26234,13 @@
     "committee": "Toronto and East York Community Council",
     "topic": "Housing",
     "trivial": true,
-    "significance": 20,
+    "significance": 7,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.TE17.8",
     "votes": {
       "Brad Bradford": "YES",
       "Alejandra Bravo": "YES",
-      "Paula Fletcher": "NO",
+      "Paula Fletcher": "YES",
       "Ausma Malik": "YES",
       "Josh Matlow": "ABSENT",
       "Chris Moise": "YES",
@@ -26215,32 +26263,6 @@
         "lng": -79.3120569
       }
     ]
-  },
-  {
-    "id": "TE17.8-amend-item",
-    "date": "Oct 24, 2024",
-    "title": "985 Woodbine Avenue and 2078, 2086, 2100, 2102 and 2106 Danforth Avenue - Zoning By-law Amendment and Rental Housing Demolition Applications - Decision Report - Approval",
-    "status": "Adopted",
-    "resultText": "Carried, 5-1",
-    "committee": "Toronto and East York Community Council",
-    "topic": "Housing",
-    "trivial": true,
-    "significance": 19,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.TE17.8",
-    "votes": {
-      "Brad Bradford": "YES",
-      "Alejandra Bravo": "YES",
-      "Paula Fletcher": "NO",
-      "Ausma Malik": "YES",
-      "Josh Matlow": "YES",
-      "Chris Moise": "YES",
-      "Gord Perks": "ABSENT",
-      "Dianne Saxe": "YES"
-    },
-    "flags": [],
-    "motionType": "Amend Item",
-    "parentId": "TE17.8"
   },
   {
     "id": "PA11.3",
@@ -30294,6 +30316,54 @@
     ]
   },
   {
+    "id": "NY15.30",
+    "date": "Jul 9, 2024",
+    "title": "North York Civic Centre 2025 - Strategic Plan",
+    "status": "Adopted",
+    "resultText": "Carried, 4-1",
+    "committee": "North York Community Council",
+    "topic": "General",
+    "trivial": true,
+    "significance": 15,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY15.30",
+    "votes": {
+      "Jon Burnside": "YES",
+      "Shelley Carroll": "NO",
+      "Lily Cheng": "YES",
+      "Mike Colle": "YES",
+      "James Pasternak": "YES"
+    },
+    "flags": [],
+    "summary": "City Council has decided to create a detailed plan for how community spaces are used at the North York Civic Centre. This plan will focus on addressing local needs, ensuring affordability, and will involve input from residents and local school boards. This means the Civic Centre's community spaces could become more accessible and better meet the needs of North York residents.",
+    "keyAmounts": []
+  },
+  {
+    "id": "NY15.4-refer-item",
+    "date": "Jul 9, 2024",
+    "title": "1875 Steeles Avenue West - Zoning By-law Amendment and Rental Housing Demolition and Conversion Applications - Decision Report - Approval",
+    "status": "Lost",
+    "resultText": "Lost, 1-4",
+    "committee": "North York Community Council",
+    "topic": "Housing",
+    "trivial": false,
+    "significance": 37,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY15.4",
+    "votes": {
+      "Jon Burnside": "NO",
+      "Shelley Carroll": "YES",
+      "Lily Cheng": "NO",
+      "Mike Colle": "NO",
+      "James Pasternak": "NO"
+    },
+    "flags": [
+      "defeated"
+    ],
+    "motionType": "Refer Item",
+    "parentId": "NY15.4"
+  },
+  {
     "id": "NY15.4",
     "date": "Jul 9, 2024",
     "title": "1875 Steeles Avenue West - Zoning By-law Amendment and Rental Housing Demolition and Conversion Applications - Decision Report - Approval",
@@ -30323,54 +30393,6 @@
         "lng": -79.4684736
       }
     ]
-  },
-  {
-    "id": "NY15.4-refer-item",
-    "date": "Jul 9, 2024",
-    "title": "1875 Steeles Avenue West - Zoning By-law Amendment and Rental Housing Demolition and Conversion Applications - Decision Report - Approval",
-    "status": "Lost",
-    "resultText": "Lost, 1-4",
-    "committee": "North York Community Council",
-    "topic": "Housing",
-    "trivial": false,
-    "significance": 37,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY15.4",
-    "votes": {
-      "Jon Burnside": "NO",
-      "Shelley Carroll": "YES",
-      "Lily Cheng": "NO",
-      "Mike Colle": "NO",
-      "James Pasternak": "NO"
-    },
-    "flags": [
-      "defeated"
-    ],
-    "motionType": "Refer Item",
-    "parentId": "NY15.4"
-  },
-  {
-    "id": "NY15.30",
-    "date": "Jul 9, 2024",
-    "title": "North York Civic Centre 2025 - Strategic Plan",
-    "status": "Adopted",
-    "resultText": "Carried, 4-1",
-    "committee": "North York Community Council",
-    "topic": "General",
-    "trivial": true,
-    "significance": 15,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY15.30",
-    "votes": {
-      "Jon Burnside": "YES",
-      "Shelley Carroll": "NO",
-      "Lily Cheng": "YES",
-      "Mike Colle": "YES",
-      "James Pasternak": "YES"
-    },
-    "flags": [],
-    "summary": "City Council has decided to create a detailed plan for how community spaces are used at the North York Civic Centre. This plan will focus on addressing local needs, ensuring affordability, and will involve input from residents and local school boards. This means the Civic Centre's community spaces could become more accessible and better meet the needs of North York residents.",
-    "keyAmounts": []
   },
   {
     "id": "IE15.3",
@@ -33037,30 +33059,6 @@
     "keyAmounts": []
   },
   {
-    "id": "HL13.3-amend-item-additional",
-    "date": "May 27, 2024",
-    "title": "2024 Toronto Urban Health Fund Allocations and Review Process",
-    "status": "Adopted",
-    "resultText": "Carried, 10-0",
-    "committee": "Board of Health",
-    "topic": "General",
-    "trivial": true,
-    "significance": 12,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.HL13.3",
-    "votes": {
-      "Alejandra Bravo": "YES",
-      "Ausma Malik": "YES",
-      "Chris Moise": "YES",
-      "Amber Morley": "ABSENT",
-      "Gord Perks": "ABSENT",
-      "Michael Thompson": "YES"
-    },
-    "flags": [],
-    "motionType": "Amend Item (Additional)",
-    "parentId": "HL13.3"
-  },
-  {
     "id": "HL13.3",
     "date": "May 27, 2024",
     "title": "2024 Toronto Urban Health Fund Allocations and Review Process",
@@ -33091,6 +33089,30 @@
         "type": "grant"
       }
     ]
+  },
+  {
+    "id": "HL13.3-amend-item-additional",
+    "date": "May 27, 2024",
+    "title": "2024 Toronto Urban Health Fund Allocations and Review Process",
+    "status": "Adopted",
+    "resultText": "Carried, 10-0",
+    "committee": "Board of Health",
+    "topic": "General",
+    "trivial": true,
+    "significance": 12,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.HL13.3",
+    "votes": {
+      "Alejandra Bravo": "YES",
+      "Ausma Malik": "YES",
+      "Chris Moise": "YES",
+      "Amber Morley": "ABSENT",
+      "Gord Perks": "ABSENT",
+      "Michael Thompson": "YES"
+    },
+    "flags": [],
+    "motionType": "Amend Item (Additional)",
+    "parentId": "HL13.3"
   },
   {
     "id": "NY13.3",
@@ -36278,6 +36300,32 @@
     ]
   },
   {
+    "id": "PH11.9",
+    "date": "Apr 5, 2024",
+    "title": "Short-Term Rental By-law Implementation Update",
+    "status": "Adopted",
+    "resultText": "Carried, 6-1",
+    "committee": "Planning and Housing Committee",
+    "topic": "Housing",
+    "trivial": true,
+    "significance": 19,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PH11.9",
+    "votes": {
+      "Brad Bradford": "YES",
+      "Parthi Kandavel": "YES",
+      "Josh Matlow": "YES",
+      "Jamaal Myers": "YES",
+      "Frances Nunziata": "YES",
+      "Gord Perks": "NO",
+      "Michael Thompson": "YES"
+    },
+    "flags": [],
+    "motionType": "Adopt Item as Amended",
+    "summary": "To protect long-term housing, Toronto City Council has strengthened rules for short-term rentals like Airbnb. These changes require operators to submit extra documents to prove their rental is their principal residence, clarify that secondary suites on the same property cannot be rented out short-term, and allow the city to request in-person interviews or inspections for compliance.",
+    "keyAmounts": []
+  },
+  {
     "id": "PH11.9-amend-item",
     "date": "Apr 5, 2024",
     "title": "Short-Term Rental By-law Implementation Update",
@@ -36303,30 +36351,37 @@
     "parentId": "PH11.9"
   },
   {
-    "id": "PH11.9",
-    "date": "Apr 5, 2024",
-    "title": "Short-Term Rental By-law Implementation Update",
-    "status": "Adopted",
-    "resultText": "Carried, 6-1",
-    "committee": "Planning and Housing Committee",
-    "topic": "Housing",
-    "trivial": true,
-    "significance": 19,
+    "id": "NY12.26",
+    "date": "Apr 2, 2024",
+    "title": "Re-opening NY10.22 - 31 Norden Crescent - Application for Fence Exemption",
+    "status": "Lost",
+    "resultText": "Lost, 2-3",
+    "committee": "North York Community Council",
+    "topic": "General",
+    "trivial": false,
+    "significance": 40,
     "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PH11.9",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY12.26",
     "votes": {
-      "Brad Bradford": "YES",
-      "Parthi Kandavel": "YES",
-      "Josh Matlow": "YES",
-      "Jamaal Myers": "YES",
-      "Frances Nunziata": "YES",
-      "Gord Perks": "NO",
-      "Michael Thompson": "YES"
+      "Jon Burnside": "NO",
+      "Shelley Carroll": "YES",
+      "Lily Cheng": "YES",
+      "Mike Colle": "NO",
+      "James Pasternak": "NO",
+      "Jaye Robinson": "ABSENT"
     },
-    "flags": [],
-    "motionType": "Adopt Item as Amended",
-    "summary": "To protect long-term housing, Toronto City Council has strengthened rules for short-term rentals like Airbnb. These changes require operators to submit extra documents to prove their rental is their principal residence, clarify that secondary suites on the same property cannot be rented out short-term, and allow the city to request in-person interviews or inspections for compliance.",
-    "keyAmounts": []
+    "flags": [
+      "defeated"
+    ],
+    "summary": "North York Community Council approved an exemption for the property owner at 31 Norden Crescent, allowing their existing pool fence and gate to remain as constructed. This means the fence can stay, despite not fully meeting current city safety rules regarding how close the gate is to climbable surfaces, but any future replacement must comply with those rules.",
+    "keyAmounts": [],
+    "locations": [
+      {
+        "address": "22 - 31 Norden Crescent",
+        "lat": 43.737393,
+        "lng": -79.3516692
+      }
+    ]
   },
   {
     "id": "NY12.12-amend-item",
@@ -36463,39 +36518,6 @@
         "address": "173 Homewood Avenue",
         "lat": 43.7890485,
         "lng": -79.4274166
-      }
-    ]
-  },
-  {
-    "id": "NY12.26",
-    "date": "Apr 2, 2024",
-    "title": "Re-opening NY10.22 - 31 Norden Crescent - Application for Fence Exemption",
-    "status": "Lost",
-    "resultText": "Lost, 2-3",
-    "committee": "North York Community Council",
-    "topic": "General",
-    "trivial": false,
-    "significance": 40,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY12.26",
-    "votes": {
-      "Jon Burnside": "NO",
-      "Shelley Carroll": "YES",
-      "Lily Cheng": "YES",
-      "Mike Colle": "NO",
-      "James Pasternak": "NO",
-      "Jaye Robinson": "ABSENT"
-    },
-    "flags": [
-      "defeated"
-    ],
-    "summary": "North York Community Council approved an exemption for the property owner at 31 Norden Crescent, allowing their existing pool fence and gate to remain as constructed. This means the fence can stay, despite not fully meeting current city safety rules regarding how close the gate is to climbable surfaces, but any future replacement must comply with those rules.",
-    "keyAmounts": [],
-    "locations": [
-      {
-        "address": "22 - 31 Norden Crescent",
-        "lat": 43.737393,
-        "lng": -79.3516692
       }
     ]
   },
@@ -38090,7 +38112,7 @@
     "committee": "Infrastructure and Environment Committee",
     "topic": "General",
     "trivial": true,
-    "significance": 15,
+    "significance": 0,
     "ward": "City",
     "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.IE11.1",
     "votes": {
@@ -38098,7 +38120,7 @@
       "Jennifer McKelvie": "YES",
       "Amber Morley": "YES",
       "James Pasternak": "ABSENT",
-      "Anthony Perruzza": "NO",
+      "Anthony Perruzza": "YES",
       "Dianne Saxe": "YES"
     },
     "flags": [],

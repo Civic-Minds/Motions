@@ -1,75 +1,5 @@
 [
   {
-    "committee": "Toronto Accessibility Advisory Committee",
-    "date": "2025-05-09",
-    "displayDate": "Fri, May 9, 2025",
-    "startTime": "09:30 AM",
-    "endTime": "18:00 PM",
-    "location": "Committee Room 1, City Hall",
-    "meetingNumber": 11,
-    "isCouncil": false,
-    "meetingId": 25901,
-    "meetingReference": "2025.DI11",
-    "agendaItems": [
-      {
-        "reference": "2025.DI11.1",
-        "title": "Pedestrian Streets Policy and Guidelines Development - Accessibility Feedback",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.DI11.1"
-      },
-      {
-        "reference": "2025.DI11.2",
-        "title": "Accessibility of Pedestrian Crossing Protection Device Reviews",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.DI11.2"
-      },
-      {
-        "reference": "2025.DI11.3",
-        "title": "Toronto Seniors’ Strategy Community Consultations",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.DI11.3"
-      },
-      {
-        "reference": "2025.DI11.4",
-        "title": "Accessibility and Snow Clearing",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.DI11.4"
-      },
-      {
-        "reference": "2025.DI11.5",
-        "title": "RapidTO - Dufferin and Bathurst",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.DI11.5"
-      },
-      {
-        "reference": "2025.DI11.6",
-        "title": "Ferry Accessibility Updates",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.DI11.6"
-      },
-      {
-        "reference": "2025.DI11.7",
-        "title": "Rick Hansen Foundation Certification Program",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.DI11.7"
-      },
-      {
-        "reference": "2025.DI11.8",
-        "title": "Chair's Report",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.DI11.8"
-      }
-    ]
-  },
-  {
     "committee": "General Government Committee",
     "date": "2025-05-12",
     "displayDate": "Mon, May 12, 2025",
@@ -50553,6 +50483,19 @@
     "isCouncil": false,
     "meetingId": 27516,
     "meetingReference": "2026.TTA6",
+    "agendaItems": []
+  },
+  {
+    "committee": "Nominating Panel - Compliance Audit Committee",
+    "date": "2026-05-26",
+    "displayDate": "Tue, May 26, 2026",
+    "startTime": "14:30 PM",
+    "endTime": "18:00 PM",
+    "location": "Video Conference",
+    "meetingNumber": 3,
+    "isCouncil": false,
+    "meetingId": 28252,
+    "meetingReference": "2026.NB3",
     "agendaItems": []
   },
   {
