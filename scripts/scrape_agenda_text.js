@@ -83,10 +83,11 @@ async function main() {
     return;
   }
 
-  const browser = await chromium.launch({ channel: 'chrome', headless: false });
+  const browser = await chromium.launch({ channel: 'chrome', headless: true });
   const context = await browser.newContext({
     viewport: { width: 1280, height: 800 },
     locale: 'en-CA',
+    userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
   });
   const page = await context.newPage();
 

@@ -4829,5 +4829,144 @@
   "EC27.6": {
     "summary": "Toronto City Council has approved a confidential plan to acquire a new property for the Applegrove Community Complex. This decision will allow the complex to relocate and continue providing important community services in the Toronto-Danforth area. The City will also seek external funding, likely from the provincial government, to help cover future renovation and setup costs.",
     "keyAmounts": []
+  },
+  "SC31.3": {
+    "summary": "Toronto City Council has approved major planning changes for properties at 1710 and 1712 Ellesmere Road in Scarborough, clearing the way for a new development. As part of this approval, the developer will dedicate over 1,600 square metres of land to create a new public park for local residents.",
+    "keyAmounts": [
+      {
+        "label": "New public park space",
+        "value": 1613,
+        "unit": "square metres",
+        "type": "investment"
+      }
+    ]
+  },
+  "SC31.18": {
+    "summary": "Scarborough Community Council received an update about the ongoing development of the Youth Innovation Hub at the Scarborough Civic Centre. This initiative aims to create new opportunities and resources for young people in the Scarborough area.",
+    "keyAmounts": []
+  },
+  "TE32.5": {
+    "summary": "Toronto City Council has approved changes to the Official Plan and Zoning By-laws for properties at 1233 Yonge Street and 9 Woodlawn Avenue East, allowing a new development to proceed. This decision ensures the developer provides new public parkland for the community, either by identifying a suitable off-site location or contributing funds for parkland acquisition elsewhere.",
+    "keyAmounts": []
+  },
+  "TE32.46": {
+    "summary": "Toronto City Council has approved a pilot project to close a section of Church Street to cars this summer. From June 19 to August 21, the stretch between Wellesley Street East and Alexander Street will be pedestrian-only, aiming to make the area safer, more accessible, and boost local businesses in the Church-Wellesley Village.",
+    "keyAmounts": []
+  },
+  "TE32.2": {
+    "summary": "A public lane south of King Street West, between Cowan Avenue and Spencer Avenue, will be officially named 'Foon Hay Lum Lane'. This decision, made by local city councillors, gives a new identity to a public space in the Parkdale - High Park area.",
+    "keyAmounts": []
+  },
+  "TE32.6": {
+    "summary": "City Council has approved the demolition of 40 rental apartments located at 1233 Yonge Street. This decision requires the property owner to replace all 40 units in a new building, with 6 of those units being offered at affordable rents for at least 10 years. It also ensures support for the current tenants and maintains the overall number of rental units in the area.",
+    "keyAmounts": []
+  },
+  "NY32.9": {
+    "summary": "The North York Community Council has denied a resident's request to remove a healthy City-owned tree at 103 Roslin Avenue. This means the 44-centimetre littleleaf linden tree, which the resident cited as a nuisance and potential safety hazard, will remain in place, upholding the City's policy to protect healthy trees.",
+    "keyAmounts": []
+  },
+  "NY32.10": {
+    "summary": "The North York Community Council has denied a homeowner's request to remove a private honey locust tree at 14 Prestbury Street. The Council determined that the healthy, 63 cm diameter tree did not meet the city's criteria for removal, despite the homeowner's concerns about potential future damage to their property. This decision upholds the city's commitment to protecting its urban tree canopy.",
+    "keyAmounts": []
+  },
+  "NY32.1": {
+    "summary": "North York Community Council has approved the removal of a healthy, privately owned tree at 15 Marchwood Drive, overturning an earlier denial by City staff. This decision allows a property owner to remove a large Norway maple, but requires them to plant five replacement trees on their property or pay the City to plant them elsewhere. This demonstrates how local councils balance individual property owner requests with Toronto's tree protection rules, affecting the green canopy in neighborhoods.",
+    "keyAmounts": []
+  },
+  "EY31.3": {
+    "summary": "City Council is deciding to oppose a developer's plan for a 29-storey mixed-use building on Bloor Street West. They will direct legal staff to attend the Ontario Land Tribunal to fight the current proposal and continue negotiations to address local concerns about the development.",
+    "keyAmounts": []
+  },
+  "EY31.2": {
+    "summary": "The Etobicoke York Community Council did not approve a proposal to change the official plan and zoning for 2-4 Mendota Road, which would have allowed a new 4-storey self-storage building. This means the Community Council is not recommending the project to City Council, leaving the final decision on this local development up to the full Council.",
+    "keyAmounts": []
+  },
+  "EX30.1": {
+    "summary": "Toronto City Council has approved updates to its agreement with Toronto Hydro to improve streetlighting across the city. This decision aims to enhance public safety by allowing for critical investments in infrastructure, including transitioning to LED lights, while ensuring the project stays within approved budgets.",
+    "keyAmounts": []
+  },
+  "EY30.11": {
+    "summary": "To improve pedestrian safety, Toronto City Council has decided to install a pedestrian crossover at the intersection of Grand Avenue and Algoma Street in Etobicoke - Lakeshore. This will make it safer for residents to cross the street, though they opted against installing full traffic signals.",
+    "keyAmounts": []
+  },
+  "MM40.19": {
+    "summary": "City Council has postponed its decision on a proposal to establish a design standard for future Toronto subway stations. This means the discussion about how new subway stations will be designed and built will be reviewed at a later meeting in May.",
+    "keyAmounts": []
+  },
+  "MM40.22": {
+    "summary": "City Council has delayed its decision on a motion by Councillor Lily Cheng to reinstate Cummer Station as part of the North York Centre subway line. This means the discussion about potentially bringing back this transit stop will happen at a later meeting in May.",
+    "keyAmounts": []
+  },
+  "MM40.25": {
+    "summary": "A proposal to gather community feedback on the \"Echoes\" program and potential nighttime closure of Barbara Hall Park has been sent to the Economic and Community Development Committee for further review. This means City Council has not yet decided on how to get public input about these changes affecting the park in Ward 13.",
+    "keyAmounts": []
+  },
+  "CC40.4": {
+    "summary": "City Council decided to keep its legal advice private regarding the city's interests at Billy Bishop Airport and other waterfront areas. This allows the City to protect its strategy for potential legal disputes concerning its ownership and control of these important public lands.",
+    "keyAmounts": []
+  },
+  "MM40.46": {
+    "summary": "Toronto City Council has strongly opposed the Province of Ontario's plan to take over City land, including Little Norway Park, near Bathurst Quay and the Island. Council is demanding the Province cover all costs for replacement parkland, community facilities, and schools, and compensate residents and sports leagues if the expropriation proceeds. This decision aims to protect vital community assets and ensure fair compensation for any City land taken.",
+    "keyAmounts": []
+  },
+  "MM40.15": {
+    "summary": "Toronto City Council approved a plan to explore new ways to strengthen racial equity across city programs and services. This involves investigating how to highlight successful initiatives, potentially creating a community advisory body, and assessing ways to financially support local efforts tackling racism.",
+    "keyAmounts": []
+  },
+  "IE28.8": {
+    "summary": "City Council has approved a one-year pilot program to install 50 community sports equipment stations in select city parks. This initiative, sponsored by Equip Club SA and Canadian Tire Jumpstart Charities, will allow residents to access sports gear for free, promoting physical activity and recreation in their local communities.",
+    "keyAmounts": []
+  },
+  "CC40.1": {
+    "summary": "City Council decided to postpone its discussion on paying legal expenses related to an Integrity Commissioner investigation. This means a decision on whether the city will cover these costs for an investigation into an official's conduct is still pending. Council will now consider this matter at its meeting in May.",
+    "keyAmounts": []
+  },
+  "NC28.1": {
+    "summary": "Toronto's City Council has reappointed three individuals to the Toronto Hydro Board of Directors. Brian Topp will continue as Chair for a three-year term, while Michael Eubanks and Ersilia Serafini were reappointed for two-year terms, overseeing the city's electricity distribution and its impact on residents.",
+    "keyAmounts": []
+  },
+  "SC30.8": {
+    "summary": "To make Nightstar Road safer for local residents, City Council approved installing four new speed cushions and lowering the speed limit from 40 km/h to 30 km/h. They also decided to ban heavy trucks from the street and made some adjustments to parking rules along the road. These changes aim to reduce traffic speed, limit large vehicle traffic, and enhance overall street safety.",
+    "keyAmounts": []
+  },
+  "TE31.20": {
+    "summary": "City Council has taken the first step in planning the future of Chinatown. They approved using a set of draft plans and proposed changes as a starting point for public input on how the neighbourhood will develop, protect its heritage, and support affordable housing. Residents will have the opportunity to share their thoughts on these plans before final decisions are made on shaping Chinatown's growth, preserving its unique culture, and maintaining diverse housing options.",
+    "keyAmounts": []
+  },
+  "RM40.7": {
+    "summary": "City Council formally approved its meeting agendas, known as the Order Papers, for April 22nd and 23rd, 2026. This decision confirmed the schedule of business, including major topics designated by the Mayor such as the Scarborough East Rapid Transit Line and a RentSafeTO update.",
+    "keyAmounts": []
+  },
+  "EX30.11": {
+    "summary": "Toronto City Council has designated the Scarborough East Rapid Transit Line as its top priority for transit expansion and is asking the provincial and federal governments to each contribute one-third of its construction costs. To accelerate the project, the city is investing $10 million from the City Building Fund to advance the design work. This decision means residents can expect faster progress towards a major new transit line in Scarborough.",
+    "keyAmounts": [
+      {
+        "label": "Transit design investment",
+        "value": 10000000,
+        "unit": "$",
+        "type": "investment"
+      }
+    ]
+  },
+  "EX30.5": {
+    "summary": "City Council has approved a $9 million contract to run the FIFA Fan Festival for the 2026 World Cup, a major event that will now offer free general admission to residents. This significant cost will be entirely covered by third-party contributions and festival revenues, meaning no direct expense for Toronto taxpayers.",
+    "keyAmounts": [
+      {
+        "label": "Fan Festival cost",
+        "value": 9000000,
+        "unit": "$",
+        "type": "cost"
+      },
+      {
+        "label": "External funding secured",
+        "value": 9000000,
+        "unit": "$",
+        "type": "revenue"
+      }
+    ]
+  },
+  "TTC14.18": {
+    "summary": "Toronto's transit commission has adopted a set of principles to guide its discussions with the Province of Ontario regarding new provincial transit legislation. These principles aim to protect local control over transit fares and services, ensure service quality for Toronto riders, and demand full provincial funding for any changes mandated by the Province. This decision helps protect city taxpayers and ensures Toronto residents' needs are prioritized as new provincial transit rules are developed.",
+    "keyAmounts": []
   }
 }
