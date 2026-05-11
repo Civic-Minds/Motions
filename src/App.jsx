@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { lazy, Suspense, useState, useEffect, useMemo } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
@@ -9,18 +9,18 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from './lib/utils';
 import { useMotions } from './hooks/useMotions';
 
-import DashboardView from './components/DashboardView';
-import MotionPage from './components/MotionPage';
-import CouncillorList from './components/CouncillorList';
-import CouncillorProfile from './components/CouncillorProfile';
-import CouncillorVotes from './components/CouncillorVotes';
-import WardGrid from './components/WardGrid';
-import BudgetTranslator from './components/BudgetTranslator';
-import CommitteesView from './components/CommitteesView';
-import MeetingPage from './components/MeetingPage';
-import MeetingsListView from './components/MeetingsListView';
-import GlobalSearch from './components/GlobalSearch';
-import ElectionView from './components/ElectionView';
+const DashboardView     = lazy(() => import('./components/DashboardView'));
+const MotionPage        = lazy(() => import('./components/MotionPage'));
+const CouncillorList    = lazy(() => import('./components/CouncillorList'));
+const CouncillorProfile = lazy(() => import('./components/CouncillorProfile'));
+const CouncillorVotes   = lazy(() => import('./components/CouncillorVotes'));
+const WardGrid          = lazy(() => import('./components/WardGrid'));
+const BudgetTranslator  = lazy(() => import('./components/BudgetTranslator'));
+const CommitteesView    = lazy(() => import('./components/CommitteesView'));
+const MeetingPage       = lazy(() => import('./components/MeetingPage'));
+const MeetingsListView  = lazy(() => import('./components/MeetingsListView'));
+const GlobalSearch      = lazy(() => import('./components/GlobalSearch'));
+const ElectionView      = lazy(() => import('./components/ElectionView'));
 
 const TABS = [
   { path: '/councillors', label: 'Councillors', icon: Users },
@@ -224,29 +224,29 @@ function AppShell() {
     return () => window.removeEventListener('keydown', handler);
   }, []);
 
-  if (loading) return (
-    <div className="flex items-center justify-center h-screen bg-slate-50">
-      <div className="text-center">
-        <div className="w-10 h-10 border-4 border-[#004a99] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-        <p className="text-sm text-slate-500 font-medium">Loading council data...</p>
+  const contentArea = () => {
+    if (loading) return (
+      <div className="flex items-center justify-center py-32">
+        <div className="text-center">
+          <div className="w-10 h-10 border-4 border-[#004a99] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+          <p className="text-sm text-slate-500 font-medium">Loading council data...</p>
+        </div>
       </div>
-    </div>
-  );
-
-  if (error) return (
-    <div className="flex items-center justify-center h-screen bg-slate-50">
-      <div className="text-center max-w-sm">
-        <p className="font-semibold text-slate-800 mb-1">Could not load data</p>
-        <p className="text-sm text-slate-400">{error}</p>
+    );
+    if (error) return (
+      <div className="flex items-center justify-center py-32">
+        <div className="text-center max-w-sm">
+          <p className="font-semibold text-slate-800 mb-1">Could not load data</p>
+          <p className="text-sm text-slate-400">{error}</p>
+        </div>
       </div>
-    </div>
-  );
-
-  return (
-    <div className="min-h-screen flex flex-col">
-      <ScrollToTop />
-      <Navbar onSearchOpen={() => setSearchOpen(true)} compareMode={compareMode} onCompareModeToggle={toggleCompareMode} wardId={wardId} onLocate={handleLocate} onClearWard={handleClearWard} />
-      <main className="flex-1 max-w-[1400px] mx-auto w-full px-4 sm:px-6 py-8">
+    );
+    return (
+      <Suspense fallback={
+        <div className="flex items-center justify-center py-32">
+          <div className="w-8 h-8 border-4 border-[#004a99] border-t-transparent rounded-full animate-spin" />
+        </div>
+      }>
         <Routes>
           <Route path="/" element={<DashboardView motions={motions} meetings={meetings} followedCommittees={followedCommittees} />} />
           <Route path="/motions/:motionId" element={<MotionPage motions={motions} />} />
@@ -264,6 +264,16 @@ function AppShell() {
           <Route path="/budget" element={<BudgetTranslator />} />
           <Route path="*"          element={<Navigate to="/" replace />} />
         </Routes>
+      </Suspense>
+    );
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      <ScrollToTop />
+      <Navbar onSearchOpen={() => setSearchOpen(true)} compareMode={compareMode} onCompareModeToggle={toggleCompareMode} wardId={wardId} onLocate={handleLocate} onClearWard={handleClearWard} />
+      <main className="flex-1 max-w-[1400px] mx-auto w-full px-4 sm:px-6 py-8">
+        {contentArea()}
       </main>
 
       <footer className="border-t border-slate-200 bg-white">
@@ -274,12 +284,16 @@ function AppShell() {
         </div>
       </footer>
 
-      <GlobalSearch
-        motions={motions ?? []}
-        councillorNames={councillorNames}
-        open={searchOpen}
-        onClose={() => setSearchOpen(false)}
-      />
+      {!loading && (
+        <Suspense fallback={null}>
+          <GlobalSearch
+            motions={motions ?? []}
+            councillorNames={councillorNames}
+            open={searchOpen}
+            onClose={() => setSearchOpen(false)}
+          />
+        </Suspense>
+      )}
     </div>
   );
 }

@@ -6,6 +6,11 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+### Performance
+- **Bundle splitting**: Added Vite `manualChunks` to extract `react`/`react-dom`/`react-router-dom`, `framer-motion`, `lucide-react`/`clsx`/`tailwind-merge`, and `fuse.js` into separately cacheable vendor chunks. Main bundle cut from 544KB → 209KB (61% reduction).
+- **Route lazy loading**: All page-level components are now loaded with `React.lazy` + `Suspense`, reducing the initial JS parse cost and allowing the browser to defer unused routes.
+- **Non-blocking shell**: The navbar and footer now render immediately on page load; the data-loading spinner is scoped to `<main>` only. Eliminates the full-screen white flash and gives the browser a stable LCP target (the "Motions Toronto" brand text) without waiting for data fetches.
+
 ### Security
 - **Dependency patches**: Bumped `@anthropic-ai/sdk` to 0.91.1 and `vite` to 7.3.2; added overrides for `protobufjs` ≥7.5.5, `picomatch` ≥4.0.4, `flatted` ≥3.4.2, `undici` ≥7.24.0, `minimatch` ≥3.1.3, `rollup` ≥4.59.0, `postcss` ≥8.5.10.
 - **Dependabot**: Added `.github/dependabot.yml` for weekly npm and GitHub Actions scanning.
