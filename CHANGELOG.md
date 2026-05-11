@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
+## [Unreleased]
+
+### Security
+- **Dependency patches**: Bumped `@anthropic-ai/sdk` to 0.91.1 and `vite` to 7.3.2; added overrides for `protobufjs` ≥7.5.5, `picomatch` ≥4.0.4, `flatted` ≥3.4.2, `undici` ≥7.24.0, `minimatch` ≥3.1.3, `rollup` ≥4.59.0, `postcss` ≥8.5.10.
+- **Dependabot**: Added `.github/dependabot.yml` for weekly npm and GitHub Actions scanning.
+
 ## [2.8.1] - 2026-05-08
 
 ### Fixed
