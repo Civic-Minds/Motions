@@ -22,6 +22,11 @@ Code quality, bugs, and structural improvements.
     - Create a shared `representatives.json` schema to handle MPs, MPPs, and Councillors.
 - [ ] **Jurisdiction Registry** — implement a centralized registry (`src/constants/jurisdictions.js`) to manage regional branding, representative types (MP vs Councillor), and geography terms (Riding vs Ward).
 
+## Data Storage
+
+- **Current approach: Vercel Blob** — `motions.json`, `meetings.json`, and `councillors.json` are served from Vercel Blob. Data refreshes via GitHub Actions without committing to the repo. This is intentional — committing every new motion would inflate commit history with automated noise rather than real work.
+- [ ] **Database migration** — consider migrating to Postgres/Supabase if: (a) the JSON file size becomes a load-time concern, (b) server-side filtering is needed for a feature, or (c) multi-city support requires querying across jurisdictions. Not worth the infra complexity until one of those is true.
+
 ## Performance
 
 - [ ] **DataModule pagination** — currently renders 100 rows at a time. Consider virtualizing the list (e.g. `react-window`) if dataset grows significantly beyond 717 motions.
