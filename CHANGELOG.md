@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
-## [Unreleased]
+## [2.9.0] - 2026-05-11
 
 ### Performance
 - **Bundle splitting**: Added Vite `manualChunks` to extract `react`/`react-dom`/`react-router-dom`, `framer-motion`, `lucide-react`/`clsx`/`tailwind-merge`, and `fuse.js` into separately cacheable vendor chunks. Main bundle cut from 544KB → 209KB (61% reduction).
