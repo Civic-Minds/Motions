@@ -22,6 +22,11 @@ Code quality, bugs, and structural improvements.
     - Create a shared `representatives.json` schema to handle MPs, MPPs, and Councillors.
 - [ ] **Jurisdiction Registry** — implement a centralized registry (`src/constants/jurisdictions.js`) to manage regional branding, representative types (MP vs Councillor), and geography terms (Riding vs Ward).
 
+## Data Pipeline
+
+- **Scraping is intentionally manual** — `scrape_agenda_text.js` uses Playwright to render toronto.ca/TMMIS pages in a real browser. Automating this in GitHub Actions was attempted but failed consistently due to bot detection, timing issues, and headless browser setup on CI runners. Don't revisit unless TMMIS exposes a proper API or a reliable alternative scraping path is found.
+- **Current flow**: Actions runs `import_open_data.js` and `fetch_meetings.js` daily (pure HTTP/CSV, works fine in CI). When new motions arrive without summaries, the issue bot flags it. Run `scrape_agenda_text.js` → `extract_fields.js` → `generate_summaries.js` → `upload_to_blob.js` locally to process them.
+
 ## Data Storage
 
 - **Current approach: Vercel Blob** — `motions.json`, `meetings.json`, and `councillors.json` are served from Vercel Blob. Data refreshes via GitHub Actions without committing to the repo. This is intentional — committing every new motion would inflate commit history with automated noise rather than real work.
