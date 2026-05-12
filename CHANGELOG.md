@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+## [2.9.1] - 2026-05-12
+
 ### Maintenance
 - **Vite 8 Upgrade**: Upgraded Vite to 8.0.12 and `@vitejs/plugin-react` to 6.0.4.
 - **Rolldown Compatibility**: Updated `vite.config.js` to use a function for `manualChunks`. Vite 8's new Rolldown-based bundler requires `manualChunks` to be a function when complex chunking logic is needed, resolving a `TypeError: manualChunks is not a function` during the build process.
