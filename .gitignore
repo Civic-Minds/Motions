@@ -23,6 +23,16 @@ dist-ssr
 *.sln
 *.sw?
 .vercel
+# AI Instructions & Context
+CLAUDE.md
 HANDOFF.md
+gemini.md
+.agents/
 .env
 _legacy_v1
+
+# Temporary issue logs
+issue_*.txt
+
+# Local runtime caches
+scripts/cache/notability_cache.json
