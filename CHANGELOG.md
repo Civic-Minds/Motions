@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
+## [Unreleased]
+
+### Maintenance
+- **Vite 8 Upgrade**: Upgraded Vite to 8.0.12 and `@vitejs/plugin-react` to 6.0.4.
+- **Rolldown Compatibility**: Updated `vite.config.js` to use a function for `manualChunks`. Vite 8's new Rolldown-based bundler requires `manualChunks` to be a function when complex chunking logic is needed, resolving a `TypeError: manualChunks is not a function` during the build process.
+- **Dependency Updates**: Merged multiple Dependabot updates including `tailwindcss` (3.4.17), `postcss` (8.4.49), `chart.js` (4.4.8), `autoprefixer` (10.4.21), and `firebase-admin` (13.1.0).
+
 ## [2.9.0] - 2026-05-11
 
 ### Performance
