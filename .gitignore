@@ -36,3 +36,6 @@ issue_*.txt
 
 # Local runtime caches
 scripts/cache/notability_cache.json
+
+# Portfolio rules
+MOTIONSLOG.md
