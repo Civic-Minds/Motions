@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+## [2.9.2] - 2026-05-20
+
 ### Maintenance
 - **Dependency Updates**: Upgraded multiple dependencies to resolve open Dependabot pull requests:
   - `@anthropic-ai/sdk` (0.95.2 → 0.97.0)
