@@ -6,6 +6,18 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+### Maintenance
+- **Dependency Updates**: Upgraded multiple dependencies to resolve open Dependabot pull requests:
+  - `@anthropic-ai/sdk` (0.95.2 → 0.97.0)
+  - `@google/genai` (2.0.1 → 2.4.0)
+  - `@vercel/blob` (2.3.3 → 2.4.0)
+  - `framer-motion` (12.38.0 → 12.39.0)
+  - `lucide-react` (1.14.0 → 1.16.0)
+  - `react-router-dom` (7.15.0 → 7.15.1)
+  - `eslint` (10.3.0 → 10.4.0)
+  - `@vitejs/plugin-react` (6.0.1 → 6.0.2)
+  - `vite` (8.0.12 → 8.0.13)
+
 ## [2.9.1] - 2026-05-12
 
 ### Maintenance
