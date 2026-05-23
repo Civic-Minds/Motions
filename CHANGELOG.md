@@ -6,6 +6,11 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+### Fixed
+- **Automated Data Refresh Workflow**: Resolved build failure in GitHub Actions runner (`npm ci` step) by adding missing `@emnapi/core` and `@emnapi/runtime` devDependencies.
+- **Council Data & Schedule Ingestion**: Imported new motions (`GG29.2`, `GG29.11`, `GG29.12`, `PH30.3`) and updated meeting schedule in `public/data/motions.json` and `public/data/meetings.json`.
+- **Motion Summaries**: Generated plain-language summaries and extracted financial key amounts using Gemini API for the new Council motions.
+
 ## [2.9.2] - 2026-05-20
 
 ### Maintenance
