@@ -4968,5 +4968,48 @@
   "TTC14.18": {
     "summary": "Toronto's transit commission has adopted a set of principles to guide its discussions with the Province of Ontario regarding new provincial transit legislation. These principles aim to protect local control over transit fares and services, ensure service quality for Toronto riders, and demand full provincial funding for any changes mandated by the Province. This decision helps protect city taxpayers and ensures Toronto residents' needs are prioritized as new provincial transit rules are developed.",
     "keyAmounts": []
+  },
+  "GG29.2": {
+    "summary": "City Council's General Government Committee approved increasing a contract with Avron Foods Limited for the supply of snack foods. This additional funding will support the expanded universal CampTO Nutrition Program, reaching an additional 60,000 children at 96 new camp locations.",
+    "keyAmounts": [
+      {
+        "label": "Increased snack budget",
+        "value": 1613994,
+        "unit": "$",
+        "type": "cost"
+      },
+      {
+        "label": "Total snack food contract",
+        "value": 5831246,
+        "unit": "$",
+        "type": "cost"
+      }
+    ]
+  },
+  "GG29.11": {
+    "summary": "Toronto City Council has approved an agreement with Toronto Metropolitan University to help bridge the \"digital divide\" for residents. This partnership aims to research and implement solutions that ensure all Torontonians have equitable access to technology and the internet.",
+    "keyAmounts": [
+      {
+        "label": "Cost for digital equity research",
+        "value": 300000,
+        "unit": "$",
+        "type": "cost"
+      }
+    ]
+  },
+  "GG29.12": {
+    "summary": "Toronto has renewed its contract for the Smart Commute Online Tool, provided by RideShark Corporation. This software helps residents find sustainable travel options like carpooling, biking, or public transit, supporting efforts to reduce traffic congestion and promote greener commutes across the city.",
+    "keyAmounts": [
+      {
+        "label": "Annual software cost",
+        "value": 75000,
+        "unit": "$",
+        "type": "cost"
+      }
+    ]
+  },
+  "PH30.3": {
+    "summary": "City Council has approved changes to the Official Plan and zoning rules for the property at 3838 Bloor Street West. This decision will allow for new construction or changes to existing development at this location, shaping the future of the neighbourhood.",
+    "keyAmounts": []
   }
 }
