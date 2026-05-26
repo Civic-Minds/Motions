@@ -50421,7 +50421,7 @@
       {
         "reference": "2026.SC32.9",
         "title": "33 Falaise Road - Application for Fence Exemption",
-        "wards": "23",
+        "wards": "24",
         "inCamera": false,
         "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SC32.9"
       },
@@ -51285,7 +51285,36 @@
     "isCouncil": false,
     "meetingId": 27186,
     "meetingReference": "2026.HL33",
-    "agendaItems": []
+    "agendaItems": [
+      {
+        "reference": "2026.HL33.1",
+        "title": "Toronto Public Health's Nursing Recruitment and Retention Strategy",
+        "wards": "All",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.HL33.1"
+      },
+      {
+        "reference": "2026.HL33.2",
+        "title": "Achieving Universal Student Nutrition - 2026 Service Subsidies",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.HL33.2"
+      },
+      {
+        "reference": "2026.HL33.3",
+        "title": "2026 and 2027 Toronto Urban Health Fund Allocations and Review Process",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.HL33.3"
+      },
+      {
+        "reference": "2026.HL33.4",
+        "title": "Implementation of a Food Safety Management Plan for Special Events",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.HL33.4"
+      }
+    ]
   },
   {
     "committee": "General Government Committee",
