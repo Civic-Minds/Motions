@@ -1,26 +1,5 @@
 [
   {
-    "committee": "Nominating Panel - Committee of Adjustment",
-    "date": "2025-05-26",
-    "displayDate": "Mon, May 26, 2025",
-    "startTime": "09:30 AM",
-    "endTime": "18:00 PM",
-    "location": "Video Conference",
-    "meetingNumber": 8,
-    "isCouncil": false,
-    "meetingId": 26791,
-    "meetingReference": "2025.NA8",
-    "agendaItems": [
-      {
-        "reference": "2025.NA8.1",
-        "title": "Selection of Candidates for Interview for the Committee of Adjustment",
-        "wards": "All",
-        "inCamera": true,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NA8.1"
-      }
-    ]
-  },
-  {
     "committee": "Toronto Preservation Board",
     "date": "2025-05-27",
     "displayDate": "Tue, May 27, 2025",
@@ -51327,7 +51306,176 @@
     "isCouncil": false,
     "meetingId": 27216,
     "meetingReference": "2026.GG30",
-    "agendaItems": []
+    "agendaItems": [
+      {
+        "reference": "2026.GG30.1",
+        "title": "Administrative Penalty Tribunal - Chair's 2025 Annual Report",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.GG30.1"
+      },
+      {
+        "reference": "2026.GG30.2",
+        "title": "Amendment to Blanket Contract 47025022 with Wintergreen Learning Materials for the Supply and Delivery of Children's Furniture, Toys and Manipulatives for various Children's Services locations",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.GG30.2"
+      },
+      {
+        "reference": "2026.GG30.3",
+        "title": "Amendment to Purchase Order 6053845 with Maple Reinders Constructors Limited for the Biosolids Master Plan Implementation Project and South Facility Upgrades Project at Highland Creek Treatment Plant",
+        "wards": "25",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.GG30.3"
+      },
+      {
+        "reference": "2026.GG30.4",
+        "title": "Amendment to Purchase Order 6054643 with AECOM Canada ULC for Engineering Design Services at the Ashbridges Bay Treatment Plant for the Old Primary Sedimentation Tanks Upgrades Project",
+        "wards": "14",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.GG30.4"
+      },
+      {
+        "reference": "2026.GG30.5",
+        "title": "Amendment to Purchase Order Number 6055184 with Hariri Pontarini Architects for the Enhanced State of Good Repair, Accessibility and Net Zero Project at St. Lawrence Centre for Performing Arts",
+        "wards": "13",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.GG30.5"
+      },
+      {
+        "reference": "2026.GG30.6",
+        "title": "Award of Doc5491818166 to Pomerleau Inc., for Ashbridges Bay Treatment Plant Digester Gas Compressors, Dryers and Chillers Installation and Amendment to Purchase Order 6052432 for Associated Engineering (Ont.) Ltd for Construction Administration Services",
+        "wards": "14",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.GG30.6"
+      },
+      {
+        "reference": "2026.GG30.7",
+        "title": "Award of Negotiated Request for Proposals Doc4711617964 to CTI Working Environments for the Supply, Delivery and Installation of Office Furniture",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.GG30.7"
+      },
+      {
+        "reference": "2026.GG30.8",
+        "title": "Purchase Order Amendment for General Contracting Services Number 6056841 with Pomerleau Inc., for General Contracting Services for Toronto Paramedic Services Multi-Function Station at 300 Progress Avenue",
+        "wards": "21",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.GG30.8"
+      },
+      {
+        "reference": "2026.GG30.9",
+        "title": "Amendment to Purchase Order 6049718 with Veolia Water Canada Inc., for Critical Capital Improvements and Maintenance at the Disco Organics Processing Facility",
+        "wards": "All",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.GG30.9"
+      },
+      {
+        "reference": "2026.GG30.10",
+        "title": "Award of Doc5398199635 to Alberici Constructors Ltd., for the New Ultraviolet Disinfection and Residuals Management Facility at the Island Water Treatment Plant, and Amendment to Purchase Orders 6056811 and 6057463 with AECOM Canada ULC for Contract Administration and Post-Construction Services",
+        "wards": "10",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.GG30.10"
+      },
+      {
+        "reference": "2026.GG30.11",
+        "title": "Non-Competitive Bridge Contract with Arcadis Professional Services (Canada) Inc., for the Provision of the City’s Congestion Management Centre Operations Services",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.GG30.11"
+      },
+      {
+        "reference": "2026.GG30.12",
+        "title": "Non-Competitive Contract with RouteSmart Technologies Inc., for the Continued Use of Collection Route Management and Service Planning Software for Solid Waste Management Services",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.GG30.12"
+      },
+      {
+        "reference": "2026.GG30.13",
+        "title": "Non-Competitive Contract with ServiceNow Canada Inc., for Licenses and Professional Services",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.GG30.13"
+      },
+      {
+        "reference": "2026.GG30.14",
+        "title": "Non-Competitive Contracts for the Provision of the City’s Traffic Electrical Maintenance and Emergency Services, and Traffic Electrical Planned Capital Works Roster",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.GG30.14"
+      },
+      {
+        "reference": "2026.GG30.15",
+        "title": "Non-Competitive Procurement Contract with SmartSimple Software Inc., for New Configuration of the Toronto Grants, Rebates and Incentives Portal for Housing Secretariat",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.GG30.15"
+      },
+      {
+        "reference": "2026.GG30.16",
+        "title": "Summary of Open Competitive Awards Made by the Chief Procurement Officer from April 11 to May 12, 2026",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.GG30.16"
+      },
+      {
+        "reference": "2026.GG30.17",
+        "title": "Litigation Arising from the Replacement of the Watermain at the Kipling Avenue Bridge over the Humber River",
+        "wards": "All",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.GG30.17"
+      },
+      {
+        "reference": "2026.GG30.18",
+        "title": "Implementation of Construction Management at Risk Delivery Model for Ashbridges Bay Treatment Plant Integrated Pumping Station Construction Contract 3",
+        "wards": "14",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.GG30.18"
+      },
+      {
+        "reference": "2026.GG30.19",
+        "title": "Delegation of Authority for Licence Agreements to Facilitate the use of Published Sound Recordings in Recreation Facilities",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.GG30.19"
+      },
+      {
+        "reference": "2026.GG30.20",
+        "title": "Toronto Fire Department Superannuation and Benefit Fund - Funding Valuation Report as at December 31, 2025",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.GG30.20"
+      },
+      {
+        "reference": "2026.GG30.21",
+        "title": "1141 Bloor Street West and 980 Dufferin Street - Community Space Tenancy Lease Agreements and Municipal Capital Facility Designations for Five Tenant Agencies in the Bloor-Dufferin Community Hub",
+        "wards": "9",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.GG30.21"
+      },
+      {
+        "reference": "2026.GG30.22",
+        "title": "1652 Keele Street - Community Space Tenancy Lease Agreement with The Black Women's Institute for Health and Municipal Capital Facility Designation",
+        "wards": "5",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.GG30.22"
+      },
+      {
+        "reference": "2026.GG30.23",
+        "title": "Occupational Health and Safety Report: End of Year 2025",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.GG30.23"
+      },
+      {
+        "reference": "2026.GG30.24",
+        "title": "Non-Union Separation Costs for 2025",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.GG30.24"
+      }
+    ]
   },
   {
     "committee": "Aboriginal Affairs Advisory Committee",
