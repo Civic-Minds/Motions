@@ -1,61 +1,5 @@
 [
   {
-    "committee": "Toronto Preservation Board",
-    "date": "2025-05-27",
-    "displayDate": "Tue, May 27, 2025",
-    "startTime": "09:30 AM",
-    "endTime": "18:00 PM",
-    "location": "Committee Room 2, City Hall",
-    "meetingNumber": 32,
-    "isCouncil": false,
-    "meetingId": 26294,
-    "meetingReference": "2025.PB32",
-    "agendaItems": [
-      {
-        "reference": "2025.PB32.1",
-        "title": "132, 136, 138, 142, 144, and 148 Dundas Street West and 24 Jefferson Avenue - Inclusion on the Heritage Register",
-        "wards": "10, 11",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.PB32.1"
-      },
-      {
-        "reference": "2025.PB32.2",
-        "title": "2255 Sheppard Avenue East - Inclusion on the Heritage Register",
-        "wards": "17",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.PB32.2"
-      },
-      {
-        "reference": "2025.PB32.3",
-        "title": "Property Included on the City's Heritage Register - Consideration of Objection for 1751 Bayview Avenue",
-        "wards": "15",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.PB32.3"
-      },
-      {
-        "reference": "2025.PB32.4",
-        "title": "604 Bay Street (including entrance address 610 Bay Street) - Alterations to and Demolition of Heritage Attributes of a Designated Property under Sections 33 and 34 of the Ontario Heritage Act and Authority to Enter into a Heritage Easement Agreement",
-        "wards": "11",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.PB32.4"
-      },
-      {
-        "reference": "2025.PB32.5",
-        "title": "15 Glen Morris Street - Alterations to and Demolition of Heritage Attributes of a Designated Property under Sections 33 and 34 of the Ontario Heritage Act and Authority to Enter into a Heritage Easement Agreement",
-        "wards": "11",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.PB32.5"
-      },
-      {
-        "reference": "2025.PB32.6",
-        "title": "2025 Toronto Heritage Grant Awards",
-        "wards": "8, 11, 13, 14, 22, 25",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.PB32.6"
-      }
-    ]
-  },
-  {
     "committee": "Bid Award Panel",
     "date": "2025-05-28",
     "displayDate": "Wed, May 28, 2025",
@@ -50483,7 +50427,7 @@
       },
       {
         "reference": "2026.SC32.21",
-        "title": "Traffic Safety Improvements: Bellamy Road North and Danforth Road",
+        "title": "Bellamy Road North and Danforth Road - Traffic Safety Improvements",
         "wards": "21",
         "inCamera": false,
         "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SC32.21"
@@ -50515,6 +50459,20 @@
         "wards": "24",
         "inCamera": false,
         "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SC32.25"
+      },
+      {
+        "reference": "2026.SC32.26",
+        "title": "Naming Long-Term Care Home at 4610 Finch Avenue East In Honour of Bernice Redmon",
+        "wards": "25",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SC32.26"
+      },
+      {
+        "reference": "2026.SC32.27",
+        "title": "Lynn Road, Florens Avenue, and McIntosh Street - Traffic Calming (Speed Humps)",
+        "wards": "20",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SC32.27"
       }
     ]
   },
@@ -51026,6 +50984,27 @@
         "wards": "11",
         "inCamera": false,
         "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE33.71"
+      },
+      {
+        "reference": "2026.TE33.72",
+        "title": "Appointments to the Board of Management of the Swansea Town Hall Community Centre",
+        "wards": "4",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE33.72"
+      },
+      {
+        "reference": "2026.TE33.73",
+        "title": "“Don’t Ride on the Sidewalk” Decals on Ward 11 Sidewalks",
+        "wards": "11",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE33.73"
+      },
+      {
+        "reference": "2026.TE33.74",
+        "title": "Parking Amendments Related to the Church Street Pedestrianization Pilot",
+        "wards": "13",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE33.74"
       }
     ]
   },
@@ -51488,7 +51467,36 @@
     "isCouncil": false,
     "meetingId": 27416,
     "meetingReference": "2026.AA12",
-    "agendaItems": []
+    "agendaItems": [
+      {
+        "reference": "2026.AA12.1",
+        "title": "Terms of Reference Review",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.AA12.1"
+      },
+      {
+        "reference": "2026.AA12.2",
+        "title": "Update from the Aboriginal Affairs Advisory Committee Indigenous Identity Vetting Working Group",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.AA12.2"
+      },
+      {
+        "reference": "2026.AA12.3",
+        "title": "Exploring opportunities to Convey City-owned Lands Operated by Indigenous non-profit organizations for Housing or Shelter Purposes",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.AA12.3"
+      },
+      {
+        "reference": "2026.AA12.4",
+        "title": "Exploring opportunities to related to the Spirit Garden in Nathan Phillips Square",
+        "wards": "10",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.AA12.4"
+      }
+    ]
   },
   {
     "committee": "Toronto Transit Commission",
@@ -51501,7 +51509,127 @@
     "isCouncil": false,
     "meetingId": 27513,
     "meetingReference": "2026.TTC15",
-    "agendaItems": []
+    "agendaItems": [
+      {
+        "reference": "2026.TTC15.1",
+        "title": "Administrative Inquiry - Community Bus Routes",
+        "wards": null,
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC15.1"
+      },
+      {
+        "reference": "2026.TTC15.2",
+        "title": "Chief Executive Officer’s Report - May 2026",
+        "wards": null,
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC15.2"
+      },
+      {
+        "reference": "2026.TTC15.3",
+        "title": "Approved Minutes of the Advisory Committee on Accessible Transit (ACAT) General Monthly Meeting of March 26, 2026",
+        "wards": null,
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC15.3"
+      },
+      {
+        "reference": "2026.TTC15.4",
+        "title": "Presentation: Indigenous Wayfinding on the TTC",
+        "wards": null,
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC15.4"
+      },
+      {
+        "reference": "2026.TTC15.5",
+        "title": "Advancing Safety on the TTC: 2026 Focus Areas",
+        "wards": null,
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC15.5"
+      },
+      {
+        "reference": "2026.TTC15.6",
+        "title": "Bloor-Yonge Capacity Improvements Project - Platform Edge Doors and Net Zero",
+        "wards": null,
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC15.6"
+      },
+      {
+        "reference": "2026.TTC15.7",
+        "title": "Fare Collection Update",
+        "wards": null,
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC15.7"
+      },
+      {
+        "reference": "2026.TTC15.8",
+        "title": "Financial and Major Projects Update for the Period Ended April 26, 2026",
+        "wards": null,
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC15.8"
+      },
+      {
+        "reference": "2026.TTC15.9",
+        "title": "TTC and CUPE, Local 2 - Collective Agreement Ratification",
+        "wards": null,
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC15.9"
+      },
+      {
+        "reference": "2026.TTC15.10",
+        "title": "Chief Executive Officer Performance and Objectives",
+        "wards": null,
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC15.10"
+      },
+      {
+        "reference": "2026.TTC15.11",
+        "title": "Toronto Transit Commission - 2026 Follow-up - Status of Previous Auditor General’s Recommendations",
+        "wards": null,
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC15.11"
+      },
+      {
+        "reference": "2026.TTC15.12",
+        "title": "KPMG LLP Audit Findings Report on the Toronto Transit Commission Consolidated Financial Statements for the Year Ended December 31, 2025",
+        "wards": null,
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC15.12"
+      },
+      {
+        "reference": "2026.TTC15.13",
+        "title": "Draft Consolidated Financial Statements of Toronto Transit Commission for the Year Ended December 31, 2025",
+        "wards": null,
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC15.13"
+      },
+      {
+        "reference": "2026.TTC15.14",
+        "title": "Honouring Frederick Langdon Hubbard",
+        "wards": null,
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC15.14"
+      },
+      {
+        "reference": "2026.TTC15.15",
+        "title": "MM39.50 Safer Subways: Making Public Safety a Priority and Restoring Confidence to Toronto Transit Commission Riders Across Toronto",
+        "wards": null,
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC15.15"
+      },
+      {
+        "reference": "2026.TTC15.16",
+        "title": "Review of Subway Capacity Constraints and Infrastructure Readiness for Protected/Major Transit Station Areas Compliance and Provincial Densification Mandates - by Commissioner Liane Kim, seconded by Commissioner Josh Matlow",
+        "wards": null,
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC15.16"
+      },
+      {
+        "reference": "2026.TTC15.17",
+        "title": "Requesting a 7 Bathurst Express Bus - by Commissioner Josh Matlow, seconded by Commissioner Dianne Saxe",
+        "wards": null,
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC15.17"
+      }
+    ]
   },
   {
     "committee": "Civic Appointments Committee",
