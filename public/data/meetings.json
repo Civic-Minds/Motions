@@ -1,33 +1,5 @@
 [
   {
-    "committee": "Corporations Nominating Panel",
-    "date": "2025-05-29",
-    "displayDate": "Thu, May 29, 2025",
-    "startTime": "11:00 AM",
-    "endTime": "18:00 PM",
-    "location": "Committee Room 3, City Hall",
-    "meetingNumber": 17,
-    "isCouncil": false,
-    "meetingId": 26891,
-    "meetingReference": "2025.NC17",
-    "agendaItems": [
-      {
-        "reference": "2025.NC17.1",
-        "title": "Additional Applications for the Toronto Hydro Board",
-        "wards": "All",
-        "inCamera": true,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NC17.1"
-      },
-      {
-        "reference": "2025.NC17.2",
-        "title": "Selection of Candidates for Interview for the Waterfront Toronto Board",
-        "wards": "All",
-        "inCamera": true,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.NC17.2"
-      }
-    ]
-  },
-  {
     "committee": "Board of Health",
     "date": "2025-06-03",
     "displayDate": "Tue, Jun 3, 2025",
@@ -51100,7 +51072,137 @@
     "endTime": "18:00 PM",
     "location": "Committee Room 1, City Hall",
     "meetingNumber": 19,
-    "isCouncil": false
+    "isCouncil": false,
+    "meetingId": 27371,
+    "meetingReference": "2026.PA19",
+    "agendaItems": [
+      {
+        "reference": "2026.PA19.1",
+        "title": "Toronto Parking Authority - 2025 Audited Financial Statements",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PA19.1"
+      },
+      {
+        "reference": "2026.PA19.2",
+        "title": "Toronto Parking Authority - 2026 Follow-up Status of Previous Auditor General’s Recommendations",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PA19.2"
+      },
+      {
+        "reference": "2026.PA19.3",
+        "title": "Toronto Parking Authority - 2025 Annual Report",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PA19.3"
+      },
+      {
+        "reference": "2026.PA19.4",
+        "title": "Toronto Parking Authority - 2026 March 31 Year-to-Date Financial Performance (First Three Months Results)",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PA19.4"
+      },
+      {
+        "reference": "2026.PA19.5",
+        "title": "Summary of Legal Disputes Update - May 2026",
+        "wards": "All",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PA19.5"
+      },
+      {
+        "reference": "2026.PA19.6",
+        "title": "Delegation of Authority Update: February 1, 2026 - April 30, 2026",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PA19.6"
+      },
+      {
+        "reference": "2026.PA19.7",
+        "title": "Contract Award for Microsoft Cloud Subscriptions",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PA19.7"
+      },
+      {
+        "reference": "2026.PA19.8",
+        "title": "Contract Award for Broadband and Managed Network Services",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PA19.8"
+      },
+      {
+        "reference": "2026.PA19.9",
+        "title": "Contract Award for SAP Third Party Support and Enhancement Services",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PA19.9"
+      },
+      {
+        "reference": "2026.PA19.10",
+        "title": "Contract Award - Five-Year Elevator Maintenance Program (2026-2031)",
+        "wards": "4, 10, 11, 12, 13, 22",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PA19.10"
+      },
+      {
+        "reference": "2026.PA19.11",
+        "title": "Contract Award - Bike Share Installation Retainer Various Sites - 2026-CON-VAR-D50.4",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PA19.11"
+      },
+      {
+        "reference": "2026.PA19.12",
+        "title": "Request for Additional Funds for Construction and Consulting Services for Garage Restoration Project at 40 Larch Street (Car Park 150)",
+        "wards": "10",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PA19.12"
+      },
+      {
+        "reference": "2026.PA19.13",
+        "title": "Contract Award - 2026-CON-CP404-C10 Systems Operations Centre Construction",
+        "wards": "18",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PA19.13"
+      },
+      {
+        "reference": "2026.PA19.14",
+        "title": "Contract Award - 2026-CS-VAR-E1030 Security Enhancements - Pedestrian Access Controls Implementation Retainer",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PA19.14"
+      },
+      {
+        "reference": "2026.PA19.15",
+        "title": "10-Year Toronto Parking Authority Fleet Replacement and Decarbonization Program (2026 to 2035) Phase One",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PA19.15"
+      },
+      {
+        "reference": "2026.PA19.16",
+        "title": "Short Term Parking at the Price Street Green P Lot",
+        "wards": "11",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PA19.16"
+      },
+      {
+        "reference": "2026.PA19.17",
+        "title": "Protecting Chinatown as a Cultural District - Chinatown (Larch Street) parking garage",
+        "wards": "11",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PA19.17"
+      },
+      {
+        "reference": "2026.PA19.18",
+        "title": "On Street Parking Rate Increases in Ward 18",
+        "wards": "18",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PA19.18"
+      }
+    ]
   },
   {
     "committee": "Board of Health",
