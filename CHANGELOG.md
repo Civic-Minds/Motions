@@ -4,12 +4,19 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
-## [Unreleased]
+## [2.9.3] - 2026-05-31
 
 ### Fixed
 - **Automated Data Refresh Workflow**: Resolved build failure in GitHub Actions runner (`npm ci` step) by adding missing `@emnapi/core` and `@emnapi/runtime` devDependencies.
 - **Council Data & Schedule Ingestion**: Imported new motions (`GG29.2`, `GG29.11`, `GG29.12`, `PH30.3`) and updated meeting schedule in `public/data/motions.json` and `public/data/meetings.json`.
 - **Motion Summaries**: Generated plain-language summaries and extracted financial key amounts using Gemini API for the new Council motions.
+
+### Maintenance
+- **Dependency Updates**: Upgraded multiple dependencies to resolve open Dependabot pull requests:
+  - `@anthropic-ai/sdk` (0.97.1 → 0.98.0)
+  - `@google/genai` (2.5.0 → 2.6.0)
+  - `framer-motion` (12.39.0 → 12.40.0)
+  - `vite` (8.0.13 → 8.0.14)
 
 ## [2.9.2] - 2026-05-20
 
