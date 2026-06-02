@@ -20531,109 +20531,7 @@
     "endTime": "18:00 PM",
     "location": "Council Chamber, City Hall",
     "meetingNumber": 25,
-    "isCouncil": false,
-    "meetingId": 25843,
-    "meetingReference": "2025.IE25",
-    "agendaItems": [
-      {
-        "reference": "2025.IE25.1",
-        "title": "10-Year Circular Economy Road Map",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.IE25.1"
-      },
-      {
-        "reference": "2025.IE25.2",
-        "title": "Transition of the Blue Box Program to Extended Producer Responsibility: Post-Transition Plan",
-        "wards": "All",
-        "inCamera": true,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.IE25.2"
-      },
-      {
-        "reference": "2025.IE25.3",
-        "title": "Enhancing the Basement Flooding Protection Subsidy Program to Reduce Basement Flooding Risks",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.IE25.3"
-      },
-      {
-        "reference": "2025.IE25.4",
-        "title": "Next Generation Water Metering, Advanced Metering Infrastructure - Procurement Strategy",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.IE25.4"
-      },
-      {
-        "reference": "2025.IE25.5",
-        "title": "Safety Barriers Along Leaside Bridge - Implementation Update",
-        "wards": "14, 15",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.IE25.5"
-      },
-      {
-        "reference": "2025.IE25.6",
-        "title": "Redesign Study of the Intersection of Eglinton Avenue West and the Allen Road Expressway - Update",
-        "wards": "8, 12",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.IE25.6"
-      },
-      {
-        "reference": "2025.IE25.7",
-        "title": "Metrolinx Eglinton Crosstown LRT - At-grade Segment - Traffic and Parking By-law Amendments",
-        "wards": "15, 16, 20, 21",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.IE25.7"
-      },
-      {
-        "reference": "2025.IE25.8",
-        "title": "Automated Speed Enforcement Program Update",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.IE25.8"
-      },
-      {
-        "reference": "2025.IE25.9",
-        "title": "Review of Automated Speed Enforcement Ticket Appeals Process",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.IE25.9"
-      },
-      {
-        "reference": "2025.IE25.10",
-        "title": "Feasibility of Limiting the Number of Automated Speed Enforcement Infractions an Individual Vehicle Owner can Receive from a Single Camera Location Prior to Receiving Their First Infraction in the Mail",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.IE25.10"
-      },
-      {
-        "reference": "2025.IE25.11",
-        "title": "Harbord / Hoskin Reconstruction",
-        "wards": "11",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.IE25.11"
-      },
-      {
-        "reference": "2025.IE25.12",
-        "title": "Speeding up the Spadina Streetcar",
-        "wards": "11",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.IE25.12"
-      },
-      {
-        "reference": "2025.IE25.13",
-        "title": "High Pollution Days and Two Stroke Engines",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.IE25.13"
-      },
-      {
-        "reference": "2025.IE25.14",
-        "title": "Ward 11 - Parking Pad Guidance for Existing Impermeable Sites",
-        "wards": "11",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.IE25.14"
-      }
-    ]
+    "isCouncil": false
   },
   {
     "committee": "Planning and Housing Committee",
@@ -51600,6 +51498,27 @@
         "wards": null,
         "inCamera": false,
         "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC15.17"
+      },
+      {
+        "reference": "2026.TTC15.18",
+        "title": "TTC Pension Plan Bylaw Amendments",
+        "wards": null,
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC15.18"
+      },
+      {
+        "reference": "2026.TTC15.19",
+        "title": "Confidential Ombudsman Toronto Report",
+        "wards": null,
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC15.19"
+      },
+      {
+        "reference": "2026.TTC15.20",
+        "title": "Commemorating Former TTC Chair Howard Moscoe - by Chair Jamaal Myers, seconded by Vice-Chair Joe Mihevc",
+        "wards": null,
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TTC15.20"
       }
     ]
   },
@@ -51614,7 +51533,22 @@
     "isCouncil": false,
     "meetingId": 27775,
     "meetingReference": "2026.CA36",
-    "agendaItems": []
+    "agendaItems": [
+      {
+        "reference": "2026.CA36.1",
+        "title": "Appointment of Public Members to the Heritage Toronto Board of Directors",
+        "wards": "All",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CA36.1"
+      },
+      {
+        "reference": "2026.CA36.2",
+        "title": "Appointment of Public Members to the Lakeshore Arena Corporation Board",
+        "wards": "All",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CA36.2"
+      }
+    ]
   },
   {
     "committee": "Toronto Preservation Board",
@@ -51627,7 +51561,64 @@
     "isCouncil": false,
     "meetingId": 27280,
     "meetingReference": "2026.PB45",
-    "agendaItems": []
+    "agendaItems": [
+      {
+        "reference": "2026.PB45.1",
+        "title": "34 Jason Road - Notice of Intention to Designate a Property under Part IV, Section 29 of the Ontario Heritage Act",
+        "wards": "1",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PB45.1"
+      },
+      {
+        "reference": "2026.PB45.2",
+        "title": "4150 Yonge Street - Notice of Intention to Designate a Property under Part IV, Section 29 of the Ontario Heritage Act",
+        "wards": "8",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PB45.2"
+      },
+      {
+        "reference": "2026.PB45.3",
+        "title": "328 Bellamy Road North - Notice of Intention to Designate a Property under Part IV, Section 29 of the Ontario Heritage Act",
+        "wards": "21",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PB45.3"
+      },
+      {
+        "reference": "2026.PB45.4",
+        "title": "3044 Dundas Street West - Inclusion on the Heritage Register",
+        "wards": "4",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PB45.4"
+      },
+      {
+        "reference": "2026.PB45.5",
+        "title": "420-444 Yonge Street and 1-23 College Street (College Park) - Alterations to a Designated Heritage Property under Section 33 of the Ontario Heritage Act and Authority to Amend an Existing Heritage Easement Agreement",
+        "wards": "11",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PB45.5"
+      },
+      {
+        "reference": "2026.PB45.6",
+        "title": "64 Wellesley Street East - Alterations to a Designated Heritage Property under Section 33 of the Ontario Heritage Act and Authority to Amend a Heritage Easement Agreement",
+        "wards": "13",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PB45.6"
+      },
+      {
+        "reference": "2026.PB45.7",
+        "title": "79 Whitehall Road - Application to Demolish a Structure and Erect a New Structure in the North Rosedale Heritage Conservation District",
+        "wards": "11",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PB45.7"
+      },
+      {
+        "reference": "2026.PB45.8",
+        "title": "162 Douglas Drive - Application to Demolish a Structure and Erect a New Structure in the North Rosedale Heritage Conservation District",
+        "wards": "11",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.PB45.8"
+      }
+    ]
   },
   {
     "committee": "Economic and Community Development Committee",
