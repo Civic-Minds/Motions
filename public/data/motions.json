@@ -1,5 +1,117 @@
 [
   {
+    "id": "SC32.1",
+    "date": "May 28, 2026",
+    "title": "5, 7, 9 and 11 Bellamy Road South - Zoning By-law Amendment Application - Decision Report - Approval",
+    "status": "Adopted",
+    "resultText": "Carried, 5-0",
+    "committee": "Scarborough Community Council",
+    "topic": "Housing",
+    "trivial": true,
+    "significance": 0,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SC32.1",
+    "votes": {
+      "Paul Ainslie": "YES",
+      "Nick Mantas": "YES",
+      "Jamaal Myers": "YES",
+      "Neethan Shan": "YES",
+      "Michael Thompson": "YES"
+    },
+    "flags": []
+  },
+  {
+    "id": "SC32.2",
+    "date": "May 28, 2026",
+    "title": "468 to 480 Danforth Road and 509 Birchmount Road - Zoning By-law Amendment Application - Decision Report - Approval",
+    "status": "Adopted",
+    "resultText": "Carried, 5-0",
+    "committee": "Scarborough Community Council",
+    "topic": "Housing",
+    "trivial": true,
+    "significance": 0,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SC32.2",
+    "votes": {
+      "Paul Ainslie": "YES",
+      "Nick Mantas": "YES",
+      "Jamaal Myers": "YES",
+      "Neethan Shan": "YES",
+      "Michael Thompson": "YES"
+    },
+    "flags": []
+  },
+  {
+    "id": "SC32.26",
+    "date": "May 28, 2026",
+    "title": "Naming Long-Term Care Home at 4610 Finch Avenue East In Honour of Bernice Redmon",
+    "status": "Adopted",
+    "resultText": "Carried, 5-0",
+    "committee": "Scarborough Community Council",
+    "topic": "General",
+    "trivial": true,
+    "significance": 0,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SC32.26",
+    "votes": {
+      "Paul Ainslie": "YES",
+      "Parthi Kandavel": "YES",
+      "Nick Mantas": "ABSENT",
+      "Jamaal Myers": "YES",
+      "Neethan Shan": "YES",
+      "Michael Thompson": "YES"
+    },
+    "flags": []
+  },
+  {
+    "id": "SC32.8",
+    "date": "May 28, 2026",
+    "title": "120 Donside Drive - Application for Fence Exemption",
+    "status": "Lost",
+    "resultText": "Lost, 2-3",
+    "committee": "Scarborough Community Council",
+    "topic": "General",
+    "trivial": false,
+    "significance": 40,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.SC32.8",
+    "votes": {
+      "Paul Ainslie": "NO",
+      "Parthi Kandavel": "YES",
+      "Nick Mantas": "ABSENT",
+      "Jamaal Myers": "YES",
+      "Neethan Shan": "NO",
+      "Michael Thompson": "NO"
+    },
+    "flags": [
+      "defeated"
+    ]
+  },
+  {
+    "id": "TE33.75",
+    "date": "May 28, 2026",
+    "title": "Report request on naming an existing lane Valerie Mah Lane",
+    "status": "Adopted",
+    "resultText": "Carried, 7-0",
+    "committee": "Toronto and East York Community Council",
+    "topic": "General",
+    "trivial": true,
+    "significance": 0,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE33.75",
+    "votes": {
+      "Brad Bradford": "YES",
+      "Alejandra Bravo": "ABSENT",
+      "Paula Fletcher": "YES",
+      "Ausma Malik": "YES",
+      "Josh Matlow": "YES",
+      "Chris Moise": "YES",
+      "Gord Perks": "YES",
+      "Dianne Saxe": "YES"
+    },
+    "flags": []
+  },
+  {
     "id": "EY32.5-amend-item-additional",
     "date": "May 26, 2026",
     "title": "3100 Weston Road - Zoning By-law Amendment Application - Appeal Report",
@@ -47,6 +159,29 @@
     "keyAmounts": []
   },
   {
+    "id": "EY32.8",
+    "date": "May 26, 2026",
+    "title": "4 Berryton Avenue - Request for a Fence Exemption to the Toronto Municipal Code, Chapter 447",
+    "status": "Adopted",
+    "resultText": "Carried, 3-1",
+    "committee": "Etobicoke York Community Council",
+    "topic": "General",
+    "trivial": true,
+    "significance": 5,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EY32.8",
+    "votes": {
+      "Vincent Crisanti": "ABSENT",
+      "Stephen Holyday": "NO",
+      "Amber Morley": "YES",
+      "Frances Nunziata": "YES",
+      "Anthony Perruzza": "YES"
+    },
+    "flags": [],
+    "summary": "The Etobicoke York Community Council approved a request for a fence exemption at 4 Berryton Avenue, allowing the installation of a Juliette-style gate and enclosure around a pool. This decision permits a specific design that doesn't fully comply with city fence rules, on the condition that it still ensures adequate pool safety and restricts access.",
+    "keyAmounts": []
+  },
+  {
     "id": "EY32.24",
     "date": "May 26, 2026",
     "title": "Introduction of By-laws",
@@ -70,27 +205,66 @@
     "keyAmounts": []
   },
   {
-    "id": "EY32.8",
-    "date": "May 26, 2026",
-    "title": "4 Berryton Avenue - Request for a Fence Exemption to the Toronto Municipal Code, Chapter 447",
+    "id": "GG29.11",
+    "date": "May 11, 2026",
+    "title": "Non-Competitive Contract with Toronto Metropolitan University for Partnerships to Address the Digital Divide",
     "status": "Adopted",
-    "resultText": "Carried, 3-1",
-    "committee": "Etobicoke York Community Council",
-    "topic": "General",
+    "resultText": "Carried, 4-1",
+    "committee": "General Government Committee",
+    "topic": "Finance",
     "trivial": true,
-    "significance": 5,
+    "significance": 15,
     "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EY32.8",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.GG29.11",
     "votes": {
-      "Vincent Crisanti": "ABSENT",
+      "Paul Ainslie": "YES",
+      "Jon Burnside": "YES",
+      "Lily Cheng": "YES",
       "Stephen Holyday": "NO",
-      "Amber Morley": "YES",
-      "Frances Nunziata": "YES",
-      "Anthony Perruzza": "YES"
+      "Michael Thompson": "YES"
     },
     "flags": [],
-    "summary": "The Etobicoke York Community Council approved a request for a fence exemption at 4 Berryton Avenue, allowing the installation of a Juliette-style gate and enclosure around a pool. This decision permits a specific design that doesn't fully comply with city fence rules, on the condition that it still ensures adequate pool safety and restricts access.",
-    "keyAmounts": []
+    "summary": "Toronto City Council has approved an agreement with Toronto Metropolitan University to help bridge the \"digital divide\" for residents. This partnership aims to research and implement solutions that ensure all Torontonians have equitable access to technology and the internet.",
+    "keyAmounts": [
+      {
+        "label": "Cost for digital equity research",
+        "value": 300000,
+        "unit": "$",
+        "type": "cost"
+      }
+    ],
+    "body": "Item - 2026.GG29.11\nTracking Status\nCity Council adopted this item on May 20 and 21, 2026 without amendments.\nThis item was considered by the General Government Committee on May 11, 2026 and adopted without amendment.  It will be considered by City Council on May 20 and 21, 2026.\nExpand All 2026.GG29.11\nCollapse All 2026.GG29.11\nCity Council consideration on May 20 and 21, 2026\nGG29.11 - Non-Competitive Contract with Toronto Metropolitan University for Partnerships to Address the Digital Divide\nDecision Type: ACTION\nStatus: Adopted\nWards: All\nCaution: Preliminary decisions, motions and votes are shown below. Any decisions, motions or votes should not be considered final until the meeting is complete, and the decisions for this meeting have been confirmed.\nCity Council Decision\nCity Council on May 20 and 21, 2026, adopted the following:\n1. City Council authorize the Chief Technology Officer to negotiate and enter into agreements until December 31, 2031, with Toronto Metropolitan University, for up to $300,000 net of all taxes and charges ($305,280 net of Harmonized Sales Tax), subject to terms and conditions acceptable to the Chief Technology Officer and in a form satisfactory to the City Solicitor.\nBackground Information (Committee)\n(April 27, 2026)\nReport from the Chief Technology Officer, and the Chief Procurement Officer, on Non-Competitive Contract to Continue Research with Toronto Metropolitan University for Digital Equity Research\nhttps://www.toronto.ca/legdocs/mmis/2026/gg/bgrd/backgroundfile-286469.pdf\nCommunications (Committee)\n(May 11, 2026) E-mail from\nNicole Corrado (GG.Supp)\nMotions (City Council)\nMotion\nto Adopt Item\n(Carried)\nVote\n(Adopt Item)\nMay-20-2026 10:15 AM\nResult: Carried\nMajority Required\nTotal members that voted Yes: 22\nMembers that voted Yes are Brad Bradford, Alejandra Bravo, Jon Burnside, Shelley Carroll, Lily Cheng, Rachel Chernos Lin, Olivia Chow, Mike Colle, Paula Fletcher, Parthi Kandavel, Ausma Malik, Nick Mantas, Josh Matlow, Chris Moise, Amber Morley, Jamaal Myers, Frances Nunziata (Chair), Gord Perks, Anthony Perruzza, Dianne Saxe, Neethan Shan, Michael Thompson\nTotal members that voted No: 2\nMembers that voted No are Stephen Holyday, James Pasternak\nTotal members that were Absent: 2\nMembers that were absent are  Paul Ainslie, Vincent Crisanti\nGeneral Government Committee consideration on May 11, 2026\nGG29.11 - Non-Competitive Contract with Toronto Metropolitan University for Partnerships to Address the Digital Divide\nDecision Type: ACTION\nStatus: Adopted\nWards: All\nCommittee Recommendations\nThe General Government Committee recommends that:\n1. City Council authorize the Chief Technology Officer to negotiate and enter into agreements until December 31, 2031 with Toronto Metropolitan University, for up to $300,000 net of all taxes and charges ($305,280 net of Harmonized Sales Tax), subject to terms and conditions acceptable to the Chief Technology Officer and in a form satisfactory to the City Solicitor.\nOrigin\n(April 27, 2026) Report from the Chief Technology Officer, and the Chief Procurement Officer\nSummary\nThe purpose of this report is to request City Council authority to enter into a non-competitive contract with Toronto Metropolitan University, a Canadian supplier, to continue digital access research in the amount of $300,000 net of all applicable taxes and charges ($305,280 net of Harmonized Sales Tax recoveries Recoveries). This report seeks the establishment of a total ceiling authority for up to a 6-year term, with no commitment to spend the full amount.\nThis research examines the current state of digital access in Toronto and the ongoing barriers contributing to the gap between those who have internet access and the skills, and support to effectively engage online, and those who do not, often referred to as the \"digital divide\".\nFollowing City Council’s adoption of EX20.8 in 2021, which directed the City to examine barriers to affordable high‑speed internet access for vulnerable and underserved residents and to enter into agreements with public entities as needed, the City began regularly commissioning digital equity research to better understand Toronto's digital divide. To date, the City has partnered with Toronto Metropolitan University to develop a consistent, Toronto‑specific evidence base on digital access, affordability, and inclusion. The City has spent $115,616 in total with Toronto Metropolitan University for digital access research, resulting in three public reports:\n- Mapping Toronto's Digital Divide (January 2021),\n- Dimensions of Digital Inclusion (May 2021), and\n- Toronto’s Digital Divide (May 2024).\nCollectively, this research has provided periodic snapshots of digital access barriers over the past five years, informing City decision‑making and updates to Council.\nThe most recent report found that approximately 2 percent of Torontonians, about 58,000 residents, lack affordable in‑home internet access, underscoring the need for continued research to better understand residents’ access barriers and experiences.\nConnectTO is a program approved by City Council in 2021 to work towards improving the digital connectivity of all Torontonians. As the ConnectTO program advances, the City is seeking to leverage this continued research to more closely assess whether, and how, ConnectTO investments are contributing to measurable progress toward closing the digital divide. Regular Digital Divide research findings over the next 6 years will inform the City’s digital equity planning, strengthen service design and connectivity modernization efforts, and support consistent advice on digital access considerations within broader City service planning and delivery.\nA non-competitive procurement may be undertaken where both the proposed procurement and supplier can be justified in good faith based on an exception set out in Toronto Municipal Code Chapter 195, Procurement. This procurement will be proceeding under the exception related to Compatibility, where Toronto Metropolitan University and the City have determined in good faith that both the proposed procurement and the selected supplier, along with the terms and conditions of the contract, are beneficial to the City (Toronto Municipal Code, Chapter 195, Procurement, Section 7.1.E).\nCity Council approval is required in accordance with Municipal Code Chapter 195, Procurement, where the current request exceeds the Chief Procurement Officer’s authority of the cumulative five-year (5) commitment for each supplier, under Article 7, Section 195-7.3 (D) of the Procurement By-Law or exceeds the threshold of $500,000 net of Harmonized Sales Tax allowed under staff authority as per the Toronto Municipal Code, Chapter 71 Financial Control, Section 71-11A.\nBackground Information\n(April 27, 2026)\nReport from the Chief Technology Officer, and the Chief Procurement Officer, on Non-Competitive Contract to Continue Research with Toronto Metropolitan University for Digital Equity Research\nhttps://www.toronto.ca/legdocs/mmis/2026/gg/bgrd/backgroundfile-286469.pdf\nCommunications\n(May 11, 2026) E-mail from\nNicole Corrado (GG.Supp)\nMotions\nMotion\nto Adopt Item\nmoved by\nCouncillor Paul Ainslie\n(Carried)\nVote\n(Adopt Item)\nMay-11-2026\nResult: Carried\nMajority Required\nTotal members that voted Yes: 4\nMembers that voted Yes are Paul Ainslie (Chair), Jon Burnside, Lily Cheng, Michael Thompson\nTotal members that voted No: 1\nMembers that voted No are Stephen Holyday\nTotal members that were Absent: 0\nMembers that were absent are"
+  },
+  {
+    "id": "GG29.12",
+    "date": "May 11, 2026",
+    "title": "Non-Competitive Contract with RideShark Corporation for the Smart Commute Online Tool",
+    "status": "Adopted",
+    "resultText": "Carried, 4-1",
+    "committee": "General Government Committee",
+    "topic": "Finance",
+    "trivial": true,
+    "significance": 15,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.GG29.12",
+    "votes": {
+      "Paul Ainslie": "YES",
+      "Jon Burnside": "YES",
+      "Lily Cheng": "YES",
+      "Stephen Holyday": "NO",
+      "Michael Thompson": "YES"
+    },
+    "flags": [],
+    "summary": "Toronto has renewed its contract for the Smart Commute Online Tool, provided by RideShark Corporation. This software helps residents find sustainable travel options like carpooling, biking, or public transit, supporting efforts to reduce traffic congestion and promote greener commutes across the city.",
+    "keyAmounts": [
+      {
+        "label": "Annual software cost",
+        "value": 75000,
+        "unit": "$",
+        "type": "cost"
+      }
+    ],
+    "body": "Item - 2026.GG29.12\nTracking Status\nCity Council adopted this item on May 20 and 21, 2026 without amendments.\nThis item was considered by the General Government Committee on May 11, 2026 and adopted without amendment.  It will be considered by City Council on May 20 and 21, 2026.\nExpand All 2026.GG29.12\nCollapse All 2026.GG29.12\nCity Council consideration on May 20 and 21, 2026\nGG29.12 - Non-Competitive Contract with RideShark Corporation for the Smart Commute Online Tool\nDecision Type: ACTION\nStatus: Adopted\nWards: All\nCaution: Preliminary decisions, motions and votes are shown below. Any decisions, motions or votes should not be considered final until the meeting is complete, and the decisions for this meeting have been confirmed.\nCity Council Decision\nCity Council on May 20 and 21, 2026, adopted the following:\n1. City Council authorize the General Manager, Transportation Services to negotiate and enter into a contract with RideShark Corporation for the amount of $75,000 net of all taxes and charges ($76,320 net of Harmonized Sales Tax recoveries), to provide a software license for a shared Smart Commute Online Tool for a period of one (1) year from the effective date of the agreement to December 31, 2026, with the option to renew for four (4) additional one (1) year periods, at the sole discretion of the City, on terms and conditions satisfactory to the General Manager, Transportation Services and in a form satisfactory to the City Solicitor.\nBackground Information (Committee)\n(April 27, 2026)\nReport from the General Manager, Transportation Services, and the Chief Procurement Officer, on Non-Competitive Contract with RideShark Corporation for the Smart Commute Online Tool\nhttps://www.toronto.ca/legdocs/mmis/2026/gg/bgrd/backgroundfile-286484.pdf\nCommunications (Committee)\n(May 11, 2026) E-mail from\nNicole Corrado (GG.Supp)\nMotions (City Council)\nMotion\nto Adopt Item\n(Carried)\nVote\n(Adopt Item)\nMay-20-2026 10:16 AM\nResult: Carried\nMajority Required\nTotal members that voted Yes: 23\nMembers that voted Yes are Brad Bradford, Alejandra Bravo, Jon Burnside, Shelley Carroll, Lily Cheng, Rachel Chernos Lin, Olivia Chow, Vincent Crisanti, Paula Fletcher, Parthi Kandavel, Ausma Malik, Nick Mantas, Josh Matlow, Chris Moise, Amber Morley, Jamaal Myers, Frances Nunziata (Chair), James Pasternak, Gord Perks, Anthony Perruzza, Dianne Saxe, Neethan Shan, Michael Thompson\nTotal members that voted No: 2\nMembers that voted No are Mike Colle, Stephen Holyday\nTotal members that were Absent: 1\nMembers that were absent are  Paul Ainslie\nGeneral Government Committee consideration on May 11, 2026\nGG29.12 - Non-Competitive Contract with RideShark Corporation for the Smart Commute Online Tool\nDecision Type: ACTION\nStatus: Adopted\nWards: All\nCommittee Recommendations\nThe General Government Committee recommends that:\n1. City Council authorize the General Manager, Transportation Services to negotiate and enter into a contract with RideShark Corporation for the amount of $75,000 net of all taxes and charges ($76,320 net of Harmonized Sales Tax recoveries), to provide a software license for a shared Smart Commute Online Tool for a period of one (1) year from the effective date of the agreement to December 31, 2026, with the option to renew for four (4) additional one (1) year periods, at the sole discretion of the City, on terms and conditions satisfactory to the General Manager, Transportation Services and in a form satisfactory to the City Solicitor.\nOrigin\n(April 27, 2026) Report from the General Manager, Transportation Services, and the Chief Procurement Officer\nSummary\nThe purpose of this report is to request City Council authority to negotiate and enter into a non-competitive contract with RideShark Corporation in the amount of $75,000 net of all taxes and applicable charges ($76,320 net of Harmonized Sales Tax recoveries) for the Smart Commute Program.\nThe Smart Commute Program has delivered Transportation Demand Management services in Toronto since 2005, helping employers and commuters shift to sustainable travel options such as walking, cycling, transit, carpooling and remote work. The program supports reduced single-occupant vehicle trips to ease congestion, improve air quality and lower greenhouse gas emissions. In 2021, with City Council authority, the City entered into a collaborative agreement with Regional Municipal Partners across the Greater Toronto and Hamilton Area, resulting in the non-competitive procurement of the Smart Commute Online Tool from RideShark Corporation as a shared, region-wide commute management platform.\nTransportation Services is now seeking City Council authority to enter into a further non-competitive agreement of up to five (5) years with RideShark Corporation to continue delivering the Smart Commute Online Tool in partnership with the eight (8) other participating municipalities.\nA non-competitive procurement may be undertaken where both the proposed procurement and supplier can be justified in good faith based on an exception set out in Toronto Municipal Code Chapter 195, Procurement. This procurement will be proceeding under the exception related to Exclusive Rights, where RideShark Corporation, and the City have determined in good faith that both the proposed procurement and the selected supplier, along with the terms and conditions of the contract, are beneficial to the City (Toronto Municipal Code, Chapter 195, Procurement, Section 7.1.C).\nCity Council approval is required in accordance with Municipal Code Chapter 195, Procurement, where the current request exceeds the Chief Procurement Officer’s authority of the cumulative five-year (5) commitment for each supplier, under Article 7, Section 195-7.3 (D) of the Procurement By-Law or exceeds the threshold of $500,000 net of Harmonized Sales Tax allowed under staff authority as per the Toronto Municipal Code, Chapter 71 Financial Control, Section 71-11A.\nBackground Information\n(April 27, 2026)\nReport from the General Manager, Transportation Services, and the Chief Procurement Officer, on Non-Competitive Contract with RideShark Corporation for the Smart Commute Online Tool\nhttps://www.toronto.ca/legdocs/mmis/2026/gg/bgrd/backgroundfile-286484.pdf\nCommunications\n(May 11, 2026) E-mail from\nNicole Corrado (GG.Supp)\nMotions\nMotion\nto Adopt Item\nmoved by\nCouncillor Lily Cheng\n(Carried)\nVote\n(Adopt Item)\nMay-11-2026\nResult: Carried\nMajority Required\nTotal members that voted Yes: 4\nMembers that voted Yes are Paul Ainslie (Chair), Jon Burnside, Lily Cheng, Michael Thompson\nTotal members that voted No: 1\nMembers that voted No are Stephen Holyday\nTotal members that were Absent: 0\nMembers that were absent are"
   },
   {
     "id": "GG29.2",
@@ -128,68 +302,6 @@
       }
     ],
     "body": "Item - 2026.GG29.2\nTracking Status\nThis item was considered by General Government Committee on May 11, 2026 and was adopted without amendment.\nExpand All 2026.GG29.2\nCollapse All 2026.GG29.2\nGeneral Government Committee consideration on May 11, 2026\nGG29.2 - Amendment to Blanket Contract 47025662 to Avron Foods Limited for the Supply and Delivery of Snack Foods for the Expanded Universal CampTO Child Nutrition Program for Parks and Recreation\nDecision Type: ACTION\nStatus: Adopted\nWards: All\nCommittee Decision\nThe General Government Committee:\n1. In accordance with section 71-11.1C of the City of Toronto Municipal Code Chapter 71 (Financial Control Bylaw), authorized the General Manager, Parks and Recreation to amend Blanket Contract number 47025662 issued to Avron Foods Limited, for the supply and delivery of snack foods for the expanded universal CampTO Nutrition program for Parks and Recreation, increasing the overall value of the Blanket Contract by $1,613,994 net of all applicable taxes and charges ($1,642,400 net of Harmonized Sales Tax recoveries), revising the current Blanket Contract value from $4,217,252 net of all applicable taxes and charges to $5,831,246 net of all applicable taxes and charges ($5,933,876 net of Harmonized Sales Tax recoveries).\nOrigin\n(April 27, 2026) Report from the General Manager, Parks and Recreation, and the Chief Procurement Officer\nSummary\nThe purpose of this report is to request authority to amend Blanket Contract Number 47025662 issued to Avron Foods Limited for the supply and delivery of snack foods for the expanded universal CampTO Nutrition Program for Parks and Recreation. The total amendment being requested is for an additional $1,613,994 net of all applicable taxes and charges ($1,642,400 net of Harmonized Sales Tax recoveries), revising the current Blanket Contract value from $4,217,252 net of all applicable taxes and charges to $5,831,246 net of all applicable taxes and charges ($5,933,876 net of Harmonized Sales Tax recoveries) for the remaining four (4) option years, ending in July 2029.\nThe amendment for Avron Foods Limited is required to accommodate additional costs associated with the expansion of the CampTO Nutrition program to a universal model that will serve an additional 60,000 participants at an additional 96 camp locations this year, building on the success of the program implemented in 2025.\nBackground Information\n(April 27, 2026)\nReport from the General Manager, Parks and Recreation, and the Chief Procurement Officer on Amendment to Blanket Contract 47025662 to Avron Foods Limited for the Supply and Delivery of Snack Foods for the Expanded Universal CampTO Child Nutrition Program for Parks and Recreation\nhttps://www.toronto.ca/legdocs/mmis/2026/gg/bgrd/backgroundfile-286463.pdf\nCommunications\n(May 11, 2026) E-mail from\nNicole Corrado (GG.Supp)\nMotions\nMotion\nto Adopt Item\nmoved by\nCouncillor Lily Cheng\n(Carried)\nVote\n(Adopt Item)\nMay-11-2026\nResult: Carried\nMajority Required\nTotal members that voted Yes: 4\nMembers that voted Yes are Paul Ainslie (Chair), Jon Burnside, Lily Cheng, Michael Thompson\nTotal members that voted No: 1\nMembers that voted No are Stephen Holyday\nTotal members that were Absent: 0\nMembers that were absent are"
-  },
-  {
-    "id": "GG29.12",
-    "date": "May 11, 2026",
-    "title": "Non-Competitive Contract with RideShark Corporation for the Smart Commute Online Tool",
-    "status": "Adopted",
-    "resultText": "Carried, 4-1",
-    "committee": "General Government Committee",
-    "topic": "Finance",
-    "trivial": true,
-    "significance": 15,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.GG29.12",
-    "votes": {
-      "Paul Ainslie": "YES",
-      "Jon Burnside": "YES",
-      "Lily Cheng": "YES",
-      "Stephen Holyday": "NO",
-      "Michael Thompson": "YES"
-    },
-    "flags": [],
-    "summary": "Toronto has renewed its contract for the Smart Commute Online Tool, provided by RideShark Corporation. This software helps residents find sustainable travel options like carpooling, biking, or public transit, supporting efforts to reduce traffic congestion and promote greener commutes across the city.",
-    "keyAmounts": [
-      {
-        "label": "Annual software cost",
-        "value": 75000,
-        "unit": "$",
-        "type": "cost"
-      }
-    ],
-    "body": "Item - 2026.GG29.12\nTracking Status\nCity Council adopted this item on May 20 and 21, 2026 without amendments.\nThis item was considered by the General Government Committee on May 11, 2026 and adopted without amendment.  It will be considered by City Council on May 20 and 21, 2026.\nExpand All 2026.GG29.12\nCollapse All 2026.GG29.12\nCity Council consideration on May 20 and 21, 2026\nGG29.12 - Non-Competitive Contract with RideShark Corporation for the Smart Commute Online Tool\nDecision Type: ACTION\nStatus: Adopted\nWards: All\nCaution: Preliminary decisions, motions and votes are shown below. Any decisions, motions or votes should not be considered final until the meeting is complete, and the decisions for this meeting have been confirmed.\nCity Council Decision\nCity Council on May 20 and 21, 2026, adopted the following:\n1. City Council authorize the General Manager, Transportation Services to negotiate and enter into a contract with RideShark Corporation for the amount of $75,000 net of all taxes and charges ($76,320 net of Harmonized Sales Tax recoveries), to provide a software license for a shared Smart Commute Online Tool for a period of one (1) year from the effective date of the agreement to December 31, 2026, with the option to renew for four (4) additional one (1) year periods, at the sole discretion of the City, on terms and conditions satisfactory to the General Manager, Transportation Services and in a form satisfactory to the City Solicitor.\nBackground Information (Committee)\n(April 27, 2026)\nReport from the General Manager, Transportation Services, and the Chief Procurement Officer, on Non-Competitive Contract with RideShark Corporation for the Smart Commute Online Tool\nhttps://www.toronto.ca/legdocs/mmis/2026/gg/bgrd/backgroundfile-286484.pdf\nCommunications (Committee)\n(May 11, 2026) E-mail from\nNicole Corrado (GG.Supp)\nMotions (City Council)\nMotion\nto Adopt Item\n(Carried)\nVote\n(Adopt Item)\nMay-20-2026 10:16 AM\nResult: Carried\nMajority Required\nTotal members that voted Yes: 23\nMembers that voted Yes are Brad Bradford, Alejandra Bravo, Jon Burnside, Shelley Carroll, Lily Cheng, Rachel Chernos Lin, Olivia Chow, Vincent Crisanti, Paula Fletcher, Parthi Kandavel, Ausma Malik, Nick Mantas, Josh Matlow, Chris Moise, Amber Morley, Jamaal Myers, Frances Nunziata (Chair), James Pasternak, Gord Perks, Anthony Perruzza, Dianne Saxe, Neethan Shan, Michael Thompson\nTotal members that voted No: 2\nMembers that voted No are Mike Colle, Stephen Holyday\nTotal members that were Absent: 1\nMembers that were absent are  Paul Ainslie\nGeneral Government Committee consideration on May 11, 2026\nGG29.12 - Non-Competitive Contract with RideShark Corporation for the Smart Commute Online Tool\nDecision Type: ACTION\nStatus: Adopted\nWards: All\nCommittee Recommendations\nThe General Government Committee recommends that:\n1. City Council authorize the General Manager, Transportation Services to negotiate and enter into a contract with RideShark Corporation for the amount of $75,000 net of all taxes and charges ($76,320 net of Harmonized Sales Tax recoveries), to provide a software license for a shared Smart Commute Online Tool for a period of one (1) year from the effective date of the agreement to December 31, 2026, with the option to renew for four (4) additional one (1) year periods, at the sole discretion of the City, on terms and conditions satisfactory to the General Manager, Transportation Services and in a form satisfactory to the City Solicitor.\nOrigin\n(April 27, 2026) Report from the General Manager, Transportation Services, and the Chief Procurement Officer\nSummary\nThe purpose of this report is to request City Council authority to negotiate and enter into a non-competitive contract with RideShark Corporation in the amount of $75,000 net of all taxes and applicable charges ($76,320 net of Harmonized Sales Tax recoveries) for the Smart Commute Program.\nThe Smart Commute Program has delivered Transportation Demand Management services in Toronto since 2005, helping employers and commuters shift to sustainable travel options such as walking, cycling, transit, carpooling and remote work. The program supports reduced single-occupant vehicle trips to ease congestion, improve air quality and lower greenhouse gas emissions. In 2021, with City Council authority, the City entered into a collaborative agreement with Regional Municipal Partners across the Greater Toronto and Hamilton Area, resulting in the non-competitive procurement of the Smart Commute Online Tool from RideShark Corporation as a shared, region-wide commute management platform.\nTransportation Services is now seeking City Council authority to enter into a further non-competitive agreement of up to five (5) years with RideShark Corporation to continue delivering the Smart Commute Online Tool in partnership with the eight (8) other participating municipalities.\nA non-competitive procurement may be undertaken where both the proposed procurement and supplier can be justified in good faith based on an exception set out in Toronto Municipal Code Chapter 195, Procurement. This procurement will be proceeding under the exception related to Exclusive Rights, where RideShark Corporation, and the City have determined in good faith that both the proposed procurement and the selected supplier, along with the terms and conditions of the contract, are beneficial to the City (Toronto Municipal Code, Chapter 195, Procurement, Section 7.1.C).\nCity Council approval is required in accordance with Municipal Code Chapter 195, Procurement, where the current request exceeds the Chief Procurement Officer’s authority of the cumulative five-year (5) commitment for each supplier, under Article 7, Section 195-7.3 (D) of the Procurement By-Law or exceeds the threshold of $500,000 net of Harmonized Sales Tax allowed under staff authority as per the Toronto Municipal Code, Chapter 71 Financial Control, Section 71-11A.\nBackground Information\n(April 27, 2026)\nReport from the General Manager, Transportation Services, and the Chief Procurement Officer, on Non-Competitive Contract with RideShark Corporation for the Smart Commute Online Tool\nhttps://www.toronto.ca/legdocs/mmis/2026/gg/bgrd/backgroundfile-286484.pdf\nCommunications\n(May 11, 2026) E-mail from\nNicole Corrado (GG.Supp)\nMotions\nMotion\nto Adopt Item\nmoved by\nCouncillor Lily Cheng\n(Carried)\nVote\n(Adopt Item)\nMay-11-2026\nResult: Carried\nMajority Required\nTotal members that voted Yes: 4\nMembers that voted Yes are Paul Ainslie (Chair), Jon Burnside, Lily Cheng, Michael Thompson\nTotal members that voted No: 1\nMembers that voted No are Stephen Holyday\nTotal members that were Absent: 0\nMembers that were absent are"
-  },
-  {
-    "id": "GG29.11",
-    "date": "May 11, 2026",
-    "title": "Non-Competitive Contract with Toronto Metropolitan University for Partnerships to Address the Digital Divide",
-    "status": "Adopted",
-    "resultText": "Carried, 4-1",
-    "committee": "General Government Committee",
-    "topic": "Finance",
-    "trivial": true,
-    "significance": 15,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.GG29.11",
-    "votes": {
-      "Paul Ainslie": "YES",
-      "Jon Burnside": "YES",
-      "Lily Cheng": "YES",
-      "Stephen Holyday": "NO",
-      "Michael Thompson": "YES"
-    },
-    "flags": [],
-    "summary": "Toronto City Council has approved an agreement with Toronto Metropolitan University to help bridge the \"digital divide\" for residents. This partnership aims to research and implement solutions that ensure all Torontonians have equitable access to technology and the internet.",
-    "keyAmounts": [
-      {
-        "label": "Cost for digital equity research",
-        "value": 300000,
-        "unit": "$",
-        "type": "cost"
-      }
-    ],
-    "body": "Item - 2026.GG29.11\nTracking Status\nCity Council adopted this item on May 20 and 21, 2026 without amendments.\nThis item was considered by the General Government Committee on May 11, 2026 and adopted without amendment.  It will be considered by City Council on May 20 and 21, 2026.\nExpand All 2026.GG29.11\nCollapse All 2026.GG29.11\nCity Council consideration on May 20 and 21, 2026\nGG29.11 - Non-Competitive Contract with Toronto Metropolitan University for Partnerships to Address the Digital Divide\nDecision Type: ACTION\nStatus: Adopted\nWards: All\nCaution: Preliminary decisions, motions and votes are shown below. Any decisions, motions or votes should not be considered final until the meeting is complete, and the decisions for this meeting have been confirmed.\nCity Council Decision\nCity Council on May 20 and 21, 2026, adopted the following:\n1. City Council authorize the Chief Technology Officer to negotiate and enter into agreements until December 31, 2031, with Toronto Metropolitan University, for up to $300,000 net of all taxes and charges ($305,280 net of Harmonized Sales Tax), subject to terms and conditions acceptable to the Chief Technology Officer and in a form satisfactory to the City Solicitor.\nBackground Information (Committee)\n(April 27, 2026)\nReport from the Chief Technology Officer, and the Chief Procurement Officer, on Non-Competitive Contract to Continue Research with Toronto Metropolitan University for Digital Equity Research\nhttps://www.toronto.ca/legdocs/mmis/2026/gg/bgrd/backgroundfile-286469.pdf\nCommunications (Committee)\n(May 11, 2026) E-mail from\nNicole Corrado (GG.Supp)\nMotions (City Council)\nMotion\nto Adopt Item\n(Carried)\nVote\n(Adopt Item)\nMay-20-2026 10:15 AM\nResult: Carried\nMajority Required\nTotal members that voted Yes: 22\nMembers that voted Yes are Brad Bradford, Alejandra Bravo, Jon Burnside, Shelley Carroll, Lily Cheng, Rachel Chernos Lin, Olivia Chow, Mike Colle, Paula Fletcher, Parthi Kandavel, Ausma Malik, Nick Mantas, Josh Matlow, Chris Moise, Amber Morley, Jamaal Myers, Frances Nunziata (Chair), Gord Perks, Anthony Perruzza, Dianne Saxe, Neethan Shan, Michael Thompson\nTotal members that voted No: 2\nMembers that voted No are Stephen Holyday, James Pasternak\nTotal members that were Absent: 2\nMembers that were absent are  Paul Ainslie, Vincent Crisanti\nGeneral Government Committee consideration on May 11, 2026\nGG29.11 - Non-Competitive Contract with Toronto Metropolitan University for Partnerships to Address the Digital Divide\nDecision Type: ACTION\nStatus: Adopted\nWards: All\nCommittee Recommendations\nThe General Government Committee recommends that:\n1. City Council authorize the Chief Technology Officer to negotiate and enter into agreements until December 31, 2031 with Toronto Metropolitan University, for up to $300,000 net of all taxes and charges ($305,280 net of Harmonized Sales Tax), subject to terms and conditions acceptable to the Chief Technology Officer and in a form satisfactory to the City Solicitor.\nOrigin\n(April 27, 2026) Report from the Chief Technology Officer, and the Chief Procurement Officer\nSummary\nThe purpose of this report is to request City Council authority to enter into a non-competitive contract with Toronto Metropolitan University, a Canadian supplier, to continue digital access research in the amount of $300,000 net of all applicable taxes and charges ($305,280 net of Harmonized Sales Tax recoveries Recoveries). This report seeks the establishment of a total ceiling authority for up to a 6-year term, with no commitment to spend the full amount.\nThis research examines the current state of digital access in Toronto and the ongoing barriers contributing to the gap between those who have internet access and the skills, and support to effectively engage online, and those who do not, often referred to as the \"digital divide\".\nFollowing City Council’s adoption of EX20.8 in 2021, which directed the City to examine barriers to affordable high‑speed internet access for vulnerable and underserved residents and to enter into agreements with public entities as needed, the City began regularly commissioning digital equity research to better understand Toronto's digital divide. To date, the City has partnered with Toronto Metropolitan University to develop a consistent, Toronto‑specific evidence base on digital access, affordability, and inclusion. The City has spent $115,616 in total with Toronto Metropolitan University for digital access research, resulting in three public reports:\n- Mapping Toronto's Digital Divide (January 2021),\n- Dimensions of Digital Inclusion (May 2021), and\n- Toronto’s Digital Divide (May 2024).\nCollectively, this research has provided periodic snapshots of digital access barriers over the past five years, informing City decision‑making and updates to Council.\nThe most recent report found that approximately 2 percent of Torontonians, about 58,000 residents, lack affordable in‑home internet access, underscoring the need for continued research to better understand residents’ access barriers and experiences.\nConnectTO is a program approved by City Council in 2021 to work towards improving the digital connectivity of all Torontonians. As the ConnectTO program advances, the City is seeking to leverage this continued research to more closely assess whether, and how, ConnectTO investments are contributing to measurable progress toward closing the digital divide. Regular Digital Divide research findings over the next 6 years will inform the City’s digital equity planning, strengthen service design and connectivity modernization efforts, and support consistent advice on digital access considerations within broader City service planning and delivery.\nA non-competitive procurement may be undertaken where both the proposed procurement and supplier can be justified in good faith based on an exception set out in Toronto Municipal Code Chapter 195, Procurement. This procurement will be proceeding under the exception related to Compatibility, where Toronto Metropolitan University and the City have determined in good faith that both the proposed procurement and the selected supplier, along with the terms and conditions of the contract, are beneficial to the City (Toronto Municipal Code, Chapter 195, Procurement, Section 7.1.E).\nCity Council approval is required in accordance with Municipal Code Chapter 195, Procurement, where the current request exceeds the Chief Procurement Officer’s authority of the cumulative five-year (5) commitment for each supplier, under Article 7, Section 195-7.3 (D) of the Procurement By-Law or exceeds the threshold of $500,000 net of Harmonized Sales Tax allowed under staff authority as per the Toronto Municipal Code, Chapter 71 Financial Control, Section 71-11A.\nBackground Information\n(April 27, 2026)\nReport from the Chief Technology Officer, and the Chief Procurement Officer, on Non-Competitive Contract to Continue Research with Toronto Metropolitan University for Digital Equity Research\nhttps://www.toronto.ca/legdocs/mmis/2026/gg/bgrd/backgroundfile-286469.pdf\nCommunications\n(May 11, 2026) E-mail from\nNicole Corrado (GG.Supp)\nMotions\nMotion\nto Adopt Item\nmoved by\nCouncillor Paul Ainslie\n(Carried)\nVote\n(Adopt Item)\nMay-11-2026\nResult: Carried\nMajority Required\nTotal members that voted Yes: 4\nMembers that voted Yes are Paul Ainslie (Chair), Jon Burnside, Lily Cheng, Michael Thompson\nTotal members that voted No: 1\nMembers that voted No are Stephen Holyday\nTotal members that were Absent: 0\nMembers that were absent are"
   },
   {
     "id": "PH30.3",
@@ -269,32 +381,6 @@
     },
     "flags": [],
     "summary": "Scarborough Community Council received an update about the ongoing development of the Youth Innovation Hub at the Scarborough Civic Centre. This initiative aims to create new opportunities and resources for young people in the Scarborough area.",
-    "keyAmounts": []
-  },
-  {
-    "id": "TE32.46",
-    "date": "Apr 30, 2026",
-    "title": "Pedestrianizing Church Street Pilot",
-    "status": "Adopted",
-    "resultText": "Carried, 6-0",
-    "committee": "Toronto and East York Community Council",
-    "topic": "Transit",
-    "trivial": true,
-    "significance": 0,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.46",
-    "votes": {
-      "Brad Bradford": "ABSENT",
-      "Alejandra Bravo": "YES",
-      "Paula Fletcher": "ABSENT",
-      "Ausma Malik": "YES",
-      "Josh Matlow": "YES",
-      "Chris Moise": "YES",
-      "Gord Perks": "YES",
-      "Dianne Saxe": "YES"
-    },
-    "flags": [],
-    "summary": "Toronto City Council has approved a pilot project to close a section of Church Street to cars this summer. From June 19 to August 21, the stretch between Wellesley Street East and Alexander Street will be pedestrian-only, aiming to make the area safer, more accessible, and boost local businesses in the Church-Wellesley Village.",
     "keyAmounts": []
   },
   {
@@ -405,6 +491,32 @@
     "keyAmounts": []
   },
   {
+    "id": "TE32.46",
+    "date": "Apr 30, 2026",
+    "title": "Pedestrianizing Church Street Pilot",
+    "status": "Adopted",
+    "resultText": "Carried, 6-0",
+    "committee": "Toronto and East York Community Council",
+    "topic": "Transit",
+    "trivial": true,
+    "significance": 0,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.TE32.46",
+    "votes": {
+      "Brad Bradford": "ABSENT",
+      "Alejandra Bravo": "YES",
+      "Paula Fletcher": "ABSENT",
+      "Ausma Malik": "YES",
+      "Josh Matlow": "YES",
+      "Chris Moise": "YES",
+      "Gord Perks": "YES",
+      "Dianne Saxe": "YES"
+    },
+    "flags": [],
+    "summary": "Toronto City Council has approved a pilot project to close a section of Church Street to cars this summer. From June 19 to August 21, the stretch between Wellesley Street East and Alexander Street will be pedestrian-only, aiming to make the area safer, more accessible, and boost local businesses in the Church-Wellesley Village.",
+    "keyAmounts": []
+  },
+  {
     "id": "NY32.9-amend-item",
     "date": "Apr 29, 2026",
     "title": "103 Roslin Avenue - Application to Remove a City Owned Tree",
@@ -506,6 +618,29 @@
     "keyAmounts": []
   },
   {
+    "id": "EY31.3",
+    "date": "Apr 29, 2026",
+    "title": "2915, 2917, 2939, 2941 and 2943 Bloor Street West - Zoning By-law Amendment Application - Appeal Report",
+    "status": "Adopted",
+    "resultText": "Carried, 5-0",
+    "committee": "Etobicoke York Community Council",
+    "topic": "Housing",
+    "trivial": true,
+    "significance": 0,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EY31.3",
+    "votes": {
+      "Vincent Crisanti": "YES",
+      "Stephen Holyday": "YES",
+      "Amber Morley": "YES",
+      "Frances Nunziata": "YES",
+      "Anthony Perruzza": "YES"
+    },
+    "flags": [],
+    "summary": "City Council is deciding to oppose a developer's plan for a 29-storey mixed-use building on Bloor Street West. They will direct legal staff to attend the Ontario Land Tribunal to fight the current proposal and continue negotiations to address local concerns about the development.",
+    "keyAmounts": []
+  },
+  {
     "id": "EY31.2",
     "date": "Apr 29, 2026",
     "title": "2 to 4 Mendota Road - Official Plan and Zoning By-law Amendment - Decision Report - Approval",
@@ -528,29 +663,6 @@
       "defeated"
     ],
     "summary": "The Etobicoke York Community Council did not approve a proposal to change the official plan and zoning for 2-4 Mendota Road, which would have allowed a new 4-storey self-storage building. This means the Community Council is not recommending the project to City Council, leaving the final decision on this local development up to the full Council.",
-    "keyAmounts": []
-  },
-  {
-    "id": "EY31.3",
-    "date": "Apr 29, 2026",
-    "title": "2915, 2917, 2939, 2941 and 2943 Bloor Street West - Zoning By-law Amendment Application - Appeal Report",
-    "status": "Adopted",
-    "resultText": "Carried, 5-0",
-    "committee": "Etobicoke York Community Council",
-    "topic": "Housing",
-    "trivial": true,
-    "significance": 0,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EY31.3",
-    "votes": {
-      "Vincent Crisanti": "YES",
-      "Stephen Holyday": "YES",
-      "Amber Morley": "YES",
-      "Frances Nunziata": "YES",
-      "Anthony Perruzza": "YES"
-    },
-    "flags": [],
-    "summary": "City Council is deciding to oppose a developer's plan for a 29-storey mixed-use building on Bloor Street West. They will direct legal staff to attend the Ontario Land Tribunal to fight the current proposal and continue negotiations to address local concerns about the development.",
     "keyAmounts": []
   },
   {
@@ -23822,6 +23934,30 @@
     "keyAmounts": []
   },
   {
+    "id": "SC18.12",
+    "date": "Dec 6, 2024",
+    "title": "Metrolinx Scarborough Subway Extension - Long-term Temporary Road Closures and Public Highway Dedication - Kennedy Station Connection, Emergency Exit Building-1, and Lawrence East Station",
+    "status": "Adopted",
+    "resultText": "Carried, 6-0",
+    "committee": "Scarborough Community Council",
+    "topic": "Transit",
+    "trivial": true,
+    "significance": 20,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.SC18.12",
+    "votes": {
+      "Paul Ainslie": "YES",
+      "Parthi Kandavel": "YES",
+      "Nick Mantas": "YES",
+      "Jennifer McKelvie": "YES",
+      "Jamaal Myers": "YES",
+      "Michael Thompson": "YES"
+    },
+    "flags": [],
+    "summary": "To allow for continued construction of the Scarborough Subway Extension, City Council has approved several temporary road and sidewalk closures in Scarborough. Drivers and pedestrians in areas like McCowan Road and Eglinton Avenue East will experience disruptions and detours for periods lasting up to six years.",
+    "keyAmounts": []
+  },
+  {
     "id": "SC18.20",
     "date": "Dec 6, 2024",
     "title": "Renaming Rosebank Park in Memory of Councillor Cynthia Lai",
@@ -23972,30 +24108,6 @@
     },
     "flags": [],
     "summary": "Scarborough Community Council has approved the installation of 13 speed humps on Rouge Hills Drive, between Island Road and Lawrence Avenue East. This decision aims to improve road safety by reducing speeding, and also includes lowering the speed limit in this area from 40 km/h to 30 km/h.",
-    "keyAmounts": []
-  },
-  {
-    "id": "SC18.12",
-    "date": "Dec 6, 2024",
-    "title": "Metrolinx Scarborough Subway Extension - Long-term Temporary Road Closures and Public Highway Dedication - Kennedy Station Connection, Emergency Exit Building-1, and Lawrence East Station",
-    "status": "Adopted",
-    "resultText": "Carried, 6-0",
-    "committee": "Scarborough Community Council",
-    "topic": "Transit",
-    "trivial": true,
-    "significance": 20,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.SC18.12",
-    "votes": {
-      "Paul Ainslie": "YES",
-      "Parthi Kandavel": "YES",
-      "Nick Mantas": "YES",
-      "Jennifer McKelvie": "YES",
-      "Jamaal Myers": "YES",
-      "Michael Thompson": "YES"
-    },
-    "flags": [],
-    "summary": "To allow for continued construction of the Scarborough Subway Extension, City Council has approved several temporary road and sidewalk closures in Scarborough. Drivers and pedestrians in areas like McCowan Road and Eglinton Avenue East will experience disruptions and detours for periods lasting up to six years.",
     "keyAmounts": []
   },
   {
@@ -26478,7 +26590,7 @@
     "parentId": "NY18.27"
   },
   {
-    "id": "TE17.8-amend-item",
+    "id": "TE17.8",
     "date": "Oct 24, 2024",
     "title": "985 Woodbine Avenue and 2078, 2086, 2100, 2102 and 2106 Danforth Avenue - Zoning By-law Amendment and Rental Housing Demolition Applications - Decision Report - Approval",
     "status": "Adopted",
@@ -26500,11 +26612,24 @@
       "Dianne Saxe": "YES"
     },
     "flags": [],
-    "motionType": "Amend Item",
-    "parentId": "TE17.8"
+    "motionType": "Adopt Item as Amended",
+    "summary": "Toronto City Council approved zoning changes for properties on Woodbine and Danforth Avenues. This decision allows for a new development to proceed, which will include 12 affordable rental housing units as part of the project.",
+    "keyAmounts": [],
+    "locations": [
+      {
+        "address": "985 Woodbine Avenue",
+        "lat": 43.6861566,
+        "lng": -79.3125688
+      },
+      {
+        "address": "2106 Danforth Avenue",
+        "lat": 43.685989,
+        "lng": -79.3120569
+      }
+    ]
   },
   {
-    "id": "TE17.8",
+    "id": "TE17.8-amend-item",
     "date": "Oct 24, 2024",
     "title": "985 Woodbine Avenue and 2078, 2086, 2100, 2102 and 2106 Danforth Avenue - Zoning By-law Amendment and Rental Housing Demolition Applications - Decision Report - Approval",
     "status": "Adopted",
@@ -26526,21 +26651,8 @@
       "Dianne Saxe": "YES"
     },
     "flags": [],
-    "motionType": "Adopt Item as Amended",
-    "summary": "Toronto City Council approved zoning changes for properties on Woodbine and Danforth Avenues. This decision allows for a new development to proceed, which will include 12 affordable rental housing units as part of the project.",
-    "keyAmounts": [],
-    "locations": [
-      {
-        "address": "985 Woodbine Avenue",
-        "lat": 43.6861566,
-        "lng": -79.3125688
-      },
-      {
-        "address": "2106 Danforth Avenue",
-        "lat": 43.685989,
-        "lng": -79.3120569
-      }
-    ]
+    "motionType": "Amend Item",
+    "parentId": "TE17.8"
   },
   {
     "id": "PA11.3",
@@ -30617,31 +30729,6 @@
     "keyAmounts": []
   },
   {
-    "id": "NY15.4-refer-item",
-    "date": "Jul 9, 2024",
-    "title": "1875 Steeles Avenue West - Zoning By-law Amendment and Rental Housing Demolition and Conversion Applications - Decision Report - Approval",
-    "status": "Lost",
-    "resultText": "Lost, 1-4",
-    "committee": "North York Community Council",
-    "topic": "Housing",
-    "trivial": false,
-    "significance": 37,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY15.4",
-    "votes": {
-      "Jon Burnside": "NO",
-      "Shelley Carroll": "YES",
-      "Lily Cheng": "NO",
-      "Mike Colle": "NO",
-      "James Pasternak": "NO"
-    },
-    "flags": [
-      "defeated"
-    ],
-    "motionType": "Refer Item",
-    "parentId": "NY15.4"
-  },
-  {
     "id": "NY15.4",
     "date": "Jul 9, 2024",
     "title": "1875 Steeles Avenue West - Zoning By-law Amendment and Rental Housing Demolition and Conversion Applications - Decision Report - Approval",
@@ -30671,6 +30758,31 @@
         "lng": -79.4684736
       }
     ]
+  },
+  {
+    "id": "NY15.4-refer-item",
+    "date": "Jul 9, 2024",
+    "title": "1875 Steeles Avenue West - Zoning By-law Amendment and Rental Housing Demolition and Conversion Applications - Decision Report - Approval",
+    "status": "Lost",
+    "resultText": "Lost, 1-4",
+    "committee": "North York Community Council",
+    "topic": "Housing",
+    "trivial": false,
+    "significance": 37,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY15.4",
+    "votes": {
+      "Jon Burnside": "NO",
+      "Shelley Carroll": "YES",
+      "Lily Cheng": "NO",
+      "Mike Colle": "NO",
+      "James Pasternak": "NO"
+    },
+    "flags": [
+      "defeated"
+    ],
+    "motionType": "Refer Item",
+    "parentId": "NY15.4"
   },
   {
     "id": "IE15.3",
@@ -33106,30 +33218,6 @@
     "keyAmounts": []
   },
   {
-    "id": "SC14.18",
-    "date": "Jun 12, 2024",
-    "title": "Brimley Road and McNicoll Avenue - Intersection Safety Review",
-    "status": "Adopted",
-    "resultText": "Carried, 5-0",
-    "committee": "Scarborough Community Council",
-    "topic": "Transit",
-    "trivial": true,
-    "significance": 0,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.SC14.18",
-    "votes": {
-      "Paul Ainslie": "ABSENT",
-      "Parthi Kandavel": "YES",
-      "Nick Mantas": "YES",
-      "Jennifer McKelvie": "YES",
-      "Jamaal Myers": "YES",
-      "Michael Thompson": "YES"
-    },
-    "flags": [],
-    "summary": "City Council has approved a new traffic rule prohibiting eastbound right turns on a red light at the intersection of Brimley Road and McNicoll Avenue. This change aims to improve safety for all road users, including pedestrians, cyclists, and drivers, especially given that TTC transit operates through this busy Scarborough intersection.",
-    "keyAmounts": []
-  },
-  {
     "id": "SC14.5",
     "date": "Jun 12, 2024",
     "title": "4201 to 4203 Kingston Road and 120 Galloway Road -  Zoning Amendment Application - Decision Report - Approval",
@@ -33164,6 +33252,30 @@
         "lng": -79.1946488
       }
     ]
+  },
+  {
+    "id": "SC14.18",
+    "date": "Jun 12, 2024",
+    "title": "Brimley Road and McNicoll Avenue - Intersection Safety Review",
+    "status": "Adopted",
+    "resultText": "Carried, 5-0",
+    "committee": "Scarborough Community Council",
+    "topic": "Transit",
+    "trivial": true,
+    "significance": 0,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.SC14.18",
+    "votes": {
+      "Paul Ainslie": "ABSENT",
+      "Parthi Kandavel": "YES",
+      "Nick Mantas": "YES",
+      "Jennifer McKelvie": "YES",
+      "Jamaal Myers": "YES",
+      "Michael Thompson": "YES"
+    },
+    "flags": [],
+    "summary": "City Council has approved a new traffic rule prohibiting eastbound right turns on a red light at the intersection of Brimley Road and McNicoll Avenue. This change aims to improve safety for all road users, including pedestrians, cyclists, and drivers, especially given that TTC transit operates through this busy Scarborough intersection.",
+    "keyAmounts": []
   },
   {
     "id": "EY14.2",
@@ -36629,64 +36741,6 @@
     "parentId": "PH11.9"
   },
   {
-    "id": "NY12.12",
-    "date": "Apr 2, 2024",
-    "title": "1837-1845 Bayview Avenue - Residential Demolition Applications",
-    "status": "Adopted",
-    "resultText": "Carried, 4-1",
-    "committee": "North York Community Council",
-    "topic": "Housing",
-    "trivial": false,
-    "significance": 27,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY12.12",
-    "votes": {
-      "Jon Burnside": "ABSENT",
-      "Shelley Carroll": "YES",
-      "Lily Cheng": "YES",
-      "Mike Colle": "YES",
-      "James Pasternak": "YES",
-      "Jaye Robinson": "NO"
-    },
-    "flags": [],
-    "motionType": "Adopt Item as Amended",
-    "summary": "North York Community Council approved the demolition of five detached houses located at 1837-1845 Bayview Avenue. This decision clears the way for new development in the area, potentially changing the local streetscape, with the approval including conditions for site cleanup after demolition.",
-    "keyAmounts": [],
-    "locations": [
-      {
-        "address": "1837-1845 Bayview Avenue",
-        "lat": 43.713147,
-        "lng": -79.3773089
-      }
-    ]
-  },
-  {
-    "id": "NY12.12-amend-item",
-    "date": "Apr 2, 2024",
-    "title": "1837-1845 Bayview Avenue - Residential Demolition Applications",
-    "status": "Lost",
-    "resultText": "Lost, 2-3",
-    "committee": "North York Community Council",
-    "topic": "Housing",
-    "trivial": false,
-    "significance": 52,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY12.12",
-    "votes": {
-      "Jon Burnside": "ABSENT",
-      "Shelley Carroll": "NO",
-      "Lily Cheng": "NO",
-      "Mike Colle": "NO",
-      "James Pasternak": "YES",
-      "Jaye Robinson": "YES"
-    },
-    "flags": [
-      "defeated"
-    ],
-    "motionType": "Amend Item",
-    "parentId": "NY12.12"
-  },
-  {
     "id": "NY12.27",
     "date": "Apr 2, 2024",
     "title": "173 Homewood Avenue - Application to Remove a Private Tree",
@@ -36718,6 +36772,30 @@
     ]
   },
   {
+    "id": "NY12.19",
+    "date": "Apr 2, 2024",
+    "title": "Broadlands Boulevard and Castlegrove Boulevard - All-Way Stop Control",
+    "status": "Adopted",
+    "resultText": "Carried, 3-1",
+    "committee": "North York Community Council",
+    "topic": "Transit",
+    "trivial": true,
+    "significance": 17,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY12.19",
+    "votes": {
+      "Jon Burnside": "NO",
+      "Lily Cheng": "YES",
+      "Mike Colle": "YES",
+      "James Pasternak": "YES",
+      "Jaye Robinson": "ABSENT"
+    },
+    "flags": [],
+    "motionType": "Adopt Item",
+    "summary": "North York Community Council decided not to install all-way stop signs at the intersection of Broadlands Boulevard and Castlegrove Boulevard. City staff reviewed the location and determined that it did not meet the necessary criteria for all-way stop control, meaning traffic flow will remain unchanged for residents in the area.",
+    "keyAmounts": []
+  },
+  {
     "id": "NY12.19-amend-item",
     "date": "Apr 2, 2024",
     "title": "Broadlands Boulevard and Castlegrove Boulevard - All-Way Stop Control",
@@ -36741,30 +36819,6 @@
     ],
     "motionType": "Amend Item",
     "parentId": "NY12.19"
-  },
-  {
-    "id": "NY12.19",
-    "date": "Apr 2, 2024",
-    "title": "Broadlands Boulevard and Castlegrove Boulevard - All-Way Stop Control",
-    "status": "Adopted",
-    "resultText": "Carried, 3-1",
-    "committee": "North York Community Council",
-    "topic": "Transit",
-    "trivial": true,
-    "significance": 17,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY12.19",
-    "votes": {
-      "Jon Burnside": "NO",
-      "Lily Cheng": "YES",
-      "Mike Colle": "YES",
-      "James Pasternak": "YES",
-      "Jaye Robinson": "ABSENT"
-    },
-    "flags": [],
-    "motionType": "Adopt Item",
-    "summary": "North York Community Council decided not to install all-way stop signs at the intersection of Broadlands Boulevard and Castlegrove Boulevard. City staff reviewed the location and determined that it did not meet the necessary criteria for all-way stop control, meaning traffic flow will remain unchanged for residents in the area.",
-    "keyAmounts": []
   },
   {
     "id": "NY12.26",
@@ -36800,6 +36854,116 @@
     ]
   },
   {
+    "id": "NY12.12-amend-item",
+    "date": "Apr 2, 2024",
+    "title": "1837-1845 Bayview Avenue - Residential Demolition Applications",
+    "status": "Lost",
+    "resultText": "Lost, 2-3",
+    "committee": "North York Community Council",
+    "topic": "Housing",
+    "trivial": false,
+    "significance": 52,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY12.12",
+    "votes": {
+      "Jon Burnside": "ABSENT",
+      "Shelley Carroll": "NO",
+      "Lily Cheng": "NO",
+      "Mike Colle": "NO",
+      "James Pasternak": "YES",
+      "Jaye Robinson": "YES"
+    },
+    "flags": [
+      "defeated"
+    ],
+    "motionType": "Amend Item",
+    "parentId": "NY12.12"
+  },
+  {
+    "id": "NY12.12",
+    "date": "Apr 2, 2024",
+    "title": "1837-1845 Bayview Avenue - Residential Demolition Applications",
+    "status": "Adopted",
+    "resultText": "Carried, 4-1",
+    "committee": "North York Community Council",
+    "topic": "Housing",
+    "trivial": false,
+    "significance": 27,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.NY12.12",
+    "votes": {
+      "Jon Burnside": "ABSENT",
+      "Shelley Carroll": "YES",
+      "Lily Cheng": "YES",
+      "Mike Colle": "YES",
+      "James Pasternak": "YES",
+      "Jaye Robinson": "NO"
+    },
+    "flags": [],
+    "motionType": "Adopt Item as Amended",
+    "summary": "North York Community Council approved the demolition of five detached houses located at 1837-1845 Bayview Avenue. This decision clears the way for new development in the area, potentially changing the local streetscape, with the approval including conditions for site cleanup after demolition.",
+    "keyAmounts": [],
+    "locations": [
+      {
+        "address": "1837-1845 Bayview Avenue",
+        "lat": 43.713147,
+        "lng": -79.3773089
+      }
+    ]
+  },
+  {
+    "id": "PB16.14",
+    "date": "Mar 28, 2024",
+    "title": "650 (650A and 652) and 664 Yonge Street - Alterations to Heritage Properties, Demolition of Attributes and Authority to Enter into a Heritage Easement Agreement",
+    "status": "Adopted",
+    "resultText": "Carried, 9-0",
+    "committee": "Toronto Preservation Board",
+    "topic": "Housing",
+    "trivial": true,
+    "significance": 0,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PB16.14",
+    "votes": {
+      "Parthi Kandavel": "ABSENT"
+    },
+    "flags": [],
+    "summary": "The Toronto Preservation Board has approved changes to heritage properties at 650-664 Yonge Street, allowing for the construction of a 75-storey mixed-use tower. This decision permits some demolition of existing heritage elements while requiring the developer to protect others through a heritage agreement, balancing new development with historical preservation.",
+    "keyAmounts": [],
+    "locations": [
+      {
+        "address": "664 Yonge Street",
+        "lat": 43.667101,
+        "lng": -79.3856484
+      }
+    ]
+  },
+  {
+    "id": "PB16.8",
+    "date": "Mar 28, 2024",
+    "title": "4888 Dundas Street West - Alteration of a Property Designated under Part IV of the Ontario Heritage Act and Authority to Enter into a Heritage Easement Agreement - Request for Directions",
+    "status": "Adopted",
+    "resultText": "Carried, 9-1",
+    "committee": "Toronto Preservation Board",
+    "topic": "Housing",
+    "trivial": true,
+    "significance": 0,
+    "ward": "13",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PB16.8",
+    "votes": {
+      "Parthi Kandavel": "ABSENT"
+    },
+    "flags": [],
+    "summary": "The City's Preservation Board has adopted confidential recommendations regarding a proposed 29-storey development at 4888 Dundas Street West, which involves a designated heritage building. This decision addresses a settlement offer from the developer and will determine how the historic property is integrated into the new construction, impacting the character of the Etobicoke – Lakeshore neighbourhood.",
+    "keyAmounts": [],
+    "locations": [
+      {
+        "address": "4888 Dundas Street West",
+        "lat": 43.6495765,
+        "lng": -79.528256
+      }
+    ]
+  },
+  {
     "id": "PB16.6",
     "date": "Mar 28, 2024",
     "title": "294, 306 and 318 Lawrence Avenue East and 101 Mildenhall Road - Notice of Intention to Designate a Property under Part IV, Section 29 of the Ontario Heritage Act",
@@ -36831,28 +36995,28 @@
     ]
   },
   {
-    "id": "PB16.11",
+    "id": "PB16.16",
     "date": "Mar 28, 2024",
-    "title": "64 Woodlawn Avenue West - Refusal of Repeal of Designating By-law under Section 32 of the Ontario Heritage Act and Proposed Amendment to Designating By-law under Part IV, Section 30.1 of the Ontario Heritage Act",
+    "title": "374, 376 and 378 Yonge Street - Approval of Application for Alterations to Designated Heritage Properties Under Part IV, Section 33 of the Ontario Heritage Act and Authority to Enter into a Heritage Easement Agreement",
     "status": "Adopted",
-    "resultText": "Carried, 8-2",
+    "resultText": "Carried, 7-2",
     "committee": "Toronto Preservation Board",
     "topic": "Housing",
     "trivial": true,
     "significance": 0,
     "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PB16.11",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PB16.16",
     "votes": {
       "Parthi Kandavel": "ABSENT"
     },
     "flags": [],
-    "summary": "Toronto City Council has decided to maintain the heritage designation for the historic house at 64 Woodlawn Avenue West, built in 1906 by architect Eden Smith. This decision rejects the property owner's request to remove the designation and includes plans to amend the existing heritage protections, ensuring the continued preservation of this significant property.",
+    "summary": "City Council has approved plans for a new 85-storey tower at 374-378 Yonge Street, allowing changes to existing heritage buildings on the site. This decision means a major new mixed-use development will proceed in the downtown core, while also putting in place protections for the historic elements of these properties.",
     "keyAmounts": [],
     "locations": [
       {
-        "address": "64 Woodlawn Avenue West",
-        "lat": 43.6835593,
-        "lng": -79.3951501
+        "address": "378 Yonge Street",
+        "lat": 43.6589219,
+        "lng": -79.3823978
       }
     ]
   },
@@ -36883,28 +37047,28 @@
     ]
   },
   {
-    "id": "PB16.8",
+    "id": "PB16.12",
     "date": "Mar 28, 2024",
-    "title": "4888 Dundas Street West - Alteration of a Property Designated under Part IV of the Ontario Heritage Act and Authority to Enter into a Heritage Easement Agreement - Request for Directions",
+    "title": "36-42 Maitland Street - Alterations to Heritage Properties, Demolition of Attributes and Authority to Enter into a Heritage Easement Agreement",
     "status": "Adopted",
-    "resultText": "Carried, 9-1",
+    "resultText": "Carried, 9-0",
     "committee": "Toronto Preservation Board",
     "topic": "Housing",
     "trivial": true,
     "significance": 0,
-    "ward": "13",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PB16.8",
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PB16.12",
     "votes": {
       "Parthi Kandavel": "ABSENT"
     },
     "flags": [],
-    "summary": "The City's Preservation Board has adopted confidential recommendations regarding a proposed 29-storey development at 4888 Dundas Street West, which involves a designated heritage building. This decision addresses a settlement offer from the developer and will determine how the historic property is integrated into the new construction, impacting the character of the Etobicoke – Lakeshore neighbourhood.",
+    "summary": "The city has approved plans to build a 56-storey tower at 36-42 Maitland Street, which involves making changes and removing parts of two existing heritage buildings. This decision allows for new development while requiring the developer to protect important historical features through a special heritage agreement.",
     "keyAmounts": [],
     "locations": [
       {
-        "address": "4888 Dundas Street West",
-        "lat": 43.6495765,
-        "lng": -79.528256
+        "address": "36-42 Maitland Street",
+        "lat": 43.6645492,
+        "lng": -79.3823243
       }
     ]
   },
@@ -36935,80 +37099,28 @@
     ]
   },
   {
-    "id": "PB16.16",
+    "id": "PB16.11",
     "date": "Mar 28, 2024",
-    "title": "374, 376 and 378 Yonge Street - Approval of Application for Alterations to Designated Heritage Properties Under Part IV, Section 33 of the Ontario Heritage Act and Authority to Enter into a Heritage Easement Agreement",
+    "title": "64 Woodlawn Avenue West - Refusal of Repeal of Designating By-law under Section 32 of the Ontario Heritage Act and Proposed Amendment to Designating By-law under Part IV, Section 30.1 of the Ontario Heritage Act",
     "status": "Adopted",
-    "resultText": "Carried, 7-2",
+    "resultText": "Carried, 8-2",
     "committee": "Toronto Preservation Board",
     "topic": "Housing",
     "trivial": true,
     "significance": 0,
     "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PB16.16",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PB16.11",
     "votes": {
       "Parthi Kandavel": "ABSENT"
     },
     "flags": [],
-    "summary": "City Council has approved plans for a new 85-storey tower at 374-378 Yonge Street, allowing changes to existing heritage buildings on the site. This decision means a major new mixed-use development will proceed in the downtown core, while also putting in place protections for the historic elements of these properties.",
+    "summary": "Toronto City Council has decided to maintain the heritage designation for the historic house at 64 Woodlawn Avenue West, built in 1906 by architect Eden Smith. This decision rejects the property owner's request to remove the designation and includes plans to amend the existing heritage protections, ensuring the continued preservation of this significant property.",
     "keyAmounts": [],
     "locations": [
       {
-        "address": "378 Yonge Street",
-        "lat": 43.6589219,
-        "lng": -79.3823978
-      }
-    ]
-  },
-  {
-    "id": "PB16.14",
-    "date": "Mar 28, 2024",
-    "title": "650 (650A and 652) and 664 Yonge Street - Alterations to Heritage Properties, Demolition of Attributes and Authority to Enter into a Heritage Easement Agreement",
-    "status": "Adopted",
-    "resultText": "Carried, 9-0",
-    "committee": "Toronto Preservation Board",
-    "topic": "Housing",
-    "trivial": true,
-    "significance": 0,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PB16.14",
-    "votes": {
-      "Parthi Kandavel": "ABSENT"
-    },
-    "flags": [],
-    "summary": "The Toronto Preservation Board has approved changes to heritage properties at 650-664 Yonge Street, allowing for the construction of a 75-storey mixed-use tower. This decision permits some demolition of existing heritage elements while requiring the developer to protect others through a heritage agreement, balancing new development with historical preservation.",
-    "keyAmounts": [],
-    "locations": [
-      {
-        "address": "664 Yonge Street",
-        "lat": 43.667101,
-        "lng": -79.3856484
-      }
-    ]
-  },
-  {
-    "id": "PB16.12",
-    "date": "Mar 28, 2024",
-    "title": "36-42 Maitland Street - Alterations to Heritage Properties, Demolition of Attributes and Authority to Enter into a Heritage Easement Agreement",
-    "status": "Adopted",
-    "resultText": "Carried, 9-0",
-    "committee": "Toronto Preservation Board",
-    "topic": "Housing",
-    "trivial": true,
-    "significance": 0,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PB16.12",
-    "votes": {
-      "Parthi Kandavel": "ABSENT"
-    },
-    "flags": [],
-    "summary": "The city has approved plans to build a 56-storey tower at 36-42 Maitland Street, which involves making changes and removing parts of two existing heritage buildings. This decision allows for new development while requiring the developer to protect important historical features through a special heritage agreement.",
-    "keyAmounts": [],
-    "locations": [
-      {
-        "address": "36-42 Maitland Street",
-        "lat": 43.6645492,
-        "lng": -79.3823243
+        "address": "64 Woodlawn Avenue West",
+        "lat": 43.6835593,
+        "lng": -79.3951501
       }
     ]
   },
@@ -38271,6 +38383,42 @@
     "parentId": "PB15.2"
   },
   {
+    "id": "PB15.11",
+    "date": "Mar 18, 2024",
+    "title": "625 Yonge Street (Including 627, 629, 631, 633, 635 and 637 Yonge Street and 1, 3 and 5 Isabella Street) - Alterations to a Heritage Property and Authority to Enter into a Heritage Easement Agreement",
+    "status": "Adopted",
+    "resultText": "Carried, 8-0",
+    "committee": "Toronto Preservation Board",
+    "topic": "Housing",
+    "trivial": true,
+    "significance": 0,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PB15.11",
+    "votes": {
+      "Parthi Kandavel": "ABSENT"
+    },
+    "flags": [],
+    "summary": "A major development project was approved for 625 Yonge Street, allowing alterations to several heritage properties in the block to make way for a new 70-storey tower. This decision permits significant changes to the historic streetscape while ensuring a heritage easement agreement is put in place.",
+    "keyAmounts": [],
+    "locations": [
+      {
+        "address": "625 Yonge Street",
+        "lat": 43.6672617,
+        "lng": -79.385431
+      },
+      {
+        "address": "637 Yonge Street",
+        "lat": 43.667471,
+        "lng": -79.385516
+      },
+      {
+        "address": "5 Isabella Street",
+        "lat": 43.6675438,
+        "lng": -79.3852359
+      }
+    ]
+  },
+  {
     "id": "PB15.13",
     "date": "Mar 18, 2024",
     "title": "1779-1787 Bayview Avenue - Official Plan and Zoning By-law Amendment and Site Plan Control Applications - Heritage Matters",
@@ -38323,42 +38471,6 @@
     ]
   },
   {
-    "id": "PB15.11",
-    "date": "Mar 18, 2024",
-    "title": "625 Yonge Street (Including 627, 629, 631, 633, 635 and 637 Yonge Street and 1, 3 and 5 Isabella Street) - Alterations to a Heritage Property and Authority to Enter into a Heritage Easement Agreement",
-    "status": "Adopted",
-    "resultText": "Carried, 8-0",
-    "committee": "Toronto Preservation Board",
-    "topic": "Housing",
-    "trivial": true,
-    "significance": 0,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.PB15.11",
-    "votes": {
-      "Parthi Kandavel": "ABSENT"
-    },
-    "flags": [],
-    "summary": "A major development project was approved for 625 Yonge Street, allowing alterations to several heritage properties in the block to make way for a new 70-storey tower. This decision permits significant changes to the historic streetscape while ensuring a heritage easement agreement is put in place.",
-    "keyAmounts": [],
-    "locations": [
-      {
-        "address": "625 Yonge Street",
-        "lat": 43.6672617,
-        "lng": -79.385431
-      },
-      {
-        "address": "637 Yonge Street",
-        "lat": 43.667471,
-        "lng": -79.385516
-      },
-      {
-        "address": "5 Isabella Street",
-        "lat": 43.6675438,
-        "lng": -79.3852359
-      }
-    ]
-  },
-  {
     "id": "CA14.2",
     "date": "Mar 4, 2024",
     "title": "Appointment of a Public Member to the PortsToronto Board of Directors",
@@ -38386,7 +38498,7 @@
     "date": "Feb 27, 2024",
     "title": "Congestion Management Plan 2023-2026 - Update",
     "status": "Adopted",
-    "resultText": "Carried, 3-2",
+    "resultText": "Carried, 4-1",
     "committee": "Infrastructure and Environment Committee",
     "topic": "General",
     "trivial": true,
@@ -38495,6 +38607,32 @@
     ]
   },
   {
+    "id": "SC11.1-amend-item-additional",
+    "date": "Feb 16, 2024",
+    "title": "2157 to 2183 Lawrence Avenue East - Zoning Amendment Application - Decision Report - Approval",
+    "status": "Lost",
+    "resultText": "Lost (tie), 2-2",
+    "committee": "Scarborough Community Council",
+    "topic": "Housing",
+    "trivial": false,
+    "significance": 52,
+    "ward": "City",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.SC11.1",
+    "votes": {
+      "Paul Ainslie": "NO",
+      "Parthi Kandavel": "NO",
+      "Nick Mantas": "ABSENT",
+      "Jennifer McKelvie": "ABSENT",
+      "Jamaal Myers": "YES",
+      "Michael Thompson": "YES"
+    },
+    "flags": [
+      "defeated"
+    ],
+    "motionType": "Amend Item (Additional)",
+    "parentId": "SC11.1"
+  },
+  {
     "id": "SC11.1",
     "date": "Feb 16, 2024",
     "title": "2157 to 2183 Lawrence Avenue East - Zoning Amendment Application - Decision Report - Approval",
@@ -38529,30 +38667,28 @@
     ]
   },
   {
-    "id": "SC11.1-amend-item-additional",
+    "id": "SC11.10",
     "date": "Feb 16, 2024",
-    "title": "2157 to 2183 Lawrence Avenue East - Zoning Amendment Application - Decision Report - Approval",
-    "status": "Lost",
-    "resultText": "Lost (tie), 2-2",
+    "title": "Metrolinx Scarborough Subway Extension - Time Extension of Temporary Sidewalk Closure on McCowan Road",
+    "status": "Adopted",
+    "resultText": "Carried, 3-1",
     "committee": "Scarborough Community Council",
-    "topic": "Housing",
-    "trivial": false,
-    "significance": 52,
+    "topic": "Transit",
+    "trivial": true,
+    "significance": 5,
     "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.SC11.1",
+    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.SC11.10",
     "votes": {
-      "Paul Ainslie": "NO",
-      "Parthi Kandavel": "NO",
+      "Paul Ainslie": "YES",
+      "Parthi Kandavel": "YES",
       "Nick Mantas": "ABSENT",
       "Jennifer McKelvie": "ABSENT",
       "Jamaal Myers": "YES",
-      "Michael Thompson": "YES"
+      "Michael Thompson": "NO"
     },
-    "flags": [
-      "defeated"
-    ],
-    "motionType": "Amend Item (Additional)",
-    "parentId": "SC11.1"
+    "flags": [],
+    "summary": "City Council has approved extending the temporary closure of the east sidewalk on McCowan Road, between Sheppard Avenue East and Nugget Avenue, until December 31, 2024. This allows Metrolinx to continue tunnel construction for the Scarborough Subway Extension, with the City requiring the sidewalk to be fully restored to its original condition or better once the project is complete.",
+    "keyAmounts": []
   },
   {
     "id": "SC11.3",
@@ -38584,30 +38720,6 @@
         "lng": -79.1843922
       }
     ]
-  },
-  {
-    "id": "SC11.10",
-    "date": "Feb 16, 2024",
-    "title": "Metrolinx Scarborough Subway Extension - Time Extension of Temporary Sidewalk Closure on McCowan Road",
-    "status": "Adopted",
-    "resultText": "Carried, 3-1",
-    "committee": "Scarborough Community Council",
-    "topic": "Transit",
-    "trivial": true,
-    "significance": 5,
-    "ward": "City",
-    "url": "https://secure.toronto.ca/council/agenda-item.do?item=2024.SC11.10",
-    "votes": {
-      "Paul Ainslie": "YES",
-      "Parthi Kandavel": "YES",
-      "Nick Mantas": "ABSENT",
-      "Jennifer McKelvie": "ABSENT",
-      "Jamaal Myers": "YES",
-      "Michael Thompson": "NO"
-    },
-    "flags": [],
-    "summary": "City Council has approved extending the temporary closure of the east sidewalk on McCowan Road, between Sheppard Avenue East and Nugget Avenue, until December 31, 2024. This allows Metrolinx to continue tunnel construction for the Scarborough Subway Extension, with the City requiring the sidewalk to be fully restored to its original condition or better once the project is complete.",
-    "keyAmounts": []
   },
   {
     "id": "MPB15.1",
