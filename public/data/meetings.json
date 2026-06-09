@@ -50844,6 +50844,13 @@
         "wards": "13",
         "inCamera": false,
         "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EC29.12"
+      },
+      {
+        "reference": "2026.EC29.13",
+        "title": "Authority to Enter Agreement with the Ministry of Long-Term Care for the Funding and Development of 4610 Finch Avenue East Long-Term Care Home",
+        "wards": "23",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EC29.13"
       }
     ]
   },
@@ -51208,7 +51215,22 @@
     "isCouncil": false,
     "meetingId": 27380,
     "meetingReference": "2026.DI18",
-    "agendaItems": []
+    "agendaItems": [
+      {
+        "reference": "2026.DI18.1",
+        "title": "Chair's Report",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.DI18.1"
+      },
+      {
+        "reference": "2026.DI18.2",
+        "title": "Update on Assessment of Centralized Dispatch System for On-Demand Wheelchair Accessible Vehicle-for-Hire Service",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.DI18.2"
+      }
+    ]
   },
   {
     "committee": "TO Live",
@@ -51221,7 +51243,141 @@
     "isCouncil": false,
     "meetingId": 27385,
     "meetingReference": "2026.CT20",
-    "agendaItems": []
+    "agendaItems": [
+      {
+        "reference": "2026.CT20.1",
+        "title": "President and Chief Executive Officer's General Status Update",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CT20.1"
+      },
+      {
+        "reference": "2026.CT20.2",
+        "title": "2025 Goals and Objectives - Year End Review",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CT20.2"
+      },
+      {
+        "reference": "2026.CT20.3",
+        "title": "TO Live's Alignment with the City’s Culture Plan and Key City Priorities",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CT20.3"
+      },
+      {
+        "reference": "2026.CT20.4",
+        "title": "2027 Budget and Plan",
+        "wards": "All",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CT20.4"
+      },
+      {
+        "reference": "2026.CT20.5",
+        "title": "2025 Audited Financial Results Report",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CT20.5"
+      },
+      {
+        "reference": "2026.CT20.6",
+        "title": "TO Live 2025 Impact Report",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CT20.6"
+      },
+      {
+        "reference": "2026.CT20.7",
+        "title": "Toronto Live Foundation Update",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CT20.7"
+      },
+      {
+        "reference": "2026.CT20.8",
+        "title": "2026 First Quarter Financial Results and Commentary",
+        "wards": "All",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CT20.8"
+      },
+      {
+        "reference": "2026.CT20.9",
+        "title": "TO Live Policy 304 - Facility Fee Surcharge",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CT20.9"
+      },
+      {
+        "reference": "2026.CT20.10",
+        "title": "Negotiations with IATSE Local B-173 (Housekeeping)",
+        "wards": "All",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CT20.10"
+      },
+      {
+        "reference": "2026.CT20.11",
+        "title": "Negotiations with IATSE Local B-173 (Patron Services)",
+        "wards": "All",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CT20.11"
+      },
+      {
+        "reference": "2026.CT20.12",
+        "title": "Executive Compensation Review - Update",
+        "wards": "All",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CT20.12"
+      },
+      {
+        "reference": "2026.CT20.13",
+        "title": "TO Live Capital Program - Priority Project Updates",
+        "wards": "13, 18",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CT20.13"
+      },
+      {
+        "reference": "2026.CT20.14",
+        "title": "Engagement with Users of the St. Lawrence Centre for the Arts",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CT20.14"
+      },
+      {
+        "reference": "2026.CT20.15",
+        "title": "City of Toronto Board Governance Training",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CT20.15"
+      },
+      {
+        "reference": "2026.CT20.16",
+        "title": "Meeting Processes and the Simplified Rules of Procedure",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CT20.16"
+      },
+      {
+        "reference": "2026.CT20.17",
+        "title": "Roles and Expectations of Public Members",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CT20.17"
+      },
+      {
+        "reference": "2026.CT20.18",
+        "title": "Appointment of Chair to the TO Live Human Resources and Stakeholder Relations Committee",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CT20.18"
+      },
+      {
+        "reference": "2026.CT20.19",
+        "title": "New Appointments to the Board of Directors of TO Live",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CT20.19"
+      }
+    ]
   },
   {
     "committee": "Executive Committee",
