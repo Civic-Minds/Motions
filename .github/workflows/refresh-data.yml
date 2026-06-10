@@ -30,29 +30,36 @@ jobs:
       - name: Fetch meeting schedule
         run: node scripts/fetch_meetings.js
 
+      - name: Generate summaries
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: node scripts/generate_summaries.js
+
       - name: Upload data to Vercel Blob
         env:
           BLOB_READ_WRITE_TOKEN: ${{ secrets.BLOB_READ_WRITE_TOKEN }}
         run: node scripts/upload_to_blob.js
 
-      - name: Check for motions missing summaries
+      - name: Close stale summary issues
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           MISSING=$(node scripts/check_missing_summaries.js)
+          # Close any open needs-summaries issues
+          gh api 'repos/${{ github.repository }}/issues?state=open&labels=needs-summaries' \
+            --jq '.[].number' | \
+            xargs -I {} gh api --method PATCH \
+              repos/${{ github.repository }}/issues/{} \
+              -f state=closed -f state_reason=completed || true
+          # Only open a new issue if motions still lack summaries (e.g. missing body text)
           if [ -n "$MISSING" ]; then
             COUNT=$(echo "$MISSING" | wc -l | tr -d ' ')
-            TITLE="🔔 $COUNT new motion(s) need summaries"
-            BODY="The latest data import found new motions without summaries.
+            gh api --method POST repos/${{ github.repository }}/issues \
+              -f title="⚠️ $COUNT motion(s) could not be summarized" \
+              -f body="Summary generation ran but these motions still lack summaries (likely missing body text):
 
-            $MISSING"
-            
-            echo "Creating new issue for $COUNT new motions"
-            gh issue create \
-              --title "$TITLE" \
-              --body "$BODY" \
-              --label "needs-summaries" \
-              --repo ${{ github.repository }} || true
+$MISSING" \
+              -f 'labels[]=needs-summaries' || true
           fi
 
       - name: Commit and push changes
