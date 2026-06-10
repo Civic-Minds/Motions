@@ -1,138 +1,5 @@
 [
   {
-    "committee": "Civic Appointments Committee",
-    "date": "2025-06-09",
-    "displayDate": "Mon, Jun 9, 2025",
-    "startTime": "09:30 AM",
-    "endTime": "18:00 PM",
-    "location": "Committee Room 3, City Hall",
-    "meetingNumber": 26,
-    "isCouncil": false,
-    "meetingId": 27009,
-    "meetingReference": "2025.CA26",
-    "agendaItems": [
-      {
-        "reference": "2025.CA26.1",
-        "title": "Appointment of Two Public Members to the Two-Spirit, Lesbian, Gay, Bisexual, Transgender, and Queer (2SLGBTQ+) Advisory Committee",
-        "wards": "All",
-        "inCamera": true,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.CA26.1"
-      },
-      {
-        "reference": "2025.CA26.2",
-        "title": "Selection of Candidates for Interview for the Toronto Public Library Board",
-        "wards": "All",
-        "inCamera": true,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.CA26.2"
-      },
-      {
-        "reference": "2025.CA26.3",
-        "title": "Selection of Candidates for Interview for the Toronto Zoo Board",
-        "wards": "All",
-        "inCamera": true,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.CA26.3"
-      }
-    ]
-  },
-  {
-    "committee": "Confronting Anti-Black Racism Advisory Committee",
-    "date": "2025-06-09",
-    "displayDate": "Mon, Jun 9, 2025",
-    "startTime": "09:30 AM",
-    "endTime": "18:00 PM",
-    "location": "Committee Room 1, City Hall",
-    "meetingNumber": 6,
-    "isCouncil": false,
-    "meetingId": 26047,
-    "meetingReference": "2025.CR6",
-    "agendaItems": [
-      {
-        "reference": "2025.CR6.1",
-        "title": "Upcoming Changes Impacting Access to Social Infrastructure",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.CR6.1"
-      },
-      {
-        "reference": "2025.CR6.2",
-        "title": "Advancing Action on the Impact to Action: Final Report on Anti-Black Racism in Toronto Police Services - Presentation Requests",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.CR6.2"
-      },
-      {
-        "reference": "2025.CR6.3",
-        "title": "Toronto Island Park Master Plan",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.CR6.3"
-      },
-      {
-        "reference": "2025.CR6.4",
-        "title": "Vacancy on the Confronting Anti-Black Racism Advisory Committee",
-        "wards": "All",
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.CR6.4"
-      }
-    ]
-  },
-  {
-    "committee": "Toronto Transit Commission - Audit, Finance and Risk Management Committee",
-    "date": "2025-06-09",
-    "displayDate": "Mon, Jun 9, 2025",
-    "startTime": "12:00 PM",
-    "endTime": "16:00 PM",
-    "location": "McBrien Building  7th Floor Board Room",
-    "meetingNumber": 2,
-    "isCouncil": false,
-    "meetingId": 26582,
-    "meetingReference": "2025.TTA2",
-    "agendaItems": [
-      {
-        "reference": "2025.TTA2.1",
-        "title": "KPMG LLP Audit Findings Report on the Toronto Transit Commission Consolidated Financial Statements for the Year Ended December 31, 2024",
-        "wards": null,
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TTA2.1"
-      },
-      {
-        "reference": "2025.TTA2.2",
-        "title": "Draft Consolidated Financial Statements of Toronto Transit Commission for the Year Ended December 31, 2024",
-        "wards": null,
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TTA2.2"
-      },
-      {
-        "reference": "2025.TTA2.3",
-        "title": "Draft Annual Report for the Toronto Transit Commission for 2024",
-        "wards": null,
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TTA2.3"
-      },
-      {
-        "reference": "2025.TTA2.4",
-        "title": "2024 Uncollectible Accounts Receivable",
-        "wards": null,
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TTA2.4"
-      },
-      {
-        "reference": "2025.TTA2.5",
-        "title": "Annual Review of TTC’s Safety, Health & Environment (SH&E) Management System",
-        "wards": null,
-        "inCamera": false,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TTA2.5"
-      },
-      {
-        "reference": "2025.TTA2.6",
-        "title": "Fare Compliance Action Plan - Update",
-        "wards": null,
-        "inCamera": true,
-        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2025.TTA2.6"
-      }
-    ]
-  },
-  {
     "committee": "Aboriginal Affairs Advisory Committee",
     "date": "2025-06-10",
     "displayDate": "Tue, Jun 10, 2025",
@@ -50942,6 +50809,20 @@
         "wards": "1, 2, 5, 14, 23",
         "inCamera": false,
         "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.IE30.11"
+      },
+      {
+        "reference": "2026.IE30.12",
+        "title": "Expansion of Ontario’s Deposit Return Program",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.IE30.12"
+      },
+      {
+        "reference": "2026.IE30.13",
+        "title": "Davenport Winter Maintenance Needs",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.IE30.13"
       }
     ]
   },
@@ -51358,7 +51239,7 @@
       },
       {
         "reference": "2026.CT20.17",
-        "title": "Roles and Expectations of Public Members",
+        "title": "Board of Directors of TO Live Public Appointments Overview",
         "wards": "All",
         "inCamera": false,
         "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.CT20.17"
@@ -51390,7 +51271,120 @@
     "isCouncil": false,
     "meetingId": 27180,
     "meetingReference": "2026.EX32",
-    "agendaItems": []
+    "agendaItems": [
+      {
+        "reference": "2026.EX32.1",
+        "title": "Simplifying the 311 Intake Experience",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX32.1"
+      },
+      {
+        "reference": "2026.EX32.2",
+        "title": "Expanding the Rain Barrel Program",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX32.2"
+      },
+      {
+        "reference": "2026.EX32.3",
+        "title": "Quayside Development Project Update",
+        "wards": "10",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX32.3"
+      },
+      {
+        "reference": "2026.EX32.4",
+        "title": "2025 Annual General Meeting and Wind-Up of Casa Loma Corporation",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX32.4"
+      },
+      {
+        "reference": "2026.EX32.5",
+        "title": "Toronto Hydro Corporation Annual General Meeting and 2025 Audited Financial Statements",
+        "wards": "All",
+        "inCamera": true,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX32.5"
+      },
+      {
+        "reference": "2026.EX32.6",
+        "title": "City of Toronto Investment Report for the Year 2025",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX32.6"
+      },
+      {
+        "reference": "2026.EX32.7",
+        "title": "Annual Report on City Loans and Loan Guarantees",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX32.7"
+      },
+      {
+        "reference": "2026.EX32.8",
+        "title": "Annual Review of the City of Toronto’s Asset Management Planning Progress",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX32.8"
+      },
+      {
+        "reference": "2026.EX32.9",
+        "title": "Fair Wage Office - 2025 Annual Report",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX32.9"
+      },
+      {
+        "reference": "2026.EX32.10",
+        "title": "A Summary of the City’s Donation Activity for 2025",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX32.10"
+      },
+      {
+        "reference": "2026.EX32.11",
+        "title": "Expanding the Listening to Toronto Survey to Support Ward-Level Insights",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX32.11"
+      },
+      {
+        "reference": "2026.EX32.12",
+        "title": "Human Rights-Based Guidelines for Hosting Future Mega Events",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX32.12"
+      },
+      {
+        "reference": "2026.EX32.13",
+        "title": "2026 Good Roads Conference March 29 - April 1, 2026",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX32.13"
+      },
+      {
+        "reference": "2026.EX32.14",
+        "title": "2026 Sociable City Summit and Academy April 12-15, 2026, Nashville, Tennessee.",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX32.14"
+      },
+      {
+        "reference": "2026.EX32.15",
+        "title": "Great Lakes and St. Lawrence Cities Initiative's 2026 Annual Conference, May 6-8, 2026",
+        "wards": "All",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX32.15"
+      },
+      {
+        "reference": "2026.EX32.16",
+        "title": "Exploring Legal Services for the 2SLGBTQ+ community at The 519 Community Centre",
+        "wards": "13",
+        "inCamera": false,
+        "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.EX32.16"
+      }
+    ]
   },
   {
     "committee": "Dangerous Dog Review Tribunal",
