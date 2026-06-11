@@ -20,7 +20,8 @@ export default function ElectionView() {
   const [candidateView, setCandidateView] = useState(savedWardId ? 'ward' : 'mayor');
 
   useEffect(() => {
-    fetch('/data/candidates.json')
+    const blobBase = import.meta.env.VITE_BLOB_BASE_URL;
+    fetch(blobBase ? `${blobBase}/candidates.json` : '/data/candidates.json')
       .then(res => res.json())
       .then(data => setCandidateData(data))
       .catch(err => console.error('Failed to load candidates:', err));

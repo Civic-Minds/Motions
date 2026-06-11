@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
+## [Unreleased]
+
+### Fixed
+- **Election Page**: `candidates.json` now served via Vercel Blob (was fetching from `/data/candidates.json` which broke when data files were removed from git). Added to `upload_to_blob.js` so running the scraper locally syncs to production.
+
 ## [2.10.0] - 2026-06-11
 
 ### Changed

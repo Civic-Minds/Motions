@@ -10,7 +10,7 @@ import { put } from '@vercel/blob';
 import fs from 'fs';
 import path from 'path';
 
-const FILES = ['motions.json', 'meetings.json', 'councillors.json'];
+const FILES = ['motions.json', 'meetings.json', 'councillors.json', 'candidates.json'];
 
 for (const filename of FILES) {
   const filePath = path.join(process.cwd(), 'public/data', filename);
