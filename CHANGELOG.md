@@ -6,6 +6,11 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+## [2.10.2] - 2026-06-11
+
+### Fixed
+- **Data Refresh Workflow**: Corrected `actions/checkout` and `actions/setup-node` from non-existent `@v6` to `@v4`, fixing daily data refresh CI failure.
+
 ## [2.10.1] - 2026-06-11
 
 ### Fixed
