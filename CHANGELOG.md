@@ -6,8 +6,11 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+## [2.10.1] - 2026-06-11
+
 ### Fixed
 - **Election Page**: `candidates.json` now served via Vercel Blob (was fetching from `/data/candidates.json` which broke when data files were removed from git). Added to `upload_to_blob.js` so running the scraper locally syncs to production.
+- **ESLint Code Quality**: Removed unused variables flagged by GitHub code quality analysis across six components: loop index in `CommitteesView`, local variable in `CouncillorList`, import in `CouncillorVotes`, props and variables in `DashboardView`, import in `WardGrid`, and import + prop in `YourWardCard`.
 
 ## [2.10.0] - 2026-06-11
 
