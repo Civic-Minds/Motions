@@ -8,6 +8,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Changed
 - **Significance Scoring**: Replaced keyword-based significance scorer with direct AI-assigned scores for all 991 summarized motions. Scores now reflect actual civic impact (0–100 scale) rather than keyword frequency, eliminating over-inflation for motions that incidentally mention common terms like "transit" or "police". Budget items (90–95), major housing policy (72–80), and routine procedural items (2–5) are now differentiated correctly.
+- **Data Pipeline**: Removed `public/data/` from git tracking. Data files are now managed via Vercel Blob only — the daily GitHub Actions workflow uploads to Blob without committing to the repo. Simplified `check_missing_summaries.js` to flag any unsummarized motion directly rather than diffing against git history.
 
 ## [2.9.3] - 2026-05-31
 

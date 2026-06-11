@@ -37,5 +37,8 @@ issue_*.txt
 # Local runtime caches
 scripts/cache/notability_cache.json
 
+# Data files — served from Vercel Blob in production, managed locally only
+public/data/
+
 # Portfolio rules
 MOTIONSLOG.md
