@@ -10,7 +10,7 @@ import { getWardActivityMetrics } from '../utils/analytics';
 import { WARD_COUNCILLORS, TOPIC_LIGHT } from '../constants/data';
 import { TORONTO_WARDS } from '../constants/wards';
 import { cn } from '../lib/utils';
-import { fetchWardBoundaries, extractWardId, pointInFeature } from '../utils/ward';
+import { fetchWardBoundaries, extractWardId } from '../utils/ward';
 import { nameToSlug } from '../utils/slug';
 
 // Simple SVG map of a ward polygon from GeoJSON feature

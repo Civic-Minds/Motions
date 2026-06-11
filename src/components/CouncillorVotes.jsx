@@ -3,7 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { TOPIC_LIGHT, WARD_COUNCILLORS } from '../constants/data';
 import { TORONTO_WARDS } from '../constants/wards';
-import { nameToSlug, slugToName } from '../utils/slug';
+import { slugToName } from '../utils/slug';
 import { cn } from '../lib/utils';
 
 const COUNCILLOR_WARD = {};

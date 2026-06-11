@@ -323,7 +323,7 @@ export default function CommitteesView({ motions, meetings = [], followedCommitt
               Boards &amp; Other Bodies
             </p>
             <div className="bg-white border border-slate-200 rounded-xl overflow-hidden divide-y divide-slate-100">
-              {meetingsOnlyBodies.map((b, i) => (
+              {meetingsOnlyBodies.map((b) => (
                 <button
                   key={b.name}
                   onClick={() => navigate(`/committees/${b.slug}`)}

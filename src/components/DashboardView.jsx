@@ -11,7 +11,7 @@ const TorontoMiniMap = lazy(() => import('./TorontoMiniMap'));
 
 const TOPICS = ['Housing', 'Transit', 'Finance', 'Parks', 'Climate', 'General'];
 
-export default function DashboardView({ motions, councillors, meetings = [], followedCommittees = [] }) {
+export default function DashboardView({ motions, meetings = [], followedCommittees = [] }) {
   const navigate = useNavigate();
   const [selectedTopics, setSelectedTopics] = useState([]);
   const [selectedCommittees, setSelectedCommittees] = useState([]);
@@ -39,8 +39,6 @@ export default function DashboardView({ motions, councillors, meetings = [], fol
   // Only primary entries (no parentId) for display and stats
   const primaryMotions = useMemo(() => motions.filter(m => !m.parentId), [motions]);
 
-  const adoptedCount = primaryMotions.filter(m => m.status === 'Adopted').length;
-  const adoptionRate = primaryMotions.length > 0 ? Math.round((adoptedCount / primaryMotions.length) * 100) : 0;
 
   // 1. Calculate the Last Meeting first
   const lastMeeting = useMemo(() => {
@@ -58,16 +56,6 @@ export default function DashboardView({ motions, councillors, meetings = [], fol
     return { date, count: items.length, items, isFollowed: followedCommittees.length > 0, committee };
   }, [primaryMotions, followedCommittees]);
 
-  // 2. Derive topics and rates from the last meeting
-  const lastMeetingTopics = useMemo(() => {
-    return [...new Set(lastMeeting.items.map(m => m.topic).filter(Boolean))];
-  }, [lastMeeting.items]);
-
-  const adoptionRateLastMeeting = useMemo(() => {
-    if (!lastMeeting.items.length) return null;
-    const adopted = lastMeeting.items.filter(m => m.status === 'Adopted').length;
-    return Math.round((adopted / lastMeeting.items.length) * 100);
-  }, [lastMeeting.items]);
 
   // 1. Personal Feed (Followed Committees) — picks first
   const followedHighlights = useMemo(() => {
@@ -204,7 +192,6 @@ export default function DashboardView({ motions, councillors, meetings = [], fol
               const yesCount = Object.values(m.votes ?? {}).filter(v => v === 'YES').length;
               const noCount  = Object.values(m.votes ?? {}).filter(v => v === 'NO').length;
               const total    = yesCount + noCount;
-              const isWard   = i >= highlights.length;
               return (
                 <motion.button
                   key={m.id}

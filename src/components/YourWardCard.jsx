@@ -5,10 +5,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { WARD_COUNCILLORS } from '../constants/data';
 import { TORONTO_WARDS } from '../constants/wards';
 import { nameToSlug } from '../utils/slug';
-import { cn } from '../lib/utils';
 import { getWardId, setWardId as saveWardId } from '../utils/storage';
 
-export default function YourWardCard({ motions }) {
+export default function YourWardCard() {
   const navigate = useNavigate();
   const [wardId, setWardIdState] = useState(() => getWardId());
   const [status, setStatus] = useState('idle'); // idle | locating | error

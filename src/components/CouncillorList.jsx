@@ -24,7 +24,7 @@ const attendanceBg = (pct) =>
 
 const MAYOR = 'Olivia Chow';
 
-export default function CouncillorList({ motions, councillors: contactData = [], compareMode, onCompareModeToggle }) {
+export default function CouncillorList({ motions, compareMode, onCompareModeToggle }) {
   const [compareSlots, setCompareSlots] = useState([]);
   const [versusSelection, setVersusSelection] = useState([]);
   const { slug, slug2 } = useParams();
