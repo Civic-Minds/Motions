@@ -25,7 +25,7 @@ Code quality, bugs, and structural improvements.
 ## Data Pipeline
 
 - **Scraping is intentionally manual** — `scrape_agenda_text.js` uses Playwright to render toronto.ca/TMMIS pages in a real browser. Automating this in GitHub Actions was attempted but failed consistently due to bot detection, timing issues, and headless browser setup on CI runners. Don't revisit unless TMMIS exposes a proper API or a reliable alternative scraping path is found.
-- **Current flow**: Actions runs `import_open_data.js` and `fetch_meetings.js` daily (pure HTTP/CSV, works fine in CI). When new motions arrive without summaries, the issue bot flags it. Run `scrape_agenda_text.js` → `extract_fields.js` → `generate_summaries.js` → `upload_to_blob.js` locally to process them.
+- **Current flow**: Actions runs `import_open_data.js`, `fetch_meetings.js`, and `generate_summaries.js` daily, then uploads to Vercel Blob. Summaries are generated automatically in CI; if any motions still lack summaries after that step (e.g. missing body text), an issue is opened. For motions that need body text first, run `scrape_agenda_text.js` → `extract_fields.js` → `generate_summaries.js` → `upload_to_blob.js` locally.
 
 ## Data Storage
 

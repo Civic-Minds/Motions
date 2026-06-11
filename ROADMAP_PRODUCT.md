@@ -26,7 +26,7 @@ The long-term vision is to expand beyond Toronto — letting residents of any Ca
 
 ## Significance Scoring
 
-- [ ] **AI pairwise significance scoring** — replace the current keyword-based significance scorer with anchor-based pairwise comparisons via Gemini. Hand-pick 10–15 anchor motions spanning the full significance range, then for each motion ask "is this more or less significant than these examples?" Output a 0–100 score with a short reason. Can be generated alongside summaries in the same pipeline call and throttled incrementally. Fixes the current over-inflation of scores for motions that mention common keywords like "transit" or "police".
+- [x] **AI significance scoring** — replaced the keyword-based scorer with direct AI-assigned 0–100 scores for all 991 summarized motions. Scores reflect actual civic impact; budget items score 90–95, major housing/transit policy 66–80, routine procedural items 2–5. Fixes over-inflation for motions that incidentally mention common keywords like "transit" or "police".
 
 ## Open Questions
 
