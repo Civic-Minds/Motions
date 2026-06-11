@@ -47,6 +47,17 @@ Summary rules:
 - Do not start with "The City Council" — vary the opener
 - Do not mention vote counts or procedural details`;
 
+const SIGNIFICANCE_RULES = `significance rules:
+- Return a single integer 0–100 reflecting the motion's civic impact on Toronto residents
+- Use these bands as a guide:
+  · 0–5:   Pure procedural (by-law confirmations, call to order, order paper, minor commemorations)
+  · 6–15:  Hyper-local single property (tree removals, fence exemptions, one traffic signal, lane naming)
+  · 16–30: Routine local (single-property zoning, OLT settlements, minor contracts, heritage listings)
+  · 31–50: Moderate (multi-property rezonings, ward-level infrastructure, program updates)
+  · 51–65: City-wide moderate (notable policy changes, new programs, transit priority lanes)
+  · 66–80: High (major policy shifts, large budgets $50M+, significant transit, provincial relations)
+  · 81–100: Critical (City Budget, subway agreements, fundamental governance changes)`;
+
 const AMOUNTS_RULES = `keyAmounts rules:
 - Return at most 2 entries — the most meaningful financial figures only
 - Each entry has shape: { "label": "...", "value": <number>, "unit": "...", "type": "..." }
@@ -71,11 +82,14 @@ async function summarizeAndExtract(motion) {
 
   const prompt = `${SUMMARY_RULES}
 
+${SIGNIFICANCE_RULES}
+
 ${AMOUNTS_RULES}
 
 Respond with ONLY valid JSON in this exact shape — no markdown, no extra text:
 {
   "summary": "...",
+  "significance": 42,
   "keyAmounts": [
     { "label": "Property tax increase", "value": 2.9, "unit": "%", "type": "tax_rate" },
     { "label": "Capital investment", "value": 450000000, "unit": "$", "type": "investment" }
@@ -99,6 +113,7 @@ ${bodySnippet}`;
 
   return {
     summary: typeof parsed.summary === 'string' ? parsed.summary.trim() : null,
+    significance: typeof parsed.significance === 'number' ? Math.round(Math.min(100, Math.max(0, parsed.significance))) : null,
     keyAmounts: Array.isArray(parsed.keyAmounts) ? parsed.keyAmounts : [],
   };
 }
@@ -174,8 +189,9 @@ async function main() {
         const keyAmounts = await extractAmountsOnly(motion);
         motions[idx].keyAmounts = keyAmounts;
       } else {
-        const { summary, keyAmounts } = await summarizeAndExtract(motion);
+        const { summary, significance, keyAmounts } = await summarizeAndExtract(motion);
         if (summary) motions[idx].summary = summary;
+        if (significance !== null) motions[idx].significance = significance;
         motions[idx].keyAmounts = keyAmounts;
       }
 
