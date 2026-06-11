@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
-## [Unreleased]
+## [2.10.0] - 2026-06-11
 
 ### Changed
 - **Significance Scoring**: Replaced keyword-based significance scorer with direct AI-assigned scores for all 991 summarized motions. Scores now reflect actual civic impact (0–100 scale) rather than keyword frequency, eliminating over-inflation for motions that incidentally mention common terms like "transit" or "police". Budget items (90–95), major housing policy (72–80), and routine procedural items (2–5) are now differentiated correctly.
