@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
+## [Unreleased]
+
+### Fixed
+- **Data Refresh Workflow Syntax**: Resolved YAML syntax/indentation error in `refresh-data.yml` where the multiline bash string for the issue body had unindented lines. This broke the YAML block scalar parsing and caused the workflow to fail validation on GitHub.
+
 ## [2.10.3] - 2026-06-19
 
 ### Fixed

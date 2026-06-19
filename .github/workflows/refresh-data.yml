@@ -57,8 +57,8 @@ jobs:
             gh api --method POST repos/${{ github.repository }}/issues \
               -f title="⚠️ $COUNT motion(s) could not be summarized" \
               -f body="Summary generation ran but these motions still lack summaries (likely missing body text):
-
-$MISSING" \
+              
+              $MISSING" \
               -f 'labels[]=needs-summaries' || true
           fi
 
