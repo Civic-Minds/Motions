@@ -6,6 +6,9 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+### Fixed
+- **Data Refresh Workflow Permissions**: Added missing `contents: read` permission to `refresh-data.yml`. When the workflow was updated to run on Vercel Blob only (removing repository commits), the explicit `permissions` block was set with `issues: write` but without `contents: read`. This caused the workflow runner to lose checkout permissions, failing all subsequent scheduled runs instantly and preventing the creation of "needs summaries" GitHub issues.
+
 ### Maintenance
 - **Dependency Updates**: Upgraded multiple dependencies to resolve 10 open Dependabot pull requests:
   - `@anthropic-ai/sdk` (0.102.0 → 0.104.2)
