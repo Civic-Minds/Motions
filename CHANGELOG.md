@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
+## [Unreleased]
+
+### Maintenance
+- **Dependency Updates**: Upgraded dependencies to resolve 2 remaining open Dependabot pull requests and fix vulnerabilities:
+  - `@anthropic-ai/sdk` (0.104.2 → 0.105.0)
+  - `ws` (8.20.1 → 8.21.0)
+  - Patched and resolved all remaining vulnerabilities in `@babel/core`, `protobufjs`, and `undici` via `npm audit fix`.
+
 ## [2.10.4] - 2026-06-19
 
 ### Fixed
