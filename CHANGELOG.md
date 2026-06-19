@@ -7,7 +7,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 ## [Unreleased]
 
 ### Maintenance
-- **GitHub Actions Runtime**: Pinned `actions/checkout` to `v4.2.2` and `actions/setup-node` to `v4.4.0`. These versions ship with a Node.js 24 runtime, eliminating the deprecation warning that was surfacing on every workflow run.
+- **GitHub Actions Runtime**: Bumped `actions/checkout` to `v5` and `actions/setup-node` to `v6` — the new major versions that target the Node.js 24 runtime natively, eliminating the deprecation warning on every workflow run.
 
 ### Fixed
 - **Data File Tracking**: Restored git tracking for static and semi-static files in `public/data/` (including `budget.json`, `councillors.json`, `expenses.json`, `tenure.json`, `wards.geojson`, and `candidates.json`). When the daily workflow was migrated to Vercel Blob, the entire `public/data/` directory was gitignored, which accidentally deleted these essential files from the repo. This fixes the daily workflow upload step crash (`councillors.json` not found) and resolves broken maps/expense sections on the live production website.

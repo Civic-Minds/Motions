@@ -15,9 +15,9 @@ jobs:
     steps:
     # trigger UI refresh
     
-      - uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4.4.0
+      - uses: actions/setup-node@v6
         with:
           node-version: '24'
 
