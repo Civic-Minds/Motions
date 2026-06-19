@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
+## [Unreleased]
+
+### Fixed
+- **Data File Tracking**: Restored git tracking for static and semi-static files in `public/data/` (including `budget.json`, `councillors.json`, `expenses.json`, `tenure.json`, `wards.geojson`, and `candidates.json`). When the daily workflow was migrated to Vercel Blob, the entire `public/data/` directory was gitignored, which accidentally deleted these essential files from the repo. This fixes the daily workflow upload step crash (`councillors.json` not found) and resolves broken maps/expense sections on the live production website.
+
 ## [2.10.6] - 2026-06-19
 
 ### Fixed
