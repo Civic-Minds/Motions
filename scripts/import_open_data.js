@@ -512,6 +512,7 @@ async function main() {
     // Sort newest first
     motions.sort((a, b) => new Date(b.date) - new Date(a.date));
 
+    fs.mkdirSync(path.dirname(DATA_PATH), { recursive: true });
     fs.writeFileSync(DATA_PATH, JSON.stringify(motions, null, 2));
 
     // Stats

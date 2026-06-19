@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
+## [Unreleased]
+
+### Fixed
+- **Data Ingestion Directory Creation**: Added recursive directory creation (`fs.mkdirSync`) for `public/data/` inside `import_open_data.js` and `fetch_meetings.js`. This prevents `ENOENT` crashes during the daily GitHub Actions runs since the gitignored `public/data/` folder is not created by default on clean repository checkouts.
+
 ## [2.10.5] - 2026-06-19
 
 ### Maintenance

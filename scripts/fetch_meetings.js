@@ -258,6 +258,7 @@ async function main() {
         await new Promise(r => setTimeout(r, 500));
     }
 
+    fs.mkdirSync(path.dirname(DATA_PATH), { recursive: true });
     fs.writeFileSync(DATA_PATH, JSON.stringify(meetings, null, 2));
 
     const withAgenda = meetings.filter(m => m.agendaItems?.length > 0).length;
