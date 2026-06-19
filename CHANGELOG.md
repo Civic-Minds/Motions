@@ -6,6 +6,19 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+### Maintenance
+- **Dependency Updates**: Upgraded multiple dependencies to resolve 10 open Dependabot pull requests:
+  - `@anthropic-ai/sdk` (0.102.0 → 0.104.2)
+  - `@google/genai` (2.7.0 → 2.8.0)
+  - `lucide-react` (1.17.0 → 1.18.0)
+  - `tailwindcss` (4.3.0 → 4.3.1)
+  - `@tailwindcss/vite` (4.3.0 → 4.3.1)
+  - `@emnapi/core` (1.11.0 → 1.11.1)
+  - `@emnapi/runtime` (1.11.0 → 1.11.1)
+  - `@types/react` (19.2.15 → 19.2.17)
+  - `eslint` (10.4.1 → 10.5.0)
+  - `playwright` (1.60.0 → 1.61.0)
+
 ## [2.10.2] - 2026-06-11
 
 ### Fixed

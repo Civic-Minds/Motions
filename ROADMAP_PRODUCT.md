@@ -72,4 +72,10 @@ The long-term vision is to expand beyond Toronto — letting residents of any Ca
 
 ---
 
+## Analytics
+
+- [ ] **Site analytics** — add visitor tracking across all projects. Options: GA4 (free, exclude own visits via IP filter) or Umami Cloud (privacy-first, free tier = 3 sites). Decision deferred.
+
+---
+
 [Back to Roadmap](ROADMAP.md)
