@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
-## [Unreleased]
+## [2.10.5] - 2026-06-19
 
 ### Maintenance
 - **Dependency Updates**: Upgraded dependencies to resolve 2 remaining open Dependabot pull requests and fix vulnerabilities:
