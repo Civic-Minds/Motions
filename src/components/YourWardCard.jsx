@@ -82,7 +82,16 @@ export default function YourWardCard() {
         initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
         onClick={() => navigate(`/wards/${wardId}`)}
-        className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col gap-3 h-full w-full text-left hover:border-[#004a99]/40 hover:shadow-sm transition-all cursor-pointer"
+        onKeyDown={e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            navigate(`/wards/${wardId}`);
+          }
+        }}
+        tabIndex={0}
+        role="button"
+        aria-label={`Ward ${wardId}${ward?.name ? ` - ${ward.name}` : ''}. Councillor ${councillorName || ''}. Click to view ward motions.`}
+        className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col gap-3 h-full w-full text-left hover:border-[#004a99]/40 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#004a99] transition-all cursor-pointer"
       >
         {/* Top row */}
         <div className="flex items-center justify-between gap-1">
