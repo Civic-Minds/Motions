@@ -172,7 +172,7 @@ export default function DashboardView({ motions, meetings = [], followedCommitte
         })() : (
           <div className="flex flex-col gap-1.5 min-w-0">
             <div className="flex items-center justify-between px-1">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Your Ward</p>
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">My Ward</p>
             </div>
             <YourWardCard />
           </div>
@@ -183,7 +183,7 @@ export default function DashboardView({ motions, meetings = [], followedCommitte
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 px-1">
             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide col-span-2">Most Notable</p>
             {wardHighlights.length > 0 && (
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide col-span-2">Your Ward</p>
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide col-span-2">Ward Motions</p>
             )}
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 items-stretch flex-1 min-w-0">
