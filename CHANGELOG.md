@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
-## [Unreleased]
+## [2.10.7] - 2026-06-20
 
 ### Maintenance
 - **GitHub Actions Runtime**: Bumped `actions/checkout` to `v5` and `actions/setup-node` to `v6` — the new major versions that target the Node.js 24 runtime natively, eliminating the deprecation warning on every workflow run.
