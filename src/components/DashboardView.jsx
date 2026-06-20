@@ -136,13 +136,10 @@ export default function DashboardView({ motions, meetings = [], followedCommitte
     <div className="space-y-4">
 
       {/* ── Bento row: Last Meeting | Notable | Your Ward ── */}
-      <div className={cn(
-        "grid grid-cols-1 gap-3 items-stretch overflow-hidden",
-        followedHighlights.length > 0 ? "lg:grid-cols-[200px_1fr_220px]" : "lg:grid-cols-[1fr_220px]"
-      )}>
+      <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr_220px] gap-3 items-stretch overflow-hidden">
 
-        {/* 1. Left Col: Your Following (ONE Card) — hidden when nothing followed */}
-        {followedHighlights.length > 0 && (() => {
+        {/* 1. Left Col: Your Following or Your Ward (ONE Card) */}
+        {followedHighlights.length > 0 ? (() => {
           const m = followedHighlights[0];
           return (
             <div className="flex flex-col gap-1.5 min-w-0">
@@ -172,7 +169,14 @@ export default function DashboardView({ motions, meetings = [], followedCommitte
               </motion.button>
             </div>
           );
-        })()}
+        })() : (
+          <div className="flex flex-col gap-1.5 min-w-0">
+            <div className="flex items-center justify-between px-1">
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Your Ward</p>
+            </div>
+            <YourWardCard />
+          </div>
+        )}
 
         {/* 2. Middle: Notable + Your Ward (4-card Grid) */}
         <div className="flex flex-col gap-1.5 min-w-0">

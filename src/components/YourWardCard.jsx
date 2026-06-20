@@ -77,11 +77,12 @@ export default function YourWardCard() {
 
   return (
     <AnimatePresence>
-      <motion.button
+      <motion.div
+        data-testid="your-ward-card"
         initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
         onClick={() => navigate(`/wards/${wardId}`)}
-        className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col gap-3 h-full w-full text-left hover:border-[#004a99]/40 hover:shadow-sm transition-all"
+        className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col gap-3 h-full w-full text-left hover:border-[#004a99]/40 hover:shadow-sm transition-all cursor-pointer"
       >
         {/* Top row */}
         <div className="flex items-center justify-between gap-1">
@@ -100,7 +101,7 @@ export default function YourWardCard() {
         <div className="flex items-center justify-between mt-auto">
           <button
             onClick={e => { e.stopPropagation(); handleClear(); }}
-            className="text-[9px] text-slate-400 hover:text-slate-600 transition-colors flex items-center gap-0.5"
+            className="text-[9px] text-slate-400 hover:text-slate-600 transition-colors flex items-center gap-0.5 cursor-pointer"
           >
             <X className="w-2.5 h-2.5" /> change
           </button>
@@ -108,14 +109,14 @@ export default function YourWardCard() {
             <Link
               to={`/councillors/${nameToSlug(councillorName)}`}
               onClick={e => e.stopPropagation()}
-              className="text-[9px] font-semibold text-[#004a99] hover:underline"
+              className="text-[9px] font-semibold text-[#004a99] hover:underline cursor-pointer"
             >
               See more
             </Link>
           )}
         </div>
 
-      </motion.button>
+      </motion.div>
     </AnimatePresence>
   );
 }
