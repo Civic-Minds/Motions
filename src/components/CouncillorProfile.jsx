@@ -147,10 +147,10 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
       )}
 
       {/* Profile header + stats integrated */}
-      <div className="flex flex-col sm:flex-row sm:items-stretch gap-4 mb-6">
+      <div className={cn("flex flex-col gap-4 lg:grid lg:gap-8 items-stretch mb-6", expenseRecord ? "lg:grid-cols-[220px_1fr_220px]" : "lg:grid-cols-[220px_1fr]")}>
 
         {/* Identity */}
-        <div className="flex items-center gap-4 min-w-0 shrink-0 w-full sm:w-[280px] md:w-[320px] lg:w-[360px] xl:w-[420px]">
+        <div className="flex items-center gap-4 min-w-0 w-full">
           <div className="w-16 h-16 rounded-2xl bg-[#004a99] flex items-center justify-center shrink-0 overflow-hidden">
             <img
               src={photoUrl}
@@ -201,9 +201,9 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
           </div>
         </div>
 
-        {/* Stat cards */}
+        {/* Column 2: First 4 stat cards */}
         {attendance && (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 flex-1">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
 
             <div className="flex flex-col gap-1.5">
               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Votes cast</p>
@@ -250,19 +250,20 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
               </div>
             )}
 
-            {expenseRecord && (
-              <div className="flex flex-col gap-1.5">
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">2025 office spend</p>
-                <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col flex-1">
-                  <p className="text-2xl font-black text-slate-900">${Math.round(expenseRecord.office_expenses / 1000)}K</p>
-                  <p className="text-[10px] text-slate-400 mt-0.5">{Math.min(100, Math.round((expenseRecord.office_expenses / 60053) * 100))}% of budget</p>
-                  <div className="mt-auto pt-2 h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
-                    <div className="h-full bg-[#004a99] rounded-full" style={{ width: `${Math.min(100, Math.round((expenseRecord.office_expenses / 60053) * 100))}%` }} />
-                  </div>
-                </div>
-              </div>
-            )}
+          </div>
+        )}
 
+        {/* Column 3: 5th stat card (2025 office spend) */}
+        {attendance && expenseRecord && (
+          <div className="flex flex-col gap-1.5">
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">2025 office spend</p>
+            <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col flex-1">
+              <p className="text-2xl font-black text-slate-900">${Math.round(expenseRecord.office_expenses / 1000)}K</p>
+              <p className="text-[10px] text-slate-400 mt-0.5">{Math.min(100, Math.round((expenseRecord.office_expenses / 60053) * 100))}% of budget</p>
+              <div className="mt-auto pt-2 h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                <div className="h-full bg-[#004a99] rounded-full" style={{ width: `${Math.min(100, Math.round((expenseRecord.office_expenses / 60053) * 100))}%` }} />
+              </div>
+            </div>
           </div>
         )}
 
