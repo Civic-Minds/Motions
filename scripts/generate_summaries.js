@@ -191,7 +191,10 @@ async function main() {
       } else {
         const { summary, significance, keyAmounts } = await summarizeAndExtract(motion);
         if (summary) motions[idx].summary = summary;
-        if (significance !== null) motions[idx].significance = significance;
+        if (significance !== null) {
+          motions[idx].significance = significance;
+          motions[idx].trivial = significance < 25;
+        }
         motions[idx].keyAmounts = keyAmounts;
       }
 
