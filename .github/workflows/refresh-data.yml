@@ -30,13 +30,19 @@ jobs:
       - name: Fetch meeting schedule
         run: node scripts/fetch_meetings.js
 
+      - name: Install Playwright browser
+        run: npx playwright install chromium --with-deps
+
+      - name: Scrape agenda text
+        run: node scripts/scrape_agenda_text.js
+
+      - name: Extract fields from body text
+        run: node scripts/extract_fields.js
+
       - name: Generate summaries
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: node scripts/generate_summaries.js
-
-      - name: Extract fields from body text
-        run: node scripts/extract_fields.js
 
       - name: Upload data to Vercel Blob
         env:

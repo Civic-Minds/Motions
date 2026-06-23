@@ -13,7 +13,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Changed
 - **Data Refresh Cadence**: Reduced GitHub Actions workflow from daily to weekly (every Monday 6am UTC). Daily runs were burning Gemini API calls on days with no new council activity. Tracked in AI-132 for future calendar-aware scheduling.
-- **extract_fields.js now runs in CI**: Added to the Actions workflow before the Blob upload step, so mover, declared interests, and background documents are extracted automatically on every refresh.
+- **Scraper and extract_fields now run in CI**: Added `scrape_agenda_text.js` (with Playwright/Chromium install) and `extract_fields.js` to the Actions workflow. The full pipeline now runs end-to-end in CI — no more manual local runs required to get new summaries, movers, or background documents.
 
 ### Fixed
 - **Refer/Defer Motion Status**: `parseStatus` now accepts a `motionType` argument and returns "Referred" for carried "Refer Item" motions and "Deferred" for carried "Defer" motions, instead of incorrectly returning "Adopted". The StatusBadge in `MotionPage.jsx` now renders Referred/Deferred in amber rather than green.
