@@ -1,7 +1,7 @@
 import { getWardId } from '../utils/storage';
 import React, { useState, useMemo } from 'react';
 import { Link, useParams, useNavigate, Navigate } from 'react-router-dom';
-import { ExternalLink, ChevronDown, ChevronUp, ArrowLeft } from 'lucide-react';
+import { ExternalLink, ChevronDown, ChevronUp, ArrowLeft, FileText } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { getCommittee, WARD_COUNCILLORS } from '../constants/data';
 import { nameToSlug } from '../utils/slug';
@@ -14,6 +14,8 @@ function StatusBadge({ status }) {
         ? 'bg-emerald-50 text-emerald-700 ring-1 ring-inset ring-emerald-600/20'
         : status === 'Lost'
         ? 'bg-red-50 text-red-700 ring-1 ring-inset ring-red-600/20'
+        : status === 'Referred' || status === 'Deferred'
+        ? 'bg-amber-50 text-amber-700 ring-1 ring-inset ring-amber-600/20'
         : 'bg-slate-100 text-slate-700'
     )}>
       {status}
@@ -492,6 +494,27 @@ export default function MotionPage({ motions = [] }) {
 
             return null;
           })()}
+
+          {/* Background Documents */}
+          {motion.backgroundFiles?.length > 0 && (
+            <div className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-4">
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-3">Documents</p>
+              <div className="flex flex-col gap-2">
+                {motion.backgroundFiles.map((f, i) => (
+                  <a
+                    key={i}
+                    href={f.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-start gap-2 text-xs text-[#004a99] hover:underline leading-snug"
+                  >
+                    <FileText className="w-3.5 h-3.5 shrink-0 mt-0.5 text-slate-400" />
+                    <span>{f.label}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Referenced Motions */}
           {motion.relatedMotions?.length > 0 && (

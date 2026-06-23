@@ -169,10 +169,15 @@ function classifyWard(title) {
     return 'City';
 }
 
-function parseStatus(result) {
+function parseStatus(result, motionType = '') {
     if (!result) return 'Adopted';
     const lower = result.toLowerCase();
-    if (lower.includes('carried') || lower.includes('adopted')) return 'Adopted';
+    const type  = motionType.toLowerCase();
+    if (lower.includes('carried') || lower.includes('adopted')) {
+        if (type.includes('refer')) return 'Referred';
+        if (type.includes('defer')) return 'Deferred';
+        return 'Adopted';
+    }
     if (lower.includes('lost') || lower.includes('defeated') || lower.includes('failed')) return 'Lost';
     if (lower.includes('referred')) return 'Referred';
     return 'Adopted';
@@ -434,7 +439,7 @@ async function main() {
         }
         if (!primaryType) {
             for (const [type, typeEntry] of votesByType) {
-                if (parseStatus(typeEntry.meta['Result']) === 'Adopted') { primaryType = type; break; }
+                if (parseStatus(typeEntry.meta['Result'], type) === 'Adopted') { primaryType = type; break; }
             }
         }
         if (!primaryType) primaryType = [...votesByType.keys()][0];
@@ -448,7 +453,7 @@ async function main() {
             const parentId = isMulti && !isPrimary ? baseId : undefined;
 
             const votes  = normalizeVotes(typeEntry.councillorVotes);
-            const status = parseStatus(typeEntry.meta['Result']);
+            const status = parseStatus(typeEntry.meta['Result'], motionType);
 
             const significance = computeSignificance(
                 votes,
@@ -484,7 +489,7 @@ async function main() {
 
     // Preserve enriched fields — check summaries_cache.json first (authoritative backup),
     // then fall back to existing motions.json for other enriched fields.
-    const PRESERVE = ['summary', 'keyAmounts', 'notabilityRank', 'mover', 'seconder', 'body', 'locations'];
+    const PRESERVE = ['summary', 'keyAmounts', 'notabilityRank', 'mover', 'seconder', 'body', 'locations', 'backgroundFiles'];
     const CACHE_PATH = path.join(process.cwd(), 'scripts/cache/summaries_cache.json');
     const summariesCache = fs.existsSync(CACHE_PATH)
         ? JSON.parse(fs.readFileSync(CACHE_PATH, 'utf8'))

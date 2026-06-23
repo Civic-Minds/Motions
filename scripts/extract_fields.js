@@ -113,6 +113,39 @@ function extractStaffRecommendation(text) {
   return null;
 }
 
+// ─── Background document extraction ──────────────────────────────────────────
+
+function extractBackgroundFiles(body) {
+  const bgIdx = body.search(/\nBackground Information/);
+  if (bgIdx === -1) return [];
+
+  // Find end of section — next major heading
+  const section = body.slice(bgIdx + 1);
+  const endMatch = section.search(/\n(Speakers|Motions|Vote \(|Decision Advice|Communications|Declared Interests)/);
+  const chunk = endMatch > 0 ? section.slice(0, endMatch) : section.slice(0, 2000);
+
+  const lines = chunk.split('\n').map(l => l.trim()).filter(Boolean);
+  const results = [];
+  let pendingLabel = null;
+
+  for (const line of lines) {
+    if (line.startsWith('https://') || line.startsWith('http://')) {
+      if (pendingLabel) {
+        results.push({ label: pendingLabel, url: line });
+        pendingLabel = null;
+      }
+    } else if (/^\((?:January|February|March|April|May|June|July|August|September|October|November|December)/.test(line)) {
+      // Date line — skip, don't treat as a label
+    } else if (/^Background Information/.test(line)) {
+      // Section header — skip
+    } else if (!line.startsWith('Confidential')) {
+      pendingLabel = line;
+    }
+  }
+
+  return results;
+}
+
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 function main() {
@@ -133,6 +166,7 @@ function main() {
     motions[idx].staffRecommendation = extractStaffRecommendation(motion.body);
     motions[idx].developer = extractDeveloper(motion.body);
     motions[idx].relatedMotions = extractRelatedMotions(motion.body, motion.id);
+    motions[idx].backgroundFiles = extractBackgroundFiles(motion.body);
     done++;
   }
 

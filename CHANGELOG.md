@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
+## [Unreleased]
+
+### Added
+- **Background Documents on Motion Page**: Motion pages now display a "Documents" section in the right column listing any background PDFs linked from the toronto.ca item page (e.g. staff reports, presentations). Extracted by a new `extractBackgroundFiles` function in `extract_fields.js` which parses the scraped `body` text, and preserved across re-imports via the `PRESERVE` list in `import_open_data.js`.
+
+### Fixed
+- **Refer/Defer Motion Status**: `parseStatus` now accepts a `motionType` argument and returns "Referred" for carried "Refer Item" motions and "Deferred" for carried "Defer" motions, instead of incorrectly returning "Adopted". The StatusBadge in `MotionPage.jsx` now renders Referred/Deferred in amber rather than green.
+- **Summaries Not Showing on Live Site**: 996 AI-generated summaries existed in local `motions.json` but had never been uploaded to Vercel Blob. The live app was pulling from Blob, so no summaries were visible anywhere. Fixed by uploading the current local data to Blob.
+
 ## [2.10.7] - 2026-06-20
 
 ### Maintenance
