@@ -8,6 +8,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Added
 - **Background Documents on Motion Page**: Motion pages now display a "Documents" section in the right column listing any background PDFs linked from the toronto.ca item page (e.g. staff reports, presentations). Extracted by a new `extractBackgroundFiles` function in `extract_fields.js` which parses the scraped `body` text, and preserved across re-imports via the `PRESERVE` list in `import_open_data.js`.
+- **Declared Interests on Motion Page**: Motion pages now show a "Declared Interests" amber callout card when a member declared a conflict on the item. Extracted by `extractDeclaredInterests` in `extract_fields.js` into `[{member, reason}]` pairs.
+- **Mover Extraction from Body**: `extract_fields.js` now parses the mover name directly from scraped body text as a fallback when the `mover` field isn't already set, covering board/agency meetings where the mover doesn't appear in the agenda item title.
 
 ### Fixed
 - **Refer/Defer Motion Status**: `parseStatus` now accepts a `motionType` argument and returns "Referred" for carried "Refer Item" motions and "Deferred" for carried "Defer" motions, instead of incorrectly returning "Adopted". The StatusBadge in `MotionPage.jsx` now renders Referred/Deferred in amber rather than green.

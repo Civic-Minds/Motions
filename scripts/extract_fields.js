@@ -146,6 +146,60 @@ function extractBackgroundFiles(body) {
   return results;
 }
 
+// ─── Mover extraction ────────────────────────────────────────────────────────
+
+function extractMover(body) {
+  // Matches "moved by\nCouncillor Name" or "moved by Councillor Name"
+  const m = body.match(/moved by\s*\n\s*Councillor\s+([^\n(]+)|moved by Councillor\s+([^\n(]+)/i);
+  if (!m) return null;
+  return (m[1] || m[2]).trim().replace(/\s+/g, ' ');
+}
+
+// ─── Declared interests extraction ───────────────────────────────────────────
+
+function extractDeclaredInterests(body) {
+  const idx = body.search(/\nDeclared Interests/);
+  if (idx === -1) return [];
+
+  const section = body.slice(idx + 1);
+  // Section ends at next major heading or end of body
+  const endMatch = section.search(/\n(Communications|Attachments|$(?![\s\S]))/m);
+  const chunk = endMatch > 0 ? section.slice(0, endMatch) : section;
+
+  const lines = chunk.split('\n').map(l => l.trim()).filter(Boolean);
+  const results = [];
+  let currentMember = null;
+  let currentReason = [];
+
+  for (const line of lines) {
+    if (/^Declared Interests/.test(line) || /^The following member/.test(line)) continue;
+    if (/^Written Declaration/.test(line) || line.startsWith('https://') || line.startsWith('http://')) {
+      // Flush current member
+      if (currentMember && currentReason.length > 0) {
+        results.push({ member: currentMember, reason: currentReason.join(' ').replace(/^-\s*/, '') });
+        currentMember = null;
+        currentReason = [];
+      }
+      continue;
+    }
+    if (line.startsWith('- ')) {
+      currentReason.push(line);
+    } else if (currentReason.length === 0 && currentMember === null) {
+      // Name line — normalize double spaces from the scrape
+      currentMember = line.replace(/\s+/g, ' ');
+    } else if (currentReason.length > 0) {
+      // Continuation of reason
+      currentReason.push(line);
+    }
+  }
+  // Flush last entry
+  if (currentMember && currentReason.length > 0) {
+    results.push({ member: currentMember, reason: currentReason.join(' ').replace(/^-\s*/, '') });
+  }
+
+  return results;
+}
+
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 function main() {
@@ -153,7 +207,7 @@ function main() {
 
   const targets = motions.filter(m =>
     m.body &&
-    (FORCE || (m.amounts === undefined && m.staffRecommendation === undefined))
+    (FORCE || (m.amounts === undefined && m.staffRecommendation === undefined && m.declaredInterests === undefined))
   );
 
   console.log(`🔍 ${targets.length} motions to extract from`);
@@ -167,6 +221,12 @@ function main() {
     motions[idx].developer = extractDeveloper(motion.body);
     motions[idx].relatedMotions = extractRelatedMotions(motion.body, motion.id);
     motions[idx].backgroundFiles = extractBackgroundFiles(motion.body);
+    motions[idx].declaredInterests = extractDeclaredInterests(motion.body);
+    // Only set mover from body if not already enriched
+    if (!motions[idx].mover) {
+      const mover = extractMover(motion.body);
+      if (mover) motions[idx].mover = mover;
+    }
     done++;
   }
 

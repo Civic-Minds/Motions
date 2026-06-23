@@ -489,7 +489,7 @@ async function main() {
 
     // Preserve enriched fields — check summaries_cache.json first (authoritative backup),
     // then fall back to existing motions.json for other enriched fields.
-    const PRESERVE = ['summary', 'keyAmounts', 'notabilityRank', 'mover', 'seconder', 'body', 'locations', 'backgroundFiles'];
+    const PRESERVE = ['summary', 'keyAmounts', 'notabilityRank', 'mover', 'seconder', 'body', 'locations', 'backgroundFiles', 'declaredInterests'];
     const CACHE_PATH = path.join(process.cwd(), 'scripts/cache/summaries_cache.json');
     const summariesCache = fs.existsSync(CACHE_PATH)
         ? JSON.parse(fs.readFileSync(CACHE_PATH, 'utf8'))

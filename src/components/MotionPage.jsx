@@ -495,6 +495,21 @@ export default function MotionPage({ motions = [] }) {
             return null;
           })()}
 
+          {/* Declared Interests */}
+          {motion.declaredInterests?.length > 0 && (
+            <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-4">
+              <p className="text-[10px] font-bold text-amber-600 uppercase tracking-wide mb-3">Declared Interests</p>
+              <div className="flex flex-col gap-3">
+                {motion.declaredInterests.map((d, i) => (
+                  <div key={i}>
+                    <p className="text-xs font-semibold text-slate-800">{d.member}</p>
+                    <p className="text-xs text-slate-600 leading-snug mt-0.5">{d.reason}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Background Documents */}
           {motion.backgroundFiles?.length > 0 && (
             <div className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-4">
