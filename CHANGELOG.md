@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
-## [Unreleased]
+## [2.11.0] - 2026-06-23
 
 ### Added
 - **Background Documents on Motion Page**: Motion pages now display a "Documents" section in the right column listing any background PDFs linked from the toronto.ca item page (e.g. staff reports, presentations). Extracted by a new `extractBackgroundFiles` function in `extract_fields.js` which parses the scraped `body` text, and preserved across re-imports via the `PRESERVE` list in `import_open_data.js`.
