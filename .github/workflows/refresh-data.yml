@@ -24,6 +24,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Download existing data from Blob
+        run: |
+          mkdir -p public/data
+          curl -sf "https://qcbqayy3ivvb6sia.public.blob.vercel-storage.com/motions.json" -o public/data/motions.json || echo "No existing data, starting fresh"
+
       - name: Run data import
         run: node scripts/import_open_data.js --term=2022-2026
 
