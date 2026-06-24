@@ -505,12 +505,15 @@ async function main() {
                     if (prev[field] !== undefined) motion[field] = prev[field];
                 }
             }
-            // Cache wins for summary/keyAmounts — protects against motions.json wipe
-            const cached = summariesCache[motion.id];
-            if (cached) {
-                if (cached.summary !== undefined) motion.summary = cached.summary;
-                if (cached.keyAmounts !== undefined) motion.keyAmounts = cached.keyAmounts;
-            }
+        }
+    }
+
+    // Cache always applies — even when motions.json doesn't exist yet (e.g. fresh CI checkout)
+    for (const motion of motions) {
+        const cached = summariesCache[motion.id];
+        if (cached) {
+            if (cached.summary !== undefined) motion.summary = cached.summary;
+            if (cached.keyAmounts !== undefined) motion.keyAmounts = cached.keyAmounts;
         }
     }
 

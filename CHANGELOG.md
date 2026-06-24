@@ -7,7 +7,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 ## [Unreleased]
 
 ### Fixed
-- **CI Re-summarizing All Motions on Every Run**: The summaries cache is gitignored, so GitHub Actions had no existing data to preserve — `generate_summaries.js` was re-summarizing all 1441 motions from scratch each run (2h 53m, hitting Gemini budget). Fixed by adding a step to download the current `motions.json` from Blob before the import runs, so the PRESERVE list carries over existing summaries and Gemini only processes new items.
+- **CI Re-summarizing All Motions on Every Run (root cause)**: The summaries cache application in `import_open_data.js` was nested inside the `if (fs.existsSync(DATA_PATH))` block — so when `motions.json` didn't exist (gitignored, absent in fresh CI checkout), the committed `summaries_cache.json` was never applied. Every CI run started with 0 summaries and re-summarized all 1441 motions (2h 53m, hitting Gemini budget). Fixed by moving the cache application outside the block so it always runs. The Blob pre-download step (added separately) further preserves all other enriched fields (body, backgroundFiles, etc.).  
 
 ## [2.11.0] - 2026-06-23
 
