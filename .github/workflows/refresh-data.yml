@@ -54,8 +54,11 @@ jobs:
 
       - name: Download existing data from Blob
         run: |
-          mkdir -p public/data
-          curl -sf "https://qcbqayy3ivvb6sia.public.blob.vercel-storage.com/motions.json" -o public/data/motions.json || echo "No existing data, starting fresh"
+          mkdir -p public/data scripts/cache
+          curl -sf "https://qcbqayy3ivvb6sia.public.blob.vercel-storage.com/motions.json" -o public/data/motions.json || echo "No existing motions, starting fresh"
+          curl -sf "https://qcbqayy3ivvb6sia.public.blob.vercel-storage.com/cache/summaries_cache.json" -o scripts/cache/summaries_cache.json || echo "No summaries cache"
+          curl -sf "https://qcbqayy3ivvb6sia.public.blob.vercel-storage.com/cache/elo_scores.json" -o scripts/cache/elo_scores.json || echo "No elo cache"
+          curl -sf "https://qcbqayy3ivvb6sia.public.blob.vercel-storage.com/cache/notability_cache.json" -o scripts/cache/notability_cache.json || echo "No notability cache"
 
       - name: Run data import
         run: node scripts/import_open_data.js --term=2022-2026
