@@ -265,6 +265,15 @@ export default function MotionPage({ motions = [] }) {
 
   const displayTitle = authorship ? authorship.displayTitle : motion.title;
 
+  const headerTally = useMemo(() => {
+    const parsed = parseResultTotals(motion.resultText);
+    const recYes = Object.values(motion.votes ?? {}).filter(v => v === 'YES').length;
+    const recNo  = Object.values(motion.votes ?? {}).filter(v => v === 'NO').length;
+    const yes = (parsed && parsed.yes >= recYes) ? parsed.yes : recYes;
+    const no  = (parsed && parsed.no  >= recNo)  ? parsed.no  : recNo;
+    return (yes > 0 || no > 0) ? { yes, no } : null;
+  }, [motion.votes, motion.resultText]);
+
   return (
     <div className="max-w-5xl mx-auto py-2 px-4 sm:px-6 lg:px-8 relative">
 
@@ -292,6 +301,13 @@ export default function MotionPage({ motions = [] }) {
       <div className="space-y-3 mb-8">
         <div className="flex flex-wrap items-center gap-2">
           <StatusBadge status={motion.status} />
+          {headerTally && (
+            <span className="text-xs font-semibold text-slate-500 tabular-nums">
+              <span className="text-emerald-600">{headerTally.yes}</span>
+              {' – '}
+              <span className="text-red-500">{headerTally.no}</span>
+            </span>
+          )}
           {motion.significance >= 90 && (
             <span className="text-xs font-semibold text-amber-600 bg-amber-50 px-2.5 py-0.5 rounded-full">High Impact</span>
           )}

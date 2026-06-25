@@ -11,6 +11,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **No cache files in repo**: `summaries_cache.json` and `elo_scores.json` were committed to the repo. Removed from tracking, broadened `.gitignore` to cover all of `scripts/cache/`. Cache files now persist to Vercel Blob (downloaded at CI start, uploaded after processing). Added missing `strip_body.js` step to CI workflow so body text is stripped before upload to Blob.
 
 ### Added
+- **Vote tally in motion page header**: The final vote count (e.g. 26 – 12) now appears next to the status badge at the top of every motion page, so you can see the result without scrolling to the vote section.
 - **"Last meeting" filter on dashboard**: Toggle in the filter sidebar now shows only motions from the most recent meeting date. The `showLastMeeting` reducer state and `TOGGLE_LAST_MEETING` action already existed but were never wired into `sortedMotions` — filter logic and the toggle button were both missing.
 
 ### Fixed
