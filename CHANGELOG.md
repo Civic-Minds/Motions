@@ -6,6 +6,9 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+### Added
+- **"Last meeting" filter on dashboard**: Toggle in the filter sidebar now shows only motions from the most recent meeting date. The `showLastMeeting` reducer state and `TOGGLE_LAST_MEETING` action already existed but were never wired into `sortedMotions` — filter logic and the toggle button were both missing.
+
 ### Fixed
 - **Compare button on councillor profiles**: The VsPickerModal existed in CouncillorProfile but had no trigger — `vsPickerOpen` was always false, making head-to-head comparison unreachable from a profile page. Added a "Compare" button in the profile header that opens the picker.
 

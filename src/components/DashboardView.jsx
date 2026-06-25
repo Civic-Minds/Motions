@@ -78,7 +78,7 @@ function hasActiveFilters(f) {
 }
 
 // ── Sub-component: desktop filter sidebar ─────────────────────────────────
-function FilterSidebar({ filters, dispatch, committees, years, sortedCount, savedCouncillor }) {
+function FilterSidebar({ filters, dispatch, committees, years, sortedCount, savedCouncillor, lastMeeting }) {
   return (
     <div className="hidden lg:flex flex-col sticky top-24 bg-white border border-slate-200 rounded-2xl p-3 gap-3 h-[480px] overflow-y-auto">
 
@@ -229,6 +229,17 @@ function FilterSidebar({ filters, dispatch, committees, years, sortedCount, save
             )}
           >
             My Ward
+          </button>
+        )}
+        {lastMeeting.date && (
+          <button
+            onClick={() => dispatch({ type: 'TOGGLE_LAST_MEETING' })}
+            className={cn(
+              "flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium transition-all",
+              filters.showLastMeeting ? "bg-[#004a99] text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+            )}
+          >
+            <Calendar className="w-3 h-3 shrink-0" /> Last meeting
           </button>
         )}
       </div>
@@ -433,6 +444,7 @@ export default function DashboardView({ motions, meetings = [] }) {
         if (filters.showMyWard && savedWardId && m.ward !== savedWardId) return false;
         if (filters.showFollowingOnly && !followedCommittees.includes(m.committee || getCommittee(m.id))) return false;
         if (filters.years.length > 0 && !filters.years.includes(m.date?.match(/\d{4}/)?.[0])) return false;
+        if (filters.showLastMeeting && lastMeeting.date && m.date !== lastMeeting.date) return false;
         return true;
       })
       .sort((a, b) => {
@@ -440,7 +452,7 @@ export default function DashboardView({ motions, meetings = [] }) {
         if (dateDiff !== 0) return dateDiff;
         return (b.significance ?? 0) - (a.significance ?? 0);
       });
-  }, [primaryMotions, filters, savedWardId, followedCommittees]);
+  }, [primaryMotions, filters, savedWardId, followedCommittees, lastMeeting]);
 
   // Reset visible count when filters change
   useEffect(() => { setVisibleCount(20); }, [filters]);
@@ -627,6 +639,7 @@ export default function DashboardView({ motions, meetings = [] }) {
           years={years}
           sortedCount={sortedMotions.length}
           savedCouncillor={savedCouncillor}
+          lastMeeting={lastMeeting}
         />
 
         <MotionList
