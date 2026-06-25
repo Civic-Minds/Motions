@@ -10,17 +10,19 @@ import { put } from '@vercel/blob';
 import fs from 'fs';
 import path from 'path';
 
-const DATA_FILES = ['motions.json', 'meetings.json', 'councillors.json', 'candidates.json'];
+const DATA_FILES = ['motions.json', 'meetings.json', 'councillors.json', 'candidates.json', 'tenure.json', 'expenses.json', 'wards.geojson'];
 const CACHE_FILES = ['summaries_cache.json', 'elo_scores.json', 'notability_cache.json'];
 
 for (const filename of DATA_FILES) {
   const filePath = path.join(process.cwd(), 'public/data', filename);
+  if (!fs.existsSync(filePath)) { console.log(`⏭️  Skipped ${filename} (not found)`); continue; }
   const content = fs.readFileSync(filePath);
+  const contentType = filename.endsWith('.geojson') ? 'application/geo+json' : 'application/json';
   const { url } = await put(filename, content, {
     access: 'public',
     addRandomSuffix: false,
     allowOverwrite: true,
-    contentType: 'application/json',
+    contentType,
   });
   console.log(`✅ Uploaded ${filename} → ${url}`);
 }

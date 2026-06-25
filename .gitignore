@@ -37,8 +37,7 @@ issue_*.txt
 # Local runtime caches
 scripts/cache/
 
-public/data/motions.json
-public/data/meetings.json
+public/data/
 
 # Portfolio rules
 MOTIONSLOG.md

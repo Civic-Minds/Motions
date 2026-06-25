@@ -29,7 +29,9 @@ export default function TorontoMiniMap({ motions }) {
   const savedWardId = getWardId();
 
   useEffect(() => {
-    fetch('/data/wards.geojson').then(r => r.json()).then(setWards).catch(() => {});
+    const blobBase = import.meta.env.VITE_BLOB_BASE_URL;
+    const url = blobBase ? `${blobBase}/wards.geojson` : '/data/wards.geojson';
+    fetch(url).then(r => r.json()).then(setWards).catch(() => {});
   }, []);
 
   const pins = motions.flatMap(m =>

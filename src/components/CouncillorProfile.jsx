@@ -309,12 +309,16 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
   const [tenure, setTenure] = useState({});
   const [expenses, setExpenses] = useState(null);
 
+  const blobBase = import.meta.env.VITE_BLOB_BASE_URL;
+
   useEffect(() => {
-    fetch('/data/tenure.json').then(r => r.json()).then(setTenure).catch(() => {});
+    const url = blobBase ? `${blobBase}/tenure.json` : '/data/tenure.json';
+    fetch(url).then(r => r.json()).then(setTenure).catch(() => {});
   }, []);
 
   useEffect(() => {
-    fetch('/data/expenses.json').then(r => r.json()).then(setExpenses).catch(() => {});
+    const url = blobBase ? `${blobBase}/expenses.json` : '/data/expenses.json';
+    fetch(url).then(r => r.json()).then(setExpenses).catch(() => {});
   }, []);
 
   const allNames = useMemo(() => {

@@ -2,7 +2,9 @@ let cachedBoundaries = null;
 
 export async function fetchWardBoundaries() {
   if (cachedBoundaries) return cachedBoundaries;
-  const data = await fetch('/data/wards.geojson').then(r => r.json());
+  const blobBase = import.meta.env.VITE_BLOB_BASE_URL;
+  const url = blobBase ? `${blobBase}/wards.geojson` : '/data/wards.geojson';
+  const data = await fetch(url).then(r => r.json());
   cachedBoundaries = data;
   return cachedBoundaries;
 }
