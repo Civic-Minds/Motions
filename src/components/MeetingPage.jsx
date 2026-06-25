@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, ExternalLink, Lock, FileText, ChevronRight } from 'lucide-react';
 import { cn } from '../lib/utils';
+import { committeeToSlug } from '../utils/slug';
 
 const PROCEDURAL_TITLES = /^(call to order|confirmation of minutes|declarations of interest|petitions|review of the order paper|introduction of committee reports|presentations, introductions|adjournment|questions of privilege|other business)/i;
 
@@ -9,10 +10,6 @@ function classifyItem(item) {
   if (item.reference.includes('.RM') || PROCEDURAL_TITLES.test(item.title)) return 'procedural';
   if (item.inCamera) return 'inCamera';
   return 'substantive';
-}
-
-function committeeToSlug(name) {
-  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 }
 
 export default function MeetingPage({ meetings }) {

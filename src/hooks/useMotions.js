@@ -61,6 +61,6 @@ export function useMotions() {
         meetings,
         loading,
         error,
-        ...metrics
+        metrics,
     };
 }

@@ -3,11 +3,11 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { Users, Map, Building2, Menu, X, Search, GitCompare, MapPin } from 'lucide-react';
-import { getWardId, setWardId as saveWardId, getFollowedCommittees, setFollowedCommittees as saveFollowedCommittees } from './utils/storage';
 import { WARD_COUNCILLORS } from './constants/data';
 import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from './lib/utils';
 import { useMotions } from './hooks/useMotions';
+import { AppProvider, useAppContext } from './contexts/AppContext';
 
 const DashboardView     = lazy(() => import('./components/DashboardView'));
 const MotionPage        = lazy(() => import('./components/MotionPage'));
@@ -28,7 +28,8 @@ const TABS = [
   { path: '/wards',       label: 'Wards',       icon: Map },
 ];
 
-function Navbar({ onSearchOpen, compareMode, onCompareModeToggle, wardId, onLocate, onClearWard }) {
+function Navbar({ onSearchOpen, compareMode, onCompareModeToggle }) {
+  const { wardId, handleLocate, handleClearWard } = useAppContext();
   const location = useLocation();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -102,7 +103,7 @@ function Navbar({ onSearchOpen, compareMode, onCompareModeToggle, wardId, onLoca
                 Ward {wardId}{wardLastName ? ` · ${wardLastName}` : ''}
               </button>
               <button
-                onClick={(e) => { e.stopPropagation(); onClearWard(); }}
+                onClick={(e) => { e.stopPropagation(); handleClearWard(); }}
                 className="pr-2.5 py-2 text-slate-300 hover:text-rose-500 transition-colors"
                 title="Clear my ward"
               >
@@ -111,7 +112,7 @@ function Navbar({ onSearchOpen, compareMode, onCompareModeToggle, wardId, onLoca
             </div>
           ) : (
             <button
-              onClick={onLocate}
+              onClick={handleLocate}
               className="hidden sm:flex items-center gap-1.5 px-3 py-2 text-sm text-slate-500 bg-white border border-slate-200 rounded-xl hover:border-slate-400 transition-all"
             >
               <MapPin className="w-3.5 h-3.5" />
@@ -186,24 +187,6 @@ function AppShell() {
   useEffect(() => {
     if (!location.pathname.startsWith('/councillors')) setCompareMode(false);
   }, [location.pathname]);
-  const [wardId, setWardId] = useState(() => getWardId());
-  const [followedCommittees, setFollowedCommittees] = useState(() => getFollowedCommittees());
-
-  const handleLocate = async () => {
-    const { geolocateWard } = await import('./utils/ward');
-    const id = await geolocateWard();
-    setWardId(id);
-    saveWardId(id);
-  };
-  const handleClearWard = () => { setWardId(null); saveWardId(null); };
-
-  const handleToggleFollow = (name) => {
-    const next = followedCommittees.includes(name)
-      ? followedCommittees.filter(c => c !== name)
-      : [...followedCommittees, name];
-    setFollowedCommittees(next);
-    saveFollowedCommittees(next);
-  };
 
   const councillorNames = useMemo(() => {
     if (!motions) return [];
@@ -248,7 +231,7 @@ function AppShell() {
         </div>
       }>
         <Routes>
-          <Route path="/" element={<DashboardView motions={motions} meetings={meetings} followedCommittees={followedCommittees} />} />
+          <Route path="/" element={<DashboardView motions={motions} meetings={meetings} />} />
           <Route path="/motions/:motionId" element={<MotionPage motions={motions} />} />
           <Route path="/councillors" element={<CouncillorList motions={motions} councillors={councillors} compareMode={compareMode} onCompareModeToggle={toggleCompareMode} />} />
           <Route path="/councillors/:slug" element={<CouncillorProfile motions={motions} councillors={councillors} />} />
@@ -256,8 +239,8 @@ function AppShell() {
           <Route path="/councillors/:slug/vs/:slug2" element={<CouncillorList motions={motions} councillors={councillors} />} />
           <Route path="/wards"          element={<WardGrid motions={motions} />} />
           <Route path="/wards/:wardId"  element={<WardGrid motions={motions} />} />
-          <Route path="/committees" element={<CommitteesView motions={motions} meetings={meetings} followedCommittees={followedCommittees} onToggleFollow={handleToggleFollow} />} />
-          <Route path="/committees/:committeeSlug" element={<CommitteesView motions={motions} meetings={meetings} followedCommittees={followedCommittees} onToggleFollow={handleToggleFollow} />} />
+          <Route path="/committees" element={<CommitteesView motions={motions} meetings={meetings} />} />
+          <Route path="/committees/:committeeSlug" element={<CommitteesView motions={motions} meetings={meetings} />} />
           <Route path="/meetings" element={<MeetingsListView meetings={meetings} />} />
           <Route path="/meetings/:meetingRef" element={<MeetingPage meetings={meetings} />} />
           <Route path="/election" element={<ElectionView />} />
@@ -271,7 +254,7 @@ function AppShell() {
   return (
     <div className="min-h-screen flex flex-col">
       <ScrollToTop />
-      <Navbar onSearchOpen={() => setSearchOpen(true)} compareMode={compareMode} onCompareModeToggle={toggleCompareMode} wardId={wardId} onLocate={handleLocate} onClearWard={handleClearWard} />
+      <Navbar onSearchOpen={() => setSearchOpen(true)} compareMode={compareMode} onCompareModeToggle={toggleCompareMode} />
       <main className="flex-1 max-w-[1400px] mx-auto w-full px-4 sm:px-6 py-8">
         {contentArea()}
       </main>
@@ -299,5 +282,13 @@ function AppShell() {
 }
 
 export default function App() {
-  return <BrowserRouter basename="/toronto"><AppShell /><Analytics /><SpeedInsights /></BrowserRouter>;
+  return (
+    <BrowserRouter basename="/toronto">
+      <AppProvider>
+        <AppShell />
+      </AppProvider>
+      <Analytics />
+      <SpeedInsights />
+    </BrowserRouter>
+  );
 }

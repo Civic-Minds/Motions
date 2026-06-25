@@ -6,6 +6,16 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+### Changed
+- **Frontend Refactor**: Significant structural cleanup across the src/ codebase.
+  - `DashboardView`: Replaced 9 filter `useState` calls with a single `useReducer`; extracted `FilterSidebar` and `MotionList` as named sub-components in the same file
+  - `CouncillorProfile`: Split into four sub-components — `ProfileHeader`, `VotingStats`, `PeerAlignment`, `ExpenseBreakdown`
+  - New shared `MotionCardItem` component used by `DashboardView`, `CouncillorProfile`, and `CouncillorVotes`, eliminating the duplicated card rendering across all three
+  - New `AppContext` (`src/contexts/AppContext.jsx`) holds `wardId` and `followedCommittees` state; `Navbar`, `DashboardView`, and `CommitteesView` now consume it via `useAppContext()` instead of receiving props from `AppShell`
+  - New `src/utils/councillorWard.js` exports the shared `COUNCILLOR_WARD` mapping (previously duplicated in `CouncillorProfile` and `CouncillorVotes`)
+  - `committeeToSlug()` moved to `src/utils/slug.js` and imported in all consumers (`CommitteesView`, `MeetingsListView`, `GlobalSearch`, `MeetingPage`, `DashboardView`, `CouncillorProfile`) — four local definitions removed
+  - `useMotions` now returns `metrics` as a nested object instead of spreading it at the top level
+
 ### Fixed
 - **CI Re-summarizing All Motions on Every Run (root cause)**: The summaries cache application in `import_open_data.js` was nested inside the `if (fs.existsSync(DATA_PATH))` block — so when `motions.json` didn't exist (gitignored, absent in fresh CI checkout), the committed `summaries_cache.json` was never applied. Every CI run started with 0 summaries and re-summarized all 1441 motions (2h 53m, hitting Gemini budget). Fixed by moving the cache application outside the block so it always runs. The Blob pre-download step (added separately) further preserves all other enriched fields (body, backgroundFiles, etc.).  
 

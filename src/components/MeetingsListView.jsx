@@ -2,12 +2,9 @@ import React, { useMemo, useState, useRef, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Calendar, Lock, FileText, ChevronRight, ChevronDown, SlidersHorizontal } from 'lucide-react';
 import { cn } from '../lib/utils';
+import { committeeToSlug } from '../utils/slug';
 
 const TODAY = new Date().toISOString().slice(0, 10);
-
-function committeeToSlug(name) {
-  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-}
 
 function getTypeBadge(meeting) {
   if (meeting.isCouncil) return { label: 'Council', style: 'bg-blue-100 text-blue-700' };

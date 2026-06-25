@@ -3,14 +3,12 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, ArrowLeft, Star, Calendar } from 'lucide-react';
 import { getCommittee, COMMITTEE_NAMES, TOPIC_LIGHT, COMMITTEE_DESCRIPTIONS } from '../constants/data';
-import { nameToSlug } from '../utils/slug';
+import { nameToSlug, committeeToSlug } from '../utils/slug';
 import { cn } from '../lib/utils';
+import { useAppContext } from '../contexts/AppContext';
 
-function committeeToSlug(name) {
-  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-}
-
-export default function CommitteesView({ motions, meetings = [], followedCommittees = [], onToggleFollow }) {
+export default function CommitteesView({ motions, meetings = [] }) {
+  const { followedCommittees = [], handleToggleFollow: onToggleFollow } = useAppContext();
   const { committeeSlug } = useParams();
   const navigate = useNavigate();
 

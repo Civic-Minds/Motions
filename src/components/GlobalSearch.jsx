@@ -4,12 +4,8 @@ import { Search, X, FileText, User, Building2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Fuse from 'fuse.js';
 import { cn } from '../lib/utils';
-import { nameToSlug } from '../utils/slug';
+import { nameToSlug, committeeToSlug } from '../utils/slug';
 import { TOPIC_LIGHT } from '../constants/data';
-
-function committeeToSlug(name) {
-  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-}
 
 function highlight(text, query) {
   if (!query || !text) return text;

@@ -1,16 +1,9 @@
 import React, { useMemo, useState } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { TOPIC_LIGHT, WARD_COUNCILLORS } from '../constants/data';
-import { TORONTO_WARDS } from '../constants/wards';
+import { useParams, useNavigate } from 'react-router-dom';
 import { slugToName } from '../utils/slug';
+import { COUNCILLOR_WARD } from '../utils/councillorWard';
 import { cn } from '../lib/utils';
-
-const COUNCILLOR_WARD = {};
-Object.entries(WARD_COUNCILLORS).forEach(([wardId, name]) => {
-  const ward = TORONTO_WARDS.find(w => w.id === wardId);
-  if (ward) COUNCILLOR_WARD[name] = { id: wardId, name: ward.name };
-});
+import MotionCardItem from './MotionCardItem';
 
 export default function CouncillorVotes({ motions }) {
   const { slug } = useParams();
@@ -111,52 +104,19 @@ export default function CouncillorVotes({ motions }) {
       <p className="text-[10px] text-slate-400 mb-3">{filtered.length} votes</p>
 
       <div className="space-y-2">
-        {filtered.map((m, i) => {
-          const vote = m.votes[selected];
-          return (
-            <motion.button
-              key={m.id}
-              initial={{ opacity: 0, y: 4 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: Math.min(i * 0.005, 0.15) }}
-              onClick={() => navigate(`/motions/${m.id}`)}
-              className="w-full text-left bg-white border border-slate-200 rounded-2xl p-4 hover:border-[#004a99]/40 hover:shadow-sm transition-all group flex items-start gap-3"
-            >
-              <div className={cn(
-                "mt-0.5 w-1 self-stretch rounded-full shrink-0",
-                vote === 'YES' ? 'bg-emerald-400' : vote === 'NO' ? 'bg-rose-400' : 'bg-slate-200'
-              )} />
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors leading-snug line-clamp-2">
-                  {m.title}
-                </p>
-                {m.summary && (
-                  <p className="text-xs text-slate-500 line-clamp-2 mt-1 leading-snug">{m.summary}</p>
-                )}
-                <div className="flex items-center gap-2 mt-2 flex-wrap">
-                  {outcomeFilter.size !== 1 && (
-                    <span className={cn(
-                      "text-[10px] font-bold px-2 py-0.5 rounded-full",
-                      vote === 'YES' ? 'bg-emerald-50 text-emerald-700'
-                      : vote === 'NO' ? 'bg-rose-50 text-rose-600'
-                      : 'bg-slate-100 text-slate-500'
-                    )}>
-                      {vote === 'YES' ? 'Yes' : vote === 'NO' ? 'No' : vote}
-                    </span>
-                  )}
-                  {m.topic && topicFilter.size !== 1 && (
-                    <span className={cn("text-[10px] px-2 py-0.5 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>
-                      {m.topic}
-                    </span>
-                  )}
-                  {m.significance >= 90 && <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-600">High Impact</span>}
-                  {m.significance >= 60 && m.significance < 90 && <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-600">Notable</span>}
-                  <span className="text-[10px] text-slate-400 ml-auto">{m.date}</span>
-                </div>
-              </div>
-            </motion.button>
-          );
-        })}
+        {filtered.map((m, i) => (
+          <MotionCardItem
+            key={m.id}
+            motion={m}
+            index={i}
+            vote={m.votes[selected]}
+            votePlacement="inline"
+            showVoteBadge={outcomeFilter.size !== 1}
+            showTopicBadge={topicFilter.size !== 1}
+            showStatus={false}
+            showCommittee={false}
+          />
+        ))}
       </div>
     </div>
   );
