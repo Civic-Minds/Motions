@@ -2,7 +2,7 @@ name: Refresh Council Data
 
 on:
   schedule:
-    - cron: '0 6 * * 1' # 6am UTC every Monday
+    - cron: '0 6 * * 1,3,5' # 6am UTC Mon/Wed/Fri
   workflow_dispatch:
     inputs:
       force:
