@@ -1,7 +1,7 @@
 import { getWardId } from '../utils/storage';
 import React, { useMemo, useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { Mail, Phone } from 'lucide-react';
+import { Mail, Phone, GitCompare } from 'lucide-react';
 import VsPickerModal from './VsPickerModal';
 import { getAttendance, getVotedWith } from '../utils/analytics';
 import { TOPIC_LIGHT, WARD_COUNCILLORS, FORMER_MEMBERS, getCommittee } from '../constants/data';
@@ -11,7 +11,7 @@ import { cn } from '../lib/utils';
 import MotionCardItem from './MotionCardItem';
 
 // ── Sub-component: profile header ─────────────────────────────────────────
-function ProfileHeader({ selected, ward, contact, committees, isMyCouncillor }) {
+function ProfileHeader({ selected, ward, contact, committees, isMyCouncillor, onCompare }) {
   const navigate = useNavigate();
   const initials = selected.split(' ').map(n => n[0]).slice(0, 2).join('');
   const lastName = selected.split(' ').at(-1);
@@ -34,6 +34,12 @@ function ProfileHeader({ selected, ward, contact, committees, isMyCouncillor }) 
           {isMyCouncillor && (
             <span className="text-[10px] font-bold bg-[#004a99] text-white px-2.5 py-0.5 rounded-full">Your Councillor</span>
           )}
+          <button
+            onClick={onCompare}
+            className="flex items-center gap-1 text-[10px] font-medium text-slate-400 hover:text-[#004a99] border border-slate-200 hover:border-[#004a99]/40 px-2 py-0.5 rounded-full transition-colors"
+          >
+            <GitCompare className="w-3 h-3" /> Compare
+          </button>
         </div>
         <p className="text-sm text-slate-400 mt-0.5 break-words">{ward ? `Ward ${ward.id} · ${ward.name}` : 'Toronto City Council'}</p>
         {contact && (contact.email || contact.phone) && (
@@ -408,7 +414,7 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
 
       {/* Profile header + stats */}
       <div className={cn("flex flex-col gap-4 lg:grid lg:gap-8 items-stretch mb-6", expenseRecord ? "lg:grid-cols-[220px_1fr_220px]" : "lg:grid-cols-[220px_1fr]")}>
-        <ProfileHeader selected={selected} ward={ward} contact={contact} committees={committees} isMyCouncillor={isMyCouncillor} />
+        <ProfileHeader selected={selected} ward={ward} contact={contact} committees={committees} isMyCouncillor={isMyCouncillor} onCompare={() => setVsPickerOpen(true)} />
 
         {attendance && (
           <VotingStats
