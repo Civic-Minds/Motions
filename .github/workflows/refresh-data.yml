@@ -77,6 +77,9 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: node scripts/generate_summaries.js
 
+      - name: Strip body text from motions
+        run: node scripts/strip_body.js
+
       - name: Upload data to Vercel Blob
         env:
           BLOB_READ_WRITE_TOKEN: ${{ secrets.BLOB_READ_WRITE_TOKEN }}
