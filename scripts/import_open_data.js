@@ -487,8 +487,12 @@ async function main() {
         }
     }
 
-    // Preserve enriched fields — check summaries_cache.json first (authoritative backup),
-    // then fall back to existing motions.json for other enriched fields.
+    // Preserve enriched fields from two sources:
+    // 1. motions.json (if present) — covers all PRESERVE fields; populated by Blob download in CI
+    //    or left over from a previous local run.
+    // 2. summaries_cache.json (committed to git) — covers summary/keyAmounts only; protects local
+    //    runs where no Blob download step exists. Applied unconditionally so it works even when
+    //    motions.json is absent.
     const PRESERVE = ['summary', 'keyAmounts', 'notabilityRank', 'mover', 'seconder', 'body', 'locations', 'backgroundFiles', 'declaredInterests'];
     const CACHE_PATH = path.join(process.cwd(), 'scripts/cache/summaries_cache.json');
     const summariesCache = fs.existsSync(CACHE_PATH)
