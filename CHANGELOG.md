@@ -7,6 +7,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 ## [Unreleased]
 
 ### Changed
+- **Calendar-aware CI pipeline (AI-132)**: Weekly cron no longer blindly runs the full pipeline. A lightweight `check` job fetches meetings.json from Blob and skips the `refresh` job entirely if no meeting occurred in the last 8 days. Manual `workflow_dispatch` triggers bypass the check. Saves CI minutes and Gemini API budget during summer recess and winter break. New script: `scripts/check_recent_meeting.js`.
 - **Frontend Refactor**: Significant structural cleanup across the src/ codebase.
   - `DashboardView`: Replaced 9 filter `useState` calls with a single `useReducer`; extracted `FilterSidebar` and `MotionList` as named sub-components in the same file
   - `CouncillorProfile`: Split into four sub-components — `ProfileHeader`, `VotingStats`, `PeerAlignment`, `ExpenseBreakdown`

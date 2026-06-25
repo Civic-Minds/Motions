@@ -3,18 +3,46 @@ name: Refresh Council Data
 on:
   schedule:
     - cron: '0 6 * * 1' # 6am UTC every Monday
-  workflow_dispatch: {} # allow manual trigger
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Skip meeting check and run pipeline'
+        type: boolean
+        default: false
 
 permissions:
   contents: read
   issues: write
 
 jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      should_run: ${{ steps.check.outputs.should_run }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Check for recent meeting
+        id: check
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "should_run=true" >> $GITHUB_OUTPUT
+            echo "Manual trigger — skipping meeting check"
+            exit 0
+          fi
+          RESULT=$(node scripts/check_recent_meeting.js)
+          echo "should_run=$RESULT" >> $GITHUB_OUTPUT
+          echo "Recent meeting found: $RESULT"
+
   refresh:
+    needs: check
+    if: needs.check.outputs.should_run == 'true'
     runs-on: ubuntu-latest
     steps:
-    # trigger UI refresh
-    
       - uses: actions/checkout@v5
 
       - uses: actions/setup-node@v6
@@ -71,8 +99,7 @@ jobs:
             gh api --method POST repos/${{ github.repository }}/issues \
               -f title="⚠️ $COUNT motion(s) could not be summarized" \
               -f body="Summary generation ran but these motions still lack summaries (likely missing body text):
-              
+
               $MISSING" \
               -f 'labels[]=needs-summaries' || true
           fi
-
