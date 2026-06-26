@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
-## [Unreleased]
+## [2.12.0] - 2026-06-26
 
 ### Fixed
 - **All data files removed from repo**: `public/data/` is now fully gitignored. `budget.json`, `candidates.json`, `councillors.json`, `expenses.json`, `tenure.json`, and `wards.geojson` removed from git tracking. All data files live on Vercel Blob only. Frontend fetch calls for `wards.geojson`, `tenure.json`, and `expenses.json` updated to use `VITE_BLOB_BASE_URL` (matching the existing pattern in `useMotions.js`). CI downloads static files from Blob at run start; upload script re-uploads them after pipeline completes.
