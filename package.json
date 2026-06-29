@@ -15,7 +15,7 @@
     "@google/genai": "^2.8.0",
     "@tailwindcss/vite": "^4.3.1",
     "@vercel/analytics": "^2.0.1",
-    "@vercel/blob": "^2.4.0",
+    "@vercel/blob": "^2.5.0",
     "@vercel/speed-insights": "^2.0.0",
     "cheerio": "^1.0.0-rc.12",
     "clsx": "^2.1.1",
