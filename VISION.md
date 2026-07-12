@@ -4,4 +4,4 @@ A resident of any Canadian city should be able to open Motions, type any issue t
 
 ---
 
-[Back to Roadmap](./ROADMAP.md)
+[Back to Roadmap](./docs/roadmap/ROADMAP.md)

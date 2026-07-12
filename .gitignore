@@ -23,11 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 .vercel
-# AI Instructions & Context
-CLAUDE.md
-HANDOFF.md
-gemini.md
-.agents/
 .env
 _legacy_v1
 
