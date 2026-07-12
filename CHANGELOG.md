@@ -9,18 +9,17 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 ### Changed
 - **Dependency updates**: Bumped `react-router-dom` (7.17.0 → 7.18.1), `@vercel/blob` (2.4.0 → 2.5.0), `tailwindcss` and `@tailwindcss/vite` (4.3.1 → 4.3.2), `@google/genai` (2.8.0 → 2.10.0), `playwright` (1.61.0 → 1.61.1, dev), `eslint` (10.5.0 → 10.6.0, dev), `vite` (8.0.16 → 8.1.0, dev), `globals` (17.6.0 → 17.7.0, dev), and `eslint-plugin-react-refresh` (0.5.2 → 0.5.3, dev). Bumped `actions/checkout` from v5 to v7 in `refresh-data.yml`.
 
-## [2.12.0] - 2026-06-26
+## [2.12.0] — 2026-06-26
 
 ### Fixed
 - **All data files removed from repo**: `public/data/` is now fully gitignored. `budget.json`, `candidates.json`, `councillors.json`, `expenses.json`, `tenure.json`, and `wards.geojson` removed from git tracking. All data files live on Vercel Blob only. Frontend fetch calls for `wards.geojson`, `tenure.json`, and `expenses.json` updated to use `VITE_BLOB_BASE_URL` (matching the existing pattern in `useMotions.js`). CI downloads static files from Blob at run start; upload script re-uploads them after pipeline completes.
 - **No cache files in repo**: `summaries_cache.json` and `elo_scores.json` were committed to the repo. Removed from tracking, broadened `.gitignore` to cover all of `scripts/cache/`. Cache files now persist to Vercel Blob (downloaded at CI start, uploaded after processing). Added missing `strip_body.js` step to CI workflow so body text is stripped before upload to Blob.
+- **Compare button on councillor profiles**: The VsPickerModal existed in CouncillorProfile but had no trigger — `vsPickerOpen` was always false, making head-to-head comparison unreachable from a profile page. Added a "Compare" button in the profile header that opens the picker.
+- **CI Re-summarizing All Motions on Every Run (root cause)**: The summaries cache application in `import_open_data.js` was nested inside the `if (fs.existsSync(DATA_PATH))` block — so when `motions.json` didn't exist (gitignored, absent in fresh CI checkout), the committed `summaries_cache.json` was never applied. Every CI run started with 0 summaries and re-summarized all 1441 motions (2h 53m, hitting Gemini budget). Fixed by moving the cache application outside the block so it always runs. The Blob pre-download step (added separately) further preserves all other enriched fields (body, backgroundFiles, etc.).  
 
 ### Added
 - **Vote tally in motion page header**: The final vote count (e.g. 26 – 12) now appears next to the status badge at the top of every motion page, so you can see the result without scrolling to the vote section.
 - **"Last meeting" filter on dashboard**: Toggle in the filter sidebar now shows only motions from the most recent meeting date. The `showLastMeeting` reducer state and `TOGGLE_LAST_MEETING` action already existed but were never wired into `sortedMotions` — filter logic and the toggle button were both missing.
-
-### Fixed
-- **Compare button on councillor profiles**: The VsPickerModal existed in CouncillorProfile but had no trigger — `vsPickerOpen` was always false, making head-to-head comparison unreachable from a profile page. Added a "Compare" button in the profile header that opens the picker.
 
 ### Changed
 - **Calendar-aware CI pipeline (AI-132)**: Weekly cron no longer blindly runs the full pipeline. A lightweight `check` job fetches meetings.json from Blob and skips the `refresh` job entirely if no meeting occurred in the last 8 days. Manual `workflow_dispatch` triggers bypass the check. Saves CI minutes and Gemini API budget during summer recess and winter break. New script: `scripts/check_recent_meeting.js`.
@@ -33,10 +32,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
   - `committeeToSlug()` moved to `src/utils/slug.js` and imported in all consumers (`CommitteesView`, `MeetingsListView`, `GlobalSearch`, `MeetingPage`, `DashboardView`, `CouncillorProfile`) — four local definitions removed
   - `useMotions` now returns `metrics` as a nested object instead of spreading it at the top level
 
-### Fixed
-- **CI Re-summarizing All Motions on Every Run (root cause)**: The summaries cache application in `import_open_data.js` was nested inside the `if (fs.existsSync(DATA_PATH))` block — so when `motions.json` didn't exist (gitignored, absent in fresh CI checkout), the committed `summaries_cache.json` was never applied. Every CI run started with 0 summaries and re-summarized all 1441 motions (2h 53m, hitting Gemini budget). Fixed by moving the cache application outside the block so it always runs. The Blob pre-download step (added separately) further preserves all other enriched fields (body, backgroundFiles, etc.).  
-
-## [2.11.0] - 2026-06-23
+## [2.11.0] — 2026-06-23
 
 ### Added
 - **Background Documents on Motion Page**: Motion pages now display a "Documents" section in the right column listing any background PDFs linked from the toronto.ca item page (e.g. staff reports, presentations). Extracted by a new `extractBackgroundFiles` function in `extract_fields.js` which parses the scraped `body` text, and preserved across re-imports via the `PRESERVE` list in `import_open_data.js`.
@@ -51,7 +47,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Refer/Defer Motion Status**: `parseStatus` now accepts a `motionType` argument and returns "Referred" for carried "Refer Item" motions and "Deferred" for carried "Defer" motions, instead of incorrectly returning "Adopted". The StatusBadge in `MotionPage.jsx` now renders Referred/Deferred in amber rather than green.
 - **Summaries Not Showing on Live Site**: 996 AI-generated summaries existed in local `motions.json` but had never been uploaded to Vercel Blob. The live app was pulling from Blob, so no summaries were visible anywhere. Fixed by uploading the current local data to Blob.
 
-## [2.10.7] - 2026-06-20
+## [2.10.7] — 2026-06-20
 
 ### Maintenance
 - **GitHub Actions Runtime**: Bumped `actions/checkout` to `v5` and `actions/setup-node` to `v6` — the new major versions that target the Node.js 24 runtime natively, eliminating the deprecation warning on every workflow run.
@@ -64,12 +60,12 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Local Dev Server Blank Screen**: Added a dev-redirect plugin to `vite.config.js` to automatically redirect requests at the root path (`/`) to `/toronto/` during local development. Because the production app uses a `/toronto` basename, visiting the root URL locally previously resulted in a blank screen and a router matching error.
 - **Data File Tracking**: Restored git tracking for static and semi-static files in `public/data/` (including `budget.json`, `councillors.json`, `expenses.json`, `tenure.json`, `wards.geojson`, and `candidates.json`). When the daily workflow was migrated to Vercel Blob, the entire `public/data/` directory was gitignored, which accidentally deleted these essential files from the repo. This fixes the daily workflow upload step crash (`councillors.json` not found) and resolves broken maps/expense sections on the live production website.
 
-## [2.10.6] - 2026-06-19
+## [2.10.6] — 2026-06-19
 
 ### Fixed
 - **Data Ingestion Directory Creation**: Added recursive directory creation (`fs.mkdirSync`) for `public/data/` inside `import_open_data.js` and `fetch_meetings.js`. This prevents `ENOENT` crashes during the daily GitHub Actions runs since the gitignored `public/data/` folder is not created by default on clean repository checkouts.
 
-## [2.10.5] - 2026-06-19
+## [2.10.5] — 2026-06-19
 
 ### Maintenance
 - **Dependency Updates**: Upgraded dependencies to resolve 2 remaining open Dependabot pull requests and fix vulnerabilities:
@@ -77,12 +73,12 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
   - `ws` (8.20.1 → 8.21.0)
   - Patched and resolved all remaining vulnerabilities in `@babel/core`, `protobufjs`, and `undici` via `npm audit fix`.
 
-## [2.10.4] - 2026-06-19
+## [2.10.4] — 2026-06-19
 
 ### Fixed
 - **Data Refresh Workflow Syntax**: Resolved YAML syntax/indentation error in `refresh-data.yml` where the multiline bash string for the issue body had unindented lines. This broke the YAML block scalar parsing and caused the workflow to fail validation on GitHub.
 
-## [2.10.3] - 2026-06-19
+## [2.10.3] — 2026-06-19
 
 ### Fixed
 - **Data Refresh Workflow Permissions**: Added missing `contents: read` permission to `refresh-data.yml`. When the workflow was updated to run on Vercel Blob only (removing repository commits), the explicit `permissions` block was set with `issues: write` but without `contents: read`. This caused the workflow runner to lose checkout permissions, failing all subsequent scheduled runs instantly and preventing the creation of "needs summaries" GitHub issues.
@@ -100,25 +96,25 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
   - `eslint` (10.4.1 → 10.5.0)
   - `playwright` (1.60.0 → 1.61.0)
 
-## [2.10.2] - 2026-06-11
+## [2.10.2] — 2026-06-11
 
 ### Fixed
 - **Data Refresh Workflow**: Corrected `actions/checkout` and `actions/setup-node` from non-existent `@v6` to `@v4`, fixing daily data refresh CI failure.
 
-## [2.10.1] - 2026-06-11
+## [2.10.1] — 2026-06-11
 
 ### Fixed
 - **Election Page**: `candidates.json` now served via Vercel Blob (was fetching from `/data/candidates.json` which broke when data files were removed from git). Added to `upload_to_blob.js` so running the scraper locally syncs to production.
 - **ESLint Code Quality**: Removed unused variables flagged by GitHub code quality analysis across six components: loop index in `CommitteesView`, local variable in `CouncillorList`, import in `CouncillorVotes`, props and variables in `DashboardView`, import in `WardGrid`, and import + prop in `YourWardCard`.
 
-## [2.10.0] - 2026-06-11
+## [2.10.0] — 2026-06-11
 
 ### Changed
 - **Significance Scoring**: Replaced keyword-based significance scorer with direct AI-assigned scores for all 991 summarized motions. Scores now reflect actual civic impact (0–100 scale) rather than keyword frequency, eliminating over-inflation for motions that incidentally mention common terms like "transit" or "police". Budget items (90–95), major housing policy (72–80), and routine procedural items (2–5) are now differentiated correctly.
 - **Significance Scoring (pipeline)**: `generate_summaries.js` now scores new motions automatically alongside summary generation — significance is included in the same Gemini prompt at no extra API cost. New motions will be scored consistently going forward.
 - **Data Pipeline**: Removed `public/data/` from git tracking. Data files are now managed via Vercel Blob only — the daily GitHub Actions workflow uploads to Blob without committing to the repo. Simplified `check_missing_summaries.js` to flag any unsummarized motion directly rather than diffing against git history.
 
-## [2.9.3] - 2026-05-31
+## [2.9.3] — 2026-05-31
 
 ### Fixed
 - **Automated Data Refresh Workflow**: Resolved build failure in GitHub Actions runner (`npm ci` step) by adding missing `@emnapi/core` and `@emnapi/runtime` devDependencies.
@@ -132,7 +128,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
   - `framer-motion` (12.39.0 → 12.40.0)
   - `vite` (8.0.13 → 8.0.14)
 
-## [2.9.2] - 2026-05-20
+## [2.9.2] — 2026-05-20
 
 ### Maintenance
 - **Dependency Updates**: Upgraded multiple dependencies to resolve open Dependabot pull requests:
@@ -146,14 +142,14 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
   - `@vitejs/plugin-react` (6.0.1 → 6.0.2)
   - `vite` (8.0.12 → 8.0.13)
 
-## [2.9.1] - 2026-05-12
+## [2.9.1] — 2026-05-12
 
 ### Maintenance
 - **Vite 8 Upgrade**: Upgraded Vite to 8.0.12 and `@vitejs/plugin-react` to 6.0.4.
 - **Rolldown Compatibility**: Updated `vite.config.js` to use a function for `manualChunks`. Vite 8's new Rolldown-based bundler requires `manualChunks` to be a function when complex chunking logic is needed, resolving a `TypeError: manualChunks is not a function` during the build process.
 - **Dependency Updates**: Merged multiple Dependabot updates including `tailwindcss` (3.4.17), `postcss` (8.4.49), `chart.js` (4.4.8), `autoprefixer` (10.4.21), and `firebase-admin` (13.1.0).
 
-## [2.9.0] - 2026-05-11
+## [2.9.0] — 2026-05-11
 
 ### Performance
 - **Bundle splitting**: Added Vite `manualChunks` to extract `react`/`react-dom`/`react-router-dom`, `framer-motion`, `lucide-react`/`clsx`/`tailwind-merge`, and `fuse.js` into separately cacheable vendor chunks. Main bundle cut from 544KB → 209KB (61% reduction).
@@ -164,12 +160,12 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Dependency patches**: Bumped `@anthropic-ai/sdk` to 0.91.1 and `vite` to 7.3.2; added overrides for `protobufjs` ≥7.5.5, `picomatch` ≥4.0.4, `flatted` ≥3.4.2, `undici` ≥7.24.0, `minimatch` ≥3.1.3, `rollup` ≥4.59.0, `postcss` ≥8.5.10.
 - **Dependabot**: Added `.github/dependabot.yml` for weekly npm and GitHub Actions scanning.
 
-## [2.8.1] - 2026-05-08
+## [2.8.1] — 2026-05-08
 
 ### Fixed
 - **Daily Workflow Issue Deduplication**: Modified `refresh-data.yml` to update the existing `needs-summaries` GitHub issue rather than creating duplicate issues every day when motions are missing summaries.
 
-## [2.8.0] - 2026-05-05
+## [2.8.0] — 2026-05-05
 
 ### Added
 - **2026 Election Dashboard**: Built a comprehensive candidate tracking dashboard at `/toronto/election`. Designed as a segregated internal-first feature for tracking the upcoming municipal election.
@@ -189,7 +185,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **State Management**: Fixed a runtime error in `ElectionView.jsx` caused by an undefined view state.
 - **Vercel Blob Upload**: Added `allowOverwrite: true` to `scripts/upload_to_blob.js` to resolve `BlobError` and fix the automated data refresh pipeline.
 
-## [2.7.0] - 2026-05-02
+## [2.7.0] — 2026-05-02
 
 ### Added
 - **Vercel Blob storage**: `motions.json`, `meetings.json`, and `councillors.json` are now served from Vercel Blob (`https://qcbqayy3ivvb6sia.public.blob.vercel-storage.com`). Frontend fetches from Blob in production, falls back to `/data/` locally.
@@ -201,7 +197,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **GitHub Actions workflow**: data refresh no longer commits `motions.json` or `meetings.json` back to the repo. Files are uploaded to Vercel Blob instead — eliminates daily bot commits from the repository history.
 - **Actions Node.js 20 → 24**: updated `actions/setup-node` to Node.js 24 ahead of the June 2, 2026 deprecation deadline.
 
-## [2.6.0] - 2026-04-21
+## [2.6.0] — 2026-04-21
 
 ### Added
 - **Global search** (⌘K): fuzzy search via Fuse.js across 950+ motions (title, summary, committee, topic), all councillors, and all committees. Results grouped by type with keyboard navigation (↑↓ to move, ↵ to open, ESC to close). Empty state shows topic chips and common search terms as quick-launch shortcuts.
@@ -218,7 +214,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **`SUPPL` agenda items dropped**: `fetch_meetings.js` was filtering to `publishTypeCd === 'MAIN'` only, silently dropping supplementary items (e.g. FIFA World Cup Subcommittee meetings had all items as `SUPPL`). Filter removed — all agenda item types now included.
 - **Ward map missing on some wards**: GeoJSON `AREA_SHORT_CODE` uses zero-padded strings (`"01"`) but app ward IDs are unpadded (`"1"`). `extractWardId()` now strips leading zeros so all 25 ward boundaries render correctly.
 
-## [2.5.0] - 2026-04-19
+## [2.5.0] — 2026-04-19
 
 ### Changed
 - **Council badge in Coming Up** now uses soft `bg-blue-100 text-blue-700` to match the pastel pill style used elsewhere, replacing the hard `bg-blue-600 text-white` solid badge.
@@ -233,24 +229,18 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Agenda item filters**: Meeting pages now have filter chips (All / Substantive / In Camera / Procedural) in the agenda header.
 - **Dual meeting page buttons**: MeetingPage sidebar now has separate "View committee page" (internal) and "View on toronto.ca" (external) buttons with correct icons.
 - **Calendar icon restored** in Coming Up / Dashboard header alongside "See more" link.
-
-### Fixed
-- **Phantom "non-councillors" votes**: Result text totals now only trusted when `resultText.yes >= namedYes`; otherwise discarded. Label renamed from "non-councillors" to "additional votes".
-
-### Added
 - **Summaries cache** — `generate_summaries.js` now writes all generated summaries and keyAmounts to `scripts/cache/summaries_cache.json`. `import_open_data.js` reads from this cache during the PRESERVE step, so summaries survive even if `motions.json` is rebuilt from scratch.
 - **Scraper skips summarized motions** — `scrape_agenda_text.js` now filters out motions that already have a `summary`, preventing a full re-scrape of 900+ motions after `strip_body.js` has run.
 - **38 new motions summarized** — scraped, extracted, and summarized all March 26 2026 council session motions (952 total now have summaries).
-
-### Added
 - **Multi-jurisdictional roadmap** — established a hierarchical roadmap structure for expansion beyond Toronto. Created dedicated sub-roadmaps for Ontario (`ROADMAP_DATA_ONTARIO.md`), Canada (`ROADMAP_DATA_CANADA.md`), and major municipal targets (`ROADMAP_DATA_CITIES.md`).
 - **Technical refactor plan** — updated `ROADMAP_TECHNICAL.md` with specifications for a centralized jurisdiction registry and dynamic routing to support regional branding and varying legislative terminology (e.g., MP vs. Councillor).
 
 ### Fixed
+- **Phantom "non-councillors" votes**: Result text totals now only trusted when `resultText.yes >= namedYes`; otherwise discarded. Label renamed from "non-councillors" to "additional votes".
 - **Newest-first sorting order** — resolved an issue where `CommitteesView.jsx` prioritized significance score over date, causing old motions to appear at the top.
 - **Date sorting in Councillor record** — fixed `CouncillorVotes.jsx` to use reliable date-based sorting instead of string comparison, ensuring accurate chronological order for all voting histories.
 
-## [2.4.5] - 2026-04-15
+## [2.4.5] — 2026-04-15
 
 ### Added
 - **AI summaries generated** — Gemini 2.5 Flash summaries written for 926 primary motions.
@@ -265,7 +255,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 ### Changed
 - **Body text stripped** — raw scraped body removed from motions.json (12.1 MB saved); summaries retained.
 
-## [2.4.4] - 2026-04-14
+## [2.4.4] — 2026-04-14
 
 ### Added
 - **Meeting pages** — new `/meetings/:ref` route (e.g. `/meetings/2026.PH29`) with full agenda item list, ward tags, in-camera badges, and links out to TMMIS. Two-column layout: agenda left, meeting meta sidebar right.
@@ -285,7 +275,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **VISION.md added** — north star statement extracted from ROADMAP.md into its own file.
 - **README updated** — stack reordered (AI first), stale entries removed, vision one-liner added.
 
-## [2.4.3] - 2026-04-14
+## [2.4.3] — 2026-04-14
 
 ### Added
 - **Multi-select filtering** — the Dashboard filter sidebar and mobile filters now support selecting multiple topics, committees, vote types, and years simultaneously. Selected committees are displayed as removable inline chips below the search bar.
@@ -296,7 +286,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Recent votes cleanup** — removed redundant header text ("Most Recent Votes" and small duplicated link) to focus attention on the main "See all N votes →" call to action button.
 - **Navbar collapse breakpoint** — updated the mobile-menu (`Menu`) breakpoint from `md` to `lg` to prevent the desktop navigation bar from overlapping utility right-side buttons on medium width screens (e.g., 900px-1024px).
 
-## [2.4.2] - 2026-04-14
+## [2.4.2] — 2026-04-14
 
 ### Changed
 - **Councillor committee threshold fixed** — committee pills on councillor profiles now use a fixed minimum of 5 votes instead of a percentage-based threshold that was filtering out all non-City-Council committees.
@@ -304,17 +294,34 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 ### Added
 - **Upcoming meetings on committee pages** — committee detail pages now show a scheduled meetings section above the motions list, pulling from meetings.json.
 
-## [2.4.1] - 2026-04-14
+## [2.4.1] — 2026-04-14
 
 ### Changed
 - **Your Following column hidden when empty** — instead of a blank placeholder card, the column disappears and Notable expands to fill the space.
 - **Most Notable bento label** — renamed from "Most Recent Notable" to "Most Notable".
 - **Notable cards prefer last 45 days** — bento highlights now prioritise motions from the last 45 days, falling back to older motions only if the window is empty.
 
-## [2.4.0] - 2026-04-14
+## [2.4.0] — 2026-04-14
 
 ### Changed
 - **Rebranded to Motions** — site name updated from "Your City at Work" to "Motions" and domain updated to `motions.watch` across all metadata, OG tags, canonical URL, nav logo, and scripts.
+- **Navbar Centering** — absolutely centered the Councillors/Committees/Wards nav so it no longer shifts when the Compare button appears or disappears.
+- **Navbar Button Order** — Compare button now appears before the Ward button for better visual hierarchy.
+- **Number Formatting** — added comma separators to motion counts (e.g., "1,234 motions" instead of "1234").
+- **Header Synchronization** — standardized column widths across the entire dashboard (200px | 1fr | 220px) for a seamless vertical flow.
+- **Improved Action styling** — redesigned the "Find my ward" button with a soft, integrated aesthetic for better sidebar fit.
+- **Data Density** — increased the "Most Recent Notable" slice to 4 items to fill the expanded central grid.
+- **Refined Labels** — removed redundant all-caps labels ("YOUR WARD", "WARD MAP") to reduce UI noise.
+- **Status Deduplication** — removed redundant status badges from the final vote record on single-vote motions for a cleaner detail view.
+- **Layout Harmonization** — removed the redundant "Your Ward" card to streamline the spatial intelligence column.
+- **Typography Standardization** — refined Motion Page header typography and removed italics from "Motion Summary" for an editorial look.
+- **Councillor Feed Pivot** — transitioned councillor vote history from a horizontal scroll to a chronologically sorted (latest first) vertical feed.
+- **Improved Vote Context** — expanded councillor vote items to include topic tags and specific meeting dates for better scanability.
+- **Global Cursor Pointer** — all buttons, links, and interactive elements now show the hand cursor on hover.
+- **Councillor Callout Link** — the "Your Councillor" card on motion pages now uses a clickable blue link matching the Mover/Seconder format, linking directly to the councillor's profile.
+- **Ward Motion Sorting** — ward detail pages now sort motions by date (newest first) instead of significance only.
+- **Explicit Vote Breakdowns** — updated the vote breakdown UI to explicitly list non-councillor votes (e.g., "+ 2 non-councillors") inline with the Yes/No lists, replacing the easily missed footnote, and preventing supposedly "empty" columns from disappearing.
+- **Motion Page Layout** — refactored the motion detail page into a dense 2-column grid to reduce vertical scrolling, and made the "Back" button hang dynamically in the left gutter on large screens to reduce vertical space usage.
 
 ### Added
 - **Multi-committee following** — users can now follow multiple committees simultaneously.
@@ -334,30 +341,12 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **"Find My Ward" Global Onboarding** — updated the Navbar label to "Find My Ward" to improve clarity for new users.
 - **Multi-committee Activity Aggregation** — implemented intelligent labeling (e.g., "Multiple Committees") in the dashboard feed to handle overlapping meeting schedules.
 
-### Changed
-- **Navbar Centering** — absolutely centered the Councillors/Committees/Wards nav so it no longer shifts when the Compare button appears or disappears.
-- **Navbar Button Order** — Compare button now appears before the Ward button for better visual hierarchy.
-- **Number Formatting** — added comma separators to motion counts (e.g., "1,234 motions" instead of "1234").
-- **Header Synchronization** — standardized column widths across the entire dashboard (200px | 1fr | 220px) for a seamless vertical flow.
-- **Improved Action styling** — redesigned the "Find my ward" button with a soft, integrated aesthetic for better sidebar fit.
-- **Data Density** — increased the "Most Recent Notable" slice to 4 items to fill the expanded central grid.
-- **Refined Labels** — removed redundant all-caps labels ("YOUR WARD", "WARD MAP") to reduce UI noise.
-- **Status Deduplication** — removed redundant status badges from the final vote record on single-vote motions for a cleaner detail view.
-- **Layout Harmonization** — removed the redundant "Your Ward" card to streamline the spatial intelligence column.
-- **Typography Standardization** — refined Motion Page header typography and removed italics from "Motion Summary" for an editorial look.
-- **Councillor Feed Pivot** — transitioned councillor vote history from a horizontal scroll to a chronologically sorted (latest first) vertical feed.
-- **Improved Vote Context** — expanded councillor vote items to include topic tags and specific meeting dates for better scanability.
-- **Global Cursor Pointer** — all buttons, links, and interactive elements now show the hand cursor on hover.
-- **Councillor Callout Link** — the "Your Councillor" card on motion pages now uses a clickable blue link matching the Mover/Seconder format, linking directly to the councillor's profile.
-- **Ward Motion Sorting** — ward detail pages now sort motions by date (newest first) instead of significance only.
-- **Explicit Vote Breakdowns** — updated the vote breakdown UI to explicitly list non-councillor votes (e.g., "+ 2 non-councillors") inline with the Yes/No lists, replacing the easily missed footnote, and preventing supposedly "empty" columns from disappearing.
-- **Motion Page Layout** — refactored the motion detail page into a dense 2-column grid to reduce vertical scrolling, and made the "Back" button hang dynamically in the left gutter on large screens to reduce vertical space usage.
-## [2.3.0] - 2026-04-13
+## [2.3.0] — 2026-04-13
 
 ### Added
 - **Upcoming meetings strip** — "Coming Up" section on the dashboard shows the next 10 meetings (next 90 days, major committees only) as horizontal scrollable cards. City Council meetings are highlighted in blue. Powered by a new `fetch_meetings.js` script pulling from Toronto Open Data's meeting schedule CSV. `meetings.json` is now fetched on app load alongside `motions.json` and committed daily by GitHub Actions.
 
-## [2.2.0] - 2026-04-13
+## [2.2.0] — 2026-04-13
 
 ### Added
 - **Sub-motion context** — when expanding a sub-vote on a motion page (e.g. "Refer Item"), a plain-language description of what that motion type means is shown, plus the sub-entry's title if it differs from the parent.
@@ -401,7 +390,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Yes/No casing** — vote labels display as "Yes" / "No" throughout the councillor page (pills, cards, and DNA chart).
 - **Ward ID normalization** — `src/utils/storage.js` introduced with `getWardId()` / `setWardId()`. Eliminates leading-zero bug (`"09"` → `"9"`) and removes duplicated localStorage logic across 6 components.
 
-## [2.1.1] - 2026-04-10
+## [2.1.1] — 2026-04-10
 
 ### Fixed
 - **Ward detail page runtime fix** — imported the missing `ArrowRight` icon in `WardGrid.jsx`, restoring individual ward pages at `/wards/:wardId`.
@@ -409,7 +398,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 ### Changed
 - **Package metadata version sync** — bumped `package.json` to `2.1.1` and aligned the root `package-lock.json` version fields.
 
-## [2.1.0] - 2026-04-10
+## [2.1.0] — 2026-04-10
 
 ### Added
 - **Interactive map on ward detail pages** — `WardMotionMap.jsx` uses react-leaflet + OSM tiles. Shows ward boundary (GeoJSON) + coloured pins for address-bearing motions (green = Adopted, red = Lost). Click pin → motion page. Lazy-loaded chunk.
@@ -444,19 +433,19 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **`scripts/fetch_motions.js`** — superseded by `import_open_data.js`.
 - **`getPairwiseAlignment`** — unused export removed from `analytics.js`.
 
-## [2.0.2] - 2026-04-10
+## [2.0.2] — 2026-04-10
 
 ### Changed
 - **Renamed to Your City at Work** — browser tab, OG tags, navbar logo, and developer configuration updated from "Motions" to "Your City at Work".
 - **Social Preview Updates** — generalized description text ("See every vote. Know every decision. It's your city.") and added a premium user-provided photo of Toronto City Hall as the social graphic.
 
-## [2.0.1] - 2026-04-10
+## [2.0.1] — 2026-04-10
 
 ### Added
 - **Site footer** — slim footer on every page with Toronto Open Data attribution, Civic Minds link, and GitHub link.
 - **Vercel Analytics** — privacy-friendly page view tracking via `@vercel/analytics`. No cookies, no consent banner.
 
-## [2.0.0] - 2026-04-10
+## [2.0.0] — 2026-04-10
 
 ### Infrastructure
 - **Custom domain configuration** — successfully connected `yourcityatwork.ca` to Vercel. Configured root A record (`216.198.79.1`) and `www` CNAME (`fb8efec54f29146a.vercel-dns-017.com.`) in Spaceship.
@@ -474,16 +463,6 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **YourWardCard on Wards page** — the ward selection card appears in the stats strip at the top of the Wards page, consistent with the homepage. Geolocation machinery removed from WardGrid (YourWardCard handles it).
 - **Committee URL routing** — committees now use `/committees/:slug` URLs. Title and subtitle update when navigating into a committee. No more local state toggling.
 - **Committee members on committee pages** — each committee detail page shows a "Members" section with councillor pills derived from voting frequency (≥25% of that committee's motions). Clicking a member navigates to their profile.
-
-### Changed
-- **Dashboard layout unified** — homepage now uses two grids both with `[200px_1fr_220px]` column template so Notable cards and motion list share identical left/right edges. Filter sidebar is sticky; Last Meeting and Your Ward are not.
-- **"Defeated" → "Lost"** — all 135 motions in `motions.json` updated; `import_open_data.js` now outputs "Lost"; UI conditionals cleaned up.
-- **"Crushed" flag label renamed** — `landslide-defeat` flag now displays as "Landslide Loss".
-- **Ward/homepage localStorage sync** — `YourWardCard` and `WardGrid` both read/write the same `motions_ward_id` key. Setting your ward on either page is reflected on the other.
-- **Councillor back button removed** — redundant "← Councillors" link removed from profile header; nav tab serves the same purpose.
-- **CommitteesView title** — page title and subtitle now update to reflect the selected committee name and motion count.
-
-### Added
 - **Councillor photos** — headshot images at `public/images/councillors/{LastName}.jpg` shown in profile header and list card avatars. Falls back to initials if no photo exists. Add new photos by filename with no code changes needed.
 - **Councillor tenure** — `build_tenure.js` script fetches all 5 historical term CSVs (2006–2026) and produces `public/data/tenure.json` with each member's first elected year and list of terms. CouncillorProfile now shows "on council since XXXX" in the header stats strip. Manual corrections applied: Olivia Chow → 1991, Jon Burnside → 2022 (removed erroneous 2014 entry), Neethan Shan → 2017 (by-election).
 - **Former members excluded from Councillors list** — John Tory (resigned Feb 2023), Jaye Robinson (passed away Jun 2024), and Gary Crawford (resigned Aug 2023) are filtered from the grid. Their profiles remain accessible directly; a banner notes their status and marks the record as historical.
@@ -494,6 +473,12 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Vote split in highlights** — each highlight now shows YES/NO counts inline (e.g. `18–8`).
 
 ### Changed
+- **Dashboard layout unified** — homepage now uses two grids both with `[200px_1fr_220px]` column template so Notable cards and motion list share identical left/right edges. Filter sidebar is sticky; Last Meeting and Your Ward are not.
+- **"Defeated" → "Lost"** — all 135 motions in `motions.json` updated; `import_open_data.js` now outputs "Lost"; UI conditionals cleaned up.
+- **"Crushed" flag label renamed** — `landslide-defeat` flag now displays as "Landslide Loss".
+- **Ward/homepage localStorage sync** — `YourWardCard` and `WardGrid` both read/write the same `motions_ward_id` key. Setting your ward on either page is reflected on the other.
+- **Councillor back button removed** — redundant "← Councillors" link removed from profile header; nav tab serves the same purpose.
+- **CommitteesView title** — page title and subtitle now update to reflect the selected committee name and motion count.
 - **Bento header layout** — top section redesigned as three columns: Last Meeting (200px), Most Recent Notable (flexible), Your Ward (220px). Section labels moved above cards. Removed outer card wrapper from Most Recent Notable so the 4 mini-cards sit directly in the column. Your Ward moved to the right column.
 - **Equal card heights** — all three top-section columns use CSS grid `items-stretch` with `flex-1` / `h-full` to fill the row height consistently.
 - **ProfilePanel and MotionPanel z-index** — raised backdrop to `z-[60]` and modal to `z-[70]` so they correctly overlay the sticky navbar (`z-50`).
@@ -502,8 +487,6 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Nav order updated** — Councillors → Scorecard → Committees → Wards.
 - **Ward detail map removed** — the SVG ward boundary outline shown on ward detail pages has been removed; it added little value.
 - **Search bar redesigned** — navbar search now looks like a real search input with a fixed width, placeholder text, and the ⌘K hint inside the field. Mobile gets an icon-only button.
-
-### Changed
 - **ProfilePanel → centered modal** — councillor detail panel replaced the right-side slide-in with a centered modal dialog (spring animation, backdrop blur). Works the same on mobile and desktop.
 - **MotionPanel → centered modal** — motion detail panel is now a centered modal. Vote rows sorted YES → NO → ABSENT; a YES/NO summary bar shown above the full breakdown.
 - **Homepage hero redesigned** — removed oversized stats column (text-5xl numbers, p-8 padding). Stats are now a single compact strip (text-xs inline row). Highlights list is denser (no card borders per item, line-clamp-1). Hero card and Your Ward card now sit side-by-side on desktop, both visible above the fold.
@@ -518,3 +501,4 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Ward card click-through** — clicking a ward card now shows a significance-sorted motion list for that ward (with back navigation). Previously cards were not interactive.
 - **Bundled ward boundaries** — ward GeoJSON downloaded from Toronto ArcGIS and saved to `public/data/wards.geojson`. "Find my ward" no longer depends on the CKAN API (which was unreachable).
 - **Scorecard dense ranking** — ties share the same rank number. Podium (gold/silver/bronze) hidden when top values are tied (e.g. multiple councillors at 100% attendance).
+
