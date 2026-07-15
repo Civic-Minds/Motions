@@ -4,10 +4,11 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
-## [Unreleased]
+## [2.12.1] — 2026-07-15
 
 ### Changed
 - **Dependency updates**: Bumped `react-router-dom` (7.17.0 → 7.18.1), `@vercel/blob` (2.4.0 → 2.5.0), `tailwindcss` and `@tailwindcss/vite` (4.3.1 → 4.3.2), `@google/genai` (2.8.0 → 2.10.0), `playwright` (1.61.0 → 1.61.1, dev), `eslint` (10.5.0 → 10.6.0, dev), `vite` (8.0.16 → 8.1.0, dev), `globals` (17.6.0 → 17.7.0, dev), and `eslint-plugin-react-refresh` (0.5.2 → 0.5.3, dev). Bumped `actions/checkout` from v5 to v7 in `refresh-data.yml`.
+- **Dependency updates**: Bumped `@vercel/blob`, `lucide-react`, `vite`, `@google/genai`, `fuse.js`, `@emnapi/core`, and `@vitejs/plugin-react` to their latest compatible releases.
 
 ## [2.12.0] — 2026-06-26
 
@@ -501,4 +502,3 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Ward card click-through** — clicking a ward card now shows a significance-sorted motion list for that ward (with back navigation). Previously cards were not interactive.
 - **Bundled ward boundaries** — ward GeoJSON downloaded from Toronto ArcGIS and saved to `public/data/wards.geojson`. "Find my ward" no longer depends on the CKAN API (which was unreachable).
 - **Scorecard dense ranking** — ties share the same rank number. Podium (gold/silver/bronze) hidden when top values are tied (e.g. multiple councillors at 100% attendance).
-
