@@ -32,7 +32,7 @@
     "tailwindcss": "^4.3.2"
   },
   "devDependencies": {
-    "@emnapi/core": "^1.11.1",
+    "@emnapi/core": "^1.11.2",
     "@emnapi/runtime": "^1.11.1",
     "@eslint/js": "^10.0.1",
     "@types/react": "^19.2.17",
