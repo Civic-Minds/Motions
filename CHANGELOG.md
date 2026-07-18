@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
+## [Unreleased]
+
+### Fixed
+- **Summary health diagnostics**: Refresh logs now distinguish actionable missing summaries from submotions that intentionally inherit a parent summary.
+
 ## [2.12.2] — 2026-07-18
 
 ### Fixed
