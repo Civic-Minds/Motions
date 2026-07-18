@@ -184,14 +184,30 @@ function parseStatus(result, motionType = '') {
 }
 
 function parseTimestamp(dateStr) {
-    // "2022-11-23 15:17 PM" or "2022-11-23 09:05 AM"
-    return new Date(dateStr.replace(/ [AP]M$/, ''));
+    // Date-only source values are calendar dates, not timestamps. Parsing
+    // them as ISO dates at local midnight shifts them back a day in western
+    // time zones (e.g. 2026-07-09 becomes July 8 in Toronto).
+    const normalized = dateStr.trim().replace(/ [AP]M$/, '');
+    const dateOnly = normalized.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (dateOnly) {
+        return new Date(Date.UTC(
+            Number(dateOnly[1]),
+            Number(dateOnly[2]) - 1,
+            Number(dateOnly[3]),
+        ));
+    }
+    return new Date(normalized);
 }
 
 function formatDate(dateStr) {
     const d = parseTimestamp(dateStr);
     if (isNaN(d.getTime())) return dateStr;
-    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    return d.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+        timeZone: 'UTC',
+    });
 }
 
 function formatId(agendaItemNum) {

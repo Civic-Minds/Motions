@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
+## [Unreleased]
+
+### Fixed
+- **Motion date parsing**: Preserved date-only voting records across time zones so newly published records no longer appear one day early in local imports.
+
 ## [2.12.1] — 2026-07-15
 
 ### Changed
