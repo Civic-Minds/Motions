@@ -29,7 +29,7 @@
     "react-leaflet": "^5.0.0",
     "react-router-dom": "^7.18.1",
     "tailwind-merge": "^3.6.0",
-    "tailwindcss": "^4.3.2"
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
     "@emnapi/core": "^1.11.2",
