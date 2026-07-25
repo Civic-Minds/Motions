@@ -9,6 +9,9 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 ### Fixed
 - **Security vulnerabilities**: Resolved high-severity CSRF vulnerability (GHSA-qwww-vcr4-c8h2) in `react-router` by overriding it to `>=8.3.0`. Cleaned up other vulnerabilities (`brace-expansion`, `postcss`, and `protobufjs`) via `npm audit fix`.
 
+### Changed
+- **Dependency updates**: Bumped `@anthropic-ai/sdk` (0.105.0 → 0.112.4), `@google/genai` (2.11.0 → 2.12.0), `@tailwindcss/vite` and `tailwindcss` (4.3.2 → 4.3.3), `lucide-react` (1.24.0 → 1.25.0), `eslint` (10.6.0 → 10.7.0, dev), `vite` (8.1.4 → 8.1.5, dev), and `actions/setup-node` from v6 to v7.
+
 ## [2.12.3] — 2026-07-18
 
 ### Fixed

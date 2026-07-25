@@ -11,9 +11,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.105.0",
-    "@google/genai": "^2.11.0",
-    "@tailwindcss/vite": "^4.3.2",
+    "@anthropic-ai/sdk": "^0.112.4",
+    "@google/genai": "^2.12.0",
+    "@tailwindcss/vite": "^4.3.3",
     "@vercel/analytics": "^2.0.1",
     "@vercel/blob": "^2.6.1",
     "@vercel/speed-insights": "^2.0.0",
@@ -22,14 +22,14 @@
     "framer-motion": "^12.40.0",
     "fuse.js": "^7.5.0",
     "leaflet": "^1.9.4",
-    "lucide-react": "^1.24.0",
+    "lucide-react": "^1.25.0",
     "node-fetch": "^3.3.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.7",
     "react-leaflet": "^5.0.0",
     "react-router-dom": "^7.18.1",
     "tailwind-merge": "^3.6.0",
-    "tailwindcss": "^4.3.2"
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
     "@emnapi/core": "^1.11.2",
@@ -38,12 +38,12 @@
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.3",
-    "eslint": "^10.6.0",
+    "eslint": "^10.7.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.3",
     "globals": "^17.7.0",
     "playwright": "^1.61.1",
-    "vite": "^8.1.4"
+    "vite": "^8.1.5"
   },
   "overrides": {
     "protobufjs": ">=7.5.5",
