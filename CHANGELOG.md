@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
+## [Unreleased]
+
+### Fixed
+- **Security vulnerabilities**: Resolved high-severity CSRF vulnerability (GHSA-qwww-vcr4-c8h2) in `react-router` by overriding it to `>=8.3.0`. Cleaned up other vulnerabilities (`brace-expansion`, `postcss`, and `protobufjs`) via `npm audit fix`.
+
 ## [2.12.3] — 2026-07-18
 
 ### Fixed
