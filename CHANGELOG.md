@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
+## [Unreleased]
+
+### Fixed
+- **CSV import**: Preserved agenda items whose titles contain line breaks so they are not dropped from the motion feed.
+
 ## [2.12.4] — 2026-07-24
 
 ### Fixed

@@ -39,33 +39,47 @@ const TERM_URLS = {
 // CSV parser
 // ---------------------------------------------------------------------------
 
-function parseCSVLine(line) {
-    const fields = [];
+function parseCSV(text) {
+    const records = [];
+    let fields = [];
     let current = '';
     let inQuotes = false;
-    for (let i = 0; i < line.length; i++) {
-        const ch = line[i];
+
+    // Parse records character-by-character so quoted CSV fields may contain
+    // commas or line breaks without being mistaken for new records.
+    for (let i = 0; i < text.length; i++) {
+        const ch = text[i];
+
         if (ch === '"') {
-            if (inQuotes && line[i + 1] === '"') { current += '"'; i++; }
-            else inQuotes = !inQuotes;
+            if (inQuotes && text[i + 1] === '"') {
+                current += '"';
+                i++;
+            } else {
+                inQuotes = !inQuotes;
+            }
         } else if (ch === ',' && !inQuotes) {
             fields.push(current.trim());
             current = '';
+        } else if ((ch === '\n' || ch === '\r') && !inQuotes) {
+            fields.push(current.trim());
+            current = '';
+
+            if (ch === '\r' && text[i + 1] === '\n') i++;
+            if (fields.some(field => field !== '')) records.push(fields);
+            fields = [];
         } else {
             current += ch;
         }
     }
-    fields.push(current.trim());
-    return fields;
-}
 
-function parseCSV(text) {
-    const lines = text.split('\n');
-    const headers = parseCSVLine(lines[0]);
+    if (current || fields.length > 0) {
+        fields.push(current.trim());
+        if (fields.some(field => field !== '')) records.push(fields);
+    }
+
+    const headers = records.shift() || [];
     const rows = [];
-    for (let i = 1; i < lines.length; i++) {
-        if (!lines[i].trim()) continue;
-        const values = parseCSVLine(lines[i]);
+    for (const values of records) {
         if (values.length >= headers.length) {
             const obj = {};
             headers.forEach((h, j) => obj[h.trim()] = values[j] || '');
