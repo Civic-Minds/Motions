@@ -7,6 +7,11 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 ## [Unreleased]
 
 ### Fixed
+- **Dependency security**: Updated vulnerable transitive `undici`, `nanoid`, and `brace-expansion` packages so the dependency audit is clean.
+
+### Changed
+- **Dependency updates**: Updated `@emnapi/runtime` to the latest patched release.
+
 - **CSV import**: Preserved agenda items whose titles contain line breaks so they are not dropped from the motion feed.
 
 ## [2.12.4] — 2026-07-24
