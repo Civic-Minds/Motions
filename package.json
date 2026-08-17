@@ -19,7 +19,7 @@
     "@vercel/speed-insights": "^2.0.0",
     "cheerio": "^1.0.0-rc.12",
     "clsx": "^2.1.1",
-    "framer-motion": "^13.0.0",
+    "framer-motion": "^13.1.0",
     "fuse.js": "^7.5.0",
     "leaflet": "^1.9.4",
     "lucide-react": "^1.30.0",
