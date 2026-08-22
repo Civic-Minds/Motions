@@ -8,6 +8,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Fixed
 - **Dependency security**: Updated vulnerable transitive `undici`, `nanoid`, and `brace-expansion` packages so the dependency audit is clean.
+- **Desktop navigation**: Prevented the main navigation from overlapping the Compare, ward, and search controls at narrower desktop widths.
 
 ### Changed
 - **Dependency updates**: Updated `@emnapi/runtime` to the latest patched release.
