@@ -12,6 +12,11 @@ const ELECTION_DATE = new Date('2026-10-26T00:00:00');
 const NOMINATION_OPEN = new Date('2026-05-01T08:30:00');
 const NOMINATION_CLOSE = new Date('2026-08-21T14:00:00');
 
+const formatNominationDate = (date) => {
+  if (!date) return null;
+  return `Filed ${date}`;
+};
+
 export default function ElectionView() {
   const savedWardId = getWardId();
   const today = new Date();
@@ -175,8 +180,8 @@ export default function ElectionView() {
                         <span className="text-[9px] text-slate-400">350+ Votes Tracked</span>
                       </Link>
                       <div className="p-3 rounded-2xl bg-white/5 border border-white/5 flex flex-col items-center justify-center text-center gap-1 grayscale opacity-50 cursor-not-allowed">
-                        <span className="text-xs font-bold text-white">Nomination Docs</span>
-                        <span className="text-[9px] text-slate-400">Registered May 1</span>
+                      <span className="text-xs font-bold text-white">Candidate Record</span>
+                      <span className="text-[9px] text-slate-400">Official listing</span>
                       </div>
                     </div>
                   </div>
@@ -245,6 +250,9 @@ export default function ElectionView() {
                               {c.email && <a href={`mailto:${c.email}`} className="text-slate-400 hover:text-white"><Mail className="w-3.5 h-3.5" /></a>}
                               {c.phone && <a href={`tel:${c.phone}`} className="text-slate-400 hover:text-white"><Phone className="w-3.5 h-3.5" /></a>}
                             </div>
+                            {formatNominationDate(c.nominationDate) && (
+                              <span className="text-[9px] text-slate-500">{formatNominationDate(c.nominationDate)}</span>
+                            )}
                           </div>
                         </div>
                       ))
@@ -266,6 +274,9 @@ export default function ElectionView() {
                               {c.email && <a href={`mailto:${c.email}`} className="text-slate-400 hover:text-white"><Mail className="w-3.5 h-3.5" /></a>}
                               {c.phone && <a href={`tel:${c.phone}`} className="text-slate-400 hover:text-white"><Phone className="w-3.5 h-3.5" /></a>}
                             </div>
+                            {formatNominationDate(c.nominationDate) && (
+                              <span className="text-[9px] text-slate-500">{formatNominationDate(c.nominationDate)}</span>
+                            )}
                           </div>
                         </div>
                       ))
@@ -307,7 +318,7 @@ export default function ElectionView() {
               <span className="text-[10px] font-bold uppercase tracking-wider">Key Period</span>
             </div>
             <h3 className="font-bold text-slate-900">Nomination Period</h3>
-            <p className="text-sm text-slate-500">Candidates can file papers to run for Mayor or Councillor.</p>
+            <p className="text-sm text-slate-500">Nominations are closed. The registered candidate list is shown above.</p>
           </div>
           <div className="mt-6 flex items-center justify-between">
             <div className="flex flex-col">
@@ -319,7 +330,7 @@ export default function ElectionView() {
                 {isNominationOpen ? "Open Now" : isNominationPast ? "Closed" : "Opening May 1"}
               </span>
             </div>
-            <span className="text-xs text-slate-400 font-medium">Closes Aug 21</span>
+            <span className="text-xs text-slate-400 font-medium">Closed Aug 21 at 2 p.m.</span>
           </div>
         </motion.div>
 

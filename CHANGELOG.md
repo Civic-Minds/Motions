@@ -6,6 +6,9 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+### Changed
+- **Election candidate records**: Refresh the official 2026 candidate list during data updates and show filed dates now that nominations are closed.
+
 ### Fixed
 - **Dependency security**: Updated vulnerable transitive `undici`, `nanoid`, and `brace-expansion` packages so the dependency audit is clean.
 - **Desktop navigation**: Prevented the main navigation from overlapping the Compare, ward, and search controls at narrower desktop widths.
