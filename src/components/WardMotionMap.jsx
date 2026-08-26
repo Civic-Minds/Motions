@@ -1,21 +1,25 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { MapContainer, TileLayer, GeoJSON, CircleMarker, Tooltip, useMap } from 'react-leaflet';
 import { useNavigate } from 'react-router-dom';
 import { Maximize2, X } from 'lucide-react';
 import 'leaflet/dist/leaflet.css';
 
 // Fit map to the ward boundary on load/change
-function FitBounds({ feature }) {
+function FitBounds({ feature, pins }) {
   const map = useMap();
   useEffect(() => {
-    if (!feature) return;
     const L = window.L;
     if (!L) return;
     try {
-      const layer = L.geoJSON(feature);
-      map.fitBounds(layer.getBounds(), { padding: [24, 24] });
-    } catch {}
-  }, [feature, map]);
+      if (feature) {
+        map.fitBounds(L.geoJSON(feature).getBounds(), { padding: [24, 24] });
+      } else if (pins.length > 0) {
+        map.fitBounds(L.latLngBounds(pins.map(pin => [pin.lat, pin.lng])), { padding: [24, 24] });
+      }
+    } catch {
+      return;
+    }
+  }, [feature, map, pins]);
   return null;
 }
 
@@ -30,9 +34,9 @@ export default function WardMotionMap({ wardFeature, motions, isFullscreen = fal
   }, [isFullscreen]);
 
   // Motions with location data
-  const pins = motions.flatMap(m =>
+  const pins = useMemo(() => motions.flatMap(m =>
     (m.locations ?? []).map(loc => ({ ...loc, motion: m }))
-  );
+  ), [motions]);
 
   return (
     <div className={isFullscreen
@@ -51,11 +55,12 @@ export default function WardMotionMap({ wardFeature, motions, isFullscreen = fal
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       />
+      {!wardFeature && <FitBounds pins={pins} />}
 
       {/* Ward boundary */}
       {wardFeature && (
         <>
-          <FitBounds feature={wardFeature} />
+          <FitBounds feature={wardFeature} pins={pins} />
           <GeoJSON
             key={wardFeature.properties?.AREA_ID}
             data={wardFeature}

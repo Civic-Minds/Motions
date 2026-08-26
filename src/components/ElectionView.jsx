@@ -17,12 +17,44 @@ const formatNominationDate = (date) => {
   return `Filed ${date}`;
 };
 
+function CandidateList({ candidates, emptyText, incumbentName, incumbentClass }) {
+  if (!candidates?.length) {
+    return <p className="text-sm text-slate-500 italic text-center py-8">{emptyText}</p>;
+  }
+
+  return (
+    <div className="space-y-2">
+      {candidates.map((candidate, i) => {
+        const isIncumbent = incumbentName && candidate.name.toLowerCase() === incumbentName.toLowerCase();
+        return (
+          <div key={`${candidate.name}-${i}`} className="flex items-center justify-between gap-3 p-3 rounded-xl bg-white border border-slate-200 hover:border-slate-300 transition-all">
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="font-bold text-sm text-slate-900 truncate">{candidate.name}</span>
+              {isIncumbent && (
+                <span className={cn("shrink-0 text-[8px] px-1.5 py-0.5 rounded-full font-black uppercase tracking-widest", incumbentClass)}>
+                  Incumbent
+                </span>
+              )}
+            </div>
+            <div className="flex items-center gap-3 shrink-0">
+              {formatNominationDate(candidate.nominationDate) && (
+                <span className="text-[9px] text-slate-500">{formatNominationDate(candidate.nominationDate)}</span>
+              )}
+              {candidate.email && <a href={`mailto:${candidate.email}`} aria-label={`Email ${candidate.name}`} className="text-slate-400 hover:text-slate-900"><Mail className="w-3.5 h-3.5" /></a>}
+              {candidate.phone && <a href={`tel:${candidate.phone}`} aria-label={`Call ${candidate.name}`} className="text-slate-400 hover:text-slate-900"><Phone className="w-3.5 h-3.5" /></a>}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 export default function ElectionView() {
   const { wardId: savedWardId, handleSetWard } = useAppContext();
   const today = new Date();
   const [candidateData, setCandidateData] = useState(null);
   const [expandedWards, setExpandedWards] = useState({});
-  const [candidateView, setCandidateView] = useState(savedWardId ? 'ward' : 'mayor');
 
   useEffect(() => {
     const blobBase = import.meta.env.VITE_BLOB_BASE_URL;
@@ -55,7 +87,6 @@ export default function ElectionView() {
   const handleWardChange = (event) => {
     const wardId = event.target.value || null;
     handleSetWard(wardId);
-    if (wardId) setCandidateView('ward');
   };
 
   return (
@@ -217,87 +248,42 @@ export default function ElectionView() {
             </div>
 
             {/* The Candidates Column */}
-            <div className="bg-white border border-slate-200 rounded-2xl p-4 space-y-4">
-              <div className="flex items-center justify-between px-1">
-                <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#004a99]">
-                  <Vote className="w-4 h-4" />
-                  The 2026 Candidates
-                </h3>
-                <div className="flex bg-slate-100 p-1 rounded-xl border border-slate-200">
-                  <button 
-                    onClick={() => setCandidateView('mayor')}
-                    className={cn(
-                      "px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all",
-                      candidateView === 'mayor' ? "bg-white text-slate-900" : "text-slate-400 hover:text-slate-900"
-                    )}
-                  >Mayor</button>
-                  <button 
-                    onClick={() => setCandidateView('ward')}
-                    disabled={!savedWardId}
-                    className={cn(
-                      "px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all",
-                      candidateView === 'ward' ? "bg-white text-slate-900" : "text-slate-400 hover:text-slate-900",
-                      !savedWardId && "cursor-not-allowed opacity-40"
-                    )}
-                  >{savedWardId ? `Ward ${savedWardId}` : 'Choose ward'}</button>
-                </div>
+            <div className="space-y-3">
+              <div className="flex items-center gap-2 px-1">
+                <Vote className="w-4 h-4 text-[#004a99]" />
+                <h3 className="text-xs font-bold uppercase tracking-widest text-[#004a99]">2026 candidates</h3>
               </div>
 
-              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 h-[360px] overflow-y-auto custom-scrollbar">
-                <div className="space-y-3">
-                  {candidateView === 'mayor' ? (
-                    candidateData?.mayor.length > 0 ? (
-                      candidateData.mayor.map((c, i) => (
-                        <div key={i} className="flex flex-col gap-1 p-3 rounded-2xl bg-white border border-slate-200 hover:border-slate-300 transition-all">
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-2">
-                              <span className="font-bold text-sm">{c.name}</span>
-                              {c.name.toLowerCase().includes('chow') && (
-                                <span className="text-[8px] bg-purple-50 px-1.5 py-0.5 rounded-full font-black uppercase tracking-widest text-purple-700">Incumbent</span>
-                              )}
-                            </div>
-                            <div className="flex items-center gap-3">
-                              {c.email && <a href={`mailto:${c.email}`} className="text-slate-400 hover:text-slate-900"><Mail className="w-3.5 h-3.5" /></a>}
-                              {c.phone && <a href={`tel:${c.phone}`} className="text-slate-400 hover:text-slate-900"><Phone className="w-3.5 h-3.5" /></a>}
-                            </div>
-                            {formatNominationDate(c.nominationDate) && (
-                              <span className="text-[9px] text-slate-500">{formatNominationDate(c.nominationDate)}</span>
-                            )}
-                          </div>
-                        </div>
-                      ))
-                    ) : (
-                      <p className="text-sm text-slate-500 italic text-center py-8">No Mayor candidates registered yet</p>
-                    )
-                  ) : (
-                    wardCandidates.length > 0 ? (
-                      wardCandidates.map((c, i) => (
-                        <div key={i} className="flex flex-col gap-1 p-3 rounded-2xl bg-white border border-slate-200 hover:border-slate-300 transition-all">
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-2">
-                              <span className="font-bold text-sm">{c.name}</span>
-                              {c.name.toLowerCase().includes(councillorName?.toLowerCase() || '') && (
-                                <span className="text-[8px] bg-blue-50 px-1.5 py-0.5 rounded-full font-black uppercase tracking-widest text-blue-700">Incumbent</span>
-                              )}
-                            </div>
-                            <div className="flex items-center gap-3">
-                              {c.email && <a href={`mailto:${c.email}`} className="text-slate-400 hover:text-slate-900"><Mail className="w-3.5 h-3.5" /></a>}
-                              {c.phone && <a href={`tel:${c.phone}`} className="text-slate-400 hover:text-slate-900"><Phone className="w-3.5 h-3.5" /></a>}
-                            </div>
-                            {formatNominationDate(c.nominationDate) && (
-                              <span className="text-[9px] text-slate-500">{formatNominationDate(c.nominationDate)}</span>
-                            )}
-                          </div>
-                        </div>
-                      ))
-                    ) : (
-                      <div className="text-center py-12 space-y-4">
-                        <Info className="w-8 h-8 text-slate-700 mx-auto opacity-50" />
-                        <p className="text-sm text-slate-500 italic">No candidates have registered for Ward {savedWardId || 'this ward'} yet.</p>
-                      </div>
-                    )
-                  )}
+              <div className="bg-white border border-slate-200 rounded-2xl p-4 space-y-3">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Mayor</p>
+                    <h4 className="font-bold text-sm text-slate-900">Citywide</h4>
+                  </div>
+                  <span className="text-[10px] text-slate-400">One choice</span>
                 </div>
+                <CandidateList
+                  candidates={candidateData?.mayor}
+                  emptyText="No mayor candidates registered yet."
+                  incumbentName="Olivia Chow"
+                  incumbentClass="bg-purple-50 text-purple-700"
+                />
+              </div>
+
+              <div className="bg-white border border-slate-200 rounded-2xl p-4 space-y-3">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">City Councillor</p>
+                    <h4 className="font-bold text-sm text-slate-900">{savedWard ? `Ward ${savedWard.id} · ${savedWard.name}` : 'Choose a ward first'}</h4>
+                  </div>
+                  <span className="text-[10px] text-slate-400">One choice</span>
+                </div>
+                <CandidateList
+                  candidates={wardCandidates}
+                  emptyText={savedWardId ? `No candidates registered for Ward ${savedWardId} yet.` : 'Choose a ward to see its candidates.'}
+                  incumbentName={councillorName}
+                  incumbentClass="bg-blue-50 text-blue-700"
+                />
               </div>
             </div>
           </div>

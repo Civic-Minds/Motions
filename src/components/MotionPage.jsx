@@ -1,10 +1,12 @@
 import { getWardId } from '../utils/storage';
-import React, { useState, useMemo } from 'react';
+import React, { lazy, Suspense, useState, useMemo } from 'react';
 import { Link, useParams, useNavigate, Navigate } from 'react-router-dom';
 import { ExternalLink, ChevronDown, ChevronUp, ArrowLeft, FileText, Info } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { getCommittee, WARD_COUNCILLORS } from '../constants/data';
 import { nameToSlug } from '../utils/slug';
+
+const WardMotionMap = lazy(() => import('./WardMotionMap'));
 
 function StatusBadge({ status }) {
   return (
@@ -230,6 +232,7 @@ function VoteSection({ label, motionType, title, status, votes, resultText, defa
 export default function MotionPage({ motions = [] }) {
   const { motionId } = useParams();
   const navigate = useNavigate();
+  const [mapFullscreen, setMapFullscreen] = useState(false);
 
   const motion = useMemo(() => motions.find(m => m.id === motionId) ?? null, [motions, motionId]);
 
@@ -418,6 +421,19 @@ export default function MotionPage({ motions = [] }) {
 
         {/* RIGHT COLUMN: Metadata & Context */}
         <div className="lg:col-span-1 space-y-4 pt-1 lg:sticky lg:top-8">
+          {motion.locations?.length > 0 && (
+            <div className="space-y-2">
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-1">Locations</p>
+              <Suspense fallback={<div className="w-full h-72 rounded-2xl bg-slate-100 animate-pulse" />}>
+                <WardMotionMap
+                  motions={[motion]}
+                  isFullscreen={mapFullscreen}
+                  onToggleFullscreen={() => setMapFullscreen(open => !open)}
+                />
+              </Suspense>
+            </div>
+          )}
+
           {/* Your councillor callout */}
           {myCouncillor && myVote && (
             <div className={cn(
