@@ -357,7 +357,7 @@ function MotionList({ visibleMotions, sortedCount, visibleCount, onLoadMore, fil
             onClick={onLoadMore}
             className="w-full py-3 text-sm font-medium text-slate-500 hover:text-slate-900 bg-white border border-slate-200 rounded-2xl hover:bg-slate-50 transition-all"
           >
-            Show 20 more ({sortedCount - visibleCount} remaining)
+            Show 20 more ({(sortedCount - visibleCount).toLocaleString()} remaining)
           </button>
         )}
       </div>
@@ -550,9 +550,9 @@ export default function DashboardView({ motions, meetings = [] }) {
                     </span>
                     {total > 0 && (
                       <span className="text-[9px] font-medium shrink-0">
-                        <span className="text-emerald-600 font-bold">{yesCount}</span>
+                        <span className="text-emerald-600 font-bold">{yesCount.toLocaleString()}</span>
                         <span className="text-slate-300 mx-0.5">–</span>
-                        <span className="text-rose-500 font-bold">{noCount}</span>
+                        <span className="text-rose-500 font-bold">{noCount.toLocaleString()}</span>
                       </span>
                     )}
                   </div>

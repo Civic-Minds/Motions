@@ -79,7 +79,7 @@ function NameList({ names, colorClass, hoverClass }) {
 function AdditionalVotesNote({ count }) {
   return (
     <div className="group relative inline-flex items-center gap-1 text-xs font-medium py-1 px-2 text-slate-500 italic">
-      + {count} additional votes
+      + {count.toLocaleString()} additional votes
       <button
         type="button"
         aria-label="Why are these votes not named?"
@@ -120,7 +120,7 @@ function CouncillorGrid({ votes, resultText }) {
           {showYes && (
             <div>
               <p className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest mb-2">
-                Yes · {dispYesCount}
+                Yes · {dispYesCount.toLocaleString()}
               </p>
               <NameList
                 names={yes}
@@ -135,7 +135,7 @@ function CouncillorGrid({ votes, resultText }) {
           {showNo && (
             <div>
               <p className="text-[10px] font-bold text-red-500 uppercase tracking-widest mb-2">
-                No · {dispNoCount}
+                No · {dispNoCount.toLocaleString()}
               </p>
               <NameList
                 names={no}
@@ -154,7 +154,7 @@ function CouncillorGrid({ votes, resultText }) {
       {absent.length > 0 && (
         <div>
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">
-            Absent · {absent.length}
+            Absent · {absent.length.toLocaleString()}
           </p>
           <div className="flex flex-wrap gap-1.5">
             {absent.map(name => (
@@ -323,9 +323,9 @@ export default function MotionPage({ motions = [] }) {
           <StatusBadge status={motion.status} />
           {headerTally && (
             <span className="text-xs font-semibold text-slate-500 tabular-nums">
-              <span className="text-emerald-600">{headerTally.yes}</span>
+              <span className="text-emerald-600">{headerTally.yes.toLocaleString()}</span>
               {' – '}
-              <span className="text-red-500">{headerTally.no}</span>
+              <span className="text-red-500">{headerTally.no.toLocaleString()}</span>
             </span>
           )}
           {motion.significance >= 90 && (
@@ -534,7 +534,7 @@ export default function MotionPage({ motions = [] }) {
                       </span>
                     ))}
                     {items.length > 3 && (
-                      <span className="text-xs text-slate-400">+{items.length - 3} more</span>
+                      <span className="text-xs text-slate-400">+{(items.length - 3).toLocaleString()} more</span>
                     )}
                   </div>
                 </div>

@@ -139,7 +139,7 @@ export default function CommitteesView({ motions, meetings = [] }) {
               <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
                 <div className="px-5 py-3.5 border-b border-slate-100">
                   <p className="text-xs font-bold text-slate-400 uppercase tracking-wide">
-                    Meetings · {selectedBody.meetings.length} total
+                    Meetings · {selectedBody.meetings.length.toLocaleString()} total
                   </p>
                 </div>
                 <div className="divide-y divide-slate-100">
@@ -176,7 +176,7 @@ export default function CommitteesView({ motions, meetings = [] }) {
                           <div className="flex items-center gap-3 mt-0.5">
                             {m.startTime && <span className="text-[11px] text-slate-400">{m.startTime}</span>}
                             {m.agendaItems?.length > 0 && (
-                              <span className="text-[11px] text-slate-400">{m.agendaItems.length} agenda items</span>
+                              <span className="text-[11px] text-slate-400">{m.agendaItems.length.toLocaleString()} agenda items</span>
                             )}
                             {m.date >= TODAY
                               ? <span className="text-[10px] font-semibold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-full">Upcoming</span>
@@ -197,11 +197,11 @@ export default function CommitteesView({ motions, meetings = [] }) {
               <div className="bg-white border border-slate-200 rounded-xl p-4 space-y-3">
                 <div className="flex items-baseline justify-between">
                   <span className="text-xs text-slate-400 font-medium uppercase tracking-wide">Total meetings</span>
-                  <span className="text-2xl font-black text-slate-900">{selectedBody.meetings.length}</span>
+                  <span className="text-2xl font-black text-slate-900">{selectedBody.meetings.length.toLocaleString()}</span>
                 </div>
                 <div className="flex items-baseline justify-between">
                   <span className="text-xs text-slate-400 font-medium uppercase tracking-wide">Upcoming</span>
-                  <span className="text-sm font-bold text-emerald-600">{selectedBody.upcomingCount}</span>
+                  <span className="text-sm font-bold text-emerald-600">{selectedBody.upcomingCount.toLocaleString()}</span>
                 </div>
               </div>
               <button
@@ -284,7 +284,7 @@ export default function CommitteesView({ motions, meetings = [] }) {
               </p>
 
               <div className="mt-4 flex items-baseline gap-2">
-                <span className="text-4xl font-black text-slate-900 leading-none">{c.total}</span>
+                <span className="text-4xl font-black text-slate-900 leading-none">{c.total.toLocaleString()}</span>
                 <span className="text-xs text-slate-400">motions</span>
               </div>
 
@@ -339,7 +339,7 @@ export default function CommitteesView({ motions, meetings = [] }) {
                   </div>
                   {b.upcomingCount > 0 && (
                     <span className="shrink-0 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700">
-                      {b.upcomingCount} upcoming
+                      {b.upcomingCount.toLocaleString()} upcoming
                     </span>
                   )}
                   <ArrowRight className="w-4 h-4 text-slate-200 group-hover:text-[#004a99] shrink-0 transition-colors" />
@@ -386,7 +386,7 @@ export default function CommitteesView({ motions, meetings = [] }) {
             <div className="bg-white border border-slate-200 rounded-xl p-4 space-y-3">
               <div className="flex items-baseline justify-between">
                 <span className="text-xs text-slate-400 font-medium uppercase tracking-wide">Motions</span>
-                <span className="text-2xl font-black text-slate-900">{selectedCommittee.total}</span>
+                <span className="text-2xl font-black text-slate-900">{selectedCommittee.total.toLocaleString()}</span>
               </div>
               <div>
                 <div className="flex items-baseline justify-between mb-1.5">
@@ -430,7 +430,7 @@ export default function CommitteesView({ motions, meetings = [] }) {
                           <span className="text-sm text-slate-700 font-medium">{m.displayDate}</span>
                           <div className="flex items-center gap-2">
                             {m.agendaItems?.length > 0 && (
-                              <span className="text-xs text-slate-400">{m.agendaItems.length} items</span>
+                              <span className="text-xs text-slate-400">{m.agendaItems.length.toLocaleString()} items</span>
                             )}
                             <span className="text-xs font-semibold text-[#004a99]">{m.startTime}</span>
                           </div>

@@ -176,7 +176,7 @@ export default function CouncillorVotes({ motions }) {
       <div className="mb-6">
         <h1 className="text-xl font-bold text-slate-900">Voting record</h1>
         <p className="text-sm text-slate-400 mt-0.5">
-          {ward ? `Ward ${ward.id} · ${ward.name}` : 'Toronto City Council'} · {allVotes.length} votes
+          {ward ? `Ward ${ward.id} · ${ward.name}` : 'Toronto City Council'} · {allVotes.length.toLocaleString()} votes
         </p>
       </div>
 
@@ -188,7 +188,7 @@ export default function CouncillorVotes({ motions }) {
         <div>
           <button type="button" onClick={() => setMobileFiltersOpen(open => !open)} className="lg:hidden w-full mb-3 flex items-center justify-between px-3 py-2.5 bg-white border border-slate-200 rounded-xl text-sm font-semibold text-slate-600">
             <span className="flex items-center gap-2"><Filter className="w-4 h-4" /> Filters</span>
-            <span className="text-xs text-slate-400">{filtered.length} votes</span>
+            <span className="text-xs text-slate-400">{filtered.length.toLocaleString()} votes</span>
           </button>
           {mobileFiltersOpen && (
             <div className="lg:hidden mb-4 bg-white border border-slate-200 rounded-2xl p-4">
@@ -196,7 +196,7 @@ export default function CouncillorVotes({ motions }) {
             </div>
           )}
 
-          <p className="text-[10px] text-slate-400 mb-3">{filtered.length} votes</p>
+          <p className="text-[10px] text-slate-400 mb-3">{filtered.length.toLocaleString()} votes</p>
           <div className="space-y-2">
             {filtered.map((m, i) => (
               <MotionCardItem key={m.id} motion={m} index={i} vote={m.votes[selected]} votePlacement="inline" showVoteBadge={outcomeFilter.size !== 1} showTopicBadge={topicFilter.size !== 1} showStatus={false} showCommittee={false} />

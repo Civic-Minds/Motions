@@ -101,7 +101,7 @@ export default function WardGrid({ motions }) {
             <div className="bg-white border border-slate-200 rounded-2xl p-4">
               <p className="text-xs text-slate-400 font-medium uppercase tracking-wide mb-1">Most Active</p>
               <p className="text-sm font-bold text-slate-900 truncate">W{topWard?.id} · {topWard?.name}</p>
-              <p className="text-xs text-slate-400 mt-0.5">{topWard?.count} motions</p>
+            <p className="text-xs text-slate-400 mt-0.5">{topWard?.count?.toLocaleString()} motions</p>
             </div>
             <div className="bg-white border border-slate-200 rounded-2xl p-4">
               <p className="text-xs text-slate-400 font-medium uppercase tracking-wide mb-1">Total Motions</p>

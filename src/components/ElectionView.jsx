@@ -414,7 +414,7 @@ export default function ElectionView() {
                     <div>
                       <p className="font-bold text-slate-900 leading-none">{ward.name}</p>
                       <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-1">
-                        {candidates.length} Candidate{candidates.length !== 1 ? 's' : ''}
+                        {candidates.length.toLocaleString()} Candidate{candidates.length !== 1 ? 's' : ''}
                       </p>
                     </div>
                   </div>

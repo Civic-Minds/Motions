@@ -81,7 +81,7 @@ export default function VersusOverlay({ selection, onClose, motions }) {
         <div className="bg-white border border-slate-200 rounded-2xl p-4">
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-2 truncate">{c1Last}</p>
           <p className="text-2xl font-black text-slate-900">{c1Yes}%</p>
-          <p className="text-[10px] text-slate-400 mt-0.5">yes rate · {c1Total} votes</p>
+          <p className="text-[10px] text-slate-400 mt-0.5">yes rate · {c1Total.toLocaleString()} votes</p>
           <div className="mt-2 h-1.5 w-full bg-slate-100 rounded-full overflow-hidden flex">
             <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${c1Yes}%` }} />
             <div className="h-full bg-rose-400 rounded-full" style={{ width: `${100 - c1Yes}%` }} />
@@ -105,7 +105,7 @@ export default function VersusOverlay({ selection, onClose, motions }) {
         <div className="bg-white border border-slate-200 rounded-2xl p-4">
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-2 truncate text-right">{c2Last}</p>
           <p className="text-2xl font-black text-slate-900 text-right">{c2Yes}%</p>
-          <p className="text-[10px] text-slate-400 mt-0.5 text-right">yes rate · {c2Total} votes</p>
+          <p className="text-[10px] text-slate-400 mt-0.5 text-right">yes rate · {c2Total.toLocaleString()} votes</p>
           <div className="mt-2 h-1.5 w-full bg-slate-100 rounded-full overflow-hidden flex">
             <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${c2Yes}%` }} />
             <div className="h-full bg-rose-400 rounded-full" style={{ width: `${100 - c2Yes}%` }} />

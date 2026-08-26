@@ -54,7 +54,7 @@ function ProfileHeader({ selected, ward, committees, isMyCouncillor, electionSta
         {committees.length > 0 && (
           <div className="text-xs text-slate-500 leading-snug mt-2.5" title={committees.join(', ')}>
             <span className="font-semibold text-slate-400 text-[10px] uppercase tracking-wider mr-2">Committees</span>
-            <span>{committees.length} assigned</span>
+            <span>{committees.length.toLocaleString()} assigned</span>
           </div>
         )}
       </div>
@@ -80,7 +80,7 @@ function VotingStats({ attendance, totalVotes, yesRate, yesCount, noCount, tenur
           <p className={cn("text-2xl font-black", attendance.pct >= 90 ? 'text-emerald-600' : attendance.pct >= 75 ? 'text-amber-500' : 'text-rose-500')}>
             {attendance.pct}%
           </p>
-          <p className="text-[10px] text-slate-400 mt-0.5">{attendance.daysPresent}/{attendance.totalDays} days</p>
+          <p className="text-[10px] text-slate-400 mt-0.5">{attendance.daysPresent.toLocaleString()}/{attendance.totalDays.toLocaleString()} days</p>
           <div className="mt-auto pt-2 h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
             <div className={cn("h-full rounded-full", attendance.pct >= 90 ? 'bg-emerald-500' : attendance.pct >= 75 ? 'bg-amber-400' : 'bg-rose-500')} style={{ width: `${attendance.pct}%` }} />
           </div>
@@ -92,7 +92,7 @@ function VotingStats({ attendance, totalVotes, yesRate, yesCount, noCount, tenur
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Yes rate</p>
           <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col h-[112px]">
             <p className="text-2xl font-black text-slate-900">{yesRate}%</p>
-            <p className="text-[10px] text-slate-400 mt-0.5">{yesCount} yes · {noCount} no</p>
+            <p className="text-[10px] text-slate-400 mt-0.5">{yesCount.toLocaleString()} yes · {noCount.toLocaleString()} no</p>
             <div className="mt-auto pt-2 h-1.5 w-full bg-slate-100 rounded-full overflow-hidden flex">
               <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${yesRate}%` }} />
               <div className="h-full bg-rose-400 rounded-full" style={{ width: `${100 - yesRate}%` }} />
@@ -129,7 +129,7 @@ function PeerAlignment({ dna, votedWith }) {
                 <div className="flex justify-between items-end mb-1.5">
                   <span className="text-xs font-semibold text-slate-700">{topic}</span>
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] text-slate-400">{total}</span>
+                    <span className="text-[10px] text-slate-400">{total.toLocaleString()}</span>
                     <span className={cn("text-[10px] font-bold", yesPct >= 50 ? 'text-emerald-600' : 'text-rose-500')}>{yesPct}%</span>
                   </div>
                 </div>
@@ -475,7 +475,7 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
             onClick={() => navigate(`/councillors/${slug}/votes`)}
             className="w-full mt-3 py-3 text-sm font-semibold text-[#004a99] bg-white border border-slate-200 rounded-2xl hover:border-[#004a99]/40 hover:shadow-sm transition-all"
           >
-            See all {totalVoteCount} votes →
+            See all {totalVoteCount.toLocaleString()} votes →
           </button>
         </div>
 

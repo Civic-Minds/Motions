@@ -157,7 +157,7 @@ export default function MeetingsListView({ meetings = [] }) {
               timeFilter === f.id ? "bg-slate-800 text-white" : "bg-slate-100 text-slate-500 hover:bg-slate-200"
             )}
           >
-            {f.label}{f.count > 0 ? ` · ${f.count}` : ''}
+            {f.label}{f.count > 0 ? ` · ${f.count.toLocaleString()}` : ''}
           </button>
         ))}
 
@@ -193,7 +193,7 @@ export default function MeetingsListView({ meetings = [] }) {
             )}
           >
             <SlidersHorizontal className="w-3 h-3" />
-            Filters{activeFilterCount > 0 ? ` · ${activeFilterCount}` : ''}
+            Filters{activeFilterCount > 0 ? ` · ${activeFilterCount.toLocaleString()}` : ''}
           </button>
 
           {/* Dropdown panel */}
@@ -258,7 +258,7 @@ export default function MeetingsListView({ meetings = [] }) {
 
       {/* Results count */}
       <p className="text-[11px] text-slate-400 mb-4">
-        {displayed.length} meeting{displayed.length !== 1 ? 's' : ''}
+        {displayed.length.toLocaleString()} meeting{displayed.length !== 1 ? 's' : ''}
         {activeFilterCount > 0 ? ' matching filters' : ''}
       </p>
 
@@ -316,13 +316,13 @@ export default function MeetingsListView({ meetings = [] }) {
                           {inCameraCount > 0 && (
                             <span className="flex items-center gap-1 text-[11px] text-amber-500">
                               <Lock className="w-2.5 h-2.5" />
-                              {inCameraCount} in camera
+                              {inCameraCount.toLocaleString()} in camera
                             </span>
                           )}
                           {hasAgenda && (
                             <span className="flex items-center gap-1 text-[11px] text-slate-400">
                               <FileText className="w-2.5 h-2.5" />
-                              {meeting.agendaItems.length} items
+                              {meeting.agendaItems.length.toLocaleString()} items
                             </span>
                           )}
                         </div>

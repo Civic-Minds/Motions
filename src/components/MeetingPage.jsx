@@ -94,7 +94,7 @@ export default function MeetingPage({ meetings }) {
           <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
             <div className="px-5 py-3.5 border-b border-slate-100 flex items-center justify-between gap-4 flex-wrap">
               <p className="text-xs font-bold text-slate-400 uppercase tracking-wide">
-                {hasAgenda ? `Agenda · ${meeting.agendaItems.length} items` : 'Agenda'}
+                {hasAgenda ? `Agenda · ${meeting.agendaItems.length.toLocaleString()} items` : 'Agenda'}
               </p>
               {hasAgenda && (
                 <div className="flex items-center gap-1.5 flex-wrap">

@@ -258,7 +258,7 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
               {/* Footer */}
               <div className="flex justify-between items-center pt-3 border-t border-slate-100">
                 <div className="text-[10px] text-slate-400">
-                  <span className="font-medium">{voteCount}</span> votes
+                  <span className="font-medium">{voteCount.toLocaleString()}</span> votes
                   {topTopic && <span className="ml-2 text-slate-400">· {topTopic}</span>}
                 </div>
                 <ChevronRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-[#004a99] transition-colors" />

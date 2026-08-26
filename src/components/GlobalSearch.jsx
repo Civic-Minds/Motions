@@ -282,7 +282,7 @@ export default function GlobalSearch({ motions, councillorNames, open, onClose }
 
                   {total > 0 && (
                     <p className="text-[10px] text-slate-300 text-center py-2">
-                      {total} result{total !== 1 ? 's' : ''}
+                      {total.toLocaleString()} result{total !== 1 ? 's' : ''}
                     </p>
                   )}
                 </div>
