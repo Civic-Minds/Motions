@@ -366,7 +366,7 @@ export default function MotionPage({ motions = [] }) {
         <div className="lg:col-span-2 space-y-6">
           {/* Summary */}
           {motion.summary && (
-            <div className="bg-white border border-slate-200 rounded-xl px-5 py-4">
+            <div className="bg-white border border-slate-200 rounded-xl px-5 py-4 min-h-44">
               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-2">Motion Summary</p>
               <p className="text-sm text-slate-700 leading-relaxed">{motion.summary}</p>
             </div>
@@ -561,7 +561,7 @@ export default function MotionPage({ motions = [] }) {
 
           {/* Background Documents */}
           {motion.backgroundFiles?.length > 0 && (
-            <div className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-4">
+            <div className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-4 min-h-44">
               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-3">Documents</p>
               <div className="flex flex-col gap-2">
                 {motion.backgroundFiles.map((f, i) => (
