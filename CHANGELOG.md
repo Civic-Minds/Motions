@@ -9,7 +9,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Councillor profiles**: Replaced the duplicate office-spend summary with a compact contact card.
 
 - **Election readiness**: Added a direct Elections menu link, shared ward selection, homepage civic update, and verified councillor election status so Toronto residents can prepare to vote.
-- **Councillor comparison**: Moved the comparison control into the councillors page and simplified the header search to an icon.
+- **Councillor comparison**: Moved the comparison control into the councillors page, clarified shared-vote totals, and simplified the header search to an icon.
 - **Motion vote totals**: Explained unnamed additional votes so official results are clearer.
 - **Ward map**: Added a fullscreen view for inspecting Toronto’s ward boundaries.
 - **Election page**: Rebuilt the page sections as compact Motions-style cards for a more consistent experience.

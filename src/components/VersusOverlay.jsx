@@ -6,13 +6,14 @@ import { cn } from '../lib/utils';
 import { TOPIC_LIGHT } from '../constants/data';
 
 const TOPICS = ['Housing', 'Transit', 'Finance', 'Parks', 'Climate', 'General'];
+const isRecordedVote = value => value === 'YES' || value === 'NO';
 
 export default function VersusOverlay({ selection, onClose, motions }) {
   if (!selection || selection.length < 2) return null;
   const [c1, c2] = selection;
 
   const { alignmentScore, totalShared, c1Yes, c2Yes, c1Total, c2Total } = useMemo(() => {
-    const shared = motions.filter(m => m.votes?.[c1] && m.votes?.[c2]);
+    const shared = motions.filter(m => isRecordedVote(m.votes?.[c1]) && isRecordedVote(m.votes?.[c2]));
     const same   = shared.filter(m => m.votes[c1] === m.votes[c2]).length;
     const allC1  = motions.filter(m => m.votes?.[c1]);
     const allC2  = motions.filter(m => m.votes?.[c2]);
@@ -47,7 +48,7 @@ export default function VersusOverlay({ selection, onClose, motions }) {
   }, [c1, c2, motions]);
 
   const topDivergences = useMemo(() => motions
-    .filter(m => m.votes?.[c1] && m.votes?.[c2] && m.votes[c1] !== m.votes[c2] && !m.trivial)
+    .filter(m => isRecordedVote(m.votes?.[c1]) && isRecordedVote(m.votes?.[c2]) && m.votes[c1] !== m.votes[c2] && !m.trivial)
     .sort((a, b) => (b.significance ?? 0) - (a.significance ?? 0))
     .slice(0, 6),
   [c1, c2, motions]);
@@ -91,7 +92,7 @@ export default function VersusOverlay({ selection, onClose, motions }) {
           {alignmentScore !== null ? (
             <>
               <p className="text-3xl font-black text-slate-900">{alignmentScore}%</p>
-              <p className="text-[10px] text-slate-400 mt-1">agree · {totalShared} shared</p>
+              <p className="text-[10px] text-slate-400 mt-1">agree · {totalShared.toLocaleString()} shared</p>
               <div className="mt-2 h-1.5 w-full bg-rose-100 rounded-full overflow-hidden">
                 <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${alignmentScore}%` }} />
               </div>
@@ -133,7 +134,7 @@ export default function VersusOverlay({ selection, onClose, motions }) {
                   <span className={cn("text-[10px] font-semibold px-2 py-0.5 rounded-full", TOPIC_LIGHT[t.topic] || 'bg-slate-100 text-slate-500')}>
                     {t.topic}
                   </span>
-                  <span className="text-[10px] text-slate-300">{t.shared}</span>
+                  <span className="text-[10px] text-slate-300">{t.shared.toLocaleString()}</span>
                 </div>
                 <span className={cn("text-xs font-bold text-right", t.c1Yes >= 50 ? 'text-emerald-600' : 'text-rose-500')}>
                   {t.c1Yes != null ? `${t.c1Yes}%` : '—'}
