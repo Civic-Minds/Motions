@@ -11,6 +11,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Election readiness**: Added a direct Elections menu link, shared ward selection, homepage civic update, and verified councillor election status so Toronto residents can prepare to vote.
 - **Councillor comparison**: Moved the comparison control into the councillors page and simplified the header search to an icon.
 - **Motion vote totals**: Explained unnamed additional votes so official results are clearer.
+- **Ward map**: Added a fullscreen view for inspecting Toronto’s ward boundaries.
 
 ### Changed
 - **Election candidate records**: Refresh the official 2026 candidate list during data updates and show filed dates now that nominations are closed.

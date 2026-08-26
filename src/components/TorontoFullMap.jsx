@@ -1,6 +1,7 @@
-import { useRef, useMemo, useState } from 'react';
+import { useRef, useMemo, useState, useEffect } from 'react';
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 import { useNavigate } from 'react-router-dom';
+import { Maximize2, X } from 'lucide-react';
 import 'leaflet/dist/leaflet.css';
 import { extractWardId } from '../utils/ward';
 import { WARD_COUNCILLORS } from '../constants/data';
@@ -8,11 +9,17 @@ import { TORONTO_WARDS } from '../constants/wards';
 import { getWardId } from '../utils/storage';
 import { cn } from '../lib/utils';
 
-export default function TorontoFullMap({ geojson, wardActivity }) {
+export default function TorontoFullMap({ geojson, wardActivity, isFullscreen = false, onToggleFullscreen }) {
   const navigate = useNavigate();
   const mapRef = useRef(null);
   const savedWardId = getWardId();
   const [hoveredWardId, setHoveredWardId] = useState(null);
+
+  useEffect(() => {
+    if (!isFullscreen) return;
+    const frame = requestAnimationFrame(() => mapRef.current?.invalidateSize());
+    return () => cancelAnimationFrame(frame);
+  }, [isFullscreen]);
 
   // Pre-compute bounds per ward from GeoJSON
   const wardBounds = useMemo(() => {
@@ -61,7 +68,12 @@ export default function TorontoFullMap({ geojson, wardActivity }) {
     : TORONTO_WARDS.map(w => ({ ...w, count: 0 }));
 
   return (
-    <div className="relative rounded-2xl overflow-hidden border border-slate-200 h-[420px]">
+    <div className={cn(
+      "relative overflow-hidden border border-slate-200 bg-white",
+      isFullscreen
+        ? "fixed inset-0 z-[60] rounded-none h-screen"
+        : "rounded-2xl h-[420px]"
+    )}>
       <MapContainer
         ref={mapRef}
         center={[43.718, -79.385]}
@@ -79,6 +91,18 @@ export default function TorontoFullMap({ geojson, wardActivity }) {
           onEachFeature={onEachFeature}
         />
       </MapContainer>
+
+      {onToggleFullscreen && (
+        <button
+          type="button"
+          onClick={onToggleFullscreen}
+          aria-label={isFullscreen ? 'Close fullscreen map' : 'View map fullscreen'}
+          title={isFullscreen ? 'Close fullscreen map' : 'View map fullscreen'}
+          className="absolute top-3 right-3 z-[500] flex items-center justify-center w-9 h-9 rounded-xl bg-white/95 border border-slate-200 text-slate-600 shadow-sm hover:text-[#004a99] hover:border-[#004a99]/40 transition-colors"
+        >
+          {isFullscreen ? <X className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
+        </button>
+      )}
 
       {/* Card carousel — floats over bottom of map */}
       <div

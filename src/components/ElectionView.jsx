@@ -59,31 +59,31 @@ export default function ElectionView() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-12 pb-20">
+    <div className="space-y-8 pb-20">
       {/* Hero Header */}
-      <section className="text-center space-y-4">
+      <section className="space-y-3">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold uppercase tracking-wider"
         >
           <Vote className="w-3.5 h-3.5" />
-          Toronto Municipal Election 2026
+          Toronto Election 2026
         </motion.div>
-        <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
+        <h1 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
           {savedWard ? (
-            <>Your Ward: <span className="text-blue-600">{savedWard.name}</span></>
+            <>Your ward: <span className="text-[#004a99]">{savedWard.name}</span></>
           ) : (
-            <>Election Day is <span className="text-blue-600">October 26</span></>
+            <>Election day is <span className="text-[#004a99]">October 26</span></>
           )}
         </h1>
-        <p className="text-lg text-slate-500 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-sm text-slate-500 max-w-2xl leading-relaxed">
           {savedWard 
             ? `Review the candidates and the incumbent track record for Ward ${savedWard.id} before heading to the polls.`
             : "The 2026–2030 term will decide the future of Toronto's housing, transit, and infrastructure. Make sure you're ready to vote."
           }
         </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 pt-2">
           <label htmlFor="election-ward" className="text-sm font-bold text-slate-600">See your ward’s candidates</label>
           <select
             id="election-ward"
@@ -102,29 +102,29 @@ export default function ElectionView() {
       {/* Your Ballot - Explainer */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {[
-          { title: "1. Mayor", desc: "One candidate city-wide", icon: <Building2 className="w-5 h-5" />, color: "bg-purple-50 text-purple-600 border-purple-100" },
-          { title: "2. Councillor", desc: "One candidate for your ward", icon: <User className="w-5 h-5" />, color: "bg-blue-50 text-blue-600 border-blue-100" },
-          { title: "3. Trustee", desc: "One for your school board", icon: <GraduationCap className="w-5 h-5" />, color: "bg-emerald-50 text-emerald-600 border-emerald-100" },
+          { title: "1. Mayor", desc: "One candidate city-wide", icon: <Building2 className="w-5 h-5" /> },
+          { title: "2. Councillor", desc: "One candidate for your ward", icon: <User className="w-5 h-5" /> },
+          { title: "3. Trustee", desc: "One for your school board", icon: <GraduationCap className="w-5 h-5" /> },
         ].map((item, i) => (
-          <div key={i} className={cn("p-4 rounded-2xl border flex items-center gap-4", item.color)}>
-            <div className="shrink-0 w-10 h-10 rounded-2xl bg-white shadow-sm flex items-center justify-center">
+          <div key={i} className="p-4 rounded-2xl border border-slate-200 bg-white flex items-center gap-4">
+            <div className="shrink-0 w-10 h-10 rounded-xl bg-slate-100 text-[#004a99] flex items-center justify-center">
               {item.icon}
             </div>
             <div>
-              <h4 className="font-black text-sm">{item.title}</h4>
-              <p className="text-xs opacity-80 font-medium">{item.desc}</p>
+              <h4 className="font-bold text-sm text-slate-900">{item.title}</h4>
+              <p className="text-xs text-slate-400 font-medium">{item.desc}</p>
             </div>
           </div>
         ))}
       </section>
 
       {/* Primary Focus: The Candidates & Records */}
-      <section className="bg-white rounded-2xl p-6 md:p-8 text-slate-900 overflow-hidden relative border border-slate-200 shadow-sm">
+      <section className="bg-white rounded-2xl p-5 md:p-6 text-slate-900 overflow-hidden relative border border-slate-200">
         
-        <div className="relative z-10 space-y-12">
-          <div className="text-center max-w-2xl mx-auto space-y-4">
-            <h2 className="text-3xl md:text-4xl font-black tracking-tight">The 2026 Field</h2>
-            <p className="text-slate-400 text-lg">
+        <div className="relative z-10 space-y-8">
+          <div className="max-w-2xl space-y-2">
+            <h2 className="text-xl md:text-2xl font-bold tracking-tight">The 2026 field</h2>
+            <p className="text-slate-500 text-sm">
               Review the track records of your current representatives and explore the profiles of new candidates.
             </p>
           </div>
@@ -132,7 +132,7 @@ export default function ElectionView() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Intelligence Column */}
             <div className="space-y-6">
-              <h3 className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-blue-400 px-2">
+              <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#004a99] px-1">
                 <CheckCircle2 className="w-4 h-4" />
                 Track Records
               </h3>
@@ -142,16 +142,16 @@ export default function ElectionView() {
                 <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-4 hover:bg-white transition-all group">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-purple-500/20 flex items-center justify-center">
-                        <Building2 className="w-5 h-5 text-purple-400" />
+                        <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center">
+                        <Building2 className="w-5 h-5 text-[#004a99]" />
                       </div>
                       <div>
-                        <p className="text-[10px] font-bold uppercase tracking-wider text-purple-400">The Mayor</p>
+                        <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">The Mayor</p>
                         <p className="font-bold text-lg leading-none">City-Wide Race</p>
                       </div>
                     </div>
                     <div className="text-right">
-                       <p className="text-[10px] font-bold text-emerald-400 uppercase tracking-widest">Incumbent</p>
+                       <p className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest">Incumbent</p>
                        <p className="text-xs text-slate-400">Olivia Chow</p>
                     </div>
                   </div>
@@ -176,16 +176,16 @@ export default function ElectionView() {
                   <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-4 hover:bg-white transition-all group">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center">
-                          <MapPin className="w-5 h-5 text-blue-400" />
+                          <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center">
+                          <MapPin className="w-5 h-5 text-[#004a99]" />
                         </div>
                         <div>
-                          <p className="text-[10px] font-bold uppercase tracking-wider text-blue-400">Ward {savedWard.id}</p>
+                          <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Ward {savedWard.id}</p>
                           <p className="font-bold text-lg leading-none">{savedWard.name}</p>
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="text-[10px] font-bold text-blue-400 uppercase tracking-widest">Incumbent</p>
+                        <p className="text-[10px] font-bold text-[#004a99] uppercase tracking-widest">Incumbent</p>
                         <p className="text-xs text-slate-400">{councillorName}</p>
                       </div>
                     </div>
@@ -218,10 +218,10 @@ export default function ElectionView() {
                 )}
 
                 {/* Non-Incumbent Notice */}
-                <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex gap-3 items-start">
-                   <Info className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                   <p className="text-[10px] text-amber-200/70 leading-relaxed">
-                     <strong className="text-amber-400">Note for New Candidates:</strong> Since new candidates do not have a City Council voting record, we will be linking their official campaign websites and social media platforms as they become available.
+                <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 flex gap-3 items-start">
+                   <Info className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                   <p className="text-xs text-amber-800 leading-relaxed">
+                     <strong>Note for new candidates:</strong> Since new candidates do not have a City Council voting record, we will link their official campaign websites and social media platforms as they become available.
                    </p>
                 </div>
               </div>
@@ -229,8 +229,8 @@ export default function ElectionView() {
 
             {/* The Candidates Column */}
             <div className="space-y-6">
-              <div className="flex items-center justify-between px-2">
-                <h3 className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-amber-400">
+              <div className="flex items-center justify-between px-1">
+                <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#004a99]">
                   <Vote className="w-4 h-4" />
                   The 2026 Candidates
                 </h3>
@@ -264,7 +264,7 @@ export default function ElectionView() {
                             <div className="flex items-center gap-2">
                               <span className="font-bold text-sm">{c.name}</span>
                               {c.name.toLowerCase().includes('chow') && (
-                                <span className="text-[8px] bg-purple-500/20 px-1.5 py-0.5 rounded-full font-black uppercase tracking-widest text-purple-300">Incumbent</span>
+                                <span className="text-[8px] bg-purple-50 px-1.5 py-0.5 rounded-full font-black uppercase tracking-widest text-purple-700">Incumbent</span>
                               )}
                             </div>
                             <div className="flex items-center gap-3">
@@ -288,7 +288,7 @@ export default function ElectionView() {
                             <div className="flex items-center gap-2">
                               <span className="font-bold text-sm">{c.name}</span>
                               {c.name.toLowerCase().includes(councillorName?.toLowerCase() || '') && (
-                                <span className="text-[8px] bg-blue-500/20 px-1.5 py-0.5 rounded-full font-black uppercase tracking-widest text-blue-300">Incumbent</span>
+                                <span className="text-[8px] bg-blue-50 px-1.5 py-0.5 rounded-full font-black uppercase tracking-widest text-blue-700">Incumbent</span>
                               )}
                             </div>
                             <div className="flex items-center gap-3">
@@ -401,7 +401,7 @@ export default function ElectionView() {
                 <p className="font-bold text-slate-900 group-hover:text-blue-600 transition-colors">{item.label}</p>
                 <p className="text-sm text-slate-400 leading-snug">{item.description}</p>
               </div>
-              <ExternalLink className="w-4 h-4 text-slate-300 group-hover:text-blue-400 mt-1 transition-colors" />
+              <ExternalLink className="w-4 h-4 text-slate-300 group-hover:text-[#004a99] mt-1 transition-colors" />
             </a>
           ))}
         </div>
