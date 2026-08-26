@@ -5,7 +5,7 @@ import { Mail, Phone, Vote } from 'lucide-react';
 import VsPickerModal from './VsPickerModal';
 import { getAttendance, getVotedWith } from '../utils/analytics';
 import { TOPIC_LIGHT, WARD_COUNCILLORS, FORMER_MEMBERS, getCommittee } from '../constants/data';
-import { nameToSlug, slugToName, committeeToSlug } from '../utils/slug';
+import { nameToSlug, slugToName } from '../utils/slug';
 import { COUNCILLOR_WARD } from '../utils/councillorWard';
 import { cn } from '../lib/utils';
 import MotionCardItem from './MotionCardItem';
@@ -65,11 +65,10 @@ function ProfileHeader({ selected, ward, committees, isMyCouncillor, electionSta
 // ── Sub-component: voting stats row ───────────────────────────────────────
 function VotingStats({ attendance, totalVotes, yesRate, yesCount, noCount, tenureData }) {
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-
+    <>
       <div className="flex flex-col gap-1.5">
         <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Votes cast</p>
-        <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col flex-1">
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col h-[112px]">
           <p className="text-2xl font-black text-slate-900">{totalVotes.toLocaleString()}</p>
           <p className="text-[10px] text-slate-400 mt-auto pt-2">all recorded votes</p>
         </div>
@@ -77,7 +76,7 @@ function VotingStats({ attendance, totalVotes, yesRate, yesCount, noCount, tenur
 
       <div className="flex flex-col gap-1.5">
         <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Attendance</p>
-        <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col flex-1">
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col h-[112px]">
           <p className={cn("text-2xl font-black", attendance.pct >= 90 ? 'text-emerald-600' : attendance.pct >= 75 ? 'text-amber-500' : 'text-rose-500')}>
             {attendance.pct}%
           </p>
@@ -91,7 +90,7 @@ function VotingStats({ attendance, totalVotes, yesRate, yesCount, noCount, tenur
       {yesRate !== null && (
         <div className="flex flex-col gap-1.5">
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Yes rate</p>
-          <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col flex-1">
+          <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col h-[112px]">
             <p className="text-2xl font-black text-slate-900">{yesRate}%</p>
             <p className="text-[10px] text-slate-400 mt-0.5">{yesCount} yes · {noCount} no</p>
             <div className="mt-auto pt-2 h-1.5 w-full bg-slate-100 rounded-full overflow-hidden flex">
@@ -105,14 +104,14 @@ function VotingStats({ attendance, totalVotes, yesRate, yesCount, noCount, tenur
       {tenureData?.totalYears > 0 && (
         <div className="flex flex-col gap-1.5">
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">On council</p>
-          <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col flex-1">
+          <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col h-[112px]">
             <p className="text-2xl font-black text-slate-900">{tenureData.totalYears}<span className="text-sm font-semibold text-slate-400 ml-1">yr</span></p>
             {tenureData.firstYear && <p className="text-[10px] text-slate-400 mt-0.5">since {tenureData.firstYear}</p>}
           </div>
         </div>
       )}
 
-    </div>
+    </>
   );
 }
 
@@ -418,18 +417,20 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
       )}
 
       {/* Profile header + stats */}
-      <div className="flex flex-col gap-4 lg:grid lg:grid-cols-[220px_1fr_220px] lg:gap-8 items-start mb-6">
+      <div className="flex flex-col gap-4 lg:grid lg:grid-cols-[220px_minmax(0,1fr)_220px] lg:gap-8 items-start mb-6">
         <ProfileHeader selected={selected} ward={ward} committees={committees} isMyCouncillor={isMyCouncillor} electionStatus={electionStatus} />
 
         {attendance && (
-          <VotingStats
-            attendance={attendance}
-            totalVotes={totalVotes}
-            yesRate={yesRate}
-            yesCount={yesCount}
-            noCount={noCount}
-            tenureData={tenure[selected]}
-          />
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 min-w-0 w-full">
+            <VotingStats
+              attendance={attendance}
+              totalVotes={totalVotes}
+              yesRate={yesRate}
+              yesCount={yesCount}
+              noCount={noCount}
+              tenureData={tenure[selected]}
+            />
+          </div>
         )}
 
         <div className="flex flex-col gap-1.5">

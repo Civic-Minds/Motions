@@ -123,6 +123,21 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
   return (
     <div className="space-y-8 pb-20">
 
+      <div className="flex justify-end">
+        <button
+          onClick={onCompareModeToggle}
+          className={cn(
+            "flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-xl border transition-all",
+            compareMode
+              ? 'bg-slate-900 text-white border-slate-900'
+              : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400'
+          )}
+        >
+          <GitCompare className="w-3.5 h-3.5" />
+          {compareMode ? 'Cancel' : 'Compare councillors'}
+        </button>
+      </div>
+
       {/* Compare banner */}
       <AnimatePresence>
         {compareMode && (

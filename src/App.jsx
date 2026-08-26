@@ -2,7 +2,7 @@ import React, { lazy, Suspense, useState, useEffect, useMemo } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { Users, Map, Building2, Vote, Menu, X, Search, GitCompare, MapPin } from 'lucide-react';
+import { Users, Map, Building2, Vote, Menu, X, Search, MapPin } from 'lucide-react';
 import { WARD_COUNCILLORS } from './constants/data';
 import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from './lib/utils';
@@ -29,13 +29,11 @@ const TABS = [
   { path: '/election',    label: 'Election',    icon: Vote },
 ];
 
-function Navbar({ onSearchOpen, compareMode, onCompareModeToggle }) {
+function Navbar({ onSearchOpen }) {
   const { wardId, handleLocate, handleClearWard } = useAppContext();
   const location = useLocation();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const onCouncillors = location.pathname.startsWith('/councillors') && !location.pathname.includes('/vs/');
-  const onCouncillorsList = location.pathname === '/councillors';
   const councillorName = wardId ? WARD_COUNCILLORS[wardId] : null;
   const wardLastName = councillorName ? councillorName.split(' ').at(-1) : null;
 
@@ -78,22 +76,8 @@ function Navbar({ onSearchOpen, compareMode, onCompareModeToggle }) {
           })}
         </nav>
 
-        {/* Right: compare + search + mobile toggle */}
+        {/* Right: ward + search + mobile toggle */}
         <div className="flex items-center justify-self-end gap-2 min-w-0">
-          {onCouncillors && (
-            <button
-              onClick={() => { if (!onCouncillorsList && !compareMode) navigate('/councillors'); onCompareModeToggle(); }}
-              className={cn(
-                "hidden sm:flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-xl border transition-all",
-                compareMode
-                  ? 'bg-slate-900 text-white border-slate-900'
-                  : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400'
-              )}
-            >
-              <GitCompare className="w-3.5 h-3.5" />
-              {compareMode ? 'Cancel' : 'Compare'}
-            </button>
-          )}
           {wardId ? (
             <div className="hidden sm:flex items-center gap-0 bg-white border border-slate-200 rounded-xl hover:border-[#004a99]/40 transition-all group/ward">
               <button
@@ -122,11 +106,11 @@ function Navbar({ onSearchOpen, compareMode, onCompareModeToggle }) {
           )}
           <button
             onClick={onSearchOpen}
-            className="flex items-center gap-2 px-3 py-2 text-sm text-slate-400 bg-slate-100 hover:bg-slate-150 border border-slate-200 rounded-xl transition-all w-40 xl:w-48 hidden sm:flex"
+            aria-label="Search"
+            title="Search"
+            className="hidden sm:flex items-center justify-center p-2.5 text-slate-400 bg-slate-100 hover:bg-slate-150 border border-slate-200 rounded-xl transition-all"
           >
-            <Search className="w-3.5 h-3.5 shrink-0" />
-            <span className="flex-1 text-left text-slate-400">Search…</span>
-            <kbd className="text-[10px] font-medium text-slate-300 bg-white border border-slate-200 rounded px-1.5 py-0.5">⌘K</kbd>
+            <Search className="w-4 h-4" />
           </button>
           <button
             onClick={onSearchOpen}
@@ -255,7 +239,7 @@ function AppShell() {
   return (
     <div className="min-h-screen flex flex-col">
       <ScrollToTop />
-      <Navbar onSearchOpen={() => setSearchOpen(true)} compareMode={compareMode} onCompareModeToggle={toggleCompareMode} />
+      <Navbar onSearchOpen={() => setSearchOpen(true)} />
       <main className="flex-1 max-w-[1400px] mx-auto w-full px-4 sm:px-6 py-8">
         {contentArea()}
       </main>
