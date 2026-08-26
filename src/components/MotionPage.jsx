@@ -1,7 +1,7 @@
 import { getWardId } from '../utils/storage';
 import React, { useState, useMemo } from 'react';
 import { Link, useParams, useNavigate, Navigate } from 'react-router-dom';
-import { ExternalLink, ChevronDown, ChevronUp, ArrowLeft, FileText } from 'lucide-react';
+import { ExternalLink, ChevronDown, ChevronUp, ArrowLeft, FileText, Info } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { getCommittee, WARD_COUNCILLORS } from '../constants/data';
 import { nameToSlug } from '../utils/slug';
@@ -74,6 +74,27 @@ function NameList({ names, colorClass, hoverClass }) {
   );
 }
 
+function AdditionalVotesNote({ count }) {
+  return (
+    <div className="group relative inline-flex items-center gap-1 text-xs font-medium py-1 px-2 text-slate-500 italic">
+      + {count} additional votes
+      <button
+        type="button"
+        aria-label="Why are these votes not named?"
+        className="not-italic text-slate-400 hover:text-[#004a99] focus:outline-none focus:text-[#004a99]"
+      >
+        <Info className="w-3.5 h-3.5" />
+      </button>
+      <span
+        role="tooltip"
+        className="pointer-events-none absolute left-2 top-full z-10 mt-1 w-64 rounded-lg bg-slate-900 px-3 py-2 text-[11px] font-normal leading-snug text-white opacity-0 shadow-lg transition-opacity group-hover:opacity-100 group-focus-within:opacity-100"
+      >
+        Official result totals include votes from other committee or board members whose names aren’t available in our councillor records.
+      </span>
+    </div>
+  );
+}
+
 function CouncillorGrid({ votes, resultText }) {
   if (!votes || Object.keys(votes).length === 0) return null;
 
@@ -105,9 +126,7 @@ function CouncillorGrid({ votes, resultText }) {
                 hoverClass="hover:bg-emerald-100 hover:text-emerald-900"
               />
               {totals && totals.yes > yes.length && (
-                <div className="text-xs font-medium py-1 px-2 text-slate-500 italic">
-                  + {totals.yes - yes.length} additional votes
-                </div>
+                <AdditionalVotesNote count={totals.yes - yes.length} />
               )}
             </div>
           )}
@@ -122,9 +141,7 @@ function CouncillorGrid({ votes, resultText }) {
                 hoverClass="hover:bg-red-100 hover:text-red-900"
               />
               {totals && totals.no > no.length && (
-                <div className="text-xs font-medium py-1 px-2 text-slate-500 italic">
-                  + {totals.no - no.length} additional votes
-                </div>
+                <AdditionalVotesNote count={totals.no - no.length} />
               )}
             </div>
           )}
