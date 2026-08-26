@@ -524,7 +524,7 @@ export default function DashboardView({ motions, meetings = [] }) {
               className="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100 rounded-2xl p-4 text-left group flex flex-col gap-2 hover:border-blue-300 hover:shadow-sm transition-all"
             >
               <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-blue-100 text-blue-700 self-start">Election</span>
-              <p className="text-xs font-semibold text-slate-800 group-hover:text-blue-700 transition-colors line-clamp-3 leading-snug">Choose your ward and see the candidates before October 26.</p>
+              <p className="text-xs font-semibold text-slate-800 group-hover:text-blue-700 transition-colors line-clamp-3 leading-snug">See your ward’s candidates before October 26.</p>
               <div className="flex items-center justify-between mt-auto pt-2 border-t border-blue-100">
                 <span className="text-[9px] text-slate-400">October 26, 2026</span>
                 <span className="text-[9px] font-semibold text-blue-700">Get ready</span>
