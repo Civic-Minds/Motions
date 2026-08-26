@@ -142,13 +142,6 @@ export default function ElectionView() {
       <section className="space-y-4">
         
         <div className="space-y-4">
-          <div className="max-w-2xl space-y-1 px-1">
-            <h2 className="text-lg md:text-xl font-bold tracking-tight">The 2026 field</h2>
-            <p className="text-slate-500 text-sm">
-              Review the track records of your current representatives and explore the profiles of new candidates.
-            </p>
-          </div>
-
           <div className="flex flex-col gap-3">
             {/* Intelligence Column */}
             <div className="bg-white border border-slate-200 rounded-2xl p-4 space-y-4">
