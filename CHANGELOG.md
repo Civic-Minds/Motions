@@ -6,7 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
-- **Election readiness**: Added a direct Elections menu link, ward selection, and the next voter-registration deadline so Toronto residents can prepare to vote.
+- **Election readiness**: Added a direct Elections menu link, shared ward selection, homepage civic update, and verified councillor election status so Toronto residents can prepare to vote.
 
 ### Changed
 - **Election candidate records**: Refresh the official 2026 candidate list during data updates and show filed dates now that nominations are closed.

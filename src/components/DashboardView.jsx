@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect, useReducer, lazy, Suspense } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { AlertCircle, X, Search, Star, Calendar } from 'lucide-react';
+import { AlertCircle, X, Search, Star, Calendar, Vote } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { getCommittee, TOPIC_LIGHT, TOPIC_DOT, WARD_COUNCILLORS } from '../constants/data';
 import { getWardId } from '../utils/storage';
@@ -505,21 +505,61 @@ export default function DashboardView({ motions, meetings = [] }) {
           </div>
         )}
 
-        {/* 2. Middle: Notable + Your Ward (4-card Grid) */}
+        {/* 2. Middle: Ward Motions + Most Notable */}
         <div className="flex flex-col gap-1.5 min-w-0">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 px-1">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide col-span-2">Most Notable</p>
-            {wardHighlights.length > 0 && (
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide col-span-2">Ward Motions</p>
-            )}
-          </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 items-stretch flex-1 min-w-0">
-            {highlights.length === 0 && wardHighlights.length === 0 && (
-              <div className="col-span-2 lg:col-span-4 flex items-center justify-center py-10 bg-white border border-dashed border-slate-200 rounded-2xl">
-                <p className="text-xs text-slate-400">No notable motions yet.</p>
+          {wardHighlights.length > 0 && (
+            <section className="space-y-1.5">
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Ward Motions</p>
+              <div className="grid grid-cols-2 gap-3">
+                {wardHighlights.map((m, i) => {
+                  const yesCount = Object.values(m.votes ?? {}).filter(v => v === 'YES').length;
+                  const noCount = Object.values(m.votes ?? {}).filter(v => v === 'NO').length;
+                  return (
+                    <motion.button
+                      key={m.id}
+                      initial={{ opacity: 0, scale: 0.97 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: i * 0.04 }}
+                      onClick={() => navigate(`/motions/${m.id}`)}
+                      className="bg-white border border-slate-200 rounded-2xl p-4 text-left group flex flex-col gap-2 hover:border-[#004a99]/40 hover:shadow-sm transition-all"
+                    >
+                      <span className={cn("text-[9px] font-semibold px-1.5 py-0.5 rounded-full self-start", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>{m.topic}</span>
+                      <p className="text-xs font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-3 leading-snug" title={m.title}>{m.title}</p>
+                      <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
+                        <span className="text-[9px] text-slate-400">{m.date.split(',')[0]}</span>
+                        <span className="text-[9px] font-medium"><span className="text-emerald-600 font-bold">{yesCount}</span><span className="text-slate-300 mx-0.5">–</span><span className="text-rose-500 font-bold">{noCount}</span></span>
+                      </div>
+                    </motion.button>
+                  );
+                })}
               </div>
-            )}
-            {[...highlights, ...wardHighlights].map((m, i) => {
+            </section>
+          )}
+
+          <section className="space-y-1.5">
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Most Notable</p>
+            <div className="grid grid-cols-2 gap-3 items-stretch min-w-0">
+              <Link
+                to="/election"
+                className="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100 rounded-2xl p-4 text-left group flex flex-col gap-2 hover:border-blue-300 hover:shadow-sm transition-all"
+              >
+                <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-blue-100 text-blue-700 self-start">Civic update</span>
+                <div className="flex items-center gap-2 text-blue-700">
+                  <Vote className="w-4 h-4" />
+                  <span className="text-sm font-black">Toronto Election</span>
+                </div>
+                <p className="text-xs font-semibold text-slate-800 group-hover:text-blue-700 transition-colors line-clamp-3 leading-snug">Choose your ward and see the candidates before October 26.</p>
+                <div className="flex items-center justify-between mt-auto pt-2 border-t border-blue-100">
+                  <span className="text-[9px] text-slate-400">October 26, 2026</span>
+                  <span className="text-[9px] font-semibold text-blue-700">Get ready</span>
+                </div>
+              </Link>
+              {highlights.length === 0 && (
+                <div className="col-span-2 flex items-center justify-center py-10 bg-white border border-dashed border-slate-200 rounded-2xl">
+                <p className="text-xs text-slate-400">No notable motions yet.</p>
+                </div>
+              )}
+              {highlights.map((m, i) => {
               const yesCount = Object.values(m.votes ?? {}).filter(v => v === 'YES').length;
               const noCount  = Object.values(m.votes ?? {}).filter(v => v === 'NO').length;
               const total    = yesCount + noCount;
@@ -553,8 +593,9 @@ export default function DashboardView({ motions, meetings = [] }) {
                   </div>
                 </motion.button>
               );
-            })}
-          </div>
+              })}
+            </div>
+          </section>
         </div>
 
         {/* 3. Right: Coming Up (ONE Card) */}

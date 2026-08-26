@@ -1,7 +1,7 @@
 import { getWardId } from '../utils/storage';
 import React, { useMemo, useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { Mail, Phone, GitCompare } from 'lucide-react';
+import { Mail, Phone, GitCompare, Vote } from 'lucide-react';
 import VsPickerModal from './VsPickerModal';
 import { getAttendance, getVotedWith } from '../utils/analytics';
 import { TOPIC_LIGHT, WARD_COUNCILLORS, FORMER_MEMBERS, getCommittee } from '../constants/data';
@@ -11,7 +11,7 @@ import { cn } from '../lib/utils';
 import MotionCardItem from './MotionCardItem';
 
 // ── Sub-component: profile header ─────────────────────────────────────────
-function ProfileHeader({ selected, ward, contact, committees, isMyCouncillor, onCompare }) {
+function ProfileHeader({ selected, ward, contact, committees, isMyCouncillor, onCompare, electionStatus }) {
   const navigate = useNavigate();
   const initials = selected.split(' ').map(n => n[0]).slice(0, 2).join('');
   const lastName = selected.split(' ').at(-1);
@@ -42,6 +42,20 @@ function ProfileHeader({ selected, ward, contact, committees, isMyCouncillor, on
           </button>
         </div>
         <p className="text-sm text-slate-400 mt-0.5 break-words">{ward ? `Ward ${ward.id} · ${ward.name}` : 'Toronto City Council'}</p>
+        {electionStatus && (
+          <Link
+            to="/election"
+            className={cn(
+              "inline-flex items-center gap-1.5 mt-2 text-[10px] font-bold px-2.5 py-1 rounded-full transition-colors",
+              electionStatus === 'filed'
+                ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100'
+                : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
+            )}
+          >
+            <Vote className="w-3 h-3" />
+            {electionStatus === 'filed' ? 'Filed to run again in 2026' : 'Not listed as a 2026 candidate'}
+          </Link>
+        )}
         {contact && (contact.email || contact.phone) && (
           <div className="flex items-center gap-3 mt-1.5 flex-wrap">
             {contact.phone && (
@@ -57,19 +71,9 @@ function ProfileHeader({ selected, ward, contact, committees, isMyCouncillor, on
           </div>
         )}
         {committees.length > 0 && (
-          <div className="text-xs text-slate-500 leading-snug mt-2.5">
+          <div className="text-xs text-slate-500 leading-snug mt-2.5" title={committees.join(', ')}>
             <span className="font-semibold text-slate-400 text-[10px] uppercase tracking-wider mr-2">Committees</span>
-            {committees.map((c, i) => (
-              <span key={c}>
-                <button
-                  onClick={() => navigate(`/committees/${committeeToSlug(c)}`)}
-                  className="hover:text-[#004a99] hover:underline transition-colors text-left"
-                >
-                  {c}
-                </button>
-                {i < committees.length - 1 && <span className="mr-1.5 text-slate-300">,</span>}
-              </span>
-            ))}
+            <span>{committees.length} assigned</span>
           </div>
         )}
       </div>
@@ -308,6 +312,7 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
   const [vsSearch, setVsSearch] = useState('');
   const [tenure, setTenure] = useState({});
   const [expenses, setExpenses] = useState(null);
+  const [candidateData, setCandidateData] = useState(null);
 
   const blobBase = import.meta.env.VITE_BLOB_BASE_URL;
 
@@ -321,6 +326,11 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
     fetch(url).then(r => r.json()).then(setExpenses).catch(() => {});
   }, []);
 
+  useEffect(() => {
+    const url = blobBase ? `${blobBase}/candidates.json` : '/data/candidates.json';
+    fetch(url).then(r => r.json()).then(setCandidateData).catch(() => {});
+  }, []);
+
   const allNames = useMemo(() => {
     const s = new Set();
     motions.forEach(m => { if (m.votes) Object.keys(m.votes).forEach(n => s.add(n)); });
@@ -330,6 +340,12 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
   const selected = useMemo(() => slugToName(slug, allNames), [slug, allNames]);
   const ward = selected ? COUNCILLOR_WARD[selected] : null;
   const contact = councillors.find(c => c.name === selected) ?? null;
+  const electionStatus = useMemo(() => {
+    if (!candidateData || !selected || !ward) return null;
+    const normalize = name => name.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const candidates = candidateData.wards?.[ward.id] ?? [];
+    return candidates.some(candidate => normalize(candidate.name) === normalize(selected)) ? 'filed' : 'not-listed';
+  }, [candidateData, selected, ward]);
 
   const totalVotes = useMemo(() =>
     selected ? motions.filter(m => m.votes?.[selected]).length : 0,
@@ -417,8 +433,8 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
       )}
 
       {/* Profile header + stats */}
-      <div className={cn("flex flex-col gap-4 lg:grid lg:gap-8 items-stretch mb-6", expenseRecord ? "lg:grid-cols-[220px_1fr_220px]" : "lg:grid-cols-[220px_1fr]")}>
-        <ProfileHeader selected={selected} ward={ward} contact={contact} committees={committees} isMyCouncillor={isMyCouncillor} onCompare={() => setVsPickerOpen(true)} />
+      <div className={cn("flex flex-col gap-4 lg:grid lg:gap-8 items-start mb-6", expenseRecord ? "lg:grid-cols-[220px_1fr_220px]" : "lg:grid-cols-[220px_1fr]")}>
+        <ProfileHeader selected={selected} ward={ward} contact={contact} committees={committees} isMyCouncillor={isMyCouncillor} electionStatus={electionStatus} onCompare={() => setVsPickerOpen(true)} />
 
         {attendance && (
           <VotingStats
