@@ -149,7 +149,7 @@ export default function ElectionView() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+          <div className="flex flex-col gap-3">
             {/* Intelligence Column */}
             <div className="bg-white border border-slate-200 rounded-2xl p-4 space-y-4">
               <h3 className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-400 px-1">
@@ -248,7 +248,7 @@ export default function ElectionView() {
             </div>
 
             {/* The Candidates Column */}
-            <div className="space-y-3">
+            <div className="space-y-3 order-first">
               <div className="flex items-center gap-2 px-1">
                 <Vote className="w-4 h-4 text-[#004a99]" />
                 <h3 className="text-[10px] font-bold uppercase tracking-widest text-slate-400">2026 candidates</h3>
