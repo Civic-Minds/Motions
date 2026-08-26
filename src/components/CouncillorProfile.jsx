@@ -1,7 +1,7 @@
 import { getWardId } from '../utils/storage';
 import React, { useMemo, useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { Mail, Phone, GitCompare, Vote } from 'lucide-react';
+import { Mail, Phone, Vote } from 'lucide-react';
 import VsPickerModal from './VsPickerModal';
 import { getAttendance, getVotedWith } from '../utils/analytics';
 import { TOPIC_LIGHT, WARD_COUNCILLORS, FORMER_MEMBERS, getCommittee } from '../constants/data';
@@ -11,8 +11,7 @@ import { cn } from '../lib/utils';
 import MotionCardItem from './MotionCardItem';
 
 // ── Sub-component: profile header ─────────────────────────────────────────
-function ProfileHeader({ selected, ward, contact, committees, isMyCouncillor, onCompare, electionStatus }) {
-  const navigate = useNavigate();
+function ProfileHeader({ selected, ward, committees, isMyCouncillor, electionStatus }) {
   const initials = selected.split(' ').map(n => n[0]).slice(0, 2).join('');
   const lastName = selected.split(' ').at(-1);
   const photoUrl = `/images/councillors/${lastName}.jpg`;
@@ -34,12 +33,6 @@ function ProfileHeader({ selected, ward, contact, committees, isMyCouncillor, on
           {isMyCouncillor && (
             <span className="text-[10px] font-bold bg-[#004a99] text-white px-2.5 py-0.5 rounded-full">Your Councillor</span>
           )}
-          <button
-            onClick={onCompare}
-            className="flex items-center gap-1 text-[10px] font-medium text-slate-400 hover:text-[#004a99] border border-slate-200 hover:border-[#004a99]/40 px-2 py-0.5 rounded-full transition-colors"
-          >
-            <GitCompare className="w-3 h-3" /> Compare
-          </button>
         </div>
         <p className="text-sm text-slate-400 mt-0.5 break-words">{ward ? `Ward ${ward.id} · ${ward.name}` : 'Toronto City Council'}</p>
         {electionStatus && (
@@ -426,7 +419,7 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
 
       {/* Profile header + stats */}
       <div className="flex flex-col gap-4 lg:grid lg:grid-cols-[220px_1fr_220px] lg:gap-8 items-start mb-6">
-        <ProfileHeader selected={selected} ward={ward} contact={contact} committees={committees} isMyCouncillor={isMyCouncillor} electionStatus={electionStatus} onCompare={() => setVsPickerOpen(true)} />
+        <ProfileHeader selected={selected} ward={ward} committees={committees} isMyCouncillor={isMyCouncillor} electionStatus={electionStatus} />
 
         {attendance && (
           <VotingStats
@@ -441,7 +434,7 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
 
         <div className="flex flex-col gap-1.5">
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Contact</p>
-          <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col justify-center gap-3 min-h-[112px]">
+          <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col justify-center gap-3 h-[112px]">
             {contact?.phone && (
               <a href={`tel:${contact.phone}`} className="flex items-center gap-2 text-xs text-slate-600 hover:text-[#004a99] transition-colors break-all">
                 <Phone className="w-3.5 h-3.5 shrink-0" />{contact.phone}
