@@ -106,7 +106,7 @@ export default function ElectionView() {
           { title: "2. Councillor", desc: "One candidate for your ward", icon: <User className="w-5 h-5" />, color: "bg-blue-50 text-blue-600 border-blue-100" },
           { title: "3. Trustee", desc: "One for your school board", icon: <GraduationCap className="w-5 h-5" />, color: "bg-emerald-50 text-emerald-600 border-emerald-100" },
         ].map((item, i) => (
-          <div key={i} className={cn("p-4 rounded-3xl border flex items-center gap-4", item.color)}>
+          <div key={i} className={cn("p-4 rounded-2xl border flex items-center gap-4", item.color)}>
             <div className="shrink-0 w-10 h-10 rounded-2xl bg-white shadow-sm flex items-center justify-center">
               {item.icon}
             </div>
@@ -119,12 +119,11 @@ export default function ElectionView() {
       </section>
 
       {/* Primary Focus: The Candidates & Records */}
-      <section className="bg-slate-900 rounded-[2.5rem] p-8 md:p-12 text-white overflow-hidden relative shadow-2xl shadow-blue-900/20">
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-blue-600/20 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2" />
+      <section className="bg-white rounded-2xl p-6 md:p-8 text-slate-900 overflow-hidden relative border border-slate-200 shadow-sm">
         
         <div className="relative z-10 space-y-12">
           <div className="text-center max-w-2xl mx-auto space-y-4">
-            <h2 className="text-3xl md:text-4xl font-black tracking-tight italic">The 2026 Field</h2>
+            <h2 className="text-3xl md:text-4xl font-black tracking-tight">The 2026 Field</h2>
             <p className="text-slate-400 text-lg">
               Review the track records of your current representatives and explore the profiles of new candidates.
             </p>
@@ -140,7 +139,7 @@ export default function ElectionView() {
               
               <div className="space-y-4">
                 {/* Mayor Card */}
-                <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-6 space-y-4 hover:bg-white/10 transition-all group">
+                <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-4 hover:bg-white transition-all group">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-xl bg-purple-500/20 flex items-center justify-center">
@@ -160,13 +159,13 @@ export default function ElectionView() {
                   <div className="grid grid-cols-2 gap-3">
                     <Link 
                       to="/councillors/olivia-chow"
-                      className="p-3 rounded-2xl bg-white/5 border border-white/5 hover:border-white/20 transition-all flex flex-col items-center justify-center text-center gap-1 group/btn"
+                      className="p-3 rounded-2xl bg-white border border-slate-200 hover:border-slate-300 transition-all flex flex-col items-center justify-center text-center gap-1 group/btn"
                     >
-                      <span className="text-xs font-bold text-white group-hover/btn:text-blue-400 transition-colors">Voting Record</span>
+                      <span className="text-xs font-bold text-slate-900 group-hover/btn:text-blue-600 transition-colors">Voting Record</span>
                       <span className="text-[9px] text-slate-400">2023–2026 Term</span>
                     </Link>
-                    <div className="p-3 rounded-2xl bg-white/5 border border-white/5 flex flex-col items-center justify-center text-center gap-1 grayscale opacity-50 cursor-not-allowed">
-                      <span className="text-xs font-bold text-white">Campaign Platform</span>
+                    <div className="p-3 rounded-2xl bg-slate-100 border border-slate-200 flex flex-col items-center justify-center text-center gap-1 grayscale opacity-50 cursor-not-allowed">
+                      <span className="text-xs font-bold text-slate-900">Campaign Platform</span>
                       <span className="text-[9px] text-slate-400">Coming Soon</span>
                     </div>
                   </div>
@@ -174,7 +173,7 @@ export default function ElectionView() {
 
                 {/* Councillor Card */}
                 {savedWard ? (
-                  <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-6 space-y-4 hover:bg-white/10 transition-all group">
+                  <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-4 hover:bg-white transition-all group">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center">
@@ -194,19 +193,19 @@ export default function ElectionView() {
                     <div className="grid grid-cols-2 gap-3">
                       <Link 
                         to={`/councillors/${nameToSlug(councillorName)}`}
-                        className="p-3 rounded-2xl bg-white/5 border border-white/5 hover:border-white/20 transition-all flex flex-col items-center justify-center text-center gap-1 group/btn"
+                        className="p-3 rounded-2xl bg-white border border-slate-200 hover:border-slate-300 transition-all flex flex-col items-center justify-center text-center gap-1 group/btn"
                       >
-                        <span className="text-xs font-bold text-white group-hover/btn:text-blue-400 transition-colors">Legislative Record</span>
+                        <span className="text-xs font-bold text-slate-900 group-hover/btn:text-blue-600 transition-colors">Legislative Record</span>
                         <span className="text-[9px] text-slate-400">350+ Votes Tracked</span>
                       </Link>
-                      <div className="p-3 rounded-2xl bg-white/5 border border-white/5 flex flex-col items-center justify-center text-center gap-1 grayscale opacity-50 cursor-not-allowed">
-                      <span className="text-xs font-bold text-white">Candidate Record</span>
+                      <div className="p-3 rounded-2xl bg-slate-100 border border-slate-200 flex flex-col items-center justify-center text-center gap-1 grayscale opacity-50 cursor-not-allowed">
+                      <span className="text-xs font-bold text-slate-900">Candidate Record</span>
                       <span className="text-[9px] text-slate-400">Official listing</span>
                       </div>
                     </div>
                   </div>
                 ) : (
-                  <div className="bg-white/5 border border-dashed border-white/10 rounded-3xl p-8 text-center space-y-4">
+                  <div className="bg-slate-50 border border-dashed border-slate-200 rounded-2xl p-8 text-center space-y-4">
                     <p className="text-sm text-slate-400 italic">Save your ward to view your local representative's track record</p>
                     <Link 
                       to="/wards" 
@@ -235,12 +234,12 @@ export default function ElectionView() {
                   <Vote className="w-4 h-4" />
                   The 2026 Candidates
                 </h3>
-                <div className="flex bg-white/5 p-1 rounded-xl border border-white/10">
+                <div className="flex bg-slate-100 p-1 rounded-xl border border-slate-200">
                   <button 
                     onClick={() => setCandidateView('mayor')}
                     className={cn(
                       "px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all",
-                      candidateView === 'mayor' ? "bg-white text-slate-900" : "text-slate-400 hover:text-white"
+                      candidateView === 'mayor' ? "bg-white text-slate-900" : "text-slate-400 hover:text-slate-900"
                     )}
                   >Mayor</button>
                   <button 
@@ -248,19 +247,19 @@ export default function ElectionView() {
                     disabled={!savedWardId}
                     className={cn(
                       "px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all",
-                      candidateView === 'ward' ? "bg-white text-slate-900" : "text-slate-400 hover:text-white",
+                      candidateView === 'ward' ? "bg-white text-slate-900" : "text-slate-400 hover:text-slate-900",
                       !savedWardId && "cursor-not-allowed opacity-40"
                     )}
                   >{savedWardId ? `Ward ${savedWardId}` : 'Choose ward'}</button>
                 </div>
               </div>
 
-              <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-[2rem] p-6 h-[400px] overflow-y-auto custom-scrollbar">
+              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 h-[400px] overflow-y-auto custom-scrollbar">
                 <div className="space-y-3">
                   {candidateView === 'mayor' ? (
                     candidateData?.mayor.length > 0 ? (
                       candidateData.mayor.map((c, i) => (
-                        <div key={i} className="flex flex-col gap-1 p-3 rounded-2xl bg-white/5 border border-white/5 hover:border-white/10 transition-all">
+                        <div key={i} className="flex flex-col gap-1 p-3 rounded-2xl bg-white border border-slate-200 hover:border-slate-300 transition-all">
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
                               <span className="font-bold text-sm">{c.name}</span>
@@ -269,8 +268,8 @@ export default function ElectionView() {
                               )}
                             </div>
                             <div className="flex items-center gap-3">
-                              {c.email && <a href={`mailto:${c.email}`} className="text-slate-400 hover:text-white"><Mail className="w-3.5 h-3.5" /></a>}
-                              {c.phone && <a href={`tel:${c.phone}`} className="text-slate-400 hover:text-white"><Phone className="w-3.5 h-3.5" /></a>}
+                              {c.email && <a href={`mailto:${c.email}`} className="text-slate-400 hover:text-slate-900"><Mail className="w-3.5 h-3.5" /></a>}
+                              {c.phone && <a href={`tel:${c.phone}`} className="text-slate-400 hover:text-slate-900"><Phone className="w-3.5 h-3.5" /></a>}
                             </div>
                             {formatNominationDate(c.nominationDate) && (
                               <span className="text-[9px] text-slate-500">{formatNominationDate(c.nominationDate)}</span>
@@ -284,7 +283,7 @@ export default function ElectionView() {
                   ) : (
                     wardCandidates.length > 0 ? (
                       wardCandidates.map((c, i) => (
-                        <div key={i} className="flex flex-col gap-1 p-3 rounded-2xl bg-white/5 border border-white/5 hover:border-white/10 transition-all">
+                        <div key={i} className="flex flex-col gap-1 p-3 rounded-2xl bg-white border border-slate-200 hover:border-slate-300 transition-all">
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
                               <span className="font-bold text-sm">{c.name}</span>
@@ -293,8 +292,8 @@ export default function ElectionView() {
                               )}
                             </div>
                             <div className="flex items-center gap-3">
-                              {c.email && <a href={`mailto:${c.email}`} className="text-slate-400 hover:text-white"><Mail className="w-3.5 h-3.5" /></a>}
-                              {c.phone && <a href={`tel:${c.phone}`} className="text-slate-400 hover:text-white"><Phone className="w-3.5 h-3.5" /></a>}
+                              {c.email && <a href={`mailto:${c.email}`} className="text-slate-400 hover:text-slate-900"><Mail className="w-3.5 h-3.5" /></a>}
+                              {c.phone && <a href={`tel:${c.phone}`} className="text-slate-400 hover:text-slate-900"><Phone className="w-3.5 h-3.5" /></a>}
                             </div>
                             {formatNominationDate(c.nominationDate) && (
                               <span className="text-[9px] text-slate-500">{formatNominationDate(c.nominationDate)}</span>
@@ -322,7 +321,7 @@ export default function ElectionView() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.1 }}
-          className="bg-slate-900 rounded-3xl p-8 text-white flex flex-col items-center justify-center text-center space-y-2 shadow-xl shadow-slate-200"
+          className="bg-white border border-slate-200 rounded-2xl p-8 text-slate-900 flex flex-col items-center justify-center text-center space-y-2 shadow-sm"
         >
           <span className="text-5xl font-black tabular-nums">{daysUntil}</span>
           <span className="text-slate-400 font-medium uppercase tracking-widest text-xs">Days to Election</span>
@@ -332,7 +331,7 @@ export default function ElectionView() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2 }}
-          className="bg-white border border-slate-200 rounded-3xl p-6 flex flex-col justify-between"
+          className="bg-white border border-slate-200 rounded-2xl p-6 flex flex-col justify-between"
         >
           <div className="space-y-1">
             <div className="flex items-center gap-2 text-slate-400 mb-2">
@@ -360,7 +359,7 @@ export default function ElectionView() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.3 }}
-          className="bg-white border border-slate-200 rounded-3xl p-6 flex flex-col justify-between"
+          className="bg-white border border-slate-200 rounded-2xl p-6 flex flex-col justify-between"
         >
           <div className="space-y-1">
             <div className="flex items-center gap-2 text-slate-400 mb-2">
