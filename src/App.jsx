@@ -2,7 +2,7 @@ import React, { lazy, Suspense, useState, useEffect, useMemo } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { Users, Map, Building2, Menu, X, Search, GitCompare, MapPin } from 'lucide-react';
+import { Users, Map, Building2, Vote, Menu, X, Search, GitCompare, MapPin } from 'lucide-react';
 import { WARD_COUNCILLORS } from './constants/data';
 import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from './lib/utils';
@@ -26,6 +26,7 @@ const TABS = [
   { path: '/councillors', label: 'Councillors', icon: Users },
   { path: '/committees',  label: 'Committees',  icon: Building2 },
   { path: '/wards',       label: 'Wards',       icon: Map },
+  { path: '/election',    label: 'Election',    icon: Vote },
 ];
 
 function Navbar({ onSearchOpen, compareMode, onCompareModeToggle }) {
@@ -44,18 +45,18 @@ function Navbar({ onSearchOpen, compareMode, onCompareModeToggle }) {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 bg-white/80 backdrop-blur-xl">
-      <div className="max-w-[1400px] mx-auto px-6 h-16 grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-4">
+      <div className="max-w-[1400px] mx-auto px-6 h-16 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4">
 
         {/* Logo */}
         <div className="flex items-center gap-3 cursor-pointer select-none" onClick={() => navigate('/')}>
-          <span className="text-base leading-none">
+          <span className="flex flex-col text-sm leading-[0.95]">
             <span className="font-bold text-slate-900">Motions</span>
-            <span className="font-normal text-slate-500 ml-1.5">Toronto</span>
+            <span className="font-normal text-slate-500">Toronto</span>
           </span>
         </div>
 
         {/* Desktop nav — absolutely centered so it never shifts */}
-        <nav className="hidden lg:flex items-center gap-1 justify-self-center">
+        <nav className="hidden lg:flex items-center gap-1 justify-self-start">
           {TABS.map(tab => {
             const Icon = tab.icon;
             const isActive = active?.path === tab.path;
@@ -64,7 +65,7 @@ function Navbar({ onSearchOpen, compareMode, onCompareModeToggle }) {
                 key={tab.path}
                 onClick={() => navigate(tab.path)}
                 className={cn(
-                  "flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200",
+                  "flex items-center gap-2 px-3 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200",
                   isActive
                     ? "bg-slate-900 text-white"
                     : "text-slate-500 hover:text-slate-900 hover:bg-slate-100"
@@ -113,7 +114,7 @@ function Navbar({ onSearchOpen, compareMode, onCompareModeToggle }) {
           ) : (
             <button
               onClick={handleLocate}
-              className="hidden sm:flex items-center gap-1.5 px-3 py-2 text-sm text-slate-500 bg-white border border-slate-200 rounded-xl hover:border-slate-400 transition-all"
+              className="hidden sm:flex items-center gap-1.5 px-3 py-2 whitespace-nowrap text-sm text-slate-500 bg-white border border-slate-200 rounded-xl hover:border-slate-400 transition-all"
             >
               <MapPin className="w-3.5 h-3.5" />
               Find My Ward

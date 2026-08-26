@@ -5,17 +5,16 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { WARD_COUNCILLORS } from '../constants/data';
 import { TORONTO_WARDS } from '../constants/wards';
 import { nameToSlug } from '../utils/slug';
-import { getWardId, setWardId as saveWardId } from '../utils/storage';
+import { useAppContext } from '../contexts/AppContext';
 
 export default function YourWardCard() {
   const navigate = useNavigate();
-  const [wardId, setWardIdState] = useState(() => getWardId());
+  const { wardId, handleSetWard } = useAppContext();
   const [status, setStatus] = useState('idle'); // idle | locating | error
   const [errorMsg, setErrorMsg] = useState('');
 
   function setWardId(id) {
-    setWardIdState(id);
-    saveWardId(id);
+    handleSetWard(id);
   }
 
   const ward = wardId ? TORONTO_WARDS.find(w => w.id === wardId) : null;

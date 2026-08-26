@@ -19,6 +19,11 @@ export function AppProvider({ children }) {
         saveWardId(null);
     };
 
+    const handleSetWard = (id) => {
+        setWardId(id || null);
+        saveWardId(id || null);
+    };
+
     const handleToggleFollow = (name) => {
         const next = followedCommittees.includes(name)
             ? followedCommittees.filter(c => c !== name)
@@ -28,7 +33,7 @@ export function AppProvider({ children }) {
     };
 
     return (
-        <AppContext.Provider value={{ wardId, handleLocate, handleClearWard, followedCommittees, handleToggleFollow }}>
+        <AppContext.Provider value={{ wardId, handleLocate, handleSetWard, handleClearWard, followedCommittees, handleToggleFollow }}>
             {children}
         </AppContext.Provider>
     );

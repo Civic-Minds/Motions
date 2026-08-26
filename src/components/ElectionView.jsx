@@ -3,10 +3,10 @@ import { motion } from 'framer-motion';
 import { Calendar, MapPin, ExternalLink, Vote, Info, Clock, CheckCircle2, AlertCircle, User, Mail, Phone, ChevronRight, ChevronDown, Building2, GraduationCap } from 'lucide-react';
 import { WARD_COUNCILLORS } from '../constants/data';
 import { TORONTO_WARDS } from '../constants/wards';
-import { getWardId } from '../utils/storage';
 import { nameToSlug } from '../utils/slug';
 import { Link } from 'react-router-dom';
 import { cn } from '../lib/utils';
+import { useAppContext } from '../contexts/AppContext';
 
 const ELECTION_DATE = new Date('2026-10-26T00:00:00');
 const NOMINATION_OPEN = new Date('2026-05-01T08:30:00');
@@ -18,7 +18,7 @@ const formatNominationDate = (date) => {
 };
 
 export default function ElectionView() {
-  const savedWardId = getWardId();
+  const { wardId: savedWardId, handleSetWard } = useAppContext();
   const today = new Date();
   const [candidateData, setCandidateData] = useState(null);
   const [expandedWards, setExpandedWards] = useState({});
@@ -52,6 +52,12 @@ export default function ElectionView() {
 
   const councillorName = savedWardId ? WARD_COUNCILLORS[savedWardId] : null;
 
+  const handleWardChange = (event) => {
+    const wardId = event.target.value || null;
+    handleSetWard(wardId);
+    if (wardId) setCandidateView('ward');
+  };
+
   return (
     <div className="max-w-4xl mx-auto space-y-12 pb-20">
       {/* Hero Header */}
@@ -77,6 +83,20 @@ export default function ElectionView() {
             : "The 2026–2030 term will decide the future of Toronto's housing, transit, and infrastructure. Make sure you're ready to vote."
           }
         </p>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+          <label htmlFor="election-ward" className="text-sm font-bold text-slate-600">See your ward’s candidates</label>
+          <select
+            id="election-ward"
+            value={savedWardId || ''}
+            onChange={handleWardChange}
+            className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
+          >
+            <option value="">Choose a ward</option>
+            {TORONTO_WARDS.map(ward => (
+              <option key={ward.id} value={ward.id}>Ward {ward.id} — {ward.name}</option>
+            ))}
+          </select>
+        </div>
       </section>
 
       {/* Your Ballot - Explainer */}
@@ -225,11 +245,13 @@ export default function ElectionView() {
                   >Mayor</button>
                   <button 
                     onClick={() => setCandidateView('ward')}
+                    disabled={!savedWardId}
                     className={cn(
                       "px-3 py-1 rounded-lg text-[10px] font-black uppercase transition-all",
-                      candidateView === 'ward' ? "bg-white text-slate-900" : "text-slate-400 hover:text-white"
+                      candidateView === 'ward' ? "bg-white text-slate-900" : "text-slate-400 hover:text-white",
+                      !savedWardId && "cursor-not-allowed opacity-40"
                     )}
-                  >Ward {savedWardId || ''}</button>
+                  >{savedWardId ? `Ward ${savedWardId}` : 'Choose ward'}</button>
                 </div>
               </div>
 
@@ -345,8 +367,8 @@ export default function ElectionView() {
               <Info className="w-4 h-4" />
               <span className="text-[10px] font-bold uppercase tracking-wider">Registration</span>
             </div>
-            <h3 className="font-bold text-slate-900">Voter Registry</h3>
-            <p className="text-sm text-slate-500">Check if you are on the list to vote in October.</p>
+            <h3 className="font-bold text-slate-900">Get ready to vote</h3>
+            <p className="text-sm text-slate-500">From September 1, check your voter registration and request a mail-in ballot.</p>
           </div>
           <a 
             href="https://www.toronto.ca/city-government/elections/voter-information/" 
@@ -354,7 +376,7 @@ export default function ElectionView() {
             rel="noopener noreferrer"
             className="mt-6 flex items-center justify-center gap-2 w-full py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100 hover:border-slate-300 transition-all"
           >
-            Check Status <ExternalLink className="w-3 h-3" />
+            Check MyVote <ExternalLink className="w-3 h-3" />
           </a>
         </motion.div>
       </div>
