@@ -39,7 +39,7 @@ export default function TorontoMiniMap({ motions }) {
   );
 
   return (
-    <div className="relative rounded-2xl overflow-hidden border border-slate-200 cursor-pointer group h-[480px]">
+    <div className="relative rounded-2xl overflow-hidden border border-slate-200 cursor-pointer group h-[calc(100vh-7rem)] min-h-[480px]">
       <MapContainer
         center={[43.718, -79.385]}
         zoom={12}

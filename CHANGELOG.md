@@ -16,6 +16,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Election page**: Separated mayoral and councillor candidate lists into distinct cards for easier scanning.
 - **Councillor voting records**: Added shareable Committee, Year, Vote, Category, and followed-committee filters with a desktop sidebar and mobile panel.
 - **Filter layout**: Reused the same sidebar shell across the homepage and councillor voting records.
+- **Dashboard layout**: Let the filter sidebar and ward map fill the available viewport height while scrolling the motion list.
 
 ### Changed
 - **Election candidate records**: Refresh the official 2026 candidate list during data updates and show filed dates now that nominations are closed.

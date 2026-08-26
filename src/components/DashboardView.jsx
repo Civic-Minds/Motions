@@ -669,7 +669,7 @@ export default function DashboardView({ motions, meetings = [] }) {
 
         {/* Toronto mini-map — click navigates to /wards */}
         <div className="hidden lg:flex flex-col sticky top-24">
-          <Suspense fallback={<div className="rounded-2xl bg-slate-100 animate-pulse h-[480px] border border-slate-200" />}>
+          <Suspense fallback={<div className="rounded-2xl bg-slate-100 animate-pulse h-[calc(100vh-7rem)] min-h-[480px] border border-slate-200" />}>
             <TorontoMiniMap motions={motions} />
           </Suspense>
         </div>
