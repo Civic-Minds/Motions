@@ -439,7 +439,7 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
       )}
 
       {/* Profile header + stats */}
-      <div className="flex flex-col gap-4 lg:grid lg:grid-cols-[300px_1fr_220px] lg:gap-8 items-start mb-6">
+      <div className="flex flex-col gap-4 lg:grid lg:grid-cols-[220px_1fr_220px] lg:gap-8 items-start mb-6">
         <ProfileHeader selected={selected} ward={ward} contact={contact} committees={committees} isMyCouncillor={isMyCouncillor} electionStatus={electionStatus} onCompare={() => setVsPickerOpen(true)} />
 
         {attendance && (
