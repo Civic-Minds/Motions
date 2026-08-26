@@ -11,7 +11,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Election readiness**: Added a direct Elections menu link, shared ward selection, homepage civic update, and verified councillor election status so Toronto residents can prepare to vote.
 - **Councillor comparison**: Moved the comparison control into the councillors page, clarified shared-vote totals, and simplified the header search to an icon.
 - **Motion vote totals**: Explained unnamed additional votes so official results are clearer.
-- **Ward map**: Added a fullscreen view for inspecting Toronto’s ward boundaries.
+- **Ward map**: Added fullscreen views for inspecting Toronto’s ward boundaries and ward-specific motion locations.
 - **Election page**: Rebuilt the page sections as compact Motions-style cards for a more consistent experience.
 - **Councillor voting records**: Added shareable Committee, Year, Vote, Category, and followed-committee filters with a desktop sidebar and mobile panel.
 - **Filter layout**: Reused the same sidebar shell across the homepage and councillor voting records.

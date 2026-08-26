@@ -57,6 +57,7 @@ export default function WardGrid({ motions }) {
   const foundWardId = getWardId();
   const [geoData, setGeoData] = useState(null);
   const [mapFullscreen, setMapFullscreen] = useState(false);
+  const [wardMapFullscreen, setWardMapFullscreen] = useState(false);
 
   const selectedWard = wardIdParam
     ? TORONTO_WARDS.find(w => w.id === wardIdParam) ?? null
@@ -178,6 +179,8 @@ export default function WardGrid({ motions }) {
                 <WardMotionMap
                   wardFeature={selectedWardFeature}
                   motions={wardMotions}
+                  isFullscreen={wardMapFullscreen}
+                  onToggleFullscreen={() => setWardMapFullscreen(open => !open)}
                 />
               </Suspense>
             )}

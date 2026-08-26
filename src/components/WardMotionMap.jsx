@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { MapContainer, TileLayer, GeoJSON, CircleMarker, Tooltip, useMap } from 'react-leaflet';
 import { useNavigate } from 'react-router-dom';
+import { Maximize2, X } from 'lucide-react';
 import 'leaflet/dist/leaflet.css';
 
 // Fit map to the ward boundary on load/change
@@ -18,8 +19,15 @@ function FitBounds({ feature }) {
   return null;
 }
 
-export default function WardMotionMap({ wardFeature, motions }) {
+export default function WardMotionMap({ wardFeature, motions, isFullscreen = false, onToggleFullscreen }) {
   const navigate = useNavigate();
+  const mapRef = useRef(null);
+
+  useEffect(() => {
+    if (!isFullscreen) return;
+    const frame = requestAnimationFrame(() => mapRef.current?.invalidateSize());
+    return () => cancelAnimationFrame(frame);
+  }, [isFullscreen]);
 
   // Motions with location data
   const pins = motions.flatMap(m =>
@@ -27,13 +35,18 @@ export default function WardMotionMap({ wardFeature, motions }) {
   );
 
   return (
-    <MapContainer
-      center={[43.7, -79.38]}
-      zoom={12}
-      className="w-full h-72 rounded-2xl overflow-hidden border border-slate-200 z-0"
-      zoomControl={true}
-      scrollWheelZoom={false}
+    <div className={isFullscreen
+      ? 'fixed inset-0 z-[60] w-screen h-screen overflow-hidden bg-white'
+      : 'relative w-full h-72 rounded-2xl overflow-hidden border border-slate-200'}
     >
+      <MapContainer
+        ref={mapRef}
+        center={[43.7, -79.38]}
+        zoom={12}
+        className="w-full h-full z-0"
+        zoomControl={true}
+        scrollWheelZoom={false}
+      >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -52,7 +65,7 @@ export default function WardMotionMap({ wardFeature, motions }) {
       )}
 
       {/* Motion pins */}
-      {pins.map((pin, i) => (
+        {pins.map((pin, i) => (
         <CircleMarker
           key={i}
           center={[pin.lat, pin.lng]}
@@ -72,7 +85,20 @@ export default function WardMotionMap({ wardFeature, motions }) {
             </div>
           </Tooltip>
         </CircleMarker>
-      ))}
-    </MapContainer>
+        ))}
+      </MapContainer>
+
+      {onToggleFullscreen && (
+        <button
+          type="button"
+          onClick={onToggleFullscreen}
+          aria-label={isFullscreen ? 'Close fullscreen map' : 'View map fullscreen'}
+          title={isFullscreen ? 'Close fullscreen map' : 'View map fullscreen'}
+          className="absolute top-3 right-3 z-[500] flex items-center justify-center w-9 h-9 rounded-xl bg-white/95 border border-slate-200 text-slate-600 shadow-sm hover:text-[#004a99] hover:border-[#004a99]/40 transition-colors"
+        >
+          {isFullscreen ? <X className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
+        </button>
+      )}
+    </div>
   );
 }
