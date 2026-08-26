@@ -12,6 +12,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Councillor comparison**: Moved the comparison control into the councillors page and simplified the header search to an icon.
 - **Motion vote totals**: Explained unnamed additional votes so official results are clearer.
 - **Ward map**: Added a fullscreen view for inspecting Toronto’s ward boundaries.
+- **Election page**: Matched the page layout and sizing to the rest of Motions for a more consistent experience.
 
 ### Changed
 - **Election candidate records**: Refresh the official 2026 candidate list during data updates and show filed dates now that nominations are closed.
