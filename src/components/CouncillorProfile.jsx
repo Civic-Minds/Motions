@@ -58,20 +58,6 @@ function ProfileHeader({ selected, ward, contact, committees, isMyCouncillor, on
               : 'Not listed as a 2026 candidate'}
           </Link>
         )}
-        {contact && (contact.email || contact.phone) && (
-          <div className="flex items-center gap-3 mt-1.5 flex-wrap">
-            {contact.phone && (
-              <a href={`tel:${contact.phone}`} className="flex items-center gap-1 text-xs text-slate-500 hover:text-slate-800 transition-colors break-all">
-                <Phone className="w-3 h-3 shrink-0" />{contact.phone}
-              </a>
-            )}
-            {contact.email && (
-              <a href={`mailto:${contact.email}`} className="flex items-center gap-1 text-xs text-[#004a99] hover:underline break-all">
-                <Mail className="w-3 h-3 shrink-0" />{contact.email}
-              </a>
-            )}
-          </div>
-        )}
         {committees.length > 0 && (
           <div className="text-xs text-slate-500 leading-snug mt-2.5" title={committees.join(', ')}>
             <span className="font-semibold text-slate-400 text-[10px] uppercase tracking-wider mr-2">Committees</span>
