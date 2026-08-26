@@ -12,7 +12,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Councillor comparison**: Moved the comparison control into the councillors page and simplified the header search to an icon.
 - **Motion vote totals**: Explained unnamed additional votes so official results are clearer.
 - **Ward map**: Added a fullscreen view for inspecting Toronto’s ward boundaries.
-- **Election page**: Matched the page layout and sizing to the rest of Motions for a more consistent experience.
+- **Election page**: Rebuilt the page sections as compact Motions-style cards for a more consistent experience.
 - **Councillor voting records**: Added shareable Committee, Year, Vote, Category, and followed-committee filters with a desktop sidebar and mobile panel.
 - **Filter layout**: Reused the same sidebar shell across the homepage and councillor voting records.
 

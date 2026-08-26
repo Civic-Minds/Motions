@@ -108,19 +108,19 @@ export default function ElectionView() {
       </section>
 
       {/* Primary Focus: The Candidates & Records */}
-      <section className="bg-white rounded-2xl p-4 md:p-5 text-slate-900 overflow-hidden relative border border-slate-200">
+      <section className="space-y-4">
         
-        <div className="relative z-10 space-y-6">
-          <div className="max-w-2xl space-y-2">
+        <div className="space-y-4">
+          <div className="max-w-2xl space-y-1 px-1">
             <h2 className="text-lg md:text-xl font-bold tracking-tight">The 2026 field</h2>
             <p className="text-slate-500 text-sm">
               Review the track records of your current representatives and explore the profiles of new candidates.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
             {/* Intelligence Column */}
-            <div className="space-y-4">
+            <div className="bg-white border border-slate-200 rounded-2xl p-4 space-y-4">
               <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#004a99] px-1">
                 <CheckCircle2 className="w-4 h-4" />
                 Track Records
@@ -217,7 +217,7 @@ export default function ElectionView() {
             </div>
 
             {/* The Candidates Column */}
-            <div className="space-y-4">
+            <div className="bg-white border border-slate-200 rounded-2xl p-4 space-y-4">
               <div className="flex items-center justify-between px-1">
                 <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#004a99]">
                   <Vote className="w-4 h-4" />
