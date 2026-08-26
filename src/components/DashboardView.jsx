@@ -523,7 +523,7 @@ export default function DashboardView({ motions, meetings = [] }) {
               to="/election"
               className="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100 rounded-2xl p-4 text-left group flex flex-col gap-2 hover:border-blue-300 hover:shadow-sm transition-all"
             >
-              <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-blue-100 text-blue-700 self-start">Civic update</span>
+              <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-blue-100 text-blue-700 self-start">Election</span>
               <div className="flex items-center gap-2 text-blue-700">
                 <Vote className="w-4 h-4" />
                 <span className="text-xs font-semibold text-slate-800">Toronto Election</span>
