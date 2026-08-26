@@ -54,7 +54,7 @@ function ProfileHeader({ selected, ward, contact, committees, isMyCouncillor, on
           >
             <Vote className="w-3 h-3" />
             {electionStatus.type === 'filed'
-              ? electionStatus.wardId === ward?.id ? 'Filed to run again in 2026' : `Filed to run in Ward ${electionStatus.wardId}`
+              ? electionStatus.office === 'Mayor' ? 'Filed to run for Mayor in 2026' : electionStatus.wardId === ward?.id ? 'Filed to run again in 2026' : `Filed to run in Ward ${electionStatus.wardId}`
               : 'Not listed as a 2026 candidate'}
           </Link>
         )}
@@ -345,6 +345,8 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
   const electionStatus = useMemo(() => {
     if (!candidateData || !selected) return null;
     const normalize = name => name.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const mayorCandidate = (candidateData.mayor ?? []).find(candidate => normalize(candidate.name) === normalize(selected));
+    if (mayorCandidate) return { type: 'filed', office: 'Mayor' };
     const filedWard = Object.entries(candidateData.wards ?? []).find(([, candidates]) =>
       candidates.some(candidate => normalize(candidate.name) === normalize(selected))
     );
