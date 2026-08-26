@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect, useReducer, lazy, Suspense } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { AlertCircle, X, Search, Star, Calendar, Vote } from 'lucide-react';
+import { AlertCircle, X, Search, Star, Calendar } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { getCommittee, TOPIC_LIGHT, TOPIC_DOT, WARD_COUNCILLORS } from '../constants/data';
 import { getWardId } from '../utils/storage';
@@ -524,10 +524,6 @@ export default function DashboardView({ motions, meetings = [] }) {
               className="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100 rounded-2xl p-4 text-left group flex flex-col gap-2 hover:border-blue-300 hover:shadow-sm transition-all"
             >
               <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-blue-100 text-blue-700 self-start">Election</span>
-              <div className="flex items-center gap-2 text-blue-700">
-                <Vote className="w-4 h-4" />
-                <span className="text-xs font-semibold text-slate-800">Toronto Election</span>
-              </div>
               <p className="text-xs font-semibold text-slate-800 group-hover:text-blue-700 transition-colors line-clamp-3 leading-snug">Choose your ward and see the candidates before October 26.</p>
               <div className="flex items-center justify-between mt-auto pt-2 border-t border-blue-100">
                 <span className="text-[9px] text-slate-400">October 26, 2026</span>
