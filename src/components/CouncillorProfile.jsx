@@ -439,7 +439,7 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
       )}
 
       {/* Profile header + stats */}
-      <div className={cn("flex flex-col gap-4 lg:grid lg:gap-8 items-start mb-6", expenseRecord ? "lg:grid-cols-[220px_1fr_220px]" : "lg:grid-cols-[220px_1fr]")}>
+      <div className="flex flex-col gap-4 lg:grid lg:grid-cols-[300px_1fr] lg:gap-8 items-start mb-6">
         <ProfileHeader selected={selected} ward={ward} contact={contact} committees={committees} isMyCouncillor={isMyCouncillor} electionStatus={electionStatus} onCompare={() => setVsPickerOpen(true)} />
 
         {attendance && (
@@ -453,18 +453,6 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
           />
         )}
 
-        {attendance && expenseRecord && (
-          <div className="flex flex-col gap-1.5">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">2025 office spend</p>
-            <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col flex-1">
-              <p className="text-2xl font-black text-slate-900">${Math.round(expenseRecord.office_expenses / 1000)}K</p>
-              <p className="text-[10px] text-slate-400 mt-0.5">{Math.min(100, Math.round((expenseRecord.office_expenses / 60053) * 100))}% of budget</p>
-              <div className="mt-auto pt-2 h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
-                <div className="h-full bg-[#004a99] rounded-full" style={{ width: `${Math.min(100, Math.round((expenseRecord.office_expenses / 60053) * 100))}%` }} />
-              </div>
-            </div>
-          </div>
-        )}
       </div>
 
       {/* Body: sidebar | vote cards | expenses */}

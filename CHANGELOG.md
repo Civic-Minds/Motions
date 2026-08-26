@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Councillor profiles**: Removed the duplicate office-spend summary so budget details appear once.
+
 - **Election readiness**: Added a direct Elections menu link, shared ward selection, homepage civic update, and verified councillor election status so Toronto residents can prepare to vote.
 
 ### Changed
