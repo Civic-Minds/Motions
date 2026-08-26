@@ -90,12 +90,12 @@ export default function ElectionView() {
   };
 
   return (
-    <div className="space-y-8 pb-20">
+    <div className="space-y-4 pb-20">
       {/* Page header */}
       <section className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
         <div className="space-y-1.5">
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Election</p>
-          <h1 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">Toronto Election 2026</h1>
+          <h1 className="text-xl md:text-2xl font-bold text-slate-900 tracking-tight">Toronto Election 2026</h1>
           <p className="text-sm text-slate-500 max-w-2xl leading-relaxed">
             {savedWard
               ? `Review the candidates and incumbent track record for Ward ${savedWard.id} before October 26.`
@@ -152,8 +152,8 @@ export default function ElectionView() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
             {/* Intelligence Column */}
             <div className="bg-white border border-slate-200 rounded-2xl p-4 space-y-4">
-              <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#004a99] px-1">
-                <CheckCircle2 className="w-4 h-4" />
+              <h3 className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-400 px-1">
+                <CheckCircle2 className="w-3.5 h-3.5 text-slate-400" />
                 Track Records
               </h3>
               
@@ -251,9 +251,10 @@ export default function ElectionView() {
             <div className="space-y-3">
               <div className="flex items-center gap-2 px-1">
                 <Vote className="w-4 h-4 text-[#004a99]" />
-                <h3 className="text-xs font-bold uppercase tracking-widest text-[#004a99]">2026 candidates</h3>
+                <h3 className="text-[10px] font-bold uppercase tracking-widest text-slate-400">2026 candidates</h3>
               </div>
 
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
               <div className="bg-white border border-slate-200 rounded-2xl p-4 space-y-3">
                 <div className="flex items-center justify-between">
                   <div>
@@ -284,6 +285,7 @@ export default function ElectionView() {
                   incumbentName={councillorName}
                   incumbentClass="bg-blue-50 text-blue-700"
                 />
+              </div>
               </div>
             </div>
           </div>
