@@ -47,13 +47,15 @@ function ProfileHeader({ selected, ward, contact, committees, isMyCouncillor, on
             to="/election"
             className={cn(
               "inline-flex items-center gap-1.5 mt-2 text-[10px] font-bold px-2.5 py-1 rounded-full transition-colors",
-              electionStatus === 'filed'
+              electionStatus.type === 'filed'
                 ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100'
                 : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
             )}
           >
             <Vote className="w-3 h-3" />
-            {electionStatus === 'filed' ? 'Filed to run again in 2026' : 'Not listed as a 2026 candidate'}
+            {electionStatus.type === 'filed'
+              ? electionStatus.wardId === ward?.id ? 'Filed to run again in 2026' : `Filed to run in Ward ${electionStatus.wardId}`
+              : 'Not listed as a 2026 candidate'}
           </Link>
         )}
         {contact && (contact.email || contact.phone) && (
@@ -327,7 +329,7 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
   }, []);
 
   useEffect(() => {
-    const url = blobBase ? `${blobBase}/candidates.json` : '/data/candidates.json';
+    const url = import.meta.env.DEV || !blobBase ? '/data/candidates.json' : `${blobBase}/candidates.json`;
     fetch(url).then(r => r.json()).then(setCandidateData).catch(() => {});
   }, []);
 
@@ -341,10 +343,12 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
   const ward = selected ? COUNCILLOR_WARD[selected] : null;
   const contact = councillors.find(c => c.name === selected) ?? null;
   const electionStatus = useMemo(() => {
-    if (!candidateData || !selected || !ward) return null;
+    if (!candidateData || !selected) return null;
     const normalize = name => name.toLowerCase().replace(/[^a-z0-9]/g, '');
-    const candidates = candidateData.wards?.[ward.id] ?? [];
-    return candidates.some(candidate => normalize(candidate.name) === normalize(selected)) ? 'filed' : 'not-listed';
+    const filedWard = Object.entries(candidateData.wards ?? []).find(([, candidates]) =>
+      candidates.some(candidate => normalize(candidate.name) === normalize(selected))
+    );
+    return filedWard ? { type: 'filed', wardId: filedWard[0] } : { type: 'not-listed' };
   }, [candidateData, selected, ward]);
 
   const totalVotes = useMemo(() =>

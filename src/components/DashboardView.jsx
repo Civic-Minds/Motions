@@ -554,12 +554,7 @@ export default function DashboardView({ motions, meetings = [] }) {
                   <span className="text-[9px] font-semibold text-blue-700">Get ready</span>
                 </div>
               </Link>
-              {highlights.length === 0 && (
-                <div className="col-span-2 flex items-center justify-center py-10 bg-white border border-dashed border-slate-200 rounded-2xl">
-                <p className="text-xs text-slate-400">No notable motions yet.</p>
-                </div>
-              )}
-              {highlights.map((m, i) => {
+              {highlights.slice(0, -1).map((m, i) => {
               const yesCount = Object.values(m.votes ?? {}).filter(v => v === 'YES').length;
               const noCount  = Object.values(m.votes ?? {}).filter(v => v === 'NO').length;
               const total    = yesCount + noCount;
