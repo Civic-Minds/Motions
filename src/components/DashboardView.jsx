@@ -9,6 +9,7 @@ import { committeeToSlug } from '../utils/slug';
 import { useAppContext } from '../contexts/AppContext';
 import YourWardCard from './YourWardCard';
 import MotionCardItem from './MotionCardItem';
+import FilterSidebar from './FilterSidebar';
 
 const TorontoMiniMap = lazy(() => import('./TorontoMiniMap'));
 
@@ -78,9 +79,9 @@ function hasActiveFilters(f) {
 }
 
 // ── Sub-component: desktop filter sidebar ─────────────────────────────────
-function FilterSidebar({ filters, dispatch, committees, years, sortedCount, savedCouncillor, lastMeeting }) {
+function DashboardFilterContent({ filters, dispatch, committees, years, sortedCount, savedCouncillor, lastMeeting }) {
   return (
-    <div className="hidden lg:flex flex-col sticky top-24 bg-white border border-slate-200 rounded-2xl p-3 gap-3 h-[480px] overflow-y-auto">
+    <>
 
       {/* Topic */}
       <div>
@@ -256,7 +257,7 @@ function FilterSidebar({ filters, dispatch, committees, years, sortedCount, save
           </button>
         )}
       </div>
-    </div>
+    </>
   );
 }
 
@@ -643,15 +644,17 @@ export default function DashboardView({ motions, meetings = [] }) {
       {/* ── Main: Filter sidebar + motion list (same column widths as bento) ── */}
       <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr_220px] lg:gap-x-3 lg:items-start gap-y-4">
 
-        <FilterSidebar
-          filters={filters}
-          dispatch={dispatch}
-          committees={committees}
-          years={years}
-          sortedCount={sortedMotions.length}
-          savedCouncillor={savedCouncillor}
-          lastMeeting={lastMeeting}
-        />
+        <FilterSidebar>
+          <DashboardFilterContent
+            filters={filters}
+            dispatch={dispatch}
+            committees={committees}
+            years={years}
+            sortedCount={sortedMotions.length}
+            savedCouncillor={savedCouncillor}
+            lastMeeting={lastMeeting}
+          />
+        </FilterSidebar>
 
         <MotionList
           visibleMotions={visibleMotions}

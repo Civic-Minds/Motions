@@ -7,6 +7,7 @@ import { cn } from '../lib/utils';
 import MotionCardItem from './MotionCardItem';
 import { Filter, X } from 'lucide-react';
 import { useAppContext } from '../contexts/AppContext';
+import FilterSidebar from './FilterSidebar';
 
 function readSet(params, key) {
   return new Set((params.get(key) || '').split(',').filter(Boolean));
@@ -22,11 +23,11 @@ function FilterButton({ active, children, onClick, tone = 'blue' }) {
       type="button"
       onClick={onClick}
       className={cn(
-        "text-xs font-semibold px-2.5 py-1 rounded-lg border transition-colors",
-        active && tone === 'blue' && 'bg-[#004a99] text-white border-[#004a99]',
-        active && tone === 'green' && 'bg-emerald-600 text-white border-emerald-600',
-        active && tone === 'red' && 'bg-rose-500 text-white border-rose-500',
-        !active && 'bg-white text-slate-500 border-slate-200 hover:border-slate-300'
+        "px-2 py-0.5 rounded-full text-[11px] font-medium transition-all",
+        active && tone === 'blue' && 'bg-[#004a99] text-white',
+        active && tone === 'green' && 'bg-emerald-600 text-white',
+        active && tone === 'red' && 'bg-rose-500 text-white',
+        !active && 'bg-slate-100 text-slate-600 hover:bg-slate-200'
       )}
     >
       {children}
@@ -34,11 +35,11 @@ function FilterButton({ active, children, onClick, tone = 'blue' }) {
   );
 }
 
-function FilterPanel({ topics, committees, years, topicFilter, outcomeFilter, committeeFilter, yearFilter, followingOnly, followedCommittees, onToggleSet, onCommitteeChange, onFollowingToggle, onClear }) {
+function FilterPanel({ topics, committees, years, topicFilter, outcomeFilter, committeeFilter, yearFilter, followingOnly, onToggleSet, onCommitteeChange, onFollowingToggle, onClear }) {
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       <div>
-        <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wide mb-1.5">Category</p>
+        <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wide mb-1.5">Topic</p>
         <div className="flex flex-wrap gap-1">
           {topics.map(topic => (
             <FilterButton key={topic} active={topicFilter.has(topic)} onClick={() => onToggleSet('topic', topic)}>{topic}</FilterButton>
@@ -46,7 +47,7 @@ function FilterPanel({ topics, committees, years, topicFilter, outcomeFilter, co
         </div>
       </div>
 
-      <div className="pt-3 border-t border-slate-100">
+      <div className="pt-2.5 border-t border-slate-100">
         <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wide mb-1.5">Vote</p>
         <div className="flex flex-wrap gap-1">
           <FilterButton active={outcomeFilter.has('YES')} tone="green" onClick={() => onToggleSet('outcome', 'YES')}>Yes</FilterButton>
@@ -54,20 +55,20 @@ function FilterPanel({ topics, committees, years, topicFilter, outcomeFilter, co
         </div>
       </div>
 
-      <div className="pt-3 border-t border-slate-100">
+      <div className="pt-2.5 border-t border-slate-100">
         <label htmlFor="vote-committee" className="text-[9px] font-bold text-slate-400 uppercase tracking-wide mb-1.5 block">Committee</label>
         <select
           id="vote-committee"
           value={committeeFilter}
           onChange={e => onCommitteeChange(e.target.value)}
-          className="w-full rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs text-slate-600 focus:border-[#004a99] focus:outline-none"
+          className="w-full rounded-lg border-0 bg-slate-100 px-2 py-1.5 text-[11px] text-slate-700 focus:outline-none focus:ring-1 focus:ring-[#004a99]/30"
         >
           <option value="">All committees</option>
           {committees.map(committee => <option key={committee} value={committee}>{committee}</option>)}
         </select>
       </div>
 
-      <div className="pt-3 border-t border-slate-100">
+      <div className="pt-2.5 border-t border-slate-100">
         <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wide mb-1.5">Year</p>
         <div className="flex flex-wrap gap-1">
           {years.map(year => (
@@ -76,9 +77,9 @@ function FilterPanel({ topics, committees, years, topicFilter, outcomeFilter, co
         </div>
       </div>
 
-      <div className="pt-3 border-t border-slate-100">
+      <div className="pt-2.5 border-t border-slate-100">
         <FilterButton active={followingOnly} onClick={onFollowingToggle}>
-          {followedCommittees.length > 0 ? 'Followed committees' : 'Following (none saved)'}
+          Following
         </FilterButton>
       </div>
 
@@ -180,9 +181,9 @@ export default function CouncillorVotes({ motions }) {
       </div>
 
       <div className="lg:grid lg:grid-cols-[200px_minmax(0,1fr)] lg:gap-6 lg:items-start">
-        <div className="hidden lg:block sticky top-24 bg-white border border-slate-200 rounded-2xl p-3">
+        <FilterSidebar>
           <FilterPanel {...{ topics: voteTopics, committees: voteCommittees, years: voteYears, topicFilter, outcomeFilter, committeeFilter, yearFilter, followingOnly, followedCommittees }} onToggleSet={toggleSet} onCommitteeChange={value => updateFilters('committee', value)} onFollowingToggle={() => updateFilters('following', followingOnly ? '' : '1')} onClear={clearFilters} />
-        </div>
+        </FilterSidebar>
 
         <div>
           <button type="button" onClick={() => setMobileFiltersOpen(open => !open)} className="lg:hidden w-full mb-3 flex items-center justify-between px-3 py-2.5 bg-white border border-slate-200 rounded-xl text-sm font-semibold text-slate-600">
