@@ -439,7 +439,7 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
       )}
 
       {/* Profile header + stats */}
-      <div className="flex flex-col gap-4 lg:grid lg:grid-cols-[300px_1fr] lg:gap-8 items-start mb-6">
+      <div className="flex flex-col gap-4 lg:grid lg:grid-cols-[300px_1fr_220px] lg:gap-8 items-start mb-6">
         <ProfileHeader selected={selected} ward={ward} contact={contact} committees={committees} isMyCouncillor={isMyCouncillor} electionStatus={electionStatus} onCompare={() => setVsPickerOpen(true)} />
 
         {attendance && (
@@ -452,6 +452,22 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
             tenureData={tenure[selected]}
           />
         )}
+
+        <div className="flex flex-col gap-1.5">
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Contact</p>
+          <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col justify-center gap-3 min-h-[112px]">
+            {contact?.phone && (
+              <a href={`tel:${contact.phone}`} className="flex items-center gap-2 text-xs text-slate-600 hover:text-[#004a99] transition-colors break-all">
+                <Phone className="w-3.5 h-3.5 shrink-0" />{contact.phone}
+              </a>
+            )}
+            {contact?.email && (
+              <a href={`mailto:${contact.email}`} className="flex items-center gap-2 text-xs text-[#004a99] hover:underline break-all">
+                <Mail className="w-3.5 h-3.5 shrink-0" />{contact.email}
+              </a>
+            )}
+          </div>
+        </div>
 
       </div>
 
