@@ -7,6 +7,7 @@ import { nameToSlug } from '../utils/slug';
 import { Link } from 'react-router-dom';
 import { cn } from '../lib/utils';
 import { useAppContext } from '../contexts/AppContext';
+import YourWardCard from './YourWardCard';
 
 const ELECTION_DATE = new Date('2026-10-26T00:00:00');
 const NOMINATION_OPEN = new Date('2026-05-01T08:30:00');
@@ -90,9 +91,9 @@ export default function ElectionView() {
   };
 
   return (
-    <div className="space-y-4 pb-20">
+    <div className="flex flex-col space-y-4 pb-20">
       {/* Page header */}
-      <section className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
+      <section className="order-1 flex flex-col lg:flex-row lg:items-end justify-between gap-4">
         <div className="space-y-1.5">
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Election</p>
           <h1 className="text-xl md:text-2xl font-bold text-slate-900 tracking-tight">Toronto Election 2026</h1>
@@ -120,7 +121,7 @@ export default function ElectionView() {
       </section>
 
       {/* Election races */}
-      <section className="space-y-4">
+      <section className="order-3 space-y-4">
         
         <div className="space-y-4">
           <div className="flex flex-col gap-3">
@@ -235,7 +236,6 @@ export default function ElectionView() {
                     <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Mayor</p>
                     <h4 className="font-bold text-sm text-slate-900">Citywide</h4>
                   </div>
-                  <span className="text-[10px] text-slate-400">One choice</span>
                 </div>
                 <div className="flex items-center justify-between gap-3 rounded-xl bg-slate-50 border border-slate-200 px-3 py-2.5">
                   <div>
@@ -258,7 +258,6 @@ export default function ElectionView() {
                     <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">City Councillor</p>
                     <h4 className="font-bold text-sm text-slate-900">{savedWard ? `Ward ${savedWard.id} · ${savedWard.name}` : 'Choose a ward first'}</h4>
                   </div>
-                  <span className="text-[10px] text-slate-400">One choice</span>
                 </div>
                 {savedWard && councillorName && (
                   <div className="flex items-center justify-between gap-3 rounded-xl bg-slate-50 border border-slate-200 px-3 py-2.5">
@@ -283,7 +282,8 @@ export default function ElectionView() {
       </section>
 
       {/* Countdown Grid - Secondary */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <div className="order-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+        <YourWardCard candidateCount={wardCandidates.length} />
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -348,7 +348,7 @@ export default function ElectionView() {
       </div>
 
       {/* Resources List */}
-      <section className="space-y-6">
+      <section className="order-4 space-y-6">
         <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Official election resources</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {[
@@ -375,7 +375,7 @@ export default function ElectionView() {
       </section>
 
       {/* Candidate Explorer - Moved to Bottom */}
-      <section className="space-y-4 pt-8 border-t border-slate-100">
+      <section className="order-5 space-y-4 pt-8 border-t border-slate-100">
         <div className="flex items-end justify-between px-2">
           <div className="space-y-1">
             <h3 className="text-lg font-bold text-slate-900">City-wide explorer</h3>
@@ -445,7 +445,7 @@ export default function ElectionView() {
       </section>
 
       {/* Footnote */}
-      <div className="pt-8 text-center">
+      <div className="order-6 pt-8 text-center">
         <p className="text-xs text-slate-400 max-w-lg mx-auto leading-relaxed">
           Motions is an independent civic data project and is not affiliated with the City of Toronto or Toronto Elections. Always verify official dates and requirements at toronto.ca.
         </p>
