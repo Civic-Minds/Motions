@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Motion navigation**: Made the City Council or committee label on motion pages link to its meeting.
+
 - **Candidate websites**: Added nine more manually verified campaign sites across Wards 16–22.
 
 - **Candidate websites**: Added 16 more manually verified campaign sites, including candidates without campaign-domain email addresses.

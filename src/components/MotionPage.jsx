@@ -4,7 +4,7 @@ import { Link, useParams, useNavigate, Navigate } from 'react-router-dom';
 import { ExternalLink, ChevronDown, ChevronUp, ArrowLeft, FileText, Info } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { getCommittee, WARD_COUNCILLORS } from '../constants/data';
-import { nameToSlug } from '../utils/slug';
+import { committeeToSlug, nameToSlug } from '../utils/slug';
 
 const WardMotionMap = lazy(() => import('./WardMotionMap'));
 
@@ -253,6 +253,10 @@ export default function MotionPage({ motions = [] }) {
   }
 
   const committee = motion.committee || getCommittee(motion.id);
+  const meetingReference = motion.url?.match(/[?&]item=([^.&]+\.[A-Za-z]+\d+)/)?.[1] ?? null;
+  const committeeHref = meetingReference
+    ? `/meetings/${meetingReference}`
+    : `/committees/${committeeToSlug(committee)}`;
   const isMultiVote = subEntries.length > 0;
 
   const myWardId = getWardId();
@@ -327,7 +331,9 @@ export default function MotionPage({ motions = [] }) {
           <span>·</span>
           <span>{motion.date}</span>
           <span>·</span>
-          <span>{committee}</span>
+          <Link to={committeeHref} className="text-[#004a99] hover:underline" title={`View ${committee} meeting`}>
+            {committee}
+          </Link>
           {motion.topic && <><span>·</span><span>{motion.topic}</span></>}
           {motion.url && (
             <>
