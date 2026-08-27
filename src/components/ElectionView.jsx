@@ -312,7 +312,7 @@ export default function ElectionView() {
             <div className="grid grid-cols-2 gap-3 items-stretch flex-1 min-w-0">
               <CivicCard className="h-[140px]">
                 <CivicPill className="bg-blue-50 text-[#004a99]">Election day</CivicPill>
-                <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Monday, October 26, 2026, from 10 a.m. to 8 p.m.</p>
+                <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">October 26, 2026, from 10 a.m. to 8 p.m.</p>
                 <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
                   <span className="text-[9px] text-slate-400">Citywide schedule</span>
                   <a href="https://www.toronto.ca/city-government/elections/voter-information/" target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99]">Check MyVote ↗</a>
