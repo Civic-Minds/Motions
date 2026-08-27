@@ -6,6 +6,7 @@ import { cn } from '../lib/utils';
 import { getCommittee, TOPIC_LIGHT, TOPIC_DOT, WARD_COUNCILLORS } from '../constants/data';
 import { getWardId } from '../utils/storage';
 import { committeeToSlug } from '../utils/slug';
+import { fetchWardBoundaries, motionBelongsToWard } from '../utils/ward';
 import { useAppContext } from '../contexts/AppContext';
 import YourWardCard from './YourWardCard';
 import MotionCardItem from './MotionCardItem';
@@ -373,10 +374,18 @@ export default function DashboardView({ motions, meetings = [] }) {
   const [searchParams] = useSearchParams();
   const [filters, dispatch] = useReducer(filtersReducer, initialFilters);
   const [visibleCount, setVisibleCount] = useState(20);
+  const [wardGeoData, setWardGeoData] = useState(null);
 
   const savedWardId = useMemo(() => getWardId(), []);
   const wardFilter = searchParams.get('ward');
   const savedCouncillor = savedWardId ? WARD_COUNCILLORS[savedWardId] : null;
+  const savedWardFeature = useMemo(() => wardGeoData?.features?.find(feature =>
+    String(feature.properties.AREA_SHORT_CODE).replace(/^0+/, '') === String(savedWardId)
+  ) ?? null, [wardGeoData, savedWardId]);
+
+  useEffect(() => {
+    fetchWardBoundaries().then(setWardGeoData).catch(() => {});
+  }, []);
 
   // Only primary entries (no parentId) for display and stats
   const primaryMotions = useMemo(() => motions.filter(m => !m.parentId), [motions]);
@@ -421,12 +430,11 @@ export default function DashboardView({ motions, meetings = [] }) {
     const usedIds = new Set([...followedHighlights.map(m => m.id), ...highlights.map(m => m.id)]);
     return [...primaryMotions]
       .filter(m => (
-        String(m.ward) === String(savedWardId) ||
-        m.locations?.some(location => String(location.ward) === String(savedWardId))
+        motionBelongsToWard(m, savedWardId, savedWardFeature)
       ) && !usedIds.has(m.id))
       .sort((a, b) => new Date(b.date) - new Date(a.date))
       .slice(0, 3);
-  }, [primaryMotions, savedWardId, followedHighlights, highlights]);
+  }, [primaryMotions, savedWardId, savedWardFeature, followedHighlights, highlights]);
 
   const homeMotionCards = useMemo(() => [
     ...highlights.slice(0, 1),

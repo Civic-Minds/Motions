@@ -4,6 +4,7 @@
 
 import { TORONTO_WARDS } from '../constants/wards';
 import { FORMER_MEMBERS } from '../constants/data';
+import { motionBelongsToWard } from './ward';
 
 /**
  * Calculates the triviality score and focus score.
@@ -109,11 +110,13 @@ export function getVotedWith(motions, memberName, minShared = 10) {
  * @param {Array} motions
  * @returns {Array} Array of ward objects with activity counts
  */
-export function getWardActivityMetrics(motions) {
+export function getWardActivityMetrics(motions, geojson = null) {
     return TORONTO_WARDS.map(ward => {
+        const feature = geojson?.features?.find(candidate =>
+            String(candidate.properties.AREA_SHORT_CODE).replace(/^0+/, '') === String(ward.id)
+        ) ?? null;
         const wardMotions = motions.filter(m =>
-            String(m.ward) === String(ward.id) ||
-            m.locations?.some(location => String(location.ward) === String(ward.id))
+            motionBelongsToWard(m, ward.id, feature)
         );
         const impactCount = wardMotions.filter(m => !m.trivial).length;
         return {

@@ -11,7 +11,7 @@ import { WARD_COUNCILLORS, TOPIC_LIGHT } from '../constants/data';
 import { TORONTO_WARDS } from '../constants/wards';
 import { cn } from '../lib/utils';
 import { CivicCard, CivicCardFooter } from './ui/CivicCard';
-import { fetchWardBoundaries, extractWardId } from '../utils/ward';
+import { fetchWardBoundaries, extractWardId, motionBelongsToWard } from '../utils/ward';
 import { nameToSlug } from '../utils/slug';
 import { PageMeta } from './PageMeta';
 import { previewImage } from '../utils/meta';
@@ -55,9 +55,6 @@ function WardMap({ feature }) {
 export default function WardGrid({ motions }) {
   const { wardId: wardIdParam } = useParams();
   const navigate = useNavigate();
-  const wardActivity = useMemo(() => getWardActivityMetrics(motions), [motions]);
-  const topWard = [...wardActivity].sort((a, b) => b.count - a.count)[0];
-
   const foundWardId = getWardId();
   const [geoData, setGeoData] = useState(null);
   const [mapFullscreen, setMapFullscreen] = useState(false);
@@ -73,28 +70,30 @@ export default function WardGrid({ motions }) {
     fetchWardBoundaries().then(setGeoData).catch(() => {});
   }, []);
 
-
-  const wardMotions = useMemo(() => {
-    if (!selectedWard) return [];
-    return [...motions]
-      .filter(m => !m.parentId && (
-        String(m.ward) === String(selectedWard.id) ||
-        m.locations?.some(location => String(location.ward) === String(selectedWard.id))
-      ))
-      .sort((a, b) => {
-        const dateDiff = new Date(b.date) - new Date(a.date);
-        if (dateDiff !== 0) return dateDiff;
-        return (b.significance ?? 0) - (a.significance ?? 0);
-      });
-  }, [selectedWard, motions]);
+  const wardActivity = useMemo(() => getWardActivityMetrics(motions, geoData), [motions, geoData]);
+  const topWard = [...wardActivity].sort((a, b) => b.count - a.count)[0];
 
   const selectedWardFeature = useMemo(() => {
     if (!geoData || !selectedWard) return null;
     return geoData.features.find(f => extractWardId(f.properties) === selectedWard.id) ?? null;
   }, [geoData, selectedWard]);
 
+
+  const wardMotions = useMemo(() => {
+    if (!selectedWard) return [];
+    return [...motions]
+      .filter(m => !m.parentId && (
+        motionBelongsToWard(m, selectedWard.id, selectedWardFeature)
+      ))
+      .sort((a, b) => {
+        const dateDiff = new Date(b.date) - new Date(a.date);
+        if (dateDiff !== 0) return dateDiff;
+        return (b.significance ?? 0) - (a.significance ?? 0);
+      });
+  }, [selectedWard, selectedWardFeature, motions]);
+
   const citywideMotions = useMemo(() => [...motions]
-    .filter(m => !m.parentId && (m.scope === 'citywide' || (!m.scope && m.ward === 'City')))
+    .filter(m => !m.parentId && (m.scope === 'citywide' || (!m.scope && m.ward === 'City' && !m.locations?.length)))
     .sort((a, b) => new Date(b.date) - new Date(a.date)), [motions]);
 
   return (

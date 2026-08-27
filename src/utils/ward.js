@@ -39,6 +39,15 @@ export function pointInFeature(point, geometry) {
   return polys.some(poly => pointInRing(point, poly[0]));
 }
 
+export function motionBelongsToWard(motion, wardId, feature = null) {
+  if (String(motion.ward) === String(wardId)) return true;
+  return motion.locations?.some(location => {
+    if (String(location.ward) === String(wardId)) return true;
+    if (!feature || !Number.isFinite(location.lat) || !Number.isFinite(location.lng)) return false;
+    return pointInFeature([location.lng, location.lat], feature.geometry);
+  }) ?? false;
+}
+
 export async function geolocateWard() {
   return new Promise((resolve, reject) => {
     if (!navigator.geolocation) { reject(new Error('no_geolocation')); return; }
