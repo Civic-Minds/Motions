@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Candidate websites**: Added website links for candidates with verified custom email domains while keeping email and phone contacts available.
+
 - **Election terminology**: Standardized mayor and councillor links as “Voting Record.”
 
 - **Election map filtering**: Clicking a ward on the Election page now filters the candidate list below it instead of navigating away.

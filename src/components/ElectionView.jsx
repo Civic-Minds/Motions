@@ -17,6 +17,19 @@ const formatNominationDate = (date) => {
   return `Filed ${date}`;
 };
 
+const GENERIC_EMAIL_DOMAINS = new Set(['gmail.com', 'hotmail.com', 'protonmail.com']);
+const UNREACHABLE_CANDIDATE_DOMAINS = new Set([
+  'ashanfernando.ca', 'electsusanchapelle.com', 'faizanhaider.ca',
+  'mcdonald2026.ca', 'royward17.ca', 'tomforward13.com'
+]);
+
+function candidateWebsite(candidate) {
+  if (candidate.website) return candidate.website;
+  const domain = candidate.email?.split('@')[1]?.toLowerCase();
+  if (!domain || GENERIC_EMAIL_DOMAINS.has(domain) || UNREACHABLE_CANDIDATE_DOMAINS.has(domain)) return null;
+  return `https://${domain}`;
+}
+
 function CandidateList({ candidates, emptyText, incumbentName, incumbentClass }) {
   if (!candidates?.length) {
     return <p className="text-sm text-slate-500 italic text-center py-8">{emptyText}</p>;
@@ -40,6 +53,7 @@ function CandidateList({ candidates, emptyText, incumbentName, incumbentClass })
               {formatNominationDate(candidate.nominationDate) && (
                 <span className="text-[9px] text-slate-500">{formatNominationDate(candidate.nominationDate)}</span>
               )}
+              {candidateWebsite(candidate) && <a href={candidateWebsite(candidate)} target="_blank" rel="noopener noreferrer" aria-label={`Visit ${candidate.name}'s website`} className="text-slate-400 hover:text-[#004a99]"><ExternalLink className="w-3.5 h-3.5" /></a>}
               {candidate.email && <a href={`mailto:${candidate.email}`} aria-label={`Email ${candidate.name}`} className="text-slate-400 hover:text-slate-900"><Mail className="w-3.5 h-3.5" /></a>}
               {candidate.phone && <a href={`tel:${candidate.phone}`} aria-label={`Call ${candidate.name}`} className="text-slate-400 hover:text-slate-900"><Phone className="w-3.5 h-3.5" /></a>}
             </div>
