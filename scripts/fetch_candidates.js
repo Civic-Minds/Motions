@@ -6,6 +6,13 @@ const URL = 'https://www.toronto.ca/city-government/elections/candidate-list/';
 
 // These domains were manually checked as campaign sites. Email domains are
 // never inferred as websites unless they appear in this allowlist.
+const VERIFIED_WEBSITES_BY_EMAIL = {
+  'votedarrellbrown@gmail.com': 'https://electdarrellbrown.ca/',
+  'votedigiorgio@gmail.com': 'https://www.danieldigiorgio.com/',
+  'votelornaantwi@gmail.com': 'https://www.lornaantwi.com/',
+  'votehusain@gmail.com': 'https://husainneem.ca/',
+};
+
 const VERIFIED_WEBSITES_BY_EMAIL_DOMAIN = {
   'bradford26.ca': 'https://bradford26.ca/',
   'oliviachow.ca': 'https://www.oliviachow.ca/',
@@ -35,7 +42,10 @@ const VERIFIED_WEBSITES_BY_EMAIL_DOMAIN = {
 };
 
 function verifiedWebsite(email) {
-  return VERIFIED_WEBSITES_BY_EMAIL_DOMAIN[email?.split('@')[1]?.toLowerCase()] ?? null;
+  const normalized = email?.trim().toLowerCase();
+  return VERIFIED_WEBSITES_BY_EMAIL[normalized]
+    ?? VERIFIED_WEBSITES_BY_EMAIL_DOMAIN[normalized?.split('@')[1]]
+    ?? null;
 }
 
 async function scrapeCandidates() {
