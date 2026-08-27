@@ -21,6 +21,7 @@ const MeetingPage       = lazy(() => import('./components/MeetingPage'));
 const MeetingsListView  = lazy(() => import('./components/MeetingsListView'));
 const GlobalSearch      = lazy(() => import('./components/GlobalSearch'));
 const ElectionView      = lazy(() => import('./components/ElectionView'));
+const DataPage          = lazy(() => import('./components/DataPage'));
 
 const TABS = [
   { path: '/councillors', label: 'Councillors', icon: Users },
@@ -230,6 +231,7 @@ function AppShell() {
           <Route path="/meetings/:meetingRef" element={<MeetingPage meetings={meetings} />} />
           <Route path="/election" element={<ElectionView />} />
           <Route path="/budget" element={<BudgetTranslator />} />
+          <Route path="/data" element={<DataPage />} />
           <Route path="*"          element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>
@@ -246,7 +248,7 @@ function AppShell() {
 
       <footer className="border-t border-slate-200 bg-white">
         <div className="max-w-[1400px] mx-auto px-6 h-12 flex items-center justify-between text-xs text-slate-500">
-          <span>Data: <a href="https://open.toronto.ca/dataset/members-of-toronto-city-council-voting-record/" target="_blank" rel="noopener noreferrer" className="hover:text-slate-600 underline underline-offset-2 transition-colors">Toronto Open Data</a></span>
+          <Link to="/data" className="hover:text-slate-900 underline underline-offset-2 transition-colors">Data & methodology</Link>
           <span className="hidden sm:block">A <a href="https://github.com/Civic-Minds" target="_blank" rel="noopener noreferrer" className="hover:text-slate-600 transition-colors">Civic Minds</a> project</span>
           <a href="https://github.com/Civic-Minds/Motions" target="_blank" rel="noopener noreferrer" className="hover:text-slate-600 transition-colors">GitHub</a>
         </div>

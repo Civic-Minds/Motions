@@ -153,9 +153,9 @@ export default function WardGrid({ motions }) {
             />
           </Suspense>
 
-          <div className="flex items-start gap-3 p-4 bg-slate-50 border border-slate-200 rounded-2xl text-xs text-slate-500">
+          <div className="flex items-center gap-3 p-4 bg-slate-50 border border-slate-200 rounded-2xl text-xs text-slate-500">
             <MapPin className="w-4 h-4 shrink-0 mt-0.5 text-slate-500" />
-            Motion counts are all-time (2022–2026 term). Ward-specific motions are tagged based on geographic identifiers in council documents. Most council activity applies city-wide.
+            <span>Motion counts are all-time (2022–2026 term). <Link to="/data" className="font-medium text-[#004a99] underline underline-offset-2 hover:text-[#003875]">Learn how ward activity is tagged</Link>.</span>
           </div>
         </>
       ) : (
