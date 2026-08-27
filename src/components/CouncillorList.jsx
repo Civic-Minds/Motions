@@ -229,10 +229,10 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
                     )}
                   </div>
                   {ward && (
-                    <p className="text-[10px] text-slate-400 font-medium">W{ward.id} · {ward.name}</p>
+                    <p className="text-[10px] text-slate-500 font-medium">W{ward.id} · {ward.name}</p>
                   )}
                   {isMayor && !ward && (
-                    <p className="text-[10px] text-slate-400 font-medium">Toronto City Hall</p>
+                    <p className="text-[10px] text-slate-500 font-medium">Toronto City Hall</p>
                   )}
                 </div>
               </div>
@@ -240,14 +240,14 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
               {/* Metrics */}
               <div className="grid grid-cols-2 gap-4 mb-4">
                 <div>
-                  <p className="text-[10px] text-slate-400 font-medium uppercase tracking-wide mb-1">Alignment</p>
+                  <p className="text-[10px] text-slate-500 font-medium uppercase tracking-wide mb-1">Alignment</p>
                   <p className="text-lg font-bold text-[#004a99] leading-none">{alignment !== null ? `${alignment}%` : '—'}</p>
                   <div className="mt-1.5 h-1 w-full bg-slate-100 rounded-full overflow-hidden">
                     <div className="h-full bg-[#004a99] rounded-full" style={{ width: `${alignment ?? 0}%` }} />
                   </div>
                 </div>
                 <div>
-                  <p className="text-[10px] text-slate-400 font-medium uppercase tracking-wide mb-1">Attendance</p>
+                  <p className="text-[10px] text-slate-500 font-medium uppercase tracking-wide mb-1">Attendance</p>
                   <p className={cn("text-lg font-bold leading-none", attendanceColor(attendance.pct))}>{attendance.pct}%</p>
                   <div className="mt-1.5 h-1 w-full bg-slate-100 rounded-full overflow-hidden">
                     <div className={cn("h-full rounded-full", attendanceBg(attendance.pct))} style={{ width: `${attendance.pct}%` }} />
@@ -257,9 +257,9 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
 
               {/* Footer */}
               <div className="flex justify-between items-center pt-3 border-t border-slate-100">
-                <div className="text-[10px] text-slate-400">
+                <div className="text-[10px] text-slate-500">
                   <span className="font-medium">{voteCount.toLocaleString()}</span> votes
-                  {topTopic && topTopic !== 'General' && <span className="ml-2 text-slate-400">· {topTopic}</span>}
+                  {topTopic && topTopic !== 'General' && <span className="ml-2 text-slate-500">· {topTopic}</span>}
                 </div>
                 <ChevronRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-[#004a99] transition-colors" />
               </div>

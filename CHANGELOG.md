@@ -6,6 +6,10 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Contrast**: Darkened muted interface text so labels, supporting copy, and footer links remain readable on light backgrounds.
+
+- **Candidate links**: Removed email-domain guessing so candidate websites are shown only when explicitly provided.
+
 - **Election map labels**: Corrected singular candidate counts so wards with one candidate no longer show “1 candidates.”
 
 - **Ward motion mapping**: Added ward-level map points for motions that name a specific ward without a street address.

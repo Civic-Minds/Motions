@@ -53,7 +53,7 @@ export default function YourWardCard() {
           </div>
           <div>
             <p className="text-xs font-semibold text-slate-900">Your Ward</p>
-            <p className="text-[9px] text-slate-400">See how your councillor votes</p>
+            <p className="text-[9px] text-slate-500">See how your councillor votes</p>
           </div>
         </div>
         {status === 'error' && (
@@ -97,7 +97,7 @@ export default function YourWardCard() {
           <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-[#004a99]/10 text-[#004a99]">
             Ward {wardId}
           </span>
-          {ward && <span className="text-[9px] text-slate-400 truncate">{ward.name}</span>}
+          {ward && <span className="text-[9px] text-slate-500 truncate">{ward.name}</span>}
         </div>
 
         {/* Councillor name */}
@@ -109,7 +109,7 @@ export default function YourWardCard() {
         <div className="flex items-center justify-between mt-auto">
           <button
             onClick={e => { e.stopPropagation(); handleClear(); }}
-            className="text-[9px] text-slate-400 hover:text-slate-600 transition-colors flex items-center gap-0.5 cursor-pointer"
+            className="text-[9px] text-slate-500 hover:text-slate-600 transition-colors flex items-center gap-0.5 cursor-pointer"
           >
             <X className="w-2.5 h-2.5" /> change
           </button>

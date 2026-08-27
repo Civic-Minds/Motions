@@ -198,7 +198,7 @@ export const FLAG_STYLES = {
     'close-vote':       'bg-rose-50 text-rose-600 border-rose-200',
     'defeated':         'bg-slate-100 text-slate-500 border-slate-200',
     'unanimous':        'bg-emerald-50 text-emerald-600 border-emerald-200',
-    'landslide-defeat': 'bg-slate-100 text-slate-400 border-slate-200',
+    'landslide-defeat': 'bg-slate-100 text-slate-500 border-slate-200',
 };
 
 export const FLAG_LABELS = {

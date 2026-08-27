@@ -137,7 +137,7 @@ export default function MeetingsListView({ meetings = [] }) {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-xl font-bold text-slate-900">Meetings</h1>
-          <p className="text-xs text-slate-400 mt-0.5">Toronto City Council &amp; committees</p>
+          <p className="text-xs text-slate-500 mt-0.5">Toronto City Council &amp; committees</p>
         </div>
         <Calendar className="w-5 h-5 text-slate-300" />
       </div>
@@ -201,7 +201,7 @@ export default function MeetingsListView({ meetings = [] }) {
             <div className="absolute left-0 top-full mt-2 w-72 bg-white border border-slate-200 rounded-2xl shadow-lg z-50 p-4 space-y-4">
               {/* Committee */}
               <div>
-                <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Committee</p>
+                <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Committee</p>
                 <div className="relative">
                   <select
                     value={committeeSelect}
@@ -213,13 +213,13 @@ export default function MeetingsListView({ meetings = [] }) {
                       <option key={name} value={committeeToSlug(name)}>{name}</option>
                     ))}
                   </select>
-                  <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-400 pointer-events-none" />
+                  <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-500 pointer-events-none" />
                 </div>
               </div>
 
               {/* Toggles */}
               <div>
-                <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Show only</p>
+                <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Show only</p>
                 <div className="space-y-1">
                   <button
                     onClick={() => setAgendaFilter(v => !v)}
@@ -247,7 +247,7 @@ export default function MeetingsListView({ meetings = [] }) {
               </div>
 
               {activeFilterCount > 0 && (
-                <button onClick={clearAll} className="w-full text-[11px] text-slate-400 hover:text-slate-600 transition-colors text-center pt-1 border-t border-slate-100">
+                <button onClick={clearAll} className="w-full text-[11px] text-slate-500 hover:text-slate-600 transition-colors text-center pt-1 border-t border-slate-100">
                   Clear all filters
                 </button>
               )}
@@ -257,19 +257,19 @@ export default function MeetingsListView({ meetings = [] }) {
       </div>
 
       {/* Results count */}
-      <p className="text-[11px] text-slate-400 mb-4">
+      <p className="text-[11px] text-slate-500 mb-4">
         {displayed.length.toLocaleString()} meeting{displayed.length !== 1 ? 's' : ''}
         {activeFilterCount > 0 ? ' matching filters' : ''}
       </p>
 
       {/* Grouped list */}
       {grouped.length === 0 ? (
-        <div className="py-20 text-center text-slate-400 text-sm">No meetings match these filters.</div>
+        <div className="py-20 text-center text-slate-500 text-sm">No meetings match these filters.</div>
       ) : (
         <div className="space-y-8">
           {grouped.map(group => (
             <div key={group.month}>
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3 px-1">
+              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3 px-1">
                 {group.label}
               </p>
               <div className="bg-white border border-slate-200 rounded-xl overflow-hidden divide-y divide-slate-100">
@@ -288,7 +288,7 @@ export default function MeetingsListView({ meetings = [] }) {
                       className="w-full flex items-center gap-4 px-5 py-4 hover:bg-slate-50 transition-colors group text-left"
                     >
                       <div className="shrink-0 w-10 text-center">
-                        <p className="text-[11px] font-bold text-slate-400 uppercase leading-none">
+                        <p className="text-[11px] font-bold text-slate-500 uppercase leading-none">
                           {new Date(meeting.date + 'T12:00:00').toLocaleString('en-CA', { month: 'short' })}
                         </p>
                         <p className="text-xl font-black text-slate-700 leading-tight">
@@ -309,9 +309,9 @@ export default function MeetingsListView({ meetings = [] }) {
                           {meeting.committee}
                         </p>
                         <div className="flex items-center gap-3 mt-0.5 flex-wrap">
-                          <span className="text-[11px] text-slate-400">{meeting.startTime}</span>
+                          <span className="text-[11px] text-slate-500">{meeting.startTime}</span>
                           {meeting.location && (
-                            <span className="text-[11px] text-slate-400 truncate">{meeting.location}</span>
+                            <span className="text-[11px] text-slate-500 truncate">{meeting.location}</span>
                           )}
                           {inCameraCount > 0 && (
                             <span className="flex items-center gap-1 text-[11px] text-amber-500">
@@ -320,7 +320,7 @@ export default function MeetingsListView({ meetings = [] }) {
                             </span>
                           )}
                           {hasAgenda && (
-                            <span className="flex items-center gap-1 text-[11px] text-slate-400">
+                            <span className="flex items-center gap-1 text-[11px] text-slate-500">
                               <FileText className="w-2.5 h-2.5" />
                               {meeting.agendaItems.length.toLocaleString()} items
                             </span>

@@ -100,25 +100,25 @@ export default function WardGrid({ motions }) {
           {/* Stats strip + Your Ward */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 items-stretch [&>*]:h-full">
             <CivicCard as={Link} to={`/?ward=${topWard?.id}`} aria-label={`View motions for Ward ${topWard?.id}`} className="h-full">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Most Active</p>
+              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Most Active</p>
               <p className="text-sm font-semibold text-slate-900 truncate flex-1">W{topWard?.id} · {topWard?.name}</p>
               <CivicCardFooter>
-                <span className="text-xs text-slate-400">{topWard?.count?.toLocaleString()} motions</span>
+                <span className="text-xs text-slate-500">{topWard?.count?.toLocaleString()} motions</span>
                 <span className="text-[9px] font-semibold text-[#004a99]">See more</span>
               </CivicCardFooter>
             </CivicCard>
             <CivicCard as={Link} to="/" aria-label="View all motions" className="h-full">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Total Motions</p>
+              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Total Motions</p>
               <p className="text-2xl font-black text-[#004a99]">{motions.length.toLocaleString()}</p>
               <CivicCardFooter>
-                <span className="text-xs text-slate-400">2022–2026 term</span>
+                <span className="text-xs text-slate-500">2022–2026 term</span>
                 <span className="text-[9px] font-semibold text-[#004a99]">See more</span>
               </CivicCardFooter>
             </CivicCard>
             <CivicCard className="h-full">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Coverage</p>
+              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Coverage</p>
               <p className="text-2xl font-black text-slate-900">25</p>
-              <p className="text-xs text-slate-400">wards tracked</p>
+              <p className="text-xs text-slate-500">wards tracked</p>
             </CivicCard>
             <YourWardCard motions={motions} />
           </div>
@@ -134,7 +134,7 @@ export default function WardGrid({ motions }) {
           </Suspense>
 
           <div className="flex items-start gap-3 p-4 bg-slate-50 border border-slate-200 rounded-2xl text-xs text-slate-500">
-            <MapPin className="w-4 h-4 shrink-0 mt-0.5 text-slate-400" />
+            <MapPin className="w-4 h-4 shrink-0 mt-0.5 text-slate-500" />
             Motion counts are all-time (2022–2026 term). Ward-specific motions are tagged based on geographic identifiers in council documents. Most council activity applies city-wide.
           </div>
         </>
@@ -194,7 +194,7 @@ export default function WardGrid({ motions }) {
 
             {wardMotions.length === 0 ? (
               <div className="text-center py-16 bg-white border border-dashed border-slate-200 rounded-2xl">
-                <p className="text-slate-400 text-sm">No ward-specific motions recorded.</p>
+                <p className="text-slate-500 text-sm">No ward-specific motions recorded.</p>
                 <p className="text-slate-300 text-xs mt-1">Most council activity is city-wide and won't appear here.</p>
               </div>
             ) : (
@@ -215,7 +215,7 @@ export default function WardGrid({ motions }) {
                       <span className={cn("text-xs px-2 py-0.5 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>{m.topic}</span>
                       {m.significance >= 90 && <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-600">High Impact</span>}
                       {m.significance >= 60 && m.significance < 90 && <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-600">Notable</span>}
-                      <span className="text-xs text-slate-400 ml-auto">{m.date}</span>
+                      <span className="text-xs text-slate-500 ml-auto">{m.date}</span>
                     </div>
                   </div>
                   <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-[#004a99] shrink-0 mt-0.5 transition-colors" />

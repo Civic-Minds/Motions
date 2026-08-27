@@ -108,7 +108,7 @@ function Navbar({ onSearchOpen }) {
             onClick={onSearchOpen}
             aria-label="Search"
             title="Search"
-            className="hidden sm:flex items-center justify-center p-2.5 text-slate-400 bg-slate-100 hover:bg-slate-150 border border-slate-200 rounded-xl transition-all"
+            className="hidden sm:flex items-center justify-center p-2.5 text-slate-500 bg-slate-100 hover:bg-slate-150 border border-slate-200 rounded-xl transition-all"
           >
             <Search className="w-4 h-4" />
           </button>
@@ -205,7 +205,7 @@ function AppShell() {
       <div className="flex items-center justify-center py-32">
         <div className="text-center max-w-sm">
           <p className="font-semibold text-slate-800 mb-1">Could not load data</p>
-          <p className="text-sm text-slate-400">{error}</p>
+          <p className="text-sm text-slate-500">{error}</p>
         </div>
       </div>
     );
@@ -245,7 +245,7 @@ function AppShell() {
       </main>
 
       <footer className="border-t border-slate-200 bg-white">
-        <div className="max-w-[1400px] mx-auto px-6 h-12 flex items-center justify-between text-xs text-slate-400">
+        <div className="max-w-[1400px] mx-auto px-6 h-12 flex items-center justify-between text-xs text-slate-500">
           <span>Data: <a href="https://open.toronto.ca/dataset/members-of-toronto-city-council-voting-record/" target="_blank" rel="noopener noreferrer" className="hover:text-slate-600 underline underline-offset-2 transition-colors">Toronto Open Data</a></span>
           <span className="hidden sm:block">A <a href="https://github.com/Civic-Minds" target="_blank" rel="noopener noreferrer" className="hover:text-slate-600 transition-colors">Civic Minds</a> project</span>
           <a href="https://github.com/Civic-Minds/Motions" target="_blank" rel="noopener noreferrer" className="hover:text-slate-600 transition-colors">GitHub</a>

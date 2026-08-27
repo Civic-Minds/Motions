@@ -93,7 +93,7 @@ export default function MotionCardItem({
             {m.significance >= 60 && m.significance < 90 && (
               <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-600">Notable</span>
             )}
-            <span className="text-[10px] text-slate-400 ml-auto">{m.date}</span>
+            <span className="text-[10px] text-slate-500 ml-auto">{m.date}</span>
           </div>
         </div>
         <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-[#004a99] shrink-0 mt-0.5 transition-colors" />

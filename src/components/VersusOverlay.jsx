@@ -71,7 +71,7 @@ export default function VersusOverlay({ selection, onClose, motions }) {
             {c1} <span className="text-slate-300 font-light mx-1.5">vs</span> {c2}
           </h1>
         </div>
-        <button onClick={onClose} className="text-sm text-slate-400 hover:text-slate-700 transition-colors shrink-0">
+        <button onClick={onClose} className="text-sm text-slate-500 hover:text-slate-700 transition-colors shrink-0">
           ← Back
         </button>
       </div>
@@ -79,9 +79,9 @@ export default function VersusOverlay({ selection, onClose, motions }) {
       {/* Top stats row */}
       <div className="grid grid-cols-3 gap-3">
         <div className="bg-white border border-slate-200 rounded-2xl p-4">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-2 truncate">{c1Last}</p>
+          <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide mb-2 truncate">{c1Last}</p>
           <p className="text-2xl font-black text-slate-900">{c1Yes}%</p>
-          <p className="text-[10px] text-slate-400 mt-0.5">yes rate · {c1Total.toLocaleString()} votes</p>
+          <p className="text-[10px] text-slate-500 mt-0.5">yes rate · {c1Total.toLocaleString()} votes</p>
           <div className="mt-2 h-1.5 w-full bg-slate-100 rounded-full overflow-hidden flex">
             <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${c1Yes}%` }} />
             <div className="h-full bg-rose-400 rounded-full" style={{ width: `${100 - c1Yes}%` }} />
@@ -92,20 +92,20 @@ export default function VersusOverlay({ selection, onClose, motions }) {
           {alignmentScore !== null ? (
             <>
               <p className="text-3xl font-black text-slate-900">{alignmentScore}%</p>
-              <p className="text-[10px] text-slate-400 mt-1">agree · {totalShared.toLocaleString()} shared</p>
+              <p className="text-[10px] text-slate-500 mt-1">agree · {totalShared.toLocaleString()} shared</p>
               <div className="mt-2 h-1.5 w-full bg-rose-100 rounded-full overflow-hidden">
                 <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${alignmentScore}%` }} />
               </div>
             </>
           ) : (
-            <p className="text-xs text-slate-400">No shared votes</p>
+            <p className="text-xs text-slate-500">No shared votes</p>
           )}
         </div>
 
         <div className="bg-white border border-slate-200 rounded-2xl p-4">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-2 truncate text-right">{c2Last}</p>
+          <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide mb-2 truncate text-right">{c2Last}</p>
           <p className="text-2xl font-black text-slate-900 text-right">{c2Yes}%</p>
-          <p className="text-[10px] text-slate-400 mt-0.5 text-right">yes rate · {c2Total.toLocaleString()} votes</p>
+          <p className="text-[10px] text-slate-500 mt-0.5 text-right">yes rate · {c2Total.toLocaleString()} votes</p>
           <div className="mt-2 h-1.5 w-full bg-slate-100 rounded-full overflow-hidden flex">
             <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${c2Yes}%` }} />
             <div className="h-full bg-rose-400 rounded-full" style={{ width: `${100 - c2Yes}%` }} />
@@ -120,10 +120,10 @@ export default function VersusOverlay({ selection, onClose, motions }) {
         {topicBreakdown.length > 0 && (
           <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden flex flex-col">
             <div className="grid grid-cols-[1fr_64px_64px_60px] px-4 py-2 border-b border-slate-100 shrink-0">
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Topic</span>
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wide text-right">{c1Last}</span>
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wide text-right">{c2Last}</span>
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wide text-right">Agree</span>
+              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Topic</span>
+              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wide text-right">{c1Last}</span>
+              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wide text-right">{c2Last}</span>
+              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wide text-right">Agree</span>
             </div>
             {topicBreakdown.map((t, i) => (
               <div
@@ -159,9 +159,9 @@ export default function VersusOverlay({ selection, onClose, motions }) {
         {topDivergences.length > 0 && (
           <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden flex flex-col">
             <div className="grid grid-cols-[1fr_56px_64px_20px] px-4 py-2 border-b border-slate-100 shrink-0">
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Where they split</span>
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wide text-right">{c1Last}</span>
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wide text-right">{c2Last}</span>
+              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Where they split</span>
+              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wide text-right">{c1Last}</span>
+              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wide text-right">{c2Last}</span>
               <span />
             </div>
             {topDivergences.map((m, i) => (
@@ -170,7 +170,7 @@ export default function VersusOverlay({ selection, onClose, motions }) {
               >
                 <div className="min-w-0">
                   <p className="text-xs font-medium text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-1">{m.title}</p>
-                  <p className="text-[10px] text-slate-400 mt-0.5">{m.date} · {m.id}</p>
+                  <p className="text-[10px] text-slate-500 mt-0.5">{m.date} · {m.id}</p>
                 </div>
                 <span className={cn("text-xs font-bold text-right", m.votes[c1] === 'YES' ? 'text-emerald-600' : 'text-rose-500')}>{m.votes[c1]}</span>
                 <span className={cn("text-xs font-bold text-right", m.votes[c2] === 'YES' ? 'text-emerald-600' : 'text-rose-500')}>{m.votes[c2]}</span>

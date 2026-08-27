@@ -149,21 +149,21 @@ export default function GlobalSearch({ motions, councillorNames, open, onClose }
 
               {/* Input */}
               <div className="flex items-center gap-3 px-4 py-3.5 border-b border-slate-100">
-                <Search className="w-4 h-4 text-slate-400 shrink-0" />
+                <Search className="w-4 h-4 text-slate-500 shrink-0" />
                 <input
                   ref={inputRef}
                   type="text"
                   value={query}
                   onChange={e => { setQuery(e.target.value); setCursor(0); }}
                   placeholder="Search motions, councillors…"
-                  className="flex-1 text-sm text-slate-900 placeholder:text-slate-400 outline-none bg-transparent"
+                  className="flex-1 text-sm text-slate-900 placeholder:text-slate-500 outline-none bg-transparent"
                 />
                 {query && (
                   <button onClick={() => setQuery('')} className="p-0.5 hover:bg-slate-100 rounded transition-colors">
-                    <X className="w-3.5 h-3.5 text-slate-400" />
+                    <X className="w-3.5 h-3.5 text-slate-500" />
                   </button>
                 )}
-                <kbd className="hidden sm:block text-[10px] font-medium text-slate-400 bg-slate-100 border border-slate-200 rounded px-1.5 py-0.5">ESC</kbd>
+                <kbd className="hidden sm:block text-[10px] font-medium text-slate-500 bg-slate-100 border border-slate-200 rounded px-1.5 py-0.5">ESC</kbd>
               </div>
 
               {/* Results */}
@@ -171,12 +171,12 @@ export default function GlobalSearch({ motions, councillorNames, open, onClose }
                 <div ref={listRef} className="max-h-[60vh] overflow-y-auto py-2">
 
                   {showEmpty && (
-                    <p className="text-sm text-slate-400 text-center py-8">No results for "{query}"</p>
+                    <p className="text-sm text-slate-500 text-center py-8">No results for "{query}"</p>
                   )}
 
                   {results.councillors.length > 0 && (
                     <div>
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-4 pt-2 pb-1">Councillors</p>
+                      <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide px-4 pt-2 pb-1">Councillors</p>
                       {results.councillors.map((name, i) => {
                         const idx = i;
                         const isActive = cursor === idx;
@@ -196,7 +196,7 @@ export default function GlobalSearch({ motions, councillorNames, open, onClose }
                             <span className="text-sm font-medium text-slate-800">
                               {highlight(name, query)}
                             </span>
-                            {isActive && <span className="ml-auto text-[10px] text-slate-400">↵</span>}
+                            {isActive && <span className="ml-auto text-[10px] text-slate-500">↵</span>}
                           </button>
                         );
                       })}
@@ -205,7 +205,7 @@ export default function GlobalSearch({ motions, councillorNames, open, onClose }
 
                   {results.committees.length > 0 && (
                     <div>
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-4 pt-2 pb-1">Committees</p>
+                      <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide px-4 pt-2 pb-1">Committees</p>
                       {results.committees.map((name, i) => {
                         const idx = results.councillors.length + i;
                         const isActive = cursor === idx;
@@ -225,7 +225,7 @@ export default function GlobalSearch({ motions, councillorNames, open, onClose }
                             <span className="text-sm font-medium text-slate-800">
                               {highlight(name, query)}
                             </span>
-                            {isActive && <span className="ml-auto text-[10px] text-slate-400">↵</span>}
+                            {isActive && <span className="ml-auto text-[10px] text-slate-500">↵</span>}
                           </button>
                         );
                       })}
@@ -234,7 +234,7 @@ export default function GlobalSearch({ motions, councillorNames, open, onClose }
 
                   {results.motions.length > 0 && (
                     <div>
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-4 pt-2 pb-1">Motions</p>
+                      <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide px-4 pt-2 pb-1">Motions</p>
                       {results.motions.map((m, i) => {
                         const idx = results.councillors.length + results.committees.length + i;
                         const isActive = cursor === idx;
@@ -266,14 +266,14 @@ export default function GlobalSearch({ motions, councillorNames, open, onClose }
                                     {m.topic}
                                   </span>
                                 )}
-                                <span className="text-[10px] text-slate-400">{m.date}</span>
+                                <span className="text-[10px] text-slate-500">{m.date}</span>
                                 <span className={cn("text-[10px] font-semibold px-1.5 py-0.5 rounded-full",
                                   m.status === 'Adopted' ? 'text-emerald-700 bg-emerald-50' : 'text-rose-600 bg-rose-50')}>
                                   {m.status}
                                 </span>
                               </div>
                             </div>
-                            {isActive && <span className="text-[10px] text-slate-400 shrink-0 mt-1">↵</span>}
+                            {isActive && <span className="text-[10px] text-slate-500 shrink-0 mt-1">↵</span>}
                           </button>
                         );
                       })}
@@ -292,7 +292,7 @@ export default function GlobalSearch({ motions, councillorNames, open, onClose }
               {query.trim().length < 2 && (
                 <div className="px-4 py-5 space-y-4">
                   <div>
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-2">Topics</p>
+                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide mb-2">Topics</p>
                     <div className="flex flex-wrap gap-1.5">
                       {['Housing', 'Transit', 'Finance', 'Parks', 'Climate'].map(t => (
                         <button
@@ -306,7 +306,7 @@ export default function GlobalSearch({ motions, councillorNames, open, onClose }
                     </div>
                   </div>
                   <div>
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-2">Common searches</p>
+                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide mb-2">Common searches</p>
                     <div className="flex flex-wrap gap-1.5">
                       {['bike lane', 'budget', 'shelter', 'zoning', 'TTC', 'rent', 'development', 'police'].map(term => (
                         <button

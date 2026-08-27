@@ -83,7 +83,7 @@ function AdditionalVotesNote({ count }) {
       <button
         type="button"
         aria-label="Why are these votes not named?"
-        className="not-italic text-slate-400 hover:text-[#004a99] focus:outline-none focus:text-[#004a99]"
+        className="not-italic text-slate-500 hover:text-[#004a99] focus:outline-none focus:text-[#004a99]"
       >
         <Info className="w-3.5 h-3.5" />
       </button>
@@ -153,7 +153,7 @@ function CouncillorGrid({ votes, resultText }) {
       {/* Absent — compact inline */}
       {absent.length > 0 && (
         <div>
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">
+          <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">
             Absent · {absent.length.toLocaleString()}
           </p>
           <div className="flex flex-wrap gap-1.5">
@@ -161,7 +161,7 @@ function CouncillorGrid({ votes, resultText }) {
               <Link
                 key={name}
                 to={`/councillors/${nameToSlug(name)}`}
-                className="text-xs text-slate-400 bg-slate-100 hover:bg-slate-200 hover:text-slate-600 px-2 py-1 rounded-lg transition-colors"
+                className="text-xs text-slate-500 bg-slate-100 hover:bg-slate-200 hover:text-slate-600 px-2 py-1 rounded-lg transition-colors"
               >
                 {name}
               </Link>
@@ -198,26 +198,26 @@ function VoteSection({ label, motionType, title, status, votes, resultText, defa
         className="w-full flex items-center justify-between px-5 py-4 hover:bg-slate-50 transition-colors text-left"
       >
         <div className="flex items-center gap-3">
-          {label && <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{label}</span>}
+          {label && <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{label}</span>}
           {motionType && <span className="text-sm font-semibold text-slate-800">{motionType}</span>}
           {!hideStatus && <StatusBadge status={status} />}
         </div>
         <div className="flex items-center gap-3 shrink-0 ml-4">
           {!open && (
-            <span className="text-xs text-slate-400">
+            <span className="text-xs text-slate-500">
               <span className="text-emerald-600 font-bold">{dispYes}</span>
               {' – '}
               <span className="text-red-500 font-bold">{dispNo}</span>
             </span>
           )}
-          {open ? <ChevronUp className="w-4 h-4 text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
+          {open ? <ChevronUp className="w-4 h-4 text-slate-500" /> : <ChevronDown className="w-4 h-4 text-slate-500" />}
         </div>
       </button>
       {open && (
         <div className="px-5 pb-5 space-y-4 border-t border-slate-100">
           {title && <p className="pt-4 text-sm text-slate-600 leading-snug">{title}</p>}
           {MOTION_TYPE_INFO[motionType] && (
-            <p className={cn("text-xs text-slate-400 leading-relaxed", title ? "" : "pt-4")}>
+            <p className={cn("text-xs text-slate-500 leading-relaxed", title ? "" : "pt-4")}>
               {MOTION_TYPE_INFO[motionType]}
             </p>
           )}
@@ -248,7 +248,7 @@ export default function MotionPage({ motions = [] }) {
 
   if (!motion) {
     return (
-      <div className="py-20 text-center text-slate-400 text-sm">Motion not found.</div>
+      <div className="py-20 text-center text-slate-500 text-sm">Motion not found.</div>
     );
   }
 
@@ -291,7 +291,7 @@ export default function MotionPage({ motions = [] }) {
       {/* Back Button (Desktop - Floating Left) */}
       <button
         onClick={() => navigate(-1)}
-        className="hidden lg:flex absolute -left-12 top-2 mt-0.5 items-center gap-1.5 text-sm text-slate-400 hover:text-slate-700 transition-colors"
+        className="hidden lg:flex absolute -left-12 top-2 mt-0.5 items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 transition-colors"
       >
         <ArrowLeft className="w-4 h-4 text-slate-300" />
         Back
@@ -301,7 +301,7 @@ export default function MotionPage({ motions = [] }) {
       <div className="mb-3 lg:hidden">
         <button
           onClick={() => navigate(-1)}
-          className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-700 transition-colors"
+          className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           Back
@@ -322,7 +322,7 @@ export default function MotionPage({ motions = [] }) {
 
         <h1 className="text-xl font-bold text-slate-900 leading-snug lg:w-4/5">{displayTitle}</h1>
 
-        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-400">
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500">
           <span className="font-mono">{motion.id}</span>
           <span>·</span>
           <span>{motion.date}</span>
@@ -351,7 +351,7 @@ export default function MotionPage({ motions = [] }) {
           {/* Summary */}
           {motion.summary && (
             <div className="bg-white border border-slate-200 rounded-xl px-5 py-4 min-h-44">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-2">Motion Summary</p>
+              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide mb-2">Motion Summary</p>
               <p className="text-sm text-slate-700 leading-relaxed">{motion.summary}</p>
             </div>
           )}
@@ -370,7 +370,7 @@ export default function MotionPage({ motions = [] }) {
                 />
 
                 <div className="space-y-2">
-                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-1 mt-4">
+                  <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest px-1 mt-4">
                     Other votes on this item
                   </p>
                   {subEntries.map(sub => (
@@ -388,7 +388,7 @@ export default function MotionPage({ motions = [] }) {
               </>
             ) : Object.keys(motion.votes ?? {}).length === 0 ? (
               <div className="border border-dashed border-slate-200 rounded-xl p-5 text-center flex items-center justify-center min-h-32">
-                <p className="text-sm text-slate-400">No recorded votes for this item.</p>
+                <p className="text-sm text-slate-500">No recorded votes for this item.</p>
               </div>
             ) : (
               <VoteSection
@@ -407,7 +407,7 @@ export default function MotionPage({ motions = [] }) {
         <div className="lg:col-span-1 space-y-4 pt-1 lg:sticky lg:top-8">
           {motion.locations?.length > 0 && (
             <div className="space-y-2">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-1">Locations</p>
+              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest px-1">Locations</p>
               <Suspense fallback={<div className="w-full h-72 rounded-2xl bg-slate-100 animate-pulse" />}>
                 <WardMotionMap
                   motions={[motion]}
@@ -427,7 +427,7 @@ export default function MotionPage({ motions = [] }) {
                                  'bg-slate-50 border-slate-200'
             )}>
               <div className="flex flex-col gap-1">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Your Councillor</span>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Your Councillor</span>
                 <Link
                   to={`/councillors/${nameToSlug(myCouncillor)}`}
                   className="text-sm font-bold text-[#004a99] hover:underline decoration-2 underline-offset-4"
@@ -450,7 +450,7 @@ export default function MotionPage({ motions = [] }) {
           {authorship && (
             <div className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-4 space-y-4">
               <div>
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-1">Mover</span>
+                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-1">Mover</span>
                 <Link
                   to={`/councillors/${nameToSlug(authorship.mover)}`}
                   className="text-sm font-bold text-[#004a99] hover:underline decoration-2 underline-offset-4"
@@ -460,7 +460,7 @@ export default function MotionPage({ motions = [] }) {
               </div>
               {authorship.seconder && (
                 <div>
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-1">Seconder</span>
+                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-1">Seconder</span>
                   <Link
                     to={`/councillors/${nameToSlug(authorship.seconder)}`}
                     className="text-sm font-bold text-[#004a99] hover:underline decoration-2 underline-offset-4"
@@ -487,7 +487,7 @@ export default function MotionPage({ motions = [] }) {
 
               return (
                 <div className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-4">
-                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-3">Funding</p>
+                  <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide mb-3">Funding</p>
                   <div className="flex flex-col gap-2">
                     {motion.keyAmounts.map((amt, i) => (
                       <div key={i} className="flex flex-col">
@@ -510,7 +510,7 @@ export default function MotionPage({ motions = [] }) {
               );
               return (
                 <div className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-4">
-                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-3">Funding</p>
+                  <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide mb-3">Funding</p>
                   <div className="flex flex-wrap gap-2 items-center">
                     {items.slice(0, 3).map((amt, i) => (
                       <span key={i} className="text-sm font-semibold text-slate-800">
@@ -518,7 +518,7 @@ export default function MotionPage({ motions = [] }) {
                       </span>
                     ))}
                     {items.length > 3 && (
-                      <span className="text-xs text-slate-400">+{(items.length - 3).toLocaleString()} more</span>
+                      <span className="text-xs text-slate-500">+{(items.length - 3).toLocaleString()} more</span>
                     )}
                   </div>
                 </div>
@@ -546,7 +546,7 @@ export default function MotionPage({ motions = [] }) {
           {/* Background Documents */}
           {motion.backgroundFiles?.length > 0 && (
             <div className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-4 min-h-44">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-3">Documents</p>
+              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide mb-3">Documents</p>
               <div className="flex flex-col gap-2">
                 {motion.backgroundFiles.map((f, i) => (
                   <a
@@ -556,7 +556,7 @@ export default function MotionPage({ motions = [] }) {
                     rel="noopener noreferrer"
                     className="flex items-start gap-2 text-xs text-[#004a99] hover:underline leading-snug"
                   >
-                    <FileText className="w-3.5 h-3.5 shrink-0 mt-0.5 text-slate-400" />
+                    <FileText className="w-3.5 h-3.5 shrink-0 mt-0.5 text-slate-500" />
                     <span>{f.label}</span>
                   </a>
                 ))}
@@ -567,7 +567,7 @@ export default function MotionPage({ motions = [] }) {
           {/* Referenced Motions */}
           {motion.relatedMotions?.length > 0 && (
             <div className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-4">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-3">Referenced</p>
+              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide mb-3">Referenced</p>
               <div className="flex flex-wrap gap-2">
                 {motion.relatedMotions.map(id => (
                   <Link

@@ -11,7 +11,7 @@ export function CivicCard({ as: Component = 'div', className = '', children, ...
 }
 
 export function CivicSectionLabel({ children, className = '' }) {
-  return <p className={`text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1 ${className}`}>{children}</p>;
+  return <p className={`text-[10px] font-bold text-slate-500 uppercase tracking-wide px-1 ${className}`}>{children}</p>;
 }
 
 export function CivicPill({ children, className = '' }) {

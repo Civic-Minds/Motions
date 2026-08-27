@@ -34,7 +34,7 @@ function ProfileHeader({ selected, ward, committees, isMyCouncillor, electionSta
             <span className="text-[10px] font-bold bg-[#004a99] text-white px-2.5 py-0.5 rounded-full">Your Councillor</span>
           )}
         </div>
-        <p className="text-sm text-slate-400 mt-0.5 break-words">{ward ? `Ward ${ward.id} · ${ward.name}` : 'Toronto City Council'}</p>
+        <p className="text-sm text-slate-500 mt-0.5 break-words">{ward ? `Ward ${ward.id} · ${ward.name}` : 'Toronto City Council'}</p>
         {electionStatus && (
           <Link
             to="/election"
@@ -53,7 +53,7 @@ function ProfileHeader({ selected, ward, committees, isMyCouncillor, electionSta
         )}
         {committees.length > 0 && (
           <div className="text-xs text-slate-500 leading-snug mt-2.5" title={committees.join(', ')}>
-            <span className="font-semibold text-slate-400 text-[10px] uppercase tracking-wider mr-2">Committees</span>
+            <span className="font-semibold text-slate-500 text-[10px] uppercase tracking-wider mr-2">Committees</span>
             <span>{committees.length.toLocaleString()} assigned</span>
           </div>
         )}
@@ -67,20 +67,20 @@ function VotingStats({ attendance, totalVotes, yesRate, yesCount, noCount, tenur
   return (
     <>
       <div className="flex flex-col gap-1.5">
-        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Votes cast</p>
+        <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide px-1">Votes cast</p>
         <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col h-[112px]">
           <p className="text-2xl font-black text-slate-900">{totalVotes.toLocaleString()}</p>
-          <p className="text-[10px] text-slate-400 mt-auto pt-2">all recorded votes</p>
+          <p className="text-[10px] text-slate-500 mt-auto pt-2">all recorded votes</p>
         </div>
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Attendance</p>
+        <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide px-1">Attendance</p>
         <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col h-[112px]">
           <p className={cn("text-2xl font-black", attendance.pct >= 90 ? 'text-emerald-600' : attendance.pct >= 75 ? 'text-amber-500' : 'text-rose-500')}>
             {attendance.pct}%
           </p>
-          <p className="text-[10px] text-slate-400 mt-0.5">{attendance.daysPresent.toLocaleString()}/{attendance.totalDays.toLocaleString()} days</p>
+          <p className="text-[10px] text-slate-500 mt-0.5">{attendance.daysPresent.toLocaleString()}/{attendance.totalDays.toLocaleString()} days</p>
           <div className="mt-auto pt-2 h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
             <div className={cn("h-full rounded-full", attendance.pct >= 90 ? 'bg-emerald-500' : attendance.pct >= 75 ? 'bg-amber-400' : 'bg-rose-500')} style={{ width: `${attendance.pct}%` }} />
           </div>
@@ -89,10 +89,10 @@ function VotingStats({ attendance, totalVotes, yesRate, yesCount, noCount, tenur
 
       {yesRate !== null && (
         <div className="flex flex-col gap-1.5">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Yes rate</p>
+          <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide px-1">Yes rate</p>
           <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col h-[112px]">
             <p className="text-2xl font-black text-slate-900">{yesRate}%</p>
-            <p className="text-[10px] text-slate-400 mt-0.5">{yesCount.toLocaleString()} yes · {noCount.toLocaleString()} no</p>
+            <p className="text-[10px] text-slate-500 mt-0.5">{yesCount.toLocaleString()} yes · {noCount.toLocaleString()} no</p>
             <div className="mt-auto pt-2 h-1.5 w-full bg-slate-100 rounded-full overflow-hidden flex">
               <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${yesRate}%` }} />
               <div className="h-full bg-rose-400 rounded-full" style={{ width: `${100 - yesRate}%` }} />
@@ -103,10 +103,10 @@ function VotingStats({ attendance, totalVotes, yesRate, yesCount, noCount, tenur
 
       {tenureData?.totalYears > 0 && (
         <div className="flex flex-col gap-1.5">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">On council</p>
+          <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide px-1">On council</p>
           <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col h-[112px]">
-            <p className="text-2xl font-black text-slate-900">{tenureData.totalYears}<span className="text-sm font-semibold text-slate-400 ml-1">yr</span></p>
-            {tenureData.firstYear && <p className="text-[10px] text-slate-400 mt-0.5">since {tenureData.firstYear}</p>}
+            <p className="text-2xl font-black text-slate-900">{tenureData.totalYears}<span className="text-sm font-semibold text-slate-500 ml-1">yr</span></p>
+            {tenureData.firstYear && <p className="text-[10px] text-slate-500 mt-0.5">since {tenureData.firstYear}</p>}
           </div>
         </div>
       )}
@@ -122,14 +122,14 @@ function PeerAlignment({ dna, votedWith }) {
 
       {dna.length > 0 && (
         <div className="bg-white border border-slate-200 rounded-2xl p-5">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-4">Voting DNA</p>
+          <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide mb-4">Voting DNA</p>
           <div className="space-y-3.5">
             {dna.map(({ topic, yesPct, total }) => (
               <div key={topic}>
                 <div className="flex justify-between items-end mb-1.5">
                   <span className="text-xs font-semibold text-slate-700">{topic}</span>
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] text-slate-400">{total.toLocaleString()}</span>
+                    <span className="text-[10px] text-slate-500">{total.toLocaleString()}</span>
                     <span className={cn("text-[10px] font-bold", yesPct >= 50 ? 'text-emerald-600' : 'text-rose-500')}>{yesPct}%</span>
                   </div>
                 </div>
@@ -145,7 +145,7 @@ function PeerAlignment({ dna, votedWith }) {
 
       {votedWith.length > 0 && (
         <div className="bg-white border border-slate-200 rounded-2xl p-5">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-4">Most Aligned With</p>
+          <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide mb-4">Most Aligned With</p>
           <div className="space-y-2.5">
             {votedWith.slice(0, 5).map((peer, i) => (
               <div key={i} className="flex items-center gap-3">
@@ -181,7 +181,7 @@ function PeerAlignment({ dna, votedWith }) {
           </div>
           {votedWith.length > 5 && (
             <div className="mt-4 pt-3 border-t border-slate-100 space-y-2.5">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Least Aligned</p>
+              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Least Aligned</p>
               {votedWith.slice(-3).reverse().map((peer, i) => (
                 <div key={i} className="flex items-center gap-3">
                   <Link
@@ -251,18 +251,18 @@ function ExpenseBreakdown({ expenseRecord, sourceUrl }) {
     <div className="lg:sticky lg:top-24 mt-6 lg:mt-0">
       <div className="bg-white border border-slate-200 rounded-2xl p-5">
         <div className="flex items-center justify-between mb-3">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">2025 Expenses</p>
-          <a href={sourceUrl} target="_blank" rel="noopener noreferrer" className="text-[10px] text-slate-400 hover:text-[#004a99] transition-colors">Source ↗</a>
+          <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">2025 Expenses</p>
+          <a href={sourceUrl} target="_blank" rel="noopener noreferrer" className="text-[10px] text-slate-500 hover:text-[#004a99] transition-colors">Source ↗</a>
         </div>
         <div className="mb-4">
           <div className="flex items-end justify-between mb-1.5">
             <span className="text-lg font-black text-slate-800">${spent.toLocaleString()}</span>
-            <span className={cn("text-[10px] font-bold", over ? 'text-amber-600' : 'text-slate-400')}>{pct}%</span>
+            <span className={cn("text-[10px] font-bold", over ? 'text-amber-600' : 'text-slate-500')}>{pct}%</span>
           </div>
           <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
             <div className={cn("h-full rounded-full", over ? 'bg-amber-400' : 'bg-[#004a99]')} style={{ width: `${pct}%` }} />
           </div>
-          <p className="text-[10px] text-slate-400 mt-1">of ${BUDGET.toLocaleString()} budget</p>
+          <p className="text-[10px] text-slate-500 mt-1">of ${BUDGET.toLocaleString()} budget</p>
         </div>
         {top.length > 0 && (
           <div className="space-y-2">
@@ -434,7 +434,7 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
         )}
 
         <div className="flex flex-col gap-1.5">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Contact</p>
+          <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide px-1">Contact</p>
           <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col justify-center gap-3 h-[112px]">
             {contact?.phone && (
               <a href={`tel:${contact.phone}`} className="flex items-center gap-2 text-xs text-slate-600 hover:text-[#004a99] transition-colors break-all">

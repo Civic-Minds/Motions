@@ -86,7 +86,7 @@ function DashboardFilterContent({ filters, dispatch, committees, years, sortedCo
 
       {/* Topic */}
       <div>
-        <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wide mb-1.5">Topic</p>
+        <p className="text-[9px] font-bold text-slate-500 uppercase tracking-wide mb-1.5">Topic</p>
         <div className="flex flex-wrap gap-1">
           {['All', ...TOPICS].map(topic => (
             <button
@@ -110,7 +110,7 @@ function DashboardFilterContent({ filters, dispatch, committees, years, sortedCo
 
       {/* Committee */}
       <div className="pt-2.5 border-t border-slate-100">
-        <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wide mb-1.5">Committee</p>
+        <p className="text-[9px] font-bold text-slate-500 uppercase tracking-wide mb-1.5">Committee</p>
         {filters.committees.length > 0 && (
           <div className="flex flex-wrap gap-1 mb-1.5">
             {filters.committees.map(c => (
@@ -122,7 +122,7 @@ function DashboardFilterContent({ filters, dispatch, committees, years, sortedCo
           </div>
         )}
         <div className="relative">
-          <Search className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-400 pointer-events-none" />
+          <Search className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-500 pointer-events-none" />
           <input
             type="text"
             value={filters.committeeSearch}
@@ -130,12 +130,12 @@ function DashboardFilterContent({ filters, dispatch, committees, years, sortedCo
             onFocus={() => dispatch({ type: 'SET_COMMITTEE_OPEN', value: true })}
             onBlur={() => setTimeout(() => dispatch({ type: 'SET_COMMITTEE_OPEN', value: false }), 150)}
             placeholder={filters.committees.length > 0 ? 'Add another…' : 'Search…'}
-            className="w-full pl-6 pr-2 py-1 text-[11px] bg-slate-100 rounded-lg outline-none placeholder:text-slate-400 text-slate-700 focus:ring-1 focus:ring-[#004a99]/30"
+            className="w-full pl-6 pr-2 py-1 text-[11px] bg-slate-100 rounded-lg outline-none placeholder:text-slate-500 text-slate-700 focus:ring-1 focus:ring-[#004a99]/30"
           />
           {filters.committeeSearch && (
             <button
               onClick={() => dispatch({ type: 'SET_COMMITTEE_SEARCH', value: '' })}
-              className="absolute right-1.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+              className="absolute right-1.5 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-600"
             >
               <X className="w-3 h-3" />
             </button>
@@ -162,7 +162,7 @@ function DashboardFilterContent({ filters, dispatch, committees, years, sortedCo
 
       {/* Vote Type */}
       <div className="pt-2.5 border-t border-slate-100">
-        <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wide mb-1.5">Vote Type</p>
+        <p className="text-[9px] font-bold text-slate-500 uppercase tracking-wide mb-1.5">Vote Type</p>
         <div className="flex flex-wrap gap-1">
           {VOTE_TYPES.map(({ label, value }) => (
             <button
@@ -183,7 +183,7 @@ function DashboardFilterContent({ filters, dispatch, committees, years, sortedCo
 
       {/* Year */}
       <div className="pt-2.5 border-t border-slate-100">
-        <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wide mb-1.5">Year</p>
+        <p className="text-[9px] font-bold text-slate-500 uppercase tracking-wide mb-1.5">Year</p>
         <div className="flex flex-wrap gap-1">
           {['All', ...years].map(y => (
             <button
@@ -248,11 +248,11 @@ function DashboardFilterContent({ filters, dispatch, committees, years, sortedCo
 
       {/* Footer */}
       <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
-        <p className="text-[10px] text-slate-400">{sortedCount.toLocaleString()} motions</p>
+        <p className="text-[10px] text-slate-500">{sortedCount.toLocaleString()} motions</p>
         {hasActiveFilters(filters) && (
           <button
             onClick={() => dispatch({ type: 'CLEAR' })}
-            className="flex items-center gap-1 text-[10px] font-medium text-slate-400 hover:text-slate-700 transition-colors"
+            className="flex items-center gap-1 text-[10px] font-medium text-slate-500 hover:text-slate-700 transition-colors"
           >
             <X className="w-3 h-3" /> Clear
           </button>
@@ -349,7 +349,7 @@ function MotionList({ visibleMotions, sortedCount, visibleCount, onLoadMore, fil
 
         {sortedCount === 0 && (
           <div className="text-center py-16 bg-white border border-dashed border-slate-200 rounded-2xl">
-            <p className="text-slate-400 text-sm">No motions match the current filters.</p>
+            <p className="text-slate-500 text-sm">No motions match the current filters.</p>
           </div>
         )}
 
@@ -476,7 +476,7 @@ export default function DashboardView({ motions, meetings = [] }) {
           return (
             <div className="flex flex-col gap-1.5 min-w-0">
               <div className="flex items-center justify-between px-1">
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Your Following</p>
+                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Your Following</p>
                 <Star className="w-3 h-3 text-amber-500 fill-current shrink-0" />
               </div>
               <motion.button
@@ -495,7 +495,7 @@ export default function DashboardView({ motions, meetings = [] }) {
                   {m.title}
                 </p>
                 <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
-                  <span className="text-[9px] text-slate-400">{m.date.split(',')[0]}</span>
+                  <span className="text-[9px] text-slate-500">{m.date.split(',')[0]}</span>
                   <span className="text-[9px] font-semibold text-[#004a99]">See more</span>
                 </div>
               </motion.button>
@@ -504,7 +504,7 @@ export default function DashboardView({ motions, meetings = [] }) {
         })() : (
           <div className="flex flex-col gap-1.5 min-w-0">
             <div className="flex items-center justify-between px-1">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">My Ward</p>
+              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">My Ward</p>
             </div>
             <YourWardCard />
           </div>
@@ -513,15 +513,15 @@ export default function DashboardView({ motions, meetings = [] }) {
         {/* 2. Middle: Notable + Your Ward (4-card Grid) */}
         <div className="flex flex-col gap-1.5 min-w-0">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 px-1">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide col-span-2">Most Notable</p>
+            <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide col-span-2">Most Notable</p>
             {wardHighlights.length > 0 && (
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide col-span-2">Ward Motions</p>
+              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide col-span-2">Ward Motions</p>
             )}
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 items-stretch flex-1 min-w-0">
             {highlights.length === 0 && wardHighlights.length === 0 && (
               <div className="col-span-2 lg:col-span-4 flex items-center justify-center py-10 bg-white border border-dashed border-slate-200 rounded-2xl">
-                <p className="text-xs text-slate-400">No notable motions yet.</p>
+                <p className="text-xs text-slate-500">No notable motions yet.</p>
               </div>
             )}
             <CivicCard
@@ -532,7 +532,7 @@ export default function DashboardView({ motions, meetings = [] }) {
               <CivicPill className="bg-blue-100 text-blue-700">Election</CivicPill>
               <p className="text-xs font-semibold text-slate-800 group-hover:text-blue-700 transition-colors line-clamp-3 leading-snug">See your ward’s candidates before October 26.</p>
               <div className="flex items-center justify-between mt-auto pt-2 border-t border-blue-100">
-                <span className="text-[9px] text-slate-400">October 26, 2026</span>
+                <span className="text-[9px] text-slate-500">October 26, 2026</span>
                 <span className="text-[9px] font-semibold text-blue-700">Get ready</span>
               </div>
             </CivicCard>
@@ -565,7 +565,7 @@ export default function DashboardView({ motions, meetings = [] }) {
                     {m.title}
                   </p>
                   <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
-                    <span className="text-[9px] text-slate-400">{m.date.split(',')[0]}</span>
+                    <span className="text-[9px] text-slate-500">{m.date.split(',')[0]}</span>
                     <span className="text-[9px] font-semibold text-[#004a99] group-hover:underline">See more</span>
                   </div>
                 </motion.button>
@@ -577,7 +577,7 @@ export default function DashboardView({ motions, meetings = [] }) {
         {/* 3. Right: Coming Up (ONE Card) */}
         <div className="flex flex-col gap-1.5 overflow-hidden">
           <div className="flex items-center justify-between px-1">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Coming Up</p>
+            <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Coming Up</p>
             <div className="flex items-center gap-2">
               <Link to="/meetings" className="text-[10px] font-semibold text-[#004a99]/60 hover:text-[#004a99] transition-colors">
                 See more
@@ -609,7 +609,7 @@ export default function DashboardView({ motions, meetings = [] }) {
                   "rounded-2xl p-4 flex flex-col gap-2 transition-all border text-left flex-1",
                   meeting
                     ? "bg-white border-slate-200 hover:border-[#004a99]/40 hover:shadow-sm cursor-pointer group"
-                    : "bg-white border-dashed border-slate-200 text-slate-400 cursor-default"
+                    : "bg-white border-dashed border-slate-200 text-slate-500 cursor-default"
                 )}
               >
                 {meeting ? (
@@ -626,12 +626,12 @@ export default function DashboardView({ motions, meetings = [] }) {
                       {meeting.committee}
                     </p>
                     {meeting.location && (
-                      <p className="text-[9px] text-slate-400 leading-tight line-clamp-1" title={meeting.location}>
+                      <p className="text-[9px] text-slate-500 leading-tight line-clamp-1" title={meeting.location}>
                         {meeting.location}
                       </p>
                     )}
                     <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
-                      <span className="text-[9px] text-slate-400 whitespace-nowrap">{meeting.displayDate}</span>
+                      <span className="text-[9px] text-slate-500 whitespace-nowrap">{meeting.displayDate}</span>
                       <span className="text-[9px] font-semibold text-[#004a99] shrink-0 ml-1">{meeting.startTime}</span>
                     </div>
                   </>

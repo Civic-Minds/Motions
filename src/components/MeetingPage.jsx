@@ -21,7 +21,7 @@ export default function MeetingPage({ meetings }) {
 
   if (!meeting) {
     return (
-      <div className="py-20 text-center text-slate-400 text-sm">
+      <div className="py-20 text-center text-slate-500 text-sm">
         Meeting not found.
       </div>
     );
@@ -56,7 +56,7 @@ export default function MeetingPage({ meetings }) {
       {/* Back — desktop floating left */}
       <button
         onClick={() => navigate(`/committees/${committeeSlug}`)}
-        className="hidden xl:flex absolute -left-12 top-1 items-center gap-1.5 text-sm text-slate-400 hover:text-slate-700 transition-colors"
+        className="hidden xl:flex absolute -left-12 top-1 items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 transition-colors"
       >
         <ArrowLeft className="w-4 h-4 text-slate-300" />
         Back
@@ -66,7 +66,7 @@ export default function MeetingPage({ meetings }) {
       <div className="mb-6 xl:hidden">
         <button
           onClick={() => navigate(`/committees/${committeeSlug}`)}
-          className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-700 transition-colors"
+          className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           Back
@@ -76,7 +76,7 @@ export default function MeetingPage({ meetings }) {
       {/* Header */}
       <div className="space-y-3 mb-8">
         <h1 className="text-xl font-bold text-slate-900">{meeting.committee}</h1>
-        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-400">
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500">
           <span className="font-mono">{meeting.meetingReference}</span>
           <span>·</span>
           <span>{meeting.displayDate}</span>
@@ -93,7 +93,7 @@ export default function MeetingPage({ meetings }) {
         <div className="lg:col-span-2">
           <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
             <div className="px-5 py-3.5 border-b border-slate-100 flex items-center justify-between gap-4 flex-wrap">
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-wide">
+              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">
                 {hasAgenda ? `Agenda · ${meeting.agendaItems.length.toLocaleString()} items` : 'Agenda'}
               </p>
               {hasAgenda && (
@@ -121,7 +121,7 @@ export default function MeetingPage({ meetings }) {
             {!hasAgenda ? (
               <div className="px-5 py-10 text-center">
                 <FileText className="w-8 h-8 text-slate-200 mx-auto mb-3" />
-                <p className="text-sm text-slate-400">Agenda not yet published.</p>
+                <p className="text-sm text-slate-500">Agenda not yet published.</p>
                 <p className="text-xs text-slate-300 mt-1">Check back closer to the meeting date.</p>
               </div>
             ) : (
@@ -147,7 +147,7 @@ export default function MeetingPage({ meetings }) {
                       {(item.wards || item.inCamera) && (
                         <div className="flex items-center gap-2 mt-1.5 flex-wrap">
                           {item.wards && item.wards !== 'null' && (
-                            <span className="text-[11px] text-slate-400">
+                            <span className="text-[11px] text-slate-500">
                               {item.wards === 'All' ? 'City-wide' : `Ward${item.wards.includes(',') ? 's' : ''} ${item.wards}`}
                             </span>
                           )}
@@ -177,7 +177,7 @@ export default function MeetingPage({ meetings }) {
             "rounded-xl px-4 py-3 border text-sm font-medium flex items-center gap-2",
             hasAgenda
               ? "bg-emerald-50 border-emerald-200 text-emerald-700"
-              : "bg-slate-50 border-slate-200 text-slate-400"
+              : "bg-slate-50 border-slate-200 text-slate-500"
           )}>
             <span className={cn("w-2 h-2 rounded-full shrink-0", hasAgenda ? "bg-emerald-400" : "bg-slate-300")} />
             {hasAgenda ? 'Agenda published' : 'Agenda pending'}

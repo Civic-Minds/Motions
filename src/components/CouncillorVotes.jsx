@@ -39,7 +39,7 @@ function FilterPanel({ topics, committees, years, topicFilter, outcomeFilter, co
   return (
     <div className="space-y-3">
       <div>
-        <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wide mb-1.5">Topic</p>
+        <p className="text-[9px] font-bold text-slate-500 uppercase tracking-wide mb-1.5">Topic</p>
         <div className="flex flex-wrap gap-1">
           {topics.map(topic => (
             <FilterButton key={topic} active={topicFilter.has(topic)} onClick={() => onToggleSet('topic', topic)}>{topic}</FilterButton>
@@ -48,7 +48,7 @@ function FilterPanel({ topics, committees, years, topicFilter, outcomeFilter, co
       </div>
 
       <div className="pt-2.5 border-t border-slate-100">
-        <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wide mb-1.5">Vote</p>
+        <p className="text-[9px] font-bold text-slate-500 uppercase tracking-wide mb-1.5">Vote</p>
         <div className="flex flex-wrap gap-1">
           <FilterButton active={outcomeFilter.has('YES')} tone="green" onClick={() => onToggleSet('outcome', 'YES')}>Yes</FilterButton>
           <FilterButton active={outcomeFilter.has('NO')} tone="red" onClick={() => onToggleSet('outcome', 'NO')}>No</FilterButton>
@@ -56,7 +56,7 @@ function FilterPanel({ topics, committees, years, topicFilter, outcomeFilter, co
       </div>
 
       <div className="pt-2.5 border-t border-slate-100">
-        <label htmlFor="vote-committee" className="text-[9px] font-bold text-slate-400 uppercase tracking-wide mb-1.5 block">Committee</label>
+        <label htmlFor="vote-committee" className="text-[9px] font-bold text-slate-500 uppercase tracking-wide mb-1.5 block">Committee</label>
         <select
           id="vote-committee"
           value={committeeFilter}
@@ -69,7 +69,7 @@ function FilterPanel({ topics, committees, years, topicFilter, outcomeFilter, co
       </div>
 
       <div className="pt-2.5 border-t border-slate-100">
-        <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wide mb-1.5">Year</p>
+        <p className="text-[9px] font-bold text-slate-500 uppercase tracking-wide mb-1.5">Year</p>
         <div className="flex flex-wrap gap-1">
           {years.map(year => (
             <FilterButton key={year} active={yearFilter.has(year)} onClick={() => onToggleSet('year', year)}>{year}</FilterButton>
@@ -84,7 +84,7 @@ function FilterPanel({ topics, committees, years, topicFilter, outcomeFilter, co
       </div>
 
       {(topicFilter.size > 0 || outcomeFilter.size > 0 || committeeFilter || yearFilter.size > 0 || followingOnly) && (
-        <button type="button" onClick={onClear} className="flex items-center gap-1 text-xs font-semibold text-slate-400 hover:text-slate-700 transition-colors">
+        <button type="button" onClick={onClear} className="flex items-center gap-1 text-xs font-semibold text-slate-500 hover:text-slate-700 transition-colors">
           <X className="w-3 h-3" /> Clear filters
         </button>
       )}
@@ -167,7 +167,7 @@ export default function CouncillorVotes({ motions }) {
       {/* Back to profile */}
       <button
         onClick={() => navigate(`/councillors/${slug}`)}
-        className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-700 transition-colors mb-6"
+        className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 transition-colors mb-6"
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7"/></svg>
         {selected}
@@ -175,7 +175,7 @@ export default function CouncillorVotes({ motions }) {
 
       <div className="mb-6">
         <h1 className="text-xl font-bold text-slate-900">Voting record</h1>
-        <p className="text-sm text-slate-400 mt-0.5">
+        <p className="text-sm text-slate-500 mt-0.5">
           {ward ? `Ward ${ward.id} · ${ward.name}` : 'Toronto City Council'} · {allVotes.length.toLocaleString()} votes
         </p>
       </div>
@@ -188,7 +188,7 @@ export default function CouncillorVotes({ motions }) {
         <div>
           <button type="button" onClick={() => setMobileFiltersOpen(open => !open)} className="lg:hidden w-full mb-3 flex items-center justify-between px-3 py-2.5 bg-white border border-slate-200 rounded-xl text-sm font-semibold text-slate-600">
             <span className="flex items-center gap-2"><Filter className="w-4 h-4" /> Filters</span>
-            <span className="text-xs text-slate-400">{filtered.length.toLocaleString()} votes</span>
+            <span className="text-xs text-slate-500">{filtered.length.toLocaleString()} votes</span>
           </button>
           {mobileFiltersOpen && (
             <div className="lg:hidden mb-4 bg-white border border-slate-200 rounded-2xl p-4">
@@ -196,7 +196,7 @@ export default function CouncillorVotes({ motions }) {
             </div>
           )}
 
-          <p className="text-[10px] text-slate-400 mb-3">{filtered.length.toLocaleString()} votes</p>
+          <p className="text-[10px] text-slate-500 mb-3">{filtered.length.toLocaleString()} votes</p>
           <div className="space-y-2">
             {filtered.map((m, i) => (
               <MotionCardItem key={m.id} motion={m} index={i} vote={m.votes[selected]} votePlacement="inline" showVoteBadge={outcomeFilter.size !== 1} showTopicBadge={topicFilter.size !== 1} showStatus={false} showCommittee={false} />

@@ -127,7 +127,7 @@ export default function CommitteesView({ motions, meetings = [] }) {
         <div className="space-y-4 max-w-5xl mx-auto">
           <button
             onClick={() => navigate('/committees')}
-            className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-700 transition-colors"
+            className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             Back
@@ -138,7 +138,7 @@ export default function CommitteesView({ motions, meetings = [] }) {
             <div className="lg:col-span-2">
               <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
                 <div className="px-5 py-3.5 border-b border-slate-100">
-                  <p className="text-xs font-bold text-slate-400 uppercase tracking-wide">
+                  <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">
                     Meetings · {selectedBody.meetings.length.toLocaleString()} total
                   </p>
                 </div>
@@ -162,7 +162,7 @@ export default function CommitteesView({ motions, meetings = [] }) {
                         )}
                       >
                         <div className="shrink-0 w-10 text-center">
-                          <p className="text-[10px] font-bold text-slate-400 uppercase leading-none">
+                          <p className="text-[10px] font-bold text-slate-500 uppercase leading-none">
                             {new Date(m.date + 'T12:00:00').toLocaleString('en-CA', { month: 'short' })}
                           </p>
                           <p className="text-lg font-black text-slate-700 leading-tight">
@@ -174,9 +174,9 @@ export default function CommitteesView({ motions, meetings = [] }) {
                             {m.displayDate}
                           </p>
                           <div className="flex items-center gap-3 mt-0.5">
-                            {m.startTime && <span className="text-[11px] text-slate-400">{m.startTime}</span>}
+                            {m.startTime && <span className="text-[11px] text-slate-500">{m.startTime}</span>}
                             {m.agendaItems?.length > 0 && (
-                              <span className="text-[11px] text-slate-400">{m.agendaItems.length.toLocaleString()} agenda items</span>
+                              <span className="text-[11px] text-slate-500">{m.agendaItems.length.toLocaleString()} agenda items</span>
                             )}
                             {m.date >= TODAY
                               ? <span className="text-[10px] font-semibold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-full">Upcoming</span>
@@ -196,11 +196,11 @@ export default function CommitteesView({ motions, meetings = [] }) {
             <div className="lg:col-span-1 space-y-4 lg:sticky lg:top-8">
               <div className="bg-white border border-slate-200 rounded-xl p-4 space-y-3">
                 <div className="flex items-baseline justify-between">
-                  <span className="text-xs text-slate-400 font-medium uppercase tracking-wide">Total meetings</span>
+                  <span className="text-xs text-slate-500 font-medium uppercase tracking-wide">Total meetings</span>
                   <span className="text-2xl font-black text-slate-900">{selectedBody.meetings.length.toLocaleString()}</span>
                 </div>
                 <div className="flex items-baseline justify-between">
-                  <span className="text-xs text-slate-400 font-medium uppercase tracking-wide">Upcoming</span>
+                  <span className="text-xs text-slate-500 font-medium uppercase tracking-wide">Upcoming</span>
                   <span className="text-sm font-bold text-emerald-600">{selectedBody.upcomingCount.toLocaleString()}</span>
                 </div>
               </div>
@@ -220,7 +220,7 @@ export default function CommitteesView({ motions, meetings = [] }) {
         <div className="space-y-3 mb-2">
           <button
             onClick={() => navigate('/committees')}
-            className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-700 transition-colors"
+            className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             Back
@@ -279,13 +279,13 @@ export default function CommitteesView({ motions, meetings = [] }) {
                 </div>
               </div>
 
-              <p className="mt-2 text-[11px] text-slate-400 line-clamp-2 leading-normal">
+              <p className="mt-2 text-[11px] text-slate-500 line-clamp-2 leading-normal">
                 {c.description}
               </p>
 
               <div className="mt-4 flex items-baseline gap-2">
                 <span className="text-4xl font-black text-slate-900 leading-none">{c.total.toLocaleString()}</span>
-                <span className="text-xs text-slate-400">motions</span>
+                <span className="text-xs text-slate-500">motions</span>
               </div>
 
               {/* Adoption bar */}
@@ -296,8 +296,8 @@ export default function CommitteesView({ motions, meetings = [] }) {
                 />
               </div>
               <div className="flex items-center justify-between mt-1.5">
-                <span className="text-[10px] text-slate-400">{c.adoptionRate}% adopted</span>
-                <span className="text-[10px] text-slate-400">{c.substantive} substantive</span>
+                <span className="text-[10px] text-slate-500">{c.adoptionRate}% adopted</span>
+                <span className="text-[10px] text-slate-500">{c.substantive} substantive</span>
               </div>
 
               {/* Top topics */}
@@ -317,7 +317,7 @@ export default function CommitteesView({ motions, meetings = [] }) {
         {/* ── Boards & other bodies ── */}
         {meetingsOnlyBodies.length > 0 && (
           <div>
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3 px-1">
+            <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3 px-1">
               Boards &amp; Other Bodies
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -335,10 +335,10 @@ export default function CommitteesView({ motions, meetings = [] }) {
                     </p>
                     <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-[#004a99] shrink-0 transition-colors" />
                   </div>
-                  {b.next && <p className="mt-2 text-[11px] text-slate-400">Next: {b.next.displayDate}</p>}
+                  {b.next && <p className="mt-2 text-[11px] text-slate-500">Next: {b.next.displayDate}</p>}
                   <div className="mt-4 flex items-baseline gap-2">
                     <span className="text-2xl font-black text-slate-900 leading-none">{b.upcomingCount.toLocaleString()}</span>
-                    <span className="text-xs text-slate-400">upcoming</span>
+                    <span className="text-xs text-slate-500">upcoming</span>
                   </div>
                 </motion.button>
               ))}
@@ -368,7 +368,7 @@ export default function CommitteesView({ motions, meetings = [] }) {
                     <span className={cn("text-xs font-semibold px-2 py-0.5 rounded-full", m.status === 'Adopted' ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-700')}>{m.status}</span>
                     <span className={cn("text-xs px-2 py-0.5 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>{m.topic}</span>
                     {m.significance >= 60 && <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-600">Notable</span>}
-                    <span className="text-xs text-slate-400 ml-auto">{m.date}</span>
+                    <span className="text-xs text-slate-500 ml-auto">{m.date}</span>
                   </div>
                 </div>
                 <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-[#004a99] shrink-0 mt-0.5 transition-colors" />
@@ -382,12 +382,12 @@ export default function CommitteesView({ motions, meetings = [] }) {
             {/* Stats */}
             <div className="bg-white border border-slate-200 rounded-xl p-4 space-y-3">
               <div className="flex items-baseline justify-between">
-                <span className="text-xs text-slate-400 font-medium uppercase tracking-wide">Motions</span>
+                <span className="text-xs text-slate-500 font-medium uppercase tracking-wide">Motions</span>
                 <span className="text-2xl font-black text-slate-900">{selectedCommittee.total.toLocaleString()}</span>
               </div>
               <div>
                 <div className="flex items-baseline justify-between mb-1.5">
-                  <span className="text-xs text-slate-400 font-medium uppercase tracking-wide">Adopted</span>
+                  <span className="text-xs text-slate-500 font-medium uppercase tracking-wide">Adopted</span>
                   <span className="text-sm font-bold text-emerald-600">{selectedCommittee.adoptionRate}%</span>
                 </div>
                 <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
@@ -395,7 +395,7 @@ export default function CommitteesView({ motions, meetings = [] }) {
                 </div>
               </div>
               <div className="flex items-baseline justify-between">
-                <span className="text-xs text-slate-400 font-medium uppercase tracking-wide">Substantive</span>
+                <span className="text-xs text-slate-500 font-medium uppercase tracking-wide">Substantive</span>
                 <span className="text-sm font-bold text-[#004a99]">{selectedCommittee.substantive}</span>
               </div>
             </div>
@@ -410,8 +410,8 @@ export default function CommitteesView({ motions, meetings = [] }) {
                 <div className="bg-white border border-slate-200 rounded-xl p-4">
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-2">
-                      <Calendar className="w-3.5 h-3.5 text-slate-400" />
-                      <p className="text-xs font-bold text-slate-400 uppercase tracking-wide">Upcoming Meetings</p>
+                      <Calendar className="w-3.5 h-3.5 text-slate-500" />
+                      <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">Upcoming Meetings</p>
                     </div>
                     <button
                       onClick={() => navigate(`/meetings?committee=${selectedCommittee.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`)}
@@ -427,7 +427,7 @@ export default function CommitteesView({ motions, meetings = [] }) {
                           <span className="text-sm text-slate-700 font-medium">{m.displayDate}</span>
                           <div className="flex items-center gap-2">
                             {m.agendaItems?.length > 0 && (
-                              <span className="text-xs text-slate-400">{m.agendaItems.length.toLocaleString()} items</span>
+                              <span className="text-xs text-slate-500">{m.agendaItems.length.toLocaleString()} items</span>
                             )}
                             <span className="text-xs font-semibold text-[#004a99]">{m.startTime}</span>
                           </div>
@@ -450,7 +450,7 @@ export default function CommitteesView({ motions, meetings = [] }) {
             {/* Members */}
             {selectedCommittee.members.length > 0 && (
               <div className="bg-white border border-slate-200 rounded-xl p-4">
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-3">Members</p>
+                <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">Members</p>
                 <div className="flex flex-wrap gap-1.5">
                   {selectedCommittee.members.map(name => (
                     <button

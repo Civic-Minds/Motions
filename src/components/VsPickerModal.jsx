@@ -32,7 +32,7 @@ export default function VsPickerModal({ open, selectedName, peers, search, onSea
                   Compare {selectedName.split(' ').at(-1)} with…
                 </p>
                 <button onClick={onClose} className="p-1 hover:bg-slate-100 rounded-lg transition-colors">
-                  <X className="w-4 h-4 text-slate-400" />
+                  <X className="w-4 h-4 text-slate-500" />
                 </button>
               </div>
               <div className="px-4 py-2 border-b border-slate-100">
@@ -42,7 +42,7 @@ export default function VsPickerModal({ open, selectedName, peers, search, onSea
                   value={search}
                   onChange={e => onSearchChange(e.target.value)}
                   autoFocus
-                  className="w-full text-sm text-slate-900 placeholder:text-slate-400 outline-none bg-transparent py-1"
+                  className="w-full text-sm text-slate-900 placeholder:text-slate-500 outline-none bg-transparent py-1"
                 />
               </div>
               <div className="max-h-64 overflow-y-auto py-1">

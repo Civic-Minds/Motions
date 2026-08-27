@@ -140,7 +140,7 @@ export default function TorontoFullMap({ geojson, wardActivity, wardSubtextById,
                   {ward.name}
                 </p>
                 {subtext && (
-                  <p className={cn("text-[9px] mt-0.5 truncate", isSaved ? "text-white/70" : "text-slate-400")}>
+                  <p className={cn("text-[9px] mt-0.5 truncate", isSaved ? "text-white/70" : "text-slate-500")}>
                     {subtext}
                   </p>
                 )}
