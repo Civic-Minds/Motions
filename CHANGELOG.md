@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Motion locations**: Added verified map locations for motions about named places such as parks, stations, arenas, and civic facilities.
+
 - **Ward maps**: Increased the full Toronto map height on the Wards and Election pages for easier exploration.
 
 - **Sharing and SEO**: Added route-aware metadata, crawler previews, and share links for key civic pages.

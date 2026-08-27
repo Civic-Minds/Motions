@@ -49,6 +49,31 @@ const KNOWN_LOCATIONS_BY_ADDRESS = {
 const KNOWN_LOCATIONS_BY_MOTION_ID = {
   // TTC16.4 names Yorkdale Station but contains no street address.
   'TTC16.4': { address: 'Yorkdale Station', lat: 43.7246418, lng: -79.4475031, source: 'verified-place' },
+  // These motions name a specific place but do not include a street number.
+  'PH32.7': { address: 'Billy Bishop Toronto City Airport', lat: 43.6280558, lng: -79.3979969, source: 'verified-place' },
+  'NY34.78': { address: 'Brookwell Park', lat: 43.7457520, lng: -79.4899065, source: 'verified-place' },
+  'MM42.64': { address: "Hanlan's Point Beach", lat: 43.6190685, lng: -79.3907277, source: 'verified-place' },
+  'MM41.20': { address: 'Toronto Island Park', lat: 43.6202078, lng: -79.3677528, source: 'verified-place' },
+  'SC31.18': { address: 'Scarborough Civic Centre', lat: 43.7729485, lng: -79.2575865, source: 'verified-place' },
+  'MM40.25': { address: 'Barbara Hall Park', lat: 43.6667215, lng: -79.3805430, source: 'verified-place' },
+  'EX20.5': { address: 'Moss Park Arena', lat: 43.6549624, lng: -79.3702748, source: 'verified-place' },
+  'TE20.29': { address: 'Nathan Phillips Square', lat: 43.6527083, lng: -79.3838423, source: 'verified-place' },
+  'EX16.5': { address: 'Ontario Science Centre', lat: 43.7148380, lng: -79.3402429, source: 'verified-place' },
+  'IE26.12': { address: 'Cynthia Lai Park', lat: 43.7930884, lng: -79.2335417, source: 'verified-place' },
+  'EY26.21': { address: 'Martingrove Gardens Park', lat: 43.6893877, lng: -79.5633302, source: 'verified-place' },
+  'MM33.34': { address: 'Toronto Zoo', lat: 43.8196233, lng: -79.1844977, source: 'verified-place' },
+  'EX23.1': { address: 'Toronto Island Park', lat: 43.6202078, lng: -79.3677528, source: 'verified-place' },
+  'EX19.26': { address: 'Guild Park and Gardens', lat: 43.7454833, lng: -79.1926546, source: 'verified-place' },
+  'EX18.3': { address: 'Port Lands', lat: 43.6430648, lng: -79.3506012, source: 'verified-place' },
+  'EX17.5': { address: 'Billy Bishop Toronto City Airport', lat: 43.6280558, lng: -79.3979969, source: 'verified-place' },
+  'EX15.5': { address: 'Moss Park Arena', lat: 43.6549624, lng: -79.3702748, source: 'verified-place' },
+  'EX15.4': { address: 'Sankofa Square', lat: 43.6560277, lng: -79.3801254, source: 'verified-place' },
+  'MM13.11': { address: 'Centennial Park Stadium', lat: 43.6537326, lng: -79.5850888, source: 'verified-place' },
+  'MM13.32': { address: 'Glencairn Station', lat: 43.7094841, lng: -79.4412385, source: 'verified-place' },
+  'IE3.7': { address: 'High Park', lat: 43.6462813, lng: -79.4637945, source: 'verified-place' },
+  'EC3.17': { address: 'Yorkdale Shopping Centre', lat: 43.7256238, lng: -79.4523079, source: 'verified-place' },
+  'GG3.15': { address: 'Felstead Park', lat: 43.6793916, lng: -79.3294616, source: 'verified-place' },
+  'IE15.2': { address: 'Toronto Island Park', lat: 43.6202078, lng: -79.3677528, source: 'verified-place' },
 };
 
 function extractAddresses(title) {
@@ -106,9 +131,13 @@ async function main() {
 
   const targets = motions.filter(m =>
     !m.parentId &&
-    (extractAddresses(m.title).length > 0 || KNOWN_LOCATIONS_BY_MOTION_ID[m.id]) &&
+    (
+      (extractAddresses(m.title).length > 0 && !m.locations?.length) ||
+      (KNOWN_LOCATIONS_BY_MOTION_ID[m.id] &&
+        (FORCE || !m.locations?.some(location => location.address === KNOWN_LOCATIONS_BY_MOTION_ID[m.id].address)))
+    ) &&
     (!IDS || IDS.has(m.id)) &&
-    (FORCE || !m.locations?.length)
+    (FORCE || !m.locations?.length || KNOWN_LOCATIONS_BY_MOTION_ID[m.id])
   ).slice(0, LIMIT);
 
   console.log(`📍 ${targets.length} motions to geocode`);
@@ -121,7 +150,12 @@ async function main() {
     process.stdout.write(`[${done + 1}/${targets.length}] ${motion.id} — ${addresses.join(' + ').slice(0, 50)}… `);
 
     const knownPlace = KNOWN_LOCATIONS_BY_MOTION_ID[motion.id];
-    const locations = knownPlace ? [knownPlace] : [];
+    const locations = knownPlace
+      ? (motion.locations || []).filter(location => location.source !== 'ward')
+      : [...(motion.locations || [])];
+    if (knownPlace && !locations.some(location => location.address === knownPlace.address)) {
+      locations.push(knownPlace);
+    }
     for (const address of addresses) {
       try {
         await sleep(1100); // Nominatim: max 1 req/s
