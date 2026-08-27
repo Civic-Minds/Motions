@@ -31,6 +31,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Election card height**: Matched the Election summary cards to the homepage’s measured 140px card height without changing homepage cards.
 - **Election day copy**: Removed the weekday from the Election Day card to keep the date line compact.
 - **Election voting help**: Replaced the closed nomination-period card with a direct polling-place lookup.
+- **Election information label**: Renamed the summary group so it accurately covers registration and polling-place details.
 - **Councillor voting records**: Added shareable Committee, Year, Vote, Category, and followed-committee filters with a desktop sidebar and mobile panel.
 - **Filter layout**: Reused the same sidebar shell across the homepage and councillor voting records.
 - **Dashboard layout**: Let the filter sidebar and ward map fill the available viewport height while scrolling the motion list.

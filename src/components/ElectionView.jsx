@@ -275,7 +275,7 @@ export default function ElectionView() {
           </div>
 
           <div className="lg:col-span-2 flex flex-col gap-1.5 min-w-0">
-            <CivicSectionLabel>Important dates</CivicSectionLabel>
+            <CivicSectionLabel>Election information</CivicSectionLabel>
             <div className="grid grid-cols-2 gap-3 items-stretch flex-1 min-w-0">
               <CivicCard className="h-[140px]">
                 <CivicPill className="bg-blue-50 text-[#004a99]">Where to vote</CivicPill>
