@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Homepage highlights**: Keep Most Notable motions within the recent 90-day window so stale items do not resurface.
+
 - **Motion maps**: Added locations for the Fleet Street, Guildwood Parkway, Staines Road, Victoria Park Avenue, and Thora Avenue motions.
 
 - **Motion maps**: Capture grouped address lists and verified address fallbacks so titled properties receive map locations during refresh.

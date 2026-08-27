@@ -407,12 +407,14 @@ export default function DashboardView({ motions, meetings = [] }) {
     const usedIds = new Set(followedHighlights.map(m => m.id));
     const count = savedWardId ? 2 : 4;
     const cutoff = new Date();
-    cutoff.setDate(cutoff.getDate() - 45);
-    const pool = [...primaryMotions]
-      .filter(m => !m.trivial && m.significance >= 60 && !usedIds.has(m.id))
-      .sort((a, b) => new Date(b.date) - new Date(a.date));
-    const recent = pool.filter(m => new Date(m.date) >= cutoff);
-    return (recent.length >= count ? recent : pool).slice(0, count);
+    cutoff.setDate(cutoff.getDate() - 90);
+    return [...primaryMotions]
+      .filter(m => !m.trivial && !usedIds.has(m.id) && new Date(m.date) >= cutoff)
+      .sort((a, b) => {
+        const dateDiff = new Date(b.date) - new Date(a.date);
+        return dateDiff !== 0 ? dateDiff : (b.significance ?? 0) - (a.significance ?? 0);
+      })
+      .slice(0, count);
   }, [primaryMotions, savedWardId, followedHighlights]);
 
   // Ward motions
