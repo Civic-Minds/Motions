@@ -265,44 +265,49 @@ export default function ElectionView() {
 
       {/* My ward */}
       <section className="order-2 space-y-1.5">
-        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">My ward</p>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 items-stretch">
-          <YourWardCard />
-          <HomepageCard>
-            <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-[#004a99]/10 text-[#004a99] self-start">Candidates</span>
-            <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Candidates in your ward</p>
-            <p className="text-2xl font-black text-[#004a99]">{savedWardId ? wardCandidates.length.toLocaleString() : '—'}</p>
-            <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
-              <span className="text-[9px] text-slate-400">registered candidates</span>
-              <Link to="#candidates" className="text-[9px] font-semibold text-[#004a99]">See more</Link>
-            </div>
-          </HomepageCard>
-        </div>
-      </section>
+        <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr_220px] gap-3 items-stretch overflow-hidden">
+          <div className="flex flex-col gap-1.5 min-w-0">
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">My ward</p>
+            <YourWardCard />
+          </div>
 
-      {/* Important dates */}
-      <section className="order-3 space-y-1.5">
-        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Important dates</p>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 items-stretch">
-          <HomepageCard>
-            <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-blue-50 text-[#004a99] self-start">Countdown</span>
-            <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Days to election</p>
-            <p className="text-3xl font-black text-slate-900 tabular-nums">{daysUntil.toLocaleString()}</p>
-            <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
-              <span className="text-[9px] text-slate-400">October 26, 2026</span>
-              <span className="text-[9px] font-semibold text-[#004a99]">Election day</span>
-            </div>
-          </HomepageCard>
+          <div className="flex flex-col gap-1.5 min-w-0">
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Important dates</p>
+            <div className="grid grid-cols-2 gap-3 items-stretch flex-1 min-w-0">
+              <HomepageCard>
+                <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-blue-50 text-[#004a99] self-start">Countdown</span>
+                <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Days to election</p>
+                <p className="text-3xl font-black text-slate-900 tabular-nums">{daysUntil.toLocaleString()}</p>
+                <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
+                  <span className="text-[9px] text-slate-400">October 26, 2026</span>
+                  <span className="text-[9px] font-semibold text-[#004a99]">Election day</span>
+                </div>
+              </HomepageCard>
 
-          <HomepageCard>
-            <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-600 self-start">Voting day</span>
-            <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Get ready to vote</p>
-            <p className="text-sm text-slate-500 leading-snug">Check your registration and voting options before election day.</p>
-            <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
-              <span className="text-[9px] text-slate-400">MyVote information</span>
-              <a href="https://www.toronto.ca/city-government/elections/voter-information/" target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99]">Check MyVote ↗</a>
+              <HomepageCard>
+                <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-600 self-start">Voting day</span>
+                <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Get ready to vote</p>
+                <p className="text-sm text-slate-500 leading-snug">Check your registration and voting options before election day.</p>
+                <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
+                  <span className="text-[9px] text-slate-400">MyVote information</span>
+                  <a href="https://www.toronto.ca/city-government/elections/voter-information/" target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99]">Check MyVote ↗</a>
+                </div>
+              </HomepageCard>
             </div>
-          </HomepageCard>
+          </div>
+
+          <div className="flex flex-col gap-1.5 min-w-0">
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Candidates</p>
+            <HomepageCard>
+              <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-[#004a99]/10 text-[#004a99] self-start">Your ward</span>
+              <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Registered candidates</p>
+              <p className="text-2xl font-black text-[#004a99]">{savedWardId ? wardCandidates.length.toLocaleString() : '—'}</p>
+              <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
+                <span className="text-[9px] text-slate-400">in your ward</span>
+                <Link to="#candidates" className="text-[9px] font-semibold text-[#004a99]">See more</Link>
+              </div>
+            </HomepageCard>
+          </div>
         </div>
       </section>
 
