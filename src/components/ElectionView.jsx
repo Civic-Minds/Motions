@@ -299,7 +299,7 @@ export default function ElectionView() {
               <CivicCard>
                 <CivicPill className="bg-slate-100 text-slate-600">Registration</CivicPill>
                 <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Get ready to vote</p>
-                <p className="text-sm text-slate-500 leading-snug">Check your registration and voting options before election day.</p>
+                <p className="text-sm text-slate-500 leading-snug">Check your registration before election day.</p>
                 <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
                   <span className="text-[9px] text-slate-400">MyVote information</span>
                   <a href="https://www.toronto.ca/city-government/elections/voter-information/" target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99]">Check MyVote ↗</a>

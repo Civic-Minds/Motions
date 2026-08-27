@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const civicCardClass = 'bg-white border border-slate-200 rounded-2xl p-4 text-left group flex flex-col gap-2 hover:border-[#004a99]/40 hover:shadow-sm transition-all';
+export const civicCardClass = 'bg-white border border-slate-200 rounded-2xl p-4 text-left group flex flex-col gap-2 h-[212px] hover:border-[#004a99]/40 hover:shadow-sm transition-all';
 
 export function CivicCard({ as: Component = 'div', className = '', children, ...props }) {
   return (
