@@ -118,9 +118,6 @@ export default function ElectionView() {
         description="Review Toronto candidates, wards, voting dates, and registration information."
         image={previewImage('Toronto Election 2026', 'Toronto municipal election')}
       />
-      <div className="flex justify-end">
-        <ShareButton title="Toronto Election 2026" />
-      </div>
       {/* Election races */}
       <section className="order-7 space-y-4">
         
@@ -387,6 +384,7 @@ export default function ElectionView() {
           <div className="space-y-1">
             <h3 className="text-lg font-bold text-slate-900">Candidates by ward</h3>
           </div>
+          <ShareButton title="Toronto Election 2026" />
         </div>
 
         <Suspense fallback={<div className="w-full h-[560px] rounded-2xl bg-slate-100 animate-pulse border border-slate-200" />}>
