@@ -320,30 +320,27 @@ export default function CommitteesView({ motions, meetings = [] }) {
             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3 px-1">
               Boards &amp; Other Bodies
             </p>
-            <div className="bg-white border border-slate-200 rounded-xl overflow-hidden divide-y divide-slate-100">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
               {meetingsOnlyBodies.map((b) => (
-                <button
+                <motion.button
                   key={b.name}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
                   onClick={() => navigate(`/committees/${b.slug}`)}
-                  className="w-full flex items-center gap-4 px-5 py-3.5 hover:bg-slate-50 transition-colors group text-left"
+                  className="bg-white border border-slate-200 rounded-2xl p-5 text-left hover:border-[#004a99]/40 hover:shadow-md transition-all group"
                 >
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-slate-800 group-hover:text-[#004a99] transition-colors truncate">
+                  <div className="flex items-start justify-between gap-3">
+                    <p className="font-semibold text-slate-900 text-sm leading-snug group-hover:text-[#004a99] transition-colors line-clamp-2">
                       {b.name}
                     </p>
-                    {b.next && (
-                      <p className="text-[11px] text-slate-400 mt-0.5">
-                        Next: {b.next.displayDate}
-                      </p>
-                    )}
+                    <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-[#004a99] shrink-0 transition-colors" />
                   </div>
-                  {b.upcomingCount > 0 && (
-                    <span className="shrink-0 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700">
-                      {b.upcomingCount.toLocaleString()} upcoming
-                    </span>
-                  )}
-                  <ArrowRight className="w-4 h-4 text-slate-200 group-hover:text-[#004a99] shrink-0 transition-colors" />
-                </button>
+                  {b.next && <p className="mt-2 text-[11px] text-slate-400">Next: {b.next.displayDate}</p>}
+                  <div className="mt-4 flex items-baseline gap-2">
+                    <span className="text-2xl font-black text-slate-900 leading-none">{b.upcomingCount.toLocaleString()}</span>
+                    <span className="text-xs text-slate-400">upcoming</span>
+                  </div>
+                </motion.button>
               ))}
             </div>
           </div>

@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Committee directory**: Presented boards and other meeting-only bodies as cards consistent with the committee grid.
+
 - **Ward stats cards**: Reused the homepage card shell and typography for the ward overview metrics.
 
 - **Election map heading**: Simplified the map section to “Candidates by ward” and removed redundant update metadata.
