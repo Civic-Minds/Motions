@@ -175,7 +175,7 @@ export default function ElectionView() {
                         to={`/councillors/${nameToSlug(councillorName)}`}
                         className="p-3 rounded-xl bg-white border border-slate-200 hover:border-slate-300 transition-all flex flex-col items-center justify-center text-center gap-1 group/btn"
                       >
-                        <span className="text-xs font-bold text-slate-900 group-hover/btn:text-blue-600 transition-colors">Legislative Record</span>
+                        <span className="text-xs font-bold text-slate-900 group-hover/btn:text-blue-600 transition-colors">Voting Record</span>
                         <span className="text-[9px] text-slate-400">350+ Votes Tracked</span>
                       </Link>
                       <div className="p-3 rounded-2xl bg-slate-100 border border-slate-200 flex flex-col items-center justify-center text-center gap-1 grayscale opacity-50 cursor-not-allowed">
@@ -250,7 +250,7 @@ export default function ElectionView() {
                       <p className="text-[9px] font-bold text-[#004a99] uppercase tracking-widest">Incumbent</p>
                       <p className="text-sm font-bold text-slate-900">{selectedCouncillorName}</p>
                     </div>
-                    <Link to={`/councillors/${nameToSlug(selectedCouncillorName)}`} className="text-xs font-semibold text-[#004a99] hover:underline">Legislative Record</Link>
+                    <Link to={`/councillors/${nameToSlug(selectedCouncillorName)}`} className="text-xs font-semibold text-[#004a99] hover:underline">Voting Record</Link>
                   </div>
                 )}
                 <CandidateList

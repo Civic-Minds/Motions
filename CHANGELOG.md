@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Election terminology**: Standardized mayor and councillor links as “Voting Record.”
+
 - **Election map filtering**: Clicking a ward on the Election page now filters the candidate list below it instead of navigating away.
 
 - **Motion header**: Removed the duplicate vote tally so the result appears only in the detailed vote section.
