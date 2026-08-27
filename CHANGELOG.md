@@ -14,7 +14,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Number formatting**: Added comma separators to displayed counts and totals for easier scanning.
 - **Ward map**: Added fullscreen views for inspecting Toronto’s ward boundaries and ward-specific motion locations.
 - **Motion locations**: Added maps to motion pages when an item has mapped locations and aligned summary/document cards.
-- **Election page**: Put the election summary cards first, reused the My Ward card with the selected ward’s candidate count, and placed each incumbent’s record above its candidate list.
+- **Election page**: Put the election summary cards first, reused the My Ward card as the single ward selector, added a separate ward-candidate count card, and placed each incumbent’s record above its candidate list.
 - **Councillor voting records**: Added shareable Committee, Year, Vote, Category, and followed-committee filters with a desktop sidebar and mobile panel.
 - **Filter layout**: Reused the same sidebar shell across the homepage and councillor voting records.
 - **Dashboard layout**: Let the filter sidebar and ward map fill the available viewport height while scrolling the motion list.

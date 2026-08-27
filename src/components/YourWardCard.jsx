@@ -7,7 +7,7 @@ import { TORONTO_WARDS } from '../constants/wards';
 import { nameToSlug } from '../utils/slug';
 import { useAppContext } from '../contexts/AppContext';
 
-export default function YourWardCard({ candidateCount }) {
+export default function YourWardCard() {
   const navigate = useNavigate();
   const { wardId, handleSetWard } = useAppContext();
   const [status, setStatus] = useState('idle'); // idle | locating | error
@@ -104,9 +104,6 @@ export default function YourWardCard({ candidateCount }) {
         <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">
           {councillorName ?? 'Your councillor'}
         </p>
-        {candidateCount != null && (
-          <p className="text-[9px] text-slate-400">{candidateCount.toLocaleString()} candidates registered</p>
-        )}
 
         {/* Bottom row */}
         <div className="flex items-center justify-between mt-auto">

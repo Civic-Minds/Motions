@@ -52,7 +52,7 @@ function CandidateList({ candidates, emptyText, incumbentName, incumbentClass })
 }
 
 export default function ElectionView() {
-  const { wardId: savedWardId, handleSetWard } = useAppContext();
+  const { wardId: savedWardId } = useAppContext();
   const today = new Date();
   const [candidateData, setCandidateData] = useState(null);
   const [expandedWards, setExpandedWards] = useState({});
@@ -85,15 +85,10 @@ export default function ElectionView() {
 
   const councillorName = savedWardId ? WARD_COUNCILLORS[savedWardId] : null;
 
-  const handleWardChange = (event) => {
-    const wardId = event.target.value || null;
-    handleSetWard(wardId);
-  };
-
   return (
     <div className="flex flex-col space-y-4 pb-20">
       {/* Page header */}
-      <section className="order-1 flex flex-col lg:flex-row lg:items-end justify-between gap-4">
+      <section className="order-1">
         <div className="space-y-1.5">
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Election</p>
           <h1 className="text-xl md:text-2xl font-bold text-slate-900 tracking-tight">Toronto Election 2026</h1>
@@ -103,20 +98,6 @@ export default function ElectionView() {
               : "Election day is October 26. Review the candidates and get ready to vote."
             }
           </p>
-        </div>
-        <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-          <label htmlFor="election-ward" className="text-xs font-bold text-slate-500">See your ward’s candidates</label>
-          <select
-            id="election-ward"
-            value={savedWardId || ''}
-            onChange={handleWardChange}
-            className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-700 focus:border-[#004a99] focus:outline-none focus:ring-2 focus:ring-[#004a99]/10"
-          >
-            <option value="">Choose a ward</option>
-            {TORONTO_WARDS.map(ward => (
-              <option key={ward.id} value={ward.id}>Ward {ward.id} — {ward.name}</option>
-            ))}
-          </select>
         </div>
       </section>
 
@@ -283,7 +264,12 @@ export default function ElectionView() {
 
       {/* Countdown Grid - Secondary */}
       <div className="order-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
-        <YourWardCard candidateCount={wardCandidates.length} />
+        <YourWardCard />
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col justify-between h-full">
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Candidates in your ward</p>
+          <p className="text-2xl font-black text-[#004a99]">{savedWardId ? wardCandidates.length.toLocaleString() : '—'}</p>
+          <p className="text-[9px] text-slate-400">registered candidates</p>
+        </div>
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
