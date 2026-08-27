@@ -27,6 +27,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Election page hierarchy**: Removed redundant page-introduction copy so the page opens directly with the useful election information.
 - **Election card proportions**: Matched shared Election card height to the homepage and shortened registration copy to keep the row compact.
 - **Election card height scope**: Kept the homepage card height unchanged while applying the compact height only to Election summary cards.
+- **Election card copy**: Combined voting dates with their hours and removed duplicate registration text to keep the compact cards readable.
+- **Election card height**: Matched the Election summary cards to the homepage’s measured 140px card height without changing homepage cards.
 - **Councillor voting records**: Added shareable Committee, Year, Vote, Category, and followed-committee filters with a desktop sidebar and mobile panel.
 - **Filter layout**: Reused the same sidebar shell across the homepage and councillor voting records.
 - **Dashboard layout**: Let the filter sidebar and ward map fill the available viewport height while scrolling the motion list.
