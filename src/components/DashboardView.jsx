@@ -10,7 +10,7 @@ import { useAppContext } from '../contexts/AppContext';
 import YourWardCard from './YourWardCard';
 import MotionCardItem from './MotionCardItem';
 import FilterSidebar from './FilterSidebar';
-import HomepageCard from './HomepageCard';
+import { CivicCard, CivicPill } from './ui/CivicCard';
 
 const TorontoMiniMap = lazy(() => import('./TorontoMiniMap'));
 
@@ -521,18 +521,18 @@ export default function DashboardView({ motions, meetings = [] }) {
                 <p className="text-xs text-slate-400">No notable motions yet.</p>
               </div>
             )}
-            <HomepageCard
+            <CivicCard
               as={Link}
               to="/election"
               className="bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-100 hover:border-blue-300"
             >
-              <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-blue-100 text-blue-700 self-start">Election</span>
+              <CivicPill className="bg-blue-100 text-blue-700">Election</CivicPill>
               <p className="text-xs font-semibold text-slate-800 group-hover:text-blue-700 transition-colors line-clamp-3 leading-snug">See your ward’s candidates before October 26.</p>
               <div className="flex items-center justify-between mt-auto pt-2 border-t border-blue-100">
                 <span className="text-[9px] text-slate-400">October 26, 2026</span>
                 <span className="text-[9px] font-semibold text-blue-700">Get ready</span>
               </div>
-            </HomepageCard>
+            </CivicCard>
             {[...highlights.slice(0, -1), ...wardHighlights].map((m, i) => {
               const yesCount = Object.values(m.votes ?? {}).filter(v => v === 'YES').length;
               const noCount  = Object.values(m.votes ?? {}).filter(v => v === 'NO').length;

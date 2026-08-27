@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { cn } from '../lib/utils';
 import { useAppContext } from '../contexts/AppContext';
 import YourWardCard from './YourWardCard';
-import HomepageCard from './HomepageCard';
+import { CivicCard, CivicPill, CivicSectionLabel } from './ui/CivicCard';
 
 const TorontoFullMap = lazy(() => import('./TorontoFullMap'));
 
@@ -272,11 +272,11 @@ export default function ElectionView() {
       <section className="order-2 space-y-1.5">
         <div className="grid grid-cols-1 lg:grid-cols-6 gap-3 items-stretch overflow-hidden">
           <div className="lg:col-span-2 flex flex-col gap-1.5 min-w-0">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">My ward</p>
+            <CivicSectionLabel>My ward</CivicSectionLabel>
             <div className="grid grid-cols-2 gap-3 items-stretch flex-1 min-w-0">
               <YourWardCard />
-              <HomepageCard>
-                <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-[#004a99]/10 text-[#004a99] self-start">Candidates</span>
+              <CivicCard>
+                <CivicPill className="bg-[#004a99]/10 text-[#004a99]">Candidates</CivicPill>
                 <div className="grid grid-cols-2 gap-3 flex-1 items-end">
                   <div>
                     <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wide">Your ward</p>
@@ -291,15 +291,15 @@ export default function ElectionView() {
                   <span className="text-[9px] text-slate-400">registered candidates</span>
                   <Link to="#candidates" className="text-[9px] font-semibold text-[#004a99]">See more</Link>
                 </div>
-              </HomepageCard>
+              </CivicCard>
             </div>
           </div>
 
           <div className="lg:col-span-2 flex flex-col gap-1.5 min-w-0">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Important dates</p>
+            <CivicSectionLabel>Important dates</CivicSectionLabel>
             <div className="grid grid-cols-2 gap-3 items-stretch flex-1 min-w-0">
-              <HomepageCard>
-                <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-amber-50 text-amber-700 self-start">Key period</span>
+              <CivicCard>
+                <CivicPill className="bg-amber-50 text-amber-700">Key period</CivicPill>
                 <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Nomination period</p>
                 <p className="text-sm text-slate-500 leading-snug">{isNominationPast ? 'Nominations are closed.' : isNominationOpen ? 'Nominations are open.' : 'Nominations open May 1.'}</p>
                 <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
@@ -308,42 +308,42 @@ export default function ElectionView() {
                     {isNominationOpen ? 'Open now' : isNominationPast ? 'Closed' : 'Upcoming'}
                   </span>
                 </div>
-              </HomepageCard>
+              </CivicCard>
 
-              <HomepageCard>
-                <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-600 self-start">Registration</span>
+              <CivicCard>
+                <CivicPill className="bg-slate-100 text-slate-600">Registration</CivicPill>
                 <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Get ready to vote</p>
                 <p className="text-sm text-slate-500 leading-snug">Check your registration and voting options before election day.</p>
                 <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
                   <span className="text-[9px] text-slate-400">MyVote information</span>
                   <a href="https://www.toronto.ca/city-government/elections/voter-information/" target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99]">Check MyVote ↗</a>
                 </div>
-              </HomepageCard>
+              </CivicCard>
             </div>
           </div>
 
           <div className="lg:col-span-2 flex flex-col gap-1.5 min-w-0">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Voting days</p>
+            <CivicSectionLabel>Voting days</CivicSectionLabel>
             <div className="grid grid-cols-2 gap-3 items-stretch flex-1 min-w-0">
-              <HomepageCard>
-                <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-blue-50 text-[#004a99] self-start">Election day</span>
+              <CivicCard>
+                <CivicPill className="bg-blue-50 text-[#004a99]">Election day</CivicPill>
                 <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Monday, October 26, 2026</p>
                 <p className="text-sm text-slate-500 leading-snug">Polls are open from 10 a.m. to 8 p.m.</p>
                 <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
                   <span className="text-[9px] text-slate-400">Citywide schedule</span>
                   <a href="https://www.toronto.ca/city-government/elections/voter-information/" target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99]">Check MyVote ↗</a>
                 </div>
-              </HomepageCard>
+              </CivicCard>
 
-              <HomepageCard>
-                <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-600 self-start">Advance voting</span>
+              <CivicCard>
+                <CivicPill className="bg-slate-100 text-slate-600">Advance voting</CivicPill>
                 <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">October 6–11, 2026</p>
                 <p className="text-sm text-slate-500 leading-snug">Polls are open from 10 a.m. to 7 p.m.</p>
                 <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
                   <span className="text-[9px] text-slate-400">Citywide schedule</span>
                   <a href="https://www.toronto.ca/city-government/elections/voter-information/" target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99]">Check MyVote ↗</a>
                 </div>
-              </HomepageCard>
+              </CivicCard>
             </div>
           </div>
         </div>
