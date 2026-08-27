@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Motion header**: Removed the duplicate vote tally so the result appears only in the detailed vote section.
+
 - **Motion significance pill**: Changed regular Notable labels from amber to blue so they read as informational rather than warning states.
 
 - **Motion header layout**: Reorganized the back link and motion metadata into a compact header to reduce wasted vertical space.
