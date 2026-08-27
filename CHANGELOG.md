@@ -18,6 +18,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 - **Following card**: Matched committee labels to the shared grey pill style used across motion cards.
 
+- **Ward motion highlights**: Made the homepage Ward Motions section use the same geographic ward tags as each ward page.
+
 
 - **Homepage highlights**: Let current notable motions fill the highlight row first, with Ward Motions filling the remaining cards.
 

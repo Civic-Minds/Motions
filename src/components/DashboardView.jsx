@@ -417,13 +417,13 @@ export default function DashboardView({ motions, meetings = [] }) {
 
   // Ward motions
   const wardHighlights = useMemo(() => {
-    if (!savedCouncillor) return [];
+    if (!savedWardId) return [];
     const usedIds = new Set([...followedHighlights.map(m => m.id), ...highlights.map(m => m.id)]);
     return [...primaryMotions]
-      .filter(m => m.votes && m.votes[savedCouncillor] && !usedIds.has(m.id))
+      .filter(m => String(m.ward) === String(savedWardId) && !usedIds.has(m.id))
       .sort((a, b) => new Date(b.date) - new Date(a.date))
       .slice(0, 3);
-  }, [primaryMotions, savedCouncillor, followedHighlights, highlights]);
+  }, [primaryMotions, savedWardId, followedHighlights, highlights]);
 
   // Available committees and years
   const committees = useMemo(() => {
