@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Ward stats card links**: Added homepage-style footer links to the Most Active and Total Motions cards.
+
 - **Topic classification**: Prevented partial keyword matches such as “Parkway” from incorrectly tagging motions as Parks.
 
 - **Motion topic correction**: Reclassified CC42.2 from Parks to General so its highway-upload motion is not shown under the wrong topic.
