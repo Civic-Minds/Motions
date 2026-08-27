@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Ward motion mapping**: Added ward-level map points for motions that name a specific ward without a street address.
+
 - **Councillor cards**: Removed the uninformative “General” topic label while retaining specific topic labels.
 
 - **Motion location coverage**: Expanded address extraction, added a geocoder fallback, and included address geocoding in scheduled data refreshes so address-based motions appear on maps.
