@@ -410,9 +410,9 @@ export default function DashboardView({ motions, meetings = [] }) {
     cutoff.setDate(cutoff.getDate() - 45);
     const pool = [...primaryMotions]
       .filter(m => !m.trivial && m.significance >= 60 && !usedIds.has(m.id))
-      .sort((a, b) => new Date(b.date) - new Date(a.date));
+      .sort((a, b) => (b.significance ?? 0) - (a.significance ?? 0) || new Date(b.date) - new Date(a.date));
     const recent = pool.filter(m => new Date(m.date) >= cutoff);
-    return (recent.length >= count ? recent : pool).slice(0, count);
+    return recent.slice(0, count);
   }, [primaryMotions, savedWardId, followedHighlights]);
 
   // Ward motions

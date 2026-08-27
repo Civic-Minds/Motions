@@ -22,6 +22,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 - **Homepage card grouping**: Kept notable and ward motion cards under the correct headings.
 
+- **Most Notable**: Limited homepage highlights to the last 45 days and ranked them by significance.
+
 
 - **Homepage highlights**: Let current notable motions fill the highlight row first, with Ward Motions filling the remaining cards.
 
