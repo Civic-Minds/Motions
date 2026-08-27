@@ -6,6 +6,10 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Shared card footers**: Centralized Election card footer alignment so link placement stays consistent across the shared card system.
+
+- **Election card footers**: Right-aligned the MyVote links in the voting-day cards to match the shared card layout.
+
 - **Election explorer**: Show each ward’s registered-candidate count instead of the current councillor name.
 
 - **Election resources**: Moved official election links below the City-wide explorer map so the map stays with the main discovery content.

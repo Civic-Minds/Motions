@@ -17,3 +17,11 @@ export function CivicSectionLabel({ children, className = '' }) {
 export function CivicPill({ children, className = '' }) {
   return <span className={`text-[9px] font-semibold px-1.5 py-0.5 rounded-full self-start ${className}`}>{children}</span>;
 }
+
+export function CivicCardFooter({ children, align = 'between', className = '' }) {
+  return (
+    <div className={`flex items-center ${align === 'end' ? 'justify-end' : 'justify-between'} mt-auto pt-2 border-t border-slate-50 ${className}`}>
+      {children}
+    </div>
+  );
+}

@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { cn } from '../lib/utils';
 import { useAppContext } from '../contexts/AppContext';
 import YourWardCard from './YourWardCard';
-import { CivicCard, CivicPill, CivicSectionLabel } from './ui/CivicCard';
+import { CivicCard, CivicCardFooter, CivicPill, CivicSectionLabel } from './ui/CivicCard';
 
 const TorontoFullMap = lazy(() => import('./TorontoFullMap'));
 
@@ -273,10 +273,10 @@ export default function ElectionView() {
                     <p className="text-2xl font-black text-[#004a99]">{candidateData?.mayor ? candidateData.mayor.length.toLocaleString() : '—'}</p>
                   </div>
                 </div>
-                <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
+                <CivicCardFooter>
                   <span className="text-[9px] text-slate-400">registered candidates</span>
                   <Link to="#candidates" className="text-[9px] font-semibold text-[#004a99]">See more</Link>
-                </div>
+                </CivicCardFooter>
               </CivicCard>
             </div>
           </div>
@@ -287,19 +287,18 @@ export default function ElectionView() {
               <CivicCard className="h-[140px]">
                 <CivicPill className="bg-blue-50 text-[#004a99]">Where to vote</CivicPill>
                 <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Find your polling place to see where and when you can vote.</p>
-                <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
-                  <span className="text-[9px] text-slate-400">Toronto Elections</span>
+                <CivicCardFooter align="end">
                   <a href="https://www.toronto.ca/city-government/elections/voter-information/" target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99]">Find my place ↗</a>
-                </div>
+                </CivicCardFooter>
               </CivicCard>
 
               <CivicCard className="h-[140px]">
                 <CivicPill className="bg-slate-100 text-slate-600">Registration</CivicPill>
                 <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Check your registration before election day.</p>
-                <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
+                <CivicCardFooter>
                   <span className="text-[9px] text-slate-400 whitespace-nowrap">Voter info</span>
                   <a href="https://www.toronto.ca/city-government/elections/voter-information/" target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99] whitespace-nowrap">Check MyVote ↗</a>
-                </div>
+                </CivicCardFooter>
               </CivicCard>
             </div>
           </div>
@@ -310,17 +309,17 @@ export default function ElectionView() {
               <CivicCard className="h-[140px]">
                 <CivicPill className="bg-blue-50 text-[#004a99]">Election day</CivicPill>
                 <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">October 26, 2026, from 10 a.m. to 8 p.m.</p>
-                <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
+                <CivicCardFooter align="end">
                   <a href="https://www.toronto.ca/city-government/elections/voter-information/" target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99] whitespace-nowrap">Check MyVote ↗</a>
-                </div>
+                </CivicCardFooter>
               </CivicCard>
 
               <CivicCard className="h-[140px]">
                 <CivicPill className="bg-slate-100 text-slate-600">Advance voting</CivicPill>
                 <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">October 6–11, 2026, from 10 a.m. to 7 p.m.</p>
-                <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
+                <CivicCardFooter align="end">
                   <a href="https://www.toronto.ca/city-government/elections/voter-information/" target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99] whitespace-nowrap">Check MyVote ↗</a>
-                </div>
+                </CivicCardFooter>
               </CivicCard>
             </div>
           </div>
