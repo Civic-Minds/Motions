@@ -297,16 +297,29 @@ export default function MotionPage({ motions = [] }) {
   return (
     <div className="max-w-5xl mx-auto py-2 px-4 sm:px-6 lg:px-8 relative">
 
+      {/* Back Button (Desktop - Floating Left) */}
+      <button
+        onClick={() => navigate(-1)}
+        className="hidden lg:flex absolute -left-12 top-2 mt-0.5 items-center gap-1.5 text-sm text-slate-400 hover:text-slate-700 transition-colors"
+      >
+        <ArrowLeft className="w-4 h-4 text-slate-300" />
+        Back
+      </button>
+
+      {/* Back Button (Mobile/Tablet - Stacked) */}
+      <div className="mb-3 lg:hidden">
+        <button
+          onClick={() => navigate(-1)}
+          className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-700 transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Back
+        </button>
+      </div>
+
       {/* Header (Full Width) */}
       <div className="space-y-2 mb-4">
         <div className="flex flex-wrap items-center gap-2">
-          <button
-            onClick={() => navigate(-1)}
-            className="inline-flex items-center gap-1 text-sm text-slate-400 hover:text-slate-700 transition-colors mr-1"
-          >
-            <ArrowLeft className="w-4 h-4 text-slate-300" />
-            Back
-          </button>
           <StatusBadge status={motion.status} />
           {headerTally && (
             <span className="text-xs font-semibold text-slate-500 tabular-nums">
@@ -319,7 +332,7 @@ export default function MotionPage({ motions = [] }) {
             <span className="text-xs font-semibold text-amber-600 bg-amber-50 px-2.5 py-0.5 rounded-full">High Impact</span>
           )}
           {motion.significance >= 60 && motion.significance < 90 && (
-            <span className="text-xs font-semibold text-amber-600 bg-amber-50 px-2.5 py-0.5 rounded-full">Notable</span>
+            <span className="text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full">Notable</span>
           )}
         </div>
 
