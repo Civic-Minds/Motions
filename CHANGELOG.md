@@ -20,6 +20,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 - **Ward motion highlights**: Made the homepage Ward Motions section use the same geographic ward tags as each ward page.
 
+- **Homepage card grouping**: Kept notable and ward motion cards under the correct headings.
+
 
 - **Homepage highlights**: Let current notable motions fill the highlight row first, with Ward Motions filling the remaining cards.
 

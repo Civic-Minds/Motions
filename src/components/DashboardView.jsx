@@ -425,6 +425,12 @@ export default function DashboardView({ motions, meetings = [] }) {
       .slice(0, 3);
   }, [primaryMotions, savedWardId, followedHighlights, highlights]);
 
+  const homeMotionCards = useMemo(() => [
+    ...highlights.slice(0, 1),
+    ...wardHighlights.slice(0, 2),
+    ...highlights.slice(1),
+  ].slice(0, 3), [highlights, wardHighlights]);
+
   // Available committees and years
   const committees = useMemo(() => {
     const seen = new Set();
@@ -536,10 +542,7 @@ export default function DashboardView({ motions, meetings = [] }) {
                 <span className="text-[9px] font-semibold text-blue-700">Get ready</span>
               </div>
             </CivicCard>
-            {[
-              ...highlights.slice(0, 3),
-              ...wardHighlights.slice(0, Math.max(0, 3 - highlights.length)),
-            ].map((m, i) => {
+            {homeMotionCards.map((m, i) => {
               const yesCount = Object.values(m.votes ?? {}).filter(v => v === 'YES').length;
               const noCount  = Object.values(m.votes ?? {}).filter(v => v === 'NO').length;
               const total    = yesCount + noCount;
