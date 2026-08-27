@@ -10,7 +10,6 @@ import { useAppContext } from '../contexts/AppContext';
 import YourWardCard from './YourWardCard';
 import HomepageCard from './HomepageCard';
 
-const ELECTION_DATE = new Date('2026-10-26T00:00:00');
 const NOMINATION_OPEN = new Date('2026-05-01T08:30:00');
 const NOMINATION_CLOSE = new Date('2026-08-21T14:00:00');
 
@@ -66,7 +65,6 @@ export default function ElectionView() {
       .catch(err => console.error('Failed to load candidates:', err));
   }, []);
   
-  const daysUntil = Math.ceil((ELECTION_DATE - today) / (1000 * 60 * 60 * 24));
   const isNominationOpen = today >= NOMINATION_OPEN && today <= NOMINATION_CLOSE;
   const isNominationPast = today > NOMINATION_CLOSE;
 
@@ -103,7 +101,7 @@ export default function ElectionView() {
       </section>
 
       {/* Election races */}
-      <section className="order-3 space-y-4">
+      <section className="order-4 space-y-4">
         
         <div className="space-y-4">
           <div className="flex flex-col gap-3">
@@ -265,46 +263,34 @@ export default function ElectionView() {
 
       {/* My ward */}
       <section className="order-2 space-y-1.5">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-3 items-stretch overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-6 gap-3 items-stretch overflow-hidden">
           <div className="lg:col-span-2 flex flex-col gap-1.5 min-w-0">
             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">My ward</p>
             <div className="grid grid-cols-2 gap-3 items-stretch flex-1 min-w-0">
               <YourWardCard />
               <HomepageCard>
                 <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-[#004a99]/10 text-[#004a99] self-start">Candidates</span>
-                <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Registered candidates</p>
-                <p className="text-2xl font-black text-[#004a99]">{savedWardId ? wardCandidates.length.toLocaleString() : '—'}</p>
+                <div className="grid grid-cols-2 gap-3 flex-1 items-end">
+                  <div>
+                    <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wide">Your ward</p>
+                    <p className="text-2xl font-black text-[#004a99]">{savedWardId ? wardCandidates.length.toLocaleString() : '—'}</p>
+                  </div>
+                  <div>
+                    <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wide">Mayor</p>
+                    <p className="text-2xl font-black text-[#004a99]">{candidateData?.mayor ? candidateData.mayor.length.toLocaleString() : '—'}</p>
+                  </div>
+                </div>
                 <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
-                  <span className="text-[9px] text-slate-400">in your ward</span>
+                  <span className="text-[9px] text-slate-400">registered candidates</span>
                   <Link to="#candidates" className="text-[9px] font-semibold text-[#004a99]">See more</Link>
                 </div>
               </HomepageCard>
             </div>
           </div>
 
-          <div className="lg:col-span-3 flex flex-col gap-1.5 min-w-0">
+          <div className="lg:col-span-2 flex flex-col gap-1.5 min-w-0">
             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Important dates</p>
-            <div className="grid grid-cols-3 gap-3 items-stretch flex-1 min-w-0">
-              <HomepageCard>
-                <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-blue-50 text-[#004a99] self-start">Countdown</span>
-                <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Days to election</p>
-                <p className="text-3xl font-black text-slate-900 tabular-nums">{daysUntil.toLocaleString()}</p>
-                <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
-                  <span className="text-[9px] text-slate-400">October 26, 2026</span>
-                  <span className="text-[9px] font-semibold text-[#004a99]">Election day</span>
-                </div>
-              </HomepageCard>
-
-              <HomepageCard>
-                <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-600 self-start">Voting day</span>
-                <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Monday, October 26</p>
-                <p className="text-sm text-slate-500 leading-snug">Election day: 10 a.m.–8 p.m. Advance voting: October 6–11, 10 a.m.–7 p.m.</p>
-                <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
-                  <span className="text-[9px] text-slate-400">Citywide schedule</span>
-                  <a href="https://www.toronto.ca/city-government/elections/voter-information/" target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99]">Check MyVote ↗</a>
-                </div>
-              </HomepageCard>
-
+            <div className="grid grid-cols-2 gap-3 items-stretch flex-1 min-w-0">
               <HomepageCard>
                 <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-amber-50 text-amber-700 self-start">Key period</span>
                 <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Nomination period</p>
@@ -316,13 +302,48 @@ export default function ElectionView() {
                   </span>
                 </div>
               </HomepageCard>
+
+              <HomepageCard>
+                <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-600 self-start">Registration</span>
+                <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Get ready to vote</p>
+                <p className="text-sm text-slate-500 leading-snug">Check your registration and voting options before election day.</p>
+                <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
+                  <span className="text-[9px] text-slate-400">MyVote information</span>
+                  <a href="https://www.toronto.ca/city-government/elections/voter-information/" target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99]">Check MyVote ↗</a>
+                </div>
+              </HomepageCard>
+            </div>
+          </div>
+
+          <div className="lg:col-span-2 flex flex-col gap-1.5 min-w-0">
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Voting days</p>
+            <div className="grid grid-cols-2 gap-3 items-stretch flex-1 min-w-0">
+              <HomepageCard>
+                <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-blue-50 text-[#004a99] self-start">Election day</span>
+                <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Monday, October 26, 2026</p>
+                <p className="text-sm text-slate-500 leading-snug">Polls are open from 10 a.m. to 8 p.m.</p>
+                <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
+                  <span className="text-[9px] text-slate-400">Citywide schedule</span>
+                  <a href="https://www.toronto.ca/city-government/elections/voter-information/" target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99]">Check MyVote ↗</a>
+                </div>
+              </HomepageCard>
+
+              <HomepageCard>
+                <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-600 self-start">Advance voting</span>
+                <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">October 6–11, 2026</p>
+                <p className="text-sm text-slate-500 leading-snug">Polls are open from 10 a.m. to 7 p.m.</p>
+                <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
+                  <span className="text-[9px] text-slate-400">Citywide schedule</span>
+                  <a href="https://www.toronto.ca/city-government/elections/voter-information/" target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99]">Check MyVote ↗</a>
+                </div>
+              </HomepageCard>
             </div>
           </div>
         </div>
       </section>
 
       {/* Resources List */}
-      <section className="order-4 space-y-6">
+      <section className="order-5 space-y-6">
         <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Official election resources</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {[
@@ -349,7 +370,7 @@ export default function ElectionView() {
       </section>
 
       {/* Candidate Explorer - Moved to Bottom */}
-      <section className="order-5 space-y-4 pt-8 border-t border-slate-100">
+      <section className="order-6 space-y-4 pt-8 border-t border-slate-100">
         <div className="flex items-end justify-between px-2">
           <div className="space-y-1">
             <h3 className="text-lg font-bold text-slate-900">City-wide explorer</h3>
@@ -419,7 +440,7 @@ export default function ElectionView() {
       </section>
 
       {/* Footnote */}
-      <div className="order-6 pt-8 text-center">
+      <div className="order-7 pt-8 text-center">
         <p className="text-xs text-slate-400 max-w-lg mx-auto leading-relaxed">
           Motions is an independent civic data project and is not affiliated with the City of Toronto or Toronto Elections. Always verify official dates and requirements at toronto.ca.
         </p>
