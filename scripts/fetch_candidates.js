@@ -42,6 +42,15 @@ const VERIFIED_WEBSITES_BY_EMAIL_DOMAIN = {
 };
 
 const VERIFIED_WEBSITES_BY_CANDIDATE_NAME = {
+  'Jon Burnside': 'https://www.ward16.ca/',
+  'Shelley Carroll': 'https://www.shelleycarroll.ca/',
+  'Nathan Yusifov': 'https://yusifov.ca/',
+  'James Dann': 'https://jamesdann.ca/',
+  'Natalie Johnson': 'https://votenataliejohnson.ca/',
+  'Tycen Legg': 'https://www.tycenlegg.ca/index.html',
+  'Sharmina Nasrin': 'https://sharminanasrin.ca/',
+  'Taiba Ahmed': 'https://www.taibafor21.ca/',
+  'Dan Lovell': 'https://www.danlovell.ca/',
   'Saima Babar': 'https://votebabar.ca/',
   'Norman Hamilton': 'https://normanhamilton.ca/',
   'Ted Opitz': 'https://tedopitz.ca/',
