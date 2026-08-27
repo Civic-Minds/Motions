@@ -33,10 +33,12 @@ const SAVE_EVERY = 20;
 
 // Matches: "2775 Jane Street", "641 to 663 Danforth Road East",
 //          "4884-4896 Dundas Street West", "150 The Donway West"
-const ADDRESS_RE = /\b(\d{1,5}(?:\s*(?:to|-|–)\s*\d{1,5})?\s+(?:The\s+)?[A-Z][a-zA-Z]+(?:\s+[A-Z][a-zA-Z]+)?\s+(?:Street|St|Avenue|Ave|Road|Rd|Drive|Dr|Boulevard|Blvd|Lane|Ln|Court|Ct|Way|Crescent|Cres|Place|Pl|Trail|Terrace|Gate|Path|Circle|Parkway|Pkwy|Square|Sq)(?:\.)?(?:\s+(?:East|West|North|South))?)\b/gi;
+const ADDRESS_RE = /\b(\d{1,5}(?:\s*(?:to|-|–)\s*\d{1,5})?\s+(?:The\s+)?[A-Z][a-zA-Z.'-]*(?:\s+[A-Z][a-zA-Z.'-]*){0,4}\s+(?:Street|St|Avenue|Ave|Road|Rd|Drive|Dr|Boulevard|Blvd|Lane|Ln|Court|Ct|Way|Crescent|Cres|Place|Pl|Trail|Terrace|Gate|Path|Circle|Parkway|Pkwy|Square|Sq|Expressway|Promenade|Esplanade)(?:\.)?(?:\s+(?:East|West|North|South))?)\b/gi;
 
 function extractAddresses(title) {
-  return [...title.matchAll(ADDRESS_RE)].map(m => m[1].trim());
+  return [...title.matchAll(ADDRESS_RE)]
+    .map(m => m[1].trim())
+    .filter(address => !/^(?:\d+\s+Complete Street|\d{4}\s+Local Road|\d+\s+on Updates)/i.test(address));
 }
 
 async function geocode(address) {
@@ -50,8 +52,23 @@ async function geocode(address) {
   });
 
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  const results = await res.json();
-  if (!results.length) return null;
+  let results = await res.json();
+  if (!results.length) {
+    const fallbackUrl = `https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?SingleLine=${query}&f=json&maxLocations=1`;
+    const fallbackRes = await fetch(fallbackUrl);
+    if (fallbackRes.ok) {
+      const fallback = await fallbackRes.json();
+      const candidate = fallback.candidates?.[0];
+      if (candidate?.location && candidate.score >= 90) {
+        return {
+          address,
+          lat: candidate.location.y,
+          lng: candidate.location.x,
+        };
+      }
+    }
+    return null;
+  }
 
   return {
     address,
@@ -68,7 +85,7 @@ async function main() {
   const targets = motions.filter(m =>
     !m.parentId &&
     extractAddresses(m.title).length > 0 &&
-    (FORCE || !m.locations)
+    (FORCE || !m.locations?.length)
   ).slice(0, LIMIT);
 
   console.log(`📍 ${targets.length} motions to geocode`);

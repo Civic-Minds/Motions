@@ -66,6 +66,9 @@ jobs:
       - name: Run data import
         run: node scripts/import_open_data.js --term=2022-2026
 
+      - name: Geocode motion addresses
+        run: node scripts/geocode_addresses.js
+
       - name: Fetch meeting schedule
         run: node scripts/fetch_meetings.js
 
