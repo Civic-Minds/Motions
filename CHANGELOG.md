@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Ward stats cards**: Reused the homepage card shell and typography for the ward overview metrics.
+
 - **Election map heading**: Simplified the map section to “Candidates by ward” and removed redundant update metadata.
 
 - **Election page order**: Moved the 2026 candidate lists below the City-wide explorer map.

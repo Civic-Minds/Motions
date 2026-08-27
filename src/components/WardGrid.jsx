@@ -10,6 +10,7 @@ import { getWardActivityMetrics } from '../utils/analytics';
 import { WARD_COUNCILLORS, TOPIC_LIGHT } from '../constants/data';
 import { TORONTO_WARDS } from '../constants/wards';
 import { cn } from '../lib/utils';
+import { CivicCard } from './ui/CivicCard';
 import { fetchWardBoundaries, extractWardId } from '../utils/ward';
 import { nameToSlug } from '../utils/slug';
 
@@ -98,21 +99,21 @@ export default function WardGrid({ motions }) {
         <>
           {/* Stats strip + Your Ward */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 items-stretch [&>*]:h-full">
-            <div className="bg-white border border-slate-200 rounded-2xl p-4">
-              <p className="text-xs text-slate-400 font-medium uppercase tracking-wide mb-1">Most Active</p>
-              <p className="text-sm font-bold text-slate-900 truncate">W{topWard?.id} · {topWard?.name}</p>
-            <p className="text-xs text-slate-400 mt-0.5">{topWard?.count?.toLocaleString()} motions</p>
-            </div>
-            <div className="bg-white border border-slate-200 rounded-2xl p-4">
-              <p className="text-xs text-slate-400 font-medium uppercase tracking-wide mb-1">Total Motions</p>
+            <CivicCard className="h-full">
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Most Active</p>
+              <p className="text-sm font-semibold text-slate-900 truncate flex-1">W{topWard?.id} · {topWard?.name}</p>
+              <p className="text-xs text-slate-400">{topWard?.count?.toLocaleString()} motions</p>
+            </CivicCard>
+            <CivicCard className="h-full">
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Total Motions</p>
               <p className="text-2xl font-black text-[#004a99]">{motions.length.toLocaleString()}</p>
               <p className="text-xs text-slate-400">2022–2026 term</p>
-            </div>
-            <div className="bg-white border border-slate-200 rounded-2xl p-4">
-              <p className="text-xs text-slate-400 font-medium uppercase tracking-wide mb-1">Coverage</p>
+            </CivicCard>
+            <CivicCard className="h-full">
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Coverage</p>
               <p className="text-2xl font-black text-slate-900">25</p>
               <p className="text-xs text-slate-400">wards tracked</p>
-            </div>
+            </CivicCard>
             <YourWardCard motions={motions} />
           </div>
 
