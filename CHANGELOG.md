@@ -6,7 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
-- **Homepage highlights**: Keep Most Notable motions within the recent 90-day window so stale items do not resurface.
+- **Homepage highlights**: Let current notable motions fill the highlight row first, with Ward Motions filling the remaining cards.
 
 - **Motion maps**: Added locations for the Fleet Street, Guildwood Parkway, Staines Road, Victoria Park Avenue, and Thora Avenue motions.
 
