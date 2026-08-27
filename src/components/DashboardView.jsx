@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect, useReducer, lazy, Suspense } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { AlertCircle, X, Search, Star, Calendar } from 'lucide-react';
 import { cn } from '../lib/utils';
@@ -370,10 +370,12 @@ function MotionList({ visibleMotions, sortedCount, visibleCount, onLoadMore, fil
 export default function DashboardView({ motions, meetings = [] }) {
   const { followedCommittees = [] } = useAppContext();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [filters, dispatch] = useReducer(filtersReducer, initialFilters);
   const [visibleCount, setVisibleCount] = useState(20);
 
   const savedWardId = useMemo(() => getWardId(), []);
+  const wardFilter = searchParams.get('ward');
   const savedCouncillor = savedWardId ? WARD_COUNCILLORS[savedWardId] : null;
 
   // Only primary entries (no parentId) for display and stats
@@ -439,6 +441,7 @@ export default function DashboardView({ motions, meetings = [] }) {
   const sortedMotions = useMemo(() => {
     return [...primaryMotions]
       .filter(m => {
+        if (wardFilter && String(m.ward) !== wardFilter) return false;
         if (filters.topics.length > 0 && !filters.topics.includes(m.topic)) return false;
         if (filters.committees.length > 0 && !filters.committees.includes(m.committee || getCommittee(m.id))) return false;
         if (filters.voteTypes.length > 0 && !filters.voteTypes.some(vt => m.flags?.includes(vt))) return false;
@@ -454,7 +457,7 @@ export default function DashboardView({ motions, meetings = [] }) {
         if (dateDiff !== 0) return dateDiff;
         return (b.significance ?? 0) - (a.significance ?? 0);
       });
-  }, [primaryMotions, filters, savedWardId, followedCommittees, lastMeeting]);
+  }, [primaryMotions, filters, savedWardId, followedCommittees, lastMeeting, wardFilter]);
 
   // Reset visible count when filters change
   useEffect(() => { setVisibleCount(20); }, [filters]);

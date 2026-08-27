@@ -1,6 +1,6 @@
 import { getWardId } from '../utils/storage';
 import React, { useMemo, useState, useEffect, lazy, Suspense } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { ArrowRight, ChevronLeft, MapPin } from 'lucide-react';
 import YourWardCard from './YourWardCard';
 const WardMotionMap = lazy(() => import('./WardMotionMap'));
@@ -99,12 +99,12 @@ export default function WardGrid({ motions }) {
         <>
           {/* Stats strip + Your Ward */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 items-stretch [&>*]:h-full">
-            <CivicCard className="h-full">
+            <CivicCard as={Link} to={`/?ward=${topWard?.id}`} aria-label={`View motions for Ward ${topWard?.id}`} className="h-full">
               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Most Active</p>
               <p className="text-sm font-semibold text-slate-900 truncate flex-1">W{topWard?.id} · {topWard?.name}</p>
               <p className="text-xs text-slate-400">{topWard?.count?.toLocaleString()} motions</p>
             </CivicCard>
-            <CivicCard className="h-full">
+            <CivicCard as={Link} to="/" aria-label="View all motions" className="h-full">
               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Total Motions</p>
               <p className="text-2xl font-black text-[#004a99]">{motions.length.toLocaleString()}</p>
               <p className="text-xs text-slate-400">2022–2026 term</p>
