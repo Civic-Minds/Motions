@@ -93,20 +93,6 @@ export default function ElectionView() {
 
   return (
     <div className="flex flex-col space-y-4 pb-20">
-      {/* Page header */}
-      <section className="order-1">
-        <div className="space-y-1.5">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Election</p>
-          <h1 className="text-xl md:text-2xl font-bold text-slate-900 tracking-tight">Toronto Election 2026</h1>
-          <p className="text-sm text-slate-500 max-w-2xl leading-relaxed">
-            {savedWard
-              ? `Review the candidates and incumbent track record for Ward ${savedWard.id} before October 26.`
-              : "Election day is October 26. Review the candidates and get ready to vote."
-            }
-          </p>
-        </div>
-      </section>
-
       {/* Election races */}
       <section className="order-4 space-y-4">
         

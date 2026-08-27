@@ -24,6 +24,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Election voting-day layout**: Put Election Day and Advance Voting beside the other summary cards in the same top row.
 - **Election explorer**: Replaced the candidate accordion with the shared full Toronto ward map and fullscreen control.
 - **Shared civic UI**: Added reusable card, section-label, and pill primitives so homepage and Election surfaces cannot drift apart.
+- **Election page hierarchy**: Removed redundant page-introduction copy so the page opens directly with the useful election information.
 - **Councillor voting records**: Added shareable Committee, Year, Vote, Category, and followed-committee filters with a desktop sidebar and mobile panel.
 - **Filter layout**: Reused the same sidebar shell across the homepage and councillor voting records.
 - **Dashboard layout**: Let the filter sidebar and ward map fill the available viewport height while scrolling the motion list.
