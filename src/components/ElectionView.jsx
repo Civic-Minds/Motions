@@ -94,7 +94,7 @@ export default function ElectionView() {
   return (
     <div className="flex flex-col space-y-4 pb-20">
       {/* Election races */}
-      <section className="order-4 space-y-4">
+      <section className="order-7 space-y-4">
         
         <div className="space-y-4">
           <div className="flex flex-col gap-3">
@@ -327,7 +327,7 @@ export default function ElectionView() {
       </section>
 
       {/* Resources List */}
-      <section className="order-7 space-y-6">
+      <section className="order-8 space-y-6">
         <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Official election resources</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {[
@@ -379,7 +379,7 @@ export default function ElectionView() {
       </section>
 
       {/* Footnote */}
-      <div className="order-8 pt-8 text-center">
+      <div className="order-9 pt-8 text-center">
         <p className="text-xs text-slate-400 max-w-lg mx-auto leading-relaxed">
           Motions is an independent civic data project and is not affiliated with the City of Toronto or Toronto Elections. Always verify official dates and requirements at toronto.ca.
         </p>
