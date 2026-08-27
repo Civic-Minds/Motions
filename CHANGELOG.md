@@ -22,6 +22,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Election voting schedule**: Added citywide election-day and advance-voting hours so residents know when they can vote.
 - **Election voting days**: Kept the separate Election Day and Advance Voting cards above the candidate lists so the schedule is visible first.
 - **Election voting-day layout**: Put Election Day and Advance Voting beside the other summary cards in the same top row.
+- **Election explorer**: Replaced the candidate accordion with the shared full Toronto ward map and fullscreen control.
 - **Councillor voting records**: Added shareable Committee, Year, Vote, Category, and followed-committee filters with a desktop sidebar and mobile panel.
 - **Filter layout**: Reused the same sidebar shell across the homepage and councillor voting records.
 - **Dashboard layout**: Let the filter sidebar and ward map fill the available viewport height while scrolling the motion list.

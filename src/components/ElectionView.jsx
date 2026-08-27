@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState, useEffect, lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, MapPin, ExternalLink, Vote, Info, Clock, CheckCircle2, AlertCircle, User, Mail, Phone, ChevronRight, ChevronDown, Building2, GraduationCap } from 'lucide-react';
 import { WARD_COUNCILLORS } from '../constants/data';
@@ -9,6 +9,8 @@ import { cn } from '../lib/utils';
 import { useAppContext } from '../contexts/AppContext';
 import YourWardCard from './YourWardCard';
 import HomepageCard from './HomepageCard';
+
+const TorontoFullMap = lazy(() => import('./TorontoFullMap'));
 
 const NOMINATION_OPEN = new Date('2026-05-01T08:30:00');
 const NOMINATION_CLOSE = new Date('2026-08-21T14:00:00');
@@ -55,7 +57,8 @@ export default function ElectionView() {
   const { wardId: savedWardId } = useAppContext();
   const today = new Date();
   const [candidateData, setCandidateData] = useState(null);
-  const [expandedWards, setExpandedWards] = useState({});
+  const [geoData, setGeoData] = useState(null);
+  const [mapFullscreen, setMapFullscreen] = useState(false);
 
   useEffect(() => {
     const blobBase = import.meta.env.VITE_BLOB_BASE_URL;
@@ -63,6 +66,14 @@ export default function ElectionView() {
       .then(res => res.json())
       .then(data => setCandidateData(data))
       .catch(err => console.error('Failed to load candidates:', err));
+  }, []);
+
+  useEffect(() => {
+    const blobBase = import.meta.env.VITE_BLOB_BASE_URL;
+    fetch(blobBase ? `${blobBase}/wards.geojson` : '/data/wards.geojson')
+      .then(res => res.json())
+      .then(data => setGeoData(data))
+      .catch(err => console.error('Failed to load ward boundaries:', err));
   }, []);
   
   const isNominationOpen = today >= NOMINATION_OPEN && today <= NOMINATION_CLOSE;
@@ -77,10 +88,6 @@ export default function ElectionView() {
     if (!candidateData || !savedWardId) return [];
     return candidateData.wards[savedWardId] || [];
   }, [candidateData, savedWardId]);
-
-  const toggleWard = (id) => {
-    setExpandedWards(prev => ({ ...prev, [id]: !prev[id] }));
-  };
 
   const councillorName = savedWardId ? WARD_COUNCILLORS[savedWardId] : null;
 
@@ -369,7 +376,7 @@ export default function ElectionView() {
         </div>
       </section>
 
-      {/* Candidate Explorer - Moved to Bottom */}
+      {/* City-wide explorer */}
       <section className="order-6 space-y-4 pt-8 border-t border-slate-100">
         <div className="flex items-end justify-between px-2">
           <div className="space-y-1">
@@ -383,60 +390,14 @@ export default function ElectionView() {
           )}
         </div>
 
-        <div className="grid grid-cols-1 gap-3">
-          {TORONTO_WARDS.map(ward => {
-            const candidates = candidateData?.wards[ward.id] || [];
-            const isExpanded = expandedWards[ward.id];
-            
-            return (
-              <div key={ward.id} className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
-                <button 
-                  onClick={() => toggleWard(ward.id)}
-                  className="w-full flex items-center justify-between p-4 text-left hover:bg-slate-50 transition-colors"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center font-bold text-slate-600 text-xs">
-                      {ward.id}
-                    </div>
-                    <div>
-                      <p className="font-bold text-slate-900 leading-none">{ward.name}</p>
-                      <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-1">
-                        {candidates.length.toLocaleString()} Candidate{candidates.length !== 1 ? 's' : ''}
-                      </p>
-                    </div>
-                  </div>
-                  {isExpanded ? <ChevronDown className="w-5 h-5 text-slate-300" /> : <ChevronRight className="w-5 h-5 text-slate-300" />}
-                </button>
-                
-                {isExpanded && (
-                  <div className="px-4 pb-4 space-y-2 border-t border-slate-50 pt-4 bg-slate-50/50">
-                    {candidates.length > 0 ? (
-                      candidates.map((c, i) => (
-                        <div key={i} className="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
-                          <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-400">
-                              <User className="w-4 h-4" />
-                            </div>
-                            <div>
-                              <p className="text-sm font-bold text-slate-800">{c.name}</p>
-                              <div className="flex items-center gap-2 mt-0.5">
-                                {c.email && <span className="text-[10px] text-slate-400">{c.email}</span>}
-                                {c.email && c.phone && <span className="text-slate-200 text-[10px]">|</span>}
-                                {c.phone && <span className="text-[10px] text-slate-400">{c.phone}</span>}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      ))
-                    ) : (
-                      <p className="text-xs text-slate-400 italic text-center py-2">No candidates registered yet</p>
-                    )}
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
+        <Suspense fallback={<div className="w-full h-[420px] rounded-2xl bg-slate-100 animate-pulse border border-slate-200" />}>
+          <TorontoFullMap
+            geojson={geoData}
+            wardActivity={null}
+            isFullscreen={mapFullscreen}
+            onToggleFullscreen={() => setMapFullscreen(open => !open)}
+          />
+        </Suspense>
       </section>
 
       {/* Footnote */}
