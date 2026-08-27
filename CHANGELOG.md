@@ -24,6 +24,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 - **Most Notable**: Limited homepage highlights to the last 45 days and ranked them by significance.
 
+- **Ward motion fallback**: Fill all three homepage motion slots with Ward Motions when no recent notable motions qualify.
+
 - **Ward motion coverage**: Counted geocoded address locations in their official wards so ward pages and highlights include all located motions.
 
 - **Motion scope**: Separated city-wide motions from ward-specific motions so city-wide items can be viewed without appearing on ward maps.

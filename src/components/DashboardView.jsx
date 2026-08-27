@@ -438,7 +438,7 @@ export default function DashboardView({ motions, meetings = [] }) {
 
   const homeMotionCards = useMemo(() => [
     ...highlights.slice(0, 1),
-    ...wardHighlights.slice(0, 2),
+    ...wardHighlights.slice(0, highlights.length > 0 ? 2 : 3),
     ...highlights.slice(1),
   ].slice(0, 3), [highlights, wardHighlights]);
 
