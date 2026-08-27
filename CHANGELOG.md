@@ -34,6 +34,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 - **Ward scope**: Preserve ward classifications inferred from ward names such as University–Rosedale when adding ward-level locations.
 
+- **Named motion locations**: Added Yorkdale Station to the location pipeline so TTC16.4 appears on the correct ward map.
+
 
 - **Homepage highlights**: Let current notable motions fill the highlight row first, with Ward Motions filling the remaining cards.
 

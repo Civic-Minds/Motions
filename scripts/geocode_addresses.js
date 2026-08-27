@@ -46,6 +46,11 @@ const KNOWN_LOCATIONS_BY_ADDRESS = {
   '311 Staines Road': { lat: 43.793583, lng: -79.232139 },
 };
 
+const KNOWN_LOCATIONS_BY_MOTION_ID = {
+  // TTC16.4 names Yorkdale Station but contains no street address.
+  'TTC16.4': { address: 'Yorkdale Station', lat: 43.7246418, lng: -79.4475031, source: 'verified-place' },
+};
+
 function extractAddresses(title) {
   const grouped = [...title.matchAll(GROUPED_ADDRESS_RE)].flatMap(match =>
     match[1].split(/\s*(?:,|and|&)\s*/i).map(number => `${number} ${match[2]}`)
@@ -101,7 +106,7 @@ async function main() {
 
   const targets = motions.filter(m =>
     !m.parentId &&
-    extractAddresses(m.title).length > 0 &&
+    (extractAddresses(m.title).length > 0 || KNOWN_LOCATIONS_BY_MOTION_ID[m.id]) &&
     (!IDS || IDS.has(m.id)) &&
     (FORCE || !m.locations?.length)
   ).slice(0, LIMIT);
@@ -115,7 +120,8 @@ async function main() {
     const addresses = extractAddresses(motion.title);
     process.stdout.write(`[${done + 1}/${targets.length}] ${motion.id} — ${addresses.join(' + ').slice(0, 50)}… `);
 
-    const locations = [];
+    const knownPlace = KNOWN_LOCATIONS_BY_MOTION_ID[motion.id];
+    const locations = knownPlace ? [knownPlace] : [];
     for (const address of addresses) {
       try {
         await sleep(1100); // Nominatim: max 1 req/s
