@@ -10,6 +10,7 @@ import { useAppContext } from '../contexts/AppContext';
 import YourWardCard from './YourWardCard';
 import MotionCardItem from './MotionCardItem';
 import FilterSidebar from './FilterSidebar';
+import HomepageCard from './HomepageCard';
 
 const TorontoMiniMap = lazy(() => import('./TorontoMiniMap'));
 
@@ -520,9 +521,10 @@ export default function DashboardView({ motions, meetings = [] }) {
                 <p className="text-xs text-slate-400">No notable motions yet.</p>
               </div>
             )}
-            <Link
+            <HomepageCard
+              as={Link}
               to="/election"
-              className="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100 rounded-2xl p-4 text-left group flex flex-col gap-2 hover:border-blue-300 hover:shadow-sm transition-all"
+              className="bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-100 hover:border-blue-300"
             >
               <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-blue-100 text-blue-700 self-start">Election</span>
               <p className="text-xs font-semibold text-slate-800 group-hover:text-blue-700 transition-colors line-clamp-3 leading-snug">See your ward’s candidates before October 26.</p>
@@ -530,7 +532,7 @@ export default function DashboardView({ motions, meetings = [] }) {
                 <span className="text-[9px] text-slate-400">October 26, 2026</span>
                 <span className="text-[9px] font-semibold text-blue-700">Get ready</span>
               </div>
-            </Link>
+            </HomepageCard>
             {[...highlights.slice(0, -1), ...wardHighlights].map((m, i) => {
               const yesCount = Object.values(m.votes ?? {}).filter(v => v === 'YES').length;
               const noCount  = Object.values(m.votes ?? {}).filter(v => v === 'NO').length;

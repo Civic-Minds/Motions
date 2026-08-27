@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { cn } from '../lib/utils';
 import { useAppContext } from '../contexts/AppContext';
 import YourWardCard from './YourWardCard';
+import HomepageCard from './HomepageCard';
 
 const ELECTION_DATE = new Date('2026-10-26T00:00:00');
 const NOMINATION_OPEN = new Date('2026-05-01T08:30:00');
@@ -262,76 +263,48 @@ export default function ElectionView() {
         </div>
       </section>
 
-      {/* Countdown Grid - Secondary */}
-      <div className="order-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3">
-        <YourWardCard />
-        <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col justify-between h-full">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Candidates in your ward</p>
-          <p className="text-2xl font-black text-[#004a99]">{savedWardId ? wardCandidates.length.toLocaleString() : '—'}</p>
-          <p className="text-[9px] text-slate-400">registered candidates</p>
+      {/* My ward */}
+      <section className="order-2 space-y-1.5">
+        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">My ward</p>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 items-stretch">
+          <YourWardCard />
+          <HomepageCard className="min-h-[244px]">
+            <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-[#004a99]/10 text-[#004a99] self-start">Candidates</span>
+            <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Candidates in your ward</p>
+            <p className="text-2xl font-black text-[#004a99]">{savedWardId ? wardCandidates.length.toLocaleString() : '—'}</p>
+            <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
+              <span className="text-[9px] text-slate-400">registered candidates</span>
+              <Link to="#candidates" className="text-[9px] font-semibold text-[#004a99]">See more</Link>
+            </div>
+          </HomepageCard>
         </div>
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.1 }}
-          className="bg-white border border-slate-200 rounded-2xl p-4 text-slate-900 flex flex-col items-center justify-center text-center space-y-2"
-        >
-          <span className="text-3xl font-black tabular-nums">{daysUntil}</span>
-          <span className="text-slate-400 font-medium uppercase tracking-widest text-xs">Days to Election</span>
-        </motion.div>
+      </section>
 
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.2 }}
-          className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col justify-between"
-        >
-          <div className="space-y-1">
-            <div className="flex items-center gap-2 text-slate-400 mb-2">
-              <Calendar className="w-4 h-4" />
-              <span className="text-[10px] font-bold uppercase tracking-wider">Key Period</span>
+      {/* Important dates */}
+      <section className="order-3 space-y-1.5">
+        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Important dates</p>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 items-stretch">
+          <HomepageCard className="min-h-[244px]">
+            <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-blue-50 text-[#004a99] self-start">Countdown</span>
+            <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Days to election</p>
+            <p className="text-3xl font-black text-slate-900 tabular-nums">{daysUntil.toLocaleString()}</p>
+            <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
+              <span className="text-[9px] text-slate-400">October 26, 2026</span>
+              <span className="text-[9px] font-semibold text-[#004a99]">Election day</span>
             </div>
-            <h3 className="font-bold text-slate-900">Nomination Period</h3>
-            <p className="text-sm text-slate-500">Nominations are closed. The registered candidate list is shown above.</p>
-          </div>
-          <div className="mt-6 flex items-center justify-between">
-            <div className="flex flex-col">
-              <span className="text-[10px] text-slate-400 uppercase font-bold">Status</span>
-              <span className={cn(
-                "text-sm font-bold",
-                isNominationOpen ? "text-emerald-600" : isNominationPast ? "text-slate-400" : "text-amber-600"
-              )}>
-                {isNominationOpen ? "Open Now" : isNominationPast ? "Closed" : "Opening May 1"}
-              </span>
-            </div>
-            <span className="text-xs text-slate-400 font-medium">Closed Aug 21 at 2 p.m.</span>
-          </div>
-        </motion.div>
+          </HomepageCard>
 
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.3 }}
-          className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col justify-between"
-        >
-          <div className="space-y-1">
-            <div className="flex items-center gap-2 text-slate-400 mb-2">
-              <Info className="w-4 h-4" />
-              <span className="text-[10px] font-bold uppercase tracking-wider">Registration</span>
+          <HomepageCard className="min-h-[244px]">
+            <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-600 self-start">Voting day</span>
+            <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Get ready to vote</p>
+            <p className="text-sm text-slate-500 leading-snug">Check your registration and voting options before election day.</p>
+            <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
+              <span className="text-[9px] text-slate-400">MyVote information</span>
+              <a href="https://www.toronto.ca/city-government/elections/voter-information/" target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99]">Check MyVote ↗</a>
             </div>
-            <h3 className="font-bold text-slate-900">Get ready to vote</h3>
-            <p className="text-sm text-slate-500">From September 1, check your voter registration and request a mail-in ballot.</p>
-          </div>
-          <a 
-            href="https://www.toronto.ca/city-government/elections/voter-information/" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="mt-6 flex items-center justify-center gap-2 w-full py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100 hover:border-slate-300 transition-all"
-          >
-            Check MyVote <ExternalLink className="w-3 h-3" />
-          </a>
-        </motion.div>
-      </div>
+          </HomepageCard>
+        </div>
+      </section>
 
       {/* Resources List */}
       <section className="order-4 space-y-6">
