@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Motion header layout**: Reorganized the back link and motion metadata into a compact header to reduce wasted vertical space.
+
 - **Motion header**: Tightened the spacing around motion status, title, and metadata to reduce wasted vertical space.
 
 - **Ward stats card links**: Added homepage-style footer links to the Most Active and Total Motions cards.
