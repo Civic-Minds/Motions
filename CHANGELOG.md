@@ -28,6 +28,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 - **Motion scope**: Separated city-wide motions from ward-specific motions so city-wide items can be viewed without appearing on ward maps.
 
+- **Citywide scope**: Keep explicitly citywide motions out of ward lists and maps even when their text mentions a location.
+
 
 - **Homepage highlights**: Let current notable motions fill the highlight row first, with Ward Motions filling the remaining cards.
 

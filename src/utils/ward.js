@@ -40,6 +40,7 @@ export function pointInFeature(point, geometry) {
 }
 
 export function motionBelongsToWard(motion, wardId, feature = null) {
+  if (motion.scope === 'citywide') return false;
   if (String(motion.ward) === String(wardId)) return true;
   return motion.locations?.some(location => {
     if (String(location.ward) === String(wardId)) return true;
