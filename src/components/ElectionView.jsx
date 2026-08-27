@@ -12,9 +12,6 @@ import { CivicCard, CivicPill, CivicSectionLabel } from './ui/CivicCard';
 
 const TorontoFullMap = lazy(() => import('./TorontoFullMap'));
 
-const NOMINATION_OPEN = new Date('2026-05-01T08:30:00');
-const NOMINATION_CLOSE = new Date('2026-08-21T14:00:00');
-
 const formatNominationDate = (date) => {
   if (!date) return null;
   return `Filed ${date}`;
@@ -55,7 +52,6 @@ function CandidateList({ candidates, emptyText, incumbentName, incumbentClass })
 
 export default function ElectionView() {
   const { wardId: savedWardId } = useAppContext();
-  const today = new Date();
   const [candidateData, setCandidateData] = useState(null);
   const [geoData, setGeoData] = useState(null);
   const [mapFullscreen, setMapFullscreen] = useState(false);
@@ -76,9 +72,6 @@ export default function ElectionView() {
       .catch(err => console.error('Failed to load ward boundaries:', err));
   }, []);
   
-  const isNominationOpen = today >= NOMINATION_OPEN && today <= NOMINATION_CLOSE;
-  const isNominationPast = today > NOMINATION_CLOSE;
-
   const savedWard = useMemo(() => 
     TORONTO_WARDS.find(w => w.id === savedWardId),
     [savedWardId]
@@ -285,14 +278,12 @@ export default function ElectionView() {
             <CivicSectionLabel>Important dates</CivicSectionLabel>
             <div className="grid grid-cols-2 gap-3 items-stretch flex-1 min-w-0">
               <CivicCard className="h-[140px]">
-                <CivicPill className="bg-amber-50 text-amber-700">Key period</CivicPill>
-                <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Nomination period</p>
-                <p className="text-sm text-slate-500 leading-snug">{isNominationPast ? 'Nominations are closed.' : isNominationOpen ? 'Nominations are open.' : 'Nominations open May 1.'}</p>
+                <CivicPill className="bg-blue-50 text-[#004a99]">Where to vote</CivicPill>
+                <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Find your polling place</p>
+                <p className="text-sm text-slate-500 leading-snug">See where and when you can vote.</p>
                 <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
-                  <span className="text-[9px] text-slate-400">Closes Aug 21</span>
-                  <span className={cn("text-[9px] font-semibold", isNominationOpen ? "text-emerald-600" : "text-slate-500")}>
-                    {isNominationOpen ? 'Open now' : isNominationPast ? 'Closed' : 'Upcoming'}
-                  </span>
+                  <span className="text-[9px] text-slate-400">Toronto Elections</span>
+                  <a href="https://www.toronto.ca/city-government/elections/voter-information/" target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99]">Find my place ↗</a>
                 </div>
               </CivicCard>
 
