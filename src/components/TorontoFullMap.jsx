@@ -60,7 +60,7 @@ export default function TorontoFullMap({ geojson, wardActivity, wardSubtextById,
   }
 
   if (!geojson) return (
-    <div className="w-full h-[500px] rounded-2xl bg-slate-100 animate-pulse border border-slate-200" />
+    <div className="w-full h-[560px] rounded-2xl bg-slate-100 animate-pulse border border-slate-200" />
   );
 
   const sortedWards = wardActivity
@@ -72,7 +72,7 @@ export default function TorontoFullMap({ geojson, wardActivity, wardSubtextById,
       "relative overflow-hidden border border-slate-200 bg-white",
       isFullscreen
         ? "fixed inset-0 z-[60] rounded-none h-screen"
-        : "rounded-2xl h-[500px]"
+        : "rounded-2xl h-[560px]"
     )}>
       <MapContainer
         ref={mapRef}

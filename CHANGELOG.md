@@ -6,7 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
-- **Ward maps**: Made the full Toronto map taller on the Wards and Election pages for easier exploration.
+- **Ward maps**: Increased the full Toronto map height on the Wards and Election pages for easier exploration.
 
 - **Sharing and SEO**: Added route-aware metadata, crawler previews, and share links for key civic pages.
 

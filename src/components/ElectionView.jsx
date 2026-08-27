@@ -389,7 +389,7 @@ export default function ElectionView() {
           </div>
         </div>
 
-        <Suspense fallback={<div className="w-full h-[500px] rounded-2xl bg-slate-100 animate-pulse border border-slate-200" />}>
+        <Suspense fallback={<div className="w-full h-[560px] rounded-2xl bg-slate-100 animate-pulse border border-slate-200" />}>
           <TorontoFullMap
             geojson={geoData}
             wardActivity={null}
