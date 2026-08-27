@@ -1,7 +1,7 @@
 import React, { lazy, Suspense, useState, useEffect, useMemo } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
-import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, Link, useLocation, useNavigate } from 'react-router-dom';
 import { Users, Map, Building2, Vote, Menu, X, Search, MapPin } from 'lucide-react';
 import { WARD_COUNCILLORS } from './constants/data';
 import { AnimatePresence, motion } from 'framer-motion';

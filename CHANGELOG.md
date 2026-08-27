@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Navigation**: Fixed a missing link import that caused the app to render a blank screen.
+
 - **Data page**: Added a Data & methodology page with source links, classification notes, update information, and the project disclaimer.
 
 - **Motion locations**: Added verified map locations for motions about named places such as parks, stations, arenas, and civic facilities.
