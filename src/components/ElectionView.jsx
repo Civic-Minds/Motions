@@ -259,9 +259,9 @@ export default function ElectionView() {
         <div className="grid grid-cols-1 lg:grid-cols-6 gap-3 items-stretch overflow-hidden">
           <div className="lg:col-span-2 flex flex-col gap-1.5 min-w-0">
             <CivicSectionLabel>My ward</CivicSectionLabel>
-            <div className="grid grid-cols-2 gap-3 items-stretch flex-1 min-w-0">
+            <div className="grid grid-cols-2 gap-3 items-stretch flex-1 min-w-0 h-[212px]">
               <YourWardCard />
-              <CivicCard>
+              <CivicCard className="h-[212px]">
                 <CivicPill className="bg-[#004a99]/10 text-[#004a99]">Candidates</CivicPill>
                 <div className="grid grid-cols-2 gap-3 flex-1 items-end">
                   <div>
@@ -284,7 +284,7 @@ export default function ElectionView() {
           <div className="lg:col-span-2 flex flex-col gap-1.5 min-w-0">
             <CivicSectionLabel>Important dates</CivicSectionLabel>
             <div className="grid grid-cols-2 gap-3 items-stretch flex-1 min-w-0">
-              <CivicCard>
+              <CivicCard className="h-[212px]">
                 <CivicPill className="bg-amber-50 text-amber-700">Key period</CivicPill>
                 <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Nomination period</p>
                 <p className="text-sm text-slate-500 leading-snug">{isNominationPast ? 'Nominations are closed.' : isNominationOpen ? 'Nominations are open.' : 'Nominations open May 1.'}</p>
@@ -296,7 +296,7 @@ export default function ElectionView() {
                 </div>
               </CivicCard>
 
-              <CivicCard>
+              <CivicCard className="h-[212px]">
                 <CivicPill className="bg-slate-100 text-slate-600">Registration</CivicPill>
                 <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Get ready to vote</p>
                 <p className="text-sm text-slate-500 leading-snug">Check your registration before election day.</p>
@@ -311,7 +311,7 @@ export default function ElectionView() {
           <div className="lg:col-span-2 flex flex-col gap-1.5 min-w-0">
             <CivicSectionLabel>Voting days</CivicSectionLabel>
             <div className="grid grid-cols-2 gap-3 items-stretch flex-1 min-w-0">
-              <CivicCard>
+              <CivicCard className="h-[212px]">
                 <CivicPill className="bg-blue-50 text-[#004a99]">Election day</CivicPill>
                 <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Monday, October 26, 2026</p>
                 <p className="text-sm text-slate-500 leading-snug">Polls are open from 10 a.m. to 8 p.m.</p>
@@ -321,7 +321,7 @@ export default function ElectionView() {
                 </div>
               </CivicCard>
 
-              <CivicCard>
+              <CivicCard className="h-[212px]">
                 <CivicPill className="bg-slate-100 text-slate-600">Advance voting</CivicPill>
                 <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">October 6–11, 2026</p>
                 <p className="text-sm text-slate-500 leading-snug">Polls are open from 10 a.m. to 7 p.m.</p>
