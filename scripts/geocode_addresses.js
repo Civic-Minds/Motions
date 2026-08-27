@@ -29,6 +29,7 @@ const args = Object.fromEntries(
 );
 const LIMIT = args['limit'] ? parseInt(args['limit'], 10) : Infinity;
 const FORCE = !!args['force'];
+const IDS = args['ids'] ? new Set(String(args['ids']).split(',').map(id => id.trim())) : null;
 const SAVE_EVERY = 20;
 
 // Matches: "2775 Jane Street", "641 to 663 Danforth Road East",
@@ -101,6 +102,7 @@ async function main() {
   const targets = motions.filter(m =>
     !m.parentId &&
     extractAddresses(m.title).length > 0 &&
+    (!IDS || IDS.has(m.id)) &&
     (FORCE || !m.locations?.length)
   ).slice(0, LIMIT);
 
