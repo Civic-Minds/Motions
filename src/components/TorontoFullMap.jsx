@@ -9,7 +9,7 @@ import { TORONTO_WARDS } from '../constants/wards';
 import { getWardId } from '../utils/storage';
 import { cn } from '../lib/utils';
 
-export default function TorontoFullMap({ geojson, wardActivity, isFullscreen = false, onToggleFullscreen }) {
+export default function TorontoFullMap({ geojson, wardActivity, wardSubtextById, isFullscreen = false, onToggleFullscreen }) {
   const navigate = useNavigate();
   const mapRef = useRef(null);
   const savedWardId = getWardId();
@@ -116,6 +116,7 @@ export default function TorontoFullMap({ geojson, wardActivity, isFullscreen = f
         >
           {sortedWards.map(ward => {
             const councillor = WARD_COUNCILLORS[ward.id];
+            const subtext = wardSubtextById?.[ward.id] ?? councillor;
             const isSaved = ward.id === savedWardId;
             const isHovered = ward.id === hoveredWardId;
             return (
@@ -138,9 +139,9 @@ export default function TorontoFullMap({ geojson, wardActivity, isFullscreen = f
                 <p className={cn("text-xs font-semibold leading-snug mt-0.5 line-clamp-1", isSaved ? "text-white" : "text-slate-800")}>
                   {ward.name}
                 </p>
-                {councillor && (
+                {subtext && (
                   <p className={cn("text-[9px] mt-0.5 truncate", isSaved ? "text-white/70" : "text-slate-400")}>
-                    {councillor}
+                    {subtext}
                   </p>
                 )}
               </button>

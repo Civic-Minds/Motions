@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Election explorer**: Show each ward’s registered-candidate count instead of the current councillor name.
+
 - **Election resources**: Moved official election links below the City-wide explorer map so the map stays with the main discovery content.
 
 - **Councillor profiles**: Replaced the duplicate office-spend summary with a compact contact card.

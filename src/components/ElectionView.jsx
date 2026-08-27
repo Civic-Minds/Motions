@@ -84,6 +84,13 @@ export default function ElectionView() {
 
   const councillorName = savedWardId ? WARD_COUNCILLORS[savedWardId] : null;
 
+  const wardCandidateCounts = useMemo(() => {
+    if (!candidateData) return null;
+    return Object.fromEntries(
+      TORONTO_WARDS.map(ward => [ward.id, `${(candidateData.wards?.[ward.id] || []).length.toLocaleString()} candidates`])
+    );
+  }, [candidateData]);
+
   return (
     <div className="flex flex-col space-y-4 pb-20">
       {/* Election races */}
@@ -365,6 +372,7 @@ export default function ElectionView() {
           <TorontoFullMap
             geojson={geoData}
             wardActivity={null}
+            wardSubtextById={wardCandidateCounts}
             isFullscreen={mapFullscreen}
             onToggleFullscreen={() => setMapFullscreen(open => !open)}
           />
