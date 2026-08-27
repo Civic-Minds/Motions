@@ -297,10 +297,10 @@ export default function ElectionView() {
 
               <HomepageCard>
                 <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-600 self-start">Voting day</span>
-                <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Get ready to vote</p>
-                <p className="text-sm text-slate-500 leading-snug">Check your registration and voting options before election day.</p>
+                <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Monday, October 26</p>
+                <p className="text-sm text-slate-500 leading-snug">Election day: 10 a.m.–8 p.m. Advance voting: October 6–11, 10 a.m.–7 p.m.</p>
                 <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
-                  <span className="text-[9px] text-slate-400">MyVote information</span>
+                  <span className="text-[9px] text-slate-400">Citywide schedule</span>
                   <a href="https://www.toronto.ca/city-government/elections/voter-information/" target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99]">Check MyVote ↗</a>
                 </div>
               </HomepageCard>
