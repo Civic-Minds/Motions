@@ -268,7 +268,7 @@ export default function ElectionView() {
         <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">My ward</p>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 items-stretch">
           <YourWardCard />
-          <HomepageCard className="min-h-[244px]">
+          <HomepageCard>
             <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-[#004a99]/10 text-[#004a99] self-start">Candidates</span>
             <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Candidates in your ward</p>
             <p className="text-2xl font-black text-[#004a99]">{savedWardId ? wardCandidates.length.toLocaleString() : '—'}</p>
@@ -284,7 +284,7 @@ export default function ElectionView() {
       <section className="order-3 space-y-1.5">
         <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide px-1">Important dates</p>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 items-stretch">
-          <HomepageCard className="min-h-[244px]">
+          <HomepageCard>
             <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-blue-50 text-[#004a99] self-start">Countdown</span>
             <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Days to election</p>
             <p className="text-3xl font-black text-slate-900 tabular-nums">{daysUntil.toLocaleString()}</p>
@@ -294,7 +294,7 @@ export default function ElectionView() {
             </div>
           </HomepageCard>
 
-          <HomepageCard className="min-h-[244px]">
+          <HomepageCard>
             <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-600 self-start">Voting day</span>
             <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Get ready to vote</p>
             <p className="text-sm text-slate-500 leading-snug">Check your registration and voting options before election day.</p>
