@@ -379,7 +379,7 @@ export default function ElectionView() {
       </section>
 
       {/* Candidates by ward */}
-      <section className="order-6 space-y-4 pt-8 border-t border-slate-100">
+      <section className="order-6 space-y-4">
         <div className="flex items-end justify-between px-2">
           <div className="space-y-1">
             <h3 className="text-lg font-bold text-slate-900">Candidates by ward</h3>

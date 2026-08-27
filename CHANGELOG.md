@@ -12,6 +12,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 - **Election sharing**: Aligned the Election page share control with the page’s card header.
 
+- **Election layout**: Removed extra spacing between the top cards and the ward candidate map.
+
 - **Homepage highlights**: Let current notable motions fill the highlight row first, with Ward Motions filling the remaining cards.
 
 - **Motion maps**: Added locations for the Fleet Street, Guildwood Parkway, Staines Road, Victoria Park Avenue, and Thora Avenue motions.
