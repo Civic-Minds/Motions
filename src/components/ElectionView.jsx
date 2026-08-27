@@ -279,8 +279,7 @@ export default function ElectionView() {
             <div className="grid grid-cols-2 gap-3 items-stretch flex-1 min-w-0">
               <CivicCard className="h-[140px]">
                 <CivicPill className="bg-blue-50 text-[#004a99]">Where to vote</CivicPill>
-                <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Find your polling place</p>
-                <p className="text-sm text-slate-500 leading-snug">See where and when you can vote.</p>
+                <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Find your polling place to see where and when you can vote.</p>
                 <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
                   <span className="text-[9px] text-slate-400">Toronto Elections</span>
                   <a href="https://www.toronto.ca/city-government/elections/voter-information/" target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99]">Find my place ↗</a>
