@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Motion header**: Tightened the spacing around motion status, title, and metadata to reduce wasted vertical space.
+
 - **Ward stats card links**: Added homepage-style footer links to the Most Active and Total Motions cards.
 
 - **Topic classification**: Prevented partial keyword matches such as “Parkway” from incorrectly tagging motions as Parks.

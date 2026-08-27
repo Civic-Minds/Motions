@@ -307,7 +307,7 @@ export default function MotionPage({ motions = [] }) {
       </button>
 
       {/* Back Button (Mobile/Tablet - Stacked) */}
-      <div className="mb-6 xl:hidden">
+      <div className="mb-3 xl:hidden">
         <button
           onClick={() => navigate(-1)}
           className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-700 transition-colors"
@@ -318,7 +318,7 @@ export default function MotionPage({ motions = [] }) {
       </div>
 
       {/* Header (Full Width) */}
-      <div className="space-y-3 mb-8">
+      <div className="space-y-2 mb-4">
         <div className="flex flex-wrap items-center gap-2">
           <StatusBadge status={motion.status} />
           {headerTally && (
