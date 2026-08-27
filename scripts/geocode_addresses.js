@@ -34,14 +34,30 @@ const SAVE_EVERY = 20;
 // Matches: "2775 Jane Street", "641 to 663 Danforth Road East",
 //          "4884-4896 Dundas Street West", "150 The Donway West"
 const ADDRESS_RE = /\b(\d{1,5}(?:\s*(?:to|-|–)\s*\d{1,5})?\s+(?:The\s+)?[A-Z][a-zA-Z.'-]*(?:\s+[A-Z][a-zA-Z.'-]*){0,4}\s+(?:Street|St|Avenue|Ave|Road|Rd|Drive|Dr|Boulevard|Blvd|Lane|Ln|Court|Ct|Way|Crescent|Cres|Place|Pl|Trail|Terrace|Gate|Path|Circle|Parkway|Pkwy|Square|Sq|Expressway|Promenade|Esplanade)(?:\.)?(?:\s+(?:East|West|North|South))?)\b/gi;
+const GROUPED_ADDRESS_RE = /\b((?:\d{1,5}(?:(?:\s*,\s*|\s+and\s+|\s*&\s*)\d{1,5})+))\s+((?:The\s+)?[A-Z][a-zA-Z.'-]*(?:\s+[A-Z][a-zA-Z.'-]*){0,4}\s+(?:Street|St|Avenue|Ave|Road|Rd|Drive|Dr|Boulevard|Blvd|Lane|Ln|Court|Ct|Way|Crescent|Cres|Place|Pl|Trail|Terrace|Gate|Path|Circle|Parkway|Pkwy|Square|Sq|Expressway|Promenade|Esplanade)(?:\.)?(?:\s+(?:East|West|North|South))?)/gi;
+
+// Verified fallbacks for addresses that the public geocoders sometimes return
+// only as an unnamed road or fail to return at all.
+const KNOWN_LOCATIONS_BY_ADDRESS = {
+  '701 Fleet Street': { lat: 43.6361243, lng: -79.4019812 },
+  '60 Guildwood Parkway': { lat: 43.746874, lng: -79.2031135 },
+  '251 Staines Road': { lat: 43.793583, lng: -79.232139 },
+  '311 Staines Road': { lat: 43.793583, lng: -79.232139 },
+};
 
 function extractAddresses(title) {
-  return [...title.matchAll(ADDRESS_RE)]
-    .map(m => m[1].trim())
+  const grouped = [...title.matchAll(GROUPED_ADDRESS_RE)].flatMap(match =>
+    match[1].split(/\s*(?:,|and|&)\s*/i).map(number => `${number} ${match[2]}`)
+  );
+  const individual = [...title.matchAll(ADDRESS_RE)].map(m => m[1].trim());
+  return [...new Set([...grouped, ...individual])]
     .filter(address => !/^(?:\d+\s+Complete Street|\d{4}\s+Local Road|\d+\s+on Updates)/i.test(address));
 }
 
 async function geocode(address) {
+  const known = KNOWN_LOCATIONS_BY_ADDRESS[address];
+  if (known) return { address, ...known, source: 'verified-address' };
+
   // Normalize ranges for Nominatim: "353 to 355 Sherbourne" → "353 Sherbourne"
   const normalized = address.replace(/^(\d+)\s*(?:to|-|–)\s*\d+/, '$1');
   const query = encodeURIComponent(`${normalized}, Toronto, Ontario, Canada`);

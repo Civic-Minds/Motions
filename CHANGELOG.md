@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Motion maps**: Capture grouped address lists and verified address fallbacks so titled properties receive map locations during refresh.
+
 - **Motion navigation**: Made the City Council or committee label on motion pages link to its meeting.
 
 - **Candidate websites**: Added nine more manually verified campaign sites across Wards 16–22.
