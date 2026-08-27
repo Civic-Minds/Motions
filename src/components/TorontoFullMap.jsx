@@ -1,7 +1,7 @@
 import { useRef, useMemo, useState, useEffect } from 'react';
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 import { useNavigate } from 'react-router-dom';
-import { Maximize2, X } from 'lucide-react';
+import { ChevronRight, Maximize2, X } from 'lucide-react';
 import 'leaflet/dist/leaflet.css';
 import { extractWardId } from '../utils/ward';
 import { WARD_COUNCILLORS } from '../constants/data';
@@ -12,6 +12,7 @@ import { cn } from '../lib/utils';
 export default function TorontoFullMap({ geojson, wardActivity, wardSubtextById, onWardSelect, isFullscreen = false, onToggleFullscreen }) {
   const navigate = useNavigate();
   const mapRef = useRef(null);
+  const carouselRef = useRef(null);
   const savedWardId = getWardId();
   const [hoveredWardId, setHoveredWardId] = useState(null);
 
@@ -110,6 +111,7 @@ export default function TorontoFullMap({ geojson, wardActivity, wardSubtextById,
         style={{ background: 'linear-gradient(to top, rgba(255,255,255,0.85) 60%, transparent)' }}
       >
         <div
+          ref={carouselRef}
           className="flex gap-2 overflow-x-auto pb-1"
           style={{ scrollbarWidth: 'none' }}
           onMouseLeave={() => { setHoveredWardId(null); resetView(); }}
@@ -148,6 +150,15 @@ export default function TorontoFullMap({ geojson, wardActivity, wardSubtextById,
             );
           })}
         </div>
+        <button
+          type="button"
+          aria-label="Show more wards"
+          title="Show more wards"
+          onClick={() => carouselRef.current?.scrollBy({ left: 240, behavior: 'smooth' })}
+          className="absolute right-3 bottom-5 z-10 flex items-center justify-center w-8 h-8 rounded-full bg-white/95 border border-slate-200 text-[#004a99] shadow-sm hover:border-[#004a99]/40"
+        >
+          <ChevronRight className="w-4 h-4" />
+        </button>
       </div>
     </div>
   );
