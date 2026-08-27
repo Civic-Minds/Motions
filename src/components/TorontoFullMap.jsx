@@ -45,12 +45,12 @@ export default function TorontoFullMap({ geojson, wardActivity, wardSubtextById,
   function wardStyle(feature) {
     const id = extractWardId(feature.properties);
     const isHovered = id === hoveredWardId;
-    const isSaved = id === savedWardId;
+    const isActive = id === (hoveredWardId ?? savedWardId);
     return {
       color: '#004a99',
-      weight: isHovered || isSaved ? 2.5 : 1,
+      weight: isActive ? 2.5 : 1,
       fillColor: '#004a99',
-      fillOpacity: isHovered ? 0.28 : isSaved ? 0.18 : 0.06,
+      fillOpacity: isHovered ? 0.28 : isActive ? 0.18 : 0.06,
     };
   }
 

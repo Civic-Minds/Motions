@@ -14,6 +14,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 - **Election layout**: Removed extra spacing between the top cards and the ward candidate map.
 
+- **Ward map hover**: Temporarily highlights only the hovered ward instead of keeping the saved ward highlighted too.
+
 - **Homepage highlights**: Let current notable motions fill the highlight row first, with Ward Motions filling the remaining cards.
 
 - **Motion maps**: Added locations for the Fleet Street, Guildwood Parkway, Staines Road, Victoria Park Avenue, and Thora Avenue motions.
