@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Election resources**: Moved official election links below the City-wide explorer map so the map stays with the main discovery content.
+
 - **Councillor profiles**: Replaced the duplicate office-spend summary with a compact contact card.
 
 - **Election readiness**: Added a direct Elections menu link, shared ward selection, homepage civic update, and verified councillor election status so Toronto residents can prepare to vote.
