@@ -13,6 +13,9 @@ import { cn } from '../lib/utils';
 import { CivicCard, CivicCardFooter } from './ui/CivicCard';
 import { fetchWardBoundaries, extractWardId } from '../utils/ward';
 import { nameToSlug } from '../utils/slug';
+import { PageMeta } from './PageMeta';
+import { previewImage } from '../utils/meta';
+import ShareButton from './ShareButton';
 
 // Simple SVG map of a ward polygon from GeoJSON feature
 function WardMap({ feature }) {
@@ -90,9 +93,19 @@ export default function WardGrid({ motions }) {
     <div className="space-y-8 pb-20">
 
       {selectedWard && (
-        <h1 className="text-2xl font-bold text-slate-900">
-          Ward {selectedWard.id} · {selectedWard.name}
-        </h1>
+        <>
+          <PageMeta
+            title={`Ward ${selectedWard.id} · ${selectedWard.name} | Motions Toronto`}
+            description={`See motions and council activity for Ward ${selectedWard.id} · ${selectedWard.name}.`}
+            image={previewImage(`Ward ${selectedWard.id} · ${selectedWard.name}`, 'Motions Toronto')}
+          />
+          <div className="flex items-center justify-between gap-3">
+            <h1 className="text-2xl font-bold text-slate-900">
+              Ward {selectedWard.id} · {selectedWard.name}
+            </h1>
+            <ShareButton title={`Ward ${selectedWard.id} · ${selectedWard.name}`} />
+          </div>
+        </>
       )}
 
       {!selectedWard ? (

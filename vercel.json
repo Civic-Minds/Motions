@@ -3,5 +3,12 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "redirects": [{ "source": "/", "destination": "/toronto", "permanent": false }],
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "rewrites": [
+    {
+      "source": "/toronto/(.*)",
+      "has": [{ "type": "header", "key": "user-agent", "value": "(?i).*(twitterbot|facebookexternalhit|redditbot|linkedinbot|slackbot|discordbot).*" }],
+      "destination": "/api/preview?path=/toronto/$1"
+    },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }

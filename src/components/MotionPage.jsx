@@ -5,6 +5,9 @@ import { ExternalLink, ChevronDown, ChevronUp, ArrowLeft, FileText, Info } from 
 import { cn } from '../lib/utils';
 import { getCommittee, WARD_COUNCILLORS } from '../constants/data';
 import { committeeToSlug, nameToSlug } from '../utils/slug';
+import { PageMeta } from './PageMeta';
+import { previewImage } from '../utils/meta';
+import ShareButton from './ShareButton';
 
 const WardMotionMap = lazy(() => import('./WardMotionMap'));
 
@@ -291,6 +294,11 @@ export default function MotionPage({ motions = [] }) {
 
   return (
     <div className="max-w-5xl mx-auto py-2 px-4 sm:px-6 lg:px-8 relative">
+      <PageMeta
+        title={`${displayTitle} | Motions Toronto`}
+        description={motion.summary || `${motion.status} · ${committee}`}
+        image={previewImage(displayTitle, committee)}
+      />
 
       {/* Back Button (Desktop - Floating Left) */}
       <button
@@ -322,6 +330,7 @@ export default function MotionPage({ motions = [] }) {
           {motion.significance >= 60 && motion.significance < 90 && (
             <span className="text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full">Notable</span>
           )}
+          <ShareButton title={displayTitle} className="ml-auto" />
         </div>
 
         <h1 className="text-xl font-bold text-slate-900 leading-snug lg:w-4/5">{displayTitle}</h1>

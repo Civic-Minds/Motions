@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Sharing and SEO**: Added route-aware metadata, crawler previews, and share links for key civic pages.
+
 - **Homepage highlights**: Let current notable motions fill the highlight row first, with Ward Motions filling the remaining cards.
 
 - **Motion maps**: Added locations for the Fleet Street, Guildwood Parkway, Staines Road, Victoria Park Avenue, and Thora Avenue motions.

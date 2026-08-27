@@ -9,6 +9,9 @@ import { nameToSlug, slugToName } from '../utils/slug';
 import { COUNCILLOR_WARD } from '../utils/councillorWard';
 import { cn } from '../lib/utils';
 import MotionCardItem from './MotionCardItem';
+import { PageMeta } from './PageMeta';
+import { previewImage } from '../utils/meta';
+import ShareButton from './ShareButton';
 
 // ── Sub-component: profile header ─────────────────────────────────────────
 function ProfileHeader({ selected, ward, committees, isMyCouncillor, electionStatus }) {
@@ -408,6 +411,14 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
 
   return (
     <div className="pb-20">
+      <PageMeta
+        title={`${selected} | Motions Toronto`}
+        description={`See ${selected}'s voting record and council activity.`}
+        image={previewImage(selected, ward ? `Ward ${ward.id} · ${ward.name}` : 'Toronto City Council')}
+      />
+      <div className="flex justify-end mb-2">
+        <ShareButton title={selected} />
+      </div>
 
       {FORMER_MEMBERS[selected] && (
         <div className="mb-5 flex items-center gap-2.5 px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-500">

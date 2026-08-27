@@ -1,5 +1,4 @@
 import React, { useMemo, useState, useEffect, lazy, Suspense } from 'react';
-import { motion } from 'framer-motion';
 import { Calendar, MapPin, ExternalLink, Vote, Info, Clock, CheckCircle2, AlertCircle, User, Mail, Phone, ChevronRight, ChevronDown, Building2, GraduationCap } from 'lucide-react';
 import { WARD_COUNCILLORS } from '../constants/data';
 import { TORONTO_WARDS } from '../constants/wards';
@@ -9,6 +8,9 @@ import { cn } from '../lib/utils';
 import { useAppContext } from '../contexts/AppContext';
 import YourWardCard from './YourWardCard';
 import { CivicCard, CivicCardFooter, CivicPill, CivicSectionLabel } from './ui/CivicCard';
+import { PageMeta } from './PageMeta';
+import { previewImage } from '../utils/meta';
+import ShareButton from './ShareButton';
 
 const TorontoFullMap = lazy(() => import('./TorontoFullMap'));
 
@@ -111,6 +113,14 @@ export default function ElectionView() {
 
   return (
     <div className="flex flex-col space-y-4 pb-20">
+      <PageMeta
+        title="Toronto Election 2026 | Motions Toronto"
+        description="Review Toronto candidates, wards, voting dates, and registration information."
+        image={previewImage('Toronto Election 2026', 'Toronto municipal election')}
+      />
+      <div className="flex justify-end">
+        <ShareButton title="Toronto Election 2026" />
+      </div>
       {/* Election races */}
       <section className="order-7 space-y-4">
         
