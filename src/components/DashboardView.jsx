@@ -420,7 +420,10 @@ export default function DashboardView({ motions, meetings = [] }) {
     if (!savedWardId) return [];
     const usedIds = new Set([...followedHighlights.map(m => m.id), ...highlights.map(m => m.id)]);
     return [...primaryMotions]
-      .filter(m => String(m.ward) === String(savedWardId) && !usedIds.has(m.id))
+      .filter(m => (
+        String(m.ward) === String(savedWardId) ||
+        m.locations?.some(location => String(location.ward) === String(savedWardId))
+      ) && !usedIds.has(m.id))
       .sort((a, b) => new Date(b.date) - new Date(a.date))
       .slice(0, 3);
   }, [primaryMotions, savedWardId, followedHighlights, highlights]);

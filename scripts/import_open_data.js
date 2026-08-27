@@ -510,6 +510,7 @@ async function main() {
                 trivial: significance < 25,
                 significance,
                 ward: classifyWard(title),
+                scope: classifyWard(title) === 'City' ? 'citywide' : 'ward',
                 url: `https://secure.toronto.ca/council/agenda-item.do?item=${itemNum}`,
                 votes,
                 flags: computeFlags(votes, status, significance),
@@ -528,7 +529,7 @@ async function main() {
     // 2. summaries_cache.json (committed to git) — covers summary/keyAmounts only; protects local
     //    runs where no Blob download step exists. Applied unconditionally so it works even when
     //    motions.json is absent.
-    const PRESERVE = ['summary', 'keyAmounts', 'notabilityRank', 'mover', 'seconder', 'body', 'locations', 'backgroundFiles', 'declaredInterests'];
+    const PRESERVE = ['summary', 'keyAmounts', 'notabilityRank', 'mover', 'seconder', 'body', 'locations', 'scope', 'backgroundFiles', 'declaredInterests'];
     const CACHE_PATH = path.join(process.cwd(), 'scripts/cache/summaries_cache.json');
     const summariesCache = fs.existsSync(CACHE_PATH)
         ? JSON.parse(fs.readFileSync(CACHE_PATH, 'utf8'))

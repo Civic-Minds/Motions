@@ -111,7 +111,10 @@ export function getVotedWith(motions, memberName, minShared = 10) {
  */
 export function getWardActivityMetrics(motions) {
     return TORONTO_WARDS.map(ward => {
-        const wardMotions = motions.filter(m => m.ward === ward.id);
+        const wardMotions = motions.filter(m =>
+            String(m.ward) === String(ward.id) ||
+            m.locations?.some(location => String(location.ward) === String(ward.id))
+        );
         const impactCount = wardMotions.filter(m => !m.trivial).length;
         return {
             ...ward,

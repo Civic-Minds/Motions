@@ -1,9 +1,9 @@
 /**
  * assign_ward_locations.js
  *
- * Adds map points for motions that explicitly name one or more Toronto wards
- * but do not have a more precise address location. The point is the centroid
- * of the official ward boundary and is labelled as a ward, not an address.
+ * Labels address locations with their official Toronto ward. Also adds map
+ * points for motions that explicitly name one or more wards but do not have a
+ * more precise address location.
  */
 
 import fs from 'fs';
@@ -51,6 +51,23 @@ function featureCentroid(feature) {
     .sort((a, b) => b.area - a.area)[0];
 }
 
+function pointInRing([px, py], ring) {
+  let inside = false;
+  for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+    const [xi, yi] = ring[i];
+    const [xj, yj] = ring[j];
+    if ((yi > py) !== (yj > py) && px < ((xj - xi) * (py - yi)) / (yj - yi) + xi) inside = !inside;
+  }
+  return inside;
+}
+
+function pointInFeature([lng, lat], feature) {
+  const polygons = feature.geometry.type === 'Polygon'
+    ? [feature.geometry.coordinates]
+    : feature.geometry.coordinates;
+  return polygons.some(polygon => pointInRing([lng, lat], polygon[0]));
+}
+
 const motions = JSON.parse(fs.readFileSync(DATA_PATH, 'utf8'));
 const wards = JSON.parse(fs.readFileSync(WARDS_PATH, 'utf8'));
 const centroids = Object.fromEntries(
@@ -60,15 +77,33 @@ const centroids = Object.fromEntries(
   ])
 );
 
+let labelled = 0;
 let assigned = 0;
 for (const motion of motions) {
-  if (motion.parentId || motion.locations?.length) continue;
+  if (motion.parentId) continue;
+
+  if (motion.locations?.length) {
+    for (const location of motion.locations) {
+      if (location.ward || !Number.isFinite(location.lat) || !Number.isFinite(location.lng)) continue;
+      const feature = wards.features.find(candidate => pointInFeature([location.lng, location.lat], candidate));
+      const ward = feature && String(feature.properties.AREA_SHORT_CODE).replace(/^0+/, '');
+      if (ward && VALID_WARDS.has(ward)) {
+        location.ward = ward;
+        labelled++;
+      }
+    }
+    motion.scope = 'ward';
+    continue;
+  }
 
   const wardIds = [...motion.title.matchAll(WARD_RE)]
     .map(match => match[1])
     .filter(id => VALID_WARDS.has(id));
   WARD_RE.lastIndex = 0;
-  if (!wardIds.length) continue;
+  if (!wardIds.length) {
+    motion.scope = 'citywide';
+    continue;
+  }
 
   const uniqueWardIds = [...new Set(wardIds)];
   const locations = uniqueWardIds
@@ -81,11 +116,15 @@ for (const motion of motions) {
     }))
     .filter(Boolean);
 
-  if (!locations.length) continue;
+  if (!locations.length) {
+    motion.scope = 'citywide';
+    continue;
+  }
   motion.locations = locations;
+  motion.scope = 'ward';
   assigned++;
   console.log(`${motion.id} → ${uniqueWardIds.map(id => `Ward ${id}`).join(', ')}`);
 }
 
 fs.writeFileSync(DATA_PATH, JSON.stringify(motions, null, 2));
-console.log(`\nAssigned ward-level locations to ${assigned} motions.`);
+console.log(`\nLabelled ${labelled} address locations and assigned ward-level locations to ${assigned} motions.`);

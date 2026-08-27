@@ -62,6 +62,7 @@ export default function WardGrid({ motions }) {
   const [geoData, setGeoData] = useState(null);
   const [mapFullscreen, setMapFullscreen] = useState(false);
   const [wardMapFullscreen, setWardMapFullscreen] = useState(false);
+  const [showCitywide, setShowCitywide] = useState(false);
 
   const selectedWard = wardIdParam
     ? TORONTO_WARDS.find(w => w.id === wardIdParam) ?? null
@@ -76,7 +77,10 @@ export default function WardGrid({ motions }) {
   const wardMotions = useMemo(() => {
     if (!selectedWard) return [];
     return [...motions]
-      .filter(m => !m.parentId && m.ward === selectedWard.id)
+      .filter(m => !m.parentId && (
+        String(m.ward) === String(selectedWard.id) ||
+        m.locations?.some(location => String(location.ward) === String(selectedWard.id))
+      ))
       .sort((a, b) => {
         const dateDiff = new Date(b.date) - new Date(a.date);
         if (dateDiff !== 0) return dateDiff;
@@ -88,6 +92,10 @@ export default function WardGrid({ motions }) {
     if (!geoData || !selectedWard) return null;
     return geoData.features.find(f => extractWardId(f.properties) === selectedWard.id) ?? null;
   }, [geoData, selectedWard]);
+
+  const citywideMotions = useMemo(() => [...motions]
+    .filter(m => !m.parentId && (m.scope === 'citywide' || (!m.scope && m.ward === 'City')))
+    .sort((a, b) => new Date(b.date) - new Date(a.date)), [motions]);
 
   return (
     <div className="space-y-8 pb-20">
@@ -234,6 +242,42 @@ export default function WardGrid({ motions }) {
                   <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-[#004a99] shrink-0 mt-0.5 transition-colors" />
                 </motion.button>
               ))
+            )}
+
+            {citywideMotions.length > 0 && (
+              <div className="space-y-3 pt-4">
+                <button
+                  type="button"
+                  onClick={() => setShowCitywide(open => !open)}
+                  className="flex items-center justify-between w-full px-1 text-left"
+                >
+                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">
+                    Citywide motions ({citywideMotions.length.toLocaleString()})
+                  </span>
+                  <span className="text-xs font-semibold text-[#004a99]">{showCitywide ? 'Hide' : 'Show'}</span>
+                </button>
+                {showCitywide && citywideMotions.map((m, i) => (
+                  <motion.button
+                    key={`citywide-${m.id}`}
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: Math.min(i * 0.02, 0.3) }}
+                    onClick={() => navigate(`/motions/${m.id}`)}
+                    className="w-full text-left bg-white border border-slate-200 rounded-2xl p-4 flex items-start gap-3 hover:border-[#004a99]/40 hover:shadow-sm transition-all group"
+                  >
+                    <div className={cn("w-1 self-stretch rounded-full shrink-0", m.status === 'Adopted' ? 'bg-emerald-400' : 'bg-rose-400')} />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-2 leading-snug">{m.title}</p>
+                      <div className="flex items-center gap-2 mt-2 flex-wrap">
+                        <span className={cn("text-xs font-semibold px-2 py-0.5 rounded-full", m.status === 'Adopted' ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-700')}>{m.status}</span>
+                        <span className={cn("text-xs px-2 py-0.5 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>{m.topic}</span>
+                        <span className="text-xs text-slate-500 ml-auto">{m.date}</span>
+                      </div>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-[#004a99] shrink-0 mt-0.5 transition-colors" />
+                  </motion.button>
+                ))}
+              </div>
             )}
           </motion.div>
         </AnimatePresence>
