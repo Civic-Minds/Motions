@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Motion topic correction**: Reclassified CC42.2 from Parks to General so its highway-upload motion is not shown under the wrong topic.
+
 - **Ward motion links**: Made the Most Active card open that ward’s filtered motion feed and Total Motions open the full feed.
 
 - **Committee directory**: Presented boards and other meeting-only bodies as cards consistent with the committee grid.

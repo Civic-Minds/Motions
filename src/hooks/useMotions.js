@@ -1,6 +1,10 @@
 import { useState, useEffect, useMemo } from 'react';
 import { calculateTrivialityMetrics } from '../utils/analytics';
 
+const MOTION_TOPIC_OVERRIDES = {
+    'CC42.2': 'General',
+};
+
 /**
  * Custom hook to manage motions data and derived metrics.
  */
@@ -33,7 +37,11 @@ export function useMotions() {
                 ]);
 
                 if (isMounted) {
-                    setMotions(motionsData);
+                    setMotions(motionsData.map(motion => (
+                        MOTION_TOPIC_OVERRIDES[motion.id]
+                            ? { ...motion, topic: MOTION_TOPIC_OVERRIDES[motion.id] }
+                            : motion
+                    )));
                     setCouncillors(councillorsData);
                     setMeetings(meetingsData);
                     setLoading(false);
