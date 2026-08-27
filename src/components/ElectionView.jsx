@@ -23,6 +23,8 @@ const UNREACHABLE_CANDIDATE_DOMAINS = new Set([
   'mcdonald2026.ca', 'royward17.ca', 'tomforward13.com'
 ]);
 
+const candidateCountLabel = count => `${count.toLocaleString()} candidate${count === 1 ? '' : 's'}`;
+
 function candidateWebsite(candidate) {
   if (candidate.website) return candidate.website;
   const domain = candidate.email?.split('@')[1]?.toLowerCase();
@@ -113,7 +115,10 @@ export default function ElectionView() {
   const wardCandidateCounts = useMemo(() => {
     if (!candidateData) return null;
     return Object.fromEntries(
-      TORONTO_WARDS.map(ward => [ward.id, `${(candidateData.wards?.[ward.id] || []).length.toLocaleString()} candidates`])
+      TORONTO_WARDS.map(ward => {
+        const count = (candidateData.wards?.[ward.id] || []).length;
+        return [ward.id, candidateCountLabel(count)];
+      })
     );
   }, [candidateData]);
 

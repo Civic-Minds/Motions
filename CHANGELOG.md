@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Election map labels**: Corrected singular candidate counts so wards with one candidate no longer show “1 candidates.”
+
 - **Ward motion mapping**: Added ward-level map points for motions that name a specific ward without a street address.
 
 - **Councillor cards**: Removed the uninformative “General” topic label while retaining specific topic labels.
