@@ -100,6 +100,8 @@ for (const motion of motions) {
     .map(match => match[1])
     .filter(id => VALID_WARDS.has(id));
   WARD_RE.lastIndex = 0;
+  const classifiedWard = VALID_WARDS.has(String(motion.ward)) ? String(motion.ward) : null;
+  if (classifiedWard) wardIds.push(classifiedWard);
   if (!wardIds.length) {
     motion.scope = 'citywide';
     continue;

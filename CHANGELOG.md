@@ -30,6 +30,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 - **Citywide scope**: Keep explicitly citywide motions out of ward lists and maps even when their text mentions a location.
 
+- **Ward scope**: Preserve ward classifications inferred from ward names such as University–Rosedale when adding ward-level locations.
+
 
 - **Homepage highlights**: Let current notable motions fill the highlight row first, with Ward Motions filling the remaining cards.
 
