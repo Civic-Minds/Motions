@@ -41,10 +41,30 @@ const VERIFIED_WEBSITES_BY_EMAIL_DOMAIN = {
   'krissanveeras.ca': 'https://www.krissan4scarb.ca/',
 };
 
-function verifiedWebsite(email) {
+const VERIFIED_WEBSITES_BY_CANDIDATE_NAME = {
+  'Saima Babar': 'https://votebabar.ca/',
+  'Norman Hamilton': 'https://normanhamilton.ca/',
+  'Ted Opitz': 'https://tedopitz.ca/',
+  'Vincent Crisanti': 'https://pineapple-magnolia-ya9n.squarespace.com/about-vincent',
+  'Adam Pham': 'https://adampham.ca/',
+  'Conroy Irving': 'https://www.voteconroyirving.ca/',
+  'Amanda Coombs': 'https://voteamandacoombs.com/',
+  'Mike Colle': 'https://mikecolle2026.ca/',
+  'Enzo Torrone': 'https://www.ward8torrone.ca/',
+  'James Pasternak': 'https://www.jamespasternak.com/',
+  'Paul Nash': 'https://paulnash.ca/',
+  'Terri Hawkes': 'https://www.voteterrihawkes.ca/',
+  'Keenan Courtis': 'https://www.keenancourtis.ca/',
+  'Joe Cadeau': 'https://www.votejoecadeau.ca/',
+  'Tom Cai': 'https://www.tomforward13.com/',
+  'Victoria Davis': 'https://victoriaforcentre.ca/',
+};
+
+function verifiedWebsite(email, name) {
   const normalized = email?.trim().toLowerCase();
   return VERIFIED_WEBSITES_BY_EMAIL[normalized]
     ?? VERIFIED_WEBSITES_BY_EMAIL_DOMAIN[normalized?.split('@')[1]]
+    ?? VERIFIED_WEBSITES_BY_CANDIDATE_NAME[name]
     ?? null;
 }
 
@@ -87,7 +107,7 @@ async function scrapeCandidates() {
                 name,
                 email: cells[1].innerText.trim(),
                 phone: cells[2].innerText.trim(),
-                website: verifiedWebsite(cells[1].innerText.trim()),
+                website: verifiedWebsite(cells[1].innerText.trim(), name),
                 nominationDate: cells[4].innerText.trim(),
                 type: 'Mayor'
               });
@@ -116,7 +136,7 @@ async function scrapeCandidates() {
                 name,
                 email: cells[1].innerText.trim(),
                 phone: cells[2].innerText.trim(),
-                website: verifiedWebsite(cells[1].innerText.trim()),
+                website: verifiedWebsite(cells[1].innerText.trim(), name),
                 nominationDate: cells[4].innerText.trim(),
                 type: 'Councillor'
               });

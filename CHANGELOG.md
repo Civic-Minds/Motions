@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Candidate websites**: Added 16 more manually verified campaign sites, including candidates without campaign-domain email addresses.
+
 - **Candidate websites**: Added four more manually verified campaign sites to the election data refresh.
 
 - **Candidate websites**: Added only manually verified campaign URLs to refreshed candidate records and stopped treating email domains as websites.
