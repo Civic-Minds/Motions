@@ -9,7 +9,7 @@ import { TORONTO_WARDS } from '../constants/wards';
 import { getWardId } from '../utils/storage';
 import { cn } from '../lib/utils';
 
-export default function TorontoFullMap({ geojson, wardActivity, wardSubtextById, isFullscreen = false, onToggleFullscreen }) {
+export default function TorontoFullMap({ geojson, wardActivity, wardSubtextById, onWardSelect, isFullscreen = false, onToggleFullscreen }) {
   const navigate = useNavigate();
   const mapRef = useRef(null);
   const savedWardId = getWardId();
@@ -56,7 +56,7 @@ export default function TorontoFullMap({ geojson, wardActivity, wardSubtextById,
 
   function onEachFeature(feature, layer) {
     const wardId = extractWardId(feature.properties);
-    layer.on({ click: () => navigate(`/wards/${wardId}`) });
+    layer.on({ click: () => onWardSelect ? onWardSelect(wardId) : navigate(`/wards/${wardId}`) });
   }
 
   if (!geojson) return (
@@ -123,7 +123,7 @@ export default function TorontoFullMap({ geojson, wardActivity, wardSubtextById,
               <button
                 key={ward.id}
                 onMouseEnter={() => { setHoveredWardId(ward.id); flyToWard(ward.id); }}
-                onClick={() => navigate(`/wards/${ward.id}`)}
+                onClick={() => onWardSelect ? onWardSelect(ward.id) : navigate(`/wards/${ward.id}`)}
                 className={cn(
                   "shrink-0 w-36 text-left rounded-xl px-3 py-2 border transition-all",
                   isSaved

@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Election map filtering**: Clicking a ward on the Election page now filters the candidate list below it instead of navigating away.
+
 - **Motion header**: Removed the duplicate vote tally so the result appears only in the detailed vote section.
 
 - **Motion significance pill**: Changed regular Notable labels from amber to blue so they read as informational rather than warning states.

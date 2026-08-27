@@ -55,6 +55,7 @@ export default function ElectionView() {
   const [candidateData, setCandidateData] = useState(null);
   const [geoData, setGeoData] = useState(null);
   const [mapFullscreen, setMapFullscreen] = useState(false);
+  const [selectedWardId, setSelectedWardId] = useState(savedWardId || null);
 
   useEffect(() => {
     const blobBase = import.meta.env.VITE_BLOB_BASE_URL;
@@ -82,7 +83,18 @@ export default function ElectionView() {
     return candidateData.wards[savedWardId] || [];
   }, [candidateData, savedWardId]);
 
+  const selectedWard = useMemo(() =>
+    TORONTO_WARDS.find(w => w.id === selectedWardId),
+    [selectedWardId]
+  );
+
+  const selectedWardCandidates = useMemo(() => {
+    if (!candidateData || !selectedWardId) return [];
+    return candidateData.wards?.[selectedWardId] || [];
+  }, [candidateData, selectedWardId]);
+
   const councillorName = savedWardId ? WARD_COUNCILLORS[savedWardId] : null;
+  const selectedCouncillorName = selectedWardId ? WARD_COUNCILLORS[selectedWardId] : null;
 
   const wardCandidateCounts = useMemo(() => {
     if (!candidateData) return null;
@@ -229,22 +241,22 @@ export default function ElectionView() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">City Councillor</p>
-                    <h4 className="font-bold text-sm text-slate-900">{savedWard ? `Ward ${savedWard.id} · ${savedWard.name}` : 'Choose a ward first'}</h4>
+                <h4 className="font-bold text-sm text-slate-900">{selectedWard ? `Ward ${selectedWard.id} · ${selectedWard.name}` : 'Choose a ward first'}</h4>
                   </div>
                 </div>
-                {savedWard && councillorName && (
+                {selectedWard && selectedCouncillorName && (
                   <div className="flex items-center justify-between gap-3 rounded-xl bg-slate-50 border border-slate-200 px-3 py-2.5">
                     <div>
                       <p className="text-[9px] font-bold text-[#004a99] uppercase tracking-widest">Incumbent</p>
-                      <p className="text-sm font-bold text-slate-900">{councillorName}</p>
+                      <p className="text-sm font-bold text-slate-900">{selectedCouncillorName}</p>
                     </div>
-                    <Link to={`/councillors/${nameToSlug(councillorName)}`} className="text-xs font-semibold text-[#004a99] hover:underline">Legislative Record</Link>
+                    <Link to={`/councillors/${nameToSlug(selectedCouncillorName)}`} className="text-xs font-semibold text-[#004a99] hover:underline">Legislative Record</Link>
                   </div>
                 )}
                 <CandidateList
-                  candidates={wardCandidates}
-                  emptyText={savedWardId ? `No candidates registered for Ward ${savedWardId} yet.` : 'Choose a ward to see its candidates.'}
-                  incumbentName={councillorName}
+                  candidates={selectedWardCandidates}
+                  emptyText={selectedWardId ? `No candidates registered for Ward ${selectedWardId} yet.` : 'Choose a ward on the map to see its candidates.'}
+                  incumbentName={selectedCouncillorName}
                   incumbentClass="bg-blue-50 text-blue-700"
                 />
               </div>
@@ -366,6 +378,7 @@ export default function ElectionView() {
             geojson={geoData}
             wardActivity={null}
             wardSubtextById={wardCandidateCounts}
+            onWardSelect={setSelectedWardId}
             isFullscreen={mapFullscreen}
             onToggleFullscreen={() => setMapFullscreen(open => !open)}
           />
