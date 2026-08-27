@@ -489,7 +489,7 @@ export default function DashboardView({ motions, meetings = [] }) {
                   <span className={cn("text-[9px] font-semibold px-1.5 py-0.5 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>
                     {m.topic}
                   </span>
-                  <span className="text-[8px] font-bold text-[#004a99] uppercase truncate ml-1">{m.committee || getCommittee(m.id)}</span>
+                  <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-600 truncate ml-1">{m.committee || getCommittee(m.id)}</span>
                 </div>
                 <p className="text-xs font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-3 leading-snug flex-1">
                   {m.title}

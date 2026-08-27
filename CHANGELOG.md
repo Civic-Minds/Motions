@@ -16,6 +16,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 - **Ward map hover**: Temporarily highlights only the hovered ward instead of keeping the saved ward highlighted too.
 
+- **Following card**: Matched committee labels to the shared grey pill style used across motion cards.
+
 
 - **Homepage highlights**: Let current notable motions fill the highlight row first, with Ward Motions filling the remaining cards.
 
