@@ -263,7 +263,7 @@ export default function ElectionView() {
       </section>
 
       {/* Countdown Grid - Secondary */}
-      <div className="order-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+      <div className="order-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3">
         <YourWardCard />
         <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col justify-between h-full">
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Candidates in your ward</p>
