@@ -4,6 +4,40 @@ import path from 'path';
 
 const URL = 'https://www.toronto.ca/city-government/elections/candidate-list/';
 
+// These domains were manually checked as campaign sites. Email domains are
+// never inferred as websites unless they appear in this allowlist.
+const VERIFIED_WEBSITES_BY_EMAIL_DOMAIN = {
+  'bradford26.ca': 'https://bradford26.ca/',
+  'oliviachow.ca': 'https://www.oliviachow.ca/',
+  'deville2026.ca': 'https://www.deville2026.ca/',
+  'odessaformayor.ca': 'https://www.odessaformayor.ca/',
+  'sanders4mayor.ca': 'https://sanders4mayor.ca/',
+  'alaaadib.ca': 'https://www.alaaadib.ca/',
+  'jenalexander.ca': 'https://jenalexander.ca/',
+  'nadiaguerrera.ca': 'https://nadiaguerrera.ca/',
+  'votedebbieking.ca': 'https://votedebbieking.ca/',
+  'dianachanmcnally.ca': 'https://www.dianachanmcnally.ca/',
+  'bridgetogundipe.ca': 'https://www.bridgetogundipe.ca/',
+  'vanessaraponi.ca': 'https://vanessaraponi.ca/',
+  'nekpenobasogie.ca': 'https://nekpenobasogie.ca/',
+  'chiarapadovani.ca': 'https://www.chiarapadovani.ca/',
+  'gabeforunirose.ca': 'https://gabeforunirose.ca/',
+  'danafisher.ca': 'https://www.danafisher.ca/',
+  'aliceli.ca': 'https://www.aliceli.ca/',
+  'voteyoon.ca': 'https://www.voteyoon.ca/',
+  'votecurran.ca': 'https://votecurran.ca/',
+  'nickiward.ca': 'https://www.nickiward.ca/',
+  'sabrinazuniga.ca': 'https://sabrinazuniga.ca/',
+  'voteardeshir.ca': 'https://voteardeshir.ca/',
+  'adamsmithward19.ca': 'https://adamsmithward19.ca/',
+  'jennieworden.ca': 'https://www.jennieworden.ca/',
+  'krissanveeras.ca': 'https://www.krissan4scarb.ca/',
+};
+
+function verifiedWebsite(email) {
+  return VERIFIED_WEBSITES_BY_EMAIL_DOMAIN[email?.split('@')[1]?.toLowerCase()] ?? null;
+}
+
 async function scrapeCandidates() {
   console.log('Launching browser to scrape candidates...');
   const browser = await chromium.launch();
@@ -43,6 +77,7 @@ async function scrapeCandidates() {
                 name,
                 email: cells[1].innerText.trim(),
                 phone: cells[2].innerText.trim(),
+                website: verifiedWebsite(cells[1].innerText.trim()),
                 nominationDate: cells[4].innerText.trim(),
                 type: 'Mayor'
               });
@@ -71,6 +106,7 @@ async function scrapeCandidates() {
                 name,
                 email: cells[1].innerText.trim(),
                 phone: cells[2].innerText.trim(),
+                website: verifiedWebsite(cells[1].innerText.trim()),
                 nominationDate: cells[4].innerText.trim(),
                 type: 'Councillor'
               });
