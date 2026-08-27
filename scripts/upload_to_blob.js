@@ -10,6 +10,10 @@ import { put } from '@vercel/blob';
 import fs from 'fs';
 import path from 'path';
 
+// Local runs can use the repo's ignored .env; CI continues to provide secrets
+// through the workflow environment.
+try { process.loadEnvFile?.('.env'); } catch {}
+
 const DATA_FILES = ['motions.json', 'meetings.json', 'councillors.json', 'candidates.json', 'tenure.json', 'expenses.json', 'wards.geojson'];
 const CACHE_FILES = ['summaries_cache.json', 'elo_scores.json', 'notability_cache.json'];
 
