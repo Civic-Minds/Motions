@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Election map heading**: Simplified the map section to “Candidates by ward” and removed redundant update metadata.
+
 - **Election page order**: Moved the 2026 candidate lists below the City-wide explorer map.
 
 - **Shared card footers**: Centralized Election card footer alignment so link placement stays consistent across the shared card system.

@@ -353,18 +353,12 @@ export default function ElectionView() {
         </div>
       </section>
 
-      {/* City-wide explorer */}
+      {/* Candidates by ward */}
       <section className="order-6 space-y-4 pt-8 border-t border-slate-100">
         <div className="flex items-end justify-between px-2">
           <div className="space-y-1">
-            <h3 className="text-lg font-bold text-slate-900">City-wide explorer</h3>
-            <p className="text-sm text-slate-400">Browse candidates across all 25 Toronto wards</p>
+            <h3 className="text-lg font-bold text-slate-900">Candidates by ward</h3>
           </div>
-          {candidateData && (
-            <p className="text-[10px] font-bold text-slate-300 uppercase tracking-widest">
-              Updated: {new Date(candidateData.updatedAt).toLocaleDateString()}
-            </p>
-          )}
         </div>
 
         <Suspense fallback={<div className="w-full h-[420px] rounded-2xl bg-slate-100 animate-pulse border border-slate-200" />}>
