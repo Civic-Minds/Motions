@@ -264,84 +264,34 @@ function DashboardFilterContent({ filters, dispatch, committees, years, sortedCo
 }
 
 // ── Sub-component: motion list + load more ─────────────────────────────────
-function MotionList({ visibleMotions, sortedCount, visibleCount, onLoadMore, filters, dispatch, committees, years }) {
+function MotionList({ visibleMotions, sortedCount, visibleCount, onLoadMore, filters, dispatch, committees, years, savedCouncillor, lastMeeting }) {
+  const activeFilterCount = filters.topics.length + filters.committees.length + filters.voteTypes.length + filters.years.length
+    + Number(filters.showNotableOnly) + Number(filters.showMyWard) + Number(filters.showLastMeeting) + Number(filters.showFollowingOnly);
+
   return (
     <div className="space-y-4 min-w-0">
 
       {/* Mobile filters */}
-      <div className="lg:hidden flex flex-wrap gap-2">
-        {['All', ...TOPICS].map(topic => (
-          <button
-            key={topic}
-            onClick={() => topic === 'All' ? dispatch({ type: 'CLEAR_TOPICS' }) : dispatch({ type: 'TOGGLE_TOPIC', topic })}
-            className={cn(
-              "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-all border",
-              (topic === 'All' && filters.topics.length === 0) || filters.topics.includes(topic)
-                ? "bg-[#004a99] text-white border-[#004a99]"
-                : "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100"
-            )}
-          >
-            {topic !== 'All' && (
-              <span className={cn("w-1.5 h-1.5 rounded-full", filters.topics.includes(topic) ? 'bg-white/60' : TOPIC_DOT[topic])} />
-            )}
-            {topic === 'All' ? 'All Topics' : topic}
-          </button>
-        ))}
-        {VOTE_TYPES.filter(t => t.value !== 'All').map(({ label, value }) => (
-          <button
-            key={value}
-            onClick={() => dispatch({ type: 'TOGGLE_VOTE_TYPE', voteType: value })}
-            className={cn(
-              "px-3 py-1.5 rounded-full text-sm font-medium border transition-all",
-              filters.voteTypes.includes(value)
-                ? "bg-[#004a99] text-white border-[#004a99]"
-                : "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100"
-            )}
-          >
-            {label}
-          </button>
-        ))}
-        {committees.map(c => (
-          <button
-            key={c}
-            onClick={() => filters.committees.includes(c) ? dispatch({ type: 'REMOVE_COMMITTEE', committee: c }) : dispatch({ type: 'ADD_COMMITTEE', committee: c })}
-            className={cn(
-              "px-3 py-1.5 rounded-full text-sm font-medium border transition-all",
-              filters.committees.includes(c)
-                ? "bg-[#004a99] text-white border-[#004a99]"
-                : "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100"
-            )}
-          >
-            {c}
-          </button>
-        ))}
-        {years.map(y => (
-          <button
-            key={y}
-            onClick={() => dispatch({ type: 'TOGGLE_YEAR', year: y })}
-            className={cn(
-              "px-3 py-1.5 rounded-full text-sm font-medium border transition-all",
-              filters.years.includes(y)
-                ? "bg-[#004a99] text-white border-[#004a99]"
-                : "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100"
-            )}
-          >
-            {y}
-          </button>
-        ))}
-        <button
-          onClick={() => dispatch({ type: 'TOGGLE_NOTABLE' })}
-          className={cn(
-            "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium border transition-all",
-            filters.showNotableOnly
-              ? "bg-amber-50 text-amber-700 border-amber-200"
-              : "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100"
-          )}
-        >
-          <AlertCircle className="w-3.5 h-3.5" />
-          Notable
-        </button>
-      </div>
+      <details className="lg:hidden bg-white border border-slate-200 rounded-2xl overflow-hidden group">
+        <summary className="flex items-center justify-between px-4 py-3 cursor-pointer list-none text-sm font-semibold text-slate-700">
+          <span>Filter motions</span>
+          <span className="flex items-center gap-2 text-xs font-medium text-slate-500">
+            {activeFilterCount > 0 && `${activeFilterCount} applied`}
+            <span className="text-slate-400 transition-transform group-open:rotate-180">⌄</span>
+          </span>
+        </summary>
+        <div className="border-t border-slate-100 p-3 space-y-3">
+          <DashboardFilterContent
+            filters={filters}
+            dispatch={dispatch}
+            committees={committees}
+            years={years}
+            sortedCount={sortedCount}
+            savedCouncillor={savedCouncillor}
+            lastMeeting={lastMeeting}
+          />
+        </div>
+      </details>
 
       <div className="space-y-2">
         {visibleMotions.map((m, i) => (
@@ -689,6 +639,8 @@ export default function DashboardView({ motions, meetings = [] }) {
           dispatch={dispatch}
           committees={committees}
           years={years}
+          savedCouncillor={savedCouncillor}
+          lastMeeting={lastMeeting}
         />
 
         {/* Toronto mini-map — click navigates to /wards */}
