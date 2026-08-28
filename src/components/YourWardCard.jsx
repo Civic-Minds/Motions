@@ -6,6 +6,7 @@ import { WARD_COUNCILLORS } from '../constants/data';
 import { TORONTO_WARDS } from '../constants/wards';
 import { nameToSlug } from '../utils/slug';
 import { useAppContext } from '../contexts/AppContext';
+import { CivicCard } from './ui/CivicCard';
 
 export default function YourWardCard() {
   const navigate = useNavigate();
@@ -46,7 +47,7 @@ export default function YourWardCard() {
 
   if (!wardId) {
     return (
-      <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col gap-4 h-full">
+      <CivicCard className="gap-4 h-full">
         <div className="flex items-center gap-3">
           <div className="w-7 h-7 rounded-lg bg-[#004a99]/10 flex items-center justify-center shrink-0">
             <MapPin className="w-3.5 h-3.5 text-[#004a99]" />
@@ -70,13 +71,14 @@ export default function YourWardCard() {
             <><MapPin className="w-3.5 h-3.5 text-[#004a99] group-hover:scale-110 transition-transform" /> <span>Find my ward</span></>
           )}
         </button>
-      </div>
+      </CivicCard>
     );
   }
 
   return (
     <AnimatePresence>
-      <motion.div
+      <CivicCard
+        as={motion.div}
         data-testid="your-ward-card"
         initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
@@ -90,7 +92,7 @@ export default function YourWardCard() {
         tabIndex={0}
         role="button"
         aria-label={`Ward ${wardId}${ward?.name ? ` - ${ward.name}` : ''}. Councillor ${councillorName || ''}. Click to view ward motions.`}
-        className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col gap-3 h-full w-full text-left hover:border-[#004a99]/40 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#004a99] transition-all cursor-pointer"
+        className="gap-3 h-full w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#004a99] cursor-pointer"
       >
         {/* Top row */}
         <div className="flex items-center justify-between gap-1">
@@ -124,7 +126,7 @@ export default function YourWardCard() {
           )}
         </div>
 
-      </motion.div>
+      </CivicCard>
     </AnimatePresence>
   );
 }

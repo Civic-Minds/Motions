@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Card consistency**: Reused the shared card component across homepage, councillor stats, and ward cards to keep their styling aligned.
+
 - **Navigation**: Fixed a missing link import that caused the app to render a blank screen.
 
 - **Data page**: Added a Data & methodology page with source links, classification notes, update information, and the project disclaimer.

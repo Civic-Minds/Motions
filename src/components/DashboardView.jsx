@@ -11,7 +11,7 @@ import { useAppContext } from '../contexts/AppContext';
 import YourWardCard from './YourWardCard';
 import MotionCardItem from './MotionCardItem';
 import FilterSidebar from './FilterSidebar';
-import { CivicCard, CivicPill } from './ui/CivicCard';
+import { CivicCard, CivicCardFooter, CivicPill } from './ui/CivicCard';
 
 const TorontoMiniMap = lazy(() => import('./TorontoMiniMap'));
 
@@ -496,11 +496,12 @@ export default function DashboardView({ motions, meetings = [] }) {
                 <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Your Following</p>
                 <Star className="w-3 h-3 text-amber-500 fill-current shrink-0" />
               </div>
-              <motion.button
+              <CivicCard
+                as={motion.button}
                 initial={{ opacity: 0, scale: 0.97 }}
                 animate={{ opacity: 1, scale: 1 }}
                 onClick={() => navigate(`/motions/${m.id}`)}
-                className="bg-white border border-slate-200 rounded-2xl p-4 text-left group flex flex-col gap-2 hover:border-[#004a99]/40 hover:shadow-sm transition-all flex-1"
+                className="flex-1"
               >
                 <div className="flex items-center justify-between gap-1">
                   <span className={cn("text-[9px] font-semibold px-1.5 py-0.5 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>
@@ -511,11 +512,11 @@ export default function DashboardView({ motions, meetings = [] }) {
                 <p className="text-xs font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-3 leading-snug flex-1">
                   {m.title}
                 </p>
-                <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
+                <CivicCardFooter>
                   <span className="text-[9px] text-slate-500">{m.date.split(',')[0]}</span>
                   <span className="text-[9px] font-semibold text-[#004a99]">See more</span>
-                </div>
-              </motion.button>
+                </CivicCardFooter>
+              </CivicCard>
             </div>
           );
         })() : (
@@ -558,13 +559,14 @@ export default function DashboardView({ motions, meetings = [] }) {
               const noCount  = Object.values(m.votes ?? {}).filter(v => v === 'NO').length;
               const total    = yesCount + noCount;
               return (
-                <motion.button
+                <CivicCard
+                  as={motion.button}
                   key={m.id}
                   initial={{ opacity: 0, scale: 0.97 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: i * 0.04 }}
                   onClick={() => navigate(`/motions/${m.id}`)}
-                  className="bg-white border border-slate-200 rounded-2xl p-4 text-left group flex flex-col gap-2 hover:border-[#004a99]/40 hover:shadow-sm transition-all"
+                  className=""
                 >
                   <div className="flex items-center justify-between gap-1">
                     <span className={cn("text-[9px] font-semibold px-1.5 py-0.5 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>
@@ -581,11 +583,11 @@ export default function DashboardView({ motions, meetings = [] }) {
                   <p className="text-xs font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-3 leading-snug flex-1" title={m.title}>
                     {m.title}
                   </p>
-                  <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
+                  <CivicCardFooter>
                     <span className="text-[9px] text-slate-500">{m.date.split(',')[0]}</span>
                     <span className="text-[9px] font-semibold text-[#004a99] group-hover:underline">See more</span>
-                  </div>
-                </motion.button>
+                  </CivicCardFooter>
+                </CivicCard>
               );
             })}
           </div>
