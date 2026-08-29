@@ -20,6 +20,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Sharing and SEO**: Added route-aware metadata, crawler previews, share links, and a local-mobile sharing fallback.
 
 ### Changed
+- **Election resources**: Compact the official-resource cards to match the rest of the site and reduce unnecessary whitespace.
 - **Election candidate lists**: Reduced row and container spacing so long mayor and trustee lists show more candidates without excessive whitespace.
 - **Ward discovery card**: Matched the no-ward card to the homepage card layout while keeping location detection and manual selection available.
 - **Homepage highlights**: Always fills the no-ward highlight row with the Election card and three motion cards.

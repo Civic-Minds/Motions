@@ -502,18 +502,18 @@ export default function ElectionView() {
       </section>
 
       {/* Resources List */}
-      <section className="order-8 space-y-6">
+      <section className="order-8 space-y-3">
         <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-wide px-1">Official election resources</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <Link
             to="/election/how-to-vote"
-            className="group p-4 bg-white border border-slate-200 rounded-2xl hover:border-[#004a99]/40 hover:shadow-sm transition-all flex justify-between items-start gap-4"
+            className="group min-h-[88px] p-3 bg-white border border-slate-200 rounded-2xl hover:border-[#004a99]/40 hover:shadow-sm transition-all flex justify-between items-center gap-3"
           >
             <div className="space-y-1">
-              <p className="font-bold text-slate-900 group-hover:text-blue-600 transition-colors">How to vote</p>
-              <p className="text-sm text-slate-500 leading-snug">Where to vote, when to vote, what to bring, and your rights.</p>
+              <p className="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">How to vote</p>
+              <p className="text-xs text-slate-500 leading-snug">Where to vote, when to vote, what to bring, and your rights.</p>
             </div>
-            <ExternalLink className="w-4 h-4 text-slate-300 group-hover:text-[#004a99] mt-1 transition-colors" />
+            <ExternalLink className="w-4 h-4 text-slate-300 group-hover:text-[#004a99] shrink-0 transition-colors" />
           </Link>
           {[
             { label: 'Toronto Elections (Official)', url: 'https://www.toronto.ca/city-government/elections/', description: 'Official source for all voting information, dates, and results.' },
@@ -528,13 +528,13 @@ export default function ElectionView() {
               href={item.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group p-4 bg-white border border-slate-200 rounded-2xl hover:border-[#004a99]/40 hover:shadow-sm transition-all flex justify-between items-start gap-4"
+              className="group min-h-[88px] p-3 bg-white border border-slate-200 rounded-2xl hover:border-[#004a99]/40 hover:shadow-sm transition-all flex justify-between items-center gap-3"
             >
               <div className="space-y-1">
-                <p className="font-bold text-slate-900 group-hover:text-blue-600 transition-colors">{item.label}</p>
-                <p className="text-sm text-slate-500 leading-snug">{item.description}</p>
+                <p className="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">{item.label}</p>
+                <p className="text-xs text-slate-500 leading-snug">{item.description}</p>
               </div>
-              <ExternalLink className="w-4 h-4 text-slate-300 group-hover:text-[#004a99] mt-1 transition-colors" />
+              <ExternalLink className="w-4 h-4 text-slate-300 group-hover:text-[#004a99] shrink-0 transition-colors" />
             </a>
           ))}
         </div>
