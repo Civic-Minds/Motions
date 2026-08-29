@@ -28,7 +28,7 @@ export default function VotingGuide() {
         <Link to="/election" className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 transition-colors hover:text-slate-900">
           <ArrowLeft className="h-4 w-4" /> Back to election
         </Link>
-        <CivicSectionLabel>VOTING GUIDE</CivicSectionLabel>
+        <CivicSectionLabel>NON-PARTISAN GUIDE</CivicSectionLabel>
         <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">How to vote</h1>
         <p className="max-w-2xl text-base text-slate-500 sm:text-lg">
           The basic information you need to vote in Toronto’s 2026 municipal election.

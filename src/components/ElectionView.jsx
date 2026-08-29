@@ -299,7 +299,7 @@ export default function ElectionView() {
                   </div>
                 </div>
                 <CivicCardFooter>
-                  <span className="text-[9px] text-slate-500">registered candidates</span>
+                  <span className="text-[9px] text-slate-500">candidates</span>
                   <Link to="#candidates" className="text-[9px] font-semibold text-[#004a99]">See more</Link>
                 </CivicCardFooter>
               </CivicCard>
