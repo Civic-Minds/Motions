@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Mobile motion header**: Corrected the Back label baseline so it aligns with the status pill.
+
 - **Mobile header spacing**: Moved the search and menu controls closer to the right edge on phones.
 
 - **Mobile homepage order**: Shows 10 motions first and moves the shared Coming Up card below the feed on phones.
