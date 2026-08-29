@@ -29,8 +29,13 @@ export default function WardMotionMap({ wardFeature, motions, isFullscreen = fal
 
   useEffect(() => {
     if (!isFullscreen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
     const frame = requestAnimationFrame(() => mapRef.current?.invalidateSize());
-    return () => cancelAnimationFrame(frame);
+    return () => {
+      cancelAnimationFrame(frame);
+      document.body.style.overflow = previousOverflow;
+    };
   }, [isFullscreen]);
 
   // Motions with location data
@@ -40,7 +45,7 @@ export default function WardMotionMap({ wardFeature, motions, isFullscreen = fal
 
   return (
     <div className={isFullscreen
-      ? 'fixed inset-0 z-[60] w-screen h-screen overflow-hidden bg-white'
+      ? 'fixed inset-0 z-[70] w-screen h-screen overflow-hidden bg-white'
       : 'relative w-full h-72 rounded-2xl overflow-hidden border border-slate-200'}
     >
       <MapContainer
@@ -49,7 +54,7 @@ export default function WardMotionMap({ wardFeature, motions, isFullscreen = fal
         zoom={12}
         className="w-full h-full z-0"
         zoomControl={true}
-        scrollWheelZoom={false}
+        scrollWheelZoom={isFullscreen}
       >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -99,7 +104,7 @@ export default function WardMotionMap({ wardFeature, motions, isFullscreen = fal
           onClick={onToggleFullscreen}
           aria-label={isFullscreen ? 'Close fullscreen map' : 'View map fullscreen'}
           title={isFullscreen ? 'Close fullscreen map' : 'View map fullscreen'}
-          className="absolute top-3 right-3 z-[500] flex items-center justify-center w-9 h-9 rounded-xl bg-white/95 border border-slate-200 text-slate-600 shadow-sm hover:text-[#004a99] hover:border-[#004a99]/40 transition-colors"
+          className="absolute right-4 top-4 z-[1000] flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white/95 text-slate-600 shadow-md hover:border-[#004a99]/40 hover:text-[#004a99] transition-colors"
         >
           {isFullscreen ? <X className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
         </button>

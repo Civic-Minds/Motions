@@ -1,5 +1,5 @@
 import { getWardId } from '../utils/storage';
-import React, { lazy, Suspense, useState, useMemo } from 'react';
+import React, { lazy, Suspense, useState, useMemo, useEffect } from 'react';
 import { Link, useParams, useNavigate, Navigate } from 'react-router-dom';
 import { ExternalLink, ChevronDown, ChevronUp, ArrowLeft, FileText, Info } from 'lucide-react';
 import { cn } from '../lib/utils';
@@ -254,6 +254,28 @@ export default function MotionPage({ motions = [] }) {
 function MotionDetail({ motions, motion, motionId }) {
   const navigate = useNavigate();
   const [mapFullscreen, setMapFullscreen] = useState(false);
+  const [mapReady, setMapReady] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    const revealMap = () => {
+      if (!cancelled) setMapReady(true);
+    };
+
+    if ('requestIdleCallback' in window) {
+      const idleId = window.requestIdleCallback(revealMap, { timeout: 1200 });
+      return () => {
+        cancelled = true;
+        window.cancelIdleCallback(idleId);
+      };
+    }
+
+    const timeoutId = window.setTimeout(revealMap, 250);
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timeoutId);
+    };
+  }, [motionId]);
 
   const subEntries = useMemo(
     () => motions.filter(m => m.parentId === motionId),
@@ -438,13 +460,17 @@ function MotionDetail({ motions, motion, motionId }) {
           {motion.locations?.length > 0 && (
             <div className="space-y-2">
               <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest px-1">Locations</p>
-              <Suspense fallback={<div className="w-full h-72 rounded-2xl bg-slate-100 animate-pulse" />}>
-                <WardMotionMap
-                  motions={[motion]}
-                  isFullscreen={mapFullscreen}
-                  onToggleFullscreen={() => setMapFullscreen(open => !open)}
-                />
-              </Suspense>
+              {mapReady ? (
+                <Suspense fallback={<div className="w-full h-72 rounded-2xl bg-slate-100 animate-pulse" />}>
+                  <WardMotionMap
+                    motions={[motion]}
+                    isFullscreen={mapFullscreen}
+                    onToggleFullscreen={() => setMapFullscreen(open => !open)}
+                  />
+                </Suspense>
+              ) : (
+                <div className="w-full h-72 rounded-2xl bg-slate-100 animate-pulse" aria-label="Loading map" />
+              )}
             </div>
           )}
 

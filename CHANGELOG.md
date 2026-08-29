@@ -28,6 +28,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Motion topics**: Removed the uninformative General label from councillor cards and prevented partial matches such as Parkway from producing incorrect Parks tags.
 - **Motion navigation**: Made council and committee labels link to their meeting pages.
 - **Motion detail**: Removed repeated vote totals, aligned summary and document cards, and reduced the header’s vertical footprint.
+- **Motion maps**: Defer map mounting until the main motion content has rendered; fullscreen maps lock page scrolling, expose a persistent close control, and allow map zooming.
 - **Councillor profiles**: Replaced duplicate office-spend information with contact details and standardized mayor and councillor records as Voting Record.
 - **Councillor voting records**: Added Committee, Year, Vote, Category, and followed-committee filters using the shared sidebar on desktop and a mobile panel.
 - **Dashboard layout**: Let the filter sidebar and map fill the available viewport height while the motion list scrolls independently.
