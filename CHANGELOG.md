@@ -8,7 +8,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Added
 - **Election experience**: Added the Toronto Election page, shared ward selection, candidate counts, registered candidate lists, voting dates, polling-place guidance, map exploration, and election sharing.
-- **Voting guide**: Added a practical, non-partisan guide covering voting places, dates, registration, identification, accessibility, and voter rights, labeled clearly as non-partisan.
+- **Voting guide**: Added a practical, non-partisan guide covering voting places, dates, registration, identification, accessibility, and voter rights, with direct non-partisan guide links from the Election page.
 - **Candidate websites**: Added manually verified campaign website links while retaining available contact information.
 - **Data & methodology**: Added a page explaining sources, updates, topic classification, geographic coverage, and limitations.
 - **Site footer**: Added compact navigation, data-source, project, and attribution links across the site.
