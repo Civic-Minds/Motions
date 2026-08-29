@@ -72,8 +72,8 @@ function TrusteeSection({ candidateData, wardId }) {
     <section className="order-7 space-y-3">
       <div className="flex items-end justify-between gap-3 px-1">
         <div>
-          <CivicSectionLabel className="px-0">School board trustee</CivicSectionLabel>
-          <p className="mt-1 text-xs text-slate-500">Trustee wards are different from city wards. Choose your school board to see the applicable race.</p>
+          <CivicSectionLabel className="px-0">Trustee candidates</CivicSectionLabel>
+          <p className="mt-1 text-xs text-slate-500">Choose a school board to see its trustee ward and candidates.</p>
         </div>
         <a href="https://www.toronto.ca/city-government/elections/voter-information/myvote/" target="_blank" rel="noopener noreferrer" className="shrink-0 text-xs font-semibold text-[#004a99] hover:underline">Confirm with MyVote ↗</a>
       </div>
@@ -110,7 +110,8 @@ export default function ElectionView() {
 
   useEffect(() => {
     const blobBase = import.meta.env.VITE_BLOB_BASE_URL;
-    fetch(blobBase ? `${blobBase}/candidates.json` : '/data/candidates.json')
+    const url = import.meta.env.DEV || !blobBase ? '/data/candidates.json' : `${blobBase}/candidates.json`;
+    fetch(url)
       .then(res => res.json())
       .then(data => setCandidateData(data))
       .catch(err => console.error('Failed to load candidates:', err));

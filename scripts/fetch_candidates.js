@@ -107,7 +107,8 @@ async function scrapeCandidates() {
       const results = {
         mayor: [],
         wards: {},
-        trustees: {}
+        trustees: {},
+        withdrawn: []
       };
 
       // 1. Scrape Mayor
@@ -204,6 +205,25 @@ async function scrapeCandidates() {
         });
         results.trustees[board] = boardWards;
       });
+
+      // Keep withdrawals separately: a candidate can withdraw from one race
+      // and file in another, as with a councillor changing city wards.
+      document.querySelectorAll('#withdrawnCandidatesDT tbody tr').forEach(row => {
+        const cells = row.querySelectorAll('td');
+        if (cells.length < 5) return;
+        const nameRaw = cells[0].innerText.trim();
+        const office = cells[1].innerText.trim();
+        const wardRaw = cells[2].innerText.trim();
+        const parts = nameRaw.split(',').map(p => p.trim());
+        const name = parts.length === 2 ? `${parts[1]} ${parts[0]}` : nameRaw;
+        results.withdrawn.push({
+          name,
+          office,
+          wardId: wardRaw.match(/^(\d+)/)?.[1] || null,
+          withdrawalDate: cells[3].innerText.trim(),
+          contact: cells[5]?.innerText.trim() || ''
+        });
+      });
       
       return results;
     }, {
@@ -212,9 +232,37 @@ async function scrapeCandidates() {
       websitesByCandidateName: VERIFIED_WEBSITES_BY_CANDIDATE_NAME
     });
 
-    candidates.mayor = data.mayor;
-    candidates.wards = data.wards;
-    candidates.trustees = data.trustees;
+    candidates.withdrawn = data.withdrawn;
+
+    const normalizeName = name => name.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const withdrawnKeys = new Set(data.withdrawn.map(item =>
+      `${normalizeName(item.name)}|${item.office}|${item.wardId || ''}`
+    ));
+    const isWithdrawn = (candidate, office, wardId = '') =>
+      withdrawnKeys.has(`${normalizeName(candidate.name)}|${office}|${wardId}`);
+
+    candidates.mayor = data.mayor.filter(candidate => !isWithdrawn(candidate, 'Mayor'));
+    candidates.wards = Object.fromEntries(
+      Object.entries(data.wards).map(([wardId, wardCandidates]) => [
+        wardId,
+        wardCandidates.filter(candidate => !isWithdrawn(candidate, 'Councillor', wardId))
+      ])
+    );
+    const trusteeOfficeNames = {
+      tdsb: 'Toronto District School Board',
+      tdcsb: 'Toronto Catholic District School Board',
+      csv: 'Conseil scolaire Viamonde',
+      cscm: 'Conseil scolaire catholique MonAvenir'
+    };
+    candidates.trustees = Object.fromEntries(
+      Object.entries(data.trustees).map(([board, wards]) => [
+        board,
+        Object.fromEntries(Object.entries(wards).map(([wardId, wardCandidates]) => [
+          wardId,
+          wardCandidates.filter(candidate => !isWithdrawn(candidate, trusteeOfficeNames[board], wardId))
+        ]))
+      ])
+    );
 
     const dataDir = path.join(process.cwd(), 'public/data');
     if (!fs.existsSync(dataDir)) {

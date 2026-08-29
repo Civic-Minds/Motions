@@ -46,13 +46,17 @@ function ProfileHeader({ selected, ward, committees, isMyCouncillor, electionSta
               "inline-flex items-center gap-1.5 mt-2 text-[10px] font-bold px-2.5 py-1 rounded-full transition-colors",
               electionStatus.type === 'filed'
                 ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100'
-                : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
+                : electionStatus.type === 'withdrawn'
+                  ? 'bg-amber-50 text-amber-700 hover:bg-amber-100'
+                  : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
             )}
           >
             <Vote className="w-3 h-3" />
             {electionStatus.type === 'filed'
               ? electionStatus.office === 'Mayor' ? 'Filed to run for Mayor in 2026' : electionStatus.wardId === ward?.id ? 'Filed to run again in 2026' : `Filed to run in Ward ${electionStatus.wardId}`
-              : 'Not listed as a 2026 candidate'}
+              : electionStatus.type === 'withdrawn'
+                ? electionStatus.filedWard ? `Withdrew from Ward ${electionStatus.withdrawnWard}; running in Ward ${electionStatus.filedWard}` : `Withdrew from Ward ${electionStatus.withdrawnWard}`
+                : 'Not listed as a 2026 candidate'}
           </Link>
         )}
         {committees.length > 0 && (
@@ -332,6 +336,18 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
     const filedWard = Object.entries(candidateData.wards ?? []).find(([, candidates]) =>
       candidates.some(candidate => normalize(candidate.name) === normalize(selected))
     );
+    const withdrawnRace = (candidateData.withdrawn ?? []).find(candidate =>
+      candidate.office === 'Councillor'
+      && candidate.wardId === ward?.id
+      && normalize(candidate.name) === normalize(selected)
+    );
+    if (withdrawnRace) {
+      return {
+        type: 'withdrawn',
+        withdrawnWard: withdrawnRace.wardId,
+        filedWard: filedWard?.[0] || null
+      };
+    }
     return filedWard ? { type: 'filed', wardId: filedWard[0] } : { type: 'not-listed' };
   }, [candidateData, selected, ward]);
 
