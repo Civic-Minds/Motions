@@ -312,7 +312,7 @@ export default function ElectionView() {
                 <CivicPill className="bg-blue-50 text-[#004a99]">Where to vote</CivicPill>
                 <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">From September 1, find where and when you can vote.</p>
                 <CivicCardFooter align="end">
-                  <a href="https://www.toronto.ca/city-government/elections/voter-information/" target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99]">Find my place ↗</a>
+                  <a href="https://www.toronto.ca/city-government/elections/voter-information/myvote/" target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99]">Register ↗</a>
                 </CivicCardFooter>
               </CivicCard>
 
