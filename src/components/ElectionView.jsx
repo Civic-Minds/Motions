@@ -103,6 +103,33 @@ function ChangeWardButton({ onChange }) {
   );
 }
 
+function ChangeSystemButton({ boardId, boards, wardId, onChange }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="relative shrink-0">
+      <button type="button" onClick={() => setOpen(value => !value)} className="text-xs font-semibold text-[#004a99] hover:underline">
+        Change system
+      </button>
+      {open && (
+        <select
+          autoFocus
+          aria-label="Choose your school system"
+          value={boardId}
+          onChange={event => { onChange(event.target.value); setOpen(false); }}
+          onBlur={() => setOpen(false)}
+          className="absolute right-0 top-7 z-20 w-72 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-700 shadow-lg outline-none focus:border-[#004a99]"
+        >
+          {boards.map(board => {
+            const trusteeWard = wardId ? board.wardsByCityWard[wardId] : null;
+            return <option key={board.id} value={board.id}>{board.name}{trusteeWard ? ` · Trustee ward ${trusteeWard}` : ''}</option>;
+          })}
+        </select>
+      )}
+    </div>
+  );
+}
+
 function buildTrusteeGeojson(geoData, board) {
   if (!geoData?.features?.length) return null;
   const cityFeatures = Object.fromEntries(geoData.features.map(feature => [extractWardId(feature.properties), feature]));
@@ -157,14 +184,9 @@ function TrusteeSection({ candidateData, wardId, geoData, onCityWardChange }) {
           <div className="mb-2 flex items-center justify-between gap-3 px-1">
             <h3 className="text-lg font-bold text-slate-900">Trustee candidates</h3>
             <div className="flex items-center gap-2">
-              <label htmlFor="trustee-board" className="sr-only">School board</label>
-              <select id="trustee-board" value={boardId} onChange={event => setBoardId(event.target.value)} className="max-w-48 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:border-[#004a99]">
-                {TRUSTEE_BOARDS.map(item => {
-                  const mappedWard = wardId ? item.wardsByCityWard[wardId] : null;
-                  return <option key={item.id} value={item.id}>{item.name}{mappedWard ? ` · Trustee ward ${mappedWard}` : ''}</option>;
-                })}
-              </select>
+              <ChangeSystemButton boardId={boardId} boards={TRUSTEE_BOARDS} wardId={wardId} onChange={setBoardId} />
               <ChangeWardButton onChange={onCityWardChange} />
+              <ShareButton title="Toronto Trustee Candidates 2026" />
             </div>
           </div>
           <Suspense fallback={<div className="h-[420px] rounded-2xl bg-slate-100 animate-pulse border border-slate-200" />}>
