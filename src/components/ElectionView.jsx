@@ -121,8 +121,11 @@ function TrusteeSection({ candidateData, wardId, geoData }) {
       {geoData && trusteeWard && (
         <div>
           <div className="mb-2 flex items-center justify-between gap-3 px-1">
-            <CivicSectionLabel className="px-0">{board.label} trustee wards</CivicSectionLabel>
-            <p className="text-[10px] text-slate-500">Select a city ward to see its trustee ward</p>
+            <h3 className="text-lg font-bold text-slate-900">Trustee candidates by ward</h3>
+            <div className="flex items-center gap-3">
+              <Link to="/wards" className="text-xs font-semibold text-[#004a99] hover:underline">Change ward</Link>
+              <p className="text-[10px] text-slate-500">Select a city ward to see its trustee ward</p>
+            </div>
           </div>
           <div className="mb-3 flex gap-2 overflow-x-auto px-1 pb-1" style={{ scrollbarWidth: 'none' }}>
             {trusteeWards.map(wardNumber => (
