@@ -92,13 +92,22 @@ async function scrapeCandidates() {
     const candidates = {
       updatedAt: new Date().toISOString(),
       mayor: [],
-      wards: {}
+      wards: {},
+      trustees: {}
     };
 
-    const data = await page.evaluate(() => {
+    const data = await page.evaluate(({ websitesByEmail, websitesByEmailDomain, websitesByCandidateName }) => {
+      const verifiedWebsiteInPage = (email, name) => {
+        const normalized = email?.trim().toLowerCase();
+        return websitesByEmail[normalized]
+          ?? websitesByEmailDomain[normalized?.split('@')[1]]
+          ?? websitesByCandidateName[name]
+          ?? null;
+      };
       const results = {
         mayor: [],
-        wards: {}
+        wards: {},
+        trustees: {}
       };
 
       // 1. Scrape Mayor
@@ -116,7 +125,7 @@ async function scrapeCandidates() {
                 name,
                 email: cells[1].innerText.trim(),
                 phone: cells[2].innerText.trim(),
-                website: verifiedWebsite(cells[1].innerText.trim(), name),
+                website: verifiedWebsiteInPage(cells[1].innerText.trim(), name),
                 nominationDate: cells[4].innerText.trim(),
                 type: 'Mayor'
               });
@@ -145,7 +154,7 @@ async function scrapeCandidates() {
                 name,
                 email: cells[1].innerText.trim(),
                 phone: cells[2].innerText.trim(),
-                website: verifiedWebsite(cells[1].innerText.trim(), name),
+                website: verifiedWebsiteInPage(cells[1].innerText.trim(), name),
                 nominationDate: cells[4].innerText.trim(),
                 type: 'Councillor'
               });
@@ -157,12 +166,55 @@ async function scrapeCandidates() {
           results.wards[wardId] = wardCandidates;
         }
       });
+
+      // 3. Scrape school-board trustees. These wards have different
+      // boundaries from municipal wards, so preserve the board and ward.
+      const trusteeBoards = {
+        tdsb: 'tdsbDT_w',
+        tdcsb: 'tdcsbDT_w',
+        csv: 'csvDT_w',
+        cscm: 'cscmDT_w'
+      };
+      Object.entries(trusteeBoards).forEach(([board, prefix]) => {
+        const boardWards = {};
+        document.querySelectorAll(`table[id^="${prefix}"]`).forEach(table => {
+          const idMatch = table.id.match(new RegExp(`${prefix}(\\d+)`));
+          if (!idMatch) return;
+          const wardId = idMatch[1];
+          const wardCandidates = [];
+          table.querySelectorAll('tbody tr').forEach(row => {
+            const cells = row.querySelectorAll('td');
+            if (cells.length < 5) return;
+            const nameRaw = cells[0].innerText.trim();
+            if (!nameRaw || nameRaw === 'No data available in table') return;
+            const parts = nameRaw.split(',').map(p => p.trim());
+            const name = parts.length === 2 ? `${parts[1]} ${parts[0]}` : nameRaw;
+            wardCandidates.push({
+              name,
+              email: cells[1].innerText.trim(),
+              phone: cells[2].innerText.trim(),
+              website: null,
+              nominationDate: cells[4].innerText.trim(),
+              type: 'Trustee',
+              board,
+              trusteeWard: wardId
+            });
+          });
+          if (wardCandidates.length > 0) boardWards[wardId] = wardCandidates;
+        });
+        results.trustees[board] = boardWards;
+      });
       
       return results;
+    }, {
+      websitesByEmail: VERIFIED_WEBSITES_BY_EMAIL,
+      websitesByEmailDomain: VERIFIED_WEBSITES_BY_EMAIL_DOMAIN,
+      websitesByCandidateName: VERIFIED_WEBSITES_BY_CANDIDATE_NAME
     });
 
     candidates.mayor = data.mayor;
     candidates.wards = data.wards;
+    candidates.trustees = data.trustees;
 
     const dataDir = path.join(process.cwd(), 'public/data');
     if (!fs.existsSync(dataDir)) {
@@ -172,7 +224,8 @@ async function scrapeCandidates() {
     const filePath = path.join(dataDir, 'candidates.json');
     fs.writeFileSync(filePath, JSON.stringify(candidates, null, 2));
     
-    console.log(`Successfully scraped ${candidates.mayor.length} Mayor candidates and ${Object.keys(candidates.wards).length} wards.`);
+    const trusteeCount = Object.values(candidates.trustees).reduce((total, wards) => total + Object.values(wards).flat().length, 0);
+    console.log(`Successfully scraped ${candidates.mayor.length} Mayor candidates, ${Object.keys(candidates.wards).length} councillor wards, and ${trusteeCount} trustee candidates.`);
     console.log(`Saved to: ${filePath}`);
     
   } catch (error) {

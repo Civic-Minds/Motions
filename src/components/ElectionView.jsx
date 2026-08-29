@@ -21,6 +21,13 @@ const formatNominationDate = (date) => {
 
 const candidateCountLabel = count => `${count.toLocaleString()} candidate${count === 1 ? '' : 's'}`;
 
+const TRUSTEE_BOARDS = [
+  { id: 'tdsb', label: 'English public', name: 'Toronto District School Board', wardsByCityWard: { 1: '1', 2: '2', 3: '2', 4: '3', 5: '6', 6: '4', 7: '1', 8: '6', 9: '8', 10: '5', 11: '7', 12: '7', 13: '7', 14: '10', 15: '8', 16: '8', 17: '9', 18: '4', 19: '10', 20: '10', 21: '11', 22: '9', 23: '11', 24: '12', 25: '12' } },
+  { id: 'tdcsb', label: 'English Catholic', name: 'Toronto Catholic District School Board', wardsByCityWard: { 1: '1', 2: '2', 3: '4', 4: '4', 5: '10', 6: '5', 7: '3', 8: '5', 9: '6', 10: '9', 11: '9', 12: '9', 13: '9', 14: '11', 15: '11', 16: '11', 17: '11', 18: '5', 19: '11', 20: '12', 21: '7', 22: '7', 23: '8', 24: '12', 25: '8' } },
+  { id: 'csv', label: 'French public', name: 'Conseil scolaire Viamonde', wardsByCityWard: { 1: '4', 2: '4', 3: '4', 4: '4', 5: '4', 6: '2', 7: '4', 8: '4', 9: '4', 10: '3', 11: '3', 12: '3', 13: '3', 14: '3', 15: '2', 16: '2', 17: '2', 18: '2', 19: '3', 20: '2', 21: '2', 22: '2', 23: '2', 24: '2', 25: '2' } },
+  { id: 'cscm', label: 'French Catholic', name: 'Conseil scolaire catholique MonAvenir', wardsByCityWard: { 1: '3', 2: '3', 3: '3', 4: '3', 5: '3', 6: '3', 7: '3', 8: '3', 9: '3', 10: '3', 11: '3', 12: '3', 13: '3', 14: '4', 15: '4', 16: '4', 17: '4', 18: '3', 19: '4', 20: '4', 21: '4', 22: '4', 23: '4', 24: '4', 25: '4' } }
+];
+
 function CandidateList({ candidates, emptyText, incumbentName, incumbentClass }) {
   if (!candidates?.length) {
     return <p className="text-sm text-slate-500 italic text-center py-8">{emptyText}</p>;
@@ -52,6 +59,45 @@ function CandidateList({ candidates, emptyText, incumbentName, incumbentClass })
         );
       })}
     </div>
+  );
+}
+
+function TrusteeSection({ candidateData, wardId }) {
+  const [boardId, setBoardId] = useState('tdsb');
+  const board = TRUSTEE_BOARDS.find(item => item.id === boardId) || TRUSTEE_BOARDS[0];
+  const trusteeWard = wardId ? board.wardsByCityWard[wardId] : null;
+  const candidates = trusteeWard ? candidateData?.trustees?.[board.id]?.[trusteeWard] || [] : [];
+
+  return (
+    <section className="order-7 space-y-3">
+      <div className="flex items-end justify-between gap-3 px-1">
+        <div>
+          <CivicSectionLabel className="px-0">School board trustee</CivicSectionLabel>
+          <p className="mt-1 text-xs text-slate-500">Trustee wards are different from city wards. Choose your school board to see the applicable race.</p>
+        </div>
+        <a href="https://www.toronto.ca/city-government/elections/voter-information/myvote/" target="_blank" rel="noopener noreferrer" className="shrink-0 text-xs font-semibold text-[#004a99] hover:underline">Confirm with MyVote ↗</a>
+      </div>
+      <CivicCard className="gap-3">
+        <label htmlFor="trustee-board" className="text-[10px] font-bold uppercase tracking-wide text-slate-500">School board</label>
+        <select id="trustee-board" value={boardId} onChange={event => setBoardId(event.target.value)} className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm font-semibold text-slate-800 outline-none focus:border-[#004a99]">
+          {TRUSTEE_BOARDS.map(item => <option key={item.id} value={item.id}>{item.label} — {item.name}</option>)}
+        </select>
+        {wardId && trusteeWard ? (
+          <>
+            <div className="flex items-baseline justify-between gap-3">
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-wide text-slate-500">{board.name}</p>
+                <p className="text-base font-bold text-slate-900">Trustee ward {trusteeWard}</p>
+              </div>
+              <span className="text-sm text-slate-500">{candidates.length.toLocaleString()} candidates</span>
+            </div>
+            <CandidateList candidates={candidates} emptyText="No trustee candidates registered yet." incumbentClass="bg-blue-50 text-blue-700" />
+          </>
+        ) : (
+          <p className="text-sm text-slate-500">Choose your ward above to see the applicable trustee ward and candidates.</p>
+        )}
+      </CivicCard>
+    </section>
   );
 }
 
@@ -367,7 +413,8 @@ export default function ElectionView() {
             { label: 'Toronto Elections (Official)', url: 'https://www.toronto.ca/city-government/elections/', description: 'Official source for all voting information, dates, and results.' },
             { label: 'Voter Information', url: 'https://www.toronto.ca/city-government/elections/voter-information/', description: 'How to vote, where to vote, and eligibility requirements.' },
             { label: 'Candidate Information', url: 'https://www.toronto.ca/city-government/elections/candidate-information/', description: 'Rules and resources for people running for office.' },
-            { label: 'Voter Registry Check', url: 'https://www.toronto.ca/city-government/elections/voter-information/voter-registration/', description: 'Ensure your name is on the list for the upcoming election.' }
+            { label: 'Voter Registry Check', url: 'https://www.toronto.ca/city-government/elections/voter-information/voter-registration/', description: 'Ensure your name is on the list for the upcoming election.' },
+            { label: 'Contribution Rebates', url: 'https://www.toronto.ca/city-government/elections/candidates-third-party-advertisers/contribution-rebates/', description: 'Learn how eligible contributions to candidates can be rebated.' }
           ].map((item, i) => (
             <a 
               key={i}
@@ -406,6 +453,8 @@ export default function ElectionView() {
           />
         </Suspense>
       </section>
+
+      <TrusteeSection candidateData={candidateData} wardId={selectedWardId || savedWardId} />
 
       {/* Footnote */}
       <div className="order-9 pt-8 text-center">
