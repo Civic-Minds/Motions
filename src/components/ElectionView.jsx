@@ -504,7 +504,7 @@ export default function ElectionView() {
       {/* Resources List */}
       <section className="order-8 space-y-3">
         <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-wide px-1">Official election resources</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           <CivicCard
             as={Link}
             to="/election/how-to-vote"

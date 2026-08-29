@@ -20,6 +20,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Sharing and SEO**: Added route-aware metadata, crawler previews, share links, and a local-mobile sharing fallback.
 
 ### Changed
+- **Election resources**: Apply the balanced three-column directory at the desktop breakpoint used by the site.
 - **Election resources**: Reworked the resource directory into shared compact cards with a balanced three-column desktop layout.
 - **Election resources**: Compact the official-resource cards to match the rest of the site and reduce unnecessary whitespace.
 - **Election candidate lists**: Reduced row and container spacing so long mayor and trustee lists show more candidates without excessive whitespace.
