@@ -436,7 +436,7 @@ export default function DashboardView({ motions, meetings = [] }) {
   // Most notable (Global)
   const highlights = useMemo(() => {
     const usedIds = new Set(followedHighlights.map(m => m.id));
-    const count = 3;
+    const count = 4;
     const cutoff = new Date();
     cutoff.setDate(cutoff.getDate() - 45);
     const pool = [...primaryMotions]
@@ -455,7 +455,7 @@ export default function DashboardView({ motions, meetings = [] }) {
         motionBelongsToWard(m, savedWardId, savedWardFeature)
       ) && !usedIds.has(m.id))
       .sort((a, b) => new Date(b.date) - new Date(a.date))
-      .slice(0, 3);
+      .slice(0, 4);
   }, [primaryMotions, savedWardId, savedWardFeature, followedHighlights, highlights]);
 
   const recentFallback = useMemo(() => {
@@ -468,11 +468,14 @@ export default function DashboardView({ motions, meetings = [] }) {
       .slice(0, 3);
   }, [primaryMotions, followedHighlights, highlights, wardHighlights]);
 
-  const homeMotionCards = useMemo(() => [
-    ...highlights.slice(0, 1),
-    ...(highlights.length > 0 ? wardHighlights.slice(0, 2) : (wardHighlights.length > 0 ? wardHighlights.slice(0, 3) : recentFallback)),
-    ...highlights.slice(1),
-  ].slice(0, 3), [highlights, wardHighlights, recentFallback]);
+  const homeMotionCards = useMemo(() => {
+    const preferred = highlights.length > 0
+      ? [...highlights.slice(0, 1), ...wardHighlights.slice(0, 2), ...highlights.slice(1)]
+      : [...wardHighlights, ...recentFallback];
+    const usedIds = new Set(preferred.map(m => m.id));
+    const fillers = [...recentFallback, ...wardHighlights].filter(m => !usedIds.has(m.id));
+    return [...preferred, ...fillers].slice(0, 3);
+  }, [highlights, wardHighlights, recentFallback]);
 
   // Available committees and years
   const committees = useMemo(() => {

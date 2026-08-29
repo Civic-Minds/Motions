@@ -58,6 +58,9 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Election status**: Refreshes the official 2026 candidate list and shows filed dates now that nominations are closed.
 
 ### Fixed
+- **Homepage no-ward highlight row**: Kept the Election card plus three motion cards together for users without a saved ward.
+- **Homepage highlight row**: Filled missing ward-motion slots with recent motions so the Election row does not stop at three cards.
+- **Homepage no-ward highlights**: Reserved all four highlight slots for motions when no ward is selected instead of counting the Election card as one.
 - **Homepage no-ward fallback**: Kept the highlight area populated with recent motions after a user clears their ward.
 - **Homepage highlight fallback**: Removed the oversized empty notable placeholder when the Election card is the only highlight.
 - **Election race card sizing**: Explicitly kept each race card at its content height to prevent future parent-layout stretching.
