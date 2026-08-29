@@ -376,7 +376,7 @@ export default function ElectionView() {
                 <h3 className="text-[10px] font-bold uppercase tracking-widest text-slate-500">2026 candidates</h3>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 items-start">
               <div className="bg-white border border-slate-200 rounded-2xl p-4 space-y-3">
                 <div className="flex items-center justify-between">
                   <div>
