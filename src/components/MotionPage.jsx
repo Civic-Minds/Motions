@@ -308,7 +308,7 @@ function MotionDetail({ motions, motion, motionId }) {
       {/* Back Button (Desktop - Floating Left) */}
       <button
         onClick={() => navigate(-1)}
-        className="hidden lg:flex absolute -left-12 top-2 mt-0.5 items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 transition-colors"
+        className="hidden lg:flex absolute -left-12 top-[13px] mt-0.5 items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 transition-colors"
       >
         <ArrowLeft className="w-4 h-4 text-slate-300" />
         Back

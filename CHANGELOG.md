@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Desktop motion header**: Aligned the Back label with the status text in the motion header.
+
 - **Mobile motion header**: Corrected the Back label baseline so it aligns with the status pill.
 
 - **Mobile header spacing**: Moved the search and menu controls closer to the right edge on phones.
