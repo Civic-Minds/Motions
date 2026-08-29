@@ -314,20 +314,30 @@ function MotionDetail({ motions, motion, motionId }) {
         Back
       </button>
 
-      {/* Back Button (Mobile/Tablet - Stacked) */}
-      <div className="mb-3 lg:hidden">
+      {/* Mobile/tablet header row */}
+      <div className="mb-3 flex items-center gap-3 lg:hidden">
         <button
           onClick={() => navigate(-1)}
-          className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 transition-colors"
+          className="flex shrink-0 items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           Back
         </button>
+        <div className="flex min-w-0 flex-wrap items-center gap-2">
+          <StatusBadge status={motion.status} />
+          {motion.significance >= 90 && (
+            <span className="text-xs font-semibold text-amber-600 bg-amber-50 px-2.5 py-0.5 rounded-full">High Impact</span>
+          )}
+          {motion.significance >= 60 && motion.significance < 90 && (
+            <span className="text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full">Notable</span>
+          )}
+        </div>
+        <ShareButton title={displayTitle} className="ml-auto shrink-0" />
       </div>
 
       {/* Header (Full Width) */}
       <div className="space-y-2 mb-4">
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="hidden flex-wrap items-center gap-2 lg:flex">
           <StatusBadge status={motion.status} />
           {motion.significance >= 90 && (
             <span className="text-xs font-semibold text-amber-600 bg-amber-50 px-2.5 py-0.5 rounded-full">High Impact</span>
