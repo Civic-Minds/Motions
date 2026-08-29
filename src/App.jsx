@@ -242,7 +242,7 @@ function AppShell() {
     <div className="min-h-screen flex flex-col">
       <ScrollToTop />
       <Navbar onSearchOpen={() => setSearchOpen(true)} />
-      <main className="flex-1 max-w-[1400px] mx-auto w-full px-4 sm:px-6 py-8">
+      <main className="flex-1 max-w-[1400px] mx-auto w-full px-4 sm:px-6 py-6">
         {contentArea()}
       </main>
 

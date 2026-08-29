@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Page spacing**: Reduced the shared blank space above page content for a tighter layout.
+
 - **Desktop motion header**: Aligned the Back label with the status text in the motion header.
 
 - **Mobile motion header**: Corrected the Back label baseline so it aligns with the status pill.
