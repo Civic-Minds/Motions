@@ -21,8 +21,8 @@ const candidateCountLabel = count => `${count.toLocaleString()} candidate${count
 const TRUSTEE_BOARDS = [
   { id: 'tdsb', label: 'English public', name: 'Toronto District School Board', wardsByCityWard: { 1: '1', 2: '2', 3: '2', 4: '3', 5: '6', 6: '4', 7: '1', 8: '6', 9: '8', 10: '5', 11: '7', 12: '7', 13: '7', 14: '10', 15: '8', 16: '8', 17: '9', 18: '4', 19: '10', 20: '10', 21: '11', 22: '9', 23: '11', 24: '12', 25: '12' } },
   { id: 'tdcsb', label: 'English Catholic', name: 'Toronto Catholic District School Board', wardsByCityWard: { 1: '1', 2: '2', 3: '4', 4: '4', 5: '10', 6: '5', 7: '3', 8: '5', 9: '6', 10: '9', 11: '9', 12: '9', 13: '9', 14: '11', 15: '11', 16: '11', 17: '11', 18: '5', 19: '11', 20: '12', 21: '7', 22: '7', 23: '8', 24: '12', 25: '8' } },
-  { id: 'csv', label: 'French public', name: 'Conseil scolaire Viamonde', wardsByCityWard: { 1: '4', 2: '4', 3: '4', 4: '4', 5: '4', 6: '2', 7: '4', 8: '4', 9: '4', 10: '3', 11: '3', 12: '3', 13: '3', 14: '3', 15: '2', 16: '2', 17: '2', 18: '2', 19: '3', 20: '2', 21: '2', 22: '2', 23: '2', 24: '2', 25: '2' } },
-  { id: 'cscm', label: 'French Catholic', name: 'Conseil scolaire catholique MonAvenir', wardsByCityWard: { 1: '3', 2: '3', 3: '3', 4: '3', 5: '3', 6: '3', 7: '3', 8: '3', 9: '3', 10: '3', 11: '3', 12: '3', 13: '3', 14: '4', 15: '4', 16: '4', 17: '4', 18: '3', 19: '4', 20: '4', 21: '4', 22: '4', 23: '4', 24: '4', 25: '4' } }
+  { id: 'csv', label: 'French public', name: 'Conseil scolaire Viamonde', wardNames: { 2: '2 – Est', 3: '3 – Centre', 4: '4 – Ouest' }, wardsByCityWard: { 1: '4', 2: '4', 3: '4', 4: '4', 5: '4', 6: '2', 7: '4', 8: '4', 9: '4', 10: '3', 11: '3', 12: '3', 13: '3', 14: '3', 15: '2', 16: '2', 17: '2', 18: '2', 19: '3', 20: '2', 21: '2', 22: '2', 23: '2', 24: '2', 25: '2' } },
+  { id: 'cscm', label: 'French Catholic', name: 'Conseil scolaire catholique MonAvenir', wardNames: { 3: '3 – Toronto Ouest', 4: '4 – Toronto Est' }, wardsByCityWard: { 1: '3', 2: '3', 3: '3', 4: '3', 5: '3', 6: '3', 7: '3', 8: '3', 9: '3', 10: '3', 11: '3', 12: '3', 13: '3', 14: '4', 15: '4', 16: '4', 17: '4', 18: '3', 19: '4', 20: '4', 21: '4', 22: '4', 23: '4', 24: '4', 25: '4' } }
 ];
 
 function CandidateList({ candidates, emptyText, incumbentName, incumbentClass, initialVisible = Infinity }) {
@@ -159,7 +159,7 @@ function TrusteeSection({ candidateData, wardId, geoData, onCityWardChange }) {
   const trusteeWard = selectedTrusteeWard || userTrusteeWard || trusteeWards[0] || null;
   const candidates = trusteeWard ? candidateData?.trustees?.[board.id]?.[trusteeWard] || [] : [];
   const trusteeGeojson = useMemo(() => buildTrusteeGeojson(geoData, board), [geoData, board]);
-  const trusteeWardCards = trusteeWards.map(wardNumber => ({ id: wardNumber, name: `Trustee ward ${wardNumber}` }));
+  const trusteeWardCards = trusteeWards.map(wardNumber => ({ id: wardNumber, name: board.wardNames?.[wardNumber] ? `Trustee ward ${board.wardNames[wardNumber]}` : `Trustee ward ${wardNumber}` }));
   const trusteeWardCandidateCounts = Object.fromEntries(
     trusteeWardCards.map(trusteeWardCard => {
       const count = candidateData?.trustees?.[board.id]?.[trusteeWardCard.id]?.length || 0;
@@ -188,6 +188,7 @@ function TrusteeSection({ candidateData, wardId, geoData, onCityWardChange }) {
               wardActivity={trusteeWardCards}
               wardSubtextById={trusteeWardCandidateCounts}
               wardLabel="Trustee ward"
+              wardLabelById={Object.fromEntries(trusteeWardCards.map(ward => [ward.id, ward.name]))}
               highlightWardId={trusteeWard}
               onWardSelect={setSelectedTrusteeWard}
             />
@@ -196,7 +197,7 @@ function TrusteeSection({ candidateData, wardId, geoData, onCityWardChange }) {
             <div className="flex items-baseline justify-between gap-3">
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-wide text-slate-500">Candidates</p>
-                <p className="text-base font-bold text-slate-900">Trustee ward {trusteeWard}</p>
+                <p className="text-base font-bold text-slate-900">{board.wardNames?.[trusteeWard] ? `Trustee ward ${board.wardNames[trusteeWard]}` : `Trustee ward ${trusteeWard}`}</p>
               </div>
               <span className="text-sm text-slate-500">{candidates.length.toLocaleString()} candidates</span>
             </div>

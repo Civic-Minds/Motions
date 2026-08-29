@@ -9,7 +9,7 @@ import { TORONTO_WARDS } from '../constants/wards';
 import { getWardId } from '../utils/storage';
 import { cn } from '../lib/utils';
 
-export default function TorontoFullMap({ geojson, wardActivity, wardSubtextById, onWardSelect, isFullscreen = false, onToggleFullscreen, compact = false, wardLabel = 'Ward', highlightWardId = null }) {
+export default function TorontoFullMap({ geojson, wardActivity, wardSubtextById, onWardSelect, isFullscreen = false, onToggleFullscreen, compact = false, wardLabel = 'Ward', wardLabelById = null, highlightWardId = null }) {
   const navigate = useNavigate();
   const mapRef = useRef(null);
   const savedWardId = getWardId();
@@ -118,7 +118,8 @@ export default function TorontoFullMap({ geojson, wardActivity, wardSubtextById,
           {sortedWards.map(ward => {
             const councillor = WARD_COUNCILLORS[ward.id];
             const subtext = wardSubtextById?.[ward.id] ?? councillor;
-            const displayName = ward.name === `${wardLabel} ${ward.id}` ? null : ward.name;
+            const wardTitle = wardLabelById?.[ward.id] ?? `${wardLabel} ${ward.id}`;
+            const displayName = ward.name === wardTitle ? null : ward.name;
             const isSaved = ward.id === activeWardId;
             const isHovered = ward.id === hoveredWardId;
             return (
@@ -136,7 +137,7 @@ export default function TorontoFullMap({ geojson, wardActivity, wardSubtextById,
                 )}
               >
                 <p className={cn("text-[9px] font-bold uppercase tracking-wide", isSaved ? "text-white/70" : "text-[#004a99]")}>
-                  {wardLabel} {ward.id}
+                  {wardTitle}
                 </p>
                 {displayName && (
                   <p className={cn("text-xs font-semibold leading-snug mt-0.5 line-clamp-1", isSaved ? "text-white" : "text-slate-800")}>

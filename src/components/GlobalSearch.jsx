@@ -133,7 +133,7 @@ export default function GlobalSearch({ motions, councillorNames, open, onClose }
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.15 }}
-            className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[60]"
+            className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[1000]"
             onClick={onClose}
           />
 
@@ -143,7 +143,7 @@ export default function GlobalSearch({ motions, councillorNames, open, onClose }
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.97, y: -8 }}
             transition={{ duration: 0.15 }}
-            className="fixed top-[15vh] left-1/2 -translate-x-1/2 w-full max-w-xl z-[70] px-4"
+            className="fixed top-[15vh] left-1/2 -translate-x-1/2 w-full max-w-xl z-[1010] px-4"
           >
             <div className="bg-white rounded-2xl shadow-2xl shadow-slate-900/20 border border-slate-200 overflow-hidden">
 
