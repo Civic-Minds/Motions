@@ -502,37 +502,46 @@ export default function ElectionView() {
       </section>
 
       {/* Resources List */}
-      <section className="order-8 space-y-3">
-        <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-wide px-1">Official election resources</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          <CivicCard
-            as={Link}
-            to="/election/how-to-vote"
-            className="!min-h-[88px] !p-3 !flex-row items-center"
-          >
+      <section className="order-8 space-y-4">
+        <CivicSectionLabel>How to vote</CivicSectionLabel>
+        <CivicCard
+          as={Link}
+          to="/election/how-to-vote"
+          className="!min-h-[112px] !p-5 bg-blue-50 border-blue-100 hover:border-blue-300"
+        >
+          <div className="flex items-start justify-between gap-4">
             <div className="space-y-1">
-              <p className="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">How to vote</p>
-              <p className="text-xs text-slate-500 leading-snug">Where to vote, when to vote, what to bring, and your rights.</p>
+              <CivicPill className="bg-blue-100 text-blue-700">Our guide</CivicPill>
+              <p className="text-lg font-bold text-slate-900 group-hover:text-blue-700 transition-colors">Non-partisan guide to voting</p>
+              <p className="text-sm text-slate-500 leading-snug">Where to vote, when to vote, what to bring, and your rights.</p>
             </div>
-            <ExternalLink className="w-4 h-4 text-slate-300 group-hover:text-[#004a99] shrink-0 transition-colors" />
-          </CivicCard>
+            <ExternalLink className="w-5 h-5 text-blue-600 shrink-0 transition-colors" />
+          </div>
+          <CivicCardFooter align="end">
+            <span className="text-sm font-semibold text-blue-700">Read the guide ↗</span>
+          </CivicCardFooter>
+        </CivicCard>
+
+        <CivicSectionLabel>Official election resources</CivicSectionLabel>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           {[
-            { label: 'Toronto Elections (Official)', url: 'https://www.toronto.ca/city-government/elections/', description: 'Official source for all voting information, dates, and results.' },
-            { label: 'Voter Information', url: 'https://www.toronto.ca/city-government/elections/voter-information/', description: 'How to vote, where to vote, and eligibility requirements.' },
-            { label: 'Candidate Information', url: 'https://www.toronto.ca/city-government/elections/candidate-information/', description: 'Rules and resources for people running for office.' },
-            { label: 'Voter Registry Check', url: 'https://www.toronto.ca/city-government/elections/voter-information/voter-registration/', description: 'Ensure your name is on the list for the upcoming election.' },
-            { label: 'Contribution Rebates', url: 'https://www.toronto.ca/city-government/elections/candidates-third-party-advertisers/contribution-rebates/', description: 'Learn how eligible contributions to candidates can be rebated.' },
-            { label: 'Election Signs', url: 'https://www.toronto.ca/city-government/public-notices-bylaws/bylaw-enforcement/election-signs/', description: 'Check Toronto’s rules for placing election signs.' }
-          ].map((item, i) => (
+            { label: 'Toronto Elections (Official)', url: 'https://www.toronto.ca/city-government/elections/', description: 'Official source for voting information, dates, and results.', group: 'Voting' },
+            { label: 'Voter Information', url: 'https://www.toronto.ca/city-government/elections/voter-information/', description: 'How to vote, where to vote, and eligibility requirements.', group: 'Voting' },
+            { label: 'Voter Registry Check', url: 'https://www.toronto.ca/city-government/elections/voter-information/voter-registration/', description: 'Ensure your name is on the list for the upcoming election.', group: 'Voting' },
+            { label: 'Candidate Information', url: 'https://www.toronto.ca/city-government/elections/candidate-information/', description: 'Rules and resources for people running for office.', group: 'Candidates' },
+            { label: 'Contribution Rebates', url: 'https://www.toronto.ca/city-government/elections/candidates-third-party-advertisers/contribution-rebates/', description: 'Learn how eligible contributions to candidates can be rebated.', group: 'Candidates' },
+            { label: 'Election Signs', url: 'https://www.toronto.ca/city-government/public-notices-bylaws/bylaw-enforcement/election-signs/', description: 'Check Toronto’s rules for placing election signs.', group: 'Rules' }
+          ].map(item => (
             <CivicCard
               as="a"
-              key={i}
+              key={item.label}
               href={item.url}
               target="_blank"
               rel="noopener noreferrer"
               className="!min-h-[88px] !p-3 !flex-row items-center"
             >
-              <div className="space-y-1">
+              <div className="space-y-1 min-w-0">
+                <p className="text-[9px] font-bold uppercase tracking-wide text-slate-400">{item.group}</p>
                 <p className="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">{item.label}</p>
                 <p className="text-xs text-slate-500 leading-snug">{item.description}</p>
               </div>

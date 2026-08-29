@@ -20,6 +20,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Sharing and SEO**: Added route-aware metadata, crawler previews, share links, and a local-mobile sharing fallback.
 
 ### Changed
+- **Voting guide**: Corrected the accepted-ID link to Toronto’s current identification page.
+- **Election resources**: Give the non-partisan voting guide a featured card and organize official links by voting, candidates, and rules.
 - **Election resources**: Apply the balanced three-column directory at the desktop breakpoint used by the site.
 - **Election resources**: Reworked the resource directory into shared compact cards with a balanced three-column desktop layout.
 - **Election resources**: Compact the official-resource cards to match the rest of the site and reduce unnecessary whitespace.

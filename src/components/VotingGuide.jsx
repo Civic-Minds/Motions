@@ -60,7 +60,7 @@ export default function VotingGuide() {
           </GuideCard>
           <GuideCard icon={ShieldCheck} title="Bring identification">
             <p>Bring one piece of identification showing your name and qualifying Toronto address. Your voter information card is not identification.</p>
-            <a className={`mt-3 inline-flex items-center gap-1.5 font-semibold ${officialLink}`} href="https://www.toronto.ca/city-government/elections/voter-information/acceptable-identification/" target="_blank" rel="noopener noreferrer">
+            <a className={`mt-3 inline-flex items-center gap-1.5 font-semibold ${officialLink}`} href="https://www.toronto.ca/city-government/elections/voter-information/identification/" target="_blank" rel="noopener noreferrer">
               See accepted ID <ExternalLink className="h-3.5 w-3.5" />
             </a>
           </GuideCard>
