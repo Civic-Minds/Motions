@@ -50,7 +50,7 @@ export default function YourWardCard() {
 
   if (!wardId) {
     return (
-      <CivicCard className="gap-4 h-full">
+      <CivicCard className="gap-4 h-[140px] lg:h-full">
         <div className="flex items-center gap-3">
           <div className="w-7 h-7 rounded-lg bg-[#004a99]/10 flex items-center justify-center shrink-0">
             <MapPin className="w-3.5 h-3.5 text-[#004a99]" />
@@ -108,7 +108,7 @@ export default function YourWardCard() {
         tabIndex={0}
         role="button"
         aria-label={`Ward ${wardId}${ward?.name ? ` - ${ward.name}` : ''}. Councillor ${councillorName || ''}. Click to view ward motions.`}
-        className="gap-3 h-full w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#004a99] cursor-pointer"
+        className="gap-3 h-[140px] lg:h-full w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#004a99] cursor-pointer"
       >
         {/* Top row */}
         <div className="flex items-center justify-between gap-1">

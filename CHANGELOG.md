@@ -58,6 +58,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Election status**: Refreshes the official 2026 candidate list and shows filed dates now that nominations are closed.
 
 ### Fixed
+- **Mobile My Ward card**: Kept the ward card compact and aligned with the neighboring homepage cards.
 - **Homepage no-ward highlight row**: Kept the Election card plus three motion cards together for users without a saved ward.
 - **Homepage highlight row**: Filled missing ward-motion slots with recent motions so the Election row does not stop at three cards.
 - **Homepage no-ward highlights**: Reserved all four highlight slots for motions when no ward is selected instead of counting the Election card as one.
