@@ -184,23 +184,7 @@ function TrusteeSection({ candidateData, wardId, geoData, onCityWardChange }) {
             <h3 className="text-lg font-bold text-slate-900">Trustee candidates by ward</h3>
             <div className="flex items-center gap-3">
               <ChangeWardButton onChange={onCityWardChange} />
-              <p className="text-[10px] text-slate-500">Select a trustee ward to see its candidates</p>
             </div>
-          </div>
-          <div className="mb-3 flex gap-2 overflow-x-auto px-1 pb-1" style={{ scrollbarWidth: 'none' }}>
-            {trusteeWards.map(wardNumber => (
-              <button
-                key={wardNumber}
-                type="button"
-                onClick={() => setSelectedTrusteeWard(wardNumber)}
-                className={cn(
-                  'shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold transition-colors',
-                  trusteeWard === wardNumber ? 'bg-[#004a99] text-white' : 'bg-slate-100 text-slate-600 hover:bg-blue-50 hover:text-[#004a99]'
-                )}
-              >
-                Trustee ward {wardNumber}
-              </button>
-            ))}
           </div>
           <Suspense fallback={<div className="h-[420px] rounded-2xl bg-slate-100 animate-pulse border border-slate-200" />}>
             <TorontoFullMap
