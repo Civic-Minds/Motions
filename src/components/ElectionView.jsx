@@ -12,6 +12,7 @@ import { CivicCard, CivicCardFooter, CivicPill, CivicSectionLabel } from './ui/C
 import { PageMeta } from './PageMeta';
 import { previewImage } from '../utils/meta';
 import ShareButton from './ShareButton';
+import { union as unionPolygons } from '@turf/union';
 
 const TorontoFullMap = lazy(() => import('./TorontoFullMap'));
 
@@ -134,17 +135,19 @@ function buildTrusteeGeojson(geoData, board) {
   if (!geoData?.features?.length) return null;
   const cityFeatures = Object.fromEntries(geoData.features.map(feature => [extractWardId(feature.properties), feature]));
   const features = [...new Set(Object.values(board.wardsByCityWard))].map(trusteeWard => {
-    const cityGeometries = Object.entries(board.wardsByCityWard)
+    const cityFeaturesForTrusteeWard = Object.entries(board.wardsByCityWard)
       .filter(([, mappedWard]) => mappedWard === trusteeWard)
-      .map(([cityWard]) => cityFeatures[cityWard]?.geometry)
+      .map(([cityWard]) => cityFeatures[cityWard])
       .filter(Boolean);
-    const coordinates = cityGeometries.flatMap(geometry => geometry.type === 'Polygon' ? [geometry.coordinates] : geometry.coordinates);
+    const geometry = cityFeaturesForTrusteeWard.length === 1
+      ? cityFeaturesForTrusteeWard[0].geometry
+      : unionPolygons({ type: 'FeatureCollection', features: cityFeaturesForTrusteeWard })?.geometry;
     return {
       type: 'Feature',
       properties: { WARD_NUM: trusteeWard },
-      geometry: { type: 'MultiPolygon', coordinates }
+      geometry
     };
-  });
+  }).filter(feature => feature.geometry);
   return { type: 'FeatureCollection', features };
 }
 
@@ -153,10 +156,9 @@ function TrusteeSection({ candidateData, wardId, geoData, onCityWardChange }) {
   const [selectedTrusteeWard, setSelectedTrusteeWard] = useState(null);
   const board = TRUSTEE_BOARDS.find(item => item.id === boardId) || TRUSTEE_BOARDS[0];
   const userTrusteeWard = wardId ? board.wardsByCityWard[wardId] : null;
-  const trusteeWards = Object.keys(candidateData?.trustees?.[board.id] || {}).sort((a, b) => Number(a) - Number(b));
+  const trusteeWards = [...new Set(Object.values(board.wardsByCityWard))].sort((a, b) => Number(a) - Number(b));
   const trusteeWard = selectedTrusteeWard || userTrusteeWard || trusteeWards[0] || null;
   const candidates = trusteeWard ? candidateData?.trustees?.[board.id]?.[trusteeWard] || [] : [];
-  const trusteeCityWards = TORONTO_WARDS;
   const trusteeGeojson = useMemo(() => buildTrusteeGeojson(geoData, board), [geoData, board]);
   const trusteeWardCards = trusteeWards.map(wardNumber => ({ id: wardNumber, name: `Trustee ward ${wardNumber}` }));
   const trusteeWardCandidateCounts = Object.fromEntries(
@@ -165,14 +167,6 @@ function TrusteeSection({ candidateData, wardId, geoData, onCityWardChange }) {
       return [trusteeWardCard.id, `${count.toLocaleString()} candidates`];
     })
   );
-  const trusteeCityWardCandidateCounts = Object.fromEntries(
-    trusteeCityWards.map(cityWard => {
-      const mappedWard = board.wardsByCityWard[cityWard.id];
-      const count = candidateData?.trustees?.[board.id]?.[mappedWard]?.length || 0;
-      return [cityWard.id, `Trustee ward ${mappedWard} · ${count.toLocaleString()} candidates`];
-    })
-  );
-
   useEffect(() => {
     setSelectedTrusteeWard(null);
   }, [boardId, wardId]);
