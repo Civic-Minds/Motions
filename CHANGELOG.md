@@ -7,118 +7,45 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 ## [Unreleased]
 
 ### Added
+- **Election experience**: Added the Toronto Election page, shared ward selection, candidate counts, registered candidate lists, voting dates, polling-place guidance, map exploration, and election sharing.
+- **Candidate websites**: Added manually verified campaign website links while retaining available contact information.
+- **Data & methodology**: Added a page explaining sources, updates, topic classification, geographic coverage, and limitations.
 - **Site footer**: Added compact navigation, data-source, project, and attribution links across the site.
+- **Councillor discovery**: Added Find my councillor and Compare councillors actions.
+- **Motion locations**: Added verified address and named-place mapping, ward assignment, motion-page maps, and fullscreen map views.
+- **Shared civic UI**: Added reusable card, footer, section-label, pill, filter-sidebar, and upcoming-meeting components.
+- **Sharing and SEO**: Added route-aware metadata, crawler previews, share links, and a local-mobile sharing fallback.
 
 ### Changed
-- **Mobile motion header**: Locked the Back control to the status pill’s line box so both stay aligned across phone sizes.
-- **Page spacing**: Reduced the shared blank space above page content for a tighter layout.
-- **Desktop motion header**: Aligned the Back label with the status text in the motion header.
-- **Mobile motion header**: Corrected the Back label baseline so it aligns with the status pill.
-- **Mobile header spacing**: Moved the search and menu controls closer to the right edge on phones.
-- **Mobile homepage order**: Shows 10 motions first and moves the shared Coming Up card below the feed on phones.
-- **Notable card actions**: Keeps mobile card links aligned to the right edge.
-- **Mobile notable motions**: Limited the Most Notable section to two cards so it stays on one row.
-- **Mobile motion cards**: Kept vote tallies pinned to the right edge like the desktop cards.
-- **Mobile ward card**: Kept the Ward number together and allowed narrow ward names to wrap cleanly.
-- **Motion header alignment**: Kept the mobile Back control, status, and share action aligned in one row.
-- **Councillor discovery**: Added a Find my councillor action that locates and scrolls to the saved councillor in the list.
-- **Motion page structure**: Stabilized motion-detail navigation hooks and isolated funding display logic to reduce route-state bugs.
-- **Share fallback**: Made page sharing work on local iPhones when native sharing or the secure Clipboard API is unavailable.
-- **Mobile layout**: Put the ward and election cards side by side, expanded the mobile filter controls, and added a ward picker when location detection is unavailable.
-- **Mobile filters**: Replaced the overflowing mobile filter chip list with a compact expandable filter card.
-- **Card consistency**: Reused the shared card component across homepage, councillor stats, and ward cards to keep their styling aligned.
-- **Navigation**: Fixed a missing link import that caused the app to render a blank screen.
-- **Data page**: Added a Data & methodology page with source links, classification notes, update information, and the project disclaimer.
-- **Motion locations**: Added verified map locations for motions about named places such as parks, stations, arenas, and civic facilities.
-- **Ward maps**: Increased the full Toronto map height on the Wards and Election pages for easier exploration.
-- **Sharing and SEO**: Added route-aware metadata, crawler previews, and share links for key civic pages.
-- **Election sharing**: Aligned the Election page share control with the page’s card header.
-- **Election layout**: Removed extra spacing between the top cards and the ward candidate map.
-- **Ward map hover**: Temporarily highlights only the hovered ward instead of keeping the saved ward highlighted too.
-- **Following card**: Matched committee labels to the shared grey pill style used across motion cards.
-- **Ward motion highlights**: Made the homepage Ward Motions section use the same geographic ward tags as each ward page.
-- **Homepage card grouping**: Kept notable and ward motion cards under the correct headings.
-- **Most Notable**: Limited homepage highlights to the last 45 days and ranked them by significance.
-- **Ward motion fallback**: Fill all three homepage motion slots with Ward Motions when no recent notable motions qualify.
-- **Ward motion coverage**: Counted geocoded address locations in their official wards so ward pages and highlights include all located motions.
-- **Motion scope**: Separated city-wide motions from ward-specific motions so city-wide items can be viewed without appearing on ward maps.
-- **Citywide scope**: Keep explicitly citywide motions out of ward lists and maps even when their text mentions a location.
-- **Ward scope**: Preserve ward classifications inferred from ward names such as University–Rosedale when adding ward-level locations.
-- **Named motion locations**: Added Yorkdale Station to the location pipeline so TTC16.4 appears on the correct ward map.
-
-- **Homepage highlights**: Let current notable motions fill the highlight row first, with Ward Motions filling the remaining cards.
-- **Motion maps**: Added locations for the Fleet Street, Guildwood Parkway, Staines Road, Victoria Park Avenue, and Thora Avenue motions.
-- **Motion maps**: Capture grouped address lists and verified address fallbacks so titled properties receive map locations during refresh.
-- **Motion navigation**: Made the City Council or committee label on motion pages link to its meeting.
-- **Candidate websites**: Added nine more manually verified campaign sites across Wards 16–22.
-- **Candidate websites**: Added 16 more manually verified campaign sites, including candidates without campaign-domain email addresses.
-- **Candidate websites**: Added four more manually verified campaign sites to the election data refresh.
-- **Candidate websites**: Added only manually verified campaign URLs to refreshed candidate records and stopped treating email domains as websites.
-- **Contrast**: Darkened muted interface text so labels, supporting copy, and footer links remain readable on light backgrounds.
-- **Candidate links**: Removed email-domain guessing so candidate websites are shown only when explicitly provided.
-- **Election map labels**: Corrected singular candidate counts so wards with one candidate no longer show “1 candidates.”
-- **Ward motion mapping**: Added ward-level map points for motions that name a specific ward without a street address.
-- **Councillor cards**: Removed the uninformative “General” topic label while retaining specific topic labels.
-- **Motion location coverage**: Expanded address extraction, added a geocoder fallback, and included address geocoding in scheduled data refreshes so address-based motions appear on maps.
-- **Candidate websites**: Added website links for candidates with verified custom email domains while keeping email and phone contacts available.
-- **Election terminology**: Standardized mayor and councillor links as “Voting Record.”
-- **Election map filtering**: Clicking a ward on the Election page now filters the candidate list below it instead of navigating away.
-- **Motion header**: Removed the duplicate vote tally so the result appears only in the detailed vote section.
-- **Motion significance pill**: Changed regular Notable labels from amber to blue so they read as informational rather than warning states.
-- **Motion header layout**: Reorganized the back link and motion metadata into a compact header to reduce wasted vertical space.
-- **Motion header**: Tightened the spacing around motion status, title, and metadata to reduce wasted vertical space.
-- **Ward stats card links**: Added homepage-style footer links to the Most Active and Total Motions cards.
-- **Topic classification**: Prevented partial keyword matches such as “Parkway” from incorrectly tagging motions as Parks.
-- **Motion topic correction**: Reclassified CC42.2 from Parks to General so its highway-upload motion is not shown under the wrong topic.
-- **Ward motion links**: Made the Most Active card open that ward’s filtered motion feed and Total Motions open the full feed.
-- **Committee directory**: Presented boards and other meeting-only bodies as cards consistent with the committee grid.
-- **Ward stats cards**: Reused the homepage card shell and typography for the ward overview metrics.
-- **Election map heading**: Simplified the map section to “Candidates by ward” and removed redundant update metadata.
-- **Election page order**: Moved the 2026 candidate lists below the City-wide explorer map.
-- **Shared card footers**: Centralized Election card footer alignment so link placement stays consistent across the shared card system.
-- **Election card footers**: Right-aligned the MyVote links in the voting-day cards to match the shared card layout.
-- **Election explorer**: Show each ward’s registered-candidate count instead of the current councillor name.
-- **Election resources**: Moved official election links below the City-wide explorer map so the map stays with the main discovery content.
-- **Councillor profiles**: Replaced the duplicate office-spend summary with a compact contact card.
-- **Election readiness**: Added a direct Elections menu link, shared ward selection, homepage civic update, and verified councillor election status so Toronto residents can prepare to vote.
-- **Councillor comparison**: Moved the comparison control into the councillors page, clarified shared-vote totals, and simplified the header search to an icon.
-- **Motion vote totals**: Explained unnamed additional votes so official results are clearer.
-- **Number formatting**: Added comma separators to displayed counts and totals for easier scanning.
-- **Ward map**: Added fullscreen views for inspecting Toronto’s ward boundaries and ward-specific motion locations.
-- **Motion locations**: Added maps to motion pages when an item has mapped locations and aligned summary/document cards.
-- **Election page**: Put the five-card election summary row first, reused the My Ward card as the single ward selector, added a separate ward-candidate count card, and placed each incumbent’s record above its candidate list.
-- **Election page cards**: Reused the homepage card shell for election information so the Election page keeps the same compact sizing, typography, spacing, and interaction treatment.
-- **Election card sizing**: Removed Election-only forced heights so the shared cards keep the homepage’s compact proportions.
-- **Election summary layout**: Matched the homepage’s bento row with a narrow My Ward card, compact middle date cards, and a narrow candidate-count card.
-- **Election summary cards**: Added the fifth homepage-style card for the nomination period alongside the election countdown and voting-day information.
-- **Election voting schedule**: Added citywide election-day and advance-voting hours so residents know when they can vote.
-- **Election voting days**: Kept the separate Election Day and Advance Voting cards above the candidate lists so the schedule is visible first.
-- **Election voting-day layout**: Put Election Day and Advance Voting beside the other summary cards in the same top row.
-- **Election explorer**: Replaced the candidate accordion with the shared full Toronto ward map and fullscreen control.
-- **Shared civic UI**: Added reusable card, section-label, and pill primitives so homepage and Election surfaces cannot drift apart.
-- **Election page hierarchy**: Removed redundant page-introduction copy so the page opens directly with the useful election information.
-- **Election card proportions**: Matched shared Election card height to the homepage and shortened registration copy to keep the row compact.
-- **Election card height scope**: Kept the homepage card height unchanged while applying the compact height only to Election summary cards.
-- **Election card copy**: Combined voting dates with their hours and removed duplicate registration text to keep the compact cards readable.
-- **Election card height**: Matched the Election summary cards to the homepage’s measured 140px card height without changing homepage cards.
-- **Election day copy**: Removed the weekday from the Election Day card to keep the date line compact.
-- **Election voting help**: Replaced the closed nomination-period card with a direct polling-place lookup.
-- **Election information label**: Renamed the summary group so it accurately covers registration and polling-place details.
-- **Election card footers**: Shortened footer labels and kept MyVote links on one line in the compact cards.
-- **Voting-day card footers**: Removed the redundant “Citywide” labels from the Election Day and Advance Voting cards.
-- **Polling-place card copy**: Combined the polling-place title and description into one compact sentence.
-- **Councillor voting records**: Added shareable Committee, Year, Vote, Category, and followed-committee filters with a desktop sidebar and mobile panel.
-- **Filter layout**: Reused the same sidebar shell across the homepage and councillor voting records.
-- **Dashboard layout**: Let the filter sidebar and ward map fill the available viewport height while scrolling the motion list.
-
-### Changed
-- **Election candidate records**: Refresh the official 2026 candidate list during data updates and show filed dates now that nominations are closed.
+- **Mobile layout**: Put My Ward and Election side by side, limited Most Notable to two cards, moved Coming Up below the motion feed, showed 10 motions initially, and added a compact expandable filter card with ward-selection fallback.
+- **Motion headers**: Reorganized and tightened the Back link, status, title, metadata, and share action so they align consistently across screen sizes.
+- **Card consistency**: Reused the shared homepage card shell and footer alignment across Election, councillor, ward, and stats cards while preserving compact proportions.
+- **Election layout**: Opened with a five-card summary row, placed voting information before candidate lists, moved candidates below the map, and made map selection filter the list in place.
+- **Election copy**: Simplified redundant headings, labels, registration text, voting dates, candidate-count wording, and record terminology.
+- **Homepage highlights**: Ranked notable motions from the last 45 days and filled remaining highlight slots with recent ward motions.
+- **Ward coverage**: Counted reliable address locations and ward-name matches in ward activity while keeping explicitly citywide motions out of ward maps and ward-only lists.
+- **Motion locations**: Expanded address extraction and geocoding for named streets, grouped addresses, stations, parks, arenas, and civic facilities.
+- **Motion topics**: Removed the uninformative General label from councillor cards and prevented partial matches such as Parkway from producing incorrect Parks tags.
+- **Motion navigation**: Made council and committee labels link to their meeting pages.
+- **Motion detail**: Removed repeated vote totals, aligned summary and document cards, and reduced the header’s vertical footprint.
+- **Councillor profiles**: Replaced duplicate office-spend information with contact details and standardized mayor and councillor records as Voting Record.
+- **Councillor voting records**: Added Committee, Year, Vote, Category, and followed-committee filters using the shared sidebar on desktop and a mobile panel.
+- **Dashboard layout**: Let the filter sidebar and map fill the available viewport height while the motion list scrolls independently.
+- **Navigation**: Kept Search icon-only on mobile, moved election discovery into the main menu, and adjusted mobile header control spacing.
+- **Number formatting**: Added comma separators to displayed counts and totals.
+- **Ward maps**: Increased map height, added fullscreen controls, and temporarily highlighted only the hovered ward.
+- **Election status**: Refreshes the official 2026 candidate list and shows filed dates now that nominations are closed.
 
 ### Fixed
-- **Dependency security**: Updated vulnerable transitive `undici`, `nanoid`, and `brace-expansion` packages so the dependency audit is clean.
-- **Desktop navigation**: Prevented the main navigation from overlapping the Compare, ward, and search controls at narrower desktop widths.
-
-### Changed
+- **Dependency security**: Updated vulnerable transitive packages.
+- **Navigation stability**: Fixed a missing link import that caused a blank screen.
+- **Motion routing**: Stabilized motion-detail route navigation and isolated funding display logic.
+- **Card duplication**: Removed duplicate homepage and ward-motion entries caused by primary/submotion overlap.
+- **Mobile alignment**: Fixed vote tallies, card links, ward pills, and motion-header controls drifting from their desktop alignment.
+- **Candidate terminology**: Separated mayor and councillor candidate sections and removed redundant “one choice” and “citywide” labels.
+- **Election card sizing**: Kept homepage card heights unchanged while matching Election cards to the compact shared height.
+- **Location classification**: Corrected CC42.2’s topic and improved ward/location classification for address-based motions.
+- **CSV import**: Preserved agenda items whose titles contain line breaks so they are not dropped from the motion feed.
 - **Dependency updates**: Updated `@emnapi/runtime` to the latest patched release.
 - **CSV import**: Preserved agenda items whose titles contain line breaks so they are not dropped from the motion feed.
 
