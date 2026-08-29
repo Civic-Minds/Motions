@@ -23,6 +23,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Card consistency**: Reused the shared homepage card shell and footer alignment across Election, councillor, ward, and stats cards while preserving compact proportions.
 - **Election layout**: Opened with a five-card summary row, placed voting information before candidate lists, moved candidates below the map, and made map selection filter the list in place.
 - **Election copy**: Simplified redundant headings, labels, registration text, voting dates, candidate-count wording, and record terminology.
+- **Election information cards**: Kept the polling-place action separate and replaced the duplicate MyVote registration card with a direct How to vote guide link.
 - **Registration card**: Clarified that registration checks open September 1 and link directly to MyVote.
 - **Homepage highlights**: Ranked notable motions from the last 45 days and filled remaining highlight slots with recent ward motions.
 - **Ward coverage**: Counted reliable address locations and ward-name matches in ward activity while keeping explicitly citywide motions out of ward maps and ward-only lists.

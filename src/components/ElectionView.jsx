@@ -311,18 +311,18 @@ export default function ElectionView() {
             <div className="grid grid-cols-2 gap-3 items-stretch flex-1 min-w-0">
               <CivicCard className="h-[140px]">
                 <CivicPill className="bg-blue-50 text-[#004a99]">Where to vote</CivicPill>
-                <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Find your polling place to see where and when you can vote.</p>
+                <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">From September 1, find where and when you can vote.</p>
                 <CivicCardFooter align="end">
                   <a href="https://www.toronto.ca/city-government/elections/voter-information/" target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99]">Find my place ↗</a>
                 </CivicCardFooter>
               </CivicCard>
 
               <CivicCard className="h-[140px]">
-                <CivicPill className="bg-slate-100 text-slate-600">Registration</CivicPill>
-                <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Starting September 1, check your registration before election day.</p>
+                <CivicPill className="bg-slate-100 text-slate-600">How to vote</CivicPill>
+                <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">What to bring, how to get help, and your voting rights.</p>
                 <CivicCardFooter>
-                  <span className="text-[9px] text-slate-500 whitespace-nowrap">Voter info</span>
-                  <a href="https://www.toronto.ca/city-government/elections/voter-information/" target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99] whitespace-nowrap">Check MyVote ↗</a>
+                  <span className="text-[9px] text-slate-500 whitespace-nowrap">Starting September 1</span>
+                  <Link to="/election/how-to-vote" className="text-[9px] font-semibold text-[#004a99] whitespace-nowrap">Read guide ↗</Link>
                 </CivicCardFooter>
               </CivicCard>
             </div>
