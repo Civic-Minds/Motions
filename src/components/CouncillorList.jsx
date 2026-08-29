@@ -1,7 +1,6 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { GitCompare, ChevronRight } from 'lucide-react';
-import { getWardId } from '../utils/storage';
+import { GitCompare, ChevronRight, MapPin } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getMemberAlignmentScore, getAttendance } from '../utils/analytics';
 import { nameToSlug, slugToName } from '../utils/slug';
@@ -9,6 +8,7 @@ import { WARD_COUNCILLORS, FORMER_MEMBERS } from '../constants/data';
 import { TORONTO_WARDS } from '../constants/wards';
 import { cn } from '../lib/utils';
 import VersusOverlay from './VersusOverlay';
+import { useAppContext } from '../contexts/AppContext';
 
 const COUNCILLOR_WARD = {};
 Object.entries(WARD_COUNCILLORS).forEach(([wardId, name]) => {
@@ -27,11 +27,42 @@ const MAYOR = 'Olivia Chow';
 export default function CouncillorList({ motions, compareMode, onCompareModeToggle }) {
   const [compareSlots, setCompareSlots] = useState([]);
   const [versusSelection, setVersusSelection] = useState([]);
+  const [findPending, setFindPending] = useState(false);
   const { slug, slug2 } = useParams();
   const navigate = useNavigate();
+  const { wardId: myWardId, handleLocate } = useAppContext();
 
-  const myWardId = getWardId();
   const myCouncillor = myWardId ? WARD_COUNCILLORS[myWardId] : null;
+
+  const scrollToCouncillor = (name) => {
+    document.getElementById(`councillor-${nameToSlug(name)}`)?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+    });
+  };
+
+  useEffect(() => {
+    if (!findPending || !myCouncillor) return undefined;
+    const frame = requestAnimationFrame(() => {
+      scrollToCouncillor(myCouncillor);
+      setFindPending(false);
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [findPending, myCouncillor]);
+
+  const handleFindMyCouncillor = async () => {
+    if (myCouncillor) {
+      scrollToCouncillor(myCouncillor);
+      return;
+    }
+
+    setFindPending(true);
+    try {
+      await handleLocate();
+    } catch {
+      setFindPending(false);
+    }
+  };
 
   const councillors = useMemo(() => {
     const voteCounts = {};
@@ -123,7 +154,14 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
   return (
     <div className="space-y-8 pb-20">
 
-      <div className="flex justify-end">
+      <div className="flex justify-end gap-2 flex-wrap">
+        <button
+          onClick={handleFindMyCouncillor}
+          className="flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-xl border border-slate-200 bg-white text-slate-600 hover:border-slate-400 transition-all"
+        >
+          <MapPin className="w-3.5 h-3.5" />
+          Find my councillor
+        </button>
         <button
           onClick={onCompareModeToggle}
           className={cn(
@@ -187,6 +225,7 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
           return (
             <motion.div
               key={name}
+              id={`councillor-${nameToSlug(name)}`}
               variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 280, damping: 28 } } }}
               onClick={() => compareMode ? handleCompareClick(name) : openProfile(name)}
               className={cn(

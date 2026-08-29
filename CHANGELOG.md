@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Councillor discovery**: Added a Find my councillor action that locates and scrolls to the saved councillor in the list.
+
 - **Motion page structure**: Stabilized motion-detail navigation hooks and isolated funding display logic to reduce route-state bugs.
 
 - **Share fallback**: Made page sharing work on local iPhones when native sharing or the secure Clipboard API is unavailable.
