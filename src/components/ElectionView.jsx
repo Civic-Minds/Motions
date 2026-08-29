@@ -54,11 +54,17 @@ function CandidateList({ candidates, emptyText, incumbentName, incumbentClass })
   );
 }
 
-function TrusteeSection({ candidateData, wardId }) {
+function TrusteeSection({ candidateData, wardId, geoData }) {
   const [boardId, setBoardId] = useState('tdsb');
   const board = TRUSTEE_BOARDS.find(item => item.id === boardId) || TRUSTEE_BOARDS[0];
   const trusteeWard = wardId ? board.wardsByCityWard[wardId] : null;
   const candidates = trusteeWard ? candidateData?.trustees?.[board.id]?.[trusteeWard] || [] : [];
+  const trusteeCityWards = trusteeWard
+    ? TORONTO_WARDS.filter(cityWard => board.wardsByCityWard[cityWard.id] === trusteeWard)
+    : [];
+  const trusteeWardCandidateCounts = Object.fromEntries(
+    trusteeCityWards.map(cityWard => [cityWard.id, `${candidates.length.toLocaleString()} candidates in trustee ward ${trusteeWard}`])
+  );
 
   return (
     <section className="order-7 space-y-3">
@@ -89,6 +95,18 @@ function TrusteeSection({ candidateData, wardId }) {
           <p className="text-sm text-slate-500">Choose your ward above to see the applicable trustee ward and candidates.</p>
         )}
       </CivicCard>
+      {geoData && trusteeWard && (
+        <div>
+          <p className="mb-2 px-1 text-[10px] font-bold uppercase tracking-wide text-slate-500">City wards covered by trustee ward {trusteeWard}</p>
+          <TorontoFullMap
+            geojson={geoData}
+            wardActivity={trusteeCityWards}
+            wardSubtextById={trusteeWardCandidateCounts}
+            compact
+            onWardSelect={() => {}}
+          />
+        </div>
+      )}
     </section>
   );
 }
@@ -448,7 +466,7 @@ export default function ElectionView() {
         </Suspense>
       </section>
 
-      <TrusteeSection candidateData={candidateData} wardId={selectedWardId || savedWardId} />
+      <TrusteeSection candidateData={candidateData} wardId={selectedWardId || savedWardId} geoData={geoData} />
 
       {/* Footnote */}
       <div className="order-9 pt-8 text-center">

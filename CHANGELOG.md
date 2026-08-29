@@ -24,6 +24,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Motion headers**: Reorganized and tightened the Back link, status, title, metadata, and share action so they align consistently across screen sizes.
 - **Card consistency**: Reused the shared homepage card shell and footer alignment across Election, councillor, ward, and stats cards while preserving compact proportions.
 - **Election layout**: Opened with a five-card summary row, placed voting information before candidate lists, moved candidates below the map, and made map selection filter the list in place.
+- **Trustee election view**: Added a shared-map view showing the city wards covered by the selected school-board trustee ward.
 - **Election copy**: Simplified redundant headings, labels, registration text, voting dates, candidate-count wording, and record terminology, including the My Ward candidate label and duplicate footer text.
 - **Candidate cards**: Removed filing dates from the voter-facing lists while retaining them in the source data.
 - **Election information cards**: Kept the polling-place information separate, linked the primary action to MyVote as Register, and replaced the duplicate registration card with a direct How to vote guide link.

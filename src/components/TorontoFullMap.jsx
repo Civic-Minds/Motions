@@ -9,7 +9,7 @@ import { TORONTO_WARDS } from '../constants/wards';
 import { getWardId } from '../utils/storage';
 import { cn } from '../lib/utils';
 
-export default function TorontoFullMap({ geojson, wardActivity, wardSubtextById, onWardSelect, isFullscreen = false, onToggleFullscreen }) {
+export default function TorontoFullMap({ geojson, wardActivity, wardSubtextById, onWardSelect, isFullscreen = false, onToggleFullscreen, compact = false }) {
   const navigate = useNavigate();
   const mapRef = useRef(null);
   const savedWardId = getWardId();
@@ -72,7 +72,7 @@ export default function TorontoFullMap({ geojson, wardActivity, wardSubtextById,
       "relative overflow-hidden border border-slate-200 bg-white",
       isFullscreen
         ? "fixed inset-0 z-[60] rounded-none h-screen"
-        : "rounded-2xl h-[560px]"
+        : compact ? "rounded-2xl h-[420px]" : "rounded-2xl h-[560px]"
     )}>
       <MapContainer
         ref={mapRef}
