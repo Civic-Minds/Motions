@@ -104,7 +104,7 @@ function ChangeWardButton({ onChange }) {
   );
 }
 
-function ChangeSystemButton({ boardId, boards, wardId, onChange }) {
+function ChangeSystemButton({ boardId, boards, onChange }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -122,8 +122,7 @@ function ChangeSystemButton({ boardId, boards, wardId, onChange }) {
           className="absolute right-0 top-7 z-20 w-72 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-700 shadow-lg outline-none focus:border-[#004a99]"
         >
           {boards.map(board => {
-            const trusteeWard = wardId ? board.wardsByCityWard[wardId] : null;
-            return <option key={board.id} value={board.id}>{board.name}{trusteeWard ? ` · Trustee ward ${trusteeWard}` : ''}</option>;
+            return <option key={board.id} value={board.id}>{board.name}</option>;
           })}
         </select>
       )}
@@ -178,7 +177,7 @@ function TrusteeSection({ candidateData, wardId, geoData, onCityWardChange }) {
           <div className="mb-2 flex items-center justify-between gap-3 px-1">
             <h3 className="text-lg font-bold text-slate-900">Trustee candidates</h3>
             <div className="flex items-center gap-2">
-              <ChangeSystemButton boardId={boardId} boards={TRUSTEE_BOARDS} wardId={wardId} onChange={setBoardId} />
+              <ChangeSystemButton boardId={boardId} boards={TRUSTEE_BOARDS} onChange={setBoardId} />
               <ChangeWardButton onChange={onCityWardChange} />
               <ShareButton title="Toronto Trustee Candidates 2026" />
             </div>
