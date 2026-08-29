@@ -179,14 +179,14 @@ function TrusteeSection({ candidateData, wardId, geoData, onCityWardChange }) {
   const board = TRUSTEE_BOARDS.find(item => item.id === boardId) || TRUSTEE_BOARDS[0];
   const userTrusteeWard = wardId ? board.wardsByCityWard[wardId] : null;
   const trusteeWards = [...new Set(Object.values(board.wardsByCityWard))].sort((a, b) => Number(a) - Number(b));
-  const trusteeWard = selectedTrusteeWard || userTrusteeWard || trusteeWards[0] || null;
+  const trusteeWard = selectedTrusteeWard || userTrusteeWard || null;
   const candidates = trusteeWard ? candidateData?.trustees?.[board.id]?.[trusteeWard] || [] : [];
   const trusteeGeojson = useMemo(() => buildTrusteeGeojson(geoData, board), [geoData, board]);
   const trusteeWardCards = trusteeWards.map(wardNumber => ({ id: wardNumber, name: board.wardNames?.[wardNumber] ? `Trustee ward ${board.wardNames[wardNumber]}` : `Trustee ward ${wardNumber}` }));
   const trusteeWardCandidateCounts = Object.fromEntries(
     trusteeWardCards.map(trusteeWardCard => {
       const count = candidateData?.trustees?.[board.id]?.[trusteeWardCard.id]?.length || 0;
-      return [trusteeWardCard.id, `${count.toLocaleString()} candidates`];
+      return [trusteeWardCard.id, candidateData ? `${count.toLocaleString()} candidates` : 'Loading candidates…'];
     })
   );
   useEffect(() => {
@@ -195,7 +195,7 @@ function TrusteeSection({ candidateData, wardId, geoData, onCityWardChange }) {
 
   return (
     <section className="order-7 space-y-3">
-      {geoData && trusteeWard && (
+      {geoData && (
         <div>
           <div className="mb-2 flex items-center justify-between gap-3 px-1">
             <h3 className="text-lg font-bold text-slate-900">Trustee candidates</h3>
@@ -212,7 +212,7 @@ function TrusteeSection({ candidateData, wardId, geoData, onCityWardChange }) {
               wardSubtextById={trusteeWardCandidateCounts}
               wardLabel="Trustee ward"
               wardLabelById={Object.fromEntries(trusteeWardCards.map(ward => [ward.id, ward.name]))}
-              highlightWardId={trusteeWard}
+              highlightWardId={trusteeWard || ''}
               onWardSelect={setSelectedTrusteeWard}
             />
           </Suspense>
@@ -220,11 +220,14 @@ function TrusteeSection({ candidateData, wardId, geoData, onCityWardChange }) {
             <div className="flex items-baseline justify-between gap-3">
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-wide text-slate-500">Candidates</p>
-                <p className="text-base font-bold text-slate-900">{board.wardNames?.[trusteeWard] ? `Trustee ward ${board.wardNames[trusteeWard]}` : `Trustee ward ${trusteeWard}`}</p>
+                <p className="text-base font-bold text-slate-900">{trusteeWard ? (board.wardNames?.[trusteeWard] ? `Trustee ward ${board.wardNames[trusteeWard]}` : `Trustee ward ${trusteeWard}`) : 'Choose a trustee ward first'}</p>
               </div>
-              <span className="text-sm text-slate-500">{candidates.length.toLocaleString()} candidates</span>
             </div>
-            <CandidateList candidates={candidates} emptyText="No trustee candidates registered yet." incumbentClass="bg-blue-50 text-blue-700" />
+            <CandidateList
+              candidates={candidates}
+              emptyText={trusteeWard ? (candidateData ? 'No trustee candidates registered yet.' : 'Loading candidates…') : 'Choose a trustee ward on the map to see its candidates.'}
+              incumbentClass="bg-blue-50 text-blue-700"
+            />
           </CivicCard>
         </div>
       )}

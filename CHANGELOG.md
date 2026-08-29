@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
+## [Unreleased]
+
+### Fixed
+- **Trustee candidate selection**: Prevented unselected trustee wards from appearing empty and showing false zero-candidate counts while candidate data loads.
+- **Voting guide header**: Aligned the guide’s Back link and header spacing with the site’s other detail pages.
+
 ## [2.13.0] — 2026-08-29
 
 ### Added

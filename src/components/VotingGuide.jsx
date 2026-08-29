@@ -18,14 +18,14 @@ function GuideCard({ icon: Icon, title, children }) {
 
 export default function VotingGuide() {
   return (
-    <div className="mx-auto max-w-5xl space-y-6 pb-20">
+    <div className="mx-auto max-w-4xl space-y-8 pb-20">
       <PageMeta
         title="How to vote | Motions Toronto"
         description="A practical, non-partisan guide to voting in Toronto’s 2026 municipal election."
       />
 
-      <div className="space-y-2">
-        <Link to="/election" className="inline-flex items-center gap-2 text-xs font-medium text-slate-500 transition-colors hover:text-slate-900">
+      <div className="space-y-3">
+        <Link to="/election" className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 transition-colors hover:text-slate-900">
           <ArrowLeft className="h-4 w-4" /> Back to election
         </Link>
         <CivicSectionLabel>NON-PARTISAN GUIDE</CivicSectionLabel>
