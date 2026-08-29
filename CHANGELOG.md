@@ -9,6 +9,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 ### Fixed
 - **Trustee candidate selection**: Prevented unselected trustee wards from appearing empty and showing false zero-candidate counts while candidate data loads.
 - **Voting guide header**: Aligned the guide’s Back link and header spacing with the site’s other detail pages.
+- **Voting guide clarity**: Explained that the three-hour voting entitlement means three consecutive hours free to vote, not three additional hours off work.
 
 ## [2.13.0] — 2026-08-29
 

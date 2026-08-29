@@ -107,7 +107,7 @@ export default function VotingGuide() {
         <CivicCard className="gap-3">
           <div className="grid gap-4 text-sm leading-relaxed text-slate-500 sm:grid-cols-2">
             <ul className="space-y-3">
-              <li>You are entitled to three hours in which to vote on election day.</li>
+              <li>Your work schedule must give you three consecutive hours free to vote on election day. This does not mean three extra hours off work—for example, if you work 10 a.m.–6 p.m., your employer could let you leave at 5 p.m. to vote until 8 p.m.</li>
               <li>If you experience a barrier, contact Toronto Elections for assistance.</li>
               <li>Voter Assist Terminals are available at all advance voting places and two voting places per ward on election day.</li>
             </ul>
