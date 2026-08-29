@@ -318,7 +318,7 @@ function MotionDetail({ motions, motion, motionId }) {
       <div className="mb-3 flex items-center gap-3 lg:hidden">
         <button
           onClick={() => navigate(-1)}
-          className="flex shrink-0 translate-y-1 items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 transition-colors"
+          className="flex h-5 shrink-0 items-center gap-1.5 text-sm leading-5 text-slate-500 hover:text-slate-700 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           Back

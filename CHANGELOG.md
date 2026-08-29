@@ -6,6 +6,10 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Site footer**: Added compact navigation, data-source, project, and attribution links across the site.
+
+- **Mobile motion header**: Locked the Back control to the status pill’s line box so both stay aligned across phone sizes.
+
 - **Page spacing**: Reduced the shared blank space above page content for a tighter layout.
 
 - **Desktop motion header**: Aligned the Back label with the status text in the motion header.

@@ -22,6 +22,7 @@ const MeetingsListView  = lazy(() => import('./components/MeetingsListView'));
 const GlobalSearch      = lazy(() => import('./components/GlobalSearch'));
 const ElectionView      = lazy(() => import('./components/ElectionView'));
 const DataPage          = lazy(() => import('./components/DataPage'));
+const SiteFooter        = lazy(() => import('./components/SiteFooter'));
 
 const TABS = [
   { path: '/councillors', label: 'Councillors', icon: Users },
@@ -78,7 +79,7 @@ function Navbar({ onSearchOpen }) {
         </nav>
 
         {/* Right: ward + search + mobile toggle */}
-        <div className="flex items-center justify-self-end gap-2 min-w-0 -mr-2 sm:mr-0">
+        <div className="flex items-center justify-self-end gap-2 min-w-0 -mr-4 sm:mr-0">
           {wardId ? (
             <div className="hidden sm:flex items-center gap-0 bg-white border border-slate-200 rounded-xl hover:border-[#004a99]/40 transition-all group/ward">
               <button
@@ -246,13 +247,9 @@ function AppShell() {
         {contentArea()}
       </main>
 
-      <footer className="border-t border-slate-200 bg-white">
-        <div className="max-w-[1400px] mx-auto px-6 h-12 flex items-center justify-between text-xs text-slate-500">
-          <Link to="/data" className="hover:text-slate-900 underline underline-offset-2 transition-colors">Data & methodology</Link>
-          <span className="hidden sm:block">A <a href="https://github.com/Civic-Minds" target="_blank" rel="noopener noreferrer" className="hover:text-slate-600 transition-colors">Civic Minds</a> project</span>
-          <a href="https://github.com/Civic-Minds/Motions" target="_blank" rel="noopener noreferrer" className="hover:text-slate-600 transition-colors">GitHub</a>
-        </div>
-      </footer>
+      <Suspense fallback={null}>
+        <SiteFooter />
+      </Suspense>
 
       {!loading && (
         <Suspense fallback={null}>
