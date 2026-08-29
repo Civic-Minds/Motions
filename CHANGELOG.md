@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Mobile layout**: Put the ward and election cards side by side, expanded the mobile filter controls, and added a ward picker when location detection is unavailable.
+
 - **Mobile filters**: Replaced the overflowing mobile filter chip list with a compact expandable filter card.
 
 - **Card consistency**: Reused the shared card component across homepage, councillor stats, and ward cards to keep their styling aligned.

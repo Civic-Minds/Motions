@@ -87,14 +87,14 @@ function DashboardFilterContent({ filters, dispatch, committees, years, sortedCo
 
       {/* Topic */}
       <div>
-        <p className="text-[9px] font-bold text-slate-500 uppercase tracking-wide mb-1.5">Topic</p>
+        <p className="text-[10px] lg:text-[9px] font-bold text-slate-500 uppercase tracking-wide mb-1.5">Topic</p>
         <div className="flex flex-wrap gap-1">
           {['All', ...TOPICS].map(topic => (
             <button
               key={topic}
               onClick={() => topic === 'All' ? dispatch({ type: 'CLEAR_TOPICS' }) : dispatch({ type: 'TOGGLE_TOPIC', topic })}
               className={cn(
-                "flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium transition-all",
+                "flex items-center gap-1 px-2 py-0.5 rounded-full text-xs lg:text-[11px] font-medium transition-all",
                 (topic === 'All' && filters.topics.length === 0) || filters.topics.includes(topic)
                   ? "bg-[#004a99] text-white"
                   : "bg-slate-100 text-slate-600 hover:bg-slate-200"
@@ -111,7 +111,7 @@ function DashboardFilterContent({ filters, dispatch, committees, years, sortedCo
 
       {/* Committee */}
       <div className="pt-2.5 border-t border-slate-100">
-        <p className="text-[9px] font-bold text-slate-500 uppercase tracking-wide mb-1.5">Committee</p>
+        <p className="text-[10px] lg:text-[9px] font-bold text-slate-500 uppercase tracking-wide mb-1.5">Committee</p>
         {filters.committees.length > 0 && (
           <div className="flex flex-wrap gap-1 mb-1.5">
             {filters.committees.map(c => (
@@ -131,7 +131,7 @@ function DashboardFilterContent({ filters, dispatch, committees, years, sortedCo
             onFocus={() => dispatch({ type: 'SET_COMMITTEE_OPEN', value: true })}
             onBlur={() => setTimeout(() => dispatch({ type: 'SET_COMMITTEE_OPEN', value: false }), 150)}
             placeholder={filters.committees.length > 0 ? 'Add another…' : 'Search…'}
-            className="w-full pl-6 pr-2 py-1 text-[11px] bg-slate-100 rounded-lg outline-none placeholder:text-slate-500 text-slate-700 focus:ring-1 focus:ring-[#004a99]/30"
+            className="w-full pl-6 pr-2 py-1 text-xs lg:text-[11px] bg-slate-100 rounded-lg outline-none placeholder:text-slate-500 text-slate-700 focus:ring-1 focus:ring-[#004a99]/30"
           />
           {filters.committeeSearch && (
             <button
@@ -163,14 +163,14 @@ function DashboardFilterContent({ filters, dispatch, committees, years, sortedCo
 
       {/* Vote Type */}
       <div className="pt-2.5 border-t border-slate-100">
-        <p className="text-[9px] font-bold text-slate-500 uppercase tracking-wide mb-1.5">Vote Type</p>
+        <p className="text-[10px] lg:text-[9px] font-bold text-slate-500 uppercase tracking-wide mb-1.5">Vote Type</p>
         <div className="flex flex-wrap gap-1">
           {VOTE_TYPES.map(({ label, value }) => (
             <button
               key={value}
               onClick={() => value === 'All' ? dispatch({ type: 'CLEAR_VOTE_TYPES' }) : dispatch({ type: 'TOGGLE_VOTE_TYPE', voteType: value })}
               className={cn(
-                "px-2 py-0.5 rounded-full text-[11px] font-medium transition-all",
+                "px-2 py-0.5 rounded-full text-xs lg:text-[11px] font-medium transition-all",
                 (value === 'All' && filters.voteTypes.length === 0) || filters.voteTypes.includes(value)
                   ? "bg-[#004a99] text-white"
                   : "bg-slate-100 text-slate-600 hover:bg-slate-200"
@@ -184,14 +184,14 @@ function DashboardFilterContent({ filters, dispatch, committees, years, sortedCo
 
       {/* Year */}
       <div className="pt-2.5 border-t border-slate-100">
-        <p className="text-[9px] font-bold text-slate-500 uppercase tracking-wide mb-1.5">Year</p>
+        <p className="text-[10px] lg:text-[9px] font-bold text-slate-500 uppercase tracking-wide mb-1.5">Year</p>
         <div className="flex flex-wrap gap-1">
           {['All', ...years].map(y => (
             <button
               key={y}
               onClick={() => y === 'All' ? dispatch({ type: 'CLEAR_YEARS' }) : dispatch({ type: 'TOGGLE_YEAR', year: y })}
               className={cn(
-                "px-2 py-0.5 rounded-full text-[11px] font-medium transition-all",
+                "px-2 py-0.5 rounded-full text-xs lg:text-[11px] font-medium transition-all",
                 (y === 'All' && filters.years.length === 0) || filters.years.includes(y)
                   ? "bg-[#004a99] text-white"
                   : "bg-slate-100 text-slate-600 hover:bg-slate-200"
@@ -208,7 +208,7 @@ function DashboardFilterContent({ filters, dispatch, committees, years, sortedCo
         <button
           onClick={() => dispatch({ type: 'TOGGLE_FOLLOWING' })}
           className={cn(
-            "flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium transition-all text-left",
+            "flex items-center gap-1 px-2 py-0.5 rounded-full text-xs lg:text-[11px] font-medium transition-all text-left",
             filters.showFollowingOnly ? "bg-[#004a99] text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
           )}
         >
@@ -217,7 +217,7 @@ function DashboardFilterContent({ filters, dispatch, committees, years, sortedCo
         <button
           onClick={() => dispatch({ type: 'TOGGLE_NOTABLE' })}
           className={cn(
-            "flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium transition-all",
+            "flex items-center gap-1 px-2 py-0.5 rounded-full text-xs lg:text-[11px] font-medium transition-all",
             filters.showNotableOnly ? "bg-amber-100 text-amber-700" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
           )}
         >
@@ -227,7 +227,7 @@ function DashboardFilterContent({ filters, dispatch, committees, years, sortedCo
           <button
             onClick={() => dispatch({ type: 'TOGGLE_MY_WARD' })}
             className={cn(
-              "px-2 py-0.5 rounded-full text-[11px] font-medium transition-all",
+              "px-2 py-0.5 rounded-full text-xs lg:text-[11px] font-medium transition-all",
               filters.showMyWard ? "bg-[#004a99] text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
             )}
           >
@@ -238,7 +238,7 @@ function DashboardFilterContent({ filters, dispatch, committees, years, sortedCo
           <button
             onClick={() => dispatch({ type: 'TOGGLE_LAST_MEETING' })}
             className={cn(
-              "flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium transition-all",
+              "flex items-center gap-1 px-2 py-0.5 rounded-full text-xs lg:text-[11px] font-medium transition-all",
               filters.showLastMeeting ? "bg-[#004a99] text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
             )}
           >
@@ -249,11 +249,11 @@ function DashboardFilterContent({ filters, dispatch, committees, years, sortedCo
 
       {/* Footer */}
       <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
-        <p className="text-[10px] text-slate-500">{sortedCount.toLocaleString()} motions</p>
+        <p className="text-[11px] lg:text-[10px] text-slate-500">{sortedCount.toLocaleString()} motions</p>
         {hasActiveFilters(filters) && (
           <button
             onClick={() => dispatch({ type: 'CLEAR' })}
-            className="flex items-center gap-1 text-[10px] font-medium text-slate-500 hover:text-slate-700 transition-colors"
+            className="flex items-center gap-1 text-[11px] lg:text-[10px] font-medium text-slate-500 hover:text-slate-700 transition-colors"
           >
             <X className="w-3 h-3" /> Clear
           </button>
@@ -431,11 +431,47 @@ export default function DashboardView({ motions, meetings = [] }) {
 
   const visibleMotions = sortedMotions.slice(0, visibleCount);
 
+  const renderHomeMotionCard = (m, i) => {
+    const yesCount = Object.values(m.votes ?? {}).filter(v => v === 'YES').length;
+    const noCount  = Object.values(m.votes ?? {}).filter(v => v === 'NO').length;
+    const total    = yesCount + noCount;
+    return (
+      <CivicCard
+        as={motion.button}
+        key={m.id}
+        initial={{ opacity: 0, scale: 0.97 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: i * 0.04 }}
+        onClick={() => navigate(`/motions/${m.id}`)}
+      >
+        <div className="flex items-center justify-between gap-1">
+          <span className={cn("text-[9px] font-semibold px-1.5 py-0.5 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>
+            {m.topic}
+          </span>
+          {total > 0 && (
+            <span className="text-[9px] font-medium shrink-0">
+              <span className="text-emerald-600 font-bold">{yesCount.toLocaleString()}</span>
+              <span className="text-slate-300 mx-0.5">–</span>
+              <span className="text-rose-500 font-bold">{noCount.toLocaleString()}</span>
+            </span>
+          )}
+        </div>
+        <p className="text-xs font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-3 leading-snug flex-1" title={m.title}>
+          {m.title}
+        </p>
+        <CivicCardFooter>
+          <span className="text-[10px] lg:text-[9px] text-slate-500">{m.date.split(',')[0]}</span>
+          <span className="text-[10px] lg:text-[9px] font-semibold text-[#004a99] group-hover:underline">See more</span>
+        </CivicCardFooter>
+      </CivicCard>
+    );
+  };
+
   return (
     <div className="space-y-4">
 
       {/* ── Bento row: Last Meeting | Notable | Your Ward ── */}
-      <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr_220px] gap-3 items-stretch overflow-hidden">
+      <div className="grid grid-cols-2 lg:grid-cols-[200px_1fr_220px] gap-3 items-stretch overflow-hidden">
 
         {/* 1. Left Col: Your Following or Your Ward (ONE Card) */}
         {followedHighlights.length > 0 ? (() => {
@@ -443,7 +479,7 @@ export default function DashboardView({ motions, meetings = [] }) {
           return (
             <div className="flex flex-col gap-1.5 min-w-0">
               <div className="flex items-center justify-between px-1">
-                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Your Following</p>
+                <p className="text-xs lg:text-[10px] font-bold text-slate-500 uppercase tracking-wide">Your Following</p>
                 <Star className="w-3 h-3 text-amber-500 fill-current shrink-0" />
               </div>
               <CivicCard
@@ -472,7 +508,7 @@ export default function DashboardView({ motions, meetings = [] }) {
         })() : (
           <div className="flex flex-col gap-1.5 min-w-0">
             <div className="flex items-center justify-between px-1">
-              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">My Ward</p>
+              <p className="text-xs lg:text-[10px] font-bold text-slate-500 uppercase tracking-wide">My Ward</p>
             </div>
             <YourWardCard />
           </div>
@@ -481,14 +517,17 @@ export default function DashboardView({ motions, meetings = [] }) {
         {/* 2. Middle: Notable + Your Ward (4-card Grid) */}
         <div className="flex flex-col gap-1.5 min-w-0">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 px-1">
-            <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide col-span-2">Most Notable</p>
+            <p className="text-xs lg:text-[10px] font-bold text-slate-500 uppercase tracking-wide col-span-2">
+              <span className="lg:hidden">Election</span>
+              <span className="hidden lg:inline">Most Notable</span>
+            </p>
             {wardHighlights.length > 0 && (
-              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide col-span-2">Ward Motions</p>
+              <p className="hidden lg:block text-[10px] font-bold text-slate-500 uppercase tracking-wide col-span-2">Ward Motions</p>
             )}
           </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 items-stretch flex-1 min-w-0">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-3 items-stretch flex-1 min-w-0">
             {highlights.length === 0 && wardHighlights.length === 0 && (
-              <div className="col-span-2 lg:col-span-4 flex items-center justify-center py-10 bg-white border border-dashed border-slate-200 rounded-2xl">
+              <div className="hidden lg:flex col-span-2 lg:col-span-4 items-center justify-center py-10 bg-white border border-dashed border-slate-200 rounded-2xl">
                 <p className="text-xs text-slate-500">No notable motions yet.</p>
               </div>
             )}
@@ -504,51 +543,20 @@ export default function DashboardView({ motions, meetings = [] }) {
                 <span className="text-[9px] font-semibold text-blue-700">Get ready</span>
               </div>
             </CivicCard>
-            {homeMotionCards.map((m, i) => {
-              const yesCount = Object.values(m.votes ?? {}).filter(v => v === 'YES').length;
-              const noCount  = Object.values(m.votes ?? {}).filter(v => v === 'NO').length;
-              const total    = yesCount + noCount;
-              return (
-                <CivicCard
-                  as={motion.button}
-                  key={m.id}
-                  initial={{ opacity: 0, scale: 0.97 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: i * 0.04 }}
-                  onClick={() => navigate(`/motions/${m.id}`)}
-                  className=""
-                >
-                  <div className="flex items-center justify-between gap-1">
-                    <span className={cn("text-[9px] font-semibold px-1.5 py-0.5 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>
-                      {m.topic}
-                    </span>
-                    {total > 0 && (
-                      <span className="text-[9px] font-medium shrink-0">
-                        <span className="text-emerald-600 font-bold">{yesCount.toLocaleString()}</span>
-                        <span className="text-slate-300 mx-0.5">–</span>
-                        <span className="text-rose-500 font-bold">{noCount.toLocaleString()}</span>
-                      </span>
-                    )}
-                  </div>
-                  <p className="text-xs font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-3 leading-snug flex-1" title={m.title}>
-                    {m.title}
-                  </p>
-                  <CivicCardFooter>
-                    <span className="text-[9px] text-slate-500">{m.date.split(',')[0]}</span>
-                    <span className="text-[9px] font-semibold text-[#004a99] group-hover:underline">See more</span>
-                  </CivicCardFooter>
-                </CivicCard>
-              );
-            })}
+            {homeMotionCards.map((m, i) => (
+              <div key={m.id} className="hidden lg:block">
+                {renderHomeMotionCard(m, i)}
+              </div>
+            ))}
           </div>
         </div>
 
         {/* 3. Right: Coming Up (ONE Card) */}
-        <div className="flex flex-col gap-1.5 overflow-hidden">
+        <div className="col-span-2 lg:col-span-1 flex flex-col gap-1.5 overflow-hidden">
           <div className="flex items-center justify-between px-1">
-            <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Coming Up</p>
+            <p className="text-xs lg:text-[10px] font-bold text-slate-500 uppercase tracking-wide">Coming Up</p>
             <div className="flex items-center gap-2">
-              <Link to="/meetings" className="text-[10px] font-semibold text-[#004a99]/60 hover:text-[#004a99] transition-colors">
+              <Link to="/meetings" className="text-xs lg:text-[10px] font-semibold text-[#004a99]/60 hover:text-[#004a99] transition-colors">
                 See more
               </Link>
               <Calendar className="w-3 h-3 text-slate-300" />
@@ -613,6 +621,20 @@ export default function DashboardView({ motions, meetings = [] }) {
             );
           })()}
         </div>
+      </div>
+
+      {/* Mobile notable motions — the election card stays beside My Ward above. */}
+      <div className="lg:hidden space-y-1.5">
+        <p className="text-xs font-bold text-slate-500 uppercase tracking-wide px-1">Most Notable</p>
+        {homeMotionCards.length > 0 ? (
+          <div className="grid grid-cols-2 gap-3 items-stretch">
+            {homeMotionCards.map(renderHomeMotionCard)}
+          </div>
+        ) : (
+          <div className="flex items-center justify-center py-8 bg-white border border-dashed border-slate-200 rounded-2xl">
+            <p className="text-sm text-slate-500">No notable motions yet.</p>
+          </div>
+        )}
       </div>
 
       {/* ── Main: Filter sidebar + motion list (same column widths as bento) ── */}
