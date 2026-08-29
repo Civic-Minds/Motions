@@ -152,28 +152,6 @@ function TrusteeSection({ candidateData, wardId, geoData, onCityWardChange }) {
 
   return (
     <section className="order-7 space-y-3">
-      <div className="flex items-end justify-between gap-3 px-1">
-        <div>
-          <CivicSectionLabel className="px-0">Trustee by ward</CivicSectionLabel>
-          <p className="mt-1 text-xs text-slate-500">Choose a school board to see its trustee ward and candidates.</p>
-        </div>
-        <a href="https://www.toronto.ca/city-government/elections/voter-information/myvote/" target="_blank" rel="noopener noreferrer" className="shrink-0 text-xs font-semibold text-[#004a99] hover:underline">Confirm with MyVote ↗</a>
-      </div>
-      <CivicCard className="gap-3">
-        {trusteeWard ? (
-          <>
-            <div className="flex items-baseline justify-between gap-3">
-              <div>
-                <p className="text-[10px] font-bold uppercase tracking-wide text-slate-500">{board.name}</p>
-                <p className="text-base font-bold text-slate-900">Trustee ward {trusteeWard}</p>
-              </div>
-              <span className="text-sm text-slate-500">{candidates.length.toLocaleString()} candidates</span>
-            </div>
-          </>
-        ) : (
-          <p className="text-sm text-slate-500">Choose your ward above to see the applicable trustee ward and candidates.</p>
-        )}
-      </CivicCard>
       {geoData && trusteeWard && (
         <div>
           <div className="mb-2 flex items-center justify-between gap-3 px-1">

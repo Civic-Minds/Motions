@@ -32,6 +32,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Election ward picker**: Changed both Election-page ward actions to use an inline picker without navigating away.
 - **Trustee board picker**: Moved school-board selection beside the trustee map heading and Change ward action.
 - **Trustee board picker**: Showed the official school-board names in the selector.
+- **Trustee election layout**: Removed the duplicate trustee intro and summary card now that the map heading owns the controls.
 - **Election map headings**: Matched the trustee and mayor/councillor map title typography.
 - **Election map sizing**: Matched trustee map height to the mayor/councillor map.
 - **Candidate cards**: Removed filing dates from the voter-facing lists while retaining them in the source data.
