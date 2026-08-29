@@ -598,11 +598,6 @@ export default function DashboardView({ motions, meetings = [] }) {
             )}
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-3 items-stretch flex-1 min-w-0">
-            {highlights.length === 0 && wardHighlights.length === 0 && (
-              <div className="hidden lg:flex col-span-2 lg:col-span-4 items-center justify-center py-10 bg-white border border-dashed border-slate-200 rounded-2xl">
-                <p className="text-xs text-slate-500">No notable motions yet.</p>
-              </div>
-            )}
             <CivicCard
               as={Link}
               to="/election"
@@ -628,18 +623,14 @@ export default function DashboardView({ motions, meetings = [] }) {
       </div>
 
       {/* Mobile notable motions — the election card stays beside My Ward above. */}
-      <div className="lg:hidden space-y-1.5">
-        <p className="text-xs font-bold text-slate-500 uppercase tracking-wide px-1">Most Notable</p>
-        {homeMotionCards.length > 0 ? (
+      {homeMotionCards.length > 0 && (
+        <div className="lg:hidden space-y-1.5">
+          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide px-1">Most Notable</p>
           <div className="grid grid-cols-2 gap-3 items-stretch">
             {homeMotionCards.slice(0, 2).map(renderHomeMotionCard)}
           </div>
-        ) : (
-          <div className="flex items-center justify-center py-8 bg-white border border-dashed border-slate-200 rounded-2xl">
-            <p className="text-sm text-slate-500">No notable motions yet.</p>
-          </div>
-        )}
-      </div>
+        </div>
+      )}
 
       {/* ── Main: Filter sidebar + motion list (same column widths as bento) ── */}
       <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr_220px] lg:gap-x-3 lg:items-start gap-y-4">
