@@ -449,7 +449,7 @@ export default function DashboardView({ motions, meetings = [] }) {
             {m.topic}
           </span>
           {total > 0 && (
-            <span className="text-[9px] font-medium shrink-0">
+            <span className="ml-auto shrink-0 text-right text-[9px] font-medium">
               <span className="text-emerald-600 font-bold">{yesCount.toLocaleString()}</span>
               <span className="text-slate-300 mx-0.5">–</span>
               <span className="text-rose-500 font-bold">{noCount.toLocaleString()}</span>

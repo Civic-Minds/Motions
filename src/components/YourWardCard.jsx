@@ -112,10 +112,10 @@ export default function YourWardCard() {
       >
         {/* Top row */}
         <div className="flex items-center justify-between gap-1">
-          <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-[#004a99]/10 text-[#004a99]">
+          <span className="shrink-0 whitespace-nowrap text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-[#004a99]/10 text-[#004a99]">
             Ward {wardId}
           </span>
-          {ward && <span className="text-[9px] text-slate-500 truncate">{ward.name}</span>}
+          {ward && <span className="max-w-[92px] text-right text-[9px] leading-tight text-slate-500">{ward.name}</span>}
         </div>
 
         {/* Councillor name */}

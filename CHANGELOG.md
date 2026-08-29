@@ -6,6 +6,10 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Mobile motion cards**: Kept vote tallies pinned to the right edge like the desktop cards.
+
+- **Mobile ward card**: Kept the Ward number together and allowed narrow ward names to wrap cleanly.
+
 - **Motion header alignment**: Kept the mobile Back control, status, and share action aligned in one row.
 
 - **Councillor discovery**: Added a Find my councillor action that locates and scrolls to the saved councillor in the list.
