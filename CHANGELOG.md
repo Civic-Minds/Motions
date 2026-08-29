@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
-## [2.12.5] — 2026-08-29
+## [2.13.0] — 2026-08-29
 
 ### Added
 - **Election experience**: Added the Toronto Election page, shared ward selection, candidate counts, registered candidate lists, voting dates, polling-place guidance, map exploration, and election sharing.
