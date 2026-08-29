@@ -20,82 +20,21 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Sharing and SEO**: Added route-aware metadata, crawler previews, share links, and a local-mobile sharing fallback.
 
 ### Changed
-- **Candidate links**: Refreshes now retain website and social links from Toronto’s official candidate-list Connect column, with consistent ordering and recognizable platform icons.
-- **Voting guide**: Tightened the page header and matched the resources section heading to the site’s main section headings.
-- **Data page**: Matched the How It Works cards by removing the one inconsistent icon.
-- **Voting guide**: Added vote-by-mail, proxy voting, accessibility, language, transportation, and special voter guidance from Toronto Elections.
-- **Voting guide**: Reorganized the guide into a step-by-step path covering timing, polling places, preparation, the voting place, and rights.
-- **Election resources**: Grouped official links under Voting, Candidates, and Rules headings for easier scanning.
-- **Voting guide**: Corrected the accepted-ID link to Toronto’s current identification page.
-- **Election resources**: Give the non-partisan voting guide a featured card and organize official links by voting, candidates, and rules.
-- **Election resources**: Apply the balanced three-column directory at the desktop breakpoint used by the site.
-- **Election resources**: Reworked the resource directory into shared compact cards with a balanced three-column desktop layout.
-- **Election resources**: Compact the official-resource cards to match the rest of the site and reduce unnecessary whitespace.
-- **Election candidate lists**: Reduced row and container spacing so long mayor and trustee lists show more candidates without excessive whitespace.
-- **Ward discovery card**: Matched the no-ward card to the homepage card layout while keeping location detection and manual selection available.
-- **Homepage highlights**: Always fills the no-ward highlight row with the Election card and three motion cards.
-- **Mobile layout**: Put My Ward and Election side by side, limited Most Notable to two cards, moved Coming Up below the motion feed, showed 10 motions initially, and added a compact expandable filter card with ward-selection fallback.
-- **Motion headers**: Reorganized and tightened the Back link, status, title, metadata, and share action so they align consistently across screen sizes.
-- **Card consistency**: Reused the shared homepage card shell and footer alignment across Election, councillor, ward, and stats cards while preserving compact proportions.
-- **Election layout**: Opened with a five-card summary row, placed voting information before candidate lists, moved candidates below the map, and made map selection filter the list in place.
-- **Trustee election view**: Added map coverage and candidate lists below the map for the selected school board; the map itself selects trustee wards without duplicate controls or instructions.
-- **Election copy**: Simplified redundant headings, labels, registration text, voting dates, candidate-count wording, and record terminology, including the My Ward candidate label and duplicate footer text.
-- **Election headings**: Clarified the city candidate map and standardized trustee section labels with the shared typography.
-- **Election headings**: Matched both map titles to the same `[race type] candidates` wording scheme.
-- **Ward selection**: Added a direct Change ward action beside the city candidate map heading.
-- **Trustee ward selection**: Matched the trustee map heading and added its own Change ward action.
-- **Election ward picker**: Changed both Election-page ward actions to use an inline picker without navigating away.
-- **Trustee board picker**: Moved school-board selection beside the trustee map heading and Change ward action.
-- **Trustee board picker**: Showed the official school-board names in the selector.
-- **Trustee ward mapping**: Shows each board’s automatically mapped trustee ward after a city ward is selected.
-- **Election controls**: Standardized the school-system control to the same Change system pattern as Change ward.
-- **Trustee sharing**: Added a share action beside the trustee ward controls.
-- **Trustee election layout**: Removed the duplicate trustee intro and summary card now that the map heading owns the controls.
-- **Election map headings**: Matched the trustee and mayor/councillor map title typography.
-- **Election map sizing**: Matched trustee map height to the mayor/councillor map.
-- **Candidate cards**: Removed filing dates from the voter-facing lists while retaining them in the source data.
-- **Election information cards**: Kept the polling-place information separate, linked the primary action to MyVote as Register, and replaced the duplicate registration card with a direct How to vote guide link.
-- **Registration card**: Clarified that registration checks open September 1 and link directly to MyVote.
-- **Homepage highlights**: Ranked notable motions from the last 45 days and filled remaining highlight slots with recent ward motions.
-- **Ward coverage**: Counted reliable address locations and ward-name matches in ward activity while keeping explicitly citywide motions out of ward maps and ward-only lists.
-- **Motion locations**: Expanded address extraction and geocoding for named streets, grouped addresses, stations, parks, arenas, and civic facilities.
-- **Motion topics**: Removed the uninformative General label from councillor cards and prevented partial matches such as Parkway from producing incorrect Parks tags.
-- **Motion navigation**: Made council and committee labels link to their meeting pages.
-- **Motion detail**: Removed repeated vote totals, aligned summary and document cards, and reduced the header’s vertical footprint.
-- **Motion maps**: Defer map mounting until the main motion content has rendered; fullscreen maps lock page scrolling, expose a persistent close control, and allow map zooming.
-- **Councillor profiles**: Replaced duplicate office-spend information with contact details and standardized mayor and councillor records as Voting Record.
-- **Councillor voting records**: Added Committee, Year, Vote, Category, and followed-committee filters using the shared sidebar on desktop and a mobile panel.
-- **Dashboard layout**: Let the filter sidebar and map fill the available viewport height while the motion list scrolls independently.
-- **Navigation**: Kept Search icon-only on mobile, moved election discovery into the main menu, and adjusted mobile header control spacing.
-- **Number formatting**: Added comma separators to displayed counts and totals.
-- **Ward maps**: Increased map height, added fullscreen controls, and temporarily highlighted only the hovered ward.
-- **Election status**: Refreshes the official 2026 candidate list and shows filed dates now that nominations are closed.
+- **Election experience**: Consolidated the Election page layout, voting information, candidate links, candidate ordering, map interactions, school-board controls, sharing, responsive behavior, and official-resource directory around the shared civic UI.
+- **Voting guide**: Reorganized the guide into a step-by-step, non-partisan path covering timing, polling places, registration, identification, accessibility, proxy and mail-in voting, language, transportation, special voter circumstances, and voter rights.
+- **Election resources**: Featured the non-partisan guide and grouped official voting, candidate, contribution-rebate, registry, and election-sign links into compact, balanced cards; corrected the accepted-ID link.
+- **Shared layout and navigation**: Reused the homepage card shells and aligned card sizing, spacing, headings, footers, filters, maps, mobile navigation, search, and share actions across the site.
+- **Motion locations and ward coverage**: Expanded reliable address and named-place extraction, geocoding, ward assignment, map display, and citywide exclusions for ward activity.
+- **Motion presentation**: Improved topic labels, council and committee navigation, motion-detail density, repeated vote totals, lazy-loaded maps, fullscreen map behavior, and count formatting.
+- **Councillor records**: Standardized profile statistics and contact presentation, added councillor discovery actions, and added shared multi-dimensional voting filters.
+- **Homepage highlights**: Ranked notable motions from the last 45 days and filled the available highlight slots with recent motions or the Election promotion according to ward-selection state.
 
 ### Fixed
-- **Mobile My Ward card**: Kept the ward card compact and aligned with the neighboring homepage cards.
-- **Homepage no-ward highlight row**: Kept the Election card plus three motion cards together for users without a saved ward.
-- **Homepage highlight row**: Filled missing ward-motion slots with recent motions so the Election row does not stop at three cards.
-- **Homepage no-ward highlights**: Reserved all four highlight slots for motions when no ward is selected instead of counting the Election card as one.
-- **Homepage no-ward fallback**: Kept the highlight area populated with recent motions after a user clears their ward.
-- **Homepage highlight fallback**: Removed the oversized empty notable placeholder when the Election card is the only highlight.
-- **Election race card sizing**: Explicitly kept each race card at its content height to prevent future parent-layout stretching.
-- **Election candidate layout**: Prevented shorter race cards from stretching to match the tallest candidate list.
-- **Election candidate lists**: Avoided repeating the incumbent after the same person’s voting record is shown above the race list.
-- **Election pickers**: Replaced browser-native ward and school-system menus with styled, reliable in-page pickers.
-- **Search overlay layering**: Prevented map controls and carousels from appearing above the global search dialog.
-- **Trustee map labels**: Removed duplicate trustee-ward names from map cards and school-system options.
-- **Trustee map boundaries**: Dissolved municipal ward edges so trustee maps display trustee wards only.
-- **Election page stability**: Fixed the trustee map heading action causing the Election page to blank at runtime.
-- **Candidate withdrawals**: Track withdrawals by race so candidates who change wards remain active in their new race while disappearing from old-race counts.
-- **Dependency security**: Updated vulnerable transitive packages.
-- **Navigation stability**: Fixed a missing link import that caused a blank screen.
-- **Motion routing**: Stabilized motion-detail route navigation and isolated funding display logic.
-- **Card duplication**: Removed duplicate homepage and ward-motion entries caused by primary/submotion overlap.
-- **Mobile alignment**: Fixed vote tallies, card links, ward pills, and motion-header controls drifting from their desktop alignment.
-- **Candidate terminology**: Separated mayor and councillor candidate sections and removed redundant “one choice” and “citywide” labels.
-- **Election card sizing**: Kept homepage card heights unchanged while matching Election cards to the compact shared height.
-- **Location classification**: Corrected CC42.2’s topic and improved ward/location classification for address-based motions.
-- **CSV import**: Preserved agenda items whose titles contain line breaks so they are not dropped from the motion feed.
+- **Election state and layout**: Fixed blank Election-page states, duplicate candidates and cards, inconsistent race-card heights, no-ward highlight counts, mobile alignment, picker behavior, trustee map boundaries, search-overlay layering, and redundant candidate terminology.
+- **Candidate data**: Fixed withdrawal handling, preserved line-broken agenda items, and corrected official candidate-link normalization and presentation.
+- **Motion data and routing**: Corrected CC42.2’s classification, improved address-based ward assignment, stabilized motion-detail routing, and removed primary/submotion duplicates.
+- **Site reliability and security**: Fixed missing-link navigation failures and updated vulnerable transitive dependencies.
+
 ## [2.12.4] — 2026-07-24
 
 ### Fixed
