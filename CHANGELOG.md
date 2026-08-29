@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Mobile header spacing**: Moved the search and menu controls closer to the right edge on phones.
+
 - **Mobile homepage order**: Shows 10 motions first and moves the shared Coming Up card below the feed on phones.
 
 - **Notable card actions**: Keeps mobile card links aligned to the right edge.

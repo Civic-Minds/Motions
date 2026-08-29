@@ -78,7 +78,7 @@ function Navbar({ onSearchOpen }) {
         </nav>
 
         {/* Right: ward + search + mobile toggle */}
-        <div className="flex items-center justify-self-end gap-2 min-w-0">
+        <div className="flex items-center justify-self-end gap-2 min-w-0 -mr-2 sm:mr-0">
           {wardId ? (
             <div className="hidden sm:flex items-center gap-0 bg-white border border-slate-200 rounded-xl hover:border-[#004a99]/40 transition-all group/ward">
               <button
