@@ -20,6 +20,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Sharing and SEO**: Added route-aware metadata, crawler previews, share links, and a local-mobile sharing fallback.
 
 ### Changed
+- **Election candidate lists**: Reduced row and container spacing so long mayor and trustee lists show more candidates without excessive whitespace.
 - **Ward discovery card**: Matched the no-ward card to the homepage card layout while keeping location detection and manual selection available.
 - **Homepage highlights**: Always fills the no-ward highlight row with the Election card and three motion cards.
 - **Mobile layout**: Put My Ward and Election side by side, limited Most Notable to two cards, moved Coming Up below the motion feed, showed 10 motions initially, and added a compact expandable filter card with ward-selection fallback.

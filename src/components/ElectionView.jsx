@@ -44,11 +44,11 @@ function CandidateList({ candidates, emptyText, incumbentName, incumbentClass, h
   const visibleCandidates = showAll ? orderedCandidates : orderedCandidates.slice(0, initialVisible);
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-1.5">
       {visibleCandidates.map((candidate, i) => {
         const isIncumbent = incumbentName && candidate.name.toLowerCase() === incumbentName.toLowerCase();
         return (
-          <div key={`${candidate.name}-${i}`} className="flex items-center justify-between gap-3 p-3 rounded-xl bg-white border border-slate-200 hover:border-slate-300 transition-all">
+          <div key={`${candidate.name}-${i}`} className="flex items-center justify-between gap-3 p-2 rounded-xl bg-white border border-slate-200 hover:border-slate-300 transition-all">
             <div className="flex items-center gap-2 min-w-0">
               <span className="font-bold text-sm text-slate-900 truncate">{candidate.name}</span>
               {isIncumbent && (
@@ -377,7 +377,7 @@ export default function ElectionView() {
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 items-start">
-              <div className="self-start h-fit bg-white border border-slate-200 rounded-2xl p-4 space-y-3">
+              <div className="self-start h-fit bg-white border border-slate-200 rounded-2xl p-3 space-y-2">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Mayor</p>
@@ -401,7 +401,7 @@ export default function ElectionView() {
                 />
               </div>
 
-              <div className="self-start h-fit bg-white border border-slate-200 rounded-2xl p-4 space-y-3">
+              <div className="self-start h-fit bg-white border border-slate-200 rounded-2xl p-3 space-y-2">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">City Councillor</p>
