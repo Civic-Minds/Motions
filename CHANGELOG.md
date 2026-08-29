@@ -27,6 +27,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Trustee election view**: Added map coverage and candidate lists below the map for the selected school board; the map itself selects trustee wards without duplicate controls or instructions.
 - **Election copy**: Simplified redundant headings, labels, registration text, voting dates, candidate-count wording, and record terminology, including the My Ward candidate label and duplicate footer text.
 - **Election headings**: Clarified the city candidate map and standardized trustee section labels with the shared typography.
+- **Election headings**: Matched both map titles to the same `[race type] candidates` wording scheme.
 - **Ward selection**: Added a direct Change ward action beside the city candidate map heading.
 - **Trustee ward selection**: Matched the trustee map heading and added its own Change ward action.
 - **Election ward picker**: Changed both Election-page ward actions to use an inline picker without navigating away.

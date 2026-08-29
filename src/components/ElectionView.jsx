@@ -155,7 +155,7 @@ function TrusteeSection({ candidateData, wardId, geoData, onCityWardChange }) {
       {geoData && trusteeWard && (
         <div>
           <div className="mb-2 flex items-center justify-between gap-3 px-1">
-            <h3 className="text-lg font-bold text-slate-900">Trustee candidates by ward</h3>
+            <h3 className="text-lg font-bold text-slate-900">Trustee candidates</h3>
             <div className="flex items-center gap-2">
               <label htmlFor="trustee-board" className="sr-only">School board</label>
               <select id="trustee-board" value={boardId} onChange={event => setBoardId(event.target.value)} className="max-w-48 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:border-[#004a99]">
