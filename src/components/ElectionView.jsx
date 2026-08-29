@@ -88,17 +88,13 @@ function ChangeWardButton({ onChange }) {
         Change ward
       </button>
       {open && (
-        <select
-          autoFocus
-          aria-label="Choose your ward"
-          defaultValue=""
-          onChange={event => selectWard(event.target.value)}
-          onBlur={() => setOpen(false)}
-          className="absolute right-0 top-7 z-20 w-56 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-700 shadow-lg outline-none focus:border-[#004a99]"
-        >
-          <option value="">Choose your ward</option>
-          {TORONTO_WARDS.map(ward => <option key={ward.id} value={ward.id}>Ward {ward.id} · {ward.name}</option>)}
-        </select>
+        <div role="listbox" aria-label="Choose your ward" className="absolute right-0 top-7 z-20 max-h-72 w-64 overflow-y-auto rounded-xl border border-slate-200 bg-white p-1.5 text-xs text-slate-700 shadow-xl">
+          {TORONTO_WARDS.map(ward => (
+            <button key={ward.id} type="button" role="option" onClick={() => selectWard(ward.id)} className="block w-full rounded-lg px-3 py-2 text-left hover:bg-blue-50 hover:text-[#004a99]">
+              Ward {ward.id} · {ward.name}
+            </button>
+          ))}
+        </div>
       )}
     </div>
   );
@@ -113,18 +109,13 @@ function ChangeSystemButton({ boardId, boards, onChange }) {
         Change system
       </button>
       {open && (
-        <select
-          autoFocus
-          aria-label="Choose your school system"
-          value={boardId}
-          onChange={event => { onChange(event.target.value); setOpen(false); }}
-          onBlur={() => setOpen(false)}
-          className="absolute right-0 top-7 z-20 w-72 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-700 shadow-lg outline-none focus:border-[#004a99]"
-        >
-          {boards.map(board => {
-            return <option key={board.id} value={board.id}>{board.name}</option>;
-          })}
-        </select>
+        <div role="listbox" aria-label="Choose your school system" className="absolute right-0 top-7 z-20 w-72 rounded-xl border border-slate-200 bg-white p-1.5 text-xs text-slate-700 shadow-xl">
+          {boards.map(board => (
+            <button key={board.id} type="button" role="option" aria-selected={board.id === boardId} onClick={() => { onChange(board.id); setOpen(false); }} className={cn("block w-full rounded-lg px-3 py-2 text-left", board.id === boardId ? "bg-blue-50 font-semibold text-[#004a99]" : "hover:bg-blue-50 hover:text-[#004a99]")}>
+              {board.name}
+            </button>
+          ))}
+        </div>
       )}
     </div>
   );
