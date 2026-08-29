@@ -460,10 +460,11 @@ export default function DashboardView({ motions, meetings = [] }) {
 
   const recentFallback = useMemo(() => {
     const usedIds = new Set([...followedHighlights.map(m => m.id), ...highlights.map(m => m.id), ...wardHighlights.map(m => m.id)]);
-    const cutoff = new Date();
-    cutoff.setDate(cutoff.getDate() - 45);
     return [...primaryMotions]
-      .filter(m => new Date(m.date) >= cutoff && !usedIds.has(m.id))
+      // The homepage always has room for three motion cards. If fewer than
+      // three recent notable/ward motions qualify, fill the remaining slots
+      // with the next newest motions instead of leaving an empty slot.
+      .filter(m => !usedIds.has(m.id))
       .sort((a, b) => new Date(b.date) - new Date(a.date) || (b.significance ?? 0) - (a.significance ?? 0))
       .slice(0, 3);
   }, [primaryMotions, followedHighlights, highlights, wardHighlights]);

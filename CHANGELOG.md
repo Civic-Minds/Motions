@@ -20,6 +20,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Sharing and SEO**: Added route-aware metadata, crawler previews, share links, and a local-mobile sharing fallback.
 
 ### Changed
+- **Homepage highlights**: Always fills the no-ward highlight row with the Election card and three motion cards.
 - **Mobile layout**: Put My Ward and Election side by side, limited Most Notable to two cards, moved Coming Up below the motion feed, showed 10 motions initially, and added a compact expandable filter card with ward-selection fallback.
 - **Motion headers**: Reorganized and tightened the Back link, status, title, metadata, and share action so they align consistently across screen sizes.
 - **Card consistency**: Reused the shared homepage card shell and footer alignment across Election, councillor, ward, and stats cards while preserving compact proportions.
