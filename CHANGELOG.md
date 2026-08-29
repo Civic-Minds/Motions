@@ -46,9 +46,6 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Election card sizing**: Kept homepage card heights unchanged while matching Election cards to the compact shared height.
 - **Location classification**: Corrected CC42.2’s topic and improved ward/location classification for address-based motions.
 - **CSV import**: Preserved agenda items whose titles contain line breaks so they are not dropped from the motion feed.
-- **Dependency updates**: Updated `@emnapi/runtime` to the latest patched release.
-- **CSV import**: Preserved agenda items whose titles contain line breaks so they are not dropped from the motion feed.
-
 ## [2.12.4] — 2026-07-24
 
 ### Fixed
