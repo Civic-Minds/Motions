@@ -298,8 +298,7 @@ export default function ElectionView() {
                     <p className="text-2xl font-black text-[#004a99]">{candidateData?.mayor ? candidateData.mayor.length.toLocaleString() : '—'}</p>
                   </div>
                 </div>
-                <CivicCardFooter>
-                  <span className="text-[9px] text-slate-500">candidates</span>
+                <CivicCardFooter align="end">
                   <Link to="#candidates" className="text-[9px] font-semibold text-[#004a99]">See more</Link>
                 </CivicCardFooter>
               </CivicCard>
