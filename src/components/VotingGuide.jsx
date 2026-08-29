@@ -76,23 +76,47 @@ export default function VotingGuide() {
       </section>
 
       <section className="space-y-3">
-        <CivicSectionLabel>3 · AT THE VOTING PLACE</CivicSectionLabel>
+        <CivicSectionLabel>3 · OTHER WAYS TO VOTE</CivicSectionLabel>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <GuideCard icon={Calendar} title="Vote by mail">
+            <p>Request to vote by mail starting September 1. Use MyVote or contact Toronto Elections for the current deadline and instructions.</p>
+            <a className={`mt-3 inline-flex items-center gap-1.5 font-semibold ${officialLink}`} href="https://www.toronto.ca/city-government/elections/voter-information/myvote/" target="_blank" rel="noopener noreferrer">
+              Request vote-by-mail information <ExternalLink className="h-3.5 w-3.5" />
+            </a>
+          </GuideCard>
+          <GuideCard icon={CheckCircle2} title="Vote by proxy">
+            <p>If you cannot vote on any available day, you can appoint one eligible Toronto voter to vote on your behalf.</p>
+            <p className="mt-2">The appointment form must be completed, signed, and certified by the City Clerk. Contact 416-338-1111 or voterregistration@toronto.ca.</p>
+          </GuideCard>
+        </div>
+      </section>
+
+      <section className="space-y-3">
+        <CivicSectionLabel>4 · AT THE VOTING PLACE</CivicSectionLabel>
         <CivicCard className="gap-3">
           <div className="grid gap-4 text-sm leading-relaxed text-slate-500 sm:grid-cols-3">
             <p><strong className="font-semibold text-slate-700">Check in.</strong> Election officials will confirm your information and explain what you need to do.</p>
             <p><strong className="font-semibold text-slate-700">Ask for help.</strong> You can ask an election official for help or bring a friend to assist you.</p>
-            <p><strong className="font-semibold text-slate-700">Request an accommodation.</strong> If you cannot enter the voting place, you can request curbside voting.</p>
+            <p><strong className="font-semibold text-slate-700">Request an accommodation.</strong> You can request curbside voting or a ballot transfer if you anticipate a barrier.</p>
           </div>
         </CivicCard>
       </section>
 
       <section className="space-y-3">
-        <CivicSectionLabel>4 · YOUR RIGHTS AND HELP</CivicSectionLabel>
+        <CivicSectionLabel>5 · YOUR RIGHTS AND HELP</CivicSectionLabel>
         <CivicCard className="gap-3">
-          <ul className="space-y-3 text-sm leading-relaxed text-slate-500">
-            <li>You are entitled to three hours in which to vote on election day.</li>
-            <li>If you experience a barrier, contact Toronto Elections for assistance.</li>
-          </ul>
+          <div className="grid gap-4 text-sm leading-relaxed text-slate-500 sm:grid-cols-2">
+            <ul className="space-y-3">
+              <li>You are entitled to three hours in which to vote on election day.</li>
+              <li>If you experience a barrier, contact Toronto Elections for assistance.</li>
+              <li>Voter Assist Terminals are available at all advance voting places and two voting places per ward on election day.</li>
+            </ul>
+            <ul className="space-y-3">
+              <li>Translation and interpretation support is available through Toronto Elections and 311.</li>
+              <li>Eligible voters without a permanent address can vote using a shelter, drop-in centre, or MyVote information.</li>
+              <li>Eligible voters on remand can ask detention-centre staff about proxy or mail-in voting.</li>
+            </ul>
+          </div>
           <p className="border-t border-slate-100 pt-3 text-sm text-slate-500">
             Accessibility support: <a className={officialLink} href="mailto:accessibleelections@toronto.ca">accessibleelections@toronto.ca</a> or 416-338-1111, press 6. For general help, call 311.
           </p>
