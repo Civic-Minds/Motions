@@ -14,11 +14,6 @@ import ShareButton from './ShareButton';
 
 const TorontoFullMap = lazy(() => import('./TorontoFullMap'));
 
-const formatNominationDate = (date) => {
-  if (!date) return null;
-  return `Filed ${date}`;
-};
-
 const candidateCountLabel = count => `${count.toLocaleString()} candidate${count === 1 ? '' : 's'}`;
 
 const TRUSTEE_BOARDS = [
@@ -48,9 +43,6 @@ function CandidateList({ candidates, emptyText, incumbentName, incumbentClass })
               )}
             </div>
             <div className="flex items-center gap-3 shrink-0">
-              {formatNominationDate(candidate.nominationDate) && (
-                <span className="text-[9px] text-slate-500">{formatNominationDate(candidate.nominationDate)}</span>
-              )}
               {candidate.website && <a href={candidate.website} target="_blank" rel="noopener noreferrer" aria-label={`Visit ${candidate.name}'s website`} className="text-slate-500 hover:text-[#004a99]"><ExternalLink className="w-3.5 h-3.5" /></a>}
               {candidate.email && <a href={`mailto:${candidate.email}`} aria-label={`Email ${candidate.name}`} className="text-slate-500 hover:text-slate-900"><Mail className="w-3.5 h-3.5" /></a>}
               {candidate.phone && <a href={`tel:${candidate.phone}`} aria-label={`Call ${candidate.name}`} className="text-slate-500 hover:text-slate-900"><Phone className="w-3.5 h-3.5" /></a>}
