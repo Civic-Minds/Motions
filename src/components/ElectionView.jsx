@@ -94,7 +94,7 @@ function TrusteeSection({ candidateData, wardId, geoData }) {
     <section className="order-7 space-y-3">
       <div className="flex items-end justify-between gap-3 px-1">
         <div>
-          <CivicSectionLabel className="px-0">Trustee candidates</CivicSectionLabel>
+          <CivicSectionLabel className="px-0">Trustee by ward</CivicSectionLabel>
           <p className="mt-1 text-xs text-slate-500">Choose a school board to see its trustee ward and candidates.</p>
         </div>
         <a href="https://www.toronto.ca/city-government/elections/voter-information/myvote/" target="_blank" rel="noopener noreferrer" className="shrink-0 text-xs font-semibold text-[#004a99] hover:underline">Confirm with MyVote ↗</a>
@@ -121,7 +121,7 @@ function TrusteeSection({ candidateData, wardId, geoData }) {
       {geoData && trusteeWard && (
         <div>
           <div className="mb-2 flex items-center justify-between gap-3 px-1">
-            <p className="text-[10px] font-bold uppercase tracking-wide text-slate-500">{board.label} trustee ward coverage</p>
+            <CivicSectionLabel className="px-0">{board.label} trustee wards</CivicSectionLabel>
             <p className="text-[10px] text-slate-500">Select a city ward to see its trustee ward</p>
           </div>
           <div className="mb-3 flex gap-2 overflow-x-auto px-1 pb-1" style={{ scrollbarWidth: 'none' }}>
@@ -503,7 +503,7 @@ export default function ElectionView() {
       <section className="order-6 space-y-4">
         <div className="flex items-end justify-between px-2">
           <div className="space-y-1">
-            <h3 className="text-lg font-bold text-slate-900">Candidates by ward</h3>
+            <h3 className="text-lg font-bold text-slate-900">Mayor and councillor candidates</h3>
           </div>
           <ShareButton title="Toronto Election 2026" />
         </div>
