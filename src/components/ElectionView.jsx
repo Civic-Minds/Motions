@@ -160,10 +160,6 @@ function TrusteeSection({ candidateData, wardId, geoData, onCityWardChange }) {
         <a href="https://www.toronto.ca/city-government/elections/voter-information/myvote/" target="_blank" rel="noopener noreferrer" className="shrink-0 text-xs font-semibold text-[#004a99] hover:underline">Confirm with MyVote ↗</a>
       </div>
       <CivicCard className="gap-3">
-        <label htmlFor="trustee-board" className="text-[10px] font-bold uppercase tracking-wide text-slate-500">School board</label>
-        <select id="trustee-board" value={boardId} onChange={event => setBoardId(event.target.value)} className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm font-semibold text-slate-800 outline-none focus:border-[#004a99]">
-          {TRUSTEE_BOARDS.map(item => <option key={item.id} value={item.id}>{item.label} — {item.name}</option>)}
-        </select>
         {trusteeWard ? (
           <>
             <div className="flex items-baseline justify-between gap-3">
@@ -182,7 +178,11 @@ function TrusteeSection({ candidateData, wardId, geoData, onCityWardChange }) {
         <div>
           <div className="mb-2 flex items-center justify-between gap-3 px-1">
             <h3 className="text-lg font-bold text-slate-900">Trustee candidates by ward</h3>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
+              <label htmlFor="trustee-board" className="sr-only">School board</label>
+              <select id="trustee-board" value={boardId} onChange={event => setBoardId(event.target.value)} className="max-w-48 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:border-[#004a99]">
+                {TRUSTEE_BOARDS.map(item => <option key={item.id} value={item.id}>{item.label}</option>)}
+              </select>
               <ChangeWardButton onChange={onCityWardChange} />
             </div>
           </div>
