@@ -505,7 +505,10 @@ export default function ElectionView() {
           <div className="space-y-1">
             <h3 className="text-lg font-bold text-slate-900">Mayor and councillor candidates</h3>
           </div>
-          <ShareButton title="Toronto Election 2026" />
+          <div className="flex items-center gap-3">
+            <Link to="/wards" className="text-xs font-semibold text-[#004a99] hover:underline">Change ward</Link>
+            <ShareButton title="Toronto Election 2026" />
+          </div>
         </div>
 
         <Suspense fallback={<div className="w-full h-[560px] rounded-2xl bg-slate-100 animate-pulse border border-slate-200" />}>
