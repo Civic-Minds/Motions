@@ -522,7 +522,7 @@ export default function ElectionView() {
           </CivicCardFooter>
         </CivicCard>
 
-        <CivicSectionLabel>Official election resources</CivicSectionLabel>
+        <h3 className="text-lg font-bold text-slate-900">Official election resources</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {[
             {

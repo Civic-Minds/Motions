@@ -20,6 +20,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Sharing and SEO**: Added route-aware metadata, crawler previews, share links, and a local-mobile sharing fallback.
 
 ### Changed
+- **Voting guide**: Tightened the page header and matched the resources section heading to the site’s main section headings.
+- **Data page**: Matched the How It Works cards by removing the one inconsistent icon.
 - **Voting guide**: Added vote-by-mail, proxy voting, accessibility, language, transportation, and special voter guidance from Toronto Elections.
 - **Voting guide**: Reorganized the guide into a step-by-step path covering timing, polling places, preparation, the voting place, and rights.
 - **Election resources**: Grouped official links under Voting, Candidates, and Rules headings for easier scanning.

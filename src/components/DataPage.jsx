@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ExternalLink, MapPin, RefreshCw, Database } from 'lucide-react';
+import { ArrowLeft, ExternalLink, RefreshCw, Database } from 'lucide-react';
 import { PageMeta } from './PageMeta';
 import { CivicCard, CivicSectionLabel } from './ui/CivicCard';
 
@@ -58,7 +58,6 @@ export default function DataPage() {
             <p className="text-sm leading-relaxed text-slate-500">Topics and significance scores help organize the record and surface decisions that may be more useful to review first.</p>
           </CivicCard>
           <CivicCard className="gap-2">
-            <MapPin className="w-5 h-5 text-[#004a99]" />
             <h2 className="font-semibold text-slate-900">Locations</h2>
             <p className="text-sm leading-relaxed text-slate-500">Specific addresses and named places are mapped when they can be identified reliably. Geographic points are assigned to official Toronto wards.</p>
           </CivicCard>
