@@ -104,6 +104,23 @@ async function scrapeCandidates() {
           ?? websitesByCandidateName[name]
           ?? null;
       };
+      const isSocialLink = href => /facebook\.com|instagram\.com|x\.com|twitter\.com|tiktok\.com|youtube\.com|linkedin\.com|threads\.com/i.test(href || '');
+      const normalizeLink = anchor => {
+        const raw = anchor?.getAttribute('href')?.trim();
+        if (!raw) return null;
+        if (/^www\./i.test(raw)) return `https://${raw}`;
+        return /^https?:\/\//i.test(raw) ? raw : null;
+      };
+      const connectLinks = cell => [...(cell?.querySelectorAll('a') || [])]
+        .map(normalizeLink)
+        .filter(Boolean);
+      const candidateLinks = (connectCell, email, name) => {
+        const links = connectLinks(connectCell);
+        const verifiedWebsite = verifiedWebsiteInPage(email, name);
+        const website = verifiedWebsite || links.find(link => !isSocialLink(link)) || null;
+        const socials = [...new Set(links.filter(link => isSocialLink(link) && link !== website))];
+        return { website, socials };
+      };
       const results = {
         mayor: [],
         wards: {},
@@ -122,11 +139,12 @@ async function scrapeCandidates() {
             if (nameRaw && nameRaw !== 'No data available in table') {
               const parts = nameRaw.split(',').map(p => p.trim());
               const name = parts.length === 2 ? `${parts[1]} ${parts[0]}` : nameRaw;
+              const links = candidateLinks(cells[3], cells[1].innerText.trim(), name);
               results.mayor.push({
                 name,
                 email: cells[1].innerText.trim(),
                 phone: cells[2].innerText.trim(),
-                website: verifiedWebsiteInPage(cells[1].innerText.trim(), name),
+                ...links,
                 nominationDate: cells[4].innerText.trim(),
                 type: 'Mayor'
               });
@@ -151,11 +169,12 @@ async function scrapeCandidates() {
             if (nameRaw && nameRaw !== 'No data available in table') {
               const parts = nameRaw.split(',').map(p => p.trim());
               const name = parts.length === 2 ? `${parts[1]} ${parts[0]}` : nameRaw;
+              const links = candidateLinks(cells[3], cells[1].innerText.trim(), name);
               wardCandidates.push({
                 name,
                 email: cells[1].innerText.trim(),
                 phone: cells[2].innerText.trim(),
-                website: verifiedWebsiteInPage(cells[1].innerText.trim(), name),
+                ...links,
                 nominationDate: cells[4].innerText.trim(),
                 type: 'Councillor'
               });
@@ -190,11 +209,12 @@ async function scrapeCandidates() {
             if (!nameRaw || nameRaw === 'No data available in table') return;
             const parts = nameRaw.split(',').map(p => p.trim());
             const name = parts.length === 2 ? `${parts[1]} ${parts[0]}` : nameRaw;
+            const links = candidateLinks(cells[3], cells[1].innerText.trim(), name);
             wardCandidates.push({
               name,
               email: cells[1].innerText.trim(),
               phone: cells[2].innerText.trim(),
-              website: null,
+              ...links,
               nominationDate: cells[4].innerText.trim(),
               type: 'Trustee',
               board,

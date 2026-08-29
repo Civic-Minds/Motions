@@ -18,6 +18,27 @@ const TorontoFullMap = lazy(() => import('./TorontoFullMap'));
 
 const candidateCountLabel = count => `${count.toLocaleString()} candidate${count === 1 ? '' : 's'}`;
 
+const SOCIAL_ORDER = ['facebook', 'instagram', 'x.com', 'twitter', 'tiktok', 'youtube', 'linkedin', 'threads'];
+
+function socialPlatform(url) {
+  const value = url.toLowerCase();
+  return SOCIAL_ORDER.find(platform => value.includes(platform)) || 'social media';
+}
+
+function SocialIcon({ url }) {
+  const platform = socialPlatform(url);
+  const common = { width: 15, height: 15, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round', 'aria-hidden': true };
+
+  if (platform === 'facebook') return <svg {...common}><path d="M14 8h3V4h-3c-3.3 0-5 1.9-5 5v3H6v4h3v4h4v-4h3l1-4h-4V9c0-.7.3-1 1-1Z" fill="currentColor" stroke="none" /></svg>;
+  if (platform === 'instagram') return <svg {...common}><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none" /></svg>;
+  if (platform === 'linkedin') return <svg {...common}><rect x="4" y="4" width="16" height="16" rx="1" /><path d="M8 10v6M8 7.5v.1M12 16v-3.2a2.8 2.8 0 0 1 5.6 0V16M12 10v6" /></svg>;
+  if (platform === 'youtube') return <svg {...common}><path d="M21 8.2a2.6 2.6 0 0 0-1.8-1.8C17.6 6 12 6 12 6s-5.6 0-7.2.4A2.6 2.6 0 0 0 3 8.2 27 27 0 0 0 2.6 12 27 27 0 0 0 3 15.8a2.6 2.6 0 0 0 1.8 1.8C6.4 18 12 18 12 18s5.6 0 7.2-.4a2.6 2.6 0 0 0 1.8-1.8 27 27 0 0 0 .4-3.8 27 27 0 0 0-.4-3.8Z" /><path d="m10 9 5 3-5 3V9Z" fill="currentColor" stroke="none" /></svg>;
+  if (platform === 'x.com' || platform === 'twitter') return <svg {...common}><path d="m5 4 14 16M19 4 5 20" strokeWidth="2.2" /></svg>;
+  if (platform === 'tiktok') return <svg {...common}><path d="M14 4v10.2a3.8 3.8 0 1 1-3-3.7M14 4c.6 2 1.9 3.2 4 3.6" strokeWidth="2.2" /></svg>;
+  if (platform === 'threads') return <svg {...common}><path d="M17.8 11.2c-.3-3.4-2.4-5.2-5.7-5.2-3.1 0-5.2 1.8-5.2 4.4 0 2.8 2.2 4.3 5.1 4.3 2.4 0 4.1-1 4.1-2.8 0-1.6-1.4-2.5-3.8-2.5-3.6 0-5.7 2-5.7 4.7 0 3.5 2.7 5.9 6.5 5.9 3.9 0 6.2-2.2 6.2-5.7 0-3.7-2.4-6.6-6.7-7.3" /></svg>;
+  return <ExternalLink {...common} />;
+}
+
 const TRUSTEE_BOARDS = [
   { id: 'tdsb', label: 'English public', name: 'Toronto District School Board', wardsByCityWard: { 1: '1', 2: '2', 3: '2', 4: '3', 5: '6', 6: '4', 7: '1', 8: '6', 9: '8', 10: '5', 11: '7', 12: '7', 13: '7', 14: '10', 15: '8', 16: '8', 17: '9', 18: '4', 19: '10', 20: '10', 21: '11', 22: '9', 23: '11', 24: '12', 25: '12' } },
   { id: 'tdcsb', label: 'English Catholic', name: 'Toronto Catholic District School Board', wardsByCityWard: { 1: '1', 2: '2', 3: '4', 4: '4', 5: '10', 6: '5', 7: '3', 8: '5', 9: '6', 10: '9', 11: '9', 12: '9', 13: '9', 14: '11', 15: '11', 16: '11', 17: '11', 18: '5', 19: '11', 20: '12', 21: '7', 22: '7', 23: '8', 24: '12', 25: '8' } },
@@ -47,6 +68,13 @@ function CandidateList({ candidates, emptyText, incumbentName, incumbentClass, h
     <div className="space-y-1.5">
       {visibleCandidates.map((candidate, i) => {
         const isIncumbent = incumbentName && candidate.name.toLowerCase() === incumbentName.toLowerCase();
+        const orderedSocials = [...(candidate.socials || [])].sort((a, b) => {
+          const rank = url => {
+            const index = SOCIAL_ORDER.indexOf(socialPlatform(url));
+            return index < 0 ? 999 : index;
+          };
+          return rank(a) - rank(b);
+        });
         return (
           <div key={`${candidate.name}-${i}`} className="flex items-center justify-between gap-3 p-2 rounded-xl bg-white border border-slate-200 hover:border-slate-300 transition-all">
             <div className="flex items-center gap-2 min-w-0">
@@ -59,6 +87,7 @@ function CandidateList({ candidates, emptyText, incumbentName, incumbentClass, h
             </div>
             <div className="flex items-center gap-3 shrink-0">
               {candidate.website && <a href={candidate.website} target="_blank" rel="noopener noreferrer" aria-label={`Visit ${candidate.name}'s website`} className="text-slate-500 hover:text-[#004a99]"><ExternalLink className="w-3.5 h-3.5" /></a>}
+              {orderedSocials.map((social, socialIndex) => <a key={`${social}-${socialIndex}`} href={social} target="_blank" rel="noopener noreferrer" aria-label={`Visit ${candidate.name}'s ${socialPlatform(social)} profile`} title={socialPlatform(social)} className="text-slate-500 hover:text-[#004a99]"><SocialIcon url={social} /></a>)}
               {candidate.email && <a href={`mailto:${candidate.email}`} aria-label={`Email ${candidate.name}`} className="text-slate-500 hover:text-slate-900"><Mail className="w-3.5 h-3.5" /></a>}
               {candidate.phone && <a href={`tel:${candidate.phone}`} aria-label={`Call ${candidate.name}`} className="text-slate-500 hover:text-slate-900"><Phone className="w-3.5 h-3.5" /></a>}
             </div>

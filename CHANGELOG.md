@@ -20,6 +20,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Sharing and SEO**: Added route-aware metadata, crawler previews, share links, and a local-mobile sharing fallback.
 
 ### Changed
+- **Candidate links**: Refreshes now retain website and social links from Toronto’s official candidate-list Connect column, with consistent ordering and recognizable platform icons.
 - **Voting guide**: Tightened the page header and matched the resources section heading to the site’s main section headings.
 - **Data page**: Matched the How It Works cards by removing the one inconsistent icon.
 - **Voting guide**: Added vote-by-mail, proxy voting, accessibility, language, transportation, and special voter guidance from Toronto Elections.
