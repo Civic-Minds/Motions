@@ -58,6 +58,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Election status**: Refreshes the official 2026 candidate list and shows filed dates now that nominations are closed.
 
 ### Fixed
+- **Election candidate lists**: Avoided repeating the incumbent after the same person’s voting record is shown above the race list.
 - **Election pickers**: Replaced browser-native ward and school-system menus with styled, reliable in-page pickers.
 - **Search overlay layering**: Prevented map controls and carousels from appearing above the global search dialog.
 - **Trustee map labels**: Removed duplicate trustee-ward names from map cards and school-system options.

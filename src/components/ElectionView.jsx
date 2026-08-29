@@ -25,14 +25,17 @@ const TRUSTEE_BOARDS = [
   { id: 'cscm', label: 'French Catholic', name: 'Conseil scolaire catholique MonAvenir', wardNames: { 3: '3 – Toronto Ouest', 4: '4 – Toronto Est' }, wardsByCityWard: { 1: '3', 2: '3', 3: '3', 4: '3', 5: '3', 6: '3', 7: '3', 8: '3', 9: '3', 10: '3', 11: '3', 12: '3', 13: '3', 14: '4', 15: '4', 16: '4', 17: '4', 18: '3', 19: '4', 20: '4', 21: '4', 22: '4', 23: '4', 24: '4', 25: '4' } }
 ];
 
-function CandidateList({ candidates, emptyText, incumbentName, incumbentClass, initialVisible = Infinity }) {
+function CandidateList({ candidates, emptyText, incumbentName, incumbentClass, hideIncumbent = false, initialVisible = Infinity }) {
   const [showAll, setShowAll] = useState(false);
+  const listedCandidates = hideIncumbent && incumbentName
+    ? candidates?.filter(candidate => candidate.name.toLowerCase() !== incumbentName.toLowerCase())
+    : candidates;
 
-  if (!candidates?.length) {
+  if (!listedCandidates?.length) {
     return <p className="text-sm text-slate-500 italic text-center py-8">{emptyText}</p>;
   }
 
-  const orderedCandidates = [...candidates].sort((a, b) => {
+  const orderedCandidates = [...listedCandidates].sort((a, b) => {
     const aIsIncumbent = incumbentName && a.name.toLowerCase() === incumbentName.toLowerCase();
     const bIsIncumbent = incumbentName && b.name.toLowerCase() === incumbentName.toLowerCase();
     if (aIsIncumbent !== bIsIncumbent) return aIsIncumbent ? -1 : 1;
@@ -390,9 +393,10 @@ export default function ElectionView() {
                 </div>
                 <CandidateList
                   candidates={candidateData?.mayor}
-                  emptyText="No mayor candidates registered yet."
                   incumbentName="Olivia Chow"
                   incumbentClass="bg-purple-50 text-purple-700"
+                  hideIncumbent
+                  emptyText="No other mayor candidates registered yet."
                   initialVisible={10}
                 />
               </div>
@@ -415,9 +419,10 @@ export default function ElectionView() {
                 )}
                 <CandidateList
                   candidates={selectedWardCandidates}
-                  emptyText={selectedWardId ? `No candidates registered for Ward ${selectedWardId} yet.` : 'Choose a ward on the map to see its candidates.'}
                   incumbentName={selectedCouncillorName}
                   incumbentClass="bg-blue-50 text-blue-700"
+                  hideIncumbent
+                  emptyText={selectedWardId ? `No other candidates registered for Ward ${selectedWardId} yet.` : 'Choose a ward on the map to see its candidates.'}
                 />
               </div>
               </div>
