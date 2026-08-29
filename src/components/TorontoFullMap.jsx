@@ -9,10 +9,11 @@ import { TORONTO_WARDS } from '../constants/wards';
 import { getWardId } from '../utils/storage';
 import { cn } from '../lib/utils';
 
-export default function TorontoFullMap({ geojson, wardActivity, wardSubtextById, onWardSelect, isFullscreen = false, onToggleFullscreen, compact = false }) {
+export default function TorontoFullMap({ geojson, wardActivity, wardSubtextById, onWardSelect, isFullscreen = false, onToggleFullscreen, compact = false, wardLabel = 'Ward', highlightWardId = null }) {
   const navigate = useNavigate();
   const mapRef = useRef(null);
   const savedWardId = getWardId();
+  const activeWardId = highlightWardId ?? savedWardId;
   const [hoveredWardId, setHoveredWardId] = useState(null);
 
   useEffect(() => {
@@ -45,7 +46,7 @@ export default function TorontoFullMap({ geojson, wardActivity, wardSubtextById,
   function wardStyle(feature) {
     const id = extractWardId(feature.properties);
     const isHovered = id === hoveredWardId;
-    const isActive = id === (hoveredWardId ?? savedWardId);
+    const isActive = id === (hoveredWardId ?? activeWardId);
     return {
       color: '#004a99',
       weight: isActive ? 2.5 : 1,
@@ -117,7 +118,7 @@ export default function TorontoFullMap({ geojson, wardActivity, wardSubtextById,
           {sortedWards.map(ward => {
             const councillor = WARD_COUNCILLORS[ward.id];
             const subtext = wardSubtextById?.[ward.id] ?? councillor;
-            const isSaved = ward.id === savedWardId;
+            const isSaved = ward.id === activeWardId;
             const isHovered = ward.id === hoveredWardId;
             return (
               <button
@@ -134,7 +135,7 @@ export default function TorontoFullMap({ geojson, wardActivity, wardSubtextById,
                 )}
               >
                 <p className={cn("text-[9px] font-bold uppercase tracking-wide", isSaved ? "text-white/70" : "text-[#004a99]")}>
-                  Ward {ward.id}
+                  {wardLabel} {ward.id}
                 </p>
                 <p className={cn("text-xs font-semibold leading-snug mt-0.5 line-clamp-1", isSaved ? "text-white" : "text-slate-800")}>
                   {ward.name}
