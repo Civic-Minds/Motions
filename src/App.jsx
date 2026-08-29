@@ -23,6 +23,7 @@ const GlobalSearch      = lazy(() => import('./components/GlobalSearch'));
 const ElectionView      = lazy(() => import('./components/ElectionView'));
 const DataPage          = lazy(() => import('./components/DataPage'));
 const SiteFooter        = lazy(() => import('./components/SiteFooter'));
+const VotingGuide       = lazy(() => import('./components/VotingGuide'));
 
 const TABS = [
   { path: '/councillors', label: 'Councillors', icon: Users },
@@ -231,6 +232,7 @@ function AppShell() {
           <Route path="/meetings" element={<MeetingsListView meetings={meetings} />} />
           <Route path="/meetings/:meetingRef" element={<MeetingPage meetings={meetings} />} />
           <Route path="/election" element={<ElectionView />} />
+          <Route path="/election/how-to-vote" element={<VotingGuide />} />
           <Route path="/budget" element={<BudgetTranslator />} />
           <Route path="/data" element={<DataPage />} />
           <Route path="*"          element={<Navigate to="/" replace />} />

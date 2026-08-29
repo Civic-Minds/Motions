@@ -319,7 +319,7 @@ export default function ElectionView() {
 
               <CivicCard className="h-[140px]">
                 <CivicPill className="bg-slate-100 text-slate-600">Registration</CivicPill>
-                <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Check your registration before election day.</p>
+                <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Starting September 1, check your registration before election day.</p>
                 <CivicCardFooter>
                   <span className="text-[9px] text-slate-500 whitespace-nowrap">Voter info</span>
                   <a href="https://www.toronto.ca/city-government/elections/voter-information/" target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99] whitespace-nowrap">Check MyVote ↗</a>
@@ -355,6 +355,16 @@ export default function ElectionView() {
       <section className="order-8 space-y-6">
         <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-wide px-1">Official election resources</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <Link
+            to="/election/how-to-vote"
+            className="group p-4 bg-white border border-slate-200 rounded-2xl hover:border-[#004a99]/40 hover:shadow-sm transition-all flex justify-between items-start gap-4"
+          >
+            <div className="space-y-1">
+              <p className="font-bold text-slate-900 group-hover:text-blue-600 transition-colors">How to vote</p>
+              <p className="text-sm text-slate-500 leading-snug">Where to vote, when to vote, what to bring, and your rights.</p>
+            </div>
+            <ExternalLink className="w-4 h-4 text-slate-300 group-hover:text-[#004a99] mt-1 transition-colors" />
+          </Link>
           {[
             { label: 'Toronto Elections (Official)', url: 'https://www.toronto.ca/city-government/elections/', description: 'Official source for all voting information, dates, and results.' },
             { label: 'Voter Information', url: 'https://www.toronto.ca/city-government/elections/voter-information/', description: 'How to vote, where to vote, and eligibility requirements.' },
