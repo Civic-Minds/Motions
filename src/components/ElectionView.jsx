@@ -23,14 +23,24 @@ const TRUSTEE_BOARDS = [
   { id: 'cscm', label: 'French Catholic', name: 'Conseil scolaire catholique MonAvenir', wardsByCityWard: { 1: '3', 2: '3', 3: '3', 4: '3', 5: '3', 6: '3', 7: '3', 8: '3', 9: '3', 10: '3', 11: '3', 12: '3', 13: '3', 14: '4', 15: '4', 16: '4', 17: '4', 18: '3', 19: '4', 20: '4', 21: '4', 22: '4', 23: '4', 24: '4', 25: '4' } }
 ];
 
-function CandidateList({ candidates, emptyText, incumbentName, incumbentClass }) {
+function CandidateList({ candidates, emptyText, incumbentName, incumbentClass, initialVisible = Infinity }) {
+  const [showAll, setShowAll] = useState(false);
+
   if (!candidates?.length) {
     return <p className="text-sm text-slate-500 italic text-center py-8">{emptyText}</p>;
   }
 
+  const orderedCandidates = [...candidates].sort((a, b) => {
+    const aIsIncumbent = incumbentName && a.name.toLowerCase() === incumbentName.toLowerCase();
+    const bIsIncumbent = incumbentName && b.name.toLowerCase() === incumbentName.toLowerCase();
+    if (aIsIncumbent !== bIsIncumbent) return aIsIncumbent ? -1 : 1;
+    return a.name.localeCompare(b.name);
+  });
+  const visibleCandidates = showAll ? orderedCandidates : orderedCandidates.slice(0, initialVisible);
+
   return (
     <div className="space-y-2">
-      {candidates.map((candidate, i) => {
+      {visibleCandidates.map((candidate, i) => {
         const isIncumbent = incumbentName && candidate.name.toLowerCase() === incumbentName.toLowerCase();
         return (
           <div key={`${candidate.name}-${i}`} className="flex items-center justify-between gap-3 p-3 rounded-xl bg-white border border-slate-200 hover:border-slate-300 transition-all">
@@ -50,21 +60,35 @@ function CandidateList({ candidates, emptyText, incumbentName, incumbentClass })
           </div>
         );
       })}
+      {orderedCandidates.length > initialVisible && (
+        <button type="button" onClick={() => setShowAll(value => !value)} className="w-full pt-1 text-xs font-semibold text-[#004a99] hover:underline">
+          {showAll ? 'Show fewer candidates' : `Show ${orderedCandidates.length - initialVisible} more candidates`}
+        </button>
+      )}
     </div>
   );
 }
 
 function TrusteeSection({ candidateData, wardId, geoData }) {
   const [boardId, setBoardId] = useState('tdsb');
+  const [selectedTrusteeWard, setSelectedTrusteeWard] = useState(null);
   const board = TRUSTEE_BOARDS.find(item => item.id === boardId) || TRUSTEE_BOARDS[0];
-  const trusteeWard = wardId ? board.wardsByCityWard[wardId] : null;
+  const userTrusteeWard = wardId ? board.wardsByCityWard[wardId] : null;
+  const trusteeWards = Object.keys(candidateData?.trustees?.[board.id] || {}).sort((a, b) => Number(a) - Number(b));
+  const trusteeWard = selectedTrusteeWard || userTrusteeWard || trusteeWards[0] || null;
   const candidates = trusteeWard ? candidateData?.trustees?.[board.id]?.[trusteeWard] || [] : [];
-  const trusteeCityWards = trusteeWard
-    ? TORONTO_WARDS.filter(cityWard => board.wardsByCityWard[cityWard.id] === trusteeWard)
-    : [];
+  const trusteeCityWards = TORONTO_WARDS;
   const trusteeWardCandidateCounts = Object.fromEntries(
-    trusteeCityWards.map(cityWard => [cityWard.id, `${candidates.length.toLocaleString()} candidates in trustee ward ${trusteeWard}`])
+    trusteeCityWards.map(cityWard => {
+      const mappedWard = board.wardsByCityWard[cityWard.id];
+      const count = candidateData?.trustees?.[board.id]?.[mappedWard]?.length || 0;
+      return [cityWard.id, `Trustee ward ${mappedWard} · ${count.toLocaleString()} candidates`];
+    })
   );
+
+  useEffect(() => {
+    setSelectedTrusteeWard(null);
+  }, [boardId, wardId]);
 
   return (
     <section className="order-7 space-y-3">
@@ -80,7 +104,7 @@ function TrusteeSection({ candidateData, wardId, geoData }) {
         <select id="trustee-board" value={boardId} onChange={event => setBoardId(event.target.value)} className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm font-semibold text-slate-800 outline-none focus:border-[#004a99]">
           {TRUSTEE_BOARDS.map(item => <option key={item.id} value={item.id}>{item.label} — {item.name}</option>)}
         </select>
-        {wardId && trusteeWard ? (
+        {trusteeWard ? (
           <>
             <div className="flex items-baseline justify-between gap-3">
               <div>
@@ -89,7 +113,6 @@ function TrusteeSection({ candidateData, wardId, geoData }) {
               </div>
               <span className="text-sm text-slate-500">{candidates.length.toLocaleString()} candidates</span>
             </div>
-            <CandidateList candidates={candidates} emptyText="No trustee candidates registered yet." incumbentClass="bg-blue-50 text-blue-700" />
           </>
         ) : (
           <p className="text-sm text-slate-500">Choose your ward above to see the applicable trustee ward and candidates.</p>
@@ -97,14 +120,44 @@ function TrusteeSection({ candidateData, wardId, geoData }) {
       </CivicCard>
       {geoData && trusteeWard && (
         <div>
-          <p className="mb-2 px-1 text-[10px] font-bold uppercase tracking-wide text-slate-500">City wards covered by trustee ward {trusteeWard}</p>
-          <TorontoFullMap
-            geojson={geoData}
-            wardActivity={trusteeCityWards}
-            wardSubtextById={trusteeWardCandidateCounts}
-            compact
-            onWardSelect={() => {}}
-          />
+          <div className="mb-2 flex items-center justify-between gap-3 px-1">
+            <p className="text-[10px] font-bold uppercase tracking-wide text-slate-500">{board.label} trustee ward coverage</p>
+            <p className="text-[10px] text-slate-500">Select a city ward to see its trustee ward</p>
+          </div>
+          <div className="mb-3 flex gap-2 overflow-x-auto px-1 pb-1" style={{ scrollbarWidth: 'none' }}>
+            {trusteeWards.map(wardNumber => (
+              <button
+                key={wardNumber}
+                type="button"
+                onClick={() => setSelectedTrusteeWard(wardNumber)}
+                className={cn(
+                  'shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold transition-colors',
+                  trusteeWard === wardNumber ? 'bg-[#004a99] text-white' : 'bg-slate-100 text-slate-600 hover:bg-blue-50 hover:text-[#004a99]'
+                )}
+              >
+                Trustee ward {wardNumber}
+              </button>
+            ))}
+          </div>
+          <Suspense fallback={<div className="h-[420px] rounded-2xl bg-slate-100 animate-pulse border border-slate-200" />}>
+            <TorontoFullMap
+              geojson={geoData}
+              wardActivity={trusteeCityWards}
+              wardSubtextById={trusteeWardCandidateCounts}
+              compact
+              onWardSelect={cityWardId => setSelectedTrusteeWard(board.wardsByCityWard[cityWardId])}
+            />
+          </Suspense>
+          <CivicCard className="mt-3 gap-3">
+            <div className="flex items-baseline justify-between gap-3">
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-wide text-slate-500">Candidates</p>
+                <p className="text-base font-bold text-slate-900">Trustee ward {trusteeWard}</p>
+              </div>
+              <span className="text-sm text-slate-500">{candidates.length.toLocaleString()} candidates</span>
+            </div>
+            <CandidateList candidates={candidates} emptyText="No trustee candidates registered yet." incumbentClass="bg-blue-50 text-blue-700" />
+          </CivicCard>
         </div>
       )}
     </section>
@@ -304,6 +357,7 @@ export default function ElectionView() {
                   emptyText="No mayor candidates registered yet."
                   incumbentName="Olivia Chow"
                   incumbentClass="bg-purple-50 text-purple-700"
+                  initialVisible={10}
                 />
               </div>
 
