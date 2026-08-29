@@ -51,6 +51,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Election status**: Refreshes the official 2026 candidate list and shows filed dates now that nominations are closed.
 
 ### Fixed
+- **Election page stability**: Fixed the trustee map heading action causing the Election page to blank at runtime.
 - **Candidate withdrawals**: Track withdrawals by race so candidates who change wards remain active in their new race while disappearing from old-race counts.
 - **Dependency security**: Updated vulnerable transitive packages.
 - **Navigation stability**: Fixed a missing link import that caused a blank screen.

@@ -5,6 +5,7 @@ import { TORONTO_WARDS } from '../constants/wards';
 import { nameToSlug } from '../utils/slug';
 import { Link } from 'react-router-dom';
 import { cn } from '../lib/utils';
+import { extractWardId } from '../utils/ward';
 import { useAppContext } from '../contexts/AppContext';
 import YourWardCard from './YourWardCard';
 import { CivicCard, CivicCardFooter, CivicPill, CivicSectionLabel } from './ui/CivicCard';
@@ -102,7 +103,25 @@ function ChangeWardButton({ onChange }) {
   );
 }
 
-function TrusteeSection({ candidateData, wardId, geoData }) {
+function buildTrusteeGeojson(geoData, board) {
+  if (!geoData?.features?.length) return null;
+  const cityFeatures = Object.fromEntries(geoData.features.map(feature => [extractWardId(feature.properties), feature]));
+  const features = [...new Set(Object.values(board.wardsByCityWard))].map(trusteeWard => {
+    const cityGeometries = Object.entries(board.wardsByCityWard)
+      .filter(([, mappedWard]) => mappedWard === trusteeWard)
+      .map(([cityWard]) => cityFeatures[cityWard]?.geometry)
+      .filter(Boolean);
+    const coordinates = cityGeometries.flatMap(geometry => geometry.type === 'Polygon' ? [geometry.coordinates] : geometry.coordinates);
+    return {
+      type: 'Feature',
+      properties: { WARD_NUM: trusteeWard },
+      geometry: { type: 'MultiPolygon', coordinates }
+    };
+  });
+  return { type: 'FeatureCollection', features };
+}
+
+function TrusteeSection({ candidateData, wardId, geoData, onCityWardChange }) {
   const [boardId, setBoardId] = useState('tdsb');
   const [selectedTrusteeWard, setSelectedTrusteeWard] = useState(null);
   const board = TRUSTEE_BOARDS.find(item => item.id === boardId) || TRUSTEE_BOARDS[0];
@@ -111,7 +130,15 @@ function TrusteeSection({ candidateData, wardId, geoData }) {
   const trusteeWard = selectedTrusteeWard || userTrusteeWard || trusteeWards[0] || null;
   const candidates = trusteeWard ? candidateData?.trustees?.[board.id]?.[trusteeWard] || [] : [];
   const trusteeCityWards = TORONTO_WARDS;
+  const trusteeGeojson = useMemo(() => buildTrusteeGeojson(geoData, board), [geoData, board]);
+  const trusteeWardCards = trusteeWards.map(wardNumber => ({ id: wardNumber, name: `Trustee ward ${wardNumber}` }));
   const trusteeWardCandidateCounts = Object.fromEntries(
+    trusteeWardCards.map(trusteeWardCard => {
+      const count = candidateData?.trustees?.[board.id]?.[trusteeWardCard.id]?.length || 0;
+      return [trusteeWardCard.id, `${count.toLocaleString()} candidates`];
+    })
+  );
+  const trusteeCityWardCandidateCounts = Object.fromEntries(
     trusteeCityWards.map(cityWard => {
       const mappedWard = board.wardsByCityWard[cityWard.id];
       const count = candidateData?.trustees?.[board.id]?.[mappedWard]?.length || 0;
@@ -156,8 +183,8 @@ function TrusteeSection({ candidateData, wardId, geoData }) {
           <div className="mb-2 flex items-center justify-between gap-3 px-1">
             <h3 className="text-lg font-bold text-slate-900">Trustee candidates by ward</h3>
             <div className="flex items-center gap-3">
-              <ChangeWardButton onChange={setSelectedWardId} />
-              <p className="text-[10px] text-slate-500">Select a city ward to see its trustee ward</p>
+              <ChangeWardButton onChange={onCityWardChange} />
+              <p className="text-[10px] text-slate-500">Select a trustee ward to see its candidates</p>
             </div>
           </div>
           <div className="mb-3 flex gap-2 overflow-x-auto px-1 pb-1" style={{ scrollbarWidth: 'none' }}>
@@ -177,10 +204,12 @@ function TrusteeSection({ candidateData, wardId, geoData }) {
           </div>
           <Suspense fallback={<div className="h-[420px] rounded-2xl bg-slate-100 animate-pulse border border-slate-200" />}>
             <TorontoFullMap
-              geojson={geoData}
-              wardActivity={trusteeCityWards}
+              geojson={trusteeGeojson}
+              wardActivity={trusteeWardCards}
               wardSubtextById={trusteeWardCandidateCounts}
-              onWardSelect={cityWardId => setSelectedTrusteeWard(board.wardsByCityWard[cityWardId])}
+              wardLabel="Trustee ward"
+              highlightWardId={trusteeWard}
+              onWardSelect={setSelectedTrusteeWard}
             />
           </Suspense>
           <CivicCard className="mt-3 gap-3">
@@ -558,7 +587,7 @@ export default function ElectionView() {
         </Suspense>
       </section>
 
-      <TrusteeSection candidateData={candidateData} wardId={selectedWardId || savedWardId} geoData={geoData} />
+      <TrusteeSection candidateData={candidateData} wardId={selectedWardId || savedWardId} geoData={geoData} onCityWardChange={setSelectedWardId} />
 
       {/* Footnote */}
       <div className="order-9 pt-8 text-center">
