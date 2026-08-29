@@ -6,6 +6,10 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Mobile homepage order**: Shows 10 motions first and moves the shared Coming Up card below the feed on phones.
+
+- **Notable card actions**: Keeps mobile card links aligned to the right edge.
+
 - **Mobile notable motions**: Limited the Most Notable section to two cards so it stays on one row.
 
 - **Mobile motion cards**: Kept vote tallies pinned to the right edge like the desktop cards.

@@ -38,6 +38,10 @@ const initialFilters = {
   committeeOpen: false,
 };
 
+const isMobileViewport = () => (
+  typeof window !== 'undefined' && window.matchMedia('(max-width: 1023px)').matches
+);
+
 function filtersReducer(state, action) {
   switch (action.type) {
     case 'TOGGLE_TOPIC':
@@ -317,13 +321,81 @@ function MotionList({ visibleMotions, sortedCount, visibleCount, onLoadMore, fil
   );
 }
 
+function UpcomingMeeting({ meetings, navigate, className = '' }) {
+  const TODAY = new Date().toISOString().slice(0, 10);
+  const meeting = meetings.find(m => m.date >= TODAY);
+  const topic = meeting ? (meeting.isCouncil ? 'Council' : (() => {
+    const name = meeting.committee.toLowerCase();
+    if (name.includes('housing')) return 'Housing';
+    if (name.includes('transit')) return 'Transit';
+    if (name.includes('budget') || name.includes('finance')) return 'Finance';
+    if (name.includes('parks') || name.includes('environment')) return 'Parks';
+    if (name.includes('climate')) return 'Climate';
+    return 'Committee';
+  })()) : null;
+  const slug = meeting ? committeeToSlug(meeting.committee) : '';
+  const meetingDest = meeting?.meetingReference
+    ? `/meetings/${meeting.meetingReference}`
+    : meeting ? `/committees/${slug}` : null;
+
+  return (
+    <div className={cn('flex flex-col gap-1.5 overflow-hidden', className)}>
+      <div className="flex items-center justify-between px-1">
+        <p className="text-xs lg:text-[10px] font-bold text-slate-500 uppercase tracking-wide">Coming Up</p>
+        <div className="flex items-center gap-2">
+          <Link to="/meetings" className="text-xs lg:text-[10px] font-semibold text-[#004a99]/60 hover:text-[#004a99] transition-colors">
+            See more
+          </Link>
+          <Calendar className="w-3 h-3 text-slate-300" />
+        </div>
+      </div>
+      <button
+        onClick={() => meetingDest && navigate(meetingDest)}
+        className={cn(
+          "rounded-2xl p-4 flex flex-col gap-2 transition-all border text-left flex-1",
+          meeting
+            ? "bg-white border-slate-200 hover:border-[#004a99]/40 hover:shadow-sm cursor-pointer group"
+            : "bg-white border-dashed border-slate-200 text-slate-500 cursor-default"
+        )}
+      >
+        {meeting ? (
+          <>
+            <div className="flex items-center justify-between gap-1">
+              <span className={cn(
+                "text-[9px] font-semibold px-1.5 py-0.5 rounded-full",
+                TOPIC_LIGHT[topic] || (topic === 'Council' ? "bg-blue-100 text-blue-700" : 'bg-slate-100 text-slate-600')
+              )}>
+                {topic}
+              </span>
+            </div>
+            <p className="text-xs font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-2 leading-snug" title={meeting.committee}>
+              {meeting.committee}
+            </p>
+            {meeting.location && (
+              <p className="text-[9px] text-slate-500 leading-tight line-clamp-1" title={meeting.location}>
+                {meeting.location}
+              </p>
+            )}
+            <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
+              <span className="text-[9px] text-slate-500 whitespace-nowrap">{meeting.displayDate}</span>
+              <span className="text-[9px] font-semibold text-[#004a99] shrink-0 ml-1">{meeting.startTime}</span>
+            </div>
+          </>
+        ) : (
+          <p className="text-[10px] font-medium my-auto text-center italic opacity-60">No further meetings</p>
+        )}
+      </button>
+    </div>
+  );
+}
+
 // ── Main component ─────────────────────────────────────────────────────────
 export default function DashboardView({ motions, meetings = [] }) {
   const { followedCommittees = [] } = useAppContext();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [filters, dispatch] = useReducer(filtersReducer, initialFilters);
-  const [visibleCount, setVisibleCount] = useState(20);
+  const [visibleCount, setVisibleCount] = useState(() => isMobileViewport() ? 10 : 20);
   const [wardGeoData, setWardGeoData] = useState(null);
 
   const savedWardId = useMemo(() => getWardId(), []);
@@ -426,8 +498,8 @@ export default function DashboardView({ motions, meetings = [] }) {
       });
   }, [primaryMotions, filters, savedWardId, followedCommittees, lastMeeting, wardFilter]);
 
-  // Reset visible count when filters change
-  useEffect(() => { setVisibleCount(20); }, [filters]);
+  // Reset visible count when filters or the responsive layout changes.
+  useEffect(() => { setVisibleCount(isMobileViewport() ? 10 : 20); }, [filters]);
 
   const visibleMotions = sortedMotions.slice(0, visibleCount);
 
@@ -461,7 +533,7 @@ export default function DashboardView({ motions, meetings = [] }) {
         </p>
         <CivicCardFooter>
           <span className="text-[10px] lg:text-[9px] text-slate-500">{m.date.split(',')[0]}</span>
-          <span className="text-[10px] lg:text-[9px] font-semibold text-[#004a99] group-hover:underline">See more</span>
+          <span className="ml-auto text-[10px] lg:text-[9px] font-semibold text-[#004a99] group-hover:underline">See more</span>
         </CivicCardFooter>
       </CivicCard>
     );
@@ -552,75 +624,7 @@ export default function DashboardView({ motions, meetings = [] }) {
         </div>
 
         {/* 3. Right: Coming Up (ONE Card) */}
-        <div className="col-span-2 lg:col-span-1 flex flex-col gap-1.5 overflow-hidden">
-          <div className="flex items-center justify-between px-1">
-            <p className="text-xs lg:text-[10px] font-bold text-slate-500 uppercase tracking-wide">Coming Up</p>
-            <div className="flex items-center gap-2">
-              <Link to="/meetings" className="text-xs lg:text-[10px] font-semibold text-[#004a99]/60 hover:text-[#004a99] transition-colors">
-                See more
-              </Link>
-              <Calendar className="w-3 h-3 text-slate-300" />
-            </div>
-          </div>
-          {(() => {
-            const TODAY = new Date().toISOString().slice(0, 10);
-            const meeting = meetings.find(m => m.date >= TODAY);
-            const topic = meeting ? (meeting.isCouncil ? 'Council' : (() => {
-              const name = meeting.committee.toLowerCase();
-              if (name.includes('housing')) return 'Housing';
-              if (name.includes('transit')) return 'Transit';
-              if (name.includes('budget') || name.includes('finance')) return 'Finance';
-              if (name.includes('parks') || name.includes('environment')) return 'Parks';
-              if (name.includes('climate')) return 'Climate';
-              return 'Committee';
-            })()) : null;
-            const slug = meeting ? committeeToSlug(meeting.committee) : '';
-            const meetingDest = meeting?.meetingReference
-              ? `/meetings/${meeting.meetingReference}`
-              : meeting ? `/committees/${slug}` : null;
-
-            return (
-              <button
-                onClick={() => meetingDest && navigate(meetingDest)}
-                className={cn(
-                  "rounded-2xl p-4 flex flex-col gap-2 transition-all border text-left flex-1",
-                  meeting
-                    ? "bg-white border-slate-200 hover:border-[#004a99]/40 hover:shadow-sm cursor-pointer group"
-                    : "bg-white border-dashed border-slate-200 text-slate-500 cursor-default"
-                )}
-              >
-                {meeting ? (
-                  <>
-                    <div className="flex items-center justify-between gap-1">
-                      <span className={cn(
-                        "text-[9px] font-semibold px-1.5 py-0.5 rounded-full",
-                        TOPIC_LIGHT[topic] || (topic === 'Council' ? "bg-blue-100 text-blue-700" : 'bg-slate-100 text-slate-600')
-                      )}>
-                        {topic}
-                      </span>
-                    </div>
-                    <p className="text-xs font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-2 leading-snug" title={meeting.committee}>
-                      {meeting.committee}
-                    </p>
-                    {meeting.location && (
-                      <p className="text-[9px] text-slate-500 leading-tight line-clamp-1" title={meeting.location}>
-                        {meeting.location}
-                      </p>
-                    )}
-                    <div className="flex items-center justify-between mt-auto pt-2 border-t border-slate-50">
-                      <span className="text-[9px] text-slate-500 whitespace-nowrap">{meeting.displayDate}</span>
-                      <span className="text-[9px] font-semibold text-[#004a99] shrink-0 ml-1">{meeting.startTime}</span>
-                    </div>
-                  </>
-                ) : (
-                  <p className="text-[10px] font-medium my-auto text-center italic opacity-60">
-                    No further meetings
-                  </p>
-                )}
-              </button>
-            );
-          })()}
-        </div>
+        <UpcomingMeeting meetings={meetings} navigate={navigate} className="hidden lg:flex lg:col-span-1" />
       </div>
 
       {/* Mobile notable motions — the election card stays beside My Ward above. */}
@@ -664,6 +668,8 @@ export default function DashboardView({ motions, meetings = [] }) {
           savedCouncillor={savedCouncillor}
           lastMeeting={lastMeeting}
         />
+
+        <UpcomingMeeting meetings={meetings} navigate={navigate} className="lg:hidden" />
 
         {/* Toronto mini-map — click navigates to /wards */}
         <div className="hidden lg:flex flex-col sticky top-24">
