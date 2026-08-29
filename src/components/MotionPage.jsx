@@ -8,6 +8,7 @@ import { committeeToSlug, nameToSlug } from '../utils/slug';
 import { PageMeta } from './PageMeta';
 import { previewImage } from '../utils/meta';
 import ShareButton from './ShareButton';
+import MotionFunding from './MotionFunding';
 
 const WardMotionMap = lazy(() => import('./WardMotionMap'));
 
@@ -234,9 +235,6 @@ function VoteSection({ label, motionType, title, status, votes, resultText, defa
 
 export default function MotionPage({ motions = [] }) {
   const { motionId } = useParams();
-  const navigate = useNavigate();
-  const [mapFullscreen, setMapFullscreen] = useState(false);
-
   const motion = useMemo(() => motions.find(m => m.id === motionId) ?? null, [motions, motionId]);
 
   // If this is a sub-entry, redirect to the primary
@@ -244,16 +242,23 @@ export default function MotionPage({ motions = [] }) {
     return <Navigate to={`/motions/${motion.parentId}`} replace />;
   }
 
-  const subEntries = useMemo(
-    () => motions.filter(m => m.parentId === motionId),
-    [motions, motionId]
-  );
-
   if (!motion) {
     return (
       <div className="py-20 text-center text-slate-500 text-sm">Motion not found.</div>
     );
   }
+
+  return <MotionDetail motions={motions} motion={motion} motionId={motionId} />;
+}
+
+function MotionDetail({ motions, motion, motionId }) {
+  const navigate = useNavigate();
+  const [mapFullscreen, setMapFullscreen] = useState(false);
+
+  const subEntries = useMemo(
+    () => motions.filter(m => m.parentId === motionId),
+    [motions, motionId]
+  );
 
   const committee = motion.committee || getCommittee(motion.id);
   const meetingReference = motion.url?.match(/[?&]item=([^.&]+\.[A-Za-z]+\d+)/)?.[1] ?? null;
@@ -488,60 +493,7 @@ export default function MotionPage({ motions = [] }) {
           )}
 
           {/* Funding */}
-          {(() => {
-            if (motion.keyAmounts?.length > 0) {
-              const fmtDollar = v =>
-                v >= 1_000_000_000 ? `${(v / 1_000_000_000).toFixed(1)}B`
-                : v >= 1_000_000   ? `${(v / 1_000_000).toFixed(1)}M`
-                : v >= 1_000       ? `${(v / 1_000).toFixed(0)}K`
-                :                    `${v}`;
-              const fmtAmt = ({ value, unit }) =>
-                unit === '$' ? `$${fmtDollar(value)}`
-                : unit === '%' ? `${value}%`
-                : `${value} ${unit}`;
-
-              return (
-                <div className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-4">
-                  <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide mb-3">Funding</p>
-                  <div className="flex flex-col gap-2">
-                    {motion.keyAmounts.map((amt, i) => (
-                      <div key={i} className="flex flex-col">
-                        <span className="text-xs text-slate-500 mb-0.5">{amt.label}</span>
-                        <span className="text-sm font-semibold text-slate-800">{fmtAmt(amt)}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              );
-            }
-
-            if (motion.amounts?.length > 0 && motion.amounts.length <= 10) {
-              const fmt = v =>
-                v >= 1_000_000_000 ? `${(v / 1_000_000_000).toFixed(1)}B`
-                : v >= 1_000_000   ? `${(v / 1_000_000).toFixed(1)}M`
-                :                    `${(v / 1_000).toFixed(0)}K`;
-              const items = motion.amounts.map(a =>
-                typeof a === 'number' ? { value: a } : a
-              );
-              return (
-                <div className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-4">
-                  <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide mb-3">Funding</p>
-                  <div className="flex flex-wrap gap-2 items-center">
-                    {items.slice(0, 3).map((amt, i) => (
-                      <span key={i} className="text-sm font-semibold text-slate-800">
-                        ${fmt(amt.value)}
-                      </span>
-                    ))}
-                    {items.length > 3 && (
-                      <span className="text-xs text-slate-500">+{(items.length - 3).toLocaleString()} more</span>
-                    )}
-                  </div>
-                </div>
-              );
-            }
-
-            return null;
-          })()}
+          <MotionFunding motion={motion} />
 
           {/* Declared Interests */}
           {motion.declaredInterests?.length > 0 && (
