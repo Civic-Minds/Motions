@@ -8,6 +8,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Added
 - **Election experience**: Added the Toronto Election page, shared ward selection, candidate counts, registered candidate lists, voting dates, polling-place guidance, map exploration, and election sharing.
+- **Election resources**: Added official links for contribution rebates and election-sign rules.
 - **School-board candidates**: Added trustee candidate data and board-specific trustee ward listings so voters can find the race that applies to them.
 - **Voting guide**: Added a practical, non-partisan guide covering voting places, dates, registration, identification, accessibility, and voter rights, with direct non-partisan guide links from the Election page.
 - **Candidate websites**: Added manually verified campaign website links while retaining available contact information.

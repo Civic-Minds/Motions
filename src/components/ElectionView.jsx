@@ -414,7 +414,8 @@ export default function ElectionView() {
             { label: 'Voter Information', url: 'https://www.toronto.ca/city-government/elections/voter-information/', description: 'How to vote, where to vote, and eligibility requirements.' },
             { label: 'Candidate Information', url: 'https://www.toronto.ca/city-government/elections/candidate-information/', description: 'Rules and resources for people running for office.' },
             { label: 'Voter Registry Check', url: 'https://www.toronto.ca/city-government/elections/voter-information/voter-registration/', description: 'Ensure your name is on the list for the upcoming election.' },
-            { label: 'Contribution Rebates', url: 'https://www.toronto.ca/city-government/elections/candidates-third-party-advertisers/contribution-rebates/', description: 'Learn how eligible contributions to candidates can be rebated.' }
+            { label: 'Contribution Rebates', url: 'https://www.toronto.ca/city-government/elections/candidates-third-party-advertisers/contribution-rebates/', description: 'Learn how eligible contributions to candidates can be rebated.' },
+            { label: 'Election Signs', url: 'https://www.toronto.ca/city-government/public-notices-bylaws/bylaw-enforcement/election-signs/', description: 'Check Toronto’s rules for placing election signs.' }
           ].map((item, i) => (
             <a 
               key={i}
