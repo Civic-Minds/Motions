@@ -109,7 +109,7 @@ function ChangeSystemButton({ boardId, boards, onChange }) {
   return (
     <div className="relative shrink-0">
       <button type="button" onClick={() => setOpen(value => !value)} className="text-xs font-semibold text-[#004a99] hover:underline">
-        Change system
+        Change school system
       </button>
       {open && (
         <div role="listbox" aria-label="Choose your school system" className="absolute right-0 top-7 z-20 w-72 rounded-xl border border-slate-200 bg-white p-1.5 text-xs text-slate-700 shadow-xl">
