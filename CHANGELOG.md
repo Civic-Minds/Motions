@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Mobile notable motions**: Limited the Most Notable section to two cards so it stays on one row.
+
 - **Mobile motion cards**: Kept vote tallies pinned to the right edge like the desktop cards.
 
 - **Mobile ward card**: Kept the Ward number together and allowed narrow ward names to wrap cleanly.

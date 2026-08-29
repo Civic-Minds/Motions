@@ -628,7 +628,7 @@ export default function DashboardView({ motions, meetings = [] }) {
         <p className="text-xs font-bold text-slate-500 uppercase tracking-wide px-1">Most Notable</p>
         {homeMotionCards.length > 0 ? (
           <div className="grid grid-cols-2 gap-3 items-stretch">
-            {homeMotionCards.map(renderHomeMotionCard)}
+            {homeMotionCards.slice(0, 2).map(renderHomeMotionCard)}
           </div>
         ) : (
           <div className="flex items-center justify-center py-8 bg-white border border-dashed border-slate-200 rounded-2xl">
