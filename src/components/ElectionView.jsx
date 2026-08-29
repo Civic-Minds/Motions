@@ -377,7 +377,7 @@ export default function ElectionView() {
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 items-start">
-              <div className="bg-white border border-slate-200 rounded-2xl p-4 space-y-3">
+              <div className="self-start h-fit bg-white border border-slate-200 rounded-2xl p-4 space-y-3">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Mayor</p>
@@ -401,7 +401,7 @@ export default function ElectionView() {
                 />
               </div>
 
-              <div className="bg-white border border-slate-200 rounded-2xl p-4 space-y-3">
+              <div className="self-start h-fit bg-white border border-slate-200 rounded-2xl p-4 space-y-3">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">City Councillor</p>
