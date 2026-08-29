@@ -69,6 +69,39 @@ function CandidateList({ candidates, emptyText, incumbentName, incumbentClass, i
   );
 }
 
+function ChangeWardButton({ onChange }) {
+  const { handleSetWard } = useAppContext();
+  const [open, setOpen] = useState(false);
+
+  function selectWard(id) {
+    if (!id) return;
+    handleSetWard(id);
+    onChange?.(id);
+    setOpen(false);
+  }
+
+  return (
+    <div className="relative shrink-0">
+      <button type="button" onClick={() => setOpen(value => !value)} className="text-xs font-semibold text-[#004a99] hover:underline">
+        Change ward
+      </button>
+      {open && (
+        <select
+          autoFocus
+          aria-label="Choose your ward"
+          defaultValue=""
+          onChange={event => selectWard(event.target.value)}
+          onBlur={() => setOpen(false)}
+          className="absolute right-0 top-7 z-20 w-56 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-700 shadow-lg outline-none focus:border-[#004a99]"
+        >
+          <option value="">Choose your ward</option>
+          {TORONTO_WARDS.map(ward => <option key={ward.id} value={ward.id}>Ward {ward.id} · {ward.name}</option>)}
+        </select>
+      )}
+    </div>
+  );
+}
+
 function TrusteeSection({ candidateData, wardId, geoData }) {
   const [boardId, setBoardId] = useState('tdsb');
   const [selectedTrusteeWard, setSelectedTrusteeWard] = useState(null);
@@ -123,7 +156,7 @@ function TrusteeSection({ candidateData, wardId, geoData }) {
           <div className="mb-2 flex items-center justify-between gap-3 px-1">
             <h3 className="text-lg font-bold text-slate-900">Trustee candidates by ward</h3>
             <div className="flex items-center gap-3">
-              <Link to="/wards" className="text-xs font-semibold text-[#004a99] hover:underline">Change ward</Link>
+              <ChangeWardButton onChange={setSelectedWardId} />
               <p className="text-[10px] text-slate-500">Select a city ward to see its trustee ward</p>
             </div>
           </div>
@@ -147,7 +180,6 @@ function TrusteeSection({ candidateData, wardId, geoData }) {
               geojson={geoData}
               wardActivity={trusteeCityWards}
               wardSubtextById={trusteeWardCandidateCounts}
-              compact
               onWardSelect={cityWardId => setSelectedTrusteeWard(board.wardsByCityWard[cityWardId])}
             />
           </Suspense>
@@ -509,7 +541,7 @@ export default function ElectionView() {
             <h3 className="text-lg font-bold text-slate-900">Mayor and councillor candidates</h3>
           </div>
           <div className="flex items-center gap-3">
-            <Link to="/wards" className="text-xs font-semibold text-[#004a99] hover:underline">Change ward</Link>
+              <ChangeWardButton onChange={setSelectedWardId} />
             <ShareButton title="Toronto Election 2026" />
           </div>
         </div>
