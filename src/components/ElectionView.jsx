@@ -321,7 +321,7 @@ export default function ElectionView() {
                 <CivicPill className="bg-slate-100 text-slate-600">How to vote</CivicPill>
                 <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">What to bring, how to get help, and your voting rights.</p>
                 <CivicCardFooter>
-                  <span className="text-[9px] text-slate-500 whitespace-nowrap">Starting September 1</span>
+                  <span className="text-[9px] text-slate-500 whitespace-nowrap">Practical guide</span>
                   <Link to="/election/how-to-vote" className="text-[9px] font-semibold text-[#004a99] whitespace-nowrap">Read guide ↗</Link>
                 </CivicCardFooter>
               </CivicCard>
