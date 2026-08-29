@@ -458,11 +458,21 @@ export default function DashboardView({ motions, meetings = [] }) {
       .slice(0, 3);
   }, [primaryMotions, savedWardId, savedWardFeature, followedHighlights, highlights]);
 
+  const recentFallback = useMemo(() => {
+    const usedIds = new Set([...followedHighlights.map(m => m.id), ...highlights.map(m => m.id), ...wardHighlights.map(m => m.id)]);
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - 45);
+    return [...primaryMotions]
+      .filter(m => new Date(m.date) >= cutoff && !usedIds.has(m.id))
+      .sort((a, b) => new Date(b.date) - new Date(a.date) || (b.significance ?? 0) - (a.significance ?? 0))
+      .slice(0, 3);
+  }, [primaryMotions, followedHighlights, highlights, wardHighlights]);
+
   const homeMotionCards = useMemo(() => [
     ...highlights.slice(0, 1),
-    ...wardHighlights.slice(0, highlights.length > 0 ? 2 : 3),
+    ...(highlights.length > 0 ? wardHighlights.slice(0, 2) : (wardHighlights.length > 0 ? wardHighlights.slice(0, 3) : recentFallback)),
     ...highlights.slice(1),
-  ].slice(0, 3), [highlights, wardHighlights]);
+  ].slice(0, 3), [highlights, wardHighlights, recentFallback]);
 
   // Available committees and years
   const committees = useMemo(() => {
