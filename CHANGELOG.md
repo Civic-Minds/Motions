@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Removed Calgary and Montreal from the map's roadmap pins**: Neither has an upcoming election (Calgary voted Oct 2025, next 2029; Montreal voted Nov 2025, next ~2029) — verified after the fact, they shouldn't have been added without that check. Only Ottawa remains, confirmed on Ontario's Oct 2026 cycle with Toronto.
 - **Grounded the map's "other cities" in the real roadmap**: The 10 grey placeholder pins were invented for visual filler, several with no realistic near-term path to being added (and one, Montreal, whose municipal election already happened). Replaced them with the 3 cities actually listed in `docs/roadmap/DATA_CITIES.md` (Calgary, Ottawa, Montreal), shown as clearly-muted, non-clickable "Planned" cards with no election-date or timeline claims.
 - **Card carousel now floats on the map itself**: Moved the city cards off a separate section below the map and onto a bottom overlay directly on the map, matching the pattern used on the ward map (`TorontoFullMap.jsx`) — gradient fade, horizontal scroll, syncs with what's currently in view.
 - **Toronto/Vancouver cards show real, distinct facts instead of a repeated template sentence**: Each now shows its ward structure and mayor, plus its upcoming election date (pulled live from `jurisdictions.js`, so it won't go stale or show a past date as upcoming).
