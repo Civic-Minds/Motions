@@ -34,6 +34,10 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
   const { wardId: myWardId, handleLocate } = useAppContext();
   const isVancouver = jurisdiction.id === 'vancouver';
   const mayorName = jurisdiction.mayorName || MAYOR;
+  // Some cities' vote data stores the mayor's name with a "Mayor " prefix baked
+  // in (e.g. Vancouver's "Mayor Ken Sim"), others don't (Toronto's "Olivia
+  // Chow"). Normalize both sides so mayor detection works either way.
+  const isMayorName = name => name.replace(/^Mayor\s+/i, '') === mayorName.replace(/^Mayor\s+/i, '');
   const currentNames = useMemo(() => new Set((jurisdiction.currentCouncillors ?? []).map(c => typeof c === 'string' ? c : c.name)), [jurisdiction.currentCouncillors]);
 
   const myCouncillor = isVancouver ? null : myWardId ? WARD_COUNCILLORS[myWardId] : null;
@@ -87,8 +91,8 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
       })
       .sort((a, b) => {
         // Mayor always first
-        if (a.name === mayorName) return -1;
-        if (b.name === mayorName) return 1;
+        if (isMayorName(a.name)) return -1;
+        if (isMayorName(b.name)) return 1;
         return a.name.split(' ').at(-1).localeCompare(b.name.split(' ').at(-1));
       });
   }, [motions, currentNames, mayorName]);
@@ -219,7 +223,7 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
           const initials = name.split(' ').map(n => n[0]).slice(0, 2).join('');
           const lastName = name.split(' ').at(-1);
           const photoUrl = `/images/councillors/${lastName}.jpg`;
-          const isMayor = name === mayorName;
+          const isMayor = isMayorName(name);
 
           return (
             <motion.div
@@ -261,7 +265,7 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
                 </div>
                 <div className="min-w-0">
                   <div className="flex items-center gap-1.5">
-                    <p className="text-sm font-semibold text-slate-900 truncate group-hover:text-[#004a99] transition-colors">{name}</p>
+                    <p className="text-sm font-semibold text-slate-900 truncate group-hover:text-[#004a99] transition-colors">{isMayor ? name.replace(/^Mayor\s+/i, '') : name}</p>
                     {isMayor && (
                       <span className="shrink-0 text-[9px] font-bold text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded-full uppercase tracking-wide">Mayor</span>
                     )}
