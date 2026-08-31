@@ -16,6 +16,7 @@ import { PageMeta } from './PageMeta';
 import { CivicCard, CivicCardFooter, CivicPill } from './ui/CivicCard';
 
 const TorontoMiniMap = lazy(() => import('./TorontoMiniMap'));
+const VancouverMiniMap = lazy(() => import('./VancouverMiniMap'));
 
 const TOPICS = ['Housing', 'Transit', 'Finance', 'Parks', 'Climate', 'General'];
 
@@ -698,12 +699,12 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
 
         <UpcomingMeeting meetings={meetings} navigate={navigate} className="lg:hidden" />
 
-        {/* Toronto mini-map — click navigates to /wards */}
-        {!isVancouver && <div className="hidden lg:flex flex-col sticky top-24">
+        {/* City mini-map */}
+        <div className="hidden lg:flex flex-col sticky top-24">
           <Suspense fallback={<div className="rounded-2xl bg-slate-100 animate-pulse h-[calc(100vh-7rem)] min-h-[480px] border border-slate-200" />}>
-            <TorontoMiniMap motions={motions} />
+            {isVancouver ? <VancouverMiniMap motions={motions} /> : <TorontoMiniMap motions={motions} />}
           </Suspense>
-        </div>}
+        </div>
 
       </div>
 

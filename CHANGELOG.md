@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Added the Vancouver homepage map**: Vancouver now shows a citywide map of mapped motion locations in the homepage sidebar, with pins linking to the relevant motions.
 - **Aligned desktop navigation with page content**: The menu now starts on the same content column as Learn and its story headings.
 - **Aligned Learn stories with the Learn hub**: Guide pages now use the same content width and left edge as the Learn overview.
 - **Removed active navigation pills**: Page links now use the same text-first treatment as the ward, city, and search controls.
