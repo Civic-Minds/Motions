@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Expanded Toronto’s Strong Mayor guide**: The Learn story now explains the Mayor’s administrative, committee, budget, provincial-priority, and public-record powers with official sources.
 - **Added election dates to navigation**: Toronto and Vancouver now show their election date beside the Election menu link, matching the footer.
 - **Aligned Toronto’s voting guide**: Toronto and Vancouver now render their city-specific voting content through one shared Learn-page shell.
 - **Added Vancouver election resources**: The voting guide now groups the City’s official election pages in one place for current dates, voting places, and requirements.
