@@ -6,10 +6,12 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Shared Vancouver motion maps**: Vancouver motion locations now use the shared map when reliable coordinates are available, centred on Vancouver.
 - **Shared Vancouver meeting screens**: Vancouver now uses the shared meeting layout with Vancouver council wording and official source links.
 - **Shared Vancouver councillor profiles**: Vancouver now uses the established councillor profile layout with at-large council content instead of a separate profile design.
 - **Vancouver motion sources are specific**: Each motion now links to its filtered official voting-record entry instead of the generic dataset page.
 - **Vancouver motion titles are cleaner**: Removed meeting agenda numbers from the displayed titles while preserving the official source references.
+- **Existing Vancouver titles are cleaned on load**: Older records now lose their agenda prefixes immediately instead of waiting for the next data refresh.
 - **Shared Vancouver council directory**: Vancouver now uses Toronto’s councillor cards and comparison controls, with at-large labels replacing ward details.
 - **Vote labels stay on one line**: Vancouver voting terms remain readable at narrow widths.
 - **Shared motion details**: Vancouver motion pages now use the established Motions layout while preserving Vancouver’s official voting terminology.

@@ -477,13 +477,14 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
 
         {/* RIGHT COLUMN: Metadata & Context */}
         <div className="lg:col-span-1 space-y-4 pt-1 lg:sticky lg:top-8">
-          {!isVancouver && motion.locations?.length > 0 && (
+          {motion.locations?.length > 0 && (
             <div className="space-y-2">
               <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest px-1">Locations</p>
               {mapReady ? (
                 <Suspense fallback={<div className="w-full h-72 rounded-2xl bg-slate-100 animate-pulse" />}>
                   <WardMotionMap
                     motions={[motion]}
+                    mapCenter={isVancouver ? [49.2827, -123.1207] : undefined}
                     isFullscreen={mapFullscreen}
                     onToggleFullscreen={() => setMapFullscreen(open => !open)}
                   />

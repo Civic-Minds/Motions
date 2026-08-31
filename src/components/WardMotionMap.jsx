@@ -23,7 +23,7 @@ function FitBounds({ feature, pins }) {
   return null;
 }
 
-export default function WardMotionMap({ wardFeature, motions, isFullscreen = false, onToggleFullscreen }) {
+export default function WardMotionMap({ wardFeature, motions, mapCenter = [43.7, -79.38], isFullscreen = false, onToggleFullscreen }) {
   const navigate = useNavigate();
   const mapRef = useRef(null);
 
@@ -50,7 +50,7 @@ export default function WardMotionMap({ wardFeature, motions, isFullscreen = fal
     >
       <MapContainer
         ref={mapRef}
-        center={[43.7, -79.38]}
+        center={mapCenter}
         zoom={12}
         className="w-full h-full z-0"
         zoomControl={true}
