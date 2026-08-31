@@ -642,7 +642,7 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
               <CivicPill className="bg-blue-100 text-blue-700">Election</CivicPill>
               <p className="text-xs font-semibold text-slate-800 group-hover:text-blue-700 transition-colors line-clamp-3 leading-snug">{isVancouver ? 'Register to run before September 11.' : 'See your ward’s candidates before election day.'}</p>
               <div className="flex items-center justify-between mt-auto pt-2 border-t border-blue-100">
-                <span className="text-[9px] text-slate-500">{isVancouver ? 'October 17' : 'October 26'}</span>
+                <span className="text-[9px] text-slate-500">{formatMotionDate(jurisdiction.election?.date)}</span>
                 <span className="text-[9px] font-semibold text-blue-700">{isVancouver ? 'See details' : 'Get ready'}</span>
               </div>
             </CivicCard>

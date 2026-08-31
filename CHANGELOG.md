@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Election card dates use shared jurisdiction data**: Both city cards now format their election dates consistently instead of maintaining separate hardcoded strings.
 - **Election card dates match other homepage cards**: Removed the year from both city cards so their dates use the same compact treatment.
 - **Vancouver election card uses consistent date treatment**: The card highlights the nomination deadline in its headline while retaining election day in the footer and a distinct details action.
 - **Refined Vancouver council wording**: Restored the neutral at-large explanation without the confusing “record” wording.
