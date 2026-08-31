@@ -59,9 +59,7 @@ const GUIDE_CONTENT = {
     lastUpdated: 'August 31, 2026',
     title: 'How to Get Involved',
     description: city => `Find practical ways to take part in ${city}’s local decisions.`,
-    intro: city => city === 'Vancouver'
-      ? 'You do not have to wait for an election to take part in Vancouver’s civic decisions. Start with the type of issue you care about, then follow the public process around it.'
-      : 'City-specific ways to take part in local decisions are coming soon.',
+    intro: city => `You do not have to wait for an election to take part in ${city}’s civic decisions. Start with the type of issue you care about, then follow the public process around it.`,
     steps: {
       Vancouver: [
         ['1', 'Find an open conversation', 'Shape Your City lists consultations where residents can learn about proposals and share feedback before decisions are made.'],
@@ -70,13 +68,25 @@ const GUIDE_CONTENT = {
         ['4', 'Take part in a Council decision', 'Read the agenda, attend or watch the meeting, submit comments, request to speak when that option is available, or contact any councillor or the Mayor.'],
         ['5', 'Follow the result', 'Check the minutes, voting record, and later reports to see what Council decided and what happens next.'],
       ],
-      Toronto: [],
+      Toronto: [
+        ['1', 'Find an open conversation', 'Have Your Say Toronto lists surveys and consultations on the budget, planning, parks, transit, and housing.'],
+        ['2', 'Watch for formal notices', 'The City’s public notices page lists hearings and other notices, including how residents can share their views.'],
+        ['3', 'Speak up on development proposals', 'For a rezoning or other development application, check the Application Information Centre for the proposal, meeting dates, and how to comment.'],
+        ['4', 'Take part in a Council decision', 'Read the agenda, then register to speak at the committee or Community Council handling it. City Council itself does not take public speakers — only committees do. You can also contact your ward councillor.'],
+        ['5', 'Follow the result', 'Check the minutes, voting record, and later reports to see what Council decided and what happens next.'],
+      ],
     },
     resources: {
       Vancouver: [
         ['Shape Your City', 'https://www.shapeyourcity.ca/'],
         ['Public notices', 'https://vancouver.ca/your-government/public-notices.aspx'],
         ['Rezoning applications', 'https://vancouver.ca/home-property-development/rezoning-applications.aspx'],
+      ],
+      Toronto: [
+        ['Have Your Say Toronto', 'https://haveyoursay.toronto.ca/'],
+        ['Public Notices & Bylaws', 'https://www.toronto.ca/city-government/public-notices-bylaws/'],
+        ['Application Information Centre', 'https://app.toronto.ca/DevelopmentApplications/mapSearchSetup.do?action=init'],
+        ['Register to speak at a meeting', 'https://www.toronto.ca/city-government/council/council-committee-meetings/have-your-say/'],
       ],
     },
     action: city => `Explore ${city} councillors`,

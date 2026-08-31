@@ -24,10 +24,7 @@ const GUIDES = [
   {
     path: '/learn/how-to-get-involved',
     title: 'How to Get Involved',
-    description: city => city === 'Vancouver'
-      ? 'Find consultations, public notices, hearings, and ways to share your views.'
-      : 'City-specific ways to take part in local decisions are coming soon.',
-    comingSoon: city => city !== 'Vancouver',
+    description: city => `Find consultations, public notices, hearings, and ways to share your views in ${city}.`,
   },
 ];
 

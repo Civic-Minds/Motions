@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Wrote Toronto's "How to Get Involved" guide**: Replaced the "coming soon" placeholder with real steps and links — Have Your Say Toronto, Public Notices & Bylaws, the Application Information Centre, and how to register to speak at a committee meeting (noting City Council itself doesn't take public speakers).
+
 - **Plain-language pass across the council/vote/Strong Mayor guides**: Broke up long, semicolon- and clause-heavy sentences into short ones so the guides read more like a plain explanation and less like a legal summary.
 - **Explained what "the register" is**: The Strong Mayor guide's "How to Read the Register" section now says what the register actually is (a public log of decisions) and links straight to it, instead of assuming readers already know.
 
