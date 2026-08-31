@@ -76,7 +76,7 @@ function Navbar({ onSearchOpen }) {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 bg-white/80 backdrop-blur-xl">
-      <div className="relative max-w-[1400px] mx-auto px-6 h-16 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4">
+      <div className="max-w-[1400px] mx-auto px-6 h-16 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4">
 
         {/* Logo */}
         <div className="flex w-[150px] shrink-0 items-center gap-3 cursor-pointer select-none" onClick={() => navigate('/')}> 
@@ -87,7 +87,7 @@ function Navbar({ onSearchOpen }) {
         </div>
 
         {/* Desktop nav — absolutely centered so it never shifts */}
-        <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 lg:flex">
+        <nav className="hidden lg:flex items-center gap-1 justify-self-start">
           {tabs.map(tab => {
             const isActive = active?.path === tab.path;
             return (
