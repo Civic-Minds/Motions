@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Aligned Learn stories with the Learn hub**: Guide pages now use the same content width and left edge as the Learn overview.
 - **Removed active navigation pills**: Page links now use the same text-first treatment as the ward, city, and search controls.
 - **Simplified header controls**: Ward, city, and search controls now use a lighter text-first treatment so they read as navigation instead of competing boxed widgets.
 - **Added Vancouver’s civic participation guide**: Residents can now find consultations, public notices, rezoning opportunities, meeting participation options, and official follow-up resources in one place; Toronto is marked coming soon.

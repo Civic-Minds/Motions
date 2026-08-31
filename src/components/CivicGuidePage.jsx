@@ -121,7 +121,7 @@ export default function CivicGuidePage({ type, jurisdiction = { id: 'toronto', n
     : null;
 
   return (
-    <div className="mx-auto max-w-3xl space-y-8 pb-20">
+    <div className="mx-auto max-w-4xl space-y-8 pb-20">
       <PageMeta title={`${content.title} | Motions ${jurisdiction.name}`} description={content.description(jurisdiction.name)} />
 
       <div className="space-y-3">
