@@ -393,6 +393,8 @@ function HomeShell() {
             , built with care in Canada.
           </span>
           <div className="flex items-center gap-3">
+            <a href="/toronto/about" className="hover:text-slate-600">About</a>
+            <a href="https://github.com/Civic-Minds/Motions" target="_blank" rel="noopener noreferrer" className="hover:text-slate-600">GitHub</a>
             <a href="/toronto/privacy" className="hover:text-slate-600">Privacy</a>
             <a href="/toronto/terms" className="hover:text-slate-600">Terms</a>
             <span>© {new Date().getFullYear()} Civic Minds</span>

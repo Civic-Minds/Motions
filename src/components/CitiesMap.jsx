@@ -67,7 +67,7 @@ export default function CitiesMap() {
     const map = mapRef.current;
     if (!map) return;
     suppressRef.current = true;
-    map.flyTo([city.lat, city.lng], 9, { duration: 0.5 });
+    map.flyTo([city.lat, city.lng], 6, { duration: 0.5 });
   }
 
   function resetView() {
