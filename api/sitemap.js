@@ -19,6 +19,7 @@ export default async function handler(request, response) {
   const paths = new Set([
     '/toronto',
     '/toronto/cities',
+    '/toronto/sources',
     '/toronto/council-voting-records',
     '/toronto/ward-voting-records',
     '/toronto/councillor-voting-records',
