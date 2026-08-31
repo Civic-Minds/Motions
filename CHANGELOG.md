@@ -7,6 +7,9 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 ## [Unreleased]
 
 - **Vancouver official agenda links**: Vancouver motion and meeting pages now link directly to the City agenda alongside the filtered voting record.
+- **Shared page metadata**: Vancouver councillor, committee, and meeting screens now identify Vancouver in their page titles and descriptions.
+- **Independent Vancouver refresh checks**: Scheduled refreshes now run when either Toronto or Vancouver has new meeting data, and each data page shows its latest voting record date.
+- **Independent Vancouver data refresh**: Vancouver now has its own scheduled import and upload workflow, so it can update even when Toronto has no new meeting.
 - **Vancouver shared committee sources**: Shared committee and meeting screens now use Vancouver wording and filtered official records.
 - **Shared Vancouver data page**: Vancouver now uses the established methodology layout with Vancouver sources and at-large council wording.
 - **Vancouver geography wording**: The shared data page now labels Vancouver’s citywide coverage as geography instead of ward coverage.

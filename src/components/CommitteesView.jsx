@@ -6,6 +6,7 @@ import { getCommittee, COMMITTEE_NAMES, TOPIC_LIGHT, COMMITTEE_DESCRIPTIONS } fr
 import { nameToSlug, committeeToSlug } from '../utils/slug';
 import { cn } from '../lib/utils';
 import { useAppContext } from '../contexts/AppContext';
+import { PageMeta } from './PageMeta';
 
 export default function CommitteesView({ motions, meetings = [] }) {
   const { followedCommittees = [], handleToggleFollow: onToggleFollow, jurisdiction = { name: 'Toronto' } } = useAppContext();
@@ -121,6 +122,7 @@ export default function CommitteesView({ motions, meetings = [] }) {
 
   return (
     <div className="space-y-6">
+      <PageMeta title={`${jurisdiction.name} Committees | Motions`} description={`Explore ${jurisdiction.name} council committees and their voting records.`} />
 
       {/* ── Meetings-only body detail ── */}
       {selectedBody && (

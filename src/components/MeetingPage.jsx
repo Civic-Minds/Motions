@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, ExternalLink, Lock, FileText, ChevronRight } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { committeeToSlug } from '../utils/slug';
+import { PageMeta } from './PageMeta';
 
 const PROCEDURAL_TITLES = /^(call to order|confirmation of minutes|declarations of interest|petitions|review of the order paper|introduction of committee reports|presentations, introductions|adjournment|questions of privilege|other business)/i;
 
@@ -50,6 +51,7 @@ export default function MeetingPage({ meetings, jurisdiction = { name: 'Toronto'
 
   return (
     <div className="max-w-5xl mx-auto py-2 px-4 sm:px-6 lg:px-8 relative">
+      <PageMeta title={`${meeting.committee} | Motions ${jurisdiction.name}`} description={`${meeting.committee} meeting records and agenda items for ${jurisdiction.name}.`} />
 
       {/* Back — desktop floating left */}
       <button

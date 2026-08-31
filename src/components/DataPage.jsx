@@ -6,8 +6,12 @@ import { CivicCard, CivicSectionLabel } from './ui/CivicCard';
 
 const SOURCE_LINK_CLASS = 'text-[#004a99] underline underline-offset-2 hover:text-[#003875]';
 
-export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toronto' } }) {
+export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toronto' }, motions = [] }) {
   const isVancouver = jurisdiction.id === 'vancouver';
+  const latestDate = motions.reduce((latest, motion) => motion.date > latest ? motion.date : latest, '');
+  const formattedLatestDate = latestDate
+    ? new Date(`${latestDate}T12:00:00`).toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' })
+    : null;
   const sourceUrl = isVancouver
     ? 'https://opendata.vancouver.ca/explore/dataset/council-voting-records/'
     : 'https://open.toronto.ca/dataset/members-of-toronto-city-council-voting-record/';
@@ -47,6 +51,7 @@ export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toront
           <p className="text-sm leading-relaxed text-slate-500">
             Council data is checked and refreshed regularly as new meeting records become available. Candidate and election information is updated separately as the City publishes changes.
           </p>
+          {formattedLatestDate && <p className="text-xs font-medium text-slate-400">Latest voting record: {formattedLatestDate}</p>}
         </CivicCard>
       </div>
 

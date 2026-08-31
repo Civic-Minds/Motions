@@ -9,6 +9,7 @@ import { TORONTO_WARDS } from '../constants/wards';
 import { cn } from '../lib/utils';
 import VersusOverlay from './VersusOverlay';
 import { useAppContext } from '../contexts/AppContext';
+import { PageMeta } from './PageMeta';
 
 const COUNCILLOR_WARD = {};
 Object.entries(WARD_COUNCILLORS).forEach(([wardId, name]) => {
@@ -157,6 +158,7 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
 
   return (
     <div className="space-y-8 pb-20">
+      <PageMeta title={`${jurisdiction.name} Councillors | Motions`} description={`Review ${jurisdiction.name} councillors and their voting records.`} />
 
       <div className="flex justify-end gap-2 flex-wrap">
         {!isVancouver && <button

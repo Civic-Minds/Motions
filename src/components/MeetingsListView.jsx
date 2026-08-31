@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Calendar, Lock, FileText, ChevronRight, ChevronDown, SlidersHorizontal } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { committeeToSlug } from '../utils/slug';
+import { PageMeta } from './PageMeta';
 
 const TODAY = new Date().toISOString().slice(0, 10);
 
@@ -132,6 +133,7 @@ export default function MeetingsListView({ meetings = [], jurisdiction = { name:
 
   return (
     <div className="max-w-5xl mx-auto py-2 px-4 sm:px-6">
+      <PageMeta title={`${jurisdiction.name} Meetings | Motions`} description={`Browse ${jurisdiction.name} council and committee meetings.`} />
 
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
