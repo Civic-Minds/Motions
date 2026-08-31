@@ -79,7 +79,7 @@ function Navbar({ onSearchOpen }) {
       <div className="max-w-[1400px] mx-auto px-6 h-16 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4">
 
         {/* Logo */}
-        <div className="flex items-center gap-3 cursor-pointer select-none" onClick={() => navigate('/')}>
+        <div className="flex w-[150px] shrink-0 items-center gap-3 cursor-pointer select-none" onClick={() => navigate('/')}> 
           <span className="flex flex-col text-sm leading-[0.95]">
             <span className="font-bold text-slate-900">Motions</span>
           <span className="font-normal text-slate-500">{jurisdiction.name}</span>

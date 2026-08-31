@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Navbar links stay aligned across cities**: The city name no longer changes the horizontal position of the primary navigation.
 - **Corrected city council guides**: Toronto now explains committee review before Council decisions, while Vancouver distinguishes Council meetings, committees, and hearings.
 - **Guides are city-specific**: Council-vote explanations now reflect Toronto and Vancouver’s different structures, and Toronto has a dedicated Strong Mayor Powers guide.
 - **Learn guide URLs include the city and hub**: Guide pages now resolve at paths such as `/toronto/learn/how-council-works` instead of dropping the Learn segment.
