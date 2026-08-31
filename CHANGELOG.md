@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Added civic guide stories**: Transparency now links to city-aware guides explaining how council decisions and recorded votes work.
+- **Vancouver councillor profiles include contact access**: Each Contact card now links to the councillor’s official City profile, where current contact details are published.
 - **Simplified primary navigation**: The main page links now use text-only pills so the menu is easier to scan.
 - **Added an About page**: Residents can now see what Motions covers, how municipal decisions differ from other levels of government, and how the project supports participation.
 - **Static page headings no longer repeat themselves**: Privacy, terms, Transparency, and Sources pages now show one clear page title instead of duplicating the same label above it.
