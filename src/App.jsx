@@ -25,7 +25,6 @@ const ElectionView      = lazy(() => import('./components/ElectionView'));
 const DataPage          = lazy(() => import('./components/DataPage'));
 const SiteFooter        = lazy(() => import('./components/SiteFooter'));
 const VotingGuide       = lazy(() => import('./components/VotingGuide'));
-const VancouverDashboard = lazy(() => import('./components/vancouver/VancouverDashboard'));
 const VancouverCouncillorList = lazy(() => import('./components/vancouver/VancouverCouncillorList'));
 const VancouverCouncillorProfile = lazy(() => import('./components/vancouver/VancouverCouncillorProfile'));
 const VancouverElection = lazy(() => import('./components/vancouver/VancouverElection'));
@@ -241,7 +240,7 @@ function AppShell() {
         </div>
       }>
         <Routes>
-          {jurisdiction.id === 'vancouver' ? <Route path="/" element={<VancouverDashboard motions={motions} meetings={meetings} />} /> : <Route path="/" element={<DashboardView motions={motions} meetings={meetings} />} />}
+          <Route path="/" element={<DashboardView motions={motions} meetings={meetings} jurisdiction={jurisdiction} />} />
           <Route path="/motions/:motionId" element={<MotionPage motions={motions} jurisdiction={jurisdiction} />} />
           {jurisdiction.id === 'vancouver' ? <Route path="/councillors" element={<VancouverCouncillorList motions={motions} councillors={councillors} />} /> : <Route path="/councillors" element={<CouncillorList motions={motions} councillors={councillors} compareMode={compareMode} onCompareModeToggle={toggleCompareMode} />} />}
           {jurisdiction.id === 'vancouver' ? <Route path="/councillors/:slug" element={<VancouverCouncillorProfile motions={motions} councillors={councillors} />} /> : <Route path="/councillors/:slug" element={<CouncillorProfile motions={motions} councillors={councillors} />} />}

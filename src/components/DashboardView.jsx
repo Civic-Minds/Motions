@@ -390,15 +390,16 @@ function UpcomingMeeting({ meetings, navigate, className = '' }) {
 }
 
 // ── Main component ─────────────────────────────────────────────────────────
-export default function DashboardView({ motions, meetings = [] }) {
+export default function DashboardView({ motions, meetings = [], jurisdiction = { id: 'toronto' } }) {
   const { followedCommittees = [] } = useAppContext();
+  const isVancouver = jurisdiction.id === 'vancouver';
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [filters, dispatch] = useReducer(filtersReducer, initialFilters);
   const [visibleCount, setVisibleCount] = useState(() => isMobileViewport() ? 10 : 20);
   const [wardGeoData, setWardGeoData] = useState(null);
 
-  const savedWardId = useMemo(() => getWardId(), []);
+  const savedWardId = useMemo(() => isVancouver ? null : getWardId(), [isVancouver]);
   const wardFilter = searchParams.get('ward');
   const savedCouncillor = savedWardId ? WARD_COUNCILLORS[savedWardId] : null;
   const savedWardFeature = useMemo(() => wardGeoData?.features?.find(feature =>
@@ -556,8 +557,8 @@ export default function DashboardView({ motions, meetings = [] }) {
   return (
     <div className="space-y-4">
 
-      {/* ── Bento row: Last Meeting | Notable | Your Ward ── */}
-      <div className="grid grid-cols-2 lg:grid-cols-[200px_1fr_220px] gap-3 items-stretch overflow-hidden">
+      {/* Toronto’s ward/election overview stays above the shared browser. */}
+      {!isVancouver && <div className="grid grid-cols-2 lg:grid-cols-[200px_1fr_220px] gap-3 items-stretch overflow-hidden">
 
         {/* 1. Left Col: Your Following or Your Ward (ONE Card) */}
         {followedHighlights.length > 0 ? (() => {
@@ -634,7 +635,7 @@ export default function DashboardView({ motions, meetings = [] }) {
 
         {/* 3. Right: Coming Up (ONE Card) */}
         <UpcomingMeeting meetings={meetings} navigate={navigate} className="hidden lg:flex lg:col-span-1" />
-      </div>
+      </div>}
 
       {/* Mobile notable motions — the election card stays beside My Ward above. */}
       {homeMotionCards.length > 0 && (
@@ -677,11 +678,11 @@ export default function DashboardView({ motions, meetings = [] }) {
         <UpcomingMeeting meetings={meetings} navigate={navigate} className="lg:hidden" />
 
         {/* Toronto mini-map — click navigates to /wards */}
-        <div className="hidden lg:flex flex-col sticky top-24">
+        {!isVancouver && <div className="hidden lg:flex flex-col sticky top-24">
           <Suspense fallback={<div className="rounded-2xl bg-slate-100 animate-pulse h-[calc(100vh-7rem)] min-h-[480px] border border-slate-200" />}>
             <TorontoMiniMap motions={motions} />
           </Suspense>
-        </div>
+        </div>}
 
       </div>
 
