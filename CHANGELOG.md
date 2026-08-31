@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Added Vancouver election resources**: The voting guide now groups the City’s official election pages in one place for current dates, voting places, and requirements.
 - **Revamped the Vancouver election page**: Vancouver now uses Toronto’s compact election layout with citywide council and candidate cards while retaining its own ballot, voting, and official-resource details.
 - **Simplified the Toronto voting guide header**: Removed the redundant “Back to election” link.
 - **Shared static-page layout shell**: Static pages now inherit one responsive homepage-column rule instead of repeating width calculations, and map popups use compact, clamped text for long motion titles.

@@ -504,7 +504,7 @@ export default function ElectionView() {
                 <CivicPill className="bg-slate-100 text-slate-600">How to vote</CivicPill>
                 <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">What to bring, how to get help, and your voting rights.</p>
                 <CivicCardFooter align="end">
-                  <Link to="/election/how-to-vote" className="text-[9px] font-semibold text-[#004a99] whitespace-nowrap">Non-partisan guide ↗</Link>
+                  <Link to="/learn/how-to-vote" className="text-[9px] font-semibold text-[#004a99] whitespace-nowrap">Non-partisan guide ↗</Link>
                 </CivicCardFooter>
               </CivicCard>
             </div>
@@ -538,7 +538,7 @@ export default function ElectionView() {
         <CivicSectionLabel>How to vote</CivicSectionLabel>
         <CivicCard
           as={Link}
-          to="/election/how-to-vote"
+          to="/learn/how-to-vote"
           className="!min-h-[112px] !p-5 bg-blue-50 border-blue-100 hover:border-blue-300"
         >
           <div className="flex items-start justify-between gap-4">

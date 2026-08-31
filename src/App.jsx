@@ -25,6 +25,7 @@ const ElectionView      = lazy(() => import('./components/ElectionView'));
 const DataPage          = lazy(() => import('./components/DataPage'));
 const SiteFooter        = lazy(() => import('./components/SiteFooter'));
 const VotingGuide       = lazy(() => import('./components/VotingGuide'));
+const VancouverVotingGuide = lazy(() => import('./components/vancouver/VancouverVotingGuide'));
 const TorontoSeoPage    = lazy(() => import('./components/TorontoSeoPage'));
 const CitiesPage        = lazy(() => import('./components/CitiesPage'));
 const SourcesPage       = lazy(() => import('./components/SourcesPage'));
@@ -296,7 +297,8 @@ function AppShell() {
           <Route path="/meetings" element={<MeetingsListView meetings={meetings} jurisdiction={jurisdiction} />} />
           <Route path="/meetings/:meetingRef" element={<MeetingPage meetings={meetings} jurisdiction={jurisdiction} />} />
           <Route path="/election" element={jurisdiction.id === 'vancouver' ? <VancouverElection /> : <ElectionView />} />
-          <Route path="/election/how-to-vote" element={<VotingGuide />} />
+          <Route path="/election/how-to-vote" element={<Navigate to="/learn/how-to-vote" replace />} />
+          <Route path="/learn/how-to-vote" element={jurisdiction.id === 'vancouver' ? <VancouverVotingGuide /> : <VotingGuide />} />
           <Route path="/budget" element={<BudgetTranslator />} />
           <Route path="/transparency" element={<DataPage jurisdiction={jurisdiction} motions={motions} metadata={metadata} />} />
           <Route path="/data" element={<Navigate to="/transparency" replace />} />

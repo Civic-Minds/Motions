@@ -17,6 +17,11 @@ const GUIDES = [
     description: city => `Learn how to follow ${city}’s council votes and what to do next.`,
   },
   {
+    path: '/learn/how-to-vote',
+    title: 'How to Vote',
+    description: city => `Practical voting information for ${city}’s municipal election.`,
+  },
+  {
     path: '/learn/how-to-get-involved',
     title: 'How to Get Involved',
     description: city => city === 'Vancouver'
