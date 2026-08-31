@@ -588,11 +588,33 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
           )}
 
           {/* Background Documents */}
-          {motion.backgroundFiles?.length > 0 && (
+          {(motion.backgroundFiles?.length > 0 || (isVancouver && (agendaUrl || sourceUrl))) && (
             <div className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-4 min-h-44">
               <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide mb-3">Documents</p>
               <div className="flex flex-col gap-2">
-                {motion.backgroundFiles.map((f, i) => (
+                {isVancouver && agendaUrl && (
+                  <a
+                    href={agendaUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-start gap-2 text-xs text-[#004a99] hover:underline leading-snug"
+                  >
+                    <FileText className="w-3.5 h-3.5 shrink-0 mt-0.5 text-slate-500" />
+                    <span>Official council agenda</span>
+                  </a>
+                )}
+                {isVancouver && sourceUrl && (
+                  <a
+                    href={sourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-start gap-2 text-xs text-[#004a99] hover:underline leading-snug"
+                  >
+                    <FileText className="w-3.5 h-3.5 shrink-0 mt-0.5 text-slate-500" />
+                    <span>Vancouver voting record</span>
+                  </a>
+                )}
+                {(motion.backgroundFiles ?? []).map((f, i) => (
                   <a
                     key={i}
                     href={f.url}

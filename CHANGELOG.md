@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Vancouver motion documents are visible**: Motion pages now show the official council agenda and voting-record links in the Documents section.
 - **Motion maps show more neighborhood context**: Automatic pin fitting now avoids zooming too tightly around a single address.
 - **Councillor cards clarify their metrics**: Removed misleading topic labels, dropped repeated Vancouver at-large text, and explained that “With majority” measures majority-vote agreement.
 - **City switching now uses a dropdown**: The navbar shows the current city and lists all available cities in one scalable menu.
