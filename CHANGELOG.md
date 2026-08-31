@@ -6,7 +6,6 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
-- **Scalable city navigation**: The footer now points to a cities directory that can grow without making the footer longer for every new jurisdiction.
 - **Notable motion cards now align**: Homepage cards share the same height even when one title is longer than the others.
 - **Faster council data loading**: Production now serves motion data compressed, reducing the initial download before the dashboard appears.
 - **Vancouver official agenda links**: Vancouver motion and meeting pages now link directly to the City agenda alongside the filtered voting record.
