@@ -37,7 +37,7 @@ function parseResultTotals(resultText) {
   return { yes: parseInt(m[1], 10), no: parseInt(m[2], 10) };
 }
 
-function VoteBar({ votes, resultText }) {
+function VoteBar({ votes, resultText, terms }) {
   const recorded = Object.values(votes ?? {});
   const recYes = recorded.filter(v => v === 'YES').length;
   const recNo  = recorded.filter(v => v === 'NO').length;
@@ -52,14 +52,14 @@ function VoteBar({ votes, resultText }) {
   if (yes === 0 && no === 0) return null;
   return (
     <div className="flex items-center gap-3">
-      <span className="text-sm font-bold text-emerald-600 w-14 text-right">{yes} YES</span>
+      <span className="text-sm font-bold text-emerald-600 w-24 text-right">{yes} {terms.yes}</span>
       <div className="flex-1 h-2 bg-rose-100 rounded-full overflow-hidden">
         <div
           className="h-full bg-emerald-500 rounded-full"
           style={{ width: `${Math.round((yes / (yes + no)) * 100)}%` }}
         />
       </div>
-      <span className="text-sm font-bold text-rose-500 w-10">{no} NO</span>
+      <span className="text-sm font-bold text-rose-500 w-24">{no} {terms.no}</span>
     </div>
   );
 }
@@ -101,12 +101,13 @@ function AdditionalVotesNote({ count }) {
   );
 }
 
-function CouncillorGrid({ votes, resultText }) {
+function CouncillorGrid({ votes, resultText, terms }) {
   if (!votes || Object.keys(votes).length === 0) return null;
 
   const yes     = Object.entries(votes).filter(([, v]) => v === 'YES').map(([n]) => n).sort();
   const no      = Object.entries(votes).filter(([, v]) => v === 'NO').map(([n]) => n).sort();
   const absent  = Object.entries(votes).filter(([, v]) => v === 'ABSENT').map(([n]) => n).sort();
+  const other = Object.entries(votes).filter(([, v]) => !['YES', 'NO', 'ABSENT'].includes(v));
 
   const parsed = parseResultTotals(resultText);
   const totals = (parsed && parsed.yes >= yes.length) ? parsed : null;
@@ -124,7 +125,7 @@ function CouncillorGrid({ votes, resultText }) {
           {showYes && (
             <div>
               <p className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest mb-2">
-                Yes · {dispYesCount.toLocaleString()}
+                {terms.yes} · {dispYesCount.toLocaleString()}
               </p>
               <NameList
                 names={yes}
@@ -139,7 +140,7 @@ function CouncillorGrid({ votes, resultText }) {
           {showNo && (
             <div>
               <p className="text-[10px] font-bold text-red-500 uppercase tracking-widest mb-2">
-                No · {dispNoCount.toLocaleString()}
+                {terms.no} · {dispNoCount.toLocaleString()}
               </p>
               <NameList
                 names={no}
@@ -158,7 +159,7 @@ function CouncillorGrid({ votes, resultText }) {
       {absent.length > 0 && (
         <div>
           <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">
-            Absent · {absent.length.toLocaleString()}
+            {terms.absent} · {absent.length.toLocaleString()}
           </p>
           <div className="flex flex-wrap gap-1.5">
             {absent.map(name => (
@@ -168,6 +169,19 @@ function CouncillorGrid({ votes, resultText }) {
                 className="text-xs text-slate-500 bg-slate-100 hover:bg-slate-200 hover:text-slate-600 px-2 py-1 rounded-lg transition-colors"
               >
                 {name}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {other.length > 0 && (
+        <div>
+          <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Other recorded positions</p>
+          <div className="flex flex-wrap gap-1.5">
+            {other.map(([name, vote]) => (
+              <Link key={name} to={`/councillors/${nameToSlug(name)}`} className="text-xs text-slate-600 bg-slate-100 px-2 py-1 rounded-lg">
+                {name} · {terms[vote.toLowerCase()] ?? vote.replaceAll('_', ' ')}
               </Link>
             ))}
           </div>
@@ -187,7 +201,7 @@ const MOTION_TYPE_INFO = {
   'Direction':        'A directive from council to staff on how to proceed.',
 };
 
-function VoteSection({ label, motionType, title, status, votes, resultText, defaultOpen = false, hideStatus = false }) {
+function VoteSection({ label, motionType, title, status, votes, resultText, terms, defaultOpen = false, hideStatus = false }) {
   const [open, setOpen] = useState(defaultOpen);
   const totals = parseResultTotals(resultText);
   const recYes = Object.values(votes ?? {}).filter(v => v === 'YES').length;
@@ -225,15 +239,15 @@ function VoteSection({ label, motionType, title, status, votes, resultText, defa
               {MOTION_TYPE_INFO[motionType]}
             </p>
           )}
-          <VoteBar votes={votes} resultText={resultText} />
-          <CouncillorGrid votes={votes} resultText={resultText} />
+          <VoteBar votes={votes} resultText={resultText} terms={terms} />
+          <CouncillorGrid votes={votes} resultText={resultText} terms={terms} />
         </div>
       )}
     </div>
   );
 }
 
-export default function MotionPage({ motions = [] }) {
+export default function MotionPage({ motions = [], jurisdiction = { id: 'toronto', name: 'Toronto' } }) {
   const { motionId } = useParams();
   const motion = useMemo(() => motions.find(m => m.id === motionId) ?? null, [motions, motionId]);
 
@@ -248,10 +262,10 @@ export default function MotionPage({ motions = [] }) {
     );
   }
 
-  return <MotionDetail motions={motions} motion={motion} motionId={motionId} />;
+  return <MotionDetail motions={motions} motion={motion} motionId={motionId} jurisdiction={jurisdiction} />;
 }
 
-function MotionDetail({ motions, motion, motionId }) {
+function MotionDetail({ motions, motion, motionId, jurisdiction }) {
   const navigate = useNavigate();
   const [mapFullscreen, setMapFullscreen] = useState(false);
   const [mapReady, setMapReady] = useState(false);
@@ -282,14 +296,19 @@ function MotionDetail({ motions, motion, motionId }) {
     [motions, motionId]
   );
 
+  const isVancouver = jurisdiction.id === 'vancouver';
+  const terms = isVancouver
+    ? { yes: 'In favour', no: 'In opposition', absent: 'Absent', abstain: 'Abstain', conflict: 'Declared conflict' }
+    : { yes: 'YES', no: 'NO', absent: 'Absent', abstain: 'Abstain', conflict: 'Conflict' };
   const committee = motion.committee || getCommittee(motion.id);
+  const sourceUrl = motion.url || motion.sourceUrl;
   const meetingReference = motion.url?.match(/[?&]item=([^.&]+\.[A-Za-z]+\d+)/)?.[1] ?? null;
-  const committeeHref = meetingReference
+  const committeeHref = !isVancouver && meetingReference
     ? `/meetings/${meetingReference}`
-    : `/committees/${committeeToSlug(committee)}`;
+    : !isVancouver ? `/committees/${committeeToSlug(committee)}` : null;
   const isMultiVote = subEntries.length > 0;
 
-  const myWardId = getWardId();
+  const myWardId = isVancouver ? null : getWardId();
   const myCouncillor = myWardId ? WARD_COUNCILLORS[myWardId] : null;
   const myVote = myCouncillor ? (motion.votes?.[myCouncillor] ?? null) : null;
 
@@ -322,7 +341,7 @@ function MotionDetail({ motions, motion, motionId }) {
   return (
     <div className="max-w-5xl mx-auto py-2 px-4 sm:px-6 lg:px-8 relative">
       <PageMeta
-        title={`${displayTitle} | Motions Toronto`}
+        title={`${displayTitle} | Motions ${jurisdiction.name}`}
         description={motion.summary || `${motion.status} · ${committee}`}
         image={previewImage(displayTitle, committee)}
       />
@@ -377,20 +396,18 @@ function MotionDetail({ motions, motion, motionId }) {
           <span>·</span>
           <span>{motion.date}</span>
           <span>·</span>
-          <Link to={committeeHref} className="text-[#004a99] hover:underline" title={`View ${committee} meeting`}>
-            {committee}
-          </Link>
+          {committeeHref ? <Link to={committeeHref} className="text-[#004a99] hover:underline" title={`View ${committee} meeting`}>{committee}</Link> : <span>{committee}</span>}
           {motion.topic && <><span>·</span><span>{motion.topic}</span></>}
-          {motion.url && (
+          {sourceUrl && (
             <>
               <span>·</span>
               <a
-                href={motion.url}
+                href={sourceUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 text-[#004a99] hover:underline font-medium"
               >
-                toronto.ca <ExternalLink className="w-3 h-3" />
+                {isVancouver ? 'vancouver.ca' : 'toronto.ca'} <ExternalLink className="w-3 h-3" />
               </a>
             </>
           )}
@@ -412,12 +429,13 @@ function MotionDetail({ motions, motion, motionId }) {
           <div className="space-y-3 pt-2">
             {isMultiVote ? (
               <>
-                <VoteSection
+                  <VoteSection
                   label="Final vote"
                   motionType={motion.motionType}
                   status={motion.status}
                   votes={motion.votes}
                   resultText={motion.resultText}
+                  terms={terms}
                   defaultOpen
                 />
 
@@ -433,6 +451,7 @@ function MotionDetail({ motions, motion, motionId }) {
                       status={sub.status}
                       votes={sub.votes}
                       resultText={sub.resultText}
+                      terms={terms}
                       defaultOpen={false}
                     />
                   ))}
@@ -448,6 +467,7 @@ function MotionDetail({ motions, motion, motionId }) {
                 status={motion.status}
                 votes={motion.votes}
                 resultText={motion.resultText}
+                terms={terms}
                 defaultOpen={true}
                 hideStatus={true}
               />
@@ -457,7 +477,7 @@ function MotionDetail({ motions, motion, motionId }) {
 
         {/* RIGHT COLUMN: Metadata & Context */}
         <div className="lg:col-span-1 space-y-4 pt-1 lg:sticky lg:top-8">
-          {motion.locations?.length > 0 && (
+          {!isVancouver && motion.locations?.length > 0 && (
             <div className="space-y-2">
               <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest px-1">Locations</p>
               {mapReady ? (

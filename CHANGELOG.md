@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Shared motion details**: Vancouver motion pages now use the established Motions layout while preserving Vancouver’s official voting terminology.
+
 ### Added
 - **Vancouver council coverage**: Added Vancouver as a second city with citywide motion browsing, councillor voting records, election information, and an official-data importer while keeping Toronto’s ward experience intact.
 
