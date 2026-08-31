@@ -25,3 +25,10 @@ export function getElectionPhase(electionDate) {
   if (!electionDate) return null;
   return isOnOrAfter(electionDate) ? 'past' : 'upcoming';
 }
+
+// The "not affiliated with the city" clause every election page's closing
+// disclaimer opens with — shared so each city doesn't restate it with
+// slightly different wording. Callers append their own trailing sentence.
+export function disclaimerText(jurisdiction, extraAffiliation) {
+  return `Motions is an independent civic data project and is not affiliated with the City of ${jurisdiction.name}${extraAffiliation ? ` or ${extraAffiliation}` : ''}.`;
+}
