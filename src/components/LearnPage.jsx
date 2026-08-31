@@ -4,6 +4,7 @@ import { ArrowRight } from 'lucide-react';
 import { PageMeta } from './PageMeta';
 import { CivicCard } from './ui/CivicCard';
 import PageColumn from './PageColumn';
+import { isOnOrAfter } from '../utils/electionDate';
 
 const GUIDES = [
   {
@@ -28,7 +29,39 @@ const GUIDES = [
   },
 ];
 
+function GuideCard({ guide, jurisdiction }) {
+  if (guide.comingSoon?.(jurisdiction.name)) {
+    return (
+      <CivicCard className="h-full gap-3">
+        <h2 className="text-lg font-semibold text-slate-900">{guide.title}</h2>
+        <p className="text-sm leading-relaxed text-slate-500">{guide.description(jurisdiction.name)}</p>
+        <span className="mt-auto text-sm font-semibold text-slate-400">Coming soon</span>
+      </CivicCard>
+    );
+  }
+  return (
+    <Link to={guide.path}>
+      <CivicCard className="h-full gap-3 transition-colors hover:border-[#004a99]/40">
+        <h2 className="text-lg font-semibold text-slate-900">{guide.title}</h2>
+        <p className="text-sm leading-relaxed text-slate-500">{guide.description(jurisdiction.name)}</p>
+        <span className="mt-auto inline-flex items-center gap-1.5 text-sm font-semibold text-[#004a99]">
+          Read guide <ArrowRight className="h-4 w-4" />
+        </span>
+      </CivicCard>
+    </Link>
+  );
+}
+
 export default function LearnPage({ jurisdiction = { name: 'Toronto' } }) {
+  const electionUpcoming = jurisdiction?.election?.date ? !isOnOrAfter(jurisdiction.election.date) : false;
+  const allGuides = [...GUIDES, ...(jurisdiction.id === 'toronto' ? [{
+    path: '/learn/how-strong-mayor-powers-work',
+    title: 'How Toronto’s Strong Mayor Powers Work',
+    description: () => 'Understand what the Mayor can do, what still requires Council, and where to follow the record.',
+  }] : [])];
+  const votingGuide = electionUpcoming ? allGuides.find(g => g.path === '/learn/how-voting-works') : null;
+  const otherGuides = votingGuide ? allGuides.filter(g => g.path !== votingGuide.path) : allGuides;
+
   return (
     <PageColumn className="space-y-8 pb-20">
       <PageMeta
@@ -41,28 +74,11 @@ export default function LearnPage({ jurisdiction = { name: 'Toronto' } }) {
           Short, practical guides to help you understand your city council and take part in local decisions.
         </p>
       </div>
-      <div className="grid gap-4 sm:grid-cols-2">
-        {[...GUIDES, ...(jurisdiction.id === 'toronto' ? [{
-          path: '/learn/how-strong-mayor-powers-work',
-          title: 'How Toronto’s Strong Mayor Powers Work',
-          description: () => 'Understand what the Mayor can do, what still requires Council, and where to follow the record.',
-        }] : [])].map(guide => guide.comingSoon?.(jurisdiction.name) ? (
-          <CivicCard key={guide.path} className="h-full gap-3">
-            <h2 className="text-lg font-semibold text-slate-900">{guide.title}</h2>
-            <p className="text-sm leading-relaxed text-slate-500">{guide.description(jurisdiction.name)}</p>
-            <span className="mt-auto text-sm font-semibold text-slate-400">Coming soon</span>
-          </CivicCard>
-        ) : (
-          <Link key={guide.path} to={guide.path}>
-            <CivicCard className="h-full gap-3 transition-colors hover:border-[#004a99]/40">
-              <h2 className="text-lg font-semibold text-slate-900">{guide.title}</h2>
-              <p className="text-sm leading-relaxed text-slate-500">{guide.description(jurisdiction.name)}</p>
-              <span className="mt-auto inline-flex items-center gap-1.5 text-sm font-semibold text-[#004a99]">
-                Read guide <ArrowRight className="h-4 w-4" />
-              </span>
-            </CivicCard>
-          </Link>
-        ))}
+      <div className="space-y-4">
+        {votingGuide && <GuideCard key={votingGuide.path} guide={votingGuide} jurisdiction={jurisdiction} />}
+        <div className="grid gap-4 sm:grid-cols-2">
+          {otherGuides.map(guide => <GuideCard key={guide.path} guide={guide} jurisdiction={jurisdiction} />)}
+        </div>
       </div>
     </PageColumn>
   );
