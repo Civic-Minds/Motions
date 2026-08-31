@@ -1,5 +1,20 @@
 const WARD_KEY = 'motions_ward_id';
 const COMMITTEE_KEY = 'motions_followed_committee';
+const JURISDICTION_KEY = 'motions_last_jurisdiction';
+
+export function getLastJurisdiction() {
+  try {
+    return localStorage.getItem(JURISDICTION_KEY);
+  } catch {
+    return null;
+  }
+}
+
+export function setLastJurisdiction(id) {
+  try {
+    if (id) localStorage.setItem(JURISDICTION_KEY, id);
+  } catch {}
+}
 
 export function getWardId() {
   try {

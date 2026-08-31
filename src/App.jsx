@@ -10,6 +10,7 @@ import { useMotions } from './hooks/useMotions';
 import { AppProvider, useAppContext } from './contexts/AppContext';
 import { getInitialJurisdiction, JURISDICTIONS } from './constants/jurisdictions';
 import { formatElectionDate } from './utils/electionDate';
+import { getLastJurisdiction, setLastJurisdiction } from './utils/storage';
 
 const DashboardView     = lazy(() => import('./components/DashboardView'));
 const MotionPage        = lazy(() => import('./components/MotionPage'));
@@ -35,6 +36,15 @@ const AboutPage         = lazy(() => import('./components/AboutPage'));
 const CivicGuidePage    = lazy(() => import('./components/CivicGuidePage'));
 const LearnPage         = lazy(() => import('./components/LearnPage'));
 const VancouverElection = lazy(() => import('./components/vancouver/VancouverElection'));
+
+// About/Privacy/Terms now live outside the jurisdiction router (see
+// StandaloneShell); a plain <Navigate> inside this router would just resolve
+// relative to the basename again, so this forces a real full-page navigation
+// out to the bare path instead.
+function HardRedirect({ to }) {
+  useEffect(() => { window.location.href = to; }, [to]);
+  return null;
+}
 
 const TABS = [
   { path: '/councillors', label: 'Councillors' },
@@ -319,9 +329,9 @@ function AppShell() {
           <Route path="/data" element={<Navigate to="/transparency" replace />} />
           <Route path="/cities" element={<CitiesPage />} />
           <Route path="/sources" element={<SourcesPage jurisdiction={jurisdiction} />} />
-          <Route path="/privacy" element={<LegalPage type="privacy" />} />
-          <Route path="/terms" element={<LegalPage type="terms" />} />
-          <Route path="/about" element={<AboutPage />} />
+          <Route path="/privacy" element={<HardRedirect to="/privacy" />} />
+          <Route path="/terms" element={<HardRedirect to="/terms" />} />
+          <Route path="/about" element={<HardRedirect to="/about" />} />
           <Route path="/learn" element={<LearnPage jurisdiction={jurisdiction} />} />
           <Route path="/learn/how-council-works" element={<CivicGuidePage type="council" jurisdiction={jurisdiction} />} />
           <Route path="/learn/how-a-council-vote-works" element={<CivicGuidePage type="voting" jurisdiction={jurisdiction} />} />
@@ -364,12 +374,20 @@ function AppShell() {
   );
 }
 
-function HomeShell() {
+const STANDALONE_PATHS = new Set(['/', '/about', '/privacy', '/terms']);
+
+function StandaloneShell() {
+  // If they've previously visited a city, the logo takes them back there
+  // instead of the generic homepage — otherwise About/Privacy/Terms feel like
+  // they've kicked the visitor out of "their" city.
+  const lastJurisdiction = getLastJurisdiction();
+  const logoHref = lastJurisdiction && JURISDICTIONS[lastJurisdiction] ? `/${lastJurisdiction}` : '/';
+
   return (
     <div className="min-h-screen flex flex-col">
       <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 bg-white/80 backdrop-blur-xl">
         <div className="max-w-[1400px] mx-auto px-6 h-16 flex items-center">
-          <span className="font-bold text-slate-900 text-sm">Motions</span>
+          <a href={logoHref} className="font-bold text-slate-900 text-sm">Motions</a>
         </div>
       </header>
 
@@ -379,7 +397,12 @@ function HomeShell() {
             <div className="w-8 h-8 border-4 border-[#004a99] border-t-transparent rounded-full animate-spin" />
           </div>
         }>
-          <CitiesPage />
+          <Routes>
+            <Route path="/" element={<CitiesPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/privacy" element={<LegalPage type="privacy" />} />
+            <Route path="/terms" element={<LegalPage type="terms" />} />
+          </Routes>
         </Suspense>
       </main>
 
@@ -393,10 +416,10 @@ function HomeShell() {
             , built with care in Canada.
           </span>
           <div className="flex items-center gap-3">
-            <a href="/toronto/about" className="hover:text-slate-600">About</a>
+            <Link to="/about" className="hover:text-slate-600">About</Link>
             <a href="https://github.com/Civic-Minds/Motions" target="_blank" rel="noopener noreferrer" className="hover:text-slate-600">GitHub</a>
-            <a href="/toronto/privacy" className="hover:text-slate-600">Privacy</a>
-            <a href="/toronto/terms" className="hover:text-slate-600">Terms</a>
+            <Link to="/privacy" className="hover:text-slate-600">Privacy</Link>
+            <Link to="/terms" className="hover:text-slate-600">Terms</Link>
             <span>© {new Date().getFullYear()} Civic Minds</span>
           </div>
         </div>
@@ -406,10 +429,10 @@ function HomeShell() {
 }
 
 export default function App() {
-  if (typeof window !== 'undefined' && window.location.pathname === '/') {
+  if (typeof window !== 'undefined' && STANDALONE_PATHS.has(window.location.pathname)) {
     return (
       <BrowserRouter>
-        <HomeShell />
+        <StandaloneShell />
         <Analytics />
         <SpeedInsights />
       </BrowserRouter>
@@ -417,6 +440,7 @@ export default function App() {
   }
 
   const jurisdiction = getInitialJurisdiction();
+  setLastJurisdiction(jurisdiction.id);
   return (
     <BrowserRouter basename={jurisdiction.path}>
       <AppProvider jurisdiction={jurisdiction}>
