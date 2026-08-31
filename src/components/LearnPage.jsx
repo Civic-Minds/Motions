@@ -17,7 +17,7 @@ const GUIDES = [
     description: city => `Learn how to follow ${city}’s council votes and what to do next.`,
   },
   {
-    path: '/learn/how-to-vote',
+    path: '/learn/how-voting-works',
     title: 'How Voting Works',
     description: city => `Practical voting information for ${city}’s municipal election.`,
   },

@@ -1,8 +1,17 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { CalendarClock, ArrowRight } from 'lucide-react';
 import { PageMeta } from './PageMeta';
 import PageColumn from './PageColumn';
+import { CivicCard } from './ui/CivicCard';
 
-export default function VotingGuideShell({ title, description, intro, children }) {
+const LAST_UPDATED = 'August 31, 2026';
+
+export default function VotingGuideShell({ title, description, intro, jurisdiction, children }) {
+  const electionDate = jurisdiction?.election?.date
+    ? new Date(`${jurisdiction.election.date}T00:00:00`).toLocaleDateString('en-CA', { month: 'long', day: 'numeric', year: 'numeric' })
+    : null;
+
   return (
     <PageColumn className="space-y-8 pb-20">
       <PageMeta title={title} description={description} />
@@ -10,8 +19,22 @@ export default function VotingGuideShell({ title, description, intro, children }
       <div className="space-y-3">
         <h1 className="text-3xl font-bold tracking-tight text-slate-900">How Voting Works</h1>
         <p className="max-w-2xl text-base leading-relaxed text-slate-500">{intro}</p>
-        <p className="text-xs text-slate-400">Last updated: August 31, 2026</p>
+        <p className="text-xs text-slate-400">Last updated: {LAST_UPDATED}</p>
       </div>
+
+      {electionDate && (
+        <Link to="/election">
+          <CivicCard className="flex-row items-center justify-between gap-4 bg-blue-50/60 hover:border-[#004a99]/40">
+            <div className="flex items-center gap-3">
+              <CalendarClock className="h-5 w-5 shrink-0 text-[#004a99]" />
+              <p className="text-sm font-semibold text-slate-900">{jurisdiction.name}’s next election is {electionDate}.</p>
+            </div>
+            <span className="inline-flex shrink-0 items-center gap-1.5 text-sm font-semibold text-[#004a99]">
+              See key dates <ArrowRight className="h-4 w-4" />
+            </span>
+          </CivicCard>
+        </Link>
+      )}
 
       {children}
     </PageColumn>

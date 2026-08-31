@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Made "How Voting Works" evergreen**: The guide no longer lists this election's specific dates and hours — that stays on the Election page, which is now linked from a banner at the top of the guide showing the next election date. The guide itself now explains the actual process (where you vote, what's on your ballot, how many candidates you select, what happens at the voting place, your rights) so it doesn't need updating every election cycle.
+- **Renamed the guide's URL**: `/learn/how-to-vote` is now `/learn/how-voting-works` to match the page title; the old URL (and `/election/how-to-vote`) redirect to it.
 - **Wrote Toronto's "How to Get Involved" guide**: Replaced the "coming soon" placeholder with real steps and links — Have Your Say Toronto, Public Notices & Bylaws, the Application Information Centre, and how to register to speak at a committee meeting (noting City Council itself doesn't take public speakers).
 
 - **Plain-language pass across the council/vote/Strong Mayor guides**: Broke up long, semicolon- and clause-heavy sentences into short ones so the guides read more like a plain explanation and less like a legal summary.
