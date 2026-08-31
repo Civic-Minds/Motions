@@ -38,6 +38,24 @@ jobs:
           echo "should_run=$RESULT" >> $GITHUB_OUTPUT
           echo "Recent meeting found: $RESULT"
 
+      # Runs every time this job runs, regardless of should_run — "last checked"
+      # means the pipeline looked for new data, not that it found any. Without
+      # this, a run that finds nothing new (the common case) never records that
+      # it ran, since write_data_metadata.js otherwise only lives in the gated
+      # refresh job below.
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Record that we checked
+        run: |
+          node scripts/write_data_metadata.js
+          node scripts/write_data_metadata.js --vancouver
+
+      - name: Upload check timestamp to Blob
+        env:
+          BLOB_READ_WRITE_TOKEN: ${{ secrets.BLOB_READ_WRITE_TOKEN }}
+        run: node scripts/upload_to_blob.js --vancouver
+
   refresh:
     needs: check
     if: needs.check.outputs.should_run == 'true'
