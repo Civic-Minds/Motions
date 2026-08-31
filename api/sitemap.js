@@ -20,6 +20,8 @@ export default async function handler(request, response) {
     '/toronto',
     '/toronto/cities',
     '/toronto/sources',
+    '/toronto/privacy',
+    '/toronto/terms',
     '/toronto/council-voting-records',
     '/toronto/ward-voting-records',
     '/toronto/councillor-voting-records',
