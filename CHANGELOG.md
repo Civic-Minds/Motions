@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Vote guides include city-specific participation prompts**: Toronto points residents to their ward councillor, while Vancouver points residents to any councillor or the Mayor.
 - **Council guides point residents to the right contact**: Toronto’s guide directs residents to their ward councillor, while Vancouver’s guide explains that any councillor can hear a citywide idea.
 - **Navbar links stay aligned across cities**: The city name no longer changes the horizontal position of the primary navigation.
 - **Corrected city council guides**: Toronto now explains committee review before Council decisions, while Vancouver distinguishes Council meetings, committees, and hearings.

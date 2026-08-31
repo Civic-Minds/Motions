@@ -67,16 +67,16 @@ export default function CivicGuidePage({ type, jurisdiction = { id: 'toronto', n
   const isCouncilGuide = type === 'council';
   const steps = type === 'council' ? content.steps[jurisdiction.name] : content.steps;
   const actionPath = content.actionPath ?? (isCouncilGuide ? '/' : '/councillors');
-  const participationPrompt = isCouncilGuide
+  const participationPrompt = type !== 'strongMayor'
     ? jurisdiction.name === 'Vancouver'
       ? {
-          title: 'Have an idea for Vancouver?',
-          description: 'Vancouver councillors are elected at-large, so you can reach out to any councillor or the Mayor about a citywide idea.',
+          title: isCouncilGuide ? 'Have an idea for Vancouver?' : 'Have a view on a vote?',
+          description: isCouncilGuide ? 'Vancouver councillors are elected at-large, so you can reach out to any councillor or the Mayor about a citywide idea.' : 'Vancouver councillors are elected at-large, so you can reach out to any councillor or the Mayor about a council decision.',
           action: 'Explore Vancouver councillors',
         }
       : {
-          title: 'Have an idea for your neighbourhood?',
-          description: 'Start with your ward councillor, who represents your neighbourhood on Toronto City Council.',
+          title: isCouncilGuide ? 'Have an idea for your neighbourhood?' : 'Have a view on a vote?',
+          description: isCouncilGuide ? 'Start with your ward councillor, who represents your neighbourhood on Toronto City Council.' : 'Start with your ward councillor, who represents your neighbourhood on Toronto City Council, if you have a view on a decision.',
           action: 'Find your councillor',
         }
     : null;
