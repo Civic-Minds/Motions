@@ -16,7 +16,7 @@ export default function SiteFooter() {
             <span className="font-normal text-slate-500">{jurisdiction.name}</span>
           </Link>
           <p className="max-w-xs text-sm leading-relaxed text-slate-500">
-            Council decisions and votes, all in one place.
+            See what council voted on and how each member voted.
           </p>
         </div>
 
@@ -31,7 +31,7 @@ export default function SiteFooter() {
         <div className="space-y-3">
           <p className="text-[10px] font-bold uppercase tracking-wide text-slate-500">Explore</p>
           <div className="flex flex-col gap-2">
-            <Link to="/" className={linkClass}>Motions</Link>
+            <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className={linkClass}>Motions</Link>
             <Link to="/councillors" className={linkClass}>Councillors</Link>
             {isToronto && <Link to="/wards" className={linkClass}>Wards</Link>}
             <Link to="/election" className={linkClass}>Election</Link>

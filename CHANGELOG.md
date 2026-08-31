@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Footer Motions link returns to the top**: Clicking it from the homepage now visibly resets the page position.
 - **Footer columns now align with homepage cards**: The desktop footer places its four navigation columns over the homepage’s right four card columns for a cleaner page rhythm.
 - **Footer branding remains visible**: The site name and description stay in the upper footer while navigation aligns with the homepage cards.
 - **Notable motion cards now align**: Homepage cards share the same height even when one title is longer than the others.
