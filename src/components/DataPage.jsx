@@ -69,7 +69,7 @@ export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toront
       </section>
 
       <section className="space-y-3">
-        <CivicSectionLabel>WARD COVERAGE</CivicSectionLabel>
+        <CivicSectionLabel>{isVancouver ? 'GEOGRAPHY' : 'WARD COVERAGE'}</CivicSectionLabel>
         <CivicCard className="gap-2">
           <h2 className="text-lg font-semibold text-slate-900">{isVancouver ? 'Citywide council activity' : 'Citywide and ward-specific activity'}</h2>
           <p className="text-sm leading-relaxed text-slate-500">
