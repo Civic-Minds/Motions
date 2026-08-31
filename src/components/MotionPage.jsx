@@ -590,7 +590,7 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
 
           {/* Background Documents */}
           {(motion.backgroundFiles?.length > 0 || (isVancouver && (agendaUrl || sourceUrl))) && (
-            <div className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-4 min-h-44">
+            <div className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-4">
               <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide mb-3">Documents</p>
               <div className="flex flex-col gap-2">
                 {isVancouver && agendaUrl && (

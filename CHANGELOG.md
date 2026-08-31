@@ -6,6 +6,9 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Second plain-language pass on "How Voting Works"**: Defined terms used without explanation — MyVote, voter information card, ballot transfer, Voter Assist Terminals, "at-large," Capital Plan/plebiscite questions — instead of assuming residents already know City elections vocabulary.
+- **Fixed extra empty space on the Documents card**: A motion page's Documents card had a fixed minimum height that left visible blank space below a single short document link.
+- **Vancouver's election page heading now updates after voting closes**: "Know the council record before you vote" was permanently pre-election phrasing; it now switches to "Know how your new council is voting" once the election date passes, matching the rest of the page's post-election framing.
 - **Election pages now switch to results framing once voting closes**: The Election page's voting-info and voting-days cards, and the Dashboard's election teaser, automatically swap to "voting closed / see council" copy after election day instead of continuing to show a past date as if it's still upcoming — verified both states on both cities by temporarily testing a past date.
 - **Made the "Where to vote" card date-aware**: It now reads "Find where and when you can vote" once the milestone date passes, instead of permanently saying "From September 1" — the date lives in `jurisdictions.js` so it never needs a manual edit again.
 - **Fixed stale voting-guide links**: The Election page's "How to vote" / "Non-partisan guide" links pointed at the old `/learn/how-to-vote` URL; updated to the renamed `/learn/how-voting-works`.

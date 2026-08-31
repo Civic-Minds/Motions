@@ -29,7 +29,7 @@ export default function VancouverVotingGuide({ jurisdiction }) {
         <CivicSectionLabel>WHAT’S ON YOUR BALLOT</CivicSectionLabel>
         <div className="grid gap-4 sm:grid-cols-2">
           <GuideCard icon={Vote} title="City offices — vote for more than one">
-            <p>Because Vancouver’s Council, Park Board, and school trustees are all elected at-large, you don’t just pick one candidate per race — you select up to:</p>
+            <p>Vancouver doesn’t have wards or districts — every seat is voted on citywide. So instead of picking one candidate per race, you select up to:</p>
             <ul className="mt-2 space-y-1">
               <li>1 mayor</li>
               <li>10 city councillors</li>
@@ -38,7 +38,7 @@ export default function VancouverVotingGuide({ jurisdiction }) {
             </ul>
           </GuideCard>
           <GuideCard icon={CheckCircle2} title="Questions on the ballot">
-            <p>Capital Plan and plebiscite questions may appear alongside the offices on your ballot. Check the official voter’s guide for the current details.</p>
+            <p>You may also see Capital Plan questions (about the City’s borrowing plans) and plebiscite questions (separate yes/no votes on specific issues) on your ballot. Check the official voter’s guide for the current details.</p>
             <OfficialLink href={VOTERS_GUIDE}>Read the voter’s guide</OfficialLink>
           </GuideCard>
         </div>

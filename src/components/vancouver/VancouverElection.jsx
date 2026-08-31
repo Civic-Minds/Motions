@@ -128,9 +128,11 @@ export default function VancouverElection() {
 
       <div>
         <CivicSectionLabel>2026 VANCOUVER ELECTION</CivicSectionLabel>
-        <h1 className="mt-2 text-3xl font-bold text-slate-900 sm:text-4xl">Know the council record before you vote.</h1>
+        <h1 className="mt-2 text-3xl font-bold text-slate-900 sm:text-4xl">{electionOver ? 'Know how your new council is voting.' : 'Know the council record before you vote.'}</h1>
         <p className="mt-3 max-w-2xl text-slate-500">
-          Vancouver elects its mayor and councillors citywide. Use the official dates and voting details below, then review how the current council has voted.
+          {electionOver
+            ? 'Vancouver elects its mayor and councillors citywide. See who’s on council now, then review how they’ve voted.'
+            : 'Vancouver elects its mayor and councillors citywide. Use the official dates and voting details below, then review how the current council has voted.'}
         </p>
       </div>
 

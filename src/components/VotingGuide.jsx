@@ -18,12 +18,12 @@ export default function VotingGuide({ jurisdiction }) {
         <CivicSectionLabel>WHERE YOU VOTE</CivicSectionLabel>
         <div className="grid gap-4 sm:grid-cols-2">
           <GuideCard icon={MapPin} title="Find your voting place">
-            <p>You can vote at a voting place during the advance voting period, or on election day. Use MyVote to find yours — check again close to the date, since voting places can change.</p>
+            <p>You can vote at a voting place during the advance voting period, or on election day. Use MyVote, the City's online tool for finding your voting place — check again close to the date, since voting places can change.</p>
             <OfficialLink href="https://www.toronto.ca/city-government/elections/voter-information/myvote/">Open MyVote</OfficialLink>
           </GuideCard>
           <GuideCard icon={CheckCircle2} title="Check your registration">
-            <p>Use MyVote to confirm or update your information on the voters’ list. You can also access a digital voter information card there.</p>
-            <p className="mt-2">You do not need a voter information card to vote.</p>
+            <p>Use MyVote to confirm or update your information on the voters’ list. It also gives you a digital voter information card — a card the City mails you before the election, confirming you're registered.</p>
+            <p className="mt-2">You don’t actually need that card with you to vote, though.</p>
           </GuideCard>
         </div>
       </section>
@@ -46,7 +46,7 @@ export default function VotingGuide({ jurisdiction }) {
           <div className="grid gap-4 text-sm leading-relaxed text-slate-500 sm:grid-cols-3">
             <p><strong className="font-semibold text-slate-700">Check in.</strong> Bring identification. An election official will confirm your information and hand you your ballots.</p>
             <p><strong className="font-semibold text-slate-700">Mark your ballot.</strong> Mark it in private, then place it in the ballot box or feed it into the scanner yourself.</p>
-            <p><strong className="font-semibold text-slate-700">Ask for help.</strong> You can ask an election official for help, bring a friend to assist you, or request curbside voting or a ballot transfer.</p>
+            <p><strong className="font-semibold text-slate-700">Ask for help.</strong> You can ask an election official for help, bring a friend to assist you, or ask for curbside voting (voting from your car) or a transfer to a more accessible voting place.</p>
           </div>
         </CivicCard>
       </section>
@@ -55,7 +55,7 @@ export default function VotingGuide({ jurisdiction }) {
         <CivicSectionLabel>YOUR RIGHTS AND HELP</CivicSectionLabel>
         <div className="grid gap-4 sm:grid-cols-2">
           <GuideCard icon={ShieldCheck} title="Bring identification">
-            <p>Bring one piece of identification showing your name and qualifying Toronto address. Your voter information card is not identification.</p>
+            <p>Bring one piece of identification showing your name and an address in Toronto. Your voter information card doesn’t count as ID.</p>
             <OfficialLink href="https://www.toronto.ca/city-government/elections/voter-information/identification/">See accepted ID</OfficialLink>
           </GuideCard>
           <GuideCard icon={CheckCircle2} title="Time off to vote">
@@ -65,12 +65,12 @@ export default function VotingGuide({ jurisdiction }) {
         <CivicCard className="gap-3">
           <div className="grid gap-4 text-sm leading-relaxed text-slate-500 sm:grid-cols-2">
             <ul className="space-y-3">
-              <li>Voter Assist Terminals are available at all advance voting places and two voting places per ward on election day.</li>
+              <li>Voter Assist Terminals — devices that let you mark your ballot independently — are available at all advance voting places and two voting places per ward on election day.</li>
               <li>Translation and interpretation support is available through Toronto Elections and 311.</li>
             </ul>
             <ul className="space-y-3">
               <li>Eligible voters without a permanent address can vote using a shelter, drop-in centre, or MyVote information.</li>
-              <li>Eligible voters on remand can ask detention-centre staff about proxy or mail-in voting.</li>
+              <li>Eligible voters being held in custody awaiting trial can ask detention-centre staff about proxy or mail-in voting.</li>
             </ul>
           </div>
           <p className="border-t border-slate-100 pt-3 text-sm text-slate-500">
