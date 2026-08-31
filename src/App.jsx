@@ -46,7 +46,7 @@ function Navbar({ onSearchOpen }) {
     t.path === '/' ? location.pathname === '/' : location.pathname.startsWith(t.path)
   );
   const tabs = jurisdiction.geography === 'atLarge'
-    ? TABS.filter(tab => tab.path !== '/wards' && tab.path !== '/committees')
+    ? TABS.filter(tab => tab.path !== '/wards')
     : TABS;
 
   return (

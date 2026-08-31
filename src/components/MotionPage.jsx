@@ -302,6 +302,7 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
     : { yes: 'YES', no: 'NO', absent: 'Absent', abstain: 'Abstain', conflict: 'Conflict' };
   const committee = motion.committee || getCommittee(motion.id);
   const sourceUrl = motion.url || motion.sourceUrl;
+  const agendaUrl = isVancouver ? motion.agendaUrl : null;
   const meetingReference = motion.url?.match(/[?&]item=([^.&]+\.[A-Za-z]+\d+)/)?.[1] ?? null;
   const committeeHref = !isVancouver && meetingReference
     ? `/meetings/${meetingReference}`
@@ -401,13 +402,22 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
           {sourceUrl && (
             <>
               <span>·</span>
+              {agendaUrl && <a
+                href={agendaUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-[#004a99] hover:underline font-medium"
+              >
+                Council agenda <ExternalLink className="w-3 h-3" />
+              </a>}
+              {agendaUrl && <span>·</span>}
               <a
                 href={sourceUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 text-[#004a99] hover:underline font-medium"
               >
-                {isVancouver ? 'vancouver.ca' : 'toronto.ca'} <ExternalLink className="w-3 h-3" />
+                {isVancouver ? 'Voting record' : 'toronto.ca'} <ExternalLink className="w-3 h-3" />
               </a>
             </>
           )}

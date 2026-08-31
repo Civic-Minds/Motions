@@ -251,12 +251,15 @@ export default function CommitteesView({ motions, meetings = [] }) {
         <div className="space-y-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {committees.map((c, i) => (
-            <motion.button
+            <motion.div
               key={c.name}
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.04 }}
               onClick={() => navigate(`/committees/${c.slug}`)}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') navigate(`/committees/${c.slug}`); }}
+              role="button"
+              tabIndex={0}
               className="bg-white border border-slate-200 rounded-2xl p-5 text-left hover:border-[#004a99]/40 hover:shadow-md transition-all group"
             >
               <div className="flex items-start justify-between gap-3">
@@ -310,7 +313,7 @@ export default function CommitteesView({ motions, meetings = [] }) {
                   ))}
                 </div>
               )}
-            </motion.button>
+            </motion.div>
           ))}
         </div>
 

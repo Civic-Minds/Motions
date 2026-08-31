@@ -18,6 +18,27 @@ export default function MeetingPage({ meetings, jurisdiction = { name: 'Toronto'
   const [filter, setFilter] = useState('all');
 
   const meeting = meetings?.find(m => m.meetingReference === meetingRef);
+  const committeeSlug = committeeToSlug(meeting?.committee ?? '');
+  const agendaItems = useMemo(() => meeting?.agendaItems ?? [], [meeting?.agendaItems]);
+  const hasAgenda = agendaItems.length > 0;
+
+  const counts = useMemo(() => {
+    const c = { all: agendaItems.length, substantive: 0, inCamera: 0, procedural: 0 };
+    agendaItems.forEach(item => { c[classifyItem(item)]++; });
+    return c;
+  }, [agendaItems]);
+
+  const filteredItems = useMemo(() => {
+    if (filter === 'all') return agendaItems;
+    return agendaItems.filter(item => classifyItem(item) === filter);
+  }, [agendaItems, filter]);
+
+  const FILTERS = [
+    { id: 'all', label: 'All' },
+    { id: 'substantive', label: 'Substantive' },
+    { id: 'inCamera', label: 'In Camera' },
+    { id: 'procedural', label: 'Procedural' },
+  ];
 
   if (!meeting) {
     return (
@@ -26,29 +47,6 @@ export default function MeetingPage({ meetings, jurisdiction = { name: 'Toronto'
       </div>
     );
   }
-
-  const committeeSlug = committeeToSlug(meeting.committee);
-  const hasAgenda = meeting.agendaItems?.length > 0;
-
-  const counts = useMemo(() => {
-    if (!meeting.agendaItems) return {};
-    const c = { all: meeting.agendaItems.length, substantive: 0, inCamera: 0, procedural: 0 };
-    meeting.agendaItems.forEach(item => { c[classifyItem(item)]++; });
-    return c;
-  }, [meeting.agendaItems]);
-
-  const filteredItems = useMemo(() => {
-    if (!meeting.agendaItems) return [];
-    if (filter === 'all') return meeting.agendaItems;
-    return meeting.agendaItems.filter(item => classifyItem(item) === filter);
-  }, [meeting.agendaItems, filter]);
-
-  const FILTERS = [
-    { id: 'all', label: 'All' },
-    { id: 'substantive', label: 'Substantive' },
-    { id: 'inCamera', label: 'In Camera' },
-    { id: 'procedural', label: 'Procedural' },
-  ];
 
   return (
     <div className="max-w-5xl mx-auto py-2 px-4 sm:px-6 lg:px-8 relative">
@@ -194,15 +192,26 @@ export default function MeetingPage({ meetings, jurisdiction = { name: 'Toronto'
 
           {/* Official meeting record */}
           {meeting.meetingReference && (
-            <a
-              href={meeting.sourceUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full text-left px-4 py-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-500 hover:border-[#004a99]/40 hover:text-[#004a99] transition-colors flex items-center justify-between"
-            >
-              <span>View on {jurisdiction.name} source</span>
-              <ExternalLink className="w-3 h-3" />
-            </a>
+            <div className="space-y-2">
+              {meeting.agendaUrl && <a
+                href={meeting.agendaUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full text-left px-4 py-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-500 hover:border-[#004a99]/40 hover:text-[#004a99] transition-colors flex items-center justify-between"
+              >
+                <span>View official council agenda</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>}
+              <a
+                href={meeting.sourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full text-left px-4 py-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-500 hover:border-[#004a99]/40 hover:text-[#004a99] transition-colors flex items-center justify-between"
+              >
+                <span>View on {jurisdiction.name} source</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            </div>
           )}
         </div>
       </div>

@@ -21,6 +21,20 @@ const RECORD_URL = (meetingId, voteNumber) =>
     `https://opendata.vancouver.ca/explore/dataset/council-voting-records/table/?refine.meeting_id=${encodeURIComponent(meetingId)}&refine.vote_number=${encodeURIComponent(voteNumber)}`;
 const MEETING_URL = meetingId =>
     `https://opendata.vancouver.ca/explore/dataset/council-voting-records/table/?refine.meeting_id=${encodeURIComponent(meetingId)}`;
+const AGENDA_PREFIX = {
+    Council: 'regu',
+    'Policy & Strategic Priorities': 'pspc',
+    'City Finance & Services': 'cfsc',
+    'Public Hearing': 'phea',
+    'Special Council': 'spec',
+    'Auditor General Committee': 'agc',
+};
+const AGENDA_URL = (committee, date) => {
+    const prefix = AGENDA_PREFIX[committee];
+    if (!prefix || !date) return null;
+    const compactDate = date.replaceAll('-', '');
+    return `https://council.vancouver.ca/${compactDate}/${prefix}${compactDate}ag.htm`;
+};
 const DATA_DIR = path.join(process.cwd(), 'public/data/vancouver');
 const PAGE_SIZE = 100;
 const fromArg = process.argv.find(arg => arg.startsWith('--from='));
@@ -150,6 +164,7 @@ async function main() {
             votes: {},
             decision: row.decision || '',
             sourceUrl: RECORD_URL(row.meeting_id, row.vote_number),
+            agendaUrl: AGENDA_URL(row.meeting_type, row.vote_date),
         };
         event.votes[memberName] = normalizeVote(row.vote);
         if (row.decision) event.decision = row.decision;
@@ -173,6 +188,7 @@ async function main() {
             significance,
             trivial: significance < 25,
             sourceUrl: event.sourceUrl,
+            agendaUrl: event.agendaUrl,
             meetingId: event.meetingId,
             meetingReference: event.meetingReference,
         };
@@ -189,6 +205,7 @@ async function main() {
             meetingNumber: motion.meetingId,
             isCouncil: motion.committee.toLowerCase().includes('council'),
             sourceUrl: MEETING_URL(motion.meetingId),
+            agendaUrl: motion.agendaUrl,
             agendaItems: [],
         };
         meeting.agendaItems.push({
