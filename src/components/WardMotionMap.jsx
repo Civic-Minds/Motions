@@ -14,7 +14,7 @@ function FitBounds({ feature, pins }) {
       if (feature) {
         map.fitBounds(L.geoJSON(feature).getBounds(), { padding: [24, 24] });
       } else if (pins.length > 0) {
-        map.fitBounds(L.latLngBounds(pins.map(pin => [pin.lat, pin.lng])), { padding: [24, 24] });
+        map.fitBounds(L.latLngBounds(pins.map(pin => [pin.lat, pin.lng])), { padding: [24, 24], maxZoom: 15 });
       }
     } catch {
       return;
