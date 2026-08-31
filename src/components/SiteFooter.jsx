@@ -9,11 +9,12 @@ export default function SiteFooter() {
   const isToronto = jurisdiction.geography === 'ward';
   const electionDate = new Intl.DateTimeFormat('en-CA', { month: 'short', day: 'numeric' })
     .format(new Date(`${jurisdiction.election.date}T00:00:00`));
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
   return (
     <footer className="mt-8 border-t border-slate-200 bg-white">
       <div className="mx-auto grid max-w-[1400px] gap-8 px-6 py-8 sm:grid-cols-4 sm:gap-6 sm:py-10 lg:grid-cols-[200px_repeat(4,minmax(0,1fr))_220px] lg:gap-3">
         <div className="space-y-2 lg:col-span-2">
-          <Link to="/" className="inline-flex flex-col text-sm leading-[0.95]">
+          <Link to="/" onClick={scrollToTop} className="inline-flex flex-col text-sm leading-[0.95]">
             <span className="font-bold text-slate-900">Motions</span>
             <span className="font-normal text-slate-500">{jurisdiction.name}</span>
           </Link>
@@ -25,8 +26,8 @@ export default function SiteFooter() {
         <div className="space-y-3 lg:col-start-3">
           <p className="text-[10px] font-bold uppercase tracking-wide text-slate-500">Cities</p>
           <div className="flex flex-col gap-2">
-            <a href="/toronto" className={linkClass}>Toronto</a>
-            <a href="/vancouver" className={linkClass}>Vancouver</a>
+            <a href="/toronto" onClick={scrollToTop} className={linkClass}>Toronto</a>
+            <a href="/vancouver" onClick={scrollToTop} className={linkClass}>Vancouver</a>
           </div>
         </div>
 
@@ -34,9 +35,9 @@ export default function SiteFooter() {
           <p className="text-[10px] font-bold uppercase tracking-wide text-slate-500">Explore</p>
           <div className="flex flex-col gap-2">
             <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className={linkClass}>Motions</Link>
-            <Link to="/councillors" className={linkClass}>Councillors</Link>
-            {isToronto && <Link to="/wards" className={linkClass}>Wards</Link>}
-            <Link to="/election" className={`${linkClass} inline-flex items-center gap-2`}>
+            <Link to="/councillors" onClick={scrollToTop} className={linkClass}>Councillors</Link>
+            {isToronto && <Link to="/wards" onClick={scrollToTop} className={linkClass}>Wards</Link>}
+            <Link to="/election" onClick={scrollToTop} className={`${linkClass} inline-flex items-center gap-2`}>
               <span>Election</span>
               <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-semibold text-[#004a99]">{electionDate}</span>
             </Link>
@@ -46,8 +47,8 @@ export default function SiteFooter() {
         <div className="space-y-3">
           <p className="text-[10px] font-bold uppercase tracking-wide text-slate-500">Data</p>
           <div className="flex flex-col gap-2">
-            <Link to="/data" className={linkClass}>Transparency</Link>
-            <Link to="/sources" className={linkClass}>Sources</Link>
+            <Link to="/data" onClick={scrollToTop} className={linkClass}>Transparency</Link>
+            <Link to="/sources" onClick={scrollToTop} className={linkClass}>Sources</Link>
           </div>
         </div>
 
@@ -65,8 +66,8 @@ export default function SiteFooter() {
         <div className="mx-auto flex max-w-[1400px] flex-col gap-2 px-6 py-4 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between">
           <span>Independent civic information for {jurisdiction.name}.</span>
           <div className="flex items-center gap-3">
-            <Link to="/privacy" className="hover:text-slate-600">Privacy</Link>
-            <Link to="/terms" className="hover:text-slate-600">Terms</Link>
+            <Link to="/privacy" onClick={scrollToTop} className="hover:text-slate-600">Privacy</Link>
+            <Link to="/terms" onClick={scrollToTop} className="hover:text-slate-600">Terms</Link>
             <span>© {new Date().getFullYear()} Civic Minds</span>
           </div>
         </div>
