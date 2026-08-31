@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Shared Vancouver data page**: Vancouver now uses the established methodology layout with Vancouver sources and at-large council wording.
 - **Shared Vancouver motion maps**: Vancouver motion locations now use the shared map when reliable coordinates are available, centred on Vancouver.
 - **Shared Vancouver meeting screens**: Vancouver now uses the shared meeting layout with Vancouver council wording and official source links.
 - **Shared Vancouver councillor profiles**: Vancouver now uses the established councillor profile layout with at-large council content instead of a separate profile design.

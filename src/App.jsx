@@ -26,7 +26,6 @@ const DataPage          = lazy(() => import('./components/DataPage'));
 const SiteFooter        = lazy(() => import('./components/SiteFooter'));
 const VotingGuide       = lazy(() => import('./components/VotingGuide'));
 const VancouverElection = lazy(() => import('./components/vancouver/VancouverElection'));
-const VancouverDataPage = lazy(() => import('./components/vancouver/VancouverDataPage'));
 
 const TABS = [
   { path: '/councillors', label: 'Councillors', icon: Users },
@@ -252,7 +251,7 @@ function AppShell() {
           <Route path="/election" element={jurisdiction.id === 'vancouver' ? <VancouverElection /> : <ElectionView />} />
           <Route path="/election/how-to-vote" element={<VotingGuide />} />
           <Route path="/budget" element={<BudgetTranslator />} />
-          <Route path="/data" element={jurisdiction.id === 'vancouver' ? <VancouverDataPage /> : <DataPage />} />
+          <Route path="/data" element={<DataPage jurisdiction={jurisdiction} />} />
           <Route path="*"          element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>
