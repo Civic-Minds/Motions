@@ -89,7 +89,7 @@ function Navbar({ onSearchOpen }) {
         </div>
 
         {/* Desktop nav — absolutely centered so it never shifts */}
-        <nav className="hidden lg:flex items-center gap-1 justify-self-start xl:absolute xl:left-[calc(50%-29rem)] xl:translate-x-0">
+        <nav className="hidden lg:flex items-center gap-0 justify-self-start xl:absolute xl:left-[calc(50%-29rem)] xl:translate-x-0">
           {tabs.map(tab => {
             const isActive = active?.path === tab.path;
             return (
@@ -97,7 +97,7 @@ function Navbar({ onSearchOpen }) {
                 key={tab.path}
                 onClick={() => navigate(tab.path)}
                 className={cn(
-                  "flex items-center rounded-lg px-3 py-2 text-sm whitespace-nowrap transition-colors duration-200",
+                  "flex items-center rounded-lg px-2 py-2 text-sm whitespace-nowrap transition-colors duration-200",
                   isActive
                     ? "font-semibold text-slate-900"
                     : "font-medium text-slate-500 hover:bg-slate-100 hover:text-slate-900"
@@ -115,7 +115,7 @@ function Navbar({ onSearchOpen }) {
         </nav>
 
         {/* Right: ward + search + mobile toggle */}
-        <div className="flex items-center justify-self-end gap-2 min-w-0 -mr-4 sm:mr-0">
+        <div className="flex items-center justify-self-end gap-1 min-w-0 -mr-4 sm:mr-0">
           {jurisdiction.geography === 'ward' && wardId ? (
             <div className="hidden sm:flex items-center gap-0 group/ward">
               <button
