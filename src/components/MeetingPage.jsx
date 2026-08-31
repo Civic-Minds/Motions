@@ -12,7 +12,7 @@ function classifyItem(item) {
   return 'substantive';
 }
 
-export default function MeetingPage({ meetings }) {
+export default function MeetingPage({ meetings, jurisdiction = { name: 'Toronto' } }) {
   const { meetingRef } = useParams();
   const navigate = useNavigate();
   const [filter, setFilter] = useState('all');
@@ -192,15 +192,15 @@ export default function MeetingPage({ meetings }) {
             <ChevronRight className="w-3 h-3" />
           </button>
 
-          {/* External TMMIS link */}
+          {/* Official meeting record */}
           {meeting.meetingReference && (
             <a
-              href={`https://secure.toronto.ca/council/agenda-item.do?item=${meeting.meetingReference}`}
+              href={meeting.sourceUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full text-left px-4 py-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-500 hover:border-[#004a99]/40 hover:text-[#004a99] transition-colors flex items-center justify-between"
             >
-              <span>View on toronto.ca</span>
+              <span>View on {jurisdiction.name} source</span>
               <ExternalLink className="w-3 h-3" />
             </a>
           )}

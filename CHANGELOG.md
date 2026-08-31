@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Shared Vancouver meeting screens**: Vancouver now uses the shared meeting layout with Vancouver council wording and official source links.
 - **Shared Vancouver councillor profiles**: Vancouver now uses the established councillor profile layout with at-large council content instead of a separate profile design.
 - **Vancouver motion sources are specific**: Each motion now links to its filtered official voting-record entry instead of the generic dataset page.
 - **Vancouver motion titles are cleaner**: Removed meeting agenda numbers from the displayed titles while preserving the official source references.

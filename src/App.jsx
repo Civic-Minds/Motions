@@ -247,8 +247,8 @@ function AppShell() {
           {jurisdiction.id === 'toronto' && <><Route path="/wards" element={<WardGrid motions={motions} />} /><Route path="/wards/:wardId" element={<WardGrid motions={motions} />} /></>}
           <Route path="/committees" element={<CommitteesView motions={motions} meetings={meetings} />} />
           <Route path="/committees/:committeeSlug" element={<CommitteesView motions={motions} meetings={meetings} />} />
-          <Route path="/meetings" element={<MeetingsListView meetings={meetings} />} />
-          <Route path="/meetings/:meetingRef" element={<MeetingPage meetings={meetings} />} />
+          <Route path="/meetings" element={<MeetingsListView meetings={meetings} jurisdiction={jurisdiction} />} />
+          <Route path="/meetings/:meetingRef" element={<MeetingPage meetings={meetings} jurisdiction={jurisdiction} />} />
           <Route path="/election" element={jurisdiction.id === 'vancouver' ? <VancouverElection /> : <ElectionView />} />
           <Route path="/election/how-to-vote" element={<VotingGuide />} />
           <Route path="/budget" element={<BudgetTranslator />} />

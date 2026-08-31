@@ -50,7 +50,7 @@ function getTypeBadge(meeting) {
   return { label: 'Governance', style: 'bg-slate-100 text-slate-600' };
 }
 
-export default function MeetingsListView({ meetings = [] }) {
+export default function MeetingsListView({ meetings = [], jurisdiction = { name: 'Toronto' } }) {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const urlCommittee = searchParams.get('committee');
@@ -137,7 +137,7 @@ export default function MeetingsListView({ meetings = [] }) {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-xl font-bold text-slate-900">Meetings</h1>
-          <p className="text-xs text-slate-500 mt-0.5">Toronto City Council &amp; committees</p>
+          <p className="text-xs text-slate-500 mt-0.5">{jurisdiction.name} City Council &amp; committees</p>
         </div>
         <Calendar className="w-5 h-5 text-slate-300" />
       </div>
