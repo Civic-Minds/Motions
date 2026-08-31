@@ -526,6 +526,7 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
     return (
       <CivicCard
         as={motion.button}
+        className="h-full"
         key={m.id}
         initial={{ opacity: 0, scale: 0.97 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -645,7 +646,7 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
               </div>
             </CivicCard>
             {homeMotionCards.map((m, i) => (
-              <div key={m.id} className="hidden lg:block">
+              <div key={m.id} className="hidden lg:block h-full">
                 {renderHomeMotionCard(m, i)}
               </div>
             ))}
