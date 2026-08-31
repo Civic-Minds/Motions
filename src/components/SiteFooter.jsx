@@ -37,6 +37,7 @@ export default function SiteFooter() {
             <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className={linkClass}>Motions</Link>
             <Link to="/councillors" onClick={scrollToTop} className={linkClass}>Councillors</Link>
             {isToronto && <Link to="/wards" onClick={scrollToTop} className={linkClass}>Wards</Link>}
+            <Link to="/learn" onClick={scrollToTop} className={linkClass}>Learn</Link>
             <Link to="/election" onClick={scrollToTop} className={`${linkClass} inline-flex items-center gap-2`}>
               <span>Election</span>
               <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-semibold text-[#004a99]">{electionDate}</span>

@@ -52,21 +52,13 @@ export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toront
       </div>
 
       <section className="space-y-3">
-        <CivicSectionLabel>START HERE</CivicSectionLabel>
-        <div className="grid gap-4 sm:grid-cols-2">
-          <Link to="/how-council-works">
-            <CivicCard className="h-full gap-2 transition-colors hover:border-[#004a99]/40">
-              <h2 className="text-lg font-semibold text-slate-900">How City Council Works</h2>
-              <p className="text-sm leading-relaxed text-slate-500">Follow a local issue from proposal to public decision.</p>
-            </CivicCard>
-          </Link>
-          <Link to="/how-council-voting-works">
-            <CivicCard className="h-full gap-2 transition-colors hover:border-[#004a99]/40">
-              <h2 className="text-lg font-semibold text-slate-900">How Council Voting Works</h2>
-              <p className="text-sm leading-relaxed text-slate-500">Learn how to read a recorded vote and what to do next.</p>
-            </CivicCard>
-          </Link>
-        </div>
+        <CivicSectionLabel>LEARN</CivicSectionLabel>
+        <Link to="/learn" className="block">
+          <CivicCard className="gap-2 transition-colors hover:border-[#004a99]/40">
+            <h2 className="text-lg font-semibold text-slate-900">Understand your city council</h2>
+            <p className="text-sm leading-relaxed text-slate-500">Read practical guides to how council decisions and recorded votes work.</p>
+          </CivicCard>
+        </Link>
       </section>
 
       <section className="space-y-3">

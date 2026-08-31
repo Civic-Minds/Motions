@@ -31,6 +31,7 @@ const SourcesPage       = lazy(() => import('./components/SourcesPage'));
 const LegalPage         = lazy(() => import('./components/LegalPage'));
 const AboutPage         = lazy(() => import('./components/AboutPage'));
 const CivicGuidePage    = lazy(() => import('./components/CivicGuidePage'));
+const LearnPage         = lazy(() => import('./components/LearnPage'));
 const VancouverElection = lazy(() => import('./components/vancouver/VancouverElection'));
 
 const TABS = [
@@ -306,6 +307,7 @@ function AppShell() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/how-council-works" element={<CivicGuidePage type="council" jurisdiction={jurisdiction} />} />
           <Route path="/how-council-voting-works" element={<CivicGuidePage type="voting" jurisdiction={jurisdiction} />} />
+          <Route path="/learn" element={<LearnPage jurisdiction={jurisdiction} />} />
           {jurisdiction.id === 'toronto' && <>
             <Route path="/council-voting-records" element={<TorontoSeoPage type="council" motions={motions} />} />
             <Route path="/ward-voting-records" element={<TorontoSeoPage type="wards" motions={motions} />} />
