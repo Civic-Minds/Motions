@@ -13,7 +13,7 @@ const GUIDES = [
   {
     path: '/learn/how-a-council-vote-works',
     title: 'How a Council Vote Works',
-    description: city => `Learn how to read ${city}’s recorded votes and what to do next.`,
+    description: city => `Learn how to follow ${city}’s council votes and what to do next.`,
   },
 ];
 
