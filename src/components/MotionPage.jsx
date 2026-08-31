@@ -52,14 +52,14 @@ function VoteBar({ votes, resultText, terms }) {
   if (yes === 0 && no === 0) return null;
   return (
     <div className="flex items-center gap-3">
-      <span className="text-sm font-bold text-emerald-600 w-24 text-right">{yes} {terms.yes}</span>
+      <span className="text-sm font-bold text-emerald-600 w-28 text-right whitespace-nowrap">{yes} {terms.yes}</span>
       <div className="flex-1 h-2 bg-rose-100 rounded-full overflow-hidden">
         <div
           className="h-full bg-emerald-500 rounded-full"
           style={{ width: `${Math.round((yes / (yes + no)) * 100)}%` }}
         />
       </div>
-      <span className="text-sm font-bold text-rose-500 w-24">{no} {terms.no}</span>
+      <span className="text-sm font-bold text-rose-500 w-28 whitespace-nowrap">{no} {terms.no}</span>
     </div>
   );
 }
@@ -124,7 +124,7 @@ function CouncillorGrid({ votes, resultText, terms }) {
         <div className={cn("gap-3", showYes && showNo ? "grid grid-cols-2" : "")}>
           {showYes && (
             <div>
-              <p className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest mb-2">
+              <p className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest mb-2 whitespace-nowrap">
                 {terms.yes} · {dispYesCount.toLocaleString()}
               </p>
               <NameList
@@ -139,7 +139,7 @@ function CouncillorGrid({ votes, resultText, terms }) {
           )}
           {showNo && (
             <div>
-              <p className="text-[10px] font-bold text-red-500 uppercase tracking-widest mb-2">
+              <p className="text-[10px] font-bold text-red-500 uppercase tracking-widest mb-2 whitespace-nowrap">
                 {terms.no} · {dispNoCount.toLocaleString()}
               </p>
               <NameList
@@ -181,7 +181,7 @@ function CouncillorGrid({ votes, resultText, terms }) {
           <div className="flex flex-wrap gap-1.5">
             {other.map(([name, vote]) => (
               <Link key={name} to={`/councillors/${nameToSlug(name)}`} className="text-xs text-slate-600 bg-slate-100 px-2 py-1 rounded-lg">
-                {name} · {terms[vote.toLowerCase()] ?? vote.replaceAll('_', ' ')}
+                <span className="whitespace-nowrap">{name} · {terms[vote.toLowerCase()] ?? vote.replaceAll('_', ' ')}</span>
               </Link>
             ))}
           </div>

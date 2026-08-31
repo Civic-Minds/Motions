@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Vote labels stay on one line**: Vancouver voting terms remain readable at narrow widths.
 - **Shared motion details**: Vancouver motion pages now use the established Motions layout while preserving Vancouver’s official voting terminology.
 
 ### Added
