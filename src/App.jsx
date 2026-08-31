@@ -25,6 +25,7 @@ const ElectionView      = lazy(() => import('./components/ElectionView'));
 const DataPage          = lazy(() => import('./components/DataPage'));
 const SiteFooter        = lazy(() => import('./components/SiteFooter'));
 const VotingGuide       = lazy(() => import('./components/VotingGuide'));
+const TorontoSeoPage    = lazy(() => import('./components/TorontoSeoPage'));
 const VancouverElection = lazy(() => import('./components/vancouver/VancouverElection'));
 
 const TABS = [
@@ -252,6 +253,11 @@ function AppShell() {
           <Route path="/election/how-to-vote" element={<VotingGuide />} />
           <Route path="/budget" element={<BudgetTranslator />} />
           <Route path="/data" element={<DataPage jurisdiction={jurisdiction} motions={motions} />} />
+          {jurisdiction.id === 'toronto' && <>
+            <Route path="/council-voting-records" element={<TorontoSeoPage type="council" motions={motions} />} />
+            <Route path="/ward-voting-records" element={<TorontoSeoPage type="wards" motions={motions} />} />
+            <Route path="/councillor-voting-records" element={<TorontoSeoPage type="councillors" motions={motions} />} />
+          </>}
           <Route path="*"          element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>
