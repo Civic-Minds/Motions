@@ -46,7 +46,7 @@ export default function SiteFooter() {
         <div className="space-y-3">
           <p className="text-[10px] font-bold uppercase tracking-wide text-slate-500">Data</p>
           <div className="flex flex-col gap-2">
-            <Link to="/data" className={linkClass}>Data</Link>
+            <Link to="/data" className={linkClass}>Transparency</Link>
             <Link to="/sources" className={linkClass}>Sources</Link>
           </div>
         </div>
