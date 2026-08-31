@@ -101,6 +101,14 @@ const GUIDE_CONTENT = {
         ['City of Toronto Act, 2006', 'https://www.ontario.ca/laws/statute/06c11'],
       ],
     },
+    registerCategories: [
+      ['Budget', 'Budget proposals and notices about the period for the Mayor to veto Council amendments.'],
+      ['By-law approvals', 'Written approvals of by-laws passed by Council, Community Councils, committees, or other bodies.'],
+      ['Veto-related actions', 'A notice or veto connected to a provincial-priority by-law or the budget process. An entry is a veto only when its title says so.'],
+      ['Committees', 'Creating, dissolving, assigning functions to, or changing the chairs and vice-chairs of Council committees.'],
+      ['Appointments and staffing', 'Appointments of the City Manager, senior officials, and other actions affecting City administration.'],
+      ['Organizational changes', 'Changes to the City’s organizational structure or formal delegation of Strong Mayor powers.'],
+    ],
     action: () => 'View the Strong Mayor register',
     actionPath: 'https://www.toronto.ca/city-government/council/council-committee-meetings/mayoral-decisions/',
     external: true,
@@ -168,6 +176,20 @@ export default function CivicGuidePage({ type, jurisdiction = { id: 'toronto', n
               </a>
             ))}
           </CivicCard>
+        </div>
+      )}
+
+      {content.registerCategories && (
+        <div className="space-y-3">
+          <CivicSectionLabel>HOW TO READ THE REGISTER</CivicSectionLabel>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {content.registerCategories.map(([title, description]) => (
+              <CivicCard key={title} className="gap-1.5">
+                <h2 className="font-semibold text-slate-900">{title}</h2>
+                <p className="text-sm leading-relaxed text-slate-500">{description}</p>
+              </CivicCard>
+            ))}
+          </div>
         </div>
       )}
 
