@@ -39,9 +39,9 @@ const SOURCES = [
 export default function SourcesPage() {
   return (
     <div className="max-w-4xl mx-auto space-y-7 pb-20">
-      <PageMeta title="Open Data Sources | Motions" description="Official open data and civic sources used by Motions for Toronto and Vancouver council records." />
+      <PageMeta title="Sources | Motions" description="Official open data and civic sources used by Motions for Toronto and Vancouver council records." />
       <div>
-        <CivicSectionLabel>OPEN DATA</CivicSectionLabel>
+        <CivicSectionLabel>SOURCES</CivicSectionLabel>
         <h1 className="text-3xl font-bold text-slate-900 mt-1">Our sources</h1>
         <p className="text-slate-500 mt-2 max-w-2xl">Motions is an independent presentation of public council records. These are the official datasets and public sources behind the site.</p>
       </div>

@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Clarified transparency pages**: The footer labels now match the page headings, separating the project’s transparency information from its source directory.
 - **Footer links return to the top**: Internal footer navigation now resets the page position even when the selected page is already open.
 - **Motion pages accept issue reports**: Added a prefilled GitHub report link beside each motion’s official sources for incorrect titles, votes, or locations.
 - **Vancouver motion titles are cleaner**: Removed leading agenda labels such as `Motion 3.` and `CD-1` from displayed titles while preserving official source links.

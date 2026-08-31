@@ -18,7 +18,7 @@ export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toront
   return (
     <div className="max-w-4xl mx-auto space-y-8 pb-20">
       <PageMeta
-        title={`Data & methodology | Motions ${jurisdiction.name}`}
+        title={`Transparency | Motions ${jurisdiction.name}`}
         description={`How Motions ${jurisdiction.name} collects, classifies, and presents council data.`}
       />
 
@@ -26,8 +26,8 @@ export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toront
         <Link to="/" className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">
           <ArrowLeft className="w-4 h-4" /> Back to motions
         </Link>
-        <CivicSectionLabel>ABOUT THE DATA</CivicSectionLabel>
-        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">Data & methodology</h1>
+        <CivicSectionLabel>TRANSPARENCY</CivicSectionLabel>
+        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">Transparency</h1>
         <p className="text-base sm:text-lg text-slate-500 max-w-2xl">
           {isVancouver ? 'Motions turns public Vancouver council records into a clearer way to follow decisions and votes across the city.' : 'Motions turns public Toronto council records into a clearer way to follow decisions, votes, and neighbourhood-level activity.'}
         </p>
