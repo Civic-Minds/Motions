@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { TOPIC_LIGHT, getCommittee } from '../constants/data';
+import { formatMotionDate } from '../utils/date';
 
 export default function MotionCardItem({
   motion: m,
@@ -93,7 +94,7 @@ export default function MotionCardItem({
             {m.significance >= 60 && m.significance < 90 && (
               <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-600">Notable</span>
             )}
-            <span className="text-[10px] text-slate-500 ml-auto">{m.date}</span>
+            <span className="text-[10px] text-slate-500 ml-auto">{formatMotionDate(m.date)}</span>
           </div>
         </div>
         <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-[#004a99] shrink-0 mt-0.5 transition-colors" />

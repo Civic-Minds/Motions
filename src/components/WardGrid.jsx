@@ -15,6 +15,7 @@ import { fetchWardBoundaries, extractWardId, motionBelongsToWard } from '../util
 import { nameToSlug } from '../utils/slug';
 import { PageMeta } from './PageMeta';
 import { previewImage } from '../utils/meta';
+import { formatMotionDate } from '../utils/date';
 import ShareButton from './ShareButton';
 
 // Simple SVG map of a ward polygon from GeoJSON feature
@@ -235,7 +236,7 @@ export default function WardGrid({ motions }) {
                       <span className={cn("text-xs px-2 py-0.5 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>{m.topic}</span>
                       {m.significance >= 90 && <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-600">High Impact</span>}
                       {m.significance >= 60 && m.significance < 90 && <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-600">Notable</span>}
-                      <span className="text-xs text-slate-500 ml-auto">{m.date}</span>
+                      <span className="text-xs text-slate-500 ml-auto">{formatMotionDate(m.date)}</span>
                     </div>
                   </div>
                   <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-[#004a99] shrink-0 mt-0.5 transition-colors" />
@@ -270,7 +271,7 @@ export default function WardGrid({ motions }) {
                       <div className="flex items-center gap-2 mt-2 flex-wrap">
                         <span className={cn("text-xs font-semibold px-2 py-0.5 rounded-full", m.status === 'Adopted' ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-700')}>{m.status}</span>
                         <span className={cn("text-xs px-2 py-0.5 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>{m.topic}</span>
-                        <span className="text-xs text-slate-500 ml-auto">{m.date}</span>
+                        <span className="text-xs text-slate-500 ml-auto">{formatMotionDate(m.date)}</span>
                       </div>
                     </div>
                     <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-[#004a99] shrink-0 mt-0.5 transition-colors" />

@@ -6,6 +6,7 @@ import Fuse from 'fuse.js';
 import { cn } from '../lib/utils';
 import { nameToSlug, committeeToSlug } from '../utils/slug';
 import { TOPIC_LIGHT } from '../constants/data';
+import { formatMotionDate } from '../utils/date';
 
 function highlight(text, query) {
   if (!query || !text) return text;
@@ -266,7 +267,7 @@ export default function GlobalSearch({ motions, councillorNames, open, onClose }
                                     {m.topic}
                                   </span>
                                 )}
-                                <span className="text-[10px] text-slate-500">{m.date}</span>
+                                <span className="text-[10px] text-slate-500">{formatMotionDate(m.date)}</span>
                                 <span className={cn("text-[10px] font-semibold px-1.5 py-0.5 rounded-full",
                                   m.status === 'Adopted' ? 'text-emerald-700 bg-emerald-50' : 'text-rose-600 bg-rose-50')}>
                                   {m.status}

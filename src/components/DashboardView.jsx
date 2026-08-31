@@ -7,6 +7,7 @@ import { getCommittee, TOPIC_LIGHT, TOPIC_DOT, WARD_COUNCILLORS } from '../const
 import { getWardId } from '../utils/storage';
 import { committeeToSlug } from '../utils/slug';
 import { fetchWardBoundaries, motionBelongsToWard } from '../utils/ward';
+import { formatMotionDate } from '../utils/date';
 import { useAppContext } from '../contexts/AppContext';
 import YourWardCard from './YourWardCard';
 import MotionCardItem from './MotionCardItem';
@@ -549,7 +550,7 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
           {m.title}
         </p>
         <CivicCardFooter>
-          <span className="text-[10px] lg:text-[9px] text-slate-500">{m.date.split(',')[0]}</span>
+          <span className="text-[10px] lg:text-[9px] text-slate-500">{formatMotionDate(m.date)}</span>
           <span className="ml-auto text-[10px] lg:text-[9px] font-semibold text-[#004a99] group-hover:underline">See more</span>
         </CivicCardFooter>
       </CivicCard>
@@ -592,7 +593,7 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
                   {m.title}
                 </p>
                 <CivicCardFooter>
-                  <span className="text-[9px] text-slate-500">{m.date.split(',')[0]}</span>
+                  <span className="text-[9px] text-slate-500">{formatMotionDate(m.date)}</span>
                   <span className="text-[9px] font-semibold text-[#004a99]">See more</span>
                 </CivicCardFooter>
               </CivicCard>

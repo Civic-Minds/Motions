@@ -4,6 +4,7 @@ import { ExternalLink } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { cn } from '../lib/utils';
 import { TOPIC_LIGHT } from '../constants/data';
+import { formatMotionDate } from '../utils/date';
 
 const TOPICS = ['Housing', 'Transit', 'Finance', 'Parks', 'Climate', 'General'];
 const isRecordedVote = value => value === 'YES' || value === 'NO';
@@ -170,7 +171,7 @@ export default function VersusOverlay({ selection, onClose, motions }) {
               >
                 <div className="min-w-0">
                   <p className="text-xs font-medium text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-1">{m.title}</p>
-                  <p className="text-[10px] text-slate-500 mt-0.5">{m.date} · {m.id}</p>
+                  <p className="text-[10px] text-slate-500 mt-0.5">{formatMotionDate(m.date)} · {m.id}</p>
                 </div>
                 <span className={cn("text-xs font-bold text-right", m.votes[c1] === 'YES' ? 'text-emerald-600' : 'text-rose-500')}>{m.votes[c1]}</span>
                 <span className={cn("text-xs font-bold text-right", m.votes[c2] === 'YES' ? 'text-emerald-600' : 'text-rose-500')}>{m.votes[c2]}</span>
