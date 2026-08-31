@@ -48,7 +48,13 @@ export default function SiteFooter() {
 
       <div className="border-t border-slate-100">
         <div className="mx-auto flex max-w-[1400px] flex-col gap-2 px-6 py-4 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between">
-          <span>Independent civic information for {jurisdiction.name}.</span>
+          <div className="flex flex-col gap-1">
+            <Link to="/" className="inline-flex flex-col text-sm leading-[0.95] text-slate-700">
+              <span className="font-bold">Motions</span>
+              <span className="font-normal text-slate-500">{jurisdiction.name}</span>
+            </Link>
+            <span>Independent civic information for {jurisdiction.name}.</span>
+          </div>
           <div className="flex items-center gap-3">
             <Link to="/privacy" className="hover:text-slate-600">Privacy</Link>
             <Link to="/terms" className="hover:text-slate-600">Terms</Link>
