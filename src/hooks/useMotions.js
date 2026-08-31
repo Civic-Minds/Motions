@@ -33,9 +33,12 @@ export function useMotions(jurisdiction = { id: 'toronto', dataBaseEnv: 'VITE_BL
                     ? `${import.meta.env.VITE_BLOB_BASE_URL}/vancouver`
                     : jurisdiction.localDataPath
             );
-            const motionsUrl     = `${base}/motions.json`;
-            const meetingsUrl    = `${base}/meetings.json`;
-            const councillorsUrl = `${base}/councillors.json`;
+            const dataUrl = file => import.meta.env.DEV
+                ? `${base}/${file}`
+                : `/api/data?jurisdiction=${jurisdiction.id}&file=${file}`;
+            const motionsUrl     = dataUrl('motions.json');
+            const meetingsUrl    = dataUrl('meetings.json');
+            const councillorsUrl = dataUrl('councillors.json');
             try {
                 const [motionsRes, councillorsRes, meetingsRes] = await Promise.all([
                     fetch(motionsUrl),

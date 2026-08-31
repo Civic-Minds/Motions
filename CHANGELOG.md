@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Faster council data loading**: Production now serves motion data compressed, reducing the initial download before the dashboard appears.
 - **Vancouver official agenda links**: Vancouver motion and meeting pages now link directly to the City agenda alongside the filtered voting record.
 - **Shared page metadata**: Vancouver councillor, committee, and meeting screens now identify Vancouver in their page titles and descriptions.
 - **Independent Vancouver refresh checks**: Scheduled refreshes now run when either Toronto or Vancouver has new meeting data, and each data page shows its latest voting record date.
