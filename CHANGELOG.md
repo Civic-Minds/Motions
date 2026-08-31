@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Vancouver shared committee sources**: Shared committee and meeting screens now use Vancouver wording and filtered official records.
 - **Shared Vancouver data page**: Vancouver now uses the established methodology layout with Vancouver sources and at-large council wording.
 - **Vancouver geography wording**: The shared data page now labels Vancouver’s citywide coverage as geography instead of ward coverage.
 - **Shared Vancouver motion maps**: Vancouver motion locations now use the shared map when reliable coordinates are available, centred on Vancouver.

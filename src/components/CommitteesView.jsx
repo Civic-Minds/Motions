@@ -8,7 +8,7 @@ import { cn } from '../lib/utils';
 import { useAppContext } from '../contexts/AppContext';
 
 export default function CommitteesView({ motions, meetings = [] }) {
-  const { followedCommittees = [], handleToggleFollow: onToggleFollow } = useAppContext();
+  const { followedCommittees = [], handleToggleFollow: onToggleFollow, jurisdiction = { name: 'Toronto' } } = useAppContext();
   const { committeeSlug } = useParams();
   const navigate = useNavigate();
 
@@ -63,7 +63,7 @@ export default function CommitteesView({ motions, meetings = [] }) {
           topTopics,
           latest,
           members,
-          description: COMMITTEE_DESCRIPTIONS[c.name] ?? 'A Toronto city committee reviewing motions and policy.',
+          description: COMMITTEE_DESCRIPTIONS[c.name] ?? `A ${jurisdiction.name} city committee reviewing motions and policy.`,
         };
       })
       .sort((a, b) => {
@@ -73,7 +73,7 @@ export default function CommitteesView({ motions, meetings = [] }) {
         if (!aFollowed && bFollowed) return 1;
         return b.total - a.total;
       });
-  }, [motions]);
+  }, [motions, jurisdiction]);
 
   const TODAY = new Date().toISOString().slice(0, 10);
 
