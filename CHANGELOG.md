@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Fixed council-vote guide rendering**: City-specific guide steps now load correctly instead of leaving the page blank.
 - **Made the council-vote story explicitly city-specific**: The guide now states how Toronto and Vancouver’s council structures change the way a vote is read.
 - **Guide stories show their review date**: Each city guide now tells readers when its content was last updated.
 - **Vote guides include city-specific participation prompts**: Toronto points residents to their ward councillor, while Vancouver points residents to any councillor or the Mayor.

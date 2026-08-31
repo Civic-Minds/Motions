@@ -72,7 +72,7 @@ const GUIDE_CONTENT = {
 export default function CivicGuidePage({ type, jurisdiction = { id: 'toronto', name: 'Toronto' } }) {
   const content = GUIDE_CONTENT[type];
   const isCouncilGuide = type === 'council';
-  const steps = type === 'council' ? content.steps[jurisdiction.name] : content.steps;
+  const steps = type === 'council' || type === 'voting' ? content.steps[jurisdiction.name] : content.steps;
   const actionPath = content.actionPath ?? (isCouncilGuide ? '/' : '/councillors');
   const participationPrompt = type !== 'strongMayor'
     ? jurisdiction.name === 'Vancouver'
