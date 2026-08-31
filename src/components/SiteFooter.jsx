@@ -21,9 +21,6 @@ export default function SiteFooter() {
           <p className="max-w-xs text-sm leading-relaxed text-slate-500">
             Follow the votes shaping your city.
           </p>
-          <p className="max-w-xs text-sm leading-relaxed text-slate-500">
-            Motions is a civic data project by Civic Minds.
-          </p>
         </div>
 
         <div className="space-y-3 lg:col-start-3">
@@ -67,7 +64,7 @@ export default function SiteFooter() {
 
       <div className="border-t border-slate-100">
         <div className="mx-auto flex max-w-[1400px] flex-col gap-2 px-6 py-4 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between">
-          <span>Independent civic information for {jurisdiction.name}.</span>
+          <span>Motions is a civic data project by Civic Minds, built with care in Canada.</span>
           <div className="flex items-center gap-3">
             <Link to="/privacy" onClick={scrollToTop} className="hover:text-slate-600">Privacy</Link>
             <Link to="/terms" onClick={scrollToTop} className="hover:text-slate-600">Terms</Link>
