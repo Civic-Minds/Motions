@@ -32,21 +32,24 @@ const GUIDE_CONTENT = {
     description: city => `How recorded votes work in ${city}, what the results mean, and where to read the official record.`,
     intro: city => `A council vote is a recorded decision, not a poll of public opinion. This is how to read what happened and decide what to do next in ${city}.`,
     context: {
-      Toronto: 'Toronto has a Mayor elected citywide and 25 ward councillors. Each member has one vote at Council, and most matters are decided by a majority.',
-      Vancouver: 'Vancouver has a Mayor and 10 councillors elected at-large. Every member represents the whole city and has one vote at Council.',
+      Toronto: 'Toronto has a Mayor elected citywide and 25 ward councillors. Each member has one vote at Council, and most ordinary questions are decided by a majority. Toronto’s Strong Mayor rules create a separate process for the budget and some provincial-priority by-laws.',
+      Vancouver: 'Vancouver has a Mayor and 10 councillors elected at-large. Every member represents the whole city and has one vote at Council; unless a law or by-law sets another threshold, a motion passes with a majority of the members present.',
     },
     steps: {
       Toronto: [
-        ['1', 'Find the question', 'Every vote is attached to a specific motion, recommendation, amendment, or by-law. Start with the wording of the item.'],
-        ['2', 'See how Council voted', 'Toronto’s Mayor and ward councillors each have one vote. The record shows which members voted for, against, or did not vote.'],
-        ['3', 'Read the result', 'Most matters are decided by a majority of votes. The outcome tells you whether the item passed, failed, was amended, or was deferred.'],
-        ['4', 'Follow up', 'Open the agenda and meeting record, contact your ward councillor or the Mayor, attend a meeting, or follow the next report.'],
+        ['1', 'The item appears on an agenda', 'A staff report, councillor motion, or by-law is placed before a Standing Committee, Community Council, or City Council.'],
+        ['2', 'The public and committee consider it', 'Residents can review the report and, where permitted, submit written comments or register to speak. The committee discusses the item and may recommend a decision to Council.'],
+        ['3', 'Council debates the question', 'Council reviews the item and any committee recommendation. Members can ask questions, propose amendments, and vote on those amendments before the final question.'],
+        ['4', 'Members cast their votes', 'Toronto’s Mayor and 25 ward councillors each have one vote. Most ordinary questions pass with a majority, but some matters have special legal thresholds. The recorded result shows who voted for, against, or did not vote.'],
+        ['5', 'A Strong Mayor rule may change the path', 'For the budget, the Mayor proposes a budget and Council can amend it; the Mayor can veto Council’s budget amendments, subject to a two-thirds Council override. The Mayor can also veto some by-laws connected to provincial priorities, which Council can override with a two-thirds vote.'],
+        ['6', 'The decision is published and carried out', 'The minutes and voting record show whether the item passed, failed, was amended, referred, or deferred. City staff then carry out approved directions or prepare the next report.'],
       ],
       Vancouver: [
-        ['1', 'Find the question', 'Every vote is attached to a motion, recommendation, amendment, or by-law. Start with the wording of the item and the meeting where it was considered.'],
-        ['2', 'See how Council voted', 'Vancouver’s Mayor and councillors are elected at-large, so every member represents the whole city and has one vote on Council.'],
-        ['3', 'Read the result', 'The record shows the individual votes and whether the item passed, failed, was amended, or was referred for more work.'],
-        ['4', 'Follow up', 'Open the official agenda and minutes, contact any councillor, attend a Council meeting, or follow the next report or by-law.'],
+        ['1', 'The item appears on an agenda', 'A staff report, Council member motion, by-law, or hearing matter is placed on the agenda for the appropriate Council, committee, or hearing.'],
+        ['2', 'The item is considered', 'The public may review the agenda and, depending on the meeting and item, attend, watch, submit comments, or request to speak. Committees may discuss a matter before Council considers it.'],
+        ['3', 'The question is put to Council', 'The Chair brings the motion or recommendation forward. Members can ask questions and propose amendments; an amendment is decided before the main question.'],
+        ['4', 'Members cast their votes', 'Vancouver’s Mayor and 10 councillors are elected at-large, so every member represents the whole city and has one vote. Unless a law or by-law requires something else, a motion passes with a majority of the Council members present.'],
+        ['5', 'The decision is published and carried out', 'The minutes and voting record show whether the item passed, failed, was amended, or was referred. City staff then carry out approved directions or prepare the next report.'],
       ],
     },
     action: city => `Explore ${city} councillors`,
@@ -100,7 +103,7 @@ export default function CivicGuidePage({ type, jurisdiction = { id: 'toronto', n
       </div>
 
       <div className="space-y-3">
-        <CivicSectionLabel>{isCouncilGuide ? 'THE PATH OF A DECISION' : 'READING THE RECORD'}</CivicSectionLabel>
+        <CivicSectionLabel>{isCouncilGuide ? 'THE PATH OF A DECISION' : 'FROM AGENDA TO DECISION'}</CivicSectionLabel>
         {steps.map(([number, title, body]) => (
           <CivicCard key={number} className="flex-row gap-4">
             <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-50 text-sm font-bold text-[#004a99]">{number}</span>

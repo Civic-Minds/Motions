@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Vote stories now explain the full decision path**: Toronto and Vancouver guides cover agenda review, debate, amendments, voting thresholds, publication, and follow-through, including Toronto’s Strong Mayor exceptions.
 - **Fixed council-vote guide rendering**: City-specific guide steps now load correctly instead of leaving the page blank.
 - **Made the council-vote story explicitly city-specific**: The guide now states how Toronto and Vancouver’s council structures change the way a vote is read.
 - **Guide stories show their review date**: Each city guide now tells readers when its content was last updated.
