@@ -55,6 +55,7 @@ export default function SiteFooter() {
         <div className="space-y-3">
           <p className="text-[10px] font-bold uppercase tracking-wide text-slate-500">Project</p>
           <div className="flex flex-col gap-2">
+            <Link to="/about" onClick={scrollToTop} className={linkClass}>About Motions</Link>
             <a href="https://github.com/Civic-Minds/Motions" target="_blank" rel="noopener noreferrer" className={linkClass}>GitHub</a>
             <a href="https://github.com/Civic-Minds/Motions/issues" target="_blank" rel="noopener noreferrer" className={linkClass}>Report an issue</a>
           </div>

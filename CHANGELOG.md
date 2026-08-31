@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Added an About page**: Residents can now see what Motions covers, how municipal decisions differ from other levels of government, and how the project supports participation.
 - **Static page headings no longer repeat themselves**: Privacy, terms, Transparency, and Sources pages now show one clear page title instead of duplicating the same label above it.
 - **Transparency is a top-level page**: It now opens directly with its page title instead of showing a back control.
 - **City switcher closes on outside click**: The city menu now dismisses when focus moves outside it, with Escape-key support.
