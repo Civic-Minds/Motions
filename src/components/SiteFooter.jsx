@@ -47,7 +47,7 @@ export default function SiteFooter() {
           <p className="text-[10px] font-bold uppercase tracking-wide text-slate-500">Data</p>
           <div className="flex flex-col gap-2">
             <Link to="/data" className={linkClass}>Data</Link>
-            <Link to="/sources" className={linkClass}>Open Data</Link>
+            <Link to="/sources" className={linkClass}>Sources</Link>
           </div>
         </div>
 
