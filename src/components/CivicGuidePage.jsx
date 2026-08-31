@@ -11,15 +11,15 @@ const GUIDE_CONTENT = {
     intro: city => `City council is where local decisions become official. Here is the basic path an issue takes through ${city}’s municipal government.`,
     steps: {
       Vancouver: [
-          ['1', 'An issue reaches council', 'A proposal can come from a councillor, City staff, a committee, a public hearing, or a member of the public.'],
-          ['2', 'Council studies and discusses it', 'Council may hear from staff, ask questions, refer the item, or debate it in a regular or special meeting.'],
-          ['3', 'Council votes', 'The mayor and councillors vote together because Vancouver’s council is elected at-large. The result becomes part of the public record.'],
+          ['1', 'An issue reaches the City', 'An item can begin as a staff report, a Council member’s motion, a committee matter, or a hearing. The item is placed on the agenda for the appropriate meeting.'],
+          ['2', 'The public and Council consider it', 'Council meetings make decisions, while committees and hearings hear information, staff advice, and public input before a matter is decided or recommended.'],
+          ['3', 'Council votes', 'The Mayor and 10 councillors vote together because Vancouver’s Council is elected at-large. The result becomes part of the public record.'],
           ['4', 'The decision moves forward', 'City staff carry out approved directions, prepare follow-up reports, or bring the item back for another decision.'],
       ],
       Toronto: [
-          ['1', 'An issue reaches council', 'A proposal can come from a councillor, City staff, a committee, a public hearing, or a member of the public.'],
-          ['2', 'Council studies and discusses it', 'Council may hear from staff, ask questions, refer the item, or debate it in a regular or special meeting.'],
-          ['3', 'Council votes', 'The mayor and ward councillors vote on the item. The result becomes part of the public record.'],
+          ['1', 'An issue becomes a report or motion', 'An item can begin with City staff, a councillor, or a public process and is placed on an agenda for a committee, Community Council, or City Council.'],
+          ['2', 'A committee reviews it', 'Standing Committees and Community Councils hear staff advice, consider public input, debate the item, and usually make a recommendation to City Council.'],
+          ['3', 'City Council votes', 'Toronto’s Mayor and 25 ward councillors each have one vote. Council considers the recommendation and decides whether to adopt, amend, refer, or defer the item.'],
           ['4', 'The decision moves forward', 'City staff carry out approved directions, prepare follow-up reports, or bring the item back for another decision.'],
       ],
     },
