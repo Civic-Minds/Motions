@@ -10,7 +10,7 @@ const CITIES = [
 
 export default function CitiesPage() {
   return (
-    <div className="max-w-4xl mx-auto space-y-7 pb-20">
+    <div className="mx-auto w-full space-y-7 pb-20 lg:w-[calc(100%_-_444px)]">
       <PageMeta title="Cities | Motions" description="Browse city council voting records and decisions from Motions." />
       <div>
         <CivicSectionLabel>CITIES</CivicSectionLabel>

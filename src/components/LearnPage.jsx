@@ -27,7 +27,7 @@ const GUIDES = [
 
 export default function LearnPage({ jurisdiction = { name: 'Toronto' } }) {
   return (
-    <div className="mx-auto max-w-4xl space-y-8 pb-20">
+    <div className="mx-auto w-full space-y-8 pb-20 lg:w-[calc(100%_-_444px)]">
       <PageMeta
         title={`Learn | Motions ${jurisdiction.name}`}
         description={`Plain-language guides to how ${jurisdiction.name} City Council works and how residents can participate.`}

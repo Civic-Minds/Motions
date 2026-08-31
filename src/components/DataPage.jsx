@@ -19,7 +19,7 @@ export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toront
     ? 'https://opendata.vancouver.ca/explore/dataset/council-voting-records/'
     : 'https://open.toronto.ca/dataset/members-of-toronto-city-council-voting-record/';
   return (
-    <div className="max-w-4xl mx-auto space-y-8 pb-20">
+    <div className="mx-auto w-full space-y-8 pb-20 lg:w-[calc(100%_-_444px)]">
       <PageMeta
         title={`Transparency | Motions ${jurisdiction.name}`}
         description={`How Motions ${jurisdiction.name} collects, classifies, and presents council data.`}

@@ -4,7 +4,7 @@ import { CivicCard } from './ui/CivicCard';
 
 export default function AboutPage() {
   return (
-    <div className="mx-auto max-w-4xl space-y-7 pb-20">
+    <div className="mx-auto w-full space-y-7 pb-20 lg:w-[calc(100%_-_444px)]">
       <PageMeta
         title="About | Motions"
         description="Why Motions exists and how it helps residents follow and participate in local democracy."

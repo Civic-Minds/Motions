@@ -39,7 +39,7 @@ export default function TorontoSeoPage({ type, motions = [] }) {
     .slice(0, 3), [motions]);
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8 pb-20">
+    <div className="mx-auto w-full space-y-8 pb-20 lg:w-[calc(100%_-_444px)]">
       <PageMeta title={page.title} description={page.description} />
       <div className="space-y-3">
         <CivicSectionLabel>{page.label}</CivicSectionLabel>

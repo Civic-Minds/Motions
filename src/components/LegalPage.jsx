@@ -39,7 +39,7 @@ const CONTENT = {
 export default function LegalPage({ type }) {
   const page = CONTENT[type];
   return (
-    <div className="max-w-4xl mx-auto space-y-7 pb-20">
+    <div className="mx-auto w-full space-y-7 pb-20 lg:w-[calc(100%_-_444px)]">
       <PageMeta title={page.title} description={page.intro} />
       <div>
         <h1 className="text-3xl font-bold text-slate-900">{page.heading}</h1>
