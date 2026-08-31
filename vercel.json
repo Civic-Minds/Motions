@@ -2,9 +2,23 @@
   "framework": "vite",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "redirects": [{ "source": "/", "destination": "/toronto", "permanent": false }],
+  "redirects": [
+    { "source": "/", "destination": "/toronto", "permanent": false },
+    { "source": "/toronto/", "destination": "/toronto", "permanent": true },
+    { "source": "/vancouver/", "destination": "/vancouver", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/sitemap.xml", "destination": "/api/sitemap" },
+    {
+      "source": "/toronto",
+      "has": [{ "type": "header", "key": "user-agent", "value": "(?i).*(twitterbot|facebookexternalhit|redditbot|linkedinbot|slackbot|discordbot).*" }],
+      "destination": "/api/preview?path=/toronto"
+    },
+    {
+      "source": "/vancouver",
+      "has": [{ "type": "header", "key": "user-agent", "value": "(?i).*(twitterbot|facebookexternalhit|redditbot|linkedinbot|slackbot|discordbot).*" }],
+      "destination": "/api/preview?path=/vancouver"
+    },
     {
       "source": "/toronto/(.*)",
       "has": [{ "type": "header", "key": "user-agent", "value": "(?i).*(twitterbot|facebookexternalhit|redditbot|linkedinbot|slackbot|discordbot).*" }],

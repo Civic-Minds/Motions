@@ -4,8 +4,8 @@ import { CivicCard, CivicSectionLabel } from './ui/CivicCard';
 import { PageMeta } from './PageMeta';
 
 const CITIES = [
-  { name: 'Toronto', href: '/toronto/', description: 'Toronto City Council motions, wards, councillors, and votes.' },
-  { name: 'Vancouver', href: '/vancouver/', description: 'Vancouver City Council motions, councillors, and votes.' },
+  { name: 'Toronto', href: '/toronto', description: 'Toronto City Council motions, wards, councillors, and votes.' },
+  { name: 'Vancouver', href: '/vancouver', description: 'Vancouver City Council motions, councillors, and votes.' },
 ];
 
 export default function CitiesPage() {
