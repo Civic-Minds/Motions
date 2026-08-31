@@ -375,7 +375,12 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
             <span className="text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full">Notable</span>
           )}
         </div>
-        <ShareButton title={displayTitle} className="ml-auto shrink-0" />
+        <div className="ml-auto flex shrink-0 items-center gap-2">
+          <a href={reportUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-600 transition-colors hover:border-[#004a99]/40 hover:text-[#004a99]">
+            Report
+          </a>
+          <ShareButton title={displayTitle} />
+        </div>
       </div>
 
       {/* Header (Full Width) */}
@@ -388,7 +393,12 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
           {motion.significance >= 60 && motion.significance < 90 && (
             <span className="text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full">Notable</span>
           )}
-          <ShareButton title={displayTitle} className="ml-auto" />
+          <div className="ml-auto flex items-center gap-2">
+            <a href={reportUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-600 transition-colors hover:border-[#004a99]/40 hover:text-[#004a99]">
+              Report
+            </a>
+            <ShareButton title={displayTitle} />
+          </div>
         </div>
 
         <h1 className="text-xl font-bold text-slate-900 leading-snug lg:w-4/5">{displayTitle}</h1>
@@ -422,15 +432,6 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
               </a>
             </>
           )}
-          <span>·</span>
-          <a
-            href={reportUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[#004a99] hover:underline font-medium"
-          >
-            Report an issue
-          </a>
         </div>
       </div>
 
