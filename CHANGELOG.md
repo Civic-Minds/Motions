@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Vancouver election card uses a candidate call to action**: The homepage now says “Register to run by September 11” in parallel with Toronto’s candidate prompt.
 - **Vancouver election promo highlights nominations**: The homepage card now points prospective candidates to the September 1–11 nomination window with shorter copy.
 - **Expanded Vancouver election page**: Added official voting options, ballot details, eligibility, accessibility guidance, candidate timing, and direct City links for a more useful voter guide.
 - **Election date is visible in the footer**: The Explore link now carries each city’s election-day date for quick context.
