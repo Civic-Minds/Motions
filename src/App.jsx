@@ -240,7 +240,7 @@ function AppShell() {
         <Routes>
           <Route path="/" element={<DashboardView motions={motions} meetings={meetings} jurisdiction={jurisdiction} />} />
           <Route path="/motions/:motionId" element={<MotionPage motions={motions} jurisdiction={jurisdiction} />} />
-          <Route path="/councillors" element={<CouncillorList motions={motions} compareMode={compareMode} onCompareModeToggle={toggleCompareMode} jurisdiction={jurisdiction} />} />
+          <Route path="/councillors" element={<CouncillorList motions={motions} councillors={councillors} compareMode={compareMode} onCompareModeToggle={toggleCompareMode} jurisdiction={jurisdiction} />} />
           <Route path="/councillors/:slug" element={<CouncillorProfile motions={motions} councillors={councillors} jurisdiction={jurisdiction} />} />
           <Route path="/councillors/:slug/votes" element={<CouncillorVotes motions={motions} />} />
           <Route path="/councillors/:slug/vs/:slug2" element={<CouncillorList motions={motions} councillors={councillors} />} />

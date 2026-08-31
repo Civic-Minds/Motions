@@ -33,6 +33,7 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
   const { wardId: myWardId, handleLocate } = useAppContext();
   const isVancouver = jurisdiction.id === 'vancouver';
   const mayorName = jurisdiction.mayorName || MAYOR;
+  const currentNames = useMemo(() => new Set((jurisdiction.currentCouncillors ?? []).map(c => typeof c === 'string' ? c : c.name)), [jurisdiction.currentCouncillors]);
 
   const myCouncillor = isVancouver ? null : myWardId ? WARD_COUNCILLORS[myWardId] : null;
 
@@ -76,6 +77,7 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
     });
 
     return Object.entries(voteCounts)
+      .filter(([name]) => currentNames.size === 0 || currentNames.has(name))
       .filter(([name, count]) => count >= 5 && !(name in FORMER_MEMBERS))
       .map(([name]) => {
         const alignment = getMemberAlignmentScore(motions, name);
@@ -95,7 +97,7 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
         if (b.name === mayorName) return 1;
         return a.name.split(' ').at(-1).localeCompare(b.name.split(' ').at(-1));
       });
-  }, [motions]);
+  }, [motions, currentNames, mayorName]);
 
   const allNames = useMemo(() => councillors.map(c => c.name), [councillors]);
 

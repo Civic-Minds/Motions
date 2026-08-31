@@ -8,6 +8,7 @@ export const JURISDICTIONS = {
         representativeLabel: 'Councillor',
         representativesLabel: 'Councillors',
         mayorName: 'Olivia Chow',
+        currentCouncillors: [],
         dataBaseEnv: 'VITE_BLOB_BASE_URL',
         localDataPath: '/data',
         election: {
@@ -25,6 +26,7 @@ export const JURISDICTIONS = {
         representativeLabel: 'Councillor',
         representativesLabel: 'Councillors',
         mayorName: 'Ken Sim',
+        currentCouncillors: ['Mayor Ken Sim', 'Rebecca Bligh', 'Lisa Dominato', 'Pete Fry', 'Sarah Kirby-Yung', 'Mike Klassen', 'Lucy Maloney', 'Peter Meiszner', 'Brian Montague', 'Sean Orr', 'Lenny Zhou'],
         dataBaseEnv: 'VITE_VANCOUVER_DATA_BASE_URL',
         localDataPath: '/data/vancouver',
         election: {

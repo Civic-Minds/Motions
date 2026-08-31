@@ -78,6 +78,13 @@ function statusFromDecision(decision) {
     return decision?.toLowerCase().includes('lost') ? 'Lost' : 'Adopted';
 }
 
+// Vancouver's agenda descriptions include the meeting item label (for
+// example "1." or "RR1."). Keep the source link/vote number, but present the
+// motion title without that navigation-only prefix.
+function cleanTitle(title) {
+    return title.trim().replace(/^(?:\d+[a-z]?|[A-Z]{1,4}\d+[a-z]?)[.)]\s*/i, '').trim();
+}
+
 function significanceFor(votes, decision, title) {
     const yes = Object.values(votes).filter(v => v === 'YES').length;
     const no = Object.values(votes).filter(v => v === 'NO').length;
@@ -131,7 +138,7 @@ async function main() {
         const key = `${row.meeting_id}:${row.vote_number}`;
         const event = eventMap.get(key) ?? {
             id: `van-${row.meeting_id}-${row.vote_number}`,
-            title: row.agenda_description.trim(),
+            title: cleanTitle(row.agenda_description),
             date: row.vote_date,
             committee: row.meeting_type || 'Vancouver City Council',
             meetingId: row.meeting_id,

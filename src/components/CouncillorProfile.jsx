@@ -302,6 +302,7 @@ export default function CouncillorProfile({ motions, councillors = [], jurisdict
   const [expenses, setExpenses] = useState(null);
   const [candidateData, setCandidateData] = useState(null);
   const isVancouver = jurisdiction.id === 'vancouver';
+  const currentNames = useMemo(() => new Set((jurisdiction.currentCouncillors ?? []).map(c => typeof c === 'string' ? c : c.name)), [jurisdiction.currentCouncillors]);
 
   const blobBase = import.meta.env.VITE_BLOB_BASE_URL;
 
@@ -323,8 +324,8 @@ export default function CouncillorProfile({ motions, councillors = [], jurisdict
   const allNames = useMemo(() => {
     const s = new Set();
     motions.forEach(m => { if (m.votes) Object.keys(m.votes).forEach(n => s.add(n)); });
-    return [...s].sort();
-  }, [motions]);
+    return [...s].filter(name => currentNames.size === 0 || currentNames.has(name)).sort();
+  }, [motions, currentNames]);
 
   const selected = useMemo(() => slugToName(slug, allNames), [slug, allNames]);
   const ward = selected ? COUNCILLOR_WARD[selected] : null;
