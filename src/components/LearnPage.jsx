@@ -6,12 +6,12 @@ import { CivicCard } from './ui/CivicCard';
 
 const GUIDES = [
   {
-    path: '/how-council-works',
+    path: '/learn/how-council-works',
     title: 'How City Council Works',
     description: city => `Follow a local issue from proposal to public decision in ${city}.`,
   },
   {
-    path: '/how-council-voting-works',
+    path: '/learn/how-council-voting-works',
     title: 'How Council Voting Works',
     description: city => `Learn how to read ${city}’s recorded votes and what to do next.`,
   },

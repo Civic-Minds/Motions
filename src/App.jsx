@@ -305,9 +305,9 @@ function AppShell() {
           <Route path="/privacy" element={<LegalPage type="privacy" />} />
           <Route path="/terms" element={<LegalPage type="terms" />} />
           <Route path="/about" element={<AboutPage />} />
-          <Route path="/how-council-works" element={<CivicGuidePage type="council" jurisdiction={jurisdiction} />} />
-          <Route path="/how-council-voting-works" element={<CivicGuidePage type="voting" jurisdiction={jurisdiction} />} />
           <Route path="/learn" element={<LearnPage jurisdiction={jurisdiction} />} />
+          <Route path="/learn/how-council-works" element={<CivicGuidePage type="council" jurisdiction={jurisdiction} />} />
+          <Route path="/learn/how-council-voting-works" element={<CivicGuidePage type="voting" jurisdiction={jurisdiction} />} />
           {jurisdiction.id === 'toronto' && <>
             <Route path="/council-voting-records" element={<TorontoSeoPage type="council" motions={motions} />} />
             <Route path="/ward-voting-records" element={<TorontoSeoPage type="wards" motions={motions} />} />
