@@ -16,7 +16,7 @@ export default function SiteFooter() {
             <span className="font-normal text-slate-500">{jurisdiction.name}</span>
           </Link>
           <p className="max-w-xs text-sm leading-relaxed text-slate-500">
-            A clearer way to follow {jurisdiction.name} council decisions and votes.
+            A clearer way to follow council decisions and votes.
           </p>
         </div>
 
