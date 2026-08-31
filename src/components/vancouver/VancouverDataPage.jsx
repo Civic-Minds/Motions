@@ -1,0 +1,8 @@
+import React from 'react';
+import { ExternalLink, Database } from 'lucide-react';
+import { CivicCard, CivicSectionLabel } from '../ui/CivicCard';
+import { PageMeta } from '../PageMeta';
+
+export default function VancouverDataPage() {
+    return <div className="max-w-4xl mx-auto space-y-7 pb-20"><PageMeta title="Vancouver data & methodology | Motions" description="How Motions presents Vancouver council voting records." /><div><CivicSectionLabel>ABOUT THE DATA</CivicSectionLabel><h1 className="text-3xl font-bold text-slate-900 mt-1">Vancouver data & methodology</h1><p className="text-slate-500 mt-3">Motions presents public Vancouver council voting records in a clearer, searchable format.</p></div><CivicCard><Database className="w-5 h-5 text-[#004a99]" /><h2 className="text-lg font-semibold text-slate-900">Official source</h2><p className="text-sm leading-relaxed text-slate-500">Voting records come from the City of Vancouver Open Data Portal. The City recommends checking meeting minutes for the official vote record and notes that the extract may be delayed after complex meetings.</p><a href="https://opendata.vancouver.ca/explore/dataset/council-voting-records/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#004a99]">Vancouver Council Voting Records <ExternalLink className="w-3.5 h-3.5" /></a></CivicCard><CivicCard><CivicSectionLabel>GEOGRAPHY</CivicSectionLabel><h2 className="text-lg font-semibold text-slate-900">Citywide council</h2><p className="text-sm leading-relaxed text-slate-500">Vancouver councillors are elected at-large rather than by ward. Motions therefore show the shared citywide council record and do not use ward maps or ward selection.</p></CivicCard></div>;
+}

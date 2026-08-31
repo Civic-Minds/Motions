@@ -3,7 +3,7 @@ import { getWardId, setWardId as saveWardId, getFollowedCommittees, setFollowedC
 
 const AppContext = createContext(null);
 
-export function AppProvider({ children }) {
+export function AppProvider({ children, jurisdiction }) {
     const [wardId, setWardId] = useState(() => getWardId());
     const [followedCommittees, setFollowedCommittees] = useState(() => getFollowedCommittees());
 
@@ -33,7 +33,7 @@ export function AppProvider({ children }) {
     };
 
     return (
-        <AppContext.Provider value={{ wardId, handleLocate, handleSetWard, handleClearWard, followedCommittees, handleToggleFollow }}>
+        <AppContext.Provider value={{ wardId, handleLocate, handleSetWard, handleClearWard, followedCommittees, handleToggleFollow, jurisdiction }}>
             {children}
         </AppContext.Provider>
     );

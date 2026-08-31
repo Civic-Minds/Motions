@@ -8,7 +8,7 @@ const MOTION_TOPIC_OVERRIDES = {
 /**
  * Custom hook to manage motions data and derived metrics.
  */
-export function useMotions() {
+export function useMotions(jurisdiction = { id: 'toronto', dataBaseEnv: 'VITE_BLOB_BASE_URL', localDataPath: '/data' }) {
     const [motions, setMotions] = useState([]);
     const [councillors, setCouncillors] = useState([]);
     const [meetings, setMeetings] = useState([]);
@@ -19,10 +19,17 @@ export function useMotions() {
         let isMounted = true;
 
         async function loadData() {
-            const blobBase = import.meta.env.VITE_BLOB_BASE_URL;
-            const motionsUrl     = blobBase ? `${blobBase}/motions.json`     : '/data/motions.json';
-            const meetingsUrl    = blobBase ? `${blobBase}/meetings.json`    : '/data/meetings.json';
-            const councillorsUrl = blobBase ? `${blobBase}/councillors.json` : '/data/councillors.json';
+            const configuredBase = jurisdiction.id === 'vancouver'
+                ? import.meta.env.VITE_VANCOUVER_DATA_BASE_URL
+                : import.meta.env.VITE_BLOB_BASE_URL;
+            const base = configuredBase || (
+                jurisdiction.id === 'vancouver' && !import.meta.env.DEV && import.meta.env.VITE_BLOB_BASE_URL
+                    ? `${import.meta.env.VITE_BLOB_BASE_URL}/vancouver`
+                    : jurisdiction.localDataPath
+            );
+            const motionsUrl     = `${base}/motions.json`;
+            const meetingsUrl    = `${base}/meetings.json`;
+            const councillorsUrl = `${base}/councillors.json`;
             try {
                 const [motionsRes, councillorsRes, meetingsRes] = await Promise.all([
                     fetch(motionsUrl),
@@ -57,7 +64,7 @@ export function useMotions() {
 
         loadData();
         return () => { isMounted = false; };
-    }, []);
+    }, [jurisdiction.id, jurisdiction.localDataPath]);
 
     const metrics = useMemo(() => {
         return calculateTrivialityMetrics(motions);
