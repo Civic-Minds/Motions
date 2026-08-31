@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Refined Vancouver council wording**: Restored the neutral at-large explanation without the confusing “record” wording.
 - **Motion dates are consistent across cities**: Vancouver’s ISO dates now display in the same short month-and-day format as Toronto’s.
 - **Clarified Vancouver’s citywide council card**: The homepage now explains the at-large structure without using confusing voting-record language.
 - **Vancouver election card shows the nomination deadline**: The candidate-focused card no longer pairs a registration message with the October election date.

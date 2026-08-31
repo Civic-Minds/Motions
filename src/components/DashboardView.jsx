@@ -606,7 +606,7 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
             </div>
             <CivicCard className="flex-1">
               <Vote className="w-4 h-4 text-[#004a99]" />
-              <p className="text-xs font-semibold text-slate-800 line-clamp-3 leading-snug">Vancouver has one citywide council, not separate wards.</p>
+              <p className="text-xs font-semibold text-slate-800 line-clamp-3 leading-snug">Every Vancouver resident shares the same at-large council.</p>
               <CivicCardFooter>
                 <span className="text-[9px] text-slate-500">Mayor + 10 councillors</span>
                 <Link to="/councillors" className="text-[9px] font-semibold text-[#004a99]">See council</Link>
