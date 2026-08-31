@@ -1,8 +1,7 @@
 import React from 'react';
 import { CalendarDays, CheckCircle2, ExternalLink, MapPin, Mail, Vote } from 'lucide-react';
 import { CivicCard, CivicSectionLabel } from '../ui/CivicCard';
-import { PageMeta } from '../PageMeta';
-import PageColumn from '../PageColumn';
+import VotingGuideShell from '../VotingGuideShell';
 
 const OFFICIAL = 'https://vancouver.ca/your-government/2026-election.aspx';
 const VOTERS_GUIDE = 'https://vancouver.ca/your-government/2026-voters-guide.aspx';
@@ -29,18 +28,11 @@ function GuideCard({ icon: Icon, title, children }) {
 
 export default function VancouverVotingGuide() {
   return (
-    <PageColumn className="space-y-8 pb-20">
-      <PageMeta
+    <VotingGuideShell
         title="How to vote | Motions Vancouver"
         description="A practical, non-partisan guide to voting in Vancouver’s 2026 municipal election."
-      />
-
-      <div className="space-y-3">
-        <CivicSectionLabel>NON-PARTISAN GUIDE</CivicSectionLabel>
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900">How to vote</h1>
-        <p className="max-w-2xl text-base leading-relaxed text-slate-500">The basic information you need to vote in Vancouver’s 2026 municipal election.</p>
-        <p className="text-xs text-slate-400">Last updated: August 31, 2026</p>
-      </div>
+        intro="The basic information you need to vote in Vancouver’s 2026 municipal election."
+    >
 
       <section className="space-y-3">
         <CivicSectionLabel>1 · WHEN AND WHERE TO VOTE</CivicSectionLabel>
@@ -114,6 +106,6 @@ export default function VancouverVotingGuide() {
       </section>
 
       <p className="border-t border-slate-200 pt-6 text-xs leading-relaxed text-slate-400">Motions is an independent civic data project and is not affiliated with the City of Vancouver. Official election information takes precedence and may change.</p>
-    </PageColumn>
+    </VotingGuideShell>
   );
 }

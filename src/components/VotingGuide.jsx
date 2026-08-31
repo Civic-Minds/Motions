@@ -1,7 +1,7 @@
 import React from 'react';
 import { Calendar, CheckCircle2, ExternalLink, MapPin, ShieldCheck } from 'lucide-react';
 import { CivicCard, CivicSectionLabel } from './ui/CivicCard';
-import { PageMeta } from './PageMeta';
+import VotingGuideShell from './VotingGuideShell';
 
 const officialLink = 'text-[#004a99] underline underline-offset-2 hover:text-[#003875]';
 
@@ -17,19 +17,11 @@ function GuideCard({ icon: Icon, title, children }) {
 
 export default function VotingGuide() {
   return (
-    <div className="mx-auto max-w-4xl space-y-8 pb-20">
-      <PageMeta
+    <VotingGuideShell
         title="How to vote | Motions Toronto"
         description="A practical, non-partisan guide to voting in Toronto’s 2026 municipal election."
-      />
-
-      <div className="space-y-3">
-        <CivicSectionLabel>NON-PARTISAN GUIDE</CivicSectionLabel>
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900">How to vote</h1>
-        <p className="max-w-xl text-base text-slate-500">
-          The basic information you need to vote in Toronto’s 2026 municipal election.
-        </p>
-      </div>
+        intro="The basic information you need to vote in Toronto’s 2026 municipal election."
+    >
 
       <section className="space-y-3">
         <CivicSectionLabel>1 · WHEN AND WHERE TO VOTE</CivicSectionLabel>
@@ -124,6 +116,6 @@ export default function VotingGuide() {
           This guide is practical and non-partisan. Confirm current dates, requirements, voting places, and accessibility information with <a className={officialLink} href="https://www.toronto.ca/city-government/elections/" target="_blank" rel="noopener noreferrer">Toronto Elections</a> before voting.
         </p>
       </section>
-    </div>
+    </VotingGuideShell>
   );
 }
