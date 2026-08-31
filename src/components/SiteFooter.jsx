@@ -21,7 +21,7 @@ export default function SiteFooter() {
         </div>
 
         <div className="space-y-3">
-          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-400">Cities</p>
+          <p className="text-[10px] font-bold uppercase tracking-wide text-slate-500">Cities</p>
           <div className="flex flex-col gap-2">
             <a href="/toronto" className={linkClass}>Toronto</a>
             <a href="/vancouver" className={linkClass}>Vancouver</a>
@@ -29,7 +29,7 @@ export default function SiteFooter() {
         </div>
 
         <div className="space-y-3">
-          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-400">Explore</p>
+          <p className="text-[10px] font-bold uppercase tracking-wide text-slate-500">Explore</p>
           <div className="flex flex-col gap-2">
             <Link to="/" className={linkClass}>Motions</Link>
             <Link to="/councillors" className={linkClass}>Councillors</Link>
@@ -39,7 +39,7 @@ export default function SiteFooter() {
         </div>
 
         <div className="space-y-3">
-          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-400">Data</p>
+          <p className="text-[10px] font-bold uppercase tracking-wide text-slate-500">Data</p>
           <div className="flex flex-col gap-2">
             <Link to="/data" className={linkClass}>Data</Link>
             <Link to="/sources" className={linkClass}>Open Data</Link>
@@ -47,7 +47,7 @@ export default function SiteFooter() {
         </div>
 
         <div className="space-y-3">
-          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-400">Project</p>
+          <p className="text-[10px] font-bold uppercase tracking-wide text-slate-500">Project</p>
           <div className="flex flex-col gap-2">
             <a href="https://github.com/Civic-Minds/Motions" target="_blank" rel="noopener noreferrer" className={linkClass}>GitHub</a>
             <a href="https://github.com/Civic-Minds/Motions/issues" target="_blank" rel="noopener noreferrer" className={linkClass}>Report an issue</a>
