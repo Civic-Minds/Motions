@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Vancouver election promo highlights nominations**: The homepage card now points prospective candidates to the September 1–11 nomination window with shorter copy.
 - **Expanded Vancouver election page**: Added official voting options, ballot details, eligibility, accessibility guidance, candidate timing, and direct City links for a more useful voter guide.
 - **Election date is visible in the footer**: The Explore link now carries each city’s election-day date for quick context.
 - **Footer Motions link returns to the top**: Clicking it from the homepage now visibly resets the page position.
