@@ -7,6 +7,7 @@ export const JURISDICTIONS = {
         geography: 'ward',
         representativeLabel: 'Councillor',
         representativesLabel: 'Councillors',
+        mayorName: 'Olivia Chow',
         dataBaseEnv: 'VITE_BLOB_BASE_URL',
         localDataPath: '/data',
         election: {
@@ -23,6 +24,7 @@ export const JURISDICTIONS = {
         geography: 'atLarge',
         representativeLabel: 'Councillor',
         representativesLabel: 'Councillors',
+        mayorName: 'Ken Sim',
         dataBaseEnv: 'VITE_VANCOUVER_DATA_BASE_URL',
         localDataPath: '/data/vancouver',
         election: {

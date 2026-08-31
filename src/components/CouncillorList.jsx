@@ -24,15 +24,17 @@ const attendanceBg = (pct) =>
 
 const MAYOR = 'Olivia Chow';
 
-export default function CouncillorList({ motions, compareMode, onCompareModeToggle }) {
+export default function CouncillorList({ motions, compareMode, onCompareModeToggle, jurisdiction = { id: 'toronto', name: 'Toronto', mayorName: MAYOR } }) {
   const [compareSlots, setCompareSlots] = useState([]);
   const [versusSelection, setVersusSelection] = useState([]);
   const [findPending, setFindPending] = useState(false);
   const { slug, slug2 } = useParams();
   const navigate = useNavigate();
   const { wardId: myWardId, handleLocate } = useAppContext();
+  const isVancouver = jurisdiction.id === 'vancouver';
+  const mayorName = jurisdiction.mayorName || MAYOR;
 
-  const myCouncillor = myWardId ? WARD_COUNCILLORS[myWardId] : null;
+  const myCouncillor = isVancouver ? null : myWardId ? WARD_COUNCILLORS[myWardId] : null;
 
   const scrollToCouncillor = (name) => {
     document.getElementById(`councillor-${nameToSlug(name)}`)?.scrollIntoView({
@@ -89,8 +91,8 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
       })
       .sort((a, b) => {
         // Mayor always first
-        if (a.name === MAYOR) return -1;
-        if (b.name === MAYOR) return 1;
+        if (a.name === mayorName) return -1;
+        if (b.name === mayorName) return 1;
         return a.name.split(' ').at(-1).localeCompare(b.name.split(' ').at(-1));
       });
   }, [motions]);
@@ -155,13 +157,13 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
     <div className="space-y-8 pb-20">
 
       <div className="flex justify-end gap-2 flex-wrap">
-        <button
+        {!isVancouver && <button
           onClick={handleFindMyCouncillor}
           className="flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-xl border border-slate-200 bg-white text-slate-600 hover:border-slate-400 transition-all"
         >
           <MapPin className="w-3.5 h-3.5" />
           Find my councillor
-        </button>
+        </button>}
         <button
           onClick={onCompareModeToggle}
           className={cn(
@@ -220,7 +222,7 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
           const initials = name.split(' ').map(n => n[0]).slice(0, 2).join('');
           const lastName = name.split(' ').at(-1);
           const photoUrl = `/images/councillors/${lastName}.jpg`;
-          const isMayor = name === MAYOR;
+          const isMayor = name === mayorName;
 
           return (
             <motion.div
@@ -270,8 +272,11 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
                   {ward && (
                     <p className="text-[10px] text-slate-500 font-medium">W{ward.id} · {ward.name}</p>
                   )}
+                  {isVancouver && !isMayor && (
+                    <p className="text-[10px] text-slate-500 font-medium">Elected at-large</p>
+                  )}
                   {isMayor && !ward && (
-                    <p className="text-[10px] text-slate-500 font-medium">Toronto City Hall</p>
+                    <p className="text-[10px] text-slate-500 font-medium">{jurisdiction.name} City Hall</p>
                   )}
                 </div>
               </div>

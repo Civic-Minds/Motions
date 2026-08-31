@@ -17,6 +17,8 @@ import path from 'path';
 
 const API_BASE = 'https://opendata.vancouver.ca/api/explore/v2.1/catalog/datasets/council-voting-records/records';
 const SOURCE_URL = 'https://opendata.vancouver.ca/explore/dataset/council-voting-records/';
+const RECORD_URL = (meetingId, voteNumber) =>
+    `https://opendata.vancouver.ca/explore/dataset/council-voting-records/table/?refine.meeting_id=${encodeURIComponent(meetingId)}&refine.vote_number=${encodeURIComponent(voteNumber)}`;
 const DATA_DIR = path.join(process.cwd(), 'public/data/vancouver');
 const PAGE_SIZE = 100;
 const fromArg = process.argv.find(arg => arg.startsWith('--from='));
@@ -136,7 +138,7 @@ async function main() {
             meetingReference: `vancouver-${row.meeting_id}`,
             votes: {},
             decision: row.decision || '',
-            sourceUrl: SOURCE_URL,
+            sourceUrl: RECORD_URL(row.meeting_id, row.vote_number),
         };
         event.votes[memberName] = normalizeVote(row.vote);
         if (row.decision) event.decision = row.decision;

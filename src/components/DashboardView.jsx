@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect, useReducer, lazy, Suspense } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { AlertCircle, X, Search, Star, Calendar } from 'lucide-react';
+import { AlertCircle, X, Search, Star, Calendar, Vote } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { getCommittee, TOPIC_LIGHT, TOPIC_DOT, WARD_COUNCILLORS } from '../constants/data';
 import { getWardId } from '../utils/storage';
@@ -11,6 +11,7 @@ import { useAppContext } from '../contexts/AppContext';
 import YourWardCard from './YourWardCard';
 import MotionCardItem from './MotionCardItem';
 import FilterSidebar from './FilterSidebar';
+import { PageMeta } from './PageMeta';
 import { CivicCard, CivicCardFooter, CivicPill } from './ui/CivicCard';
 
 const TorontoMiniMap = lazy(() => import('./TorontoMiniMap'));
@@ -556,9 +557,13 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
 
   return (
     <div className="space-y-4">
+      <PageMeta
+        title={`Motions | ${jurisdiction.name} Council Voting Tracker`}
+        description={`See what ${jurisdiction.name} City Council voted on and how each member voted.`}
+      />
 
-      {/* Toronto’s ward/election overview stays above the shared browser. */}
-      {!isVancouver && <div className="grid grid-cols-2 lg:grid-cols-[200px_1fr_220px] gap-3 items-stretch overflow-hidden">
+      {/* ── Bento row: Last Meeting | Notable | Your Ward ── */}
+      <div className="grid grid-cols-2 lg:grid-cols-[200px_1fr_220px] gap-3 items-stretch overflow-hidden">
 
         {/* 1. Left Col: Your Following or Your Ward (ONE Card) */}
         {followedHighlights.length > 0 ? (() => {
@@ -592,7 +597,21 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
               </CivicCard>
             </div>
           );
-        })() : (
+        })() : isVancouver ? (
+          <div className="flex flex-col gap-1.5 min-w-0">
+            <div className="flex items-center justify-between px-1">
+              <p className="text-xs lg:text-[10px] font-bold text-slate-500 uppercase tracking-wide">Citywide council</p>
+            </div>
+            <CivicCard className="flex-1">
+              <Vote className="w-4 h-4 text-[#004a99]" />
+              <p className="text-xs font-semibold text-slate-800 line-clamp-3 leading-snug">Every Vancouver resident shares the same at-large council record.</p>
+              <CivicCardFooter>
+                <span className="text-[9px] text-slate-500">Mayor + 10 councillors</span>
+                <Link to="/councillors" className="text-[9px] font-semibold text-[#004a99]">See council</Link>
+              </CivicCardFooter>
+            </CivicCard>
+          </div>
+        ) : (
           <div className="flex flex-col gap-1.5 min-w-0">
             <div className="flex items-center justify-between px-1">
               <p className="text-xs lg:text-[10px] font-bold text-slate-500 uppercase tracking-wide">My Ward</p>
@@ -619,9 +638,9 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
               className="bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-100 hover:border-blue-300"
             >
               <CivicPill className="bg-blue-100 text-blue-700">Election</CivicPill>
-              <p className="text-xs font-semibold text-slate-800 group-hover:text-blue-700 transition-colors line-clamp-3 leading-snug">See your ward’s candidates before October 26.</p>
+              <p className="text-xs font-semibold text-slate-800 group-hover:text-blue-700 transition-colors line-clamp-3 leading-snug">{isVancouver ? 'Review Vancouver’s citywide council record before October 17.' : 'See your ward’s candidates before October 26.'}</p>
               <div className="flex items-center justify-between mt-auto pt-2 border-t border-blue-100">
-                <span className="text-[9px] text-slate-500">October 26, 2026</span>
+                <span className="text-[9px] text-slate-500">{isVancouver ? 'October 17, 2026' : 'October 26, 2026'}</span>
                 <span className="text-[9px] font-semibold text-blue-700">Get ready</span>
               </div>
             </CivicCard>
@@ -635,7 +654,7 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
 
         {/* 3. Right: Coming Up (ONE Card) */}
         <UpcomingMeeting meetings={meetings} navigate={navigate} className="hidden lg:flex lg:col-span-1" />
-      </div>}
+      </div>
 
       {/* Mobile notable motions — the election card stays beside My Ward above. */}
       {homeMotionCards.length > 0 && (

@@ -15,7 +15,7 @@ import ShareButton from './ShareButton';
 import { CivicCard } from './ui/CivicCard';
 
 // ── Sub-component: profile header ─────────────────────────────────────────
-function ProfileHeader({ selected, ward, committees, isMyCouncillor, electionStatus }) {
+function ProfileHeader({ selected, ward, committees, isMyCouncillor, electionStatus, jurisdiction }) {
   const initials = selected.split(' ').map(n => n[0]).slice(0, 2).join('');
   const lastName = selected.split(' ').at(-1);
   const photoUrl = `/images/councillors/${lastName}.jpg`;
@@ -38,7 +38,7 @@ function ProfileHeader({ selected, ward, committees, isMyCouncillor, electionSta
             <span className="text-[10px] font-bold bg-[#004a99] text-white px-2.5 py-0.5 rounded-full">Your Councillor</span>
           )}
         </div>
-        <p className="text-sm text-slate-500 mt-0.5 break-words">{ward ? `Ward ${ward.id} · ${ward.name}` : 'Toronto City Council'}</p>
+        <p className="text-sm text-slate-500 mt-0.5 break-words">{ward ? `Ward ${ward.id} · ${ward.name}` : `${jurisdiction.name} City Council`}</p>
         {electionStatus && (
           <Link
             to="/election"
@@ -293,7 +293,7 @@ function ExpenseBreakdown({ expenseRecord, sourceUrl }) {
 }
 
 // ── Main component ─────────────────────────────────────────────────────────
-export default function CouncillorProfile({ motions, councillors = [] }) {
+export default function CouncillorProfile({ motions, councillors = [], jurisdiction = { id: 'toronto', name: 'Toronto' } }) {
   const { slug } = useParams();
   const navigate = useNavigate();
   const [vsPickerOpen, setVsPickerOpen] = useState(false);
@@ -301,6 +301,7 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
   const [tenure, setTenure] = useState({});
   const [expenses, setExpenses] = useState(null);
   const [candidateData, setCandidateData] = useState(null);
+  const isVancouver = jurisdiction.id === 'vancouver';
 
   const blobBase = import.meta.env.VITE_BLOB_BASE_URL;
 
@@ -329,6 +330,7 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
   const ward = selected ? COUNCILLOR_WARD[selected] : null;
   const contact = councillors.find(c => c.name === selected) ?? null;
   const electionStatus = useMemo(() => {
+    if (isVancouver) return null;
     if (!candidateData || !selected) return null;
     const normalize = name => name.toLowerCase().replace(/[^a-z0-9]/g, '');
     const mayorCandidate = (candidateData.mayor ?? []).find(candidate => normalize(candidate.name) === normalize(selected));
@@ -349,7 +351,7 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
       };
     }
     return filedWard ? { type: 'filed', wardId: filedWard[0] } : { type: 'not-listed' };
-  }, [candidateData, selected, ward]);
+  }, [candidateData, selected, ward, isVancouver]);
 
   const totalVotes = useMemo(() =>
     selected ? motions.filter(m => m.votes?.[selected]).length : 0,
@@ -429,9 +431,9 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
   return (
     <div className="pb-20">
       <PageMeta
-        title={`${selected} | Motions Toronto`}
+        title={`${selected} | Motions ${jurisdiction.name}`}
         description={`See ${selected}'s voting record and council activity.`}
-        image={previewImage(selected, ward ? `Ward ${ward.id} · ${ward.name}` : 'Toronto City Council')}
+        image={previewImage(selected, ward ? `Ward ${ward.id} · ${ward.name}` : `${jurisdiction.name} City Council`)}
       />
       <div className="flex justify-end mb-2">
         <ShareButton title={selected} />
@@ -446,7 +448,7 @@ export default function CouncillorProfile({ motions, councillors = [] }) {
 
       {/* Profile header + stats */}
       <div className="flex flex-col gap-4 lg:grid lg:grid-cols-[220px_minmax(0,1fr)_220px] lg:gap-8 items-start mb-6">
-        <ProfileHeader selected={selected} ward={ward} committees={committees} isMyCouncillor={isMyCouncillor} electionStatus={electionStatus} />
+        <ProfileHeader selected={selected} ward={ward} committees={committees} isMyCouncillor={isMyCouncillor} electionStatus={electionStatus} jurisdiction={jurisdiction} />
 
         {attendance && (
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 min-w-0 w-full">
