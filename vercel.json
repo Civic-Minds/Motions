@@ -3,7 +3,6 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "redirects": [
-    { "source": "/", "destination": "/toronto", "permanent": false },
     { "source": "/toronto/", "destination": "/toronto", "permanent": true },
     { "source": "/vancouver/", "destination": "/vancouver", "permanent": true }
   ],

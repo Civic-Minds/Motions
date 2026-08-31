@@ -6,19 +6,6 @@ export default defineConfig({
   plugins: [
     tailwindcss(),
     react(),
-    {
-      name: 'dev-redirect',
-      configureServer(server) {
-        server.middlewares.use((req, res, next) => {
-          if (req.url === '/' || req.url === '') {
-            res.writeHead(302, { Location: '/toronto/' });
-            res.end();
-          } else {
-            next();
-          }
-        });
-      }
-    }
   ],
   build: {
     rollupOptions: {

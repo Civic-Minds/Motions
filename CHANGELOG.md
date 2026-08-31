@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **motions.watch is now a real homepage instead of a redirect to Toronto**: The root domain used to bounce straight into Toronto's dashboard. It now shows a city picker with a map of every city Motions covers — click a pin (or a card) to go there. Toronto and Vancouver are both direct pins for now; more cities join the map as they're added.
 - **Removed the vote breakdown's collapse/expand toggle**: A motion's vote breakdown, and every amendment/procedural vote on the same item, now always shows fully expanded — no click needed to see who voted how.
 - **Fixed the "Election" nav pill sitting flush against its label**: Added spacing between the tab text and the election-date pill in the desktop nav.
 - **Second plain-language pass on "How Voting Works"**: Defined terms used without explanation — MyVote, voter information card, ballot transfer, Voter Assist Terminals, "at-large," Capital Plan/plebiscite questions — instead of assuming residents already know City elections vocabulary.

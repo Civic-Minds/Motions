@@ -364,7 +364,56 @@ function AppShell() {
   );
 }
 
+function HomeShell() {
+  return (
+    <div className="min-h-screen flex flex-col">
+      <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 bg-white/80 backdrop-blur-xl">
+        <div className="max-w-[1400px] mx-auto px-6 h-16 flex items-center">
+          <span className="font-bold text-slate-900 text-sm">Motions</span>
+        </div>
+      </header>
+
+      <main className="flex-1">
+        <Suspense fallback={
+          <div className="flex items-center justify-center py-32">
+            <div className="w-8 h-8 border-4 border-[#004a99] border-t-transparent rounded-full animate-spin" />
+          </div>
+        }>
+          <CitiesPage />
+        </Suspense>
+      </main>
+
+      <footer className="border-t border-slate-200 bg-white">
+        <div className="mx-auto flex max-w-[1400px] flex-col gap-2 px-6 py-6 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between">
+          <span>
+            Motions is a civic data project by{' '}
+            <a href="https://github.com/Civic-Minds" target="_blank" rel="noopener noreferrer" className="hover:text-slate-600 hover:underline">
+              Civic Minds
+            </a>
+            , built with care in Canada.
+          </span>
+          <div className="flex items-center gap-3">
+            <a href="/toronto/privacy" className="hover:text-slate-600">Privacy</a>
+            <a href="/toronto/terms" className="hover:text-slate-600">Terms</a>
+            <span>© {new Date().getFullYear()} Civic Minds</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
 export default function App() {
+  if (typeof window !== 'undefined' && window.location.pathname === '/') {
+    return (
+      <BrowserRouter>
+        <HomeShell />
+        <Analytics />
+        <SpeedInsights />
+      </BrowserRouter>
+    );
+  }
+
   const jurisdiction = getInitialJurisdiction();
   return (
     <BrowserRouter basename={jurisdiction.path}>

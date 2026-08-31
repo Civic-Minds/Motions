@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { ArrowRight, MapPin } from 'lucide-react';
 import { CivicCard, CivicSectionLabel } from './ui/CivicCard';
 import { PageMeta } from './PageMeta';
 import PageColumn from './PageColumn';
+
+const CitiesMap = lazy(() => import('./CitiesMap'));
 
 const CITIES = [
   { name: 'Toronto', href: '/toronto', description: 'Toronto City Council motions, wards, councillors, and votes.' },
@@ -18,6 +20,9 @@ export default function CitiesPage() {
         <h1 className="text-3xl font-bold text-slate-900 mt-1">Choose a city</h1>
         <p className="text-slate-500 mt-2">Explore public council decisions and voting records by city.</p>
       </div>
+      <Suspense fallback={<div className="h-[360px] w-full rounded-2xl bg-slate-100 animate-pulse sm:h-[420px]" />}>
+        <CitiesMap />
+      </Suspense>
       <div className="grid gap-3 sm:grid-cols-2">
         {CITIES.map(city => (
           <a key={city.name} href={city.href}>
