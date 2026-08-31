@@ -82,7 +82,9 @@ function statusFromDecision(decision) {
 // example "1." or "RR1."). Keep the source link/vote number, but present the
 // motion title without that navigation-only prefix.
 function cleanTitle(title) {
-    return title.trim().replace(/^(?:\d+[a-z]?|[A-Z]{1,4}\d+[a-z]?)[.)]\s*/i, '').trim();
+    return title.trim()
+        .replace(/^(?:\d+[a-z]?[.)]|[A-Z]{1,8}\d+[a-z]?(?:[.)]|\s+))\s*/i, '')
+        .trim();
 }
 
 function significanceFor(votes, decision, title) {
