@@ -6,6 +6,11 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Renamed the voting guide to "How Voting Works"**: The Learn card and page title no longer read as "How to Vote," which could land as an instruction to go vote rather than an explainer, matching the informational tone of the other guides.
+- **Sourced the Strong Mayor administration claim**: The guide now cites Mayor Chow's 2023 delegation of hiring/dismissal and organizational-structure powers to Council and the City Manager, and notes the public register shows no direct use of those powers since.
+- **Plain-language pass on the Strong Mayor provincial-priority section**: Replaced "prescribed provincial priorities" and "qualifying by-law" with a plainer explanation of what triggers the lower vote threshold.
+- **Deduplicated the voting guide components**: Toronto and Vancouver's voting guides now share one `GuideCard` and `OfficialLink` implementation instead of two copy-pasted versions, and their section labels and page header now match the rest of the Learn guides.
+
 - **Catalogued the Strong Mayor register**: Toronto’s guide now groups formal entries by budget, by-law, veto-related, committee, staffing, and organizational actions so residents can interpret the live City register.
 - **Clarified the Toronto Strong Mayor register**: The guide now explains that the City’s register includes formal approvals, appointments, budget actions, committee changes, and veto-related notices—not only vetoes.
 - **Clarified Toronto’s Strong Mayor thresholds**: The guide now explains that Toronto has 26 Council members, a veto override requires 18 votes, and certain mayoral provincial-priority proposals require at least 9 votes.

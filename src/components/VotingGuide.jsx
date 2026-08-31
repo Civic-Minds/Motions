@@ -1,30 +1,20 @@
 import React from 'react';
-import { Calendar, CheckCircle2, ExternalLink, MapPin, ShieldCheck } from 'lucide-react';
-import { CivicCard, CivicSectionLabel } from './ui/CivicCard';
+import { Calendar, CheckCircle2, MapPin, ShieldCheck } from 'lucide-react';
+import { CivicSectionLabel, GuideCard, OfficialLink } from './ui/CivicCard';
 import VotingGuideShell from './VotingGuideShell';
 
-const officialLink = 'text-[#004a99] underline underline-offset-2 hover:text-[#003875]';
-
-function GuideCard({ icon: Icon, title, children }) {
-  return (
-    <CivicCard className="gap-3">
-      <Icon className="h-5 w-5 text-[#004a99]" />
-      <h2 className="text-lg font-semibold text-slate-900">{title}</h2>
-      <div className="text-sm leading-relaxed text-slate-500">{children}</div>
-    </CivicCard>
-  );
-}
+const inlineLink = 'text-[#004a99] underline underline-offset-2 hover:text-[#003875]';
 
 export default function VotingGuide() {
   return (
     <VotingGuideShell
-        title="How to vote | Motions Toronto"
+        title="How Voting Works | Motions Toronto"
         description="A practical, non-partisan guide to voting in Toronto’s 2026 municipal election."
         intro="The basic information you need to vote in Toronto’s 2026 municipal election."
     >
 
       <section className="space-y-3">
-        <CivicSectionLabel>1 · WHEN AND WHERE TO VOTE</CivicSectionLabel>
+        <CivicSectionLabel>WHEN AND WHERE TO VOTE</CivicSectionLabel>
         <div className="grid gap-4 sm:grid-cols-3">
           <GuideCard icon={Calendar} title="Election day">
             <p>October 26, 2026</p>
@@ -36,15 +26,13 @@ export default function VotingGuide() {
           </GuideCard>
           <GuideCard icon={MapPin} title="Find your polling place">
             <p>Use MyVote to see where and when you can vote. Check again before you go because voting places may change.</p>
-            <a className="mt-3 inline-flex items-center gap-1.5 font-semibold text-[#004a99]" href="https://www.toronto.ca/city-government/elections/voter-information/myvote/" target="_blank" rel="noopener noreferrer">
-              Open MyVote <ExternalLink className="h-3.5 w-3.5" />
-            </a>
+            <OfficialLink href="https://www.toronto.ca/city-government/elections/voter-information/myvote/">Open MyVote</OfficialLink>
           </GuideCard>
         </div>
       </section>
 
       <section className="space-y-3">
-        <CivicSectionLabel>2 · BEFORE YOU GO</CivicSectionLabel>
+        <CivicSectionLabel>BEFORE YOU GO</CivicSectionLabel>
         <div className="grid gap-4 sm:grid-cols-3">
           <GuideCard icon={CheckCircle2} title="Check your registration">
             <p>Use MyVote to confirm or update your information on the voters’ list. You can also check your voting place and access a digital voter information card.</p>
@@ -52,9 +40,7 @@ export default function VotingGuide() {
           </GuideCard>
           <GuideCard icon={ShieldCheck} title="Bring identification">
             <p>Bring one piece of identification showing your name and qualifying Toronto address. Your voter information card is not identification.</p>
-            <a className={`mt-3 inline-flex items-center gap-1.5 font-semibold ${officialLink}`} href="https://www.toronto.ca/city-government/elections/voter-information/identification/" target="_blank" rel="noopener noreferrer">
-              See accepted ID <ExternalLink className="h-3.5 w-3.5" />
-            </a>
+            <OfficialLink href="https://www.toronto.ca/city-government/elections/voter-information/identification/">See accepted ID</OfficialLink>
           </GuideCard>
           <GuideCard icon={MapPin} title="Plan for accessibility">
             <p>If you experience a barrier, contact Toronto Elections for assistance. You can also ask an election official for help.</p>
@@ -64,13 +50,11 @@ export default function VotingGuide() {
       </section>
 
       <section className="space-y-3">
-        <CivicSectionLabel>3 · OTHER WAYS TO VOTE</CivicSectionLabel>
+        <CivicSectionLabel>OTHER WAYS TO VOTE</CivicSectionLabel>
         <div className="grid gap-4 sm:grid-cols-2">
           <GuideCard icon={Calendar} title="Vote by mail">
             <p>Request to vote by mail starting September 1. Use MyVote or contact Toronto Elections for the current deadline and instructions.</p>
-            <a className={`mt-3 inline-flex items-center gap-1.5 font-semibold ${officialLink}`} href="https://www.toronto.ca/city-government/elections/voter-information/myvote/" target="_blank" rel="noopener noreferrer">
-              Request vote-by-mail information <ExternalLink className="h-3.5 w-3.5" />
-            </a>
+            <OfficialLink href="https://www.toronto.ca/city-government/elections/voter-information/myvote/">Request vote-by-mail information</OfficialLink>
           </GuideCard>
           <GuideCard icon={CheckCircle2} title="Vote by proxy">
             <p>If you cannot vote on any available day, you can appoint one eligible Toronto voter to vote on your behalf.</p>
@@ -80,7 +64,7 @@ export default function VotingGuide() {
       </section>
 
       <section className="space-y-3">
-        <CivicSectionLabel>4 · AT THE VOTING PLACE</CivicSectionLabel>
+        <CivicSectionLabel>AT THE VOTING PLACE</CivicSectionLabel>
         <CivicCard className="gap-3">
           <div className="grid gap-4 text-sm leading-relaxed text-slate-500 sm:grid-cols-3">
             <p><strong className="font-semibold text-slate-700">Check in.</strong> Election officials will confirm your information and explain what you need to do.</p>
@@ -91,7 +75,7 @@ export default function VotingGuide() {
       </section>
 
       <section className="space-y-3">
-        <CivicSectionLabel>5 · YOUR RIGHTS AND HELP</CivicSectionLabel>
+        <CivicSectionLabel>YOUR RIGHTS AND HELP</CivicSectionLabel>
         <CivicCard className="gap-3">
           <div className="grid gap-4 text-sm leading-relaxed text-slate-500 sm:grid-cols-2">
             <ul className="space-y-3">
@@ -106,14 +90,14 @@ export default function VotingGuide() {
             </ul>
           </div>
           <p className="border-t border-slate-100 pt-3 text-sm text-slate-500">
-            Accessibility support: <a className={officialLink} href="mailto:accessibleelections@toronto.ca">accessibleelections@toronto.ca</a> or 416-338-1111, press 6. For general help, call 311.
+            Accessibility support: <a className={inlineLink} href="mailto:accessibleelections@toronto.ca">accessibleelections@toronto.ca</a> or 416-338-1111, press 6. For general help, call 311.
           </p>
         </CivicCard>
       </section>
 
       <section className="border-t border-slate-200 pt-6 text-sm text-slate-500">
         <p>
-          This guide is practical and non-partisan. Confirm current dates, requirements, voting places, and accessibility information with <a className={officialLink} href="https://www.toronto.ca/city-government/elections/" target="_blank" rel="noopener noreferrer">Toronto Elections</a> before voting.
+          This guide is practical and non-partisan. Confirm current dates, requirements, voting places, and accessibility information with <a className={inlineLink} href="https://www.toronto.ca/city-government/elections/" target="_blank" rel="noopener noreferrer">Toronto Elections</a> before voting.
         </p>
       </section>
     </VotingGuideShell>

@@ -1,6 +1,6 @@
 import React from 'react';
-import { CalendarDays, CheckCircle2, ExternalLink, MapPin, Mail, Vote } from 'lucide-react';
-import { CivicCard, CivicSectionLabel } from '../ui/CivicCard';
+import { CalendarDays, CheckCircle2, MapPin, Mail, Vote } from 'lucide-react';
+import { CivicSectionLabel, GuideCard, OfficialLink } from '../ui/CivicCard';
 import VotingGuideShell from '../VotingGuideShell';
 
 const OFFICIAL = 'https://vancouver.ca/your-government/2026-election.aspx';
@@ -8,34 +8,16 @@ const VOTERS_GUIDE = 'https://vancouver.ca/your-government/2026-voters-guide.asp
 const VOTING_PLACES = 'https://vancouver.ca/election/2026/list-of-all-voting-places.aspx';
 const VOTE_BY_MAIL = 'https://vancouver.ca/your-government/2026-vote-by-mail.aspx';
 
-function OfficialLink({ href, children }) {
-  return (
-    <a href={href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#004a99] hover:underline">
-      {children} <ExternalLink className="h-3.5 w-3.5" />
-    </a>
-  );
-}
-
-function GuideCard({ icon: Icon, title, children }) {
-  return (
-    <CivicCard className="gap-3">
-      <Icon className="h-5 w-5 text-[#004a99]" />
-      <h2 className="text-lg font-semibold text-slate-900">{title}</h2>
-      <div className="text-sm leading-relaxed text-slate-500">{children}</div>
-    </CivicCard>
-  );
-}
-
 export default function VancouverVotingGuide() {
   return (
     <VotingGuideShell
-        title="How to vote | Motions Vancouver"
+        title="How Voting Works | Motions Vancouver"
         description="A practical, non-partisan guide to voting in Vancouver’s 2026 municipal election."
         intro="The basic information you need to vote in Vancouver’s 2026 municipal election."
     >
 
       <section className="space-y-3">
-        <CivicSectionLabel>1 · WHEN AND WHERE TO VOTE</CivicSectionLabel>
+        <CivicSectionLabel>WHEN AND WHERE TO VOTE</CivicSectionLabel>
         <div className="grid gap-4 sm:grid-cols-3">
           <GuideCard icon={CalendarDays} title="Election day">
             <p>October 17, 2026</p>
@@ -53,7 +35,7 @@ export default function VancouverVotingGuide() {
       </section>
 
       <section className="space-y-3">
-        <CivicSectionLabel>2 · WHAT YOU’LL VOTE ON</CivicSectionLabel>
+        <CivicSectionLabel>WHAT YOU’LL VOTE ON</CivicSectionLabel>
         <div className="grid gap-4 sm:grid-cols-2">
           <GuideCard icon={Vote} title="City offices">
             <ul className="space-y-1">
@@ -71,7 +53,7 @@ export default function VancouverVotingGuide() {
       </section>
 
       <section className="space-y-3">
-        <CivicSectionLabel>3 · OTHER WAYS TO VOTE</CivicSectionLabel>
+        <CivicSectionLabel>OTHER WAYS TO VOTE</CivicSectionLabel>
         <div className="grid gap-4 sm:grid-cols-2">
           <GuideCard icon={Mail} title="Vote by mail">
             <p>All eligible voters may request a vote-by-mail package. Applications open September 8 at 9 a.m.; check the official instructions for the return deadline.</p>
@@ -85,7 +67,7 @@ export default function VancouverVotingGuide() {
       </section>
 
       <section className="space-y-3">
-        <CivicSectionLabel>4 · BEFORE YOU GO</CivicSectionLabel>
+        <CivicSectionLabel>BEFORE YOU GO</CivicSectionLabel>
         <CivicCard className="gap-3">
           <p className="text-sm leading-relaxed text-slate-500">Confirm your eligibility, registration, identification, voting place, and current deadlines with the City before voting. Vancouver’s Mayor and councillors are elected at-large, so you vote for citywide Council candidates rather than a ward councillor.</p>
           <OfficialLink href={OFFICIAL}>Open the official election site</OfficialLink>
@@ -93,7 +75,7 @@ export default function VancouverVotingGuide() {
       </section>
 
       <section className="space-y-3">
-        <CivicSectionLabel>5 · OFFICIAL ELECTION RESOURCES</CivicSectionLabel>
+        <CivicSectionLabel>OFFICIAL ELECTION RESOURCES</CivicSectionLabel>
         <CivicCard className="gap-4">
           <p className="text-sm leading-relaxed text-slate-500">Use the City’s election pages for the latest requirements, dates, voting places, candidate information, and accessibility support.</p>
           <div className="grid gap-x-6 gap-y-3 sm:grid-cols-2">

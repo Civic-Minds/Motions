@@ -1,4 +1,5 @@
 import React from 'react';
+import { ExternalLink } from 'lucide-react';
 
 export const civicCardClass = 'bg-white border border-slate-200 rounded-2xl p-4 text-left group flex flex-col gap-2 hover:border-[#004a99]/40 hover:shadow-sm transition-all';
 
@@ -23,5 +24,23 @@ export function CivicCardFooter({ children, align = 'between', className = '' })
     <div className={`flex items-center ${align === 'end' ? 'justify-end' : 'justify-between'} mt-auto pt-2 border-t border-slate-50 ${className}`}>
       {children}
     </div>
+  );
+}
+
+export function GuideCard({ icon: Icon, title, children }) {
+  return (
+    <CivicCard className="gap-3">
+      <Icon className="h-5 w-5 text-[#004a99]" />
+      <h2 className="text-lg font-semibold text-slate-900">{title}</h2>
+      <div className="text-sm leading-relaxed text-slate-500">{children}</div>
+    </CivicCard>
+  );
+}
+
+export function OfficialLink({ href, children }) {
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#004a99] hover:underline">
+      {children} <ExternalLink className="h-3.5 w-3.5" />
+    </a>
   );
 }
