@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Transparency now says how far back each city's data actually goes**: The "Sources" card only ever showed the most recent record's date; replaced with the real earliest-to-latest span (e.g. "Data covers Nov 2022 – Jul 2026"), computed from the actual motion dates rather than hardcoded, so it can't go stale.
 - **About/Privacy/Terms now show the visitor's city in the header and footer**: Moving these pages off jurisdiction-scoped URLs (in an earlier entry below) meant they also lost the "Motions Toronto"-style header, the nav, and the full footer — visitors landed on a page with a bare "Motions" logo and no way to tell it remembered their city. Both now show the same header and footer as the rest of the app, using whichever city was last visited; only the cityless homepage keeps the plain logo.
 - **Fixed a crash in the mobile nav menu**: It referenced a `tab.icon` field that was never defined on the tab list, so opening the mobile menu on any page threw "Element type is invalid." Latent since the tab list was written; only surfaced once someone actually opened that menu.
 - **Fixed misaligned disclaimer text on Transparency**: It was missing the same inline padding as the section label above it, so the two didn't line up.

@@ -9,13 +9,17 @@ const SOURCE_LINK_CLASS = 'text-[#004a99] underline underline-offset-2 hover:tex
 
 export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toronto' }, motions = [], metadata = null }) {
   const isVancouver = jurisdiction.id === 'vancouver';
-  const latestMotionDate = motions.reduce((latest, motion) => {
+  const [earliestMotionDate, latestMotionDate] = motions.reduce(([earliest, latest], motion) => {
     const parsed = new Date(motion.date);
-    if (Number.isNaN(parsed.getTime())) return latest;
-    return !latest || parsed > latest ? parsed : latest;
-  }, null);
-  const formattedLatestDate = latestMotionDate
-    ? latestMotionDate.toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' })
+    if (Number.isNaN(parsed.getTime())) return [earliest, latest];
+    return [
+      !earliest || parsed < earliest ? parsed : earliest,
+      !latest || parsed > latest ? parsed : latest,
+    ];
+  }, [null, null]);
+  const monthYear = date => date?.toLocaleDateString('en-CA', { year: 'numeric', month: 'short' });
+  const dataSpan = earliestMotionDate && latestMotionDate
+    ? `${monthYear(earliestMotionDate)} – ${monthYear(latestMotionDate)}`
     : null;
   const formattedLastChecked = metadata?.lastChecked
     ? new Date(metadata.lastChecked).toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' })
@@ -47,7 +51,7 @@ export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toront
           <Link className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#004a99]" to="/sources">
             See all sources
           </Link>
-          {formattedLatestDate && <p className="mt-auto text-xs font-medium text-slate-400">Latest voting record: {formattedLatestDate}</p>}
+          {dataSpan && <p className="mt-auto text-xs font-medium text-slate-400">Data covers {dataSpan}</p>}
         </CivicCard>
 
         <CivicCard className="gap-3">
