@@ -21,6 +21,9 @@ export default function SiteFooter() {
           <p className="max-w-xs text-sm leading-relaxed text-slate-500">
             Follow the votes shaping your city.
           </p>
+          <p className="max-w-xs text-sm leading-relaxed text-slate-500">
+            Motions is a civic data project by Civic Minds.
+          </p>
         </div>
 
         <div className="space-y-3 lg:col-start-3">
@@ -47,7 +50,7 @@ export default function SiteFooter() {
         <div className="space-y-3">
           <p className="text-[10px] font-bold uppercase tracking-wide text-slate-500">Data</p>
           <div className="flex flex-col gap-2">
-            <Link to="/data" onClick={scrollToTop} className={linkClass}>Transparency</Link>
+            <Link to="/transparency" onClick={scrollToTop} className={linkClass}>Transparency</Link>
             <Link to="/sources" onClick={scrollToTop} className={linkClass}>Sources</Link>
           </div>
         </div>
