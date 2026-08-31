@@ -95,6 +95,9 @@ jobs:
       - name: Strip body text from motions
         run: node scripts/strip_body.js
 
+      - name: Record Toronto refresh time
+        run: node scripts/write_data_metadata.js
+
       - name: Upload data to Vercel Blob
         env:
           BLOB_READ_WRITE_TOKEN: ${{ secrets.BLOB_READ_WRITE_TOKEN }}
@@ -105,6 +108,20 @@ jobs:
 
       - name: Geocode Vancouver motion addresses
         run: node scripts/geocode_vancouver_addresses.js
+
+      - name: Scrape Vancouver agenda text
+        run: node scripts/scrape_agenda_text.js --vancouver
+
+      - name: Generate Vancouver summaries
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: node scripts/generate_summaries.js --vancouver
+
+      - name: Strip Vancouver body text
+        run: node scripts/strip_body.js --vancouver
+
+      - name: Record Vancouver refresh time
+        run: node scripts/write_data_metadata.js --vancouver
 
       - name: Upload Vancouver data to Vercel Blob
         env:

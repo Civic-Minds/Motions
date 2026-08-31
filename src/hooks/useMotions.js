@@ -18,6 +18,7 @@ export function useMotions(jurisdiction = { id: 'toronto', dataBaseEnv: 'VITE_BL
     const [motions, setMotions] = useState([]);
     const [councillors, setCouncillors] = useState([]);
     const [meetings, setMeetings] = useState([]);
+    const [metadata, setMetadata] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -39,17 +40,20 @@ export function useMotions(jurisdiction = { id: 'toronto', dataBaseEnv: 'VITE_BL
             const motionsUrl     = dataUrl('motions.json');
             const meetingsUrl    = dataUrl('meetings.json');
             const councillorsUrl = dataUrl('councillors.json');
+            const metadataUrl    = dataUrl('metadata.json');
             try {
-                const [motionsRes, councillorsRes, meetingsRes] = await Promise.all([
+                const [motionsRes, councillorsRes, meetingsRes, metadataRes] = await Promise.all([
                     fetch(motionsUrl),
                     fetch(councillorsUrl),
                     fetch(meetingsUrl),
+                    fetch(metadataUrl),
                 ]);
                 if (!motionsRes.ok) throw new Error('Failed to fetch data');
-                const [motionsData, councillorsData, meetingsData] = await Promise.all([
+                const [motionsData, councillorsData, meetingsData, metadataData] = await Promise.all([
                     motionsRes.json(),
                     councillorsRes.ok ? councillorsRes.json() : Promise.resolve([]),
                     meetingsRes.ok ? meetingsRes.json() : Promise.resolve([]),
+                    metadataRes.ok ? metadataRes.json() : Promise.resolve(null),
                 ]);
 
                 if (isMounted) {
@@ -63,6 +67,7 @@ export function useMotions(jurisdiction = { id: 'toronto', dataBaseEnv: 'VITE_BL
                     }));
                     setCouncillors(councillorsData);
                     setMeetings(meetingsData);
+                    setMetadata(metadataData);
                     setLoading(false);
                 }
             } catch (err) {
@@ -86,6 +91,7 @@ export function useMotions(jurisdiction = { id: 'toronto', dataBaseEnv: 'VITE_BL
         motions,
         councillors,
         meetings,
+        metadata,
         loading,
         error,
         metrics,

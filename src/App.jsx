@@ -232,7 +232,7 @@ function ScrollToTop() {
 
 function AppShell() {
   const { jurisdiction } = useAppContext();
-  const { motions, councillors, meetings, loading, error } = useMotions(jurisdiction);
+  const { motions, councillors, meetings, metadata, loading, error } = useMotions(jurisdiction);
   const [searchOpen, setSearchOpen] = useState(false);
   const [compareMode, setCompareMode] = useState(false);
   const toggleCompareMode = () => setCompareMode(m => !m);
@@ -298,7 +298,7 @@ function AppShell() {
           <Route path="/election" element={jurisdiction.id === 'vancouver' ? <VancouverElection /> : <ElectionView />} />
           <Route path="/election/how-to-vote" element={<VotingGuide />} />
           <Route path="/budget" element={<BudgetTranslator />} />
-          <Route path="/transparency" element={<DataPage jurisdiction={jurisdiction} motions={motions} />} />
+          <Route path="/transparency" element={<DataPage jurisdiction={jurisdiction} motions={motions} metadata={metadata} />} />
           <Route path="/data" element={<Navigate to="/transparency" replace />} />
           <Route path="/cities" element={<CitiesPage />} />
           <Route path="/sources" element={<SourcesPage />} />

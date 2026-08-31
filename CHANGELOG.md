@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Transparency separates record date from refresh date**: Sources now shows the latest voting record, while Updates shows when each city’s data was last checked.
 - **Added a Learn hub**: Transparency and the footer now point residents to city-aware guides explaining how council decisions and recorded votes work.
 - **Vancouver councillor profiles include contact access**: Each Contact card now links to the councillor’s official City profile, where current contact details are published.
 - **Simplified primary navigation**: The main page links now use text-only pills so the menu is easier to scan.

@@ -6,11 +6,14 @@ import { CivicCard, CivicSectionLabel } from './ui/CivicCard';
 
 const SOURCE_LINK_CLASS = 'text-[#004a99] underline underline-offset-2 hover:text-[#003875]';
 
-export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toronto' }, motions = [] }) {
+export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toronto' }, motions = [], metadata = null }) {
   const isVancouver = jurisdiction.id === 'vancouver';
   const latestDate = motions.reduce((latest, motion) => motion.date > latest ? motion.date : latest, '');
   const formattedLatestDate = latestDate
     ? new Date(`${latestDate}T12:00:00`).toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' })
+    : null;
+  const formattedLastChecked = metadata?.lastChecked
+    ? new Date(metadata.lastChecked).toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' })
     : null;
   const sourceUrl = isVancouver
     ? 'https://opendata.vancouver.ca/explore/dataset/council-voting-records/'
@@ -39,6 +42,7 @@ export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toront
           <a className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#004a99]" href={sourceUrl} target="_blank" rel="noopener noreferrer">
             {jurisdiction.name} Open Data <ExternalLink className="w-3.5 h-3.5" />
           </a>
+          {formattedLatestDate && <p className="text-xs font-medium text-slate-400">Latest voting record: {formattedLatestDate}</p>}
         </CivicCard>
 
         <CivicCard className="gap-3">
@@ -47,7 +51,7 @@ export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toront
           <p className="text-sm leading-relaxed text-slate-500">
             Council data is checked and refreshed regularly as new meeting records become available. Candidate and election information is updated separately as the City publishes changes.
           </p>
-          {formattedLatestDate && <p className="text-xs font-medium text-slate-400">Latest voting record: {formattedLatestDate}</p>}
+          {formattedLastChecked && <p className="text-xs font-medium text-slate-400">Last checked: {formattedLastChecked}</p>}
         </CivicCard>
       </div>
 
