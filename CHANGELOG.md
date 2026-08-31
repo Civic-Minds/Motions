@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Vancouver motion titles are cleaner**: Removed leading agenda labels such as `Motion 3.` and `CD-1` from displayed titles while preserving official source links.
 - **Vancouver locations survive re-imports**: Existing motion map coordinates are preserved while the importer rebuilds voting records, preventing maps from disappearing before geocoding runs.
 - **Election card dates use shared jurisdiction data**: Both city cards now format their election dates consistently instead of maintaining separate hardcoded strings.
 - **Election card dates match other homepage cards**: Removed the year from both city cards so their dates use the same compact treatment.
