@@ -42,7 +42,7 @@ export default function SiteFooter() {
           <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-400">Data</p>
           <div className="flex flex-col gap-2">
             <Link to="/data" className={linkClass}>Data & methodology</Link>
-            <a href={isToronto ? 'https://open.toronto.ca/' : 'https://opendata.vancouver.ca/'} target="_blank" rel="noopener noreferrer" className={linkClass}>{jurisdiction.name} Open Data</a>
+            <a href={isToronto ? 'https://open.toronto.ca/' : 'https://opendata.vancouver.ca/'} target="_blank" rel="noopener noreferrer" className={linkClass}>Open Data</a>
           </div>
         </div>
 
