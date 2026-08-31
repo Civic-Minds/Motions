@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Clarified Vancouver’s citywide council card**: The homepage now explains the at-large structure without using confusing voting-record language.
 - **Vancouver election card shows the nomination deadline**: The candidate-focused card no longer pairs a registration message with the October election date.
 - **Toronto election card removes repeated date**: The headline now points to election day while the exact October 26 date stays in the card footer.
 - **Vancouver election card uses a candidate call to action**: The homepage now says “Register to run by September 11” in parallel with Toronto’s candidate prompt.
