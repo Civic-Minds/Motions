@@ -1,6 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowLeft, Calendar, CheckCircle2, ExternalLink, MapPin, ShieldCheck } from 'lucide-react';
+import { Calendar, CheckCircle2, ExternalLink, MapPin, ShieldCheck } from 'lucide-react';
 import { CivicCard, CivicSectionLabel } from './ui/CivicCard';
 import { PageMeta } from './PageMeta';
 
@@ -25,9 +24,6 @@ export default function VotingGuide() {
       />
 
       <div className="space-y-3">
-        <Link to="/election" className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 transition-colors hover:text-slate-900">
-          <ArrowLeft className="h-4 w-4" /> Back to election
-        </Link>
         <CivicSectionLabel>NON-PARTISAN GUIDE</CivicSectionLabel>
         <h1 className="text-3xl font-bold tracking-tight text-slate-900">How to vote</h1>
         <p className="max-w-xl text-base text-slate-500">
