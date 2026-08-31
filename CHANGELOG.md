@@ -6,6 +6,10 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Grounded the map's "other cities" in the real roadmap**: The 10 grey placeholder pins were invented for visual filler, several with no realistic near-term path to being added (and one, Montreal, whose municipal election already happened). Replaced them with the 3 cities actually listed in `docs/roadmap/DATA_CITIES.md` (Calgary, Ottawa, Montreal), shown as clearly-muted, non-clickable "Planned" cards with no election-date or timeline claims.
+- **Card carousel now floats on the map itself**: Moved the city cards off a separate section below the map and onto a bottom overlay directly on the map, matching the pattern used on the ward map (`TorontoFullMap.jsx`) — gradient fade, horizontal scroll, syncs with what's currently in view.
+- **Toronto/Vancouver cards show real, distinct facts instead of a repeated template sentence**: Each now shows its ward structure and mayor, plus its upcoming election date (pulled live from `jurisdictions.js`, so it won't go stale or show a past date as upcoming).
+- **Widened and enlarged the homepage map**: It was constrained by a sidebar-reserving width rule meant for pages with a filter panel, which the homepage doesn't have.
 - **Filled out the homepage map**: Two pins on a full-country map looked sparse, and the fixed frame around just Toronto/Vancouver was cropping out most of Canada. Fixed the map to a proper Canada-wide view and added other major Canadian cities as muted, non-clickable pins for context.
 - **Map and city cards now stay in sync**: Pan or zoom the homepage map and the city cards below update to match what's visible — zoom into just Vancouver and only the Vancouver card shows, matching the pattern used on the ward map.
 - Removed a redundant "CITIES" label sitting right above "Choose a city."
