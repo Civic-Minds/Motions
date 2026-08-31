@@ -36,6 +36,7 @@ const AGENDA_URL = (committee, date) => {
     return `https://council.vancouver.ca/${compactDate}/${prefix}${compactDate}ag.htm`;
 };
 const DATA_DIR = path.join(process.cwd(), 'public/data/vancouver');
+const EXISTING_MOTIONS_PATH = path.join(DATA_DIR, 'motions.json');
 const PAGE_SIZE = 100;
 const fromArg = process.argv.find(arg => arg.startsWith('--from='));
 const fromDate = fromArg ? fromArg.slice('--from='.length) : '2022-11-01';
@@ -147,6 +148,11 @@ async function main() {
     }
     process.stdout.write('\n');
 
+    const existingMotions = fs.existsSync(EXISTING_MOTIONS_PATH)
+        ? JSON.parse(fs.readFileSync(EXISTING_MOTIONS_PATH, 'utf8'))
+        : [];
+    const existingLocations = new Map(existingMotions.map(motion => [motion.id, motion.locations]).filter(([, locations]) => locations?.length));
+
     const eventMap = new Map();
     for (const row of rows) {
         if (!row.meeting_id || !row.vote_number || !row.agenda_description || !row.vote_date) continue;
@@ -191,6 +197,7 @@ async function main() {
             agendaUrl: event.agendaUrl,
             meetingId: event.meetingId,
             meetingReference: event.meetingReference,
+            ...(existingLocations.has(event.id) ? { locations: existingLocations.get(event.id) } : {}),
         };
     }).sort((a, b) => a.date.localeCompare(b.date) || a.id.localeCompare(b.id));
 
