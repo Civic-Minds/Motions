@@ -6,7 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
-- **Static page headings no longer repeat themselves**: Privacy, terms, and Transparency pages now show one clear page title instead of duplicating the same label above it.
+- **Static page headings no longer repeat themselves**: Privacy, terms, Transparency, and Sources pages now show one clear page title instead of duplicating the same label above it.
 - **Transparency is a top-level page**: It now opens directly with its page title instead of showing a back control.
 - **City switcher closes on outside click**: The city menu now dismisses when focus moves outside it, with Escape-key support.
 - **Vancouver motion documents are visible**: Motion pages now show the official council agenda and voting-record links in the Documents section.
