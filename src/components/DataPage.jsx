@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ExternalLink, RefreshCw, Database } from 'lucide-react';
+import { RefreshCw, Database } from 'lucide-react';
 import { PageMeta } from './PageMeta';
 import { CivicCard, CivicSectionLabel } from './ui/CivicCard';
 import PageColumn from './PageColumn';
@@ -9,9 +9,13 @@ const SOURCE_LINK_CLASS = 'text-[#004a99] underline underline-offset-2 hover:tex
 
 export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toronto' }, motions = [], metadata = null }) {
   const isVancouver = jurisdiction.id === 'vancouver';
-  const latestDate = motions.reduce((latest, motion) => motion.date > latest ? motion.date : latest, '');
-  const formattedLatestDate = latestDate
-    ? new Date(`${latestDate}T12:00:00`).toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' })
+  const latestMotionDate = motions.reduce((latest, motion) => {
+    const parsed = new Date(motion.date);
+    if (Number.isNaN(parsed.getTime())) return latest;
+    return !latest || parsed > latest ? parsed : latest;
+  }, null);
+  const formattedLatestDate = latestMotionDate
+    ? latestMotionDate.toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' })
     : null;
   const formattedLastChecked = metadata?.lastChecked
     ? new Date(metadata.lastChecked).toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' })
@@ -40,9 +44,9 @@ export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toront
           <p className="text-sm leading-relaxed text-slate-500">
             Voting records come from <a className={SOURCE_LINK_CLASS} href={sourceUrl} target="_blank" rel="noopener noreferrer">{jurisdiction.name} Open Data</a>. Meeting details and agenda records come from the City of {jurisdiction.name}’s council and committee pages.
           </p>
-          <a className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#004a99]" href={sourceUrl} target="_blank" rel="noopener noreferrer">
-            {jurisdiction.name} Open Data <ExternalLink className="w-3.5 h-3.5" />
-          </a>
+          <Link className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#004a99]" to="/sources">
+            See all sources
+          </Link>
           {formattedLatestDate && <p className="text-xs font-medium text-slate-400">Latest voting record: {formattedLatestDate}</p>}
         </CivicCard>
 
@@ -71,15 +75,19 @@ export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toront
         <div className="grid gap-4 sm:grid-cols-3">
           <CivicCard className="gap-2">
             <h2 className="font-semibold text-slate-900">Motions</h2>
-            <p className="text-sm leading-relaxed text-slate-500">Each item is kept as its own council or committee record, including its vote result and source documents.</p>
+            <p className="text-sm leading-relaxed text-slate-500">Every item is its own record — vote result, source documents, all in one place.</p>
           </CivicCard>
           <CivicCard className="gap-2">
             <h2 className="font-semibold text-slate-900">Topics</h2>
-            <p className="text-sm leading-relaxed text-slate-500">Topics and significance scores help organize the record and surface decisions that may be more useful to review first.</p>
+            <p className="text-sm leading-relaxed text-slate-500">
+              {isVancouver
+                ? 'A vote’s score weighs how contested it was, its topic, and its outcome — higher scores rise to the top.'
+                : 'A vote’s score weighs how contested it was, its outcome, and how much debate it got — big stuff like the budget or zoning gets a boost, routine items get docked.'}
+            </p>
           </CivicCard>
           <CivicCard className="gap-2">
             <h2 className="font-semibold text-slate-900">Locations</h2>
-            <p className="text-sm leading-relaxed text-slate-500">{isVancouver ? 'Specific addresses and named places are mapped when they can be identified reliably. Vancouver councillors are elected at-large, so locations are not assigned to wards.' : 'Specific addresses and named places are mapped when they can be identified reliably. Geographic points are assigned to official Toronto wards.'}</p>
+            <p className="text-sm leading-relaxed text-slate-500">{isVancouver ? 'Addresses and named places get mapped when we can pin them down. Vancouver councillors are elected at-large, so locations aren’t tied to wards.' : 'Addresses and named places get mapped when we can pin them down, then matched to official Toronto wards.'}</p>
           </CivicCard>
         </div>
       </section>
