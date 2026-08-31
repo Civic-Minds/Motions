@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAppContext } from '../contexts/AppContext';
+import { formatElectionDate } from '../utils/electionDate';
 
 const linkClass = 'text-sm text-slate-500 transition-colors hover:text-slate-900';
 
 export default function SiteFooter() {
   const { jurisdiction } = useAppContext();
   const isToronto = jurisdiction.geography === 'ward';
-  const electionDate = new Intl.DateTimeFormat('en-CA', { month: 'short', day: 'numeric' })
-    .format(new Date(`${jurisdiction.election.date}T00:00:00`));
+  const electionDate = formatElectionDate(jurisdiction.election.date);
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
   return (
     <footer className="mt-8 border-t border-slate-200 bg-white">

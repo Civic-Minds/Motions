@@ -9,6 +9,7 @@ import { cn } from './lib/utils';
 import { useMotions } from './hooks/useMotions';
 import { AppProvider, useAppContext } from './contexts/AppContext';
 import { getInitialJurisdiction, JURISDICTIONS } from './constants/jurisdictions';
+import { formatElectionDate } from './utils/electionDate';
 
 const DashboardView     = lazy(() => import('./components/DashboardView'));
 const MotionPage        = lazy(() => import('./components/MotionPage'));
@@ -102,7 +103,12 @@ function Navbar({ onSearchOpen }) {
                     : "font-medium text-slate-500 hover:bg-slate-100 hover:text-slate-900"
                 )}
               >
-                {tab.label}
+                <span>{tab.label}</span>
+                {tab.path === '/election' && (
+                  <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-semibold text-[#004a99]">
+                    {formatElectionDate(jurisdiction.election.date)}
+                  </span>
+                )}
               </button>
             );
           })}
@@ -208,7 +214,15 @@ function Navbar({ onSearchOpen }) {
                   )}
                 >
                   <Icon className="w-4 h-4" />
-                  {tab.label}
+                  <span>{tab.label}</span>
+                  {tab.path === '/election' && (
+                    <span className={cn(
+                      'rounded-full px-2 py-0.5 text-[10px] font-semibold',
+                      isActive ? 'bg-white/15 text-white' : 'bg-blue-50 text-[#004a99]'
+                    )}>
+                      {formatElectionDate(jurisdiction.election.date)}
+                    </span>
+                  )}
                 </button>
               );
             })}
