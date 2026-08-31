@@ -6,6 +6,7 @@ import { CivicCard, CivicSectionLabel } from './ui/CivicCard';
 
 const GUIDE_CONTENT = {
   council: {
+    lastUpdated: 'August 31, 2026',
     title: 'How City Council Works',
     description: city => `A plain-language guide to how ${city} City Council makes decisions and how residents can take part.`,
     intro: city => `City council is where local decisions become official. Here is the basic path an issue takes through ${city}’s municipal government.`,
@@ -26,6 +27,7 @@ const GUIDE_CONTENT = {
     action: city => `Browse ${city} motions`,
   },
   voting: {
+    lastUpdated: 'August 31, 2026',
     title: 'How a Council Vote Works',
     description: city => `How recorded votes work in ${city}, what the results mean, and where to read the official record.`,
     intro: city => `A council vote is a recorded decision, not a poll of public opinion. This is how to read what happened and decide what to do next in ${city}.`,
@@ -46,6 +48,7 @@ const GUIDE_CONTENT = {
     action: city => `Explore ${city} councillors`,
   },
   strongMayor: {
+    lastUpdated: 'August 31, 2026',
     title: 'How Toronto’s Strong Mayor Powers Work',
     description: 'A plain-language guide to the additional powers and duties of Toronto’s Mayor.',
     intro: 'Toronto’s Mayor has responsibilities that go beyond chairing Council. This guide explains what those powers change, what still requires Council, and where to follow the paper trail.',
@@ -88,6 +91,7 @@ export default function CivicGuidePage({ type, jurisdiction = { id: 'toronto', n
       <div className="space-y-3">
         <h1 className="text-3xl font-bold tracking-tight text-slate-900">{content.title}</h1>
         <p className="max-w-2xl text-base leading-relaxed text-slate-500">{content.intro(jurisdiction.name)}</p>
+        <p className="text-xs text-slate-400">Last updated: {content.lastUpdated}</p>
       </div>
 
       <div className="space-y-3">
