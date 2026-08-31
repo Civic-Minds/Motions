@@ -9,8 +9,8 @@ export default function SiteFooter() {
   const isToronto = jurisdiction.geography === 'ward';
   return (
     <footer className="mt-8 border-t border-slate-200 bg-white">
-      <div className="mx-auto grid max-w-[1400px] gap-8 px-6 py-8 sm:grid-cols-4 sm:gap-6 sm:py-10">
-        <div className="space-y-3">
+      <div className="mx-auto grid max-w-[1400px] gap-8 px-6 py-8 sm:grid-cols-4 sm:gap-6 sm:py-10 lg:grid-cols-[200px_repeat(4,minmax(0,1fr))_220px] lg:gap-3">
+        <div className="space-y-3 lg:col-start-3">
           <p className="text-[10px] font-bold uppercase tracking-wide text-slate-500">Cities</p>
           <div className="flex flex-col gap-2">
             <a href="/toronto" className={linkClass}>Toronto</a>
