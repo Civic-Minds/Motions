@@ -83,7 +83,7 @@ export default function VancouverElection() {
             <SummaryCard pill="Where to vote" pillClass="bg-blue-50 text-[#004a99]" footer={<a href={VOTING_PLACES} target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99]">Find a place ↗</a>}>
               <p className="flex-1 text-xs font-semibold leading-snug text-slate-800">Vote anywhere in Vancouver.</p>
             </SummaryCard>
-            <SummaryCard pill="How to vote" footer={<Link to="/learn/how-to-vote" className="whitespace-nowrap text-[9px] font-semibold text-[#004a99]">Our guide ↗</Link>}>
+            <SummaryCard pill="How to vote" footer={<Link to="/learn/how-voting-works" className="whitespace-nowrap text-[9px] font-semibold text-[#004a99]">Our guide ↗</Link>}>
               <p className="flex-1 text-xs font-semibold leading-snug text-slate-800">What to bring, how to get help, and your voting rights.</p>
             </SummaryCard>
           </div>

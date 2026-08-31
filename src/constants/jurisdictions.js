@@ -15,6 +15,7 @@ export const JURISDICTIONS = {
             date: '2026-10-26',
             offices: ['Mayor', 'City Councillor', 'School Trustee'],
             officialUrl: 'https://www.toronto.ca/city-government/elections/',
+            voterInfoOpens: '2026-09-01',
         },
     },
     vancouver: {
