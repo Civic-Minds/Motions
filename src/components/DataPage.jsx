@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ExternalLink, RefreshCw, Database } from 'lucide-react';
+import { ExternalLink, RefreshCw, Database } from 'lucide-react';
 import { PageMeta } from './PageMeta';
 import { CivicCard, CivicSectionLabel } from './ui/CivicCard';
 
@@ -23,10 +23,6 @@ export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toront
       />
 
       <div className="space-y-3">
-        <Link to="/" className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">
-          <ArrowLeft className="w-4 h-4" /> Back
-        </Link>
-        <CivicSectionLabel>TRANSPARENCY</CivicSectionLabel>
         <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">Transparency</h1>
         <p className="text-base sm:text-lg text-slate-500 max-w-2xl">
           {isVancouver ? 'Motions turns public Vancouver council records into a clearer way to follow decisions and votes across the city.' : 'Motions turns public Toronto council records into a clearer way to follow decisions, votes, and neighbourhood-level activity.'}

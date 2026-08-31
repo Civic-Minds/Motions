@@ -6,8 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
-- **Sources page has a consistent back control**: The source directory now matches other standalone pages and motion details.
-- **Transparency header matches motion pages**: The page now uses the same compact “Back” control as motion details.
+- **Static page headings no longer repeat themselves**: Privacy, terms, and Transparency pages now show one clear page title instead of duplicating the same label above it.
+- **Transparency is a top-level page**: It now opens directly with its page title instead of showing a back control.
 - **City switcher closes on outside click**: The city menu now dismisses when focus moves outside it, with Escape-key support.
 - **Vancouver motion documents are visible**: Motion pages now show the official council agenda and voting-record links in the Documents section.
 - **Motion maps show more neighborhood context**: Automatic pin fitting now avoids zooming too tightly around a single address.

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CivicCard, CivicSectionLabel } from './ui/CivicCard';
+import { CivicCard } from './ui/CivicCard';
 import { PageMeta } from './PageMeta';
 
 const CONTENT = {
@@ -34,8 +34,7 @@ export default function LegalPage({ type }) {
     <div className="max-w-3xl mx-auto space-y-7 pb-20">
       <PageMeta title={page.title} description={page.intro} />
       <div>
-        <CivicSectionLabel>{page.label}</CivicSectionLabel>
-        <h1 className="text-3xl font-bold text-slate-900 mt-1">{page.heading}</h1>
+        <h1 className="text-3xl font-bold text-slate-900">{page.heading}</h1>
         <p className="text-slate-500 mt-2 leading-relaxed">{page.intro}</p>
       </div>
       <div className="grid gap-3">
