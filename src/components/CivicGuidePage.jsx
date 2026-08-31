@@ -31,6 +31,10 @@ const GUIDE_CONTENT = {
     title: 'How a Council Vote Works',
     description: city => `How recorded votes work in ${city}, what the results mean, and where to read the official record.`,
     intro: city => `A council vote is a recorded decision, not a poll of public opinion. This is how to read what happened and decide what to do next in ${city}.`,
+    context: {
+      Toronto: 'Toronto has a Mayor elected citywide and 25 ward councillors. Each member has one vote at Council, and most matters are decided by a majority.',
+      Vancouver: 'Vancouver has a Mayor and 10 councillors elected at-large. Every member represents the whole city and has one vote at Council.',
+    },
     steps: {
       Toronto: [
         ['1', 'Find the question', 'Every vote is attached to a specific motion, recommendation, amendment, or by-law. Start with the wording of the item.'],
@@ -91,6 +95,7 @@ export default function CivicGuidePage({ type, jurisdiction = { id: 'toronto', n
       <div className="space-y-3">
         <h1 className="text-3xl font-bold tracking-tight text-slate-900">{content.title}</h1>
         <p className="max-w-2xl text-base leading-relaxed text-slate-500">{content.intro(jurisdiction.name)}</p>
+        {content.context?.[jurisdiction.name] && <p className="max-w-2xl text-sm leading-relaxed text-slate-500">{content.context[jurisdiction.name]}</p>}
         <p className="text-xs text-slate-400">Last updated: {content.lastUpdated}</p>
       </div>
 
