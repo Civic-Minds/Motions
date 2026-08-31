@@ -149,6 +149,14 @@ export const COMMITTEE_DESCRIPTIONS = {
   'Confronting Anti-Black Racism Advisory Committee': 'Advises council on policies to address anti-Black racism and promote equity across city services and programs.',
   'TO Live': 'Manages the city\'s major performing arts venues including Meridian Hall, the St. Lawrence Centre, and Meridian Arts Centre.',
   'Civic Appointments Committee': 'Reviews and recommends public appointments to the city\'s agencies, boards, and corporations.',
+
+  // Vancouver
+  'Council': 'Vancouver\'s regular Council meeting, where the Mayor and 10 councillors make final decisions on staff reports and committee recommendations.',
+  'Policy & Strategic Priorities': 'A standing committee of the whole council that reviews city-wide policy and strategic priorities before Council ratifies its recommendations.',
+  'City Finance & Services': 'A standing committee of the whole council that reviews budget, finance, and city services matters before Council ratifies its recommendations.',
+  'Public Hearing': 'Statutory hearings, mainly for rezoning and other land-use bylaw changes, where the public can speak before Council decides.',
+  'Special Council': 'Council meetings called for specific matters outside the regular schedule, including business licence suspension or revocation hearings.',
+  'Auditor General Committee': 'Oversees the work of Vancouver\'s Auditor General, meeting at least three times a year to review audits of city operations.',
 };
 
 export const COMMITTEE_NAMES = {

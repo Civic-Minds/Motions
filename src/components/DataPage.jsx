@@ -47,7 +47,7 @@ export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toront
           <Link className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#004a99]" to="/sources">
             See all sources
           </Link>
-          {formattedLatestDate && <p className="text-xs font-medium text-slate-400">Latest voting record: {formattedLatestDate}</p>}
+          {formattedLatestDate && <p className="mt-auto text-xs font-medium text-slate-400">Latest voting record: {formattedLatestDate}</p>}
         </CivicCard>
 
         <CivicCard className="gap-3">
@@ -56,7 +56,7 @@ export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toront
           <p className="text-sm leading-relaxed text-slate-500">
             Council data is checked and refreshed regularly as new meeting records become available. Candidate and election information is updated separately as the City publishes changes.
           </p>
-          {formattedLastChecked && <p className="text-xs font-medium text-slate-400">Last checked: {formattedLastChecked}</p>}
+          {formattedLastChecked && <p className="mt-auto text-xs font-medium text-slate-400">Last checked: {formattedLastChecked}</p>}
         </CivicCard>
       </div>
 

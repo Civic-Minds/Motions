@@ -318,7 +318,7 @@ function AppShell() {
           <Route path="/transparency" element={<DataPage jurisdiction={jurisdiction} motions={motions} metadata={metadata} />} />
           <Route path="/data" element={<Navigate to="/transparency" replace />} />
           <Route path="/cities" element={<CitiesPage />} />
-          <Route path="/sources" element={<SourcesPage />} />
+          <Route path="/sources" element={<SourcesPage jurisdiction={jurisdiction} />} />
           <Route path="/privacy" element={<LegalPage type="privacy" />} />
           <Route path="/terms" element={<LegalPage type="terms" />} />
           <Route path="/about" element={<AboutPage />} />
