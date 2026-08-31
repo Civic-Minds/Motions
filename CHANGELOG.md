@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Centered desktop navigation**: Header links now align with the center of the page content instead of being offset by the logo column.
 - **Aligned Learn stories with the Learn hub**: Guide pages now use the same content width and left edge as the Learn overview.
 - **Removed active navigation pills**: Page links now use the same text-first treatment as the ward, city, and search controls.
 - **Simplified header controls**: Ward, city, and search controls now use a lighter text-first treatment so they read as navigation instead of competing boxed widgets.
