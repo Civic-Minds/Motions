@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Councillor cards clarify their metrics**: Removed misleading topic labels, dropped repeated Vancouver at-large text, and explained that “With majority” measures majority-vote agreement.
 - **City switching now uses a dropdown**: The navbar shows the current city and lists all available cities in one scalable menu.
 - **Clarified transparency pages**: The footer labels now match the page headings, separating the project’s transparency information from its source directory.
 - **Footer links return to the top**: Internal footer navigation now resets the page position even when the selected page is already open.

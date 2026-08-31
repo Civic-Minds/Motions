@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { GitCompare, ChevronRight, MapPin } from 'lucide-react';
+import { GitCompare, ChevronRight, MapPin, Info } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getMemberAlignmentScore, getAttendance } from '../utils/analytics';
 import { nameToSlug, slugToName } from '../utils/slug';
@@ -83,14 +83,7 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
       .map(([name]) => {
         const alignment = getMemberAlignmentScore(motions, name);
         const attendance = getAttendance(motions, name);
-        const topicCounts = {};
-        motions.forEach(m => {
-          if (m.votes?.[name] && m.topic && !m.trivial) {
-            topicCounts[m.topic] = (topicCounts[m.topic] || 0) + 1;
-          }
-        });
-        const topTopic = Object.entries(topicCounts).sort((a, b) => b[1] - a[1])[0]?.[0];
-        return { name, alignment, attendance, topTopic, voteCount: voteCounts[name] };
+        return { name, alignment, attendance, voteCount: voteCounts[name] };
       })
       .sort((a, b) => {
         // Mayor always first
@@ -218,7 +211,7 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
         animate="show"
         variants={{ hidden: {}, show: { transition: { staggerChildren: 0.04 } } }}
       >
-        {filtered.map(({ name, alignment, attendance, topTopic, voteCount }) => {
+        {filtered.map(({ name, alignment, attendance, voteCount }) => {
           const ward = COUNCILLOR_WARD[name];
           const isSelected = compareSlots.includes(name);
           const isFaded = compareMode && compareSlots.length === 2 && !isSelected;
@@ -276,9 +269,6 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
                   {ward && (
                     <p className="text-[10px] text-slate-500 font-medium">W{ward.id} · {ward.name}</p>
                   )}
-                  {isVancouver && !isMayor && (
-                    <p className="text-[10px] text-slate-500 font-medium">Elected at-large</p>
-                  )}
                   {isMayor && !ward && (
                     <p className="text-[10px] text-slate-500 font-medium">{jurisdiction.name} City Hall</p>
                   )}
@@ -288,7 +278,23 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
               {/* Metrics */}
               <div className="grid grid-cols-2 gap-4 mb-4">
                 <div>
-                  <p className="text-[10px] text-slate-500 font-medium uppercase tracking-wide mb-1">Alignment</p>
+                  <div className="relative group/metric mb-1 w-fit">
+                    <span
+                      tabIndex="0"
+                      aria-describedby={`majority-help-${nameToSlug(name)}`}
+                      className="inline-flex items-center gap-1 text-[10px] text-slate-500 font-medium uppercase tracking-wide outline-none"
+                    >
+                      With majority
+                      <Info className="h-3 w-3 text-slate-400" />
+                    </span>
+                    <span
+                      id={`majority-help-${nameToSlug(name)}`}
+                      role="tooltip"
+                      className="pointer-events-none absolute bottom-full left-0 z-20 mb-2 hidden w-56 rounded-lg bg-slate-900 px-3 py-2 text-left text-[10px] normal-case leading-relaxed text-white shadow-lg group-hover/metric:block group-focus-within/metric:block"
+                    >
+                      Percentage of recorded votes where this councillor voted with the majority.
+                    </span>
+                  </div>
                   <p className="text-lg font-bold text-[#004a99] leading-none">{alignment !== null ? `${alignment}%` : '—'}</p>
                   <div className="mt-1.5 h-1 w-full bg-slate-100 rounded-full overflow-hidden">
                     <div className="h-full bg-[#004a99] rounded-full" style={{ width: `${alignment ?? 0}%` }} />
@@ -307,7 +313,6 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
               <div className="flex justify-between items-center pt-3 border-t border-slate-100">
                 <div className="text-[10px] text-slate-500">
                   <span className="font-medium">{voteCount.toLocaleString()}</span> votes
-                  {topTopic && topTopic !== 'General' && <span className="ml-2 text-slate-500">· {topTopic}</span>}
                 </div>
                 <ChevronRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-[#004a99] transition-colors" />
               </div>
