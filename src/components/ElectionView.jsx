@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { cn } from '../lib/utils';
 import { extractWardId } from '../utils/ward';
 import { useAppContext } from '../contexts/AppContext';
-import { isOnOrAfter, formatElectionDateLong } from '../utils/electionDate';
+import { isOnOrAfter, formatElectionDateLong, formatElectionDateFull } from '../utils/electionDate';
 import YourWardCard from './YourWardCard';
 import { CivicCard, CivicCardFooter, CivicPill, CivicSectionLabel } from './ui/CivicCard';
 import { PageMeta } from './PageMeta';
@@ -240,6 +240,8 @@ export default function ElectionView() {
   const { wardId: savedWardId, jurisdiction } = useAppContext();
   const voterInfoOpens = jurisdiction?.election?.voterInfoOpens;
   const voterInfoAvailable = !voterInfoOpens || isOnOrAfter(voterInfoOpens);
+  const electionDate = jurisdiction?.election?.date;
+  const electionOver = isOnOrAfter(electionDate);
   const [candidateData, setCandidateData] = useState(null);
   const [geoData, setGeoData] = useState(null);
   const [mapFullscreen, setMapFullscreen] = useState(false);
@@ -496,12 +498,16 @@ export default function ElectionView() {
             <CivicSectionLabel>Election information</CivicSectionLabel>
             <div className="grid grid-cols-2 gap-3 items-stretch flex-1 min-w-0">
               <CivicCard className="h-[140px]">
-                <CivicPill className="bg-blue-50 text-[#004a99]">Where to vote</CivicPill>
+                <CivicPill className={electionOver ? 'bg-slate-100 text-slate-600' : 'bg-blue-50 text-[#004a99]'}>{electionOver ? 'Voting closed' : 'Where to vote'}</CivicPill>
                 <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">
-                  {voterInfoAvailable ? 'Find where and when you can vote.' : `From ${formatElectionDateLong(voterInfoOpens)}, find where and when you can vote.`}
+                  {electionOver
+                    ? `Voting closed ${formatElectionDateFull(electionDate)}. See who’s on council now.`
+                    : voterInfoAvailable ? 'Find where and when you can vote.' : `From ${formatElectionDateLong(voterInfoOpens)}, find where and when you can vote.`}
                 </p>
                 <CivicCardFooter align="end">
-                  <a href="https://www.toronto.ca/city-government/elections/voter-information/myvote/" target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99]">Register ↗</a>
+                  {electionOver
+                    ? <Link to="/councillors" className="text-[9px] font-semibold text-[#004a99]">See council</Link>
+                    : <a href="https://www.toronto.ca/city-government/elections/voter-information/myvote/" target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99]">Register ↗</a>}
                 </CivicCardFooter>
               </CivicCard>
 
@@ -516,23 +522,45 @@ export default function ElectionView() {
           </div>
 
           <div className="lg:col-span-2 flex flex-col gap-1.5 min-w-0">
-            <CivicSectionLabel>Voting days</CivicSectionLabel>
+            <CivicSectionLabel>{electionOver ? 'Election result' : 'Voting days'}</CivicSectionLabel>
             <div className="grid grid-cols-2 gap-3 items-stretch flex-1 min-w-0">
-              <CivicCard className="h-[140px]">
-                <CivicPill className="bg-blue-50 text-[#004a99]">Election day</CivicPill>
-                <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">October 26, 2026, from 10 a.m. to 8 p.m.</p>
-                <CivicCardFooter align="end">
-                  <a href="https://www.toronto.ca/city-government/elections/voter-information/" target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99] whitespace-nowrap">Check MyVote ↗</a>
-                </CivicCardFooter>
-              </CivicCard>
+              {electionOver ? (
+                <>
+                  <CivicCard className="h-[140px]">
+                    <CivicPill className="bg-blue-50 text-[#004a99]">Result</CivicPill>
+                    <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Voting closed {formatElectionDateFull(electionDate)}.</p>
+                    <CivicCardFooter align="end">
+                      <Link to="/councillors" className="text-[9px] font-semibold text-[#004a99] whitespace-nowrap">See council →</Link>
+                    </CivicCardFooter>
+                  </CivicCard>
 
-              <CivicCard className="h-[140px]">
-                <CivicPill className="bg-slate-100 text-slate-600">Advance voting</CivicPill>
-                <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">October 6–11, 2026, from 10 a.m. to 7 p.m.</p>
-                <CivicCardFooter align="end">
-                  <a href="https://www.toronto.ca/city-government/elections/voter-information/" target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99] whitespace-nowrap">Check MyVote ↗</a>
-                </CivicCardFooter>
-              </CivicCard>
+                  <CivicCard className="h-[140px]">
+                    <CivicPill className="bg-slate-100 text-slate-600">What’s next</CivicPill>
+                    <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">Follow how the new council votes on Motions.</p>
+                    <CivicCardFooter align="end">
+                      <Link to="/" className="text-[9px] font-semibold text-[#004a99] whitespace-nowrap">Browse motions →</Link>
+                    </CivicCardFooter>
+                  </CivicCard>
+                </>
+              ) : (
+                <>
+                  <CivicCard className="h-[140px]">
+                    <CivicPill className="bg-blue-50 text-[#004a99]">Election day</CivicPill>
+                    <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">October 26, 2026, from 10 a.m. to 8 p.m.</p>
+                    <CivicCardFooter align="end">
+                      <a href="https://www.toronto.ca/city-government/elections/voter-information/" target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99] whitespace-nowrap">Check MyVote ↗</a>
+                    </CivicCardFooter>
+                  </CivicCard>
+
+                  <CivicCard className="h-[140px]">
+                    <CivicPill className="bg-slate-100 text-slate-600">Advance voting</CivicPill>
+                    <p className="text-xs font-semibold text-slate-800 leading-snug flex-1">October 6–11, 2026, from 10 a.m. to 7 p.m.</p>
+                    <CivicCardFooter align="end">
+                      <a href="https://www.toronto.ca/city-government/elections/voter-information/" target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99] whitespace-nowrap">Check MyVote ↗</a>
+                    </CivicCardFooter>
+                  </CivicCard>
+                </>
+              )}
             </div>
           </div>
         </div>

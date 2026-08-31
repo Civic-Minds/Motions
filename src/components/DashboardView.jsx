@@ -8,6 +8,7 @@ import { getWardId } from '../utils/storage';
 import { committeeToSlug } from '../utils/slug';
 import { fetchWardBoundaries, motionBelongsToWard } from '../utils/ward';
 import { formatMotionDate } from '../utils/date';
+import { isOnOrAfter } from '../utils/electionDate';
 import { useAppContext } from '../contexts/AppContext';
 import YourWardCard from './YourWardCard';
 import MotionCardItem from './MotionCardItem';
@@ -396,6 +397,7 @@ function UpcomingMeeting({ meetings, navigate, className = '' }) {
 export default function DashboardView({ motions, meetings = [], jurisdiction = { id: 'toronto' } }) {
   const { followedCommittees = [] } = useAppContext();
   const isVancouver = jurisdiction.id === 'vancouver';
+  const electionOver = isOnOrAfter(jurisdiction.election?.date);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [filters, dispatch] = useReducer(filtersReducer, initialFilters);
@@ -640,11 +642,15 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
               to="/election"
               className="bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-100 hover:border-blue-300"
             >
-              <CivicPill className="bg-blue-100 text-blue-700">Election</CivicPill>
-              <p className="text-xs font-semibold text-slate-800 group-hover:text-blue-700 transition-colors line-clamp-3 leading-snug">{isVancouver ? 'Register to run before September 11.' : 'See your ward’s candidates before election day.'}</p>
+              <CivicPill className="bg-blue-100 text-blue-700">{electionOver ? 'Election result' : 'Election'}</CivicPill>
+              <p className="text-xs font-semibold text-slate-800 group-hover:text-blue-700 transition-colors line-clamp-3 leading-snug">
+                {electionOver
+                  ? (isVancouver ? 'See Vancouver’s new council.' : 'See your ward’s new council.')
+                  : (isVancouver ? 'Register to run before September 11.' : 'See your ward’s candidates before election day.')}
+              </p>
               <div className="flex items-center justify-between mt-auto pt-2 border-t border-blue-100">
                 <span className="text-[9px] text-slate-500">{formatMotionDate(jurisdiction.election?.date)}</span>
-                <span className="text-[9px] font-semibold text-blue-700">{isVancouver ? 'See details' : 'Get ready'}</span>
+                <span className="text-[9px] font-semibold text-blue-700">{electionOver ? 'See council' : (isVancouver ? 'See details' : 'Get ready')}</span>
               </div>
             </CivicCard>
             {homeMotionCards.map((m, i) => (

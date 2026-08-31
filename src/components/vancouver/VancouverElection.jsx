@@ -3,6 +3,8 @@ import { ExternalLink, CalendarDays, Vote, MapPin, Mail, Accessibility } from 'l
 import { Link } from 'react-router-dom';
 import { PageMeta } from '../PageMeta';
 import { CivicCard, CivicCardFooter, CivicPill, CivicSectionLabel } from '../ui/CivicCard';
+import { useAppContext } from '../../contexts/AppContext';
+import { isOnOrAfter, formatElectionDateFull } from '../../utils/electionDate';
 
 const OFFICIAL = 'https://vancouver.ca/your-government/2026-election.aspx';
 const VOTERS_GUIDE = 'https://vancouver.ca/your-government/2026-voters-guide.aspx';
@@ -54,6 +56,10 @@ function SummaryCard({ pill, pillClass = 'bg-slate-100 text-slate-600', children
 }
 
 export default function VancouverElection() {
+  const { jurisdiction } = useAppContext();
+  const electionDate = jurisdiction?.election?.date;
+  const electionOver = isOnOrAfter(electionDate);
+
   return (
     <div className="flex flex-col space-y-4 pb-20">
       <PageMeta
@@ -80,23 +86,42 @@ export default function VancouverElection() {
         <div className="flex flex-col gap-1.5 lg:col-span-2">
           <CivicSectionLabel>Election information</CivicSectionLabel>
           <div className="grid grid-cols-2 gap-3">
-            <SummaryCard pill="Where to vote" pillClass="bg-blue-50 text-[#004a99]" footer={<a href={VOTING_PLACES} target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99]">Find a place ↗</a>}>
-              <p className="flex-1 text-xs font-semibold leading-snug text-slate-800">Vote anywhere in Vancouver.</p>
-            </SummaryCard>
+            {electionOver ? (
+              <SummaryCard pill="Voting closed" pillClass="bg-slate-100 text-slate-600" footer={<Link to="/councillors" className="text-[9px] font-semibold text-[#004a99]">See council</Link>}>
+                <p className="flex-1 text-xs font-semibold leading-snug text-slate-800">Voting closed {formatElectionDateFull(electionDate)}. See who’s on council now.</p>
+              </SummaryCard>
+            ) : (
+              <SummaryCard pill="Where to vote" pillClass="bg-blue-50 text-[#004a99]" footer={<a href={VOTING_PLACES} target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99]">Find a place ↗</a>}>
+                <p className="flex-1 text-xs font-semibold leading-snug text-slate-800">Vote anywhere in Vancouver.</p>
+              </SummaryCard>
+            )}
             <SummaryCard pill="How to vote" footer={<Link to="/learn/how-voting-works" className="whitespace-nowrap text-[9px] font-semibold text-[#004a99]">Our guide ↗</Link>}>
               <p className="flex-1 text-xs font-semibold leading-snug text-slate-800">What to bring, how to get help, and your voting rights.</p>
             </SummaryCard>
           </div>
         </div>
         <div className="flex flex-col gap-1.5 lg:col-span-2">
-          <CivicSectionLabel>Voting days</CivicSectionLabel>
+          <CivicSectionLabel>{electionOver ? 'Election result' : 'Voting days'}</CivicSectionLabel>
           <div className="grid grid-cols-2 gap-3">
-            <SummaryCard pill="Election day" pillClass="bg-blue-50 text-[#004a99]" footer={<a href={OFFICIAL} target="_blank" rel="noopener noreferrer" className="whitespace-nowrap text-[9px] font-semibold text-[#004a99]">Official details ↗</a>}>
-              <p className="flex-1 text-xs font-semibold leading-snug text-slate-800">October 17, 2026, from 8 a.m. to 8 p.m.</p>
-            </SummaryCard>
-            <SummaryCard pill="Advance voting" footer={<a href={VOTING_PLACES} target="_blank" rel="noopener noreferrer" className="whitespace-nowrap text-[9px] font-semibold text-[#004a99]">See locations ↗</a>}>
-              <p className="flex-1 text-xs font-semibold leading-snug text-slate-800">October 3, 7, 10, and 13, from 8 a.m. to 8 p.m.</p>
-            </SummaryCard>
+            {electionOver ? (
+              <>
+                <SummaryCard pill="Result" pillClass="bg-blue-50 text-[#004a99]" footer={<Link to="/councillors" className="text-[9px] font-semibold text-[#004a99] whitespace-nowrap">See council →</Link>}>
+                  <p className="flex-1 text-xs font-semibold leading-snug text-slate-800">Voting closed {formatElectionDateFull(electionDate)}.</p>
+                </SummaryCard>
+                <SummaryCard pill="What’s next" footer={<Link to="/" className="text-[9px] font-semibold text-[#004a99] whitespace-nowrap">Browse motions →</Link>}>
+                  <p className="flex-1 text-xs font-semibold leading-snug text-slate-800">Follow how the new council votes on Motions.</p>
+                </SummaryCard>
+              </>
+            ) : (
+              <>
+                <SummaryCard pill="Election day" pillClass="bg-blue-50 text-[#004a99]" footer={<a href={OFFICIAL} target="_blank" rel="noopener noreferrer" className="whitespace-nowrap text-[9px] font-semibold text-[#004a99]">Official details ↗</a>}>
+                  <p className="flex-1 text-xs font-semibold leading-snug text-slate-800">October 17, 2026, from 8 a.m. to 8 p.m.</p>
+                </SummaryCard>
+                <SummaryCard pill="Advance voting" footer={<a href={VOTING_PLACES} target="_blank" rel="noopener noreferrer" className="whitespace-nowrap text-[9px] font-semibold text-[#004a99]">See locations ↗</a>}>
+                  <p className="flex-1 text-xs font-semibold leading-snug text-slate-800">October 3, 7, 10, and 13, from 8 a.m. to 8 p.m.</p>
+                </SummaryCard>
+              </>
+            )}
           </div>
         </div>
       </section>
