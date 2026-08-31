@@ -16,7 +16,7 @@ export default function SiteFooter() {
             <span className="font-normal text-slate-500">{jurisdiction.name}</span>
           </Link>
           <p className="max-w-xs text-sm leading-relaxed text-slate-500">
-            See what council voted on and how each member voted.
+            Follow the votes shaping your city.
           </p>
         </div>
 
