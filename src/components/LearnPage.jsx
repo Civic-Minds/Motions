@@ -74,7 +74,7 @@ export default function LearnPage({ jurisdiction = { name: 'Toronto' } }) {
           Short, practical guides to help you understand your city council and take part in local decisions.
         </p>
       </div>
-      <div className="space-y-4">
+      <div className="flex flex-col gap-4">
         {votingGuide && <GuideCard key={votingGuide.path} guide={votingGuide} jurisdiction={jurisdiction} />}
         <div className="grid gap-4 sm:grid-cols-2">
           {otherGuides.map(guide => <GuideCard key={guide.path} guide={guide} jurisdiction={jurisdiction} />)}
