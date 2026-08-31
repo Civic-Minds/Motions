@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Aligned navigation with the homepage content**: The desktop menu now follows the middle homepage column at narrower and wider desktop widths instead of drifting left below extra-large screens.
 - **Tightened header navigation spacing**: Primary links and the ward, city, and search controls now sit slightly closer together for a more compact header.
 - **Expanded Toronto’s Strong Mayor guide**: The Learn story now explains the Mayor’s administrative, committee, budget, provincial-priority, and public-record powers with official sources.
 - **Added election dates to navigation**: Toronto and Vancouver now show their election date beside the Election menu link, matching the footer.

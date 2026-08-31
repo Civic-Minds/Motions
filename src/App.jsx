@@ -89,7 +89,7 @@ function Navbar({ onSearchOpen }) {
         </div>
 
         {/* Desktop nav — absolutely centered so it never shifts */}
-        <nav className="hidden lg:flex items-center gap-0 justify-self-start xl:absolute xl:left-[calc(50%-29rem)] xl:translate-x-0">
+        <nav className="hidden lg:absolute lg:left-[max(236px,calc(50%-29rem))] lg:flex items-center gap-0">
           {tabs.map(tab => {
             const isActive = active?.path === tab.path;
             return (
