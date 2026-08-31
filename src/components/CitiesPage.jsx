@@ -13,12 +13,12 @@ const CITIES = [
 
 const WHY = [
   {
-    title: 'Know what your city controls',
-    description: 'City councils decide on local services, housing, transit, and budgets. Motions tracks exactly those decisions, in plain language.',
+    title: 'Your city, your call',
+    description: 'Housing, transit, budgets, streets — council decides them all. Motions shows you exactly what’s on the table before it’s decided.',
   },
   {
-    title: 'Turn interest into action',
-    description: 'Follow a motion, see how your councillor voted, and find the next step when you want to get involved.',
+    title: 'From watching to acting',
+    description: 'See how your councillor voted, then reach out, show up, or spread the word. Knowing is the first step.',
   },
 ];
 
@@ -30,11 +30,12 @@ export default function CitiesPage() {
         description="Motions connects you with your city council — plain-language summaries of what’s up for a vote, how each councillor voted, and what happens next."
       />
 
-      <div className="space-y-3">
-        <CivicSectionLabel>MOTIONS</CivicSectionLabel>
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">See every vote. Know every decision.</h1>
-        <p className="max-w-2xl leading-relaxed text-slate-500">
-          Motions connects you with your city council — plain-language summaries of what’s up for a vote, how each councillor voted, and what happens next.
+      <div className="space-y-4 pt-2">
+        <h1 className="text-4xl font-bold leading-[1.05] tracking-tight text-slate-900 sm:text-5xl md:text-6xl">
+          See every vote.<br /><span className="text-[#004a99]">Know every decision.</span>
+        </h1>
+        <p className="max-w-xl text-lg leading-relaxed text-slate-500">
+          Council decides what happens on your street, your taxes, your transit — most of it happens where you can’t see. Motions puts the whole voting record in front of you.
         </p>
       </div>
 

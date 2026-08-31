@@ -373,7 +373,7 @@ function HomeShell() {
         </div>
       </header>
 
-      <main className="flex-1">
+      <main className="flex-1 max-w-[1400px] mx-auto w-full px-4 sm:px-6 py-6">
         <Suspense fallback={
           <div className="flex items-center justify-center py-32">
             <div className="w-8 h-8 border-4 border-[#004a99] border-t-transparent rounded-full animate-spin" />

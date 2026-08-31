@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Redesigned the homepage hero to feel like a landing page, not a utility screen**: Removed a redundant "MOTIONS" label sitting right under the "Motions" logo, blew the headline up to real hero scale with a blue accent on "Know every decision," and rewrote the subhead and two feature cards in more direct, second-person language.
+- **Fixed the homepage's missing side margins**: The new homepage's `<main>` wrapper was missing the same max-width/padding container every other page uses, so content sat flush against the browser edge.
 - **Gave the new homepage an actual explainer**: It was just a bare "choose a city" grid with a map bolted on. Added a hero (Motions' tagline and what it does) and a short "why Motions" section before the city map/picker, so it reads as a landing page instead of a utility screen.
 - **motions.watch is now a real homepage instead of a redirect to Toronto**: The root domain used to bounce straight into Toronto's dashboard. It now shows a city picker with a map of every city Motions covers — click a pin (or a card) to go there. Toronto and Vancouver are both direct pins for now; more cities join the map as they're added.
 - **Removed the vote breakdown's collapse/expand toggle**: A motion's vote breakdown, and every amendment/procedural vote on the same item, now always shows fully expanded — no click needed to see who voted how.
