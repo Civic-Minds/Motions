@@ -37,6 +37,15 @@ export function GuideCard({ icon: Icon, title, children }) {
   );
 }
 
+export function CivicMiniTile({ title, caption }) {
+  return (
+    <div className="rounded-lg border border-slate-200 bg-slate-50 px-2 py-2 text-center">
+      <p className="text-sm font-bold text-slate-900">{title}</p>
+      <p className="text-[11px] leading-tight text-slate-500">{caption}</p>
+    </div>
+  );
+}
+
 export function OfficialLink({ href, children }) {
   return (
     <a href={href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#004a99] hover:underline">

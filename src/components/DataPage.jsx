@@ -104,7 +104,7 @@ export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toront
 
       <section className="border-t border-slate-200 pt-6 space-y-2 text-sm text-slate-500">
         <CivicSectionLabel>DISCLAIMER</CivicSectionLabel>
-        <p>
+        <p className="px-1">
           Motions is an independent civic-information project and is not affiliated with the City of {jurisdiction.name}. Summaries, classifications, significance scores, and location tags are provided as helpful interpretations of public records; consult the linked official documents for the authoritative record.
         </p>
       </section>
