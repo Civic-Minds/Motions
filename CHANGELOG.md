@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Guides are city-specific**: Council-vote explanations now reflect Toronto and Vancouver’s different structures, and Toronto has a dedicated Strong Mayor Powers guide.
 - **Learn guide URLs include the city and hub**: Guide pages now resolve at paths such as `/toronto/learn/how-council-works` instead of dropping the Learn segment.
 - **Transparency separates record date from refresh date**: Sources now shows the latest voting record, while Updates shows when each city’s data was last checked.
 - **Added a Learn hub**: Transparency and the footer now point residents to city-aware guides explaining how council decisions and recorded votes work.

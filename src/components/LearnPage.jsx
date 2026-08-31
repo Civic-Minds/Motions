@@ -11,8 +11,8 @@ const GUIDES = [
     description: city => `Follow a local issue from proposal to public decision in ${city}.`,
   },
   {
-    path: '/learn/how-council-voting-works',
-    title: 'How Council Voting Works',
+    path: '/learn/how-a-council-vote-works',
+    title: 'How a Council Vote Works',
     description: city => `Learn how to read ${city}’s recorded votes and what to do next.`,
   },
 ];
@@ -31,7 +31,11 @@ export default function LearnPage({ jurisdiction = { name: 'Toronto' } }) {
         </p>
       </div>
       <div className="grid gap-4 sm:grid-cols-2">
-        {GUIDES.map(guide => (
+        {[...GUIDES, ...(jurisdiction.id === 'toronto' ? [{
+          path: '/learn/how-strong-mayor-powers-work',
+          title: 'How Toronto’s Strong Mayor Powers Work',
+          description: () => 'Understand what the Mayor can do, what still requires Council, and where to follow the record.',
+        }] : [])].map(guide => (
           <Link key={guide.path} to={guide.path}>
             <CivicCard className="h-full gap-3 transition-colors hover:border-[#004a99]/40">
               <h2 className="text-lg font-semibold text-slate-900">{guide.title}</h2>
