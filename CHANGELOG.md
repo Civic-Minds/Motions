@@ -6,6 +6,9 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Plain-language pass across the council/vote/Strong Mayor guides**: Broke up long, semicolon- and clause-heavy sentences into short ones so the guides read more like a plain explanation and less like a legal summary.
+- **Explained what "the register" is**: The Strong Mayor guide's "How to Read the Register" section now says what the register actually is (a public log of decisions) and links straight to it, instead of assuming readers already know.
+
 - **Renamed the voting guide to "How Voting Works"**: The Learn card and page title no longer read as "How to Vote," which could land as an instruction to go vote rather than an explainer, matching the informational tone of the other guides.
 - **Sourced the Strong Mayor administration claim**: The guide now cites Mayor Chow's 2023 delegation of hiring/dismissal and organizational-structure powers to Council and the City Manager, and notes the public register shows no direct use of those powers since.
 - **Plain-language pass on the Strong Mayor provincial-priority section**: Replaced "prescribed provincial priorities" and "qualifying by-law" with a plainer explanation of what triggers the lower vote threshold.

@@ -13,14 +13,14 @@ const GUIDE_CONTENT = {
     intro: city => `City council is where local decisions become official. Here is the basic path an issue takes through ${city}’s municipal government.`,
     steps: {
       Vancouver: [
-          ['1', 'An issue reaches the City', 'An item can begin as a staff report, a Council member’s motion, a committee matter, or a hearing. The item is placed on the agenda for the appropriate meeting.'],
-          ['2', 'The public and Council consider it', 'Council meetings make decisions, while committees and hearings hear information, staff advice, and public input before a matter is decided or recommended.'],
+          ['1', 'An issue reaches the City', 'An item can begin as a staff report, a Council member’s motion, a committee matter, or a hearing. It’s placed on the agenda for the right meeting.'],
+          ['2', 'The public and Council consider it', 'Council meetings make the decisions. Committees and hearings hear information, staff advice, and public input first, before a matter is decided or recommended.'],
           ['3', 'Council votes', 'The Mayor and 10 councillors vote together because Vancouver’s Council is elected at-large. The result becomes part of the public record.'],
           ['4', 'The decision moves forward', 'City staff carry out approved directions, prepare follow-up reports, or bring the item back for another decision.'],
       ],
       Toronto: [
-          ['1', 'An issue becomes a report or motion', 'An item can begin with City staff, a councillor, or a public process and is placed on an agenda for a committee, Community Council, or City Council.'],
-          ['2', 'A committee reviews it', 'Standing Committees and Community Councils hear staff advice, consider public input, debate the item, and usually make a recommendation to City Council.'],
+          ['1', 'An issue becomes a report or motion', 'An item can begin with City staff, a councillor, or a public process. It’s placed on an agenda for a committee, Community Council, or City Council.'],
+          ['2', 'A committee reviews it', 'Standing Committees and Community Councils hear staff advice and public input, then debate the item. They usually send a recommendation to City Council.'],
           ['3', 'City Council votes', 'Toronto’s Mayor and 25 ward councillors each have one vote. Council considers the recommendation and decides whether to adopt, amend, refer, or defer the item.'],
           ['4', 'The decision moves forward', 'City staff carry out approved directions, prepare follow-up reports, or bring the item back for another decision.'],
       ],
@@ -33,22 +33,22 @@ const GUIDE_CONTENT = {
     description: city => `How recorded votes work in ${city}, what the results mean, and where to read the official record.`,
     intro: city => `A council vote is a recorded decision, not a poll of public opinion. This is how to read what happened and decide what to do next in ${city}.`,
     context: {
-      Toronto: 'Toronto has a Mayor elected citywide and 25 ward councillors. Each member has one vote at Council, and most ordinary questions are decided by a majority. Toronto’s Strong Mayor rules create a separate process for the budget and some provincial-priority by-laws.',
-      Vancouver: 'Vancouver has a Mayor and 10 councillors elected at-large. Every member represents the whole city and has one vote at Council; unless a law or by-law sets another threshold, a motion passes with a majority of the members present.',
+      Toronto: 'Toronto has a Mayor elected citywide and 25 ward councillors. Each member has one vote at Council. Most ordinary questions are decided by a majority, but Toronto’s Strong Mayor rules create a separate process for the budget and some provincial-priority by-laws.',
+      Vancouver: 'Vancouver has a Mayor and 10 councillors, all elected at-large. Every member represents the whole city and has one vote at Council. Most motions pass with a majority of the members present, unless a law sets a different threshold.',
     },
     steps: {
       Toronto: [
         ['1', 'The item appears on an agenda', 'A staff report, councillor motion, or by-law is placed before a Standing Committee, Community Council, or City Council.'],
-        ['2', 'The public and committee consider it', 'Residents can review the report and, where permitted, submit written comments or register to speak. The committee discusses the item and may recommend a decision to Council.'],
+        ['2', 'The public and committee consider it', 'Residents can review the report. Where allowed, they can submit written comments or register to speak. The committee discusses the item and may recommend a decision to Council.'],
         ['3', 'Council debates the question', 'Council reviews the item and any committee recommendation. Members can ask questions, propose amendments, and vote on those amendments before the final question.'],
         ['4', 'Members cast their votes', 'Toronto’s Mayor and 25 ward councillors each have one vote. Most ordinary questions pass with a majority, but some matters have special legal thresholds. The recorded result shows who voted for, against, or did not vote.'],
-        ['5', 'A Strong Mayor rule may change the path', 'For the budget, the Mayor proposes a budget and Council can amend it; the Mayor can veto Council’s budget amendments, subject to a two-thirds Council override. The Mayor can also veto some by-laws connected to provincial priorities, which Council can override with a two-thirds vote.'],
+        ['5', 'A Strong Mayor rule may change the path', 'For the budget, the Mayor proposes it and Council can amend it. The Mayor can veto Council’s changes, but Council can override that with two-thirds of the vote. The Mayor can also veto some by-laws tied to provincial priorities, which Council can also override with two-thirds.'],
         ['6', 'The decision is published and carried out', 'The minutes and voting record show whether the item passed, failed, was amended, referred, or deferred. City staff then carry out approved directions or prepare the next report.'],
       ],
       Vancouver: [
         ['1', 'The item appears on an agenda', 'A staff report, Council member motion, by-law, or hearing matter is placed on the agenda for the appropriate Council, committee, or hearing.'],
-        ['2', 'The item is considered', 'The public may review the agenda and, depending on the meeting and item, attend, watch, submit comments, or request to speak. Committees may discuss a matter before Council considers it.'],
-        ['3', 'The question is put to Council', 'The Chair brings the motion or recommendation forward. Members can ask questions and propose amendments; an amendment is decided before the main question.'],
+        ['2', 'The item is considered', 'Depending on the meeting, the public can review the agenda, attend, watch, submit comments, or ask to speak. Committees may discuss a matter before Council considers it.'],
+        ['3', 'The question is put to Council', 'The Chair brings the motion or recommendation forward. Members can ask questions and propose amendments. Any amendment is decided before the main question.'],
         ['4', 'Members cast their votes', 'Vancouver’s Mayor and 10 councillors are elected at-large, so every member represents the whole city and has one vote. Unless a law or by-law requires something else, a motion passes with a majority of the Council members present.'],
         ['5', 'The decision is published and carried out', 'The minutes and voting record show whether the item passed, failed, was amended, or was referred. City staff then carry out approved directions or prepare the next report.'],
       ],
@@ -87,12 +87,12 @@ const GUIDE_CONTENT = {
     description: () => 'A plain-language guide to Toronto’s Mayor’s additional powers, budget process, and public decisions.',
     intro: () => 'Toronto’s Mayor has specific powers and duties under the City of Toronto Act. This guide explains what they change, what still requires Council, and where to follow the public record.',
     steps: [
-      ['1', 'The Mayor has additional legal powers', 'Ontario law gives Toronto’s Mayor specific powers and duties as head of council. These sit alongside the regular powers shared by the Mayor and Council; they do not make the Mayor the only decision-maker.'],
-      ['2', 'The Mayor shapes the City’s administration', 'The Mayor can appoint the City Manager, hire or dismiss certain City officials, and determine the City’s organizational structure, subject to the limits in provincial law. Mayor Chow delegated the hiring/dismissal and organizational-structure powers to Council and the City Manager in 2023 (Mayoral Decision 6-2023, rescinding Mayoral Decision 11-2022); the public register below shows no instance of her using them directly since.'],
-      ['3', 'The Mayor shapes committees and meetings', 'The Mayor can create committees, assign their functions, appoint committee chairs and vice-chairs, and bring certain matters before Council. Council continues to debate and vote on municipal decisions.'],
-      ['4', 'The Mayor proposes the budget', 'The Mayor presents a proposed City budget. Council can amend it within the review period. The Mayor may veto Council amendments, and Council can override that veto with 18 votes—a two-thirds majority of Toronto’s 26 Council members.'],
-      ['5', 'Some powers relate to provincial priorities', 'For a short list of priorities the province has singled out by law—like building more housing—the Mayor gets extra sway. The Mayor may veto related by-laws; Council can override that veto with 18 votes. And if the Mayor proposes a by-law on one of those listed priorities, it can pass with just 9 votes—more than one-third of Council—instead of the usual majority.'],
-      ['6', 'The paper trail is public', 'Strong Mayor powers must be exercised in writing and made available to the public. The City’s register includes approvals, appointments, budget actions, committee changes, and veto-related notices—not only vetoes.'],
+      ['1', 'The Mayor has additional legal powers', 'Ontario law gives Toronto’s Mayor extra powers as head of council. These sit alongside the regular powers shared by the Mayor and Council. The Mayor is not the only decision-maker.'],
+      ['2', 'The Mayor shapes the City’s administration', 'The Mayor can appoint the City Manager, hire or fire senior City officials, and set the City’s organizational structure. Mayor Chow handed those hiring, firing, and structure powers to Council and the City Manager back in 2023. The public register below shows no sign she has used them directly since.'],
+      ['3', 'The Mayor shapes committees and meetings', 'The Mayor can create committees, decide what they do, and appoint their chairs and vice-chairs. The Mayor can also bring certain matters straight to Council. Council still debates and votes on what the City actually does.'],
+      ['4', 'The Mayor proposes the budget', 'The Mayor presents a proposed City budget, and Council can amend it. The Mayor may veto Council’s changes. Council can override that veto with 18 votes — two-thirds of the 26 Council members.'],
+      ['5', 'Some powers relate to provincial priorities', 'On a short list of priorities the province has singled out, like building more housing, the Mayor gets extra sway. The Mayor can veto related by-laws, and Council can override that with 18 votes. If the Mayor proposes a by-law on one of those priorities, it only needs 9 votes to pass — just over one-third of Council — instead of the usual majority.'],
+      ['6', 'The paper trail is public', 'Strong Mayor powers have to be used in writing, and the record is public. The City’s register covers approvals, appointments, budget actions, and committee changes, not just vetoes.'],
     ],
     resources: {
       Toronto: [
@@ -101,6 +101,7 @@ const GUIDE_CONTENT = {
         ['City of Toronto Act, 2006', 'https://www.ontario.ca/laws/statute/06c11'],
       ],
     },
+    registerIntro: 'The register is the City’s public log of every Strong Mayor decision — a plain webpage listing each one by date, with a short written notice. Below is what each type of entry means.',
     registerCategories: [
       ['Budget', 'Budget proposals and notices about the period for the Mayor to veto Council amendments.'],
       ['By-law approvals', 'Written approvals of by-laws passed by Council, Community Councils, committees, or other bodies.'],
@@ -182,6 +183,10 @@ export default function CivicGuidePage({ type, jurisdiction = { id: 'toronto', n
       {content.registerCategories && (
         <div className="space-y-3">
           <CivicSectionLabel>HOW TO READ THE REGISTER</CivicSectionLabel>
+          <p className="max-w-2xl text-sm leading-relaxed text-slate-500">{content.registerIntro}</p>
+          <a href={content.actionPath} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#004a99] hover:underline">
+            Open the register <ArrowRight className="h-4 w-4" />
+          </a>
           <div className="grid gap-3 sm:grid-cols-2">
             {content.registerCategories.map(([title, description]) => (
               <CivicCard key={title} className="gap-1.5">
