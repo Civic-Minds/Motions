@@ -6,6 +6,9 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Filled out the homepage map**: Two pins on a full-country map looked sparse, and the fixed frame around just Toronto/Vancouver was cropping out most of Canada. Fixed the map to a proper Canada-wide view and added other major Canadian cities as muted, non-clickable pins for context.
+- **Map and city cards now stay in sync**: Pan or zoom the homepage map and the city cards below update to match what's visible — zoom into just Vancouver and only the Vancouver card shows, matching the pattern used on the ward map.
+- Removed a redundant "CITIES" label sitting right above "Choose a city."
 - **Redesigned the homepage hero to feel like a landing page, not a utility screen**: Removed a redundant "MOTIONS" label sitting right under the "Motions" logo, blew the headline up to real hero scale with a blue accent on "Know every decision," and rewrote the subhead and two feature cards in more direct, second-person language.
 - **Fixed the homepage's missing side margins**: The new homepage's `<main>` wrapper was missing the same max-width/padding container every other page uses, so content sat flush against the browser edge.
 - **Gave the new homepage an actual explainer**: It was just a bare "choose a city" grid with a map bolted on. Added a hero (Motions' tagline and what it does) and a short "why Motions" section before the city map/picker, so it reads as a landing page instead of a utility screen.

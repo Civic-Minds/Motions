@@ -1,15 +1,11 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useState } from 'react';
 import { ArrowRight, MapPin } from 'lucide-react';
-import { CivicCard, CivicSectionLabel } from './ui/CivicCard';
+import { CivicCard } from './ui/CivicCard';
 import { PageMeta } from './PageMeta';
 import PageColumn from './PageColumn';
+import { COVERED_CITIES } from '../constants/cities';
 
 const CitiesMap = lazy(() => import('./CitiesMap'));
-
-const CITIES = [
-  { name: 'Toronto', href: '/toronto', description: 'Toronto City Council motions, wards, councillors, and votes.' },
-  { name: 'Vancouver', href: '/vancouver', description: 'Vancouver City Council motions, councillors, and votes.' },
-];
 
 const WHY = [
   {
@@ -23,6 +19,10 @@ const WHY = [
 ];
 
 export default function CitiesPage() {
+  const [visibleHrefs, setVisibleHrefs] = useState(COVERED_CITIES.map(city => city.href));
+  const shownCities = COVERED_CITIES.filter(city => visibleHrefs.includes(city.href));
+  const displayCities = shownCities.length > 0 ? shownCities : COVERED_CITIES;
+
   return (
     <PageColumn className="space-y-10 pb-20">
       <PageMeta
@@ -50,17 +50,16 @@ export default function CitiesPage() {
 
       <div className="space-y-3">
         <div>
-          <CivicSectionLabel>CITIES</CivicSectionLabel>
-          <h2 className="mt-1 text-xl font-bold text-slate-900">Choose a city</h2>
+          <h2 className="text-xl font-bold text-slate-900">Choose a city</h2>
           <p className="mt-1 text-slate-500">Explore public council decisions and voting records by city.</p>
         </div>
 
         <Suspense fallback={<div className="h-[360px] w-full rounded-2xl bg-slate-100 animate-pulse sm:h-[420px]" />}>
-          <CitiesMap />
+          <CitiesMap onVisibleChange={setVisibleHrefs} />
         </Suspense>
 
         <div className="grid gap-3 sm:grid-cols-2">
-          {CITIES.map(city => (
+          {displayCities.map(city => (
             <a key={city.name} href={city.href}>
               <CivicCard className="h-full hover:border-[#004a99]/40">
                 <MapPin className="w-5 h-5 text-[#004a99]" />
