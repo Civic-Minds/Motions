@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { PageMeta } from './PageMeta';
 import { CivicCard } from './ui/CivicCard';
+import PageColumn from './PageColumn';
 
 const GUIDES = [
   {
@@ -27,7 +28,7 @@ const GUIDES = [
 
 export default function LearnPage({ jurisdiction = { name: 'Toronto' } }) {
   return (
-    <div className="mx-auto w-full space-y-8 pb-20 lg:w-[calc(100%_-_444px)]">
+    <PageColumn className="space-y-8 pb-20">
       <PageMeta
         title={`Learn | Motions ${jurisdiction.name}`}
         description={`Plain-language guides to how ${jurisdiction.name} City Council works and how residents can participate.`}
@@ -61,6 +62,6 @@ export default function LearnPage({ jurisdiction = { name: 'Toronto' } }) {
           </Link>
         ))}
       </div>
-    </div>
+    </PageColumn>
   );
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { PageMeta } from './PageMeta';
+import PageColumn from './PageColumn';
 
 const CONTENT = {
   privacy: {
@@ -39,7 +40,7 @@ const CONTENT = {
 export default function LegalPage({ type }) {
   const page = CONTENT[type];
   return (
-    <div className="mx-auto w-full space-y-7 pb-20 lg:w-[calc(100%_-_444px)]">
+    <PageColumn className="space-y-7 pb-20">
       <PageMeta title={page.title} description={page.intro} />
       <div>
         <h1 className="text-3xl font-bold text-slate-900">{page.heading}</h1>
@@ -55,6 +56,6 @@ export default function LegalPage({ type }) {
         ))}
       </div>
       <p className="text-sm text-slate-500">Questions about the project? <a href="https://github.com/Civic-Minds/Motions/issues" className="text-[#004a99] hover:underline">Open an issue on GitHub</a>.</p>
-    </div>
+    </PageColumn>
   );
 }

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ExternalLink, RefreshCw, Database } from 'lucide-react';
 import { PageMeta } from './PageMeta';
 import { CivicCard, CivicSectionLabel } from './ui/CivicCard';
+import PageColumn from './PageColumn';
 
 const SOURCE_LINK_CLASS = 'text-[#004a99] underline underline-offset-2 hover:text-[#003875]';
 
@@ -19,7 +20,7 @@ export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toront
     ? 'https://opendata.vancouver.ca/explore/dataset/council-voting-records/'
     : 'https://open.toronto.ca/dataset/members-of-toronto-city-council-voting-record/';
   return (
-    <div className="mx-auto w-full space-y-8 pb-20 lg:w-[calc(100%_-_444px)]">
+    <PageColumn className="space-y-8 pb-20">
       <PageMeta
         title={`Transparency | Motions ${jurisdiction.name}`}
         description={`How Motions ${jurisdiction.name} collects, classifies, and presents council data.`}
@@ -99,6 +100,6 @@ export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toront
           Motions is an independent civic-information project and is not affiliated with the City of {jurisdiction.name}. Summaries, classifications, significance scores, and location tags are provided as helpful interpretations of public records; consult the linked official documents for the authoritative record.
         </p>
       </section>
-    </div>
+    </PageColumn>
   );
 }

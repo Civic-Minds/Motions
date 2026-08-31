@@ -2,6 +2,7 @@ import React from 'react';
 import { ExternalLink, Map } from 'lucide-react';
 import { CivicCard, CivicSectionLabel } from './ui/CivicCard';
 import { PageMeta } from './PageMeta';
+import PageColumn from './PageColumn';
 
 const SOURCES = [
   {
@@ -38,7 +39,7 @@ const SOURCES = [
 
 export default function SourcesPage() {
   return (
-    <div className="mx-auto w-full space-y-7 pb-20 lg:w-[calc(100%_-_444px)]">
+    <PageColumn className="space-y-7 pb-20">
       <PageMeta title="Sources | Motions" description="Official open data and civic sources used by Motions for Toronto and Vancouver council records." />
       <div>
         <h1 className="text-3xl font-bold text-slate-900">Sources</h1>
@@ -55,6 +56,6 @@ export default function SourcesPage() {
         ))}
       </div>
       <p className="text-sm leading-relaxed text-slate-500">Summaries, topics, significance scores, and location tags are Motions’ interpretations. Use the linked official source when you need the authoritative record.</p>
-    </div>
+    </PageColumn>
   );
 }

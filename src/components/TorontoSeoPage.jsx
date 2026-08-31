@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, BarChart3, Building2, Users } from 'lucide-react';
 import { CivicCard, CivicSectionLabel } from './ui/CivicCard';
 import { PageMeta } from './PageMeta';
+import PageColumn from './PageColumn';
 
 const PAGES = {
   council: {
@@ -39,7 +40,7 @@ export default function TorontoSeoPage({ type, motions = [] }) {
     .slice(0, 3), [motions]);
 
   return (
-    <div className="mx-auto w-full space-y-8 pb-20 lg:w-[calc(100%_-_444px)]">
+    <PageColumn className="space-y-8 pb-20">
       <PageMeta title={page.title} description={page.description} />
       <div className="space-y-3">
         <CivicSectionLabel>{page.label}</CivicSectionLabel>
@@ -77,7 +78,7 @@ export default function TorontoSeoPage({ type, motions = [] }) {
           </div>
         </section>
       )}
-    </div>
+    </PageColumn>
   );
 }
 

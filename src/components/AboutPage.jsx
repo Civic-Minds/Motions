@@ -1,10 +1,11 @@
 import React from 'react';
 import { PageMeta } from './PageMeta';
 import { CivicCard } from './ui/CivicCard';
+import PageColumn from './PageColumn';
 
 export default function AboutPage() {
   return (
-    <div className="mx-auto w-full space-y-7 pb-20 lg:w-[calc(100%_-_444px)]">
+    <PageColumn className="space-y-7 pb-20">
       <PageMeta
         title="About | Motions"
         description="Why Motions exists and how it helps residents follow and participate in local democracy."
@@ -35,6 +36,6 @@ export default function AboutPage() {
       <section className="border-t border-slate-200 pt-6 text-sm leading-relaxed text-slate-500">
         Motions is an independent, non-partisan civic data project by Civic Minds. We present public records in a more approachable format, while official city sources remain the authoritative record.
       </section>
-    </div>
+    </PageColumn>
   );
 }

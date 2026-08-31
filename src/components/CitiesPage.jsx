@@ -2,6 +2,7 @@ import React from 'react';
 import { ArrowRight, MapPin } from 'lucide-react';
 import { CivicCard, CivicSectionLabel } from './ui/CivicCard';
 import { PageMeta } from './PageMeta';
+import PageColumn from './PageColumn';
 
 const CITIES = [
   { name: 'Toronto', href: '/toronto', description: 'Toronto City Council motions, wards, councillors, and votes.' },
@@ -10,7 +11,7 @@ const CITIES = [
 
 export default function CitiesPage() {
   return (
-    <div className="mx-auto w-full space-y-7 pb-20 lg:w-[calc(100%_-_444px)]">
+    <PageColumn className="space-y-7 pb-20">
       <PageMeta title="Cities | Motions" description="Browse city council voting records and decisions from Motions." />
       <div>
         <CivicSectionLabel>CITIES</CivicSectionLabel>
@@ -29,6 +30,6 @@ export default function CitiesPage() {
           </a>
         ))}
       </div>
-    </div>
+    </PageColumn>
   );
 }

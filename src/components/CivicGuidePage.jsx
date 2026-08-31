@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { PageMeta } from './PageMeta';
 import { CivicCard, CivicSectionLabel } from './ui/CivicCard';
+import PageColumn from './PageColumn';
 
 const GUIDE_CONTENT = {
   council: {
@@ -121,7 +122,7 @@ export default function CivicGuidePage({ type, jurisdiction = { id: 'toronto', n
     : null;
 
   return (
-    <div className="mx-auto w-full space-y-8 pb-20 lg:w-[calc(100%_-_444px)]">
+    <PageColumn className="space-y-8 pb-20">
       <PageMeta title={`${content.title} | Motions ${jurisdiction.name}`} description={content.description(jurisdiction.name)} />
 
       <div className="space-y-3">
@@ -175,6 +176,6 @@ export default function CivicGuidePage({ type, jurisdiction = { id: 'toronto', n
           </Link>
         )}
       </CivicCard>}
-    </div>
+    </PageColumn>
   );
 }
