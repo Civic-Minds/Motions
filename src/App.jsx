@@ -110,17 +110,17 @@ function Navbar({ onSearchOpen }) {
         {/* Right: ward + search + mobile toggle */}
         <div className="flex items-center justify-self-end gap-2 min-w-0 -mr-4 sm:mr-0">
           {jurisdiction.geography === 'ward' && wardId ? (
-            <div className="hidden sm:flex items-center gap-0 bg-white border border-slate-200 rounded-xl hover:border-[#004a99]/40 transition-all group/ward">
+            <div className="hidden sm:flex items-center gap-0 group/ward">
               <button
                 onClick={() => navigate(`/wards/${wardId}`)}
-                className="flex items-center gap-1.5 px-3 py-2 text-sm text-slate-600 font-medium"
+                className="flex items-center gap-1.5 rounded-lg px-2 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900"
               >
                 <MapPin className="w-3.5 h-3.5 text-[#004a99]" />
                 Ward {wardId}{wardLastName ? ` · ${wardLastName}` : ''}
               </button>
               <button
                 onClick={(e) => { e.stopPropagation(); handleClearWard(); }}
-                className="pr-2.5 py-2 text-slate-300 hover:text-rose-500 transition-colors"
+                className="rounded-lg p-2 text-slate-300 transition-colors hover:bg-slate-100 hover:text-rose-500"
                 title="Clear my ward"
               >
                 <X className="w-3.5 h-3.5" />
@@ -129,7 +129,7 @@ function Navbar({ onSearchOpen }) {
           ) : jurisdiction.geography === 'ward' ? (
             <button
               onClick={handleLocate}
-              className="hidden sm:flex items-center gap-1.5 px-3 py-2 whitespace-nowrap text-sm text-slate-500 bg-white border border-slate-200 rounded-xl hover:border-slate-400 transition-all"
+              className="hidden sm:flex items-center gap-1.5 whitespace-nowrap rounded-lg px-2 py-2 text-sm text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900"
             >
               <MapPin className="w-3.5 h-3.5" />
                 Find My Ward
@@ -140,7 +140,7 @@ function Navbar({ onSearchOpen }) {
               onClick={() => setCityOpen(value => !value)}
               aria-expanded={cityOpen}
               aria-haspopup="menu"
-              className="inline-flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-semibold text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900"
+              className="inline-flex items-center gap-1.5 rounded-lg px-2 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900"
             >
               {jurisdiction.name}
               <ChevronDown className={cn('h-3.5 w-3.5 transition-transform', cityOpen && 'rotate-180')} />
@@ -169,7 +169,7 @@ function Navbar({ onSearchOpen }) {
             onClick={onSearchOpen}
             aria-label="Search"
             title="Search"
-            className="hidden sm:flex items-center justify-center p-2.5 text-slate-500 bg-slate-100 hover:bg-slate-150 border border-slate-200 rounded-xl transition-all"
+            className="hidden sm:flex items-center justify-center rounded-lg p-2 text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900"
           >
             <Search className="w-4 h-4" />
           </button>

@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Simplified header controls**: Ward, city, and search controls now use a lighter text-first treatment so they read as navigation instead of competing boxed widgets.
 - **Added Vancouver’s civic participation guide**: Residents can now find consultations, public notices, rezoning opportunities, meeting participation options, and official follow-up resources in one place; Toronto is marked coming soon.
 - **Vote stories now explain the full decision path**: Toronto and Vancouver guides cover agenda review, debate, amendments, voting thresholds, publication, and follow-through, including Toronto’s Strong Mayor exceptions.
 - **Fixed council-vote guide rendering**: City-specific guide steps now load correctly instead of leaving the page blank.
