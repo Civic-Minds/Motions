@@ -308,6 +308,7 @@ function AppShell() {
           <Route path="/learn" element={<LearnPage jurisdiction={jurisdiction} />} />
           <Route path="/learn/how-council-works" element={<CivicGuidePage type="council" jurisdiction={jurisdiction} />} />
           <Route path="/learn/how-a-council-vote-works" element={<CivicGuidePage type="voting" jurisdiction={jurisdiction} />} />
+          <Route path="/learn/how-to-get-involved" element={<CivicGuidePage type="involvement" jurisdiction={jurisdiction} />} />
           {jurisdiction.id === 'toronto' && <Route path="/learn/how-strong-mayor-powers-work" element={<CivicGuidePage type="strongMayor" jurisdiction={jurisdiction} />} />}
           {jurisdiction.id === 'toronto' && <>
             <Route path="/council-voting-records" element={<TorontoSeoPage type="council" motions={motions} />} />

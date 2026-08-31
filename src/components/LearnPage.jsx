@@ -15,6 +15,14 @@ const GUIDES = [
     title: 'How a Council Vote Works',
     description: city => `Learn how to follow ${city}’s council votes and what to do next.`,
   },
+  {
+    path: '/learn/how-to-get-involved',
+    title: 'How to Get Involved',
+    description: city => city === 'Vancouver'
+      ? 'Find consultations, public notices, hearings, and ways to share your views.'
+      : 'City-specific ways to take part in local decisions are coming soon.',
+    comingSoon: city => city !== 'Vancouver',
+  },
 ];
 
 export default function LearnPage({ jurisdiction = { name: 'Toronto' } }) {
@@ -35,7 +43,13 @@ export default function LearnPage({ jurisdiction = { name: 'Toronto' } }) {
           path: '/learn/how-strong-mayor-powers-work',
           title: 'How Toronto’s Strong Mayor Powers Work',
           description: () => 'Understand what the Mayor can do, what still requires Council, and where to follow the record.',
-        }] : [])].map(guide => (
+        }] : [])].map(guide => guide.comingSoon?.(jurisdiction.name) ? (
+          <CivicCard key={guide.path} className="h-full gap-3">
+            <h2 className="text-lg font-semibold text-slate-900">{guide.title}</h2>
+            <p className="text-sm leading-relaxed text-slate-500">{guide.description(jurisdiction.name)}</p>
+            <span className="mt-auto text-sm font-semibold text-slate-400">Coming soon</span>
+          </CivicCard>
+        ) : (
           <Link key={guide.path} to={guide.path}>
             <CivicCard className="h-full gap-3 transition-colors hover:border-[#004a99]/40">
               <h2 className="text-lg font-semibold text-slate-900">{guide.title}</h2>

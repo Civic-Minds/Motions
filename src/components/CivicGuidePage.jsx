@@ -54,6 +54,32 @@ const GUIDE_CONTENT = {
     },
     action: city => `Explore ${city} councillors`,
   },
+  involvement: {
+    lastUpdated: 'August 31, 2026',
+    title: 'How to Get Involved',
+    description: city => `Find practical ways to take part in ${city}’s local decisions.`,
+    intro: city => city === 'Vancouver'
+      ? 'You do not have to wait for an election to take part in Vancouver’s civic decisions. Start with the type of issue you care about, then follow the public process around it.'
+      : 'City-specific ways to take part in local decisions are coming soon.',
+    steps: {
+      Vancouver: [
+        ['1', 'Find an open conversation', 'Shape Your City lists consultations where residents can learn about proposals and share feedback before decisions are made.'],
+        ['2', 'Watch for formal notices', 'The City’s public notices page lists public hearings and other notices, including when and how residents can share their views.'],
+        ['3', 'Speak up on development proposals', 'For a rezoning or other development application, review the proposal and follow the listed opportunities to comment or participate in a public hearing.'],
+        ['4', 'Take part in a Council decision', 'Read the agenda, attend or watch the meeting, submit comments, request to speak when that option is available, or contact any councillor or the Mayor.'],
+        ['5', 'Follow the result', 'Check the minutes, voting record, and later reports to see what Council decided and what happens next.'],
+      ],
+      Toronto: [],
+    },
+    resources: {
+      Vancouver: [
+        ['Shape Your City', 'https://www.shapeyourcity.ca/'],
+        ['Public notices', 'https://vancouver.ca/your-government/public-notices.aspx'],
+        ['Rezoning applications', 'https://vancouver.ca/home-property-development/rezoning-applications.aspx'],
+      ],
+    },
+    action: city => `Explore ${city} councillors`,
+  },
   strongMayor: {
     lastUpdated: 'August 31, 2026',
     title: 'How Toronto’s Strong Mayor Powers Work',
@@ -75,9 +101,12 @@ const GUIDE_CONTENT = {
 export default function CivicGuidePage({ type, jurisdiction = { id: 'toronto', name: 'Toronto' } }) {
   const content = GUIDE_CONTENT[type];
   const isCouncilGuide = type === 'council';
+  const isInvolvementGuide = type === 'involvement';
   const steps = type === 'council' || type === 'voting' ? content.steps[jurisdiction.name] : content.steps;
+  const citySteps = type === 'involvement' ? content.steps[jurisdiction.name] : steps;
+  const resources = content.resources?.[jurisdiction.name] ?? [];
   const actionPath = content.actionPath ?? (isCouncilGuide ? '/' : '/councillors');
-  const participationPrompt = type !== 'strongMayor'
+  const participationPrompt = type === 'council' || type === 'voting'
     ? jurisdiction.name === 'Vancouver'
       ? {
           title: isCouncilGuide ? 'Have an idea for Vancouver?' : 'Have a view on a vote?',
@@ -103,8 +132,13 @@ export default function CivicGuidePage({ type, jurisdiction = { id: 'toronto', n
       </div>
 
       <div className="space-y-3">
-        <CivicSectionLabel>{isCouncilGuide ? 'THE PATH OF A DECISION' : 'FROM AGENDA TO DECISION'}</CivicSectionLabel>
-        {steps.map(([number, title, body]) => (
+        <CivicSectionLabel>{isCouncilGuide ? 'THE PATH OF A DECISION' : isInvolvementGuide ? 'WAYS TO TAKE PART' : 'FROM AGENDA TO DECISION'}</CivicSectionLabel>
+        {citySteps.length === 0 ? (
+          <CivicCard className="gap-2">
+            <h2 className="font-semibold text-slate-900">Coming soon</h2>
+            <p className="text-sm leading-relaxed text-slate-500">We’re preparing a city-specific guide to ways Toronto residents can take part in local decisions.</p>
+          </CivicCard>
+        ) : citySteps.map(([number, title, body]) => (
           <CivicCard key={number} className="flex-row gap-4">
             <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-50 text-sm font-bold text-[#004a99]">{number}</span>
             <div className="space-y-1">
@@ -115,7 +149,20 @@ export default function CivicGuidePage({ type, jurisdiction = { id: 'toronto', n
         ))}
       </div>
 
-      <CivicCard className="gap-3 bg-blue-50/60">
+      {resources.length > 0 && (
+        <div className="space-y-3">
+          <CivicSectionLabel>OFFICIAL RESOURCES</CivicSectionLabel>
+          <CivicCard className="gap-2">
+            {resources.map(([label, href]) => (
+              <a key={href} href={href} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-[#004a99] hover:underline">
+                {label} <ArrowRight className="inline h-4 w-4" />
+              </a>
+            ))}
+          </CivicCard>
+        </div>
+      )}
+
+      {(!isInvolvementGuide || citySteps.length > 0) && <CivicCard className="gap-3 bg-blue-50/60">
         <h2 className="text-lg font-semibold text-slate-900">{participationPrompt?.title ?? 'Start with the public record'}</h2>
         <p className="text-sm leading-relaxed text-slate-600">{participationPrompt?.description ?? (isCouncilGuide ? 'Browse recent decisions to see what your council is working on.' : 'Use the official agenda and meeting record when you need the authoritative details.')}</p>
         {content.external ? (
@@ -127,7 +174,7 @@ export default function CivicGuidePage({ type, jurisdiction = { id: 'toronto', n
             {participationPrompt?.action ?? content.action(jurisdiction.name)} <ArrowRight className="h-4 w-4" />
           </Link>
         )}
-      </CivicCard>
+      </CivicCard>}
     </div>
   );
 }
