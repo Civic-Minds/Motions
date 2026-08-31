@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Clarified the Toronto Strong Mayor register**: The guide now explains that the City’s register includes formal approvals, appointments, budget actions, committee changes, and veto-related notices—not only vetoes.
 - **Clarified Toronto’s Strong Mayor thresholds**: The guide now explains that Toronto has 26 Council members, a veto override requires 18 votes, and certain mayoral provincial-priority proposals require at least 9 votes.
 - **Aligned navigation with the homepage content**: The desktop menu now follows the middle homepage column at narrower and wider desktop widths instead of drifting left below extra-large screens.
 - **Tightened header navigation spacing**: Primary links and the ward, city, and search controls now sit slightly closer together for a more compact header.
