@@ -44,12 +44,12 @@ export default function VancouverMiniMap({ motions }) {
           <CircleMarker
             key={`${pin.motion.id}-${i}`}
             center={[pin.lat, pin.lng]}
-            radius={6}
+            radius={4}
             pathOptions={{
-              color: '#004a99',
+              color: 'transparent',
               fillColor: pin.motion.status === 'Adopted' ? '#10b981' : '#f43f5e',
-              fillOpacity: 0.9,
-              weight: 1.5,
+              fillOpacity: 0.75,
+              weight: 0,
             }}
             eventHandlers={{ click: () => navigate(`/motions/${pin.motion.id}`) }}
           >

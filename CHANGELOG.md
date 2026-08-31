@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Matched Vancouver map markers to Toronto**: Vancouver now uses the same marker size, status colours, outline treatment, and opacity while keeping its citywide framing.
 - **Standardized static page widths**: Learn, About, legal, Sources, and Transparency pages now share the same content column for consistent alignment.
 - **Added the Vancouver homepage map**: Vancouver now shows a citywide map of mapped motion locations in the homepage sidebar, with pins linking to the relevant motions.
 - **Aligned desktop navigation with page content**: The menu now starts on the same content column as Learn and its story headings.
