@@ -1,6 +1,6 @@
 import React from 'react';
 import { Calendar, CheckCircle2, MapPin, ShieldCheck } from 'lucide-react';
-import { CivicSectionLabel, GuideCard, OfficialLink } from './ui/CivicCard';
+import { CivicCard, CivicSectionLabel, GuideCard, OfficialLink } from './ui/CivicCard';
 import VotingGuideShell from './VotingGuideShell';
 
 const inlineLink = 'text-[#004a99] underline underline-offset-2 hover:text-[#003875]';

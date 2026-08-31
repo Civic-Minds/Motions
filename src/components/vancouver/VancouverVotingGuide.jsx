@@ -1,6 +1,6 @@
 import React from 'react';
 import { CalendarDays, CheckCircle2, MapPin, Mail, Vote } from 'lucide-react';
-import { CivicSectionLabel, GuideCard, OfficialLink } from '../ui/CivicCard';
+import { CivicCard, CivicSectionLabel, GuideCard, OfficialLink } from '../ui/CivicCard';
 import VotingGuideShell from '../VotingGuideShell';
 
 const OFFICIAL = 'https://vancouver.ca/your-government/2026-election.aspx';
