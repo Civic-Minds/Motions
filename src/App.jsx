@@ -2,7 +2,7 @@ import React, { lazy, Suspense, useState, useEffect, useMemo, useRef } from 'rea
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import { BrowserRouter, Routes, Route, Navigate, Link, useLocation, useNavigate } from 'react-router-dom';
-import { Users, Map, Building2, Vote, Menu, X, Search, MapPin, ChevronDown } from 'lucide-react';
+import { Menu, X, Search, MapPin, ChevronDown } from 'lucide-react';
 import { WARD_COUNCILLORS } from './constants/data';
 import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from './lib/utils';
@@ -33,10 +33,10 @@ const AboutPage         = lazy(() => import('./components/AboutPage'));
 const VancouverElection = lazy(() => import('./components/vancouver/VancouverElection'));
 
 const TABS = [
-  { path: '/councillors', label: 'Councillors', icon: Users },
-  { path: '/committees',  label: 'Committees',  icon: Building2 },
-  { path: '/wards',       label: 'Wards',       icon: Map },
-  { path: '/election',    label: 'Election',    icon: Vote },
+  { path: '/councillors', label: 'Councillors' },
+  { path: '/committees',  label: 'Committees' },
+  { path: '/wards',       label: 'Wards' },
+  { path: '/election',    label: 'Election' },
 ];
 
 function Navbar({ onSearchOpen }) {
@@ -87,20 +87,18 @@ function Navbar({ onSearchOpen }) {
         {/* Desktop nav — absolutely centered so it never shifts */}
         <nav className="hidden lg:flex items-center gap-1 justify-self-start">
           {tabs.map(tab => {
-            const Icon = tab.icon;
             const isActive = active?.path === tab.path;
             return (
               <button
                 key={tab.path}
                 onClick={() => navigate(tab.path)}
                 className={cn(
-                  "flex items-center gap-2 px-3 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200",
+                  "flex items-center px-3 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200",
                   isActive
                     ? "bg-slate-900 text-white"
                     : "text-slate-500 hover:text-slate-900 hover:bg-slate-100"
                 )}
               >
-                <Icon className="w-4 h-4" />
                 {tab.label}
               </button>
             );
