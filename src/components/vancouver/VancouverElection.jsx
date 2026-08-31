@@ -2,7 +2,7 @@ import React from 'react';
 import { ExternalLink, CalendarDays, Vote, MapPin, Mail, Accessibility } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { PageMeta } from '../PageMeta';
-import { CivicCard, CivicSectionLabel } from '../ui/CivicCard';
+import { CivicCard, CivicCardFooter, CivicPill, CivicSectionLabel } from '../ui/CivicCard';
 
 const OFFICIAL = 'https://vancouver.ca/your-government/2026-election.aspx';
 const VOTERS_GUIDE = 'https://vancouver.ca/your-government/2026-voters-guide.aspx';
@@ -43,19 +43,66 @@ function Row({ date, label }) {
   );
 }
 
+function SummaryCard({ pill, pillClass = 'bg-slate-100 text-slate-600', children, footer }) {
+  return (
+    <CivicCard className="h-[140px] gap-2">
+      <CivicPill className={pillClass}>{pill}</CivicPill>
+      {children}
+      {footer && <CivicCardFooter align="end">{footer}</CivicCardFooter>}
+    </CivicCard>
+  );
+}
+
 export default function VancouverElection() {
   return (
-    <div className="mx-auto max-w-5xl space-y-8 pb-20">
+    <div className="flex flex-col space-y-4 pb-20">
       <PageMeta
         title="2026 Vancouver Election | Motions"
         description="Vancouver election dates, voting options, ballot information, and council voting records for the 2026 municipal election."
       />
 
-      <div>
-        <div className="flex flex-wrap items-center gap-2">
-          <CivicSectionLabel>2026 VANCOUVER ELECTION</CivicSectionLabel>
-          <span className="rounded-full bg-blue-50 px-2.5 py-1 text-[10px] font-semibold text-[#004a99]">Election day · Oct 17</span>
+      <section className="grid grid-cols-2 gap-3 items-stretch lg:grid-cols-6">
+        <div className="flex flex-col gap-1.5 lg:col-span-2">
+          <CivicSectionLabel>My city</CivicSectionLabel>
+          <div className="grid grid-cols-2 gap-3">
+            <SummaryCard pill="My city" pillClass="bg-slate-100 text-slate-600" footer={<Link to="/councillors" className="text-[9px] font-semibold text-[#004a99]">See council</Link>}>
+              <p className="flex-1 text-xs font-semibold leading-snug text-slate-800">Follow Vancouver’s citywide council.</p>
+              <span className="text-[9px] text-slate-500">Mayor + 10 councillors</span>
+            </SummaryCard>
+            <SummaryCard pill="Candidates" pillClass="bg-blue-50 text-[#004a99]" footer={<a href={CANDIDATE_INFO} target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99]">Candidate info ↗</a>}>
+              <div className="grid grid-cols-2 gap-2 items-end flex-1">
+                <div><p className="text-[9px] font-bold uppercase tracking-wide text-slate-500">Mayor</p><p className="text-xl font-black text-[#004a99]">1</p></div>
+                <div><p className="text-[9px] font-bold uppercase tracking-wide text-slate-500">Councillors</p><p className="text-xl font-black text-[#004a99]">10</p></div>
+              </div>
+            </SummaryCard>
+          </div>
         </div>
+        <div className="flex flex-col gap-1.5 lg:col-span-2">
+          <CivicSectionLabel>Election information</CivicSectionLabel>
+          <div className="grid grid-cols-2 gap-3">
+            <SummaryCard pill="Where to vote" pillClass="bg-blue-50 text-[#004a99]" footer={<a href={VOTING_PLACES} target="_blank" rel="noopener noreferrer" className="text-[9px] font-semibold text-[#004a99]">Find a place ↗</a>}>
+              <p className="flex-1 text-xs font-semibold leading-snug text-slate-800">Vote anywhere in Vancouver.</p>
+            </SummaryCard>
+            <SummaryCard pill="How to vote" footer={<a href={VOTERS_GUIDE} target="_blank" rel="noopener noreferrer" className="whitespace-nowrap text-[9px] font-semibold text-[#004a99]">Voter’s guide ↗</a>}>
+              <p className="flex-1 text-xs font-semibold leading-snug text-slate-800">What to bring, how to get help, and your voting rights.</p>
+            </SummaryCard>
+          </div>
+        </div>
+        <div className="flex flex-col gap-1.5 lg:col-span-2">
+          <CivicSectionLabel>Voting days</CivicSectionLabel>
+          <div className="grid grid-cols-2 gap-3">
+            <SummaryCard pill="Election day" pillClass="bg-blue-50 text-[#004a99]" footer={<a href={OFFICIAL} target="_blank" rel="noopener noreferrer" className="whitespace-nowrap text-[9px] font-semibold text-[#004a99]">Official details ↗</a>}>
+              <p className="flex-1 text-xs font-semibold leading-snug text-slate-800">October 17, 2026, from 8 a.m. to 8 p.m.</p>
+            </SummaryCard>
+            <SummaryCard pill="Advance voting" footer={<a href={VOTING_PLACES} target="_blank" rel="noopener noreferrer" className="whitespace-nowrap text-[9px] font-semibold text-[#004a99]">See locations ↗</a>}>
+              <p className="flex-1 text-xs font-semibold leading-snug text-slate-800">October 3, 7, 10, and 13, from 8 a.m. to 8 p.m.</p>
+            </SummaryCard>
+          </div>
+        </div>
+      </section>
+
+      <div>
+        <CivicSectionLabel>2026 VANCOUVER ELECTION</CivicSectionLabel>
         <h1 className="mt-2 text-3xl font-bold text-slate-900 sm:text-4xl">Know the council record before you vote.</h1>
         <p className="mt-3 max-w-2xl text-slate-500">
           Vancouver elects its mayor and councillors citywide. Use the official dates and voting details below, then review how the current council has voted.

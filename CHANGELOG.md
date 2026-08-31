@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Revamped the Vancouver election page**: Vancouver now uses Toronto’s compact election layout with citywide council and candidate cards while retaining its own ballot, voting, and official-resource details.
 - **Simplified the Toronto voting guide header**: Removed the redundant “Back to election” link.
 - **Shared static-page layout shell**: Static pages now inherit one responsive homepage-column rule instead of repeating width calculations, and map popups use compact, clamped text for long motion titles.
 - **Matched Vancouver map markers to Toronto**: Vancouver now uses the same marker size, status colours, outline treatment, and opacity while keeping its citywide framing.
