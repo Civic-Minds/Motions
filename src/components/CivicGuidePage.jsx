@@ -67,6 +67,19 @@ export default function CivicGuidePage({ type, jurisdiction = { id: 'toronto', n
   const isCouncilGuide = type === 'council';
   const steps = type === 'council' ? content.steps[jurisdiction.name] : content.steps;
   const actionPath = content.actionPath ?? (isCouncilGuide ? '/' : '/councillors');
+  const participationPrompt = isCouncilGuide
+    ? jurisdiction.name === 'Vancouver'
+      ? {
+          title: 'Have an idea for Vancouver?',
+          description: 'Vancouver councillors are elected at-large, so you can reach out to any councillor or the Mayor about a citywide idea.',
+          action: 'Explore Vancouver councillors',
+        }
+      : {
+          title: 'Have an idea for your neighbourhood?',
+          description: 'Start with your ward councillor, who represents your neighbourhood on Toronto City Council.',
+          action: 'Find your councillor',
+        }
+    : null;
 
   return (
     <div className="mx-auto max-w-3xl space-y-8 pb-20">
@@ -91,15 +104,15 @@ export default function CivicGuidePage({ type, jurisdiction = { id: 'toronto', n
       </div>
 
       <CivicCard className="gap-3 bg-blue-50/60">
-        <h2 className="text-lg font-semibold text-slate-900">Start with the public record</h2>
-        <p className="text-sm leading-relaxed text-slate-600">{isCouncilGuide ? 'Browse recent decisions to see what your council is working on.' : 'Use the official agenda and meeting record when you need the authoritative details.'}</p>
+        <h2 className="text-lg font-semibold text-slate-900">{participationPrompt?.title ?? 'Start with the public record'}</h2>
+        <p className="text-sm leading-relaxed text-slate-600">{participationPrompt?.description ?? (isCouncilGuide ? 'Browse recent decisions to see what your council is working on.' : 'Use the official agenda and meeting record when you need the authoritative details.')}</p>
         {content.external ? (
           <a href={actionPath} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#004a99] hover:underline">
             {content.action(jurisdiction.name)} <ArrowRight className="h-4 w-4" />
           </a>
         ) : (
           <Link to={actionPath} className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#004a99] hover:underline">
-            {content.action(jurisdiction.name)} <ArrowRight className="h-4 w-4" />
+            {participationPrompt?.action ?? content.action(jurisdiction.name)} <ArrowRight className="h-4 w-4" />
           </Link>
         )}
       </CivicCard>
