@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useState, useEffect, useMemo } from 'react';
+import React, { lazy, Suspense, useState, useEffect, useMemo, useRef } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import { BrowserRouter, Routes, Route, Navigate, Link, useLocation, useNavigate } from 'react-router-dom';
@@ -44,6 +44,7 @@ function Navbar({ onSearchOpen }) {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [cityOpen, setCityOpen] = useState(false);
+  const cityMenuRef = useRef(null);
   const councillorName = jurisdiction.geography === 'ward' && wardId ? WARD_COUNCILLORS[wardId] : null;
   const wardLastName = councillorName ? councillorName.split(' ').at(-1) : null;
 
@@ -53,6 +54,22 @@ function Navbar({ onSearchOpen }) {
   const tabs = jurisdiction.geography === 'atLarge'
     ? TABS.filter(tab => tab.path !== '/wards')
     : TABS;
+
+  useEffect(() => {
+    if (!cityOpen) return undefined;
+    const handlePointerDown = event => {
+      if (!cityMenuRef.current?.contains(event.target)) setCityOpen(false);
+    };
+    const handleKeyDown = event => {
+      if (event.key === 'Escape') setCityOpen(false);
+    };
+    document.addEventListener('pointerdown', handlePointerDown);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('pointerdown', handlePointerDown);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [cityOpen]);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 bg-white/80 backdrop-blur-xl">
@@ -117,7 +134,7 @@ function Navbar({ onSearchOpen }) {
                 Find My Ward
             </button>
           ) : null}
-          <div className="relative hidden md:block">
+          <div ref={cityMenuRef} className="relative hidden md:block">
             <button
               onClick={() => setCityOpen(value => !value)}
               aria-expanded={cityOpen}
@@ -280,7 +297,8 @@ function AppShell() {
           <Route path="/election" element={jurisdiction.id === 'vancouver' ? <VancouverElection /> : <ElectionView />} />
           <Route path="/election/how-to-vote" element={<VotingGuide />} />
           <Route path="/budget" element={<BudgetTranslator />} />
-          <Route path="/data" element={<DataPage jurisdiction={jurisdiction} motions={motions} />} />
+          <Route path="/transparency" element={<DataPage jurisdiction={jurisdiction} motions={motions} />} />
+          <Route path="/data" element={<Navigate to="/transparency" replace />} />
           <Route path="/cities" element={<CitiesPage />} />
           <Route path="/sources" element={<SourcesPage />} />
           <Route path="/privacy" element={<LegalPage type="privacy" />} />
