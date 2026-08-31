@@ -23,8 +23,7 @@ export default function SiteFooter() {
         <div className="space-y-3">
           <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-400">Cities</p>
           <div className="flex flex-col gap-2">
-            <a href="/toronto/" className={linkClass}>Toronto</a>
-            <a href="/vancouver/" className={linkClass}>Vancouver</a>
+            <Link to="/cities" className={linkClass}>Browse all cities</Link>
           </div>
         </div>
 
