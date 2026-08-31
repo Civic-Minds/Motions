@@ -23,22 +23,24 @@ export default function CitiesPage() {
         description="Motions connects you with your city council — plain-language summaries of what’s up for a vote, how each councillor voted, and what happens next."
       />
 
-      <div className="space-y-4 pt-2">
-        <h1 className="text-4xl font-bold leading-[1.05] tracking-tight text-slate-900 sm:text-5xl md:text-6xl">
-          See every vote.<br /><span className="text-[#004a99]">Know every decision.</span>
-        </h1>
-        <p className="max-w-xl text-lg leading-relaxed text-slate-500">
-          Council decides what happens on your street, your taxes, your transit — most of it happens where you can’t see. Motions puts the whole voting record in front of you.
-        </p>
-      </div>
+      <div className="max-w-3xl space-y-10">
+        <div className="space-y-4 pt-2">
+          <h1 className="text-4xl font-bold leading-[1.05] tracking-tight text-slate-900 sm:text-5xl md:text-6xl">
+            See every vote.<br /><span className="text-[#004a99]">Know every decision.</span>
+          </h1>
+          <p className="max-w-xl text-lg leading-relaxed text-slate-500">
+            Council decides what happens on your street, your taxes, your transit — most of it happens where you can’t see. Motions puts the whole voting record in front of you.
+          </p>
+        </div>
 
-      <div className="grid gap-3 sm:grid-cols-2">
-        {WHY.map(item => (
-          <CivicCard key={item.title} className="gap-2">
-            <h2 className="text-base font-semibold text-slate-900">{item.title}</h2>
-            <p className="text-sm leading-relaxed text-slate-500">{item.description}</p>
-          </CivicCard>
-        ))}
+        <div className="grid gap-3 sm:grid-cols-2">
+          {WHY.map(item => (
+            <CivicCard key={item.title} className="gap-2">
+              <h2 className="text-base font-semibold text-slate-900">{item.title}</h2>
+              <p className="text-sm leading-relaxed text-slate-500">{item.description}</p>
+            </CivicCard>
+          ))}
+        </div>
       </div>
 
       <div className="space-y-3">

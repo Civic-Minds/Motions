@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { MapContainer, TileLayer, CircleMarker, Tooltip, useMap, useMapEvents } from 'react-leaflet';
 import { ArrowRight } from 'lucide-react';
 import { cn } from '../lib/utils';
-import { COVERED_CITIES, ROADMAP_CITIES } from '../constants/cities';
+import { COVERED_CITIES, OTHER_ELECTION_CITIES } from '../constants/cities';
 import { JURISDICTIONS } from '../constants/jurisdictions';
 import { isOnOrAfter, formatElectionDateFull } from '../utils/electionDate';
 import 'leaflet/dist/leaflet.css';
@@ -28,14 +28,22 @@ function FitCanada() {
   return null;
 }
 
-function ViewportSync({ onChange }) {
+// Hovering a card flies the map there via mapRef (see flyToCity/resetView below).
+// That programmatic move fires its own 'moveend', which would otherwise re-run
+// the viewport filter and could yank the very card being hovered out from under
+// the cursor. suppressRef swallows exactly that one follow-up moveend.
+function ViewportSync({ onChange, suppressRef }) {
   const map = useMapEvents({
     moveend: () => {
+      if (suppressRef.current) {
+        suppressRef.current = false;
+        return;
+      }
       const bounds = map.getBounds();
       const inView = city => bounds.contains([city.lat, city.lng]);
       onChange({
         covered: COVERED_CITIES.filter(inView).map(city => city.href),
-        roadmap: ROADMAP_CITIES.filter(inView).map(city => city.name),
+        other: OTHER_ELECTION_CITIES.filter(inView).map(city => city.name),
       });
     },
   });
@@ -43,19 +51,36 @@ function ViewportSync({ onChange }) {
 }
 
 export default function CitiesMap() {
+  const mapRef = useRef(null);
+  const suppressRef = useRef(false);
   const [visible, setVisible] = useState({
     covered: COVERED_CITIES.map(city => city.href),
-    roadmap: ROADMAP_CITIES.map(city => city.name),
+    other: OTHER_ELECTION_CITIES.map(city => city.name),
   });
   const shownCovered = COVERED_CITIES.filter(city => visible.covered.includes(city.href));
-  const shownRoadmap = ROADMAP_CITIES.filter(city => visible.roadmap.includes(city.name));
-  const anyVisible = shownCovered.length > 0 || shownRoadmap.length > 0;
+  const shownOther = OTHER_ELECTION_CITIES.filter(city => visible.other.includes(city.name));
+  const anyVisible = shownCovered.length > 0 || shownOther.length > 0;
   const coveredCards = anyVisible ? shownCovered : COVERED_CITIES;
-  const roadmapCards = anyVisible ? shownRoadmap : [];
+  const otherCards = anyVisible ? shownOther : [];
+
+  function flyToCity(city) {
+    const map = mapRef.current;
+    if (!map) return;
+    suppressRef.current = true;
+    map.flyTo([city.lat, city.lng], 9, { duration: 0.5 });
+  }
+
+  function resetView() {
+    const map = mapRef.current;
+    if (!map) return;
+    suppressRef.current = true;
+    map.flyToBounds(CANADA_BOUNDS, { duration: 0.5, padding: [16, 16] });
+  }
 
   return (
     <div className="relative h-[460px] w-full overflow-hidden rounded-2xl border border-slate-200 sm:h-[560px]">
       <MapContainer
+        ref={mapRef}
         center={[56, -96]}
         zoom={3}
         className="z-0 h-full w-full"
@@ -64,8 +89,8 @@ export default function CitiesMap() {
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         <FitCanada />
-        <ViewportSync onChange={setVisible} />
-        {ROADMAP_CITIES.map(city => (
+        <ViewportSync onChange={setVisible} suppressRef={suppressRef} />
+        {OTHER_ELECTION_CITIES.map(city => (
           <CircleMarker
             key={city.name}
             center={[city.lat, city.lng]}
@@ -97,7 +122,11 @@ export default function CitiesMap() {
         className="absolute bottom-0 left-0 right-0 z-[400] px-3 pb-3 pt-8"
         style={{ background: 'linear-gradient(to top, rgba(255,255,255,0.9) 60%, transparent)' }}
       >
-        <div className="flex gap-2 overflow-x-auto pb-1" style={{ scrollbarWidth: 'none' }}>
+        <div
+          className="flex gap-2 overflow-x-auto pb-1"
+          style={{ scrollbarWidth: 'none' }}
+          onMouseLeave={resetView}
+        >
           {coveredCards.map(city => {
             const election = JURISDICTIONS[city.id]?.election;
             const electionUpcoming = election && !isOnOrAfter(election.date);
@@ -105,6 +134,7 @@ export default function CitiesMap() {
               <a
                 key={city.name}
                 href={city.href}
+                onMouseEnter={() => flyToCity(city)}
                 className={cn(
                   'shrink-0 w-56 rounded-xl border bg-white/95 px-3 py-2.5 text-left shadow-sm transition-all',
                   'border-slate-200 hover:border-[#004a99]/40 hover:shadow-md',
@@ -121,13 +151,14 @@ export default function CitiesMap() {
               </a>
             );
           })}
-          {roadmapCards.map(city => (
+          {otherCards.map(city => (
             <div
               key={city.name}
-              className="shrink-0 w-48 rounded-xl border border-slate-200 bg-white/80 px-3 py-2.5 text-left"
+              onMouseEnter={() => flyToCity(city)}
+              className="shrink-0 w-44 rounded-xl border border-slate-200 bg-white/80 px-3 py-2.5 text-left"
             >
               <p className="text-sm font-semibold text-slate-500">{city.name}</p>
-              <span className="mt-1 inline-block rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold text-slate-500">Planned</span>
+              <p className="mt-0.5 text-[11px] text-slate-400">Election {formatElectionDateFull(city.electionDate)}</p>
             </div>
           ))}
         </div>
