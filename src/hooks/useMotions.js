@@ -5,6 +5,12 @@ const MOTION_TOPIC_OVERRIDES = {
     'CC42.2': 'General',
 };
 
+function cleanVancouverTitle(title) {
+    return title.trim()
+        .replace(/^(?:\d+[a-z]?[.)]|[A-Z]{1,8}\d+[a-z]?(?:[.)]|\s+))\s*/i, '')
+        .trim();
+}
+
 /**
  * Custom hook to manage motions data and derived metrics.
  */
@@ -44,11 +50,14 @@ export function useMotions(jurisdiction = { id: 'toronto', dataBaseEnv: 'VITE_BL
                 ]);
 
                 if (isMounted) {
-                    setMotions(motionsData.map(motion => (
-                        MOTION_TOPIC_OVERRIDES[motion.id]
-                            ? { ...motion, topic: MOTION_TOPIC_OVERRIDES[motion.id] }
-                            : motion
-                    )));
+                    setMotions(motionsData.map(motion => {
+                        const normalized = jurisdiction.id === 'vancouver'
+                            ? { ...motion, title: cleanVancouverTitle(motion.title) }
+                            : motion;
+                        return MOTION_TOPIC_OVERRIDES[motion.id]
+                            ? { ...normalized, topic: MOTION_TOPIC_OVERRIDES[motion.id] }
+                            : normalized;
+                    }));
                     setCouncillors(councillorsData);
                     setMeetings(meetingsData);
                     setLoading(false);
