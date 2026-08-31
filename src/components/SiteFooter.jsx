@@ -7,6 +7,8 @@ const linkClass = 'text-sm text-slate-500 transition-colors hover:text-slate-900
 export default function SiteFooter() {
   const { jurisdiction } = useAppContext();
   const isToronto = jurisdiction.geography === 'ward';
+  const electionDate = new Intl.DateTimeFormat('en-CA', { month: 'short', day: 'numeric' })
+    .format(new Date(`${jurisdiction.election.date}T00:00:00`));
   return (
     <footer className="mt-8 border-t border-slate-200 bg-white">
       <div className="mx-auto grid max-w-[1400px] gap-8 px-6 py-8 sm:grid-cols-4 sm:gap-6 sm:py-10 lg:grid-cols-[200px_repeat(4,minmax(0,1fr))_220px] lg:gap-3">
@@ -34,7 +36,10 @@ export default function SiteFooter() {
             <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className={linkClass}>Motions</Link>
             <Link to="/councillors" className={linkClass}>Councillors</Link>
             {isToronto && <Link to="/wards" className={linkClass}>Wards</Link>}
-            <Link to="/election" className={linkClass}>Election</Link>
+            <Link to="/election" className={`${linkClass} inline-flex items-center gap-2`}>
+              <span>Election</span>
+              <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-semibold text-[#004a99]">{electionDate}</span>
+            </Link>
           </div>
         </div>
 
