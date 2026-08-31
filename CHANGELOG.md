@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Standardized static page widths**: Learn, About, legal, Sources, and Transparency pages now share the same content column for consistent alignment.
 - **Added the Vancouver homepage map**: Vancouver now shows a citywide map of mapped motion locations in the homepage sidebar, with pins linking to the relevant motions.
 - **Aligned desktop navigation with page content**: The menu now starts on the same content column as Learn and its story headings.
 - **Aligned Learn stories with the Learn hub**: Guide pages now use the same content width and left edge as the Learn overview.
