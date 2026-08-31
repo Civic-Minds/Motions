@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Footer columns now align with homepage cards**: The desktop footer follows the same four-column content grid for a cleaner page rhythm.
 - **Notable motion cards now align**: Homepage cards share the same height even when one title is longer than the others.
 - **Faster council data loading**: Production now serves motion data compressed, reducing the initial download before the dashboard appears.
 - **Vancouver official agenda links**: Vancouver motion and meeting pages now link directly to the City agenda alongside the filtered voting record.

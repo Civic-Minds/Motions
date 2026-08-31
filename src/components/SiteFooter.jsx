@@ -9,17 +9,7 @@ export default function SiteFooter() {
   const isToronto = jurisdiction.geography === 'ward';
   return (
     <footer className="mt-8 border-t border-slate-200 bg-white">
-      <div className="mx-auto grid max-w-[1400px] gap-8 px-6 py-8 sm:grid-cols-[1.4fr_repeat(4,1fr)] sm:gap-6 sm:py-10">
-        <div className="space-y-2">
-          <Link to="/" className="inline-flex flex-col text-sm leading-[0.95]">
-            <span className="font-bold text-slate-900">Motions</span>
-            <span className="font-normal text-slate-500">{jurisdiction.name}</span>
-          </Link>
-          <p className="max-w-xs text-sm leading-relaxed text-slate-500">
-            A clearer way to follow {jurisdiction.name} council decisions and votes.
-          </p>
-        </div>
-
+      <div className="mx-auto grid max-w-[1400px] gap-8 px-6 py-8 sm:grid-cols-4 sm:gap-6 sm:py-10">
         <div className="space-y-3">
           <p className="text-[10px] font-bold uppercase tracking-wide text-slate-500">Cities</p>
           <div className="flex flex-col gap-2">
