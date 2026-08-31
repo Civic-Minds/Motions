@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Removed the vote breakdown's collapse/expand toggle**: A motion's vote breakdown, and every amendment/procedural vote on the same item, now always shows fully expanded — no click needed to see who voted how.
+- **Fixed the "Election" nav pill sitting flush against its label**: Added spacing between the tab text and the election-date pill in the desktop nav.
 - **Second plain-language pass on "How Voting Works"**: Defined terms used without explanation — MyVote, voter information card, ballot transfer, Voter Assist Terminals, "at-large," Capital Plan/plebiscite questions — instead of assuming residents already know City elections vocabulary.
 - **Fixed extra empty space on the Documents card**: A motion page's Documents card had a fixed minimum height that left visible blank space below a single short document link.
 - **Vancouver's election page heading now updates after voting closes**: "Know the council record before you vote" was permanently pre-election phrasing; it now switches to "Know how your new council is voting" once the election date passes, matching the rest of the page's post-election framing.

@@ -1,7 +1,7 @@
 import { getWardId } from '../utils/storage';
 import React, { lazy, Suspense, useState, useMemo, useEffect } from 'react';
 import { Link, useParams, useNavigate, Navigate } from 'react-router-dom';
-import { ExternalLink, ChevronDown, ChevronUp, ArrowLeft, FileText, Info } from 'lucide-react';
+import { ExternalLink, ArrowLeft, FileText, Info } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { getCommittee, WARD_COUNCILLORS } from '../constants/data';
 import { committeeToSlug, nameToSlug } from '../utils/slug';
@@ -201,48 +201,24 @@ const MOTION_TYPE_INFO = {
   'Direction':        'A directive from council to staff on how to proceed.',
 };
 
-function VoteSection({ label, motionType, title, status, votes, resultText, terms, defaultOpen = false, hideStatus = false }) {
-  const [open, setOpen] = useState(defaultOpen);
-  const totals = parseResultTotals(resultText);
-  const recYes = Object.values(votes ?? {}).filter(v => v === 'YES').length;
-  const recNo  = Object.values(votes ?? {}).filter(v => v === 'NO').length;
-  const dispYes = (totals && totals.yes > recYes) ? totals.yes : recYes;
-  const dispNo  = (totals && totals.no  > recNo)  ? totals.no  : recNo;
-
+function VoteSection({ label, motionType, title, status, votes, resultText, terms, hideStatus = false }) {
   return (
     <div className="border border-slate-200 rounded-xl overflow-hidden">
-      <button
-        onClick={() => setOpen(o => !o)}
-        className="w-full flex items-center justify-between px-5 py-4 hover:bg-slate-50 transition-colors text-left"
-      >
-        <div className="flex items-center gap-3">
-          {label && <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{label}</span>}
-          {motionType && <span className="text-sm font-semibold text-slate-800">{motionType}</span>}
-          {!hideStatus && <StatusBadge status={status} />}
-        </div>
-        <div className="flex items-center gap-3 shrink-0 ml-4">
-          {!open && (
-            <span className="text-xs text-slate-500">
-              <span className="text-emerald-600 font-bold">{dispYes}</span>
-              {' – '}
-              <span className="text-red-500 font-bold">{dispNo}</span>
-            </span>
-          )}
-          {open ? <ChevronUp className="w-4 h-4 text-slate-500" /> : <ChevronDown className="w-4 h-4 text-slate-500" />}
-        </div>
-      </button>
-      {open && (
-        <div className="px-5 pb-5 space-y-4 border-t border-slate-100">
-          {title && <p className="pt-4 text-sm text-slate-600 leading-snug">{title}</p>}
-          {MOTION_TYPE_INFO[motionType] && (
-            <p className={cn("text-xs text-slate-500 leading-relaxed", title ? "" : "pt-4")}>
-              {MOTION_TYPE_INFO[motionType]}
-            </p>
-          )}
-          <VoteBar votes={votes} resultText={resultText} terms={terms} />
-          <CouncillorGrid votes={votes} resultText={resultText} terms={terms} />
-        </div>
-      )}
+      <div className="flex items-center gap-3 px-5 py-4">
+        {label && <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{label}</span>}
+        {motionType && <span className="text-sm font-semibold text-slate-800">{motionType}</span>}
+        {!hideStatus && <StatusBadge status={status} />}
+      </div>
+      <div className="px-5 pb-5 space-y-4 border-t border-slate-100">
+        {title && <p className="pt-4 text-sm text-slate-600 leading-snug">{title}</p>}
+        {MOTION_TYPE_INFO[motionType] && (
+          <p className={cn("text-xs text-slate-500 leading-relaxed", title ? "" : "pt-4")}>
+            {MOTION_TYPE_INFO[motionType]}
+          </p>
+        )}
+        <VoteBar votes={votes} resultText={resultText} terms={terms} />
+        <CouncillorGrid votes={votes} resultText={resultText} terms={terms} />
+      </div>
     </div>
   );
 }
@@ -457,7 +433,6 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
                   votes={motion.votes}
                   resultText={motion.resultText}
                   terms={terms}
-                  defaultOpen
                 />
 
                 <div className="space-y-2">
@@ -473,7 +448,6 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
                       votes={sub.votes}
                       resultText={sub.resultText}
                       terms={terms}
-                      defaultOpen={false}
                     />
                   ))}
                 </div>
@@ -489,7 +463,6 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
                 votes={motion.votes}
                 resultText={motion.resultText}
                 terms={terms}
-                defaultOpen={true}
                 hideStatus={true}
               />
             )}

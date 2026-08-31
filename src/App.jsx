@@ -97,7 +97,7 @@ function Navbar({ onSearchOpen }) {
                 key={tab.path}
                 onClick={() => navigate(tab.path)}
                 className={cn(
-                  "flex items-center rounded-lg px-2 py-2 text-sm whitespace-nowrap transition-colors duration-200",
+                  "flex items-center gap-1.5 rounded-lg px-2 py-2 text-sm whitespace-nowrap transition-colors duration-200",
                   isActive
                     ? "font-semibold text-slate-900"
                     : "font-medium text-slate-500 hover:bg-slate-100 hover:text-slate-900"
