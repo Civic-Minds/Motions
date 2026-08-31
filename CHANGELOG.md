@@ -6,7 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
-- **Transparency header uses a clear home link**: The page no longer labels its homepage link “Back to motions.”
+- **Transparency header matches motion pages**: The page now uses the same compact “Back” control as motion details.
 - **City switcher closes on outside click**: The city menu now dismisses when focus moves outside it, with Escape-key support.
 - **Vancouver motion documents are visible**: Motion pages now show the official council agenda and voting-record links in the Documents section.
 - **Motion maps show more neighborhood context**: Automatic pin fitting now avoids zooming too tightly around a single address.
