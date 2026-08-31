@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **About/Privacy/Terms now show the visitor's city in the header and footer**: Moving these pages off jurisdiction-scoped URLs (in an earlier entry below) meant they also lost the "Motions Toronto"-style header, the nav, and the full footer — visitors landed on a page with a bare "Motions" logo and no way to tell it remembered their city. Both now show the same header and footer as the rest of the app, using whichever city was last visited; only the cityless homepage keeps the plain logo.
+- **Fixed a crash in the mobile nav menu**: It referenced a `tab.icon` field that was never defined on the tab list, so opening the mobile menu on any page threw "Element type is invalid." Latent since the tab list was written; only surfaced once someone actually opened that menu.
 - **Fixed misaligned disclaimer text on Transparency**: It was missing the same inline padding as the section label above it, so the two didn't line up.
 - **Both cities' "what's on your ballot" guide sections now use small side-by-side cards instead of a bullet list**: Also moved Vancouver's accessibility info out of "Other ways to vote" (accessibility isn't a voting method) into "At the voting place," matching how Toronto's guide already separates the two, and trimmed guide copy throughout both cities' pages.
 - **Vancouver's ballot-question card now states the actual questions instead of hedging**: It said "check the official voter's guide" for facts the City has already published — 3 Capital Plan questions (about $790 million in borrowing for the 2027–2030 plan) and 2 plebiscite questions on public safety.

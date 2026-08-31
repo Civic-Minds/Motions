@@ -8,7 +8,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from './lib/utils';
 import { useMotions } from './hooks/useMotions';
 import { AppProvider, useAppContext } from './contexts/AppContext';
-import { getInitialJurisdiction, JURISDICTIONS } from './constants/jurisdictions';
+import { getInitialJurisdiction, getJurisdiction, JURISDICTIONS } from './constants/jurisdictions';
 import { formatElectionDate } from './utils/electionDate';
 import { getLastJurisdiction, setLastJurisdiction } from './utils/storage';
 
@@ -53,8 +53,7 @@ const TABS = [
   { path: '/election',    label: 'Election' },
 ];
 
-function Navbar({ onSearchOpen }) {
-  const { wardId, handleLocate, handleClearWard, jurisdiction } = useAppContext();
+function Navbar({ onSearchOpen, jurisdiction, wardId = null, handleLocate, handleClearWard, standalone = false }) {
   const location = useLocation();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -62,6 +61,12 @@ function Navbar({ onSearchOpen }) {
   const cityMenuRef = useRef(null);
   const councillorName = jurisdiction.geography === 'ward' && wardId ? WARD_COUNCILLORS[wardId] : null;
   const wardLastName = councillorName ? councillorName.split(' ').at(-1) : null;
+
+  // Standalone pages (About/Privacy/Terms) sit outside the jurisdiction
+  // router, so a relative navigate() would resolve against the wrong (empty)
+  // basename — go there with a real navigation instead.
+  const goHome = () => { if (standalone) window.location.href = jurisdiction.path; else navigate('/'); };
+  const goTo = (path) => { if (standalone) window.location.href = `${jurisdiction.path}${path}`; else navigate(path); };
 
   const active = TABS.find(t =>
     t.path === '/' ? location.pathname === '/' : location.pathname.startsWith(t.path)
@@ -91,7 +96,7 @@ function Navbar({ onSearchOpen }) {
       <div className="relative max-w-[1400px] mx-auto px-6 h-16 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4">
 
         {/* Logo */}
-        <div className="flex w-[150px] shrink-0 items-center gap-3 cursor-pointer select-none" onClick={() => navigate('/')}> 
+        <div className="flex w-[150px] shrink-0 items-center gap-3 cursor-pointer select-none" onClick={goHome}>
           <span className="flex flex-col text-sm leading-[0.95]">
             <span className="font-bold text-slate-900">Motions</span>
           <span className="font-normal text-slate-500">{jurisdiction.name}</span>
@@ -105,7 +110,7 @@ function Navbar({ onSearchOpen }) {
             return (
               <button
                 key={tab.path}
-                onClick={() => navigate(tab.path)}
+                onClick={() => goTo(tab.path)}
                 className={cn(
                   "flex items-center gap-1.5 rounded-lg px-2 py-2 text-sm whitespace-nowrap transition-colors duration-200",
                   isActive
@@ -126,7 +131,7 @@ function Navbar({ onSearchOpen }) {
 
         {/* Right: ward + search + mobile toggle */}
         <div className="flex items-center justify-self-end gap-1 min-w-0 -mr-4 sm:mr-0">
-          {jurisdiction.geography === 'ward' && wardId ? (
+          {standalone ? null : jurisdiction.geography === 'ward' && wardId ? (
             <div className="hidden sm:flex items-center gap-0 group/ward">
               <button
                 onClick={() => navigate(`/wards/${wardId}`)}
@@ -182,20 +187,24 @@ function Navbar({ onSearchOpen }) {
               </div>
             )}
           </div>
-          <button
-            onClick={onSearchOpen}
-            aria-label="Search"
-            title="Search"
-            className="hidden sm:flex items-center justify-center rounded-lg p-2 text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900"
-          >
-            <Search className="w-4 h-4" />
-          </button>
-          <button
-            onClick={onSearchOpen}
-            className="sm:hidden p-2 rounded-lg hover:bg-slate-100 text-slate-500 transition-colors"
-          >
-            <Search className="w-4 h-4" />
-          </button>
+          {!standalone && (
+            <>
+              <button
+                onClick={onSearchOpen}
+                aria-label="Search"
+                title="Search"
+                className="hidden sm:flex items-center justify-center rounded-lg p-2 text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900"
+              >
+                <Search className="w-4 h-4" />
+              </button>
+              <button
+                onClick={onSearchOpen}
+                className="sm:hidden p-2 rounded-lg hover:bg-slate-100 text-slate-500 transition-colors"
+              >
+                <Search className="w-4 h-4" />
+              </button>
+            </>
+          )}
           <button className="lg:hidden p-2 rounded-lg hover:bg-slate-100" onClick={() => setOpen(o => !o)}>
             {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -212,18 +221,16 @@ function Navbar({ onSearchOpen }) {
             className="lg:hidden absolute w-full bg-white border-b border-slate-200 px-4 py-3 space-y-1 shadow-lg"
           >
             {tabs.map(tab => {
-              const Icon = tab.icon;
               const isActive = active?.path === tab.path;
               return (
                 <button
                   key={tab.path}
-                  onClick={() => { navigate(tab.path); setOpen(false); }}
+                  onClick={() => { goTo(tab.path); setOpen(false); }}
                   className={cn(
                     "flex items-center gap-3 w-full px-4 py-3 rounded-xl text-sm font-medium transition-colors",
                     isActive ? "bg-slate-900 text-white" : "text-slate-600 hover:bg-slate-100"
                   )}
                 >
-                  <Icon className="w-4 h-4" />
                   <span>{tab.label}</span>
                   {tab.path === '/election' && (
                     <span className={cn(
@@ -256,7 +263,7 @@ function ScrollToTop() {
 }
 
 function AppShell() {
-  const { jurisdiction } = useAppContext();
+  const { jurisdiction, wardId, handleLocate, handleClearWard } = useAppContext();
   const { motions, councillors, meetings, metadata, loading, error } = useMotions(jurisdiction);
   const [searchOpen, setSearchOpen] = useState(false);
   const [compareMode, setCompareMode] = useState(false);
@@ -351,13 +358,19 @@ function AppShell() {
   return (
     <div className="min-h-screen flex flex-col">
       <ScrollToTop />
-      <Navbar onSearchOpen={() => setSearchOpen(true)} />
+      <Navbar
+        onSearchOpen={() => setSearchOpen(true)}
+        jurisdiction={jurisdiction}
+        wardId={wardId}
+        handleLocate={handleLocate}
+        handleClearWard={handleClearWard}
+      />
       <main className="flex-1 max-w-[1400px] mx-auto w-full px-4 sm:px-6 py-6">
         {contentArea()}
       </main>
 
       <Suspense fallback={null}>
-        <SiteFooter />
+        <SiteFooter jurisdiction={jurisdiction} />
       </Suspense>
 
       {!loading && (
@@ -377,19 +390,25 @@ function AppShell() {
 const STANDALONE_PATHS = new Set(['/', '/about', '/privacy', '/terms']);
 
 function StandaloneShell() {
-  // If they've previously visited a city, the logo takes them back there
-  // instead of the generic homepage — otherwise About/Privacy/Terms feel like
-  // they've kicked the visitor out of "their" city.
-  const lastJurisdiction = getLastJurisdiction();
-  const logoHref = lastJurisdiction && JURISDICTIONS[lastJurisdiction] ? `/${lastJurisdiction}` : '/';
+  // About/Privacy/Terms sit outside any city's URL, but a visitor still has
+  // a city — whichever they last visited (defaulting to Toronto) — so their
+  // header shows that city's name and nav, matching what they'd see
+  // anywhere else in the app. The bare city-picker homepage ('/') keeps a
+  // plain logo instead, since it's the one page that's genuinely cityless.
+  const jurisdiction = getJurisdiction(getLastJurisdiction());
+  const isHome = window.location.pathname === '/';
 
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 bg-white/80 backdrop-blur-xl">
-        <div className="max-w-[1400px] mx-auto px-6 h-16 flex items-center">
-          <a href={logoHref} className="font-bold text-slate-900 text-sm">Motions</a>
-        </div>
-      </header>
+      {isHome ? (
+        <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 bg-white/80 backdrop-blur-xl">
+          <div className="max-w-[1400px] mx-auto px-6 h-16 flex items-center">
+            <span className="font-bold text-slate-900 text-sm">Motions</span>
+          </div>
+        </header>
+      ) : (
+        <Navbar jurisdiction={jurisdiction} standalone />
+      )}
 
       <main className="flex-1 max-w-[1400px] mx-auto w-full px-4 sm:px-6 py-6">
         <Suspense fallback={
@@ -406,24 +425,30 @@ function StandaloneShell() {
         </Suspense>
       </main>
 
-      <footer className="border-t border-slate-200 bg-white">
-        <div className="mx-auto flex max-w-[1400px] flex-col gap-2 px-6 py-6 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between">
-          <span>
-            Motions is a civic data project by{' '}
-            <a href="https://github.com/Civic-Minds" target="_blank" rel="noopener noreferrer" className="hover:text-slate-600 hover:underline">
-              Civic Minds
-            </a>
-            , built with care in Canada.
-          </span>
-          <div className="flex items-center gap-3">
-            <Link to="/about" className="hover:text-slate-600">About</Link>
-            <a href="https://github.com/Civic-Minds/Motions" target="_blank" rel="noopener noreferrer" className="hover:text-slate-600">GitHub</a>
-            <Link to="/privacy" className="hover:text-slate-600">Privacy</Link>
-            <Link to="/terms" className="hover:text-slate-600">Terms</Link>
-            <span>© {new Date().getFullYear()} Civic Minds</span>
+      {isHome ? (
+        <footer className="border-t border-slate-200 bg-white">
+          <div className="mx-auto flex max-w-[1400px] flex-col gap-2 px-6 py-6 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between">
+            <span>
+              Motions is a civic data project by{' '}
+              <a href="https://github.com/Civic-Minds" target="_blank" rel="noopener noreferrer" className="hover:text-slate-600 hover:underline">
+                Civic Minds
+              </a>
+              , built with care in Canada.
+            </span>
+            <div className="flex items-center gap-3">
+              <Link to="/about" className="hover:text-slate-600">About</Link>
+              <a href="https://github.com/Civic-Minds/Motions" target="_blank" rel="noopener noreferrer" className="hover:text-slate-600">GitHub</a>
+              <Link to="/privacy" className="hover:text-slate-600">Privacy</Link>
+              <Link to="/terms" className="hover:text-slate-600">Terms</Link>
+              <span>© {new Date().getFullYear()} Civic Minds</span>
+            </div>
           </div>
-        </div>
-      </footer>
+        </footer>
+      ) : (
+        <Suspense fallback={null}>
+          <SiteFooter jurisdiction={jurisdiction} standalone />
+        </Suspense>
+      )}
     </div>
   );
 }

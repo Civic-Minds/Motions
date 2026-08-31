@@ -1,23 +1,32 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAppContext } from '../contexts/AppContext';
 import { formatElectionDate } from '../utils/electionDate';
 
 const linkClass = 'text-sm text-slate-500 transition-colors hover:text-slate-900';
 
-export default function SiteFooter() {
-  const { jurisdiction } = useAppContext();
+export default function SiteFooter({ jurisdiction, standalone = false }) {
   const isToronto = jurisdiction.geography === 'ward';
   const electionDate = formatElectionDate(jurisdiction.election.date);
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Standalone pages (About/Privacy/Terms) sit outside the jurisdiction
+  // router, so an internal <Link> would resolve against the wrong (empty)
+  // basename — send those to the full city-prefixed path instead.
+  function FooterLink({ to, className, children, onClick }) {
+    if (standalone) {
+      return <a href={`${jurisdiction.path}${to}`} className={className} onClick={onClick}>{children}</a>;
+    }
+    return <Link to={to} className={className} onClick={onClick}>{children}</Link>;
+  }
+
   return (
     <footer className="mt-8 border-t border-slate-200 bg-white">
       <div className="mx-auto grid max-w-[1400px] gap-8 px-6 py-8 sm:grid-cols-4 sm:gap-6 sm:py-10 lg:grid-cols-[200px_repeat(4,minmax(0,1fr))_220px] lg:gap-3">
         <div className="space-y-2 lg:col-span-2">
-          <Link to="/" onClick={scrollToTop} className="inline-flex flex-col text-sm leading-[0.95]">
+          <FooterLink to="/" onClick={scrollToTop} className="inline-flex flex-col text-sm leading-[0.95]">
             <span className="font-bold text-slate-900">Motions</span>
             <span className="font-normal text-slate-500">{jurisdiction.name}</span>
-          </Link>
+          </FooterLink>
           <p className="max-w-xs text-sm leading-relaxed text-slate-500">
             Follow the votes shaping your city.
           </p>
@@ -34,22 +43,22 @@ export default function SiteFooter() {
         <div className="space-y-3">
           <p className="text-[10px] font-bold uppercase tracking-wide text-slate-500">Explore</p>
           <div className="flex flex-col gap-2">
-            <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className={linkClass}>Motions</Link>
-            <Link to="/councillors" onClick={scrollToTop} className={linkClass}>Councillors</Link>
-            {isToronto && <Link to="/wards" onClick={scrollToTop} className={linkClass}>Wards</Link>}
-            <Link to="/learn" onClick={scrollToTop} className={linkClass}>Learn</Link>
-            <Link to="/election" onClick={scrollToTop} className={`${linkClass} inline-flex items-center gap-2`}>
+            <FooterLink to="/" onClick={scrollToTop} className={linkClass}>Motions</FooterLink>
+            <FooterLink to="/councillors" onClick={scrollToTop} className={linkClass}>Councillors</FooterLink>
+            {isToronto && <FooterLink to="/wards" onClick={scrollToTop} className={linkClass}>Wards</FooterLink>}
+            <FooterLink to="/learn" onClick={scrollToTop} className={linkClass}>Learn</FooterLink>
+            <FooterLink to="/election" onClick={scrollToTop} className={`${linkClass} inline-flex items-center gap-2`}>
               <span>Election</span>
               <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-semibold text-[#004a99]">{electionDate}</span>
-            </Link>
+            </FooterLink>
           </div>
         </div>
 
         <div className="space-y-3">
           <p className="text-[10px] font-bold uppercase tracking-wide text-slate-500">Data</p>
           <div className="flex flex-col gap-2">
-            <Link to="/transparency" onClick={scrollToTop} className={linkClass}>Transparency</Link>
-            <Link to="/sources" onClick={scrollToTop} className={linkClass}>Sources</Link>
+            <FooterLink to="/transparency" onClick={scrollToTop} className={linkClass}>Transparency</FooterLink>
+            <FooterLink to="/sources" onClick={scrollToTop} className={linkClass}>Sources</FooterLink>
           </div>
         </div>
 
