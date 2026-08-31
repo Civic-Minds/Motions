@@ -9,7 +9,7 @@ export default function SiteFooter() {
   const isToronto = jurisdiction.geography === 'ward';
   return (
     <footer className="mt-8 border-t border-slate-200 bg-white">
-      <div className="mx-auto grid max-w-[1400px] gap-8 px-6 py-8 sm:grid-cols-[1.4fr_repeat(5,1fr)] sm:gap-6 sm:py-10">
+      <div className="mx-auto grid max-w-[1400px] gap-8 px-6 py-8 sm:grid-cols-[1.4fr_repeat(4,1fr)] sm:gap-6 sm:py-10">
         <div className="space-y-2">
           <Link to="/" className="inline-flex flex-col text-sm leading-[0.95]">
             <span className="font-bold text-slate-900">Motions</span>
@@ -54,19 +54,16 @@ export default function SiteFooter() {
           </div>
         </div>
 
-        <div className="space-y-3">
-          <p className="text-[10px] font-bold uppercase tracking-wide text-slate-500">Legal</p>
-          <div className="flex flex-col gap-2">
-            <Link to="/privacy" className={linkClass}>Privacy</Link>
-            <Link to="/terms" className={linkClass}>Terms</Link>
-          </div>
-        </div>
       </div>
 
       <div className="border-t border-slate-100">
         <div className="mx-auto flex max-w-[1400px] flex-col gap-2 px-6 py-4 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between">
           <span>Independent civic information for {jurisdiction.name}.</span>
-          <span>© {new Date().getFullYear()} Civic Minds</span>
+          <div className="flex items-center gap-3">
+            <Link to="/privacy" className="hover:text-slate-600">Privacy</Link>
+            <Link to="/terms" className="hover:text-slate-600">Terms</Link>
+            <span>© {new Date().getFullYear()} Civic Minds</span>
+          </div>
         </div>
       </div>
     </footer>
