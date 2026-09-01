@@ -347,8 +347,9 @@ export default function CouncillorProfile({ motions, councillors = [], jurisdict
   const vancouverProfileUrl = isVancouver && VANCOUVER_PROFILE_SLUGS[selected]
     ? `https://vancouver.ca/your-government/${VANCOUVER_PROFILE_SLUGS[selected]}.aspx`
     : null;
+  const hasCandidateTracking = jurisdiction.id === 'toronto';
   const electionStatus = useMemo(() => {
-    if (isVancouver) return null;
+    if (!hasCandidateTracking) return null;
     if (!candidateData || !selected) return null;
     const normalize = name => name.toLowerCase().replace(/[^a-z0-9]/g, '');
     const mayorCandidate = (candidateData.mayor ?? []).find(candidate => normalize(candidate.name) === normalize(selected));
@@ -369,7 +370,7 @@ export default function CouncillorProfile({ motions, councillors = [], jurisdict
       };
     }
     return filedWard ? { type: 'filed', wardId: filedWard[0] } : { type: 'not-listed' };
-  }, [candidateData, selected, ward, isVancouver]);
+  }, [candidateData, selected, ward, hasCandidateTracking]);
 
   const totalVotes = useMemo(() =>
     selected ? motions.filter(m => m.votes?.[selected]).length : 0,

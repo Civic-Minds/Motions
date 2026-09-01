@@ -86,10 +86,27 @@ function statusFromResult(result) {
     return result === 'Lost' ? 'Lost' : 'Adopted';
 }
 
+// Some rows in Winnipeg's source dataset store UTF-8 punctuation
+// double-encoded (as if the UTF-8 bytes were read as Windows-1252, then
+// re-saved as UTF-8) -- the same motion title appears both correctly and
+// corrupted across different rows. Repair the known sequences.
+const MOJIBAKE_FIXES = {
+    'â€“': '–', // en dash
+    'â€”': '—', // em dash
+    'â€˜': '‘', // left single quote
+    'â€™': '’', // right single quote
+    'â€œ': '“', // left double quote
+    'â€': '”', // right double quote
+    'â€¦': '…', // ellipsis
+};
+function fixMojibake(text) {
+    return Object.entries(MOJIBAKE_FIXES).reduce((result, [bad, good]) => result.split(bad).join(good), text);
+}
+
 // Winnipeg's titles carry a leading item number ("1.\tTitle text") from the
 // agenda export. Keep the source link, but present the title without it.
 function cleanTitle(title) {
-    return title.trim().replace(/^\d+[a-z]?[.)]\s*/i, '').trim();
+    return fixMojibake(title.trim().replace(/^\d+[a-z]?[.)]\s*/i, '').trim());
 }
 
 function significanceFor(votes, result, title) {

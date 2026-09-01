@@ -43,7 +43,11 @@ export const JURISDICTIONS = {
         name: 'Winnipeg',
         shortName: 'Winnipeg',
         path: '/winnipeg',
-        geography: 'ward',
+        // Winnipeg's council is genuinely ward-based (15 wards), but no ward
+        // boundary/councillor mapping is wired up yet — 'atLarge' here means
+        // "no ward UI," matching how geography is actually consumed across
+        // the app (App.jsx, SiteFooter, MotionsMap). Revisit once wards land.
+        geography: 'atLarge',
         representativeLabel: 'Councillor',
         representativesLabel: 'Councillors',
         mayorName: 'Scott Gillingham',

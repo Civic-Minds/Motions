@@ -32,7 +32,7 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
   const { slug, slug2 } = useParams();
   const navigate = useNavigate();
   const { wardId: myWardId, handleLocate } = useAppContext();
-  const isVancouver = jurisdiction.id === 'vancouver';
+  const hasWardLookup = jurisdiction.id === 'toronto';
   const mayorName = jurisdiction.mayorName || MAYOR;
   // Some cities' vote data stores the mayor's name with a "Mayor " prefix baked
   // in (e.g. Vancouver's "Mayor Ken Sim"), others don't (Toronto's "Olivia
@@ -40,7 +40,7 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
   const isMayorName = name => name.replace(/^Mayor\s+/i, '') === mayorName.replace(/^Mayor\s+/i, '');
   const currentNames = useMemo(() => new Set((jurisdiction.currentCouncillors ?? []).map(c => typeof c === 'string' ? c : c.name)), [jurisdiction.currentCouncillors]);
 
-  const myCouncillor = isVancouver ? null : myWardId ? WARD_COUNCILLORS[myWardId] : null;
+  const myCouncillor = hasWardLookup && myWardId ? WARD_COUNCILLORS[myWardId] : null;
 
   const scrollToCouncillor = (name) => {
     document.getElementById(`councillor-${nameToSlug(name)}`)?.scrollIntoView({
@@ -158,7 +158,7 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
       <PageMeta title={`${jurisdiction.name} Councillors | Motions`} description={`Review ${jurisdiction.name} councillors and their voting records.`} />
 
       <div className="flex justify-end gap-2 flex-wrap">
-        {!isVancouver && <button
+        {hasWardLookup && <button
           onClick={handleFindMyCouncillor}
           className="flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-xl border border-slate-200 bg-white text-slate-600 hover:border-slate-400 transition-all"
         >
