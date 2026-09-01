@@ -81,6 +81,7 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
           {wards && (
             <GeoJSON
               data={wards}
+              interactive={false}
               style={{ color: '#004a99', weight: 1, fillColor: '#004a99', fillOpacity: 0.03 }}
             />
           )}

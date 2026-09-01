@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Fixed Toronto's Map page not responding to clicks or hovers on any pin**: The ward boundary overlay loads asynchronously, so it gets added to the map (and painted) after the 346 already-mounted pins — in Leaflet's SVG renderer, that put the outlines on top of every pin, silently capturing all pointer events across the whole map despite being nearly invisible. Made the overlay non-interactive so clicks and hovers reach the pins underneath.
+
 - **Moved the Map footer link from "Your City" to "Understand"**: It's a way to explore the data, not a "your representation" link like Councillors/Election, so it fits better alongside Learn/Transparency/Sources.
 - **The Map page's "mostly X and Y" topics now filter the homepage when clicked**: Each links to `/?topic=X`, matching the existing `?ward=` URL-filter pattern, and pre-selects the matching topic pill so the filter's visibly active, not just silently applied.
 - **Fixed motion-map tooltips not wrapping long titles**: Leaflet's default tooltip CSS forces `white-space: nowrap`, which silently overrode the `max-width` on the tooltip content, so a long motion title just stretched the box across the map instead of wrapping onto a second line. Fixed on the new Map page and both existing motion-pin tooltips (Vancouver's mini-map, the ward detail map).
