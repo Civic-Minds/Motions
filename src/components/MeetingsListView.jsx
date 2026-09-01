@@ -258,11 +258,12 @@ export default function MeetingsListView({ meetings = [], jurisdiction = { name:
         </div>
       </div>
 
-      {/* Results count */}
-      <p className="text-[11px] text-slate-500 mb-4">
-        {displayed.length.toLocaleString()} meeting{displayed.length !== 1 ? 's' : ''}
-        {activeFilterCount > 0 ? ' matching filters' : ''}
-      </p>
+      {/* Results count — the time tab already shows the unfiltered total */}
+      {activeFilterCount > 0 && (
+        <p className="text-[11px] text-slate-500 mb-4">
+          {displayed.length.toLocaleString()} meeting{displayed.length !== 1 ? 's' : ''} matching filters
+        </p>
+      )}
 
       {/* Grouped list */}
       {grouped.length === 0 ? (
