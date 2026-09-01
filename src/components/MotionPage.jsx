@@ -486,6 +486,9 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
               ) : (
                 <div className="w-full h-72 rounded-2xl bg-slate-100 animate-pulse" aria-label="Loading map" />
               )}
+              <Link to={`/map?focus=${motion.id}`} className="inline-flex items-center gap-1.5 px-1 text-xs font-semibold text-[#004a99] hover:underline">
+                Explore the map →
+              </Link>
             </div>
           )}
 

@@ -1,13 +1,19 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { MapContainer, TileLayer, GeoJSON, CircleMarker, Tooltip, useMap } from 'react-leaflet';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import 'leaflet/dist/leaflet.css';
 import { PageMeta } from './PageMeta';
 import PageColumn from './PageColumn';
 
-function FitPins({ pins }) {
+// If a specific motion was requested (arrived here via a "see it on the map"
+// link), center on that pin instead of fitting to every pin.
+function FitPins({ pins, focusPin }) {
   const map = useMap();
   useMemo(() => {
+    if (focusPin) {
+      map.setView([focusPin.lat, focusPin.lng], 16);
+      return;
+    }
     if (pins.length === 0) return;
     try {
       map.fitBounds(pins.map(pin => [pin.lat, pin.lng]), { padding: [32, 32], maxZoom: 13 });
@@ -15,14 +21,17 @@ function FitPins({ pins }) {
       // ignore
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [map]);
+  }, [map, focusPin]);
   return null;
 }
 
 export default function MotionsMap({ jurisdiction, motions = [] }) {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const focusId = searchParams.get('focus');
   const hasWards = jurisdiction.geography === 'ward';
   const [wards, setWards] = useState(null);
+  const focusedMarkerRef = useRef(null);
 
   useEffect(() => {
     if (!hasWards) return;
@@ -34,6 +43,13 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
   const pins = useMemo(() => motions.flatMap(m =>
     (m.locations ?? []).map(loc => ({ ...loc, motion: m }))
   ), [motions]);
+  const focusPin = useMemo(() =>
+    focusId ? pins.find(pin => String(pin.motion.id) === focusId) : null,
+  [pins, focusId]);
+
+  useEffect(() => {
+    focusedMarkerRef.current?.openTooltip();
+  }, [focusPin]);
   const mappedMotionCount = useMemo(() =>
     motions.filter(m => Array.isArray(m.locations) && m.locations.length > 0).length,
   [motions]);
@@ -85,17 +101,20 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
               style={{ color: '#004a99', weight: 1, fillColor: '#004a99', fillOpacity: 0.03 }}
             />
           )}
-          <FitPins pins={pins} />
-          {pins.map((pin, i) => (
+          <FitPins pins={pins} focusPin={focusPin} />
+          {pins.map((pin, i) => {
+            const isFocused = focusId && String(pin.motion.id) === focusId;
+            return (
             <CircleMarker
               key={`${pin.motion.id}-${i}`}
+              ref={isFocused ? focusedMarkerRef : undefined}
               center={[pin.lat, pin.lng]}
-              radius={5}
+              radius={isFocused ? 9 : 5}
               pathOptions={{
-                color: 'transparent',
+                color: isFocused ? '#004a99' : 'transparent',
+                weight: isFocused ? 3 : 0,
                 fillColor: pin.motion.status === 'Adopted' ? '#10b981' : '#f43f5e',
                 fillOpacity: 0.8,
-                weight: 0,
               }}
               eventHandlers={{ click: () => navigate(`/motions/${pin.motion.id}`) }}
             >
@@ -106,7 +125,8 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
                 </div>
               </Tooltip>
             </CircleMarker>
-          ))}
+            );
+          })}
         </MapContainer>
 
         <div className="pointer-events-none absolute bottom-3 left-3 z-[500] flex items-center gap-3 rounded-xl border border-slate-200 bg-white/90 px-3 py-2 text-xs font-medium text-slate-600 shadow-sm backdrop-blur-sm">

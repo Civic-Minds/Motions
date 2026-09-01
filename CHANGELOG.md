@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Added "Explore the map" from a motion's location to the full Map page**: Clicking it opens the Map page zoomed to that motion's own pin (highlighted), instead of dropping you at the default city-wide view.
 - **Fixed Toronto homepage mini-map's stale "Explore wards" label**: It clicks through to the new Map page (motions by address), not the wards page, since an earlier change this session — now matches Vancouver's "Explore the map."
 
 - **Trimmed "wards page" to "wards" in the Map page's intro link**: The word "page" was redundant.
