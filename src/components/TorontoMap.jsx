@@ -3,7 +3,6 @@ import { MapContainer, TileLayer, GeoJSON, CircleMarker, Tooltip, useMap } from 
 import { useNavigate } from 'react-router-dom';
 import 'leaflet/dist/leaflet.css';
 import { PageMeta } from './PageMeta';
-import { CivicSectionLabel } from './ui/CivicCard';
 
 function FitPins({ pins }) {
   const map = useMap();
@@ -44,8 +43,7 @@ export default function TorontoMap({ motions = [] }) {
       />
 
       <div>
-        <CivicSectionLabel>MAP</CivicSectionLabel>
-        <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Motions on the map</h1>
+        <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Motions on the map</h1>
         <p className="mt-3 max-w-2xl text-slate-500">
           Every motion is already grouped by ward — see the <a href="/wards" className="font-semibold text-[#004a99] hover:underline">wards page</a> for that. This map instead shows motions plotted at their exact address, where one is on record: {mappedMotionCount.toLocaleString()} of {motions.length.toLocaleString()} have a mapped location, mostly rezoning, development, and other address-specific items.
         </p>

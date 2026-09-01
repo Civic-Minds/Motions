@@ -3,7 +3,6 @@ import { MapContainer, TileLayer, CircleMarker, Tooltip, useMap } from 'react-le
 import { useNavigate } from 'react-router-dom';
 import 'leaflet/dist/leaflet.css';
 import { PageMeta } from '../PageMeta';
-import { CivicSectionLabel } from '../ui/CivicCard';
 
 function FitPins({ pins }) {
   const map = useMap();
@@ -36,8 +35,7 @@ export default function VancouverMap({ motions = [] }) {
       />
 
       <div>
-        <CivicSectionLabel>MAP</CivicSectionLabel>
-        <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Motions on the map</h1>
+        <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Motions on the map</h1>
         <p className="mt-3 max-w-2xl text-slate-500">
           Vancouver doesn’t have wards — every seat is elected citywide — so this map shows individual motions at their address instead. Not every motion has one: {mappedMotionCount.toLocaleString()} of {motions.length.toLocaleString()} have a mapped location on record, mostly rezoning, development, and other address-specific items.
         </p>

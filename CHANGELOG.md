@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Removed the redundant "MAP" eyebrow label on the new Map page**: The heading right below it already says "Motions on the map."
 - **Added a "Map" page to both cities**: A new full-page map plotting motions at their address (Toronto: 346 of 1,496; Vancouver: 421 of 2,164), separate from Toronto's existing Wards page (ward-grouped stats/candidates, unchanged, still at `/wards`). Each city's homepage mini-map now opens this new page when you click it; the legend lives as an overlay on the map itself rather than a separate card below it.
 - **Regrouped the footer's nav columns**: "Explore" mixed genuinely city-scoped links (Motions, Councillors, Election) with Learn, which is the same static guide content regardless of which city you're on — split into "Your City" (Motions, Councillors, Wards where applicable, Map, Election) and "Understand" (Learn, Transparency, Sources).
 - **Deduplicated the two cities' election pages**: Toronto's and Vancouver's election pages had independently reimplemented the same summary tile shape, the "Non-partisan guide to voting" callout (identical everywhere), the post-election "Result"/"What's next" cards (identical wording once voting closes), and the closing disclaimer. All four are now shared components/helpers instead of copy-pasted per city, so a future city's election page reuses them instead of retyping them — and Toronto's previously-hardcoded election-day/advance-voting strings are now named constants instead of buried inline.
