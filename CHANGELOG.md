@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Added Vancouver’s official upcoming meeting schedule**: Scheduled Council and committee meetings now appear even before voting records are published.
 - **Fixed missing Toronto meeting source links**: Meetings without a stored record URL now link to the official Toronto Council site instead of showing dead source text.
 - **Shared back navigation styling**: Motion, meeting, and committee pages now use one reusable back-button component, keeping desktop and mobile treatment consistent.
 - **Standardized back navigation**: Meeting and committee pages now use the same responsive back-button placement and styling as motion pages.
