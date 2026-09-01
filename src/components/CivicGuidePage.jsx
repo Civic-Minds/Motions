@@ -60,33 +60,54 @@ const GUIDE_CONTENT = {
     title: 'How to Get Involved',
     description: city => `Find practical ways to take part in ${city}’s local decisions.`,
     intro: city => `You do not have to wait for an election to take part in ${city}’s civic decisions. Start with the type of issue you care about, then follow the public process around it.`,
+    resourcesInline: true,
     steps: {
       Vancouver: [
-        ['1', 'Find an open conversation', 'Shape Your City lists consultations where residents can learn about proposals and share feedback before decisions are made.'],
-        ['2', 'Watch for formal notices', 'The City’s public notices page lists public hearings and other notices, including when and how residents can share their views.'],
-        ['3', 'Speak up on development proposals', 'For a rezoning or other development application, review the proposal and follow the listed opportunities to comment or participate in a public hearing.'],
-        ['4', 'Take part in a Council decision', 'Read the agenda, attend or watch the meeting, submit comments, request to speak when that option is available, or contact any councillor or the Mayor.'],
+        ['1', 'Find an open conversation', 'Shape Your City lists consultations where residents can learn about proposals and share feedback before decisions are made.', 'Shape Your City', 'https://www.shapeyourcity.ca/'],
+        ['2', 'Watch for formal notices', 'The City’s public notices page lists public hearings and other notices, including when and how residents can share their views.', 'Public notices', 'https://vancouver.ca/your-government/public-notices.aspx'],
+        ['3', 'Speak up on development proposals', 'For a rezoning or other development application, review the proposal and follow the listed opportunities to comment or participate in a public hearing.', 'Rezoning applications', 'https://vancouver.ca/home-property-development/rezoning-applications.aspx'],
+        ['4', 'Take part in a Council decision', 'Read the agenda, attend or watch the meeting, submit comments, request to speak when that option is available, or contact any councillor or the Mayor.', 'Sign up to speak', 'https://vancouver.ca/your-government/speak-at-city-council-meetings.aspx'],
         ['5', 'Follow the result', 'Check the minutes, voting record, and later reports to see what Council decided and what happens next.'],
       ],
       Toronto: [
-        ['1', 'Find an open conversation', 'Have Your Say Toronto lists surveys and consultations on the budget, planning, parks, transit, and housing.'],
-        ['2', 'Watch for formal notices', 'The City’s public notices page lists hearings and other notices, including how residents can share their views.'],
-        ['3', 'Speak up on development proposals', 'For a rezoning or other development application, check the Application Information Centre for the proposal, meeting dates, and how to comment.'],
-        ['4', 'Take part in a Council decision', 'Read the agenda, then register to speak at the committee or Community Council handling it. City Council itself does not take public speakers — only committees do. You can also contact your ward councillor.'],
+        ['1', 'Find an open conversation', 'Have Your Say Toronto lists surveys and consultations on the budget, planning, parks, transit, and housing.', 'Have Your Say Toronto', 'https://haveyoursay.toronto.ca/'],
+        ['2', 'Watch for formal notices', 'The City’s public notices page lists hearings and other notices, including how residents can share their views.', 'Public Notices & Bylaws', 'https://www.toronto.ca/city-government/public-notices-bylaws/'],
+        ['3', 'Speak up on development proposals', 'For a rezoning or other development application, check the Application Information Centre for the proposal, meeting dates, and how to comment.', 'Application Information Centre', 'https://app.toronto.ca/DevelopmentApplications/mapSearchSetup.do?action=init'],
+        ['4', 'Take part in a Council decision', 'Read the agenda, then register to speak at the committee or Community Council handling it. City Council itself does not take public speakers — only committees do. You can also contact your ward councillor.', 'Register to speak at a meeting', 'https://www.toronto.ca/city-government/council/council-committee-meetings/have-your-say/'],
         ['5', 'Follow the result', 'Check the minutes, voting record, and later reports to see what Council decided and what happens next.'],
       ],
     },
-    resources: {
-      Vancouver: [
-        ['Shape Your City', 'https://www.shapeyourcity.ca/'],
-        ['Public notices', 'https://vancouver.ca/your-government/public-notices.aspx'],
-        ['Rezoning applications', 'https://vancouver.ca/home-property-development/rezoning-applications.aspx'],
-      ],
+    action: city => `Explore ${city} councillors`,
+  },
+  depute: {
+    lastUpdated: 'August 31, 2026',
+    title: 'How to Depute',
+    description: city => `How to register, prepare, and speak to your ${city} council or committee about an item on the agenda.`,
+    intro: city => `Anyone can speak about an item on the agenda — you don’t need to be an expert or represent an organization. Here’s exactly how to register and what to expect in ${city}.`,
+    steps: {
       Toronto: [
-        ['Have Your Say Toronto', 'https://haveyoursay.toronto.ca/'],
-        ['Public Notices & Bylaws', 'https://www.toronto.ca/city-government/public-notices-bylaws/'],
-        ['Application Information Centre', 'https://app.toronto.ca/DevelopmentApplications/mapSearchSetup.do?action=init'],
-        ['Register to speak at a meeting', 'https://www.toronto.ca/city-government/council/council-committee-meetings/have-your-say/'],
+        ['1', 'Find your item on a committee agenda', 'Deputations happen at committees and Community Councils, not at full City Council. Find your item’s report number on the relevant agenda.'],
+        ['2', 'Register by the deadline', 'Register by 4:30 p.m. the day before the meeting, using the “Request to Speak” link on the agenda item or by emailing the committee clerk listed on the committee’s page.', 'Register to speak at a meeting', 'https://www.toronto.ca/city-government/council/council-committee-meetings/have-your-say/'],
+        ['3', 'Choose in person or by video', 'Say which you prefer when you register. Either way, you speak directly to the committee.'],
+        ['4', 'Know your time limit', 'Public presentations are limited to five minutes, unless the committee decides otherwise. Committee members can then ask you questions.'],
+        ['5', 'Or submit written comments instead', 'Send them to the Clerk’s office, naming the specific agenda item and committee. Comments received after the deadline won’t be distributed to members, so submit early.'],
+      ],
+      Vancouver: [
+        ['1', 'Find your item on the agenda', 'Council and committee agendas list every item up for a decision.'],
+        ['2', 'Register to speak', 'Email speaker.request@vancouver.ca or call 604-829-4272, or sign up online. For a Public Hearing, registration opens 10 days before the meeting and closes at 5 p.m. the day before — a limited number of in-person spots also open at City Hall from 5:30–6 p.m. the day of.', 'Sign up to speak', 'https://vancouver.ca/your-government/speak-at-city-council-meetings.aspx'],
+        ['3', 'Get your speaker number', 'Speakers are assigned a number in the order requests are received. You’ll get a confirmation email with what to expect.'],
+        ['4', 'Know your time limit', 'Speakers get three minutes.'],
+        ['5', 'Or submit written comments or slides instead', 'Same deadline as registering to speak — 5 p.m. the day before. Late submissions, including for reconvened meetings, aren’t accepted.'],
+      ],
+    },
+    resources: {
+      Toronto: [
+        ['Have Your Say at Council & Committee Meetings', 'https://www.toronto.ca/city-government/council/council-committee-meetings/have-your-say/'],
+        ['Council and committee meetings', 'https://www.toronto.ca/city-government/council/council-committee-meetings/'],
+      ],
+      Vancouver: [
+        ['Sign up to speak', 'https://vancouver.ca/your-government/speak-at-city-council-meetings.aspx'],
+        ['Prepare to speak', 'https://vancouver.ca/your-government/prepare-to-speak-at-a-meeting-or-hearing.aspx'],
       ],
     },
     action: city => `Explore ${city} councillors`,
@@ -130,8 +151,9 @@ export default function CivicGuidePage({ type, jurisdiction = { id: 'toronto', n
   const content = GUIDE_CONTENT[type];
   const isCouncilGuide = type === 'council';
   const isInvolvementGuide = type === 'involvement';
+  const isDeputeGuide = type === 'depute';
   const steps = type === 'council' || type === 'voting' ? content.steps[jurisdiction.name] : content.steps;
-  const citySteps = type === 'involvement' ? content.steps[jurisdiction.name] : steps;
+  const citySteps = (isInvolvementGuide || isDeputeGuide) ? content.steps[jurisdiction.name] : steps;
   const resources = content.resources?.[jurisdiction.name] ?? [];
   const actionPath = content.actionPath ?? (isCouncilGuide ? '/' : '/councillors');
   const participationPrompt = type === 'council' || type === 'voting'
@@ -160,24 +182,29 @@ export default function CivicGuidePage({ type, jurisdiction = { id: 'toronto', n
       </div>
 
       <div className="space-y-3">
-        <CivicSectionLabel>{isCouncilGuide ? 'THE PATH OF A DECISION' : isInvolvementGuide ? 'WAYS TO TAKE PART' : 'FROM AGENDA TO DECISION'}</CivicSectionLabel>
+        <CivicSectionLabel>{isCouncilGuide ? 'THE PATH OF A DECISION' : isInvolvementGuide ? 'WAYS TO TAKE PART' : isDeputeGuide ? 'HOW TO REGISTER' : 'FROM AGENDA TO DECISION'}</CivicSectionLabel>
         {citySteps.length === 0 ? (
           <CivicCard className="gap-2">
             <h2 className="font-semibold text-slate-900">Coming soon</h2>
             <p className="text-sm leading-relaxed text-slate-500">We’re preparing a city-specific guide to ways Toronto residents can take part in local decisions.</p>
           </CivicCard>
-        ) : citySteps.map(([number, title, body]) => (
+        ) : citySteps.map(([number, title, body, resourceLabel, resourceHref]) => (
           <CivicCard key={number} className="flex-row gap-4">
             <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-50 text-sm font-bold text-[#004a99]">{number}</span>
             <div className="space-y-1">
               <h2 className="font-semibold text-slate-900">{title}</h2>
               <p className="text-sm leading-relaxed text-slate-500">{body}</p>
+              {resourceHref && (
+                <a href={resourceHref} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#004a99] hover:underline">
+                  {resourceLabel} <ArrowRight className="h-3.5 w-3.5" />
+                </a>
+              )}
             </div>
           </CivicCard>
         ))}
       </div>
 
-      {resources.length > 0 && (
+      {resources.length > 0 && !content.resourcesInline && (
         <div className="space-y-3">
           <CivicSectionLabel>OFFICIAL RESOURCES</CivicSectionLabel>
           <CivicCard className="gap-2">

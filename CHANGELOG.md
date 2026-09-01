@@ -6,6 +6,11 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Added "How to Depute" to Learn**: Registering to speak to a committee about an item on the agenda was previously one buried line in "How to Get Involved" — now its own guide with each city's real registration deadline, time limit, and how to submit written comments instead, sourced from each city's official pages.
+- **Moved "How to Get Involved"'s resource links inline, next to the step they support**: They previously sat in one undifferentiated block at the very bottom, disconnected from which step each one was for. Also added Vancouver's "Sign up to speak" link, which Toronto's equivalent guide had but Vancouver's was missing.
+
+## [Unreleased]
+
 - **Added "Explore the map" from a motion's location to the full Map page**: Clicking it opens the Map page zoomed to that motion's own pin (highlighted), instead of dropping you at the default city-wide view.
 - **Fixed Toronto homepage mini-map's stale "Explore wards" label**: It clicks through to the new Map page (motions by address), not the wards page, since an earlier change this session — now matches Vancouver's "Explore the map."
 

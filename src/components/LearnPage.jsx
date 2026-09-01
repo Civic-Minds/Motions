@@ -27,6 +27,11 @@ const GUIDES = [
     title: 'How to Get Involved',
     description: city => `Find consultations, public notices, hearings, and ways to share your views in ${city}.`,
   },
+  {
+    path: '/learn/how-to-depute',
+    title: 'How to Depute',
+    description: city => `Register to speak to ${city}’s council or committee about an item on the agenda.`,
+  },
 ];
 
 function GuideCard({ guide, jurisdiction }) {
