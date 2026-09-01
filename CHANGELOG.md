@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Fixed jargon and a dangling reference in the Map page's intro**: "For ward-level browsing" meant nothing to a non-technical reader; now "To browse by ward instead." "346 of 1,496 have one on record" left "one" with no clear antecedent once the surrounding copy got trimmed; now "have an address on record."
 - **Dropped the Map page's ward-boundary callout**: Explaining the faint boundary lines in text created an odd loop ("wards shown here, see the wards page for wards"), when the map already shows them visually — text just states what the page does and links to the wards page.
 - **Tightened the Map page's intro copy further**: Cut about 30%, dropped "Only," and removed the semicolon (no colons/semicolons in this copy).
 - **Fixed Toronto's Map page intro contradicting what it actually shows**: It said "instead of by ward" while the map visibly draws ward boundaries for context — reworded to acknowledge them instead of denying they're there.
