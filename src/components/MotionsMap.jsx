@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, GeoJSON, CircleMarker, Tooltip, useMap } from 
 import { useNavigate } from 'react-router-dom';
 import 'leaflet/dist/leaflet.css';
 import { PageMeta } from './PageMeta';
+import PageColumn from './PageColumn';
 
 function FitPins({ pins }) {
   const map = useMap();
@@ -18,15 +19,17 @@ function FitPins({ pins }) {
   return null;
 }
 
-export default function TorontoMap({ motions = [] }) {
+export default function MotionsMap({ jurisdiction, motions = [] }) {
   const navigate = useNavigate();
+  const hasWards = jurisdiction.geography === 'ward';
   const [wards, setWards] = useState(null);
 
   useEffect(() => {
+    if (!hasWards) return;
     const blobBase = import.meta.env.VITE_BLOB_BASE_URL;
     const url = blobBase ? `${blobBase}/wards.geojson` : '/data/wards.geojson';
     fetch(url).then(r => r.json()).then(setWards).catch(() => {});
-  }, []);
+  }, [hasWards]);
 
   const pins = useMemo(() => motions.flatMap(m =>
     (m.locations ?? []).map(loc => ({ ...loc, motion: m }))
@@ -34,24 +37,35 @@ export default function TorontoMap({ motions = [] }) {
   const mappedMotionCount = useMemo(() =>
     motions.filter(m => Array.isArray(m.locations) && m.locations.length > 0).length,
   [motions]);
+  const topTopics = useMemo(() => {
+    const counts = {};
+    motions.forEach(m => {
+      if (!Array.isArray(m.locations) || !m.locations.length || !m.topic || m.topic === 'General') return;
+      counts[m.topic] = (counts[m.topic] || 0) + 1;
+    });
+    return Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 2).map(([topic]) => topic.toLowerCase());
+  }, [motions]);
 
   return (
     <div className="space-y-4 pb-20">
       <PageMeta
-        title="Map | Motions Toronto"
-        description="Toronto council motions plotted at their address, where one is on record."
+        title={`Map | Motions ${jurisdiction.name}`}
+        description={`${jurisdiction.name} council motions plotted at their address, where one is on record.`}
       />
 
-      <div>
+      <PageColumn>
         <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Motions on the map</h1>
         <p className="mt-3 max-w-2xl text-slate-500">
-          Every motion is already grouped by ward — see the <a href="/wards" className="font-semibold text-[#004a99] hover:underline">wards page</a> for that. This map instead shows motions plotted at their exact address, where one is on record: {mappedMotionCount.toLocaleString()} of {motions.length.toLocaleString()} have a mapped location, mostly rezoning, development, and other address-specific items.
+          {hasWards
+            ? <>This map plots motions at their exact address instead of by ward — see the <a href="/wards" className="font-semibold text-[#004a99] hover:underline">wards page</a> for that. </>
+            : `${jurisdiction.name} doesn’t have wards — every seat is elected citywide — so this map plots motions at their address instead. `}
+          Only {mappedMotionCount.toLocaleString()} of {motions.length.toLocaleString()} motions have one on record{topTopics.length > 0 ? `, mostly ${topTopics.join(' and ')} items` : ''}.
         </p>
-      </div>
+      </PageColumn>
 
       <div className="relative h-[560px] w-full overflow-hidden rounded-2xl border border-slate-200">
         <MapContainer
-          center={[43.718, -79.385]}
+          center={jurisdiction.mapCenter}
           zoom={11}
           className="z-0 h-full w-full"
           attributionControl={false}

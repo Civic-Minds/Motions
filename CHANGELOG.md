@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Merged the two cities' Map pages into one shared component**: They were separate near-identical files; merged into `MotionsMap.jsx`, parameterized by jurisdiction, so a future city reuses it instead of copy-pasting. Also fixed the header sitting flush against the page edge instead of centered like other static pages (missing the same column wrapper Learn/Transparency/Sources use), tightened the intro wording, and made the "mostly X and Y items" line a real computed stat (most common topics among mapped motions) instead of an assumed, hardcoded guess.
 - **Removed the redundant "MAP" eyebrow label on the new Map page**: The heading right below it already says "Motions on the map."
 - **Added a "Map" page to both cities**: A new full-page map plotting motions at their address (Toronto: 346 of 1,496; Vancouver: 421 of 2,164), separate from Toronto's existing Wards page (ward-grouped stats/candidates, unchanged, still at `/wards`). Each city's homepage mini-map now opens this new page when you click it; the legend lives as an overlay on the map itself rather than a separate card below it.
 - **Regrouped the footer's nav columns**: "Explore" mixed genuinely city-scoped links (Motions, Councillors, Election) with Learn, which is the same static guide content regardless of which city you're on — split into "Your City" (Motions, Councillors, Wards where applicable, Map, Election) and "Understand" (Learn, Transparency, Sources).
