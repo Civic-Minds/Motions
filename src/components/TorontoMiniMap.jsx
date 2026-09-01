@@ -86,7 +86,7 @@ export default function TorontoMiniMap({ motions }) {
       {/* Label */}
       <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-[500] pointer-events-none">
         <span className="bg-white/90 backdrop-blur-sm border border-slate-200 rounded-full px-3 py-1 text-xs font-semibold text-[#004a99] shadow-sm group-hover:bg-[#004a99] group-hover:text-white transition-colors whitespace-nowrap">
-          Explore wards →
+          Explore the map →
         </span>
       </div>
     </div>

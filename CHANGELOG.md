@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Fixed Toronto homepage mini-map's stale "Explore wards" label**: It clicks through to the new Map page (motions by address), not the wards page, since an earlier change this session — now matches Vancouver's "Explore the map."
+
 - **Trimmed "wards page" to "wards" in the Map page's intro link**: The word "page" was redundant.
 - **Fixed jargon and a dangling reference in the Map page's intro**: "For ward-level browsing" meant nothing to a non-technical reader; now "To browse by ward instead." "346 of 1,496 have one on record" left "one" with no clear antecedent once the surrounding copy got trimmed; now "have an address on record."
 - **Dropped the Map page's ward-boundary callout**: Explaining the faint boundary lines in text created an odd loop ("wards shown here, see the wards page for wards"), when the map already shows them visually — text just states what the page does and links to the wards page.
