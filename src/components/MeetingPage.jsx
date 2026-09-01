@@ -53,17 +53,8 @@ export default function MeetingPage({ meetings, jurisdiction = { name: 'Toronto'
     <div className="max-w-5xl mx-auto py-2 px-4 sm:px-6 lg:px-8 relative">
       <PageMeta title={`${meeting.committee} | Motions ${jurisdiction.name}`} description={`${meeting.committee} meeting records and agenda items for ${jurisdiction.name}.`} />
 
-      {/* Back — desktop floating left */}
-      <button
-        onClick={() => navigate(`/committees/${committeeSlug}`)}
-        className="hidden xl:flex absolute -left-12 top-1 items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 transition-colors"
-      >
-        <ArrowLeft className="w-4 h-4 text-slate-300" />
-        Back
-      </button>
-
-      {/* Back — mobile/tablet stacked */}
-      <div className="mb-6 xl:hidden">
+      {/* Back */}
+      <div className="mb-6">
         <button
           onClick={() => navigate(`/committees/${committeeSlug}`)}
           className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 transition-colors"
