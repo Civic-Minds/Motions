@@ -4,7 +4,7 @@ import { Link, useParams, useNavigate, Navigate } from 'react-router-dom';
 import { ExternalLink, ArrowLeft, FileText, Info } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { getCommittee, WARD_COUNCILLORS } from '../constants/data';
-import { committeeToSlug, nameToSlug } from '../utils/slug';
+import { nameToSlug } from '../utils/slug';
 import { PageMeta } from './PageMeta';
 import { previewImage } from '../utils/meta';
 import ShareButton from './ShareButton';
@@ -279,12 +279,7 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
   const committee = motion.committee || getCommittee(motion.id);
   const sourceUrl = motion.url || motion.sourceUrl;
   const agendaUrl = isVancouver ? motion.agendaUrl : null;
-  const meetingReference = motion.meetingReference
-    ?? motion.url?.match(/[?&]item=([^.&]+\.[A-Za-z]+\d+)/)?.[1]
-    ?? null;
-  const committeeHref = meetingReference
-    ? `/meetings/${meetingReference}`
-    : `/committees/${committeeToSlug(committee)}`;
+  const committeeHref = `/?committee=${encodeURIComponent(committee)}`;
   const topicHref = motion.topic ? `/?topic=${encodeURIComponent(motion.topic)}` : null;
   const isMultiVote = subEntries.length > 0;
 
@@ -387,7 +382,7 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
           <span>·</span>
           <span>{motion.date}</span>
           <span>·</span>
-          <Link to={committeeHref} className="text-[#004a99] hover:underline" title={`View ${committee} meeting`}>{committee}</Link>
+          <Link to={committeeHref} className="text-[#004a99] hover:underline" title={`View ${committee} motions`}>{committee}</Link>
           {topicHref && <><span>·</span><Link to={topicHref} className="text-[#004a99] hover:underline" title={`View ${motion.topic} motions`}>{motion.topic}</Link></>}
           {sourceUrl && (
             <>

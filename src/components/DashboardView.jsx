@@ -402,7 +402,12 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
   const [searchParams] = useSearchParams();
   const [filters, dispatch] = useReducer(filtersReducer, initialFilters, initial => {
     const topicParam = searchParams.get('topic');
-    return topicParam && TOPICS.includes(topicParam) ? { ...initial, topics: [topicParam] } : initial;
+    const committeeParam = searchParams.get('committee');
+    return {
+      ...initial,
+      ...(topicParam && TOPICS.includes(topicParam) ? { topics: [topicParam] } : {}),
+      ...(committeeParam ? { committees: [committeeParam] } : {}),
+    };
   });
   const [visibleCount, setVisibleCount] = useState(() => isMobileViewport() ? 10 : 20);
   const [wardGeoData, setWardGeoData] = useState(null);

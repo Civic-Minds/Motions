@@ -6,7 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
-- **Linked Vancouver motion metadata**: Council/committee and topic labels now open the matching meeting and filtered motion list, like Toronto.
+- **Fixed Vancouver motion metadata filters**: Council and topic labels now return to the homepage with the matching filter applied instead of opening a meeting detail page.
 - **Removed duplicate Vancouver source links from Documents**: The agenda and voting record already appear beside the motion details; Documents now only contains actual supporting documents.
 - **Vancouver summary pipeline now rejects blocked, missing, or unmatched agenda pages**: Prevents error pages and whole-meeting text from being passed to summary generation, so future summaries are based only on a matched agenda item.
 
