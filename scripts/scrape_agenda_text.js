@@ -1,7 +1,7 @@
 /**
  * scrape_agenda_text.js
  *
- * Uses Playwright to scrape agenda item text from toronto.ca for each motion.
+ * Uses Playwright to scrape agenda item text from city agenda pages for each motion.
  * Stores the result in a `body` field on each motion in motions.json.
  * Incremental — skips motions that already have a `body` field or a `summary` (already processed).
  *
@@ -18,18 +18,18 @@ import { chromium } from 'playwright-core';
 import fs from 'fs';
 import path from 'path';
 
-const DATA_PATH = path.join(process.cwd(), 'public/data/motions.json');
-
 const args = Object.fromEntries(
   process.argv.slice(2)
     .filter(a => a.startsWith('--'))
     .map(a => { const [k, v] = a.slice(2).split('='); return [k, v ?? true]; })
 );
 
+const IS_VANCOUVER = !!args.vancouver;
+const DATA_PATH = path.join(process.cwd(), IS_VANCOUVER ? 'public/data/vancouver/motions.json' : 'public/data/motions.json');
 const LIMIT   = args['limit'] ? parseInt(args['limit'], 10) : Infinity;
 const DELAY_MS = 1200; // be polite
 
-async function extractAgendaText(page) {
+async function extractTorontoAgendaText(page) {
   return page.evaluate(() => {
     // TMMIS pages are old-school HTML — grab the main content area
     const selectors = [
@@ -62,12 +62,50 @@ async function extractAgendaText(page) {
   });
 }
 
+async function extractVancouverAgendaText(page, targetTitle) {
+  return page.evaluate(({ targetTitle }) => {
+    const normalize = value => value
+      .toLowerCase()
+      .replace(/[–—−]/g, '-')
+      .replace(/[^a-z0-9]+/g, ' ')
+      .trim();
+    const wanted = normalize(targetTitle);
+    if (!wanted) return null;
+
+    const candidates = [...document.querySelectorAll('h2, h3, h4, p')]
+      .map(el => ({ el, text: (el.innerText || '').trim(), normalized: normalize(el.innerText || '') }))
+      .filter(candidate => candidate.text && candidate.normalized)
+      .filter(candidate => candidate.normalized.includes(wanted) || wanted.includes(candidate.normalized))
+      .sort((a, b) => Math.abs(a.normalized.length - wanted.length) - Math.abs(b.normalized.length - wanted.length));
+    const match = candidates[0];
+    if (!match) return null;
+
+    const level = Number(match.el.tagName.slice(1));
+    const chunks = [match.text];
+    let node = match.el.nextElementSibling;
+    while (node) {
+      if (/^H[1-6]$/.test(node.tagName) && Number(node.tagName.slice(1)) <= level) break;
+      const text = (node.innerText || '').trim();
+      if (text) chunks.push(text);
+      node = node.nextElementSibling;
+    }
+
+    const text = chunks.join('\n');
+    // A heading followed only by “Report”/“Presentation” is not source text.
+    const substantive = chunks.slice(1).some(chunk =>
+      chunk.split(/\s+/).some(word => !/^(report|presentation|motion|pdf)$/i.test(word))
+    );
+    if (!substantive || text.length < 80) return null;
+    return { text, selector: match.el.tagName.toLowerCase() };
+  }, { targetTitle });
+}
+
 async function main() {
   const motions = JSON.parse(fs.readFileSync(DATA_PATH, 'utf8'));
 
   const targets = motions.filter(m =>
     !m.parentId &&
-    m.url &&
+    (IS_VANCOUVER ? m.agendaUrl : m.url) &&
     !m.body &&
     !m.summary  // already summarized (body was stripped) — no need to re-scrape
   );
@@ -99,21 +137,27 @@ async function main() {
 
   for (let i = 0; i < queue.length; i++) {
     const m = queue[i];
+    const agendaUrl = IS_VANCOUVER ? m.agendaUrl : m.url;
     process.stdout.write(`[${i + 1}/${queue.length}] ${m.id} — ${m.title.slice(0, 60)}… `);
 
     try {
-      await page.goto(m.url, { waitUntil: 'domcontentloaded', timeout: 15000 });
+      await page.goto(agendaUrl, { waitUntil: 'domcontentloaded', timeout: 15000 });
       await page.waitForTimeout(800); // let JS settle
 
       // Check for access denied
-      const title = await page.title();
-      if (title.toLowerCase().includes('access denied') || title.toLowerCase().includes('error')) {
-        console.log(`⛔ blocked (${title})`);
+      const pageTitle = await page.title();
+      if (pageTitle.toLowerCase().includes('access denied') ||
+          pageTitle.toLowerCase().includes('attention required') ||
+          pageTitle.toLowerCase().includes('error') ||
+          pageTitle.toLowerCase().includes("can't be found")) {
+        console.log(`⛔ blocked (${pageTitle})`);
         failed++;
         continue;
       }
 
-      const result = await extractAgendaText(page);
+      const result = IS_VANCOUVER
+        ? await extractVancouverAgendaText(page, m.title)
+        : await extractTorontoAgendaText(page);
       if (result && result.text.length > 50) {
         motionMap.get(m.id).body = result.text;
         console.log(`✓ (${result.text.length} chars, via ${result.selector})`);

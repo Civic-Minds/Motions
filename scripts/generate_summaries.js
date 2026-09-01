@@ -19,15 +19,16 @@ import { GoogleGenAI } from '@google/genai';
 import fs from 'fs';
 import path from 'path';
 
-const DATA_PATH  = path.join(process.cwd(), 'public/data/motions.json');
-const CACHE_PATH = path.join(process.cwd(), 'scripts/cache/summaries_cache.json');
-
 const args = Object.fromEntries(
   process.argv.slice(2)
     .filter(a => a.startsWith('--'))
     .map(a => { const [k, v] = a.slice(2).split('='); return [k, v ?? true]; })
 );
 
+const IS_VANCOUVER = !!args.vancouver;
+const CITY_NAME = IS_VANCOUVER ? 'Vancouver' : 'Toronto';
+const DATA_PATH  = path.join(process.cwd(), IS_VANCOUVER ? 'public/data/vancouver/motions.json' : 'public/data/motions.json');
+const CACHE_PATH = path.join(process.cwd(), IS_VANCOUVER ? 'scripts/cache/vancouver_summaries_cache.json' : 'scripts/cache/summaries_cache.json');
 const LIMIT       = args['limit']        ? parseInt(args['limit'], 10) : Infinity;
 const FORCE       = !!args['force'];
 const FILL_AMOUNTS = !!args['fill-amounts'];
@@ -37,8 +38,8 @@ const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 // ─── Prompts ──────────────────────────────────────────────────────────────────
 
-const SUMMARY_RULES = `You write plain-language summaries of Toronto City Council agenda items for a public transparency app.
-Your audience is curious Toronto residents with no legal or government background.
+const SUMMARY_RULES = `You write plain-language summaries of ${CITY_NAME} City Council agenda items for a public transparency app.
+Your audience is curious ${CITY_NAME} residents with no legal or government background.
 
 Summary rules:
 - 2-3 sentences max, no bullet points
@@ -48,7 +49,7 @@ Summary rules:
 - Do not mention vote counts or procedural details`;
 
 const SIGNIFICANCE_RULES = `significance rules:
-- Return a single integer 0–100 reflecting the motion's civic impact on Toronto residents
+- Return a single integer 0–100 reflecting the motion's civic impact on ${CITY_NAME} residents
 - Use these bands as a guide:
   · 0–5:   Pure procedural (by-law confirmations, call to order, order paper, minor commemorations)
   · 6–15:  Hyper-local single property (tree removals, fence exemptions, one traffic signal, lane naming)

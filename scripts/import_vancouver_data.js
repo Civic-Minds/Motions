@@ -29,8 +29,9 @@ const AGENDA_PREFIX = {
     'Special Council': 'spec',
     'Auditor General Committee': 'agc',
 };
-const AGENDA_URL = (committee, date) => {
-    const prefix = AGENDA_PREFIX[committee];
+const AGENDA_URL = (committee, date, title = '') => {
+    const isBusinessLicenceHearing = committee === 'Special Council' && /business licen[cs]e/i.test(title);
+    const prefix = isBusinessLicenceHearing ? 'blhe' : AGENDA_PREFIX[committee];
     if (!prefix || !date) return null;
     const compactDate = date.replaceAll('-', '');
     return `https://council.vancouver.ca/${compactDate}/${prefix}${compactDate}ag.htm`;
@@ -170,7 +171,7 @@ async function main() {
             votes: {},
             decision: row.decision || '',
             sourceUrl: RECORD_URL(row.meeting_id, row.vote_number),
-            agendaUrl: AGENDA_URL(row.meeting_type, row.vote_date),
+            agendaUrl: AGENDA_URL(row.meeting_type, row.vote_date, row.agenda_description),
         };
         event.votes[memberName] = normalizeVote(row.vote);
         if (row.decision) event.decision = row.decision;
