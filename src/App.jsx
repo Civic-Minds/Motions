@@ -36,6 +36,8 @@ const AboutPage         = lazy(() => import('./components/AboutPage'));
 const CivicGuidePage    = lazy(() => import('./components/CivicGuidePage'));
 const LearnPage         = lazy(() => import('./components/LearnPage'));
 const VancouverElection = lazy(() => import('./components/vancouver/VancouverElection'));
+const VancouverMap       = lazy(() => import('./components/vancouver/VancouverMap'));
+const TorontoMap         = lazy(() => import('./components/TorontoMap'));
 
 // About/Privacy/Terms now live outside the jurisdiction router (see
 // StandaloneShell); a plain <Navigate> inside this router would just resolve
@@ -322,6 +324,7 @@ function AppShell() {
           <Route path="/councillors/:slug" element={<CouncillorProfile motions={motions} councillors={councillors} jurisdiction={jurisdiction} />} />
           <Route path="/councillors/:slug/votes" element={<CouncillorVotes motions={motions} />} />
           <Route path="/councillors/:slug/vs/:slug2" element={<CouncillorList motions={motions} councillors={councillors} />} />
+          <Route path="/map" element={jurisdiction.id === 'vancouver' ? <VancouverMap motions={motions} /> : <TorontoMap motions={motions} />} />
           {jurisdiction.id === 'toronto' && <><Route path="/wards" element={<WardGrid motions={motions} />} /><Route path="/wards/:wardId" element={<WardGrid motions={motions} />} /></>}
           <Route path="/committees" element={<CommitteesView motions={motions} meetings={meetings} />} />
           <Route path="/committees/:committeeSlug" element={<CommitteesView motions={motions} meetings={meetings} />} />

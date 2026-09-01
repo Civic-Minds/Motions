@@ -5,6 +5,7 @@ import { formatElectionDate } from '../utils/electionDate';
 const linkClass = 'text-sm text-slate-500 transition-colors hover:text-slate-900';
 
 export default function SiteFooter({ jurisdiction, standalone = false }) {
+  const isToronto = jurisdiction.geography === 'ward';
   const electionDate = formatElectionDate(jurisdiction.election.date);
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -44,6 +45,7 @@ export default function SiteFooter({ jurisdiction, standalone = false }) {
           <div className="flex flex-col gap-2">
             <FooterLink to="/" onClick={scrollToTop} className={linkClass}>Motions</FooterLink>
             <FooterLink to="/councillors" onClick={scrollToTop} className={linkClass}>Councillors</FooterLink>
+            {isToronto && <FooterLink to="/wards" onClick={scrollToTop} className={linkClass}>Wards</FooterLink>}
             <FooterLink to="/map" onClick={scrollToTop} className={linkClass}>Map</FooterLink>
             <FooterLink to="/election" onClick={scrollToTop} className={`${linkClass} inline-flex items-center gap-2`}>
               <span>Election</span>

@@ -1,6 +1,7 @@
 import { useEffect, useMemo } from 'react';
-import { MapContainer, TileLayer, CircleMarker, Tooltip, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, CircleMarker, Tooltip, useMap, useMapEvents } from 'react-leaflet';
 import { useNavigate } from 'react-router-dom';
+import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 function FitPins({ pins }) {
@@ -18,6 +19,15 @@ function FitPins({ pins }) {
   return null;
 }
 
+// Clicking empty map area opens the full map, matching Toronto's mini-map.
+// Pin clicks stop propagation before this fires, so they still go to the
+// motion instead.
+function ClickToMap() {
+  const navigate = useNavigate();
+  useMapEvents({ click: () => navigate('/map') });
+  return null;
+}
+
 export default function VancouverMiniMap({ motions }) {
   const navigate = useNavigate();
   const pins = useMemo(() => motions.flatMap(m =>
@@ -25,7 +35,7 @@ export default function VancouverMiniMap({ motions }) {
   ), [motions]);
 
   return (
-    <div className="relative h-[calc(100vh-7rem)] min-h-[480px] w-full overflow-hidden rounded-2xl border border-slate-200">
+    <div className="group relative h-[calc(100vh-7rem)] min-h-[480px] w-full cursor-pointer overflow-hidden rounded-2xl border border-slate-200">
       <MapContainer
         center={[49.25, -123.1]}
         zoom={11}
@@ -40,6 +50,7 @@ export default function VancouverMiniMap({ motions }) {
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         <FitPins pins={pins} />
+        <ClickToMap />
         {pins.map((pin, i) => (
           <CircleMarker
             key={`${pin.motion.id}-${i}`}
@@ -51,7 +62,12 @@ export default function VancouverMiniMap({ motions }) {
               fillOpacity: 0.75,
               weight: 0,
             }}
-            eventHandlers={{ click: () => navigate(`/motions/${pin.motion.id}`) }}
+            eventHandlers={{
+              click: e => {
+                L.DomEvent.stopPropagation(e);
+                navigate(`/motions/${pin.motion.id}`);
+              },
+            }}
           >
             <Tooltip direction="top" offset={[0, -6]}>
               <div className="max-w-40 text-[10px] leading-tight">
@@ -63,9 +79,12 @@ export default function VancouverMiniMap({ motions }) {
         ))}
       </MapContainer>
 
+      {/* Decorative hover tint — pointer-events-none so pin clicks pass through to Leaflet */}
+      <div className="pointer-events-none absolute inset-0 z-[400] bg-transparent transition-colors group-hover:bg-[#004a99]/5" />
+
       <div className="pointer-events-none absolute bottom-3 left-1/2 z-[500] -translate-x-1/2">
-        <span className="whitespace-nowrap rounded-full border border-slate-200 bg-white/90 px-3 py-1 text-xs font-semibold text-[#004a99] shadow-sm backdrop-blur-sm">
-          Mapped Vancouver motions
+        <span className="whitespace-nowrap rounded-full border border-slate-200 bg-white/90 px-3 py-1 text-xs font-semibold text-[#004a99] shadow-sm backdrop-blur-sm transition-colors group-hover:bg-[#004a99] group-hover:text-white">
+          Explore the map →
         </span>
       </div>
     </div>

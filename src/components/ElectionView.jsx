@@ -391,8 +391,8 @@ export default function ElectionView() {
                 ) : (
                   <div className="bg-slate-50 border border-dashed border-slate-200 rounded-2xl p-5 text-center space-y-3">
                     <p className="text-sm text-slate-500 italic">Save your ward to view your local representative's track record</p>
-                    <Link 
-                      to="/wards" 
+                    <Link
+                      to="/wards"
                       className="inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-900 rounded-2xl font-black text-sm hover:bg-blue-50 transition-all"
                     >
                       <MapPin className="w-4 h-4" />

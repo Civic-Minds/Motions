@@ -80,7 +80,7 @@ export default function TorontoMiniMap({ motions }) {
       {/* Click overlay — sits above Leaflet (z ≥ 400), captures all events */}
       <div
         className="absolute inset-0 z-[400] bg-transparent group-hover:bg-[#004a99]/5 transition-colors"
-        onClick={() => navigate('/wards')}
+        onClick={() => navigate('/map')}
       />
 
       {/* Label */}
