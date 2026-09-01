@@ -54,6 +54,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Trustee candidate selection**: Prevented unselected trustee wards from appearing empty and showing false zero-candidate counts while candidate data loads.
 - **Alignment/spacing fixes**: The voting guide header now matches other detail pages' Back-link and header spacing, the Election nav pill no longer sits flush against its label, and the Documents card's fixed minimum height no longer leaves blank space below a single short document link.
 - **Voting guide clarity**: Explained that the three-hour voting entitlement means three consecutive hours free to vote, not three additional hours off work.
+- **Fixed a stale link on the Wards page**: "Learn how ward activity is tagged" pointed at the retired `/data` route; now points to `/transparency`.
 - **Motion-map tooltips not wrapping long titles**: Leaflet's default tooltip CSS forced `white-space: nowrap`, silently overriding the `max-width` on tooltip content, so a long motion title stretched the box across the map instead of wrapping. Fixed on the Map page and both existing motion-pin tooltips.
 - **Fixed a too-tight gap above the featured Learn card**: The spacing wrapper used margin-based spacing, but the card is wrapped in a link (inline by default), so its top margin was silently ignored — switched to a flex gap.
 - **Fixed a crash in the mobile nav menu**: It referenced a `tab.icon` field never defined on the tab list, so opening the mobile menu on any page threw "Element type is invalid."
