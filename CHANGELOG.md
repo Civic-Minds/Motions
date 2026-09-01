@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Removed duplicate Vancouver source links from Documents**: The agenda and voting record already appear beside the motion details; Documents now only contains actual supporting documents.
 - **Vancouver summary pipeline now rejects blocked, missing, or unmatched agenda pages**: Prevents error pages and whole-meeting text from being passed to summary generation, so future summaries are based only on a matched agenda item.
 
 - **Added "How to Depute" to Learn**: Registering to speak to a committee about an item on the agenda was previously one buried line in "How to Get Involved" — now its own guide with each city's real registration deadline, time limit, and how to submit written comments instead, sourced from each city's official pages.
