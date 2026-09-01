@@ -279,10 +279,13 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
   const committee = motion.committee || getCommittee(motion.id);
   const sourceUrl = motion.url || motion.sourceUrl;
   const agendaUrl = isVancouver ? motion.agendaUrl : null;
-  const meetingReference = motion.url?.match(/[?&]item=([^.&]+\.[A-Za-z]+\d+)/)?.[1] ?? null;
-  const committeeHref = !isVancouver && meetingReference
+  const meetingReference = motion.meetingReference
+    ?? motion.url?.match(/[?&]item=([^.&]+\.[A-Za-z]+\d+)/)?.[1]
+    ?? null;
+  const committeeHref = meetingReference
     ? `/meetings/${meetingReference}`
-    : !isVancouver ? `/committees/${committeeToSlug(committee)}` : null;
+    : `/committees/${committeeToSlug(committee)}`;
+  const topicHref = motion.topic ? `/?topic=${encodeURIComponent(motion.topic)}` : null;
   const isMultiVote = subEntries.length > 0;
 
   const myWardId = isVancouver ? null : getWardId();
@@ -384,8 +387,8 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
           <span>·</span>
           <span>{motion.date}</span>
           <span>·</span>
-          {committeeHref ? <Link to={committeeHref} className="text-[#004a99] hover:underline" title={`View ${committee} meeting`}>{committee}</Link> : <span>{committee}</span>}
-          {motion.topic && <><span>·</span><span>{motion.topic}</span></>}
+          <Link to={committeeHref} className="text-[#004a99] hover:underline" title={`View ${committee} meeting`}>{committee}</Link>
+          {topicHref && <><span>·</span><Link to={topicHref} className="text-[#004a99] hover:underline" title={`View ${motion.topic} motions`}>{motion.topic}</Link></>}
           {sourceUrl && (
             <>
               <span>·</span>
