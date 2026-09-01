@@ -1,13 +1,14 @@
 import React, { useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, ArrowLeft, Star, Calendar } from 'lucide-react';
+import { ArrowRight, Star, Calendar } from 'lucide-react';
 import { getCommittee, COMMITTEE_NAMES, TOPIC_LIGHT, COMMITTEE_DESCRIPTIONS } from '../constants/data';
 import { nameToSlug, committeeToSlug } from '../utils/slug';
 import { cn } from '../lib/utils';
 import { useAppContext } from '../contexts/AppContext';
 import { PageMeta } from './PageMeta';
 import { formatMotionDate } from '../utils/date';
+import BackButton from './ui/BackButton';
 
 export default function CommitteesView({ motions, meetings = [] }) {
   const { followedCommittees = [], handleToggleFollow: onToggleFollow, jurisdiction = { name: 'Toronto' } } = useAppContext();
@@ -127,14 +128,11 @@ export default function CommitteesView({ motions, meetings = [] }) {
 
       {/* ── Meetings-only body detail ── */}
       {selectedBody && (
-        <div className="space-y-4 max-w-5xl mx-auto">
-          <button
-            onClick={() => navigate('/committees')}
-            className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 transition-colors"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            Back
-          </button>
+        <div className="space-y-4 max-w-5xl mx-auto relative">
+          <BackButton onClick={() => navigate('/committees')} desktop className="top-[1px]" />
+          <div className="mb-6 lg:hidden">
+            <BackButton onClick={() => navigate('/committees')} />
+          </div>
           <h1 className="text-xl font-bold text-slate-900">{selectedBody.name}</h1>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
@@ -220,14 +218,11 @@ export default function CommitteesView({ motions, meetings = [] }) {
       )}
 
       {selectedCommittee && (
-        <div className="space-y-3 mb-2">
-          <button
-            onClick={() => navigate('/committees')}
-            className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 transition-colors"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            Back
-          </button>
+        <div className="space-y-3 mb-2 relative">
+          <BackButton onClick={() => navigate('/committees')} desktop className="top-[1px]" />
+          <div className="mb-6 lg:hidden">
+            <BackButton onClick={() => navigate('/committees')} />
+          </div>
           <div className="flex items-start justify-between gap-4">
             <div>
               <h1 className="text-xl font-bold text-slate-900">{selectedCommittee.name}</h1>

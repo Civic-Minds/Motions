@@ -1,7 +1,7 @@
 import { getWardId } from '../utils/storage';
 import React, { lazy, Suspense, useState, useMemo, useEffect } from 'react';
 import { Link, useParams, useNavigate, Navigate } from 'react-router-dom';
-import { ExternalLink, ArrowLeft, FileText, Info } from 'lucide-react';
+import { ExternalLink, FileText, Info } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { getCommittee, WARD_COUNCILLORS } from '../constants/data';
 import { nameToSlug } from '../utils/slug';
@@ -9,6 +9,7 @@ import { PageMeta } from './PageMeta';
 import { previewImage } from '../utils/meta';
 import ShareButton from './ShareButton';
 import MotionFunding from './MotionFunding';
+import BackButton from './ui/BackButton';
 
 const WardMotionMap = lazy(() => import('./WardMotionMap'));
 
@@ -323,23 +324,11 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
       />
 
       {/* Back Button (Desktop - Floating Left) */}
-      <button
-        onClick={() => navigate(-1)}
-        className="hidden lg:flex absolute -left-12 top-[13px] mt-0.5 items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 transition-colors"
-      >
-        <ArrowLeft className="w-4 h-4 text-slate-300" />
-        Back
-      </button>
+      <BackButton onClick={() => navigate(-1)} desktop />
 
       {/* Mobile/tablet header row */}
       <div className="mb-3 flex items-center gap-3 lg:hidden">
-        <button
-          onClick={() => navigate(-1)}
-          className="flex h-5 shrink-0 items-center gap-1.5 text-sm leading-5 text-slate-500 hover:text-slate-700 transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back
-        </button>
+        <BackButton onClick={() => navigate(-1)} className="shrink-0" />
         <div className="flex min-w-0 flex-wrap items-center gap-2">
           <StatusBadge status={motion.status} />
           {motion.significance >= 90 && (

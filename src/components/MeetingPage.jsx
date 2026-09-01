@@ -1,9 +1,10 @@
 import React, { useState, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, ExternalLink, Lock, FileText, ChevronRight } from 'lucide-react';
+import { ExternalLink, Lock, FileText, ChevronRight } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { committeeToSlug } from '../utils/slug';
 import { PageMeta } from './PageMeta';
+import BackButton from './ui/BackButton';
 
 const PROCEDURAL_TITLES = /^(call to order|confirmation of minutes|declarations of interest|petitions|review of the order paper|introduction of committee reports|presentations, introductions|adjournment|questions of privilege|other business)/i;
 
@@ -53,15 +54,12 @@ export default function MeetingPage({ meetings, jurisdiction = { name: 'Toronto'
     <div className="max-w-5xl mx-auto py-2 px-4 sm:px-6 lg:px-8 relative">
       <PageMeta title={`${meeting.committee} | Motions ${jurisdiction.name}`} description={`${meeting.committee} meeting records and agenda items for ${jurisdiction.name}.`} />
 
-      {/* Back */}
-      <div className="mb-6">
-        <button
-          onClick={() => navigate(`/committees/${committeeSlug}`)}
-          className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back
-        </button>
+      {/* Back Button (Desktop - Floating Left) */}
+      <BackButton onClick={() => navigate(`/committees/${committeeSlug}`)} desktop />
+
+      {/* Mobile/tablet back button */}
+      <div className="mb-6 lg:hidden">
+        <BackButton onClick={() => navigate(`/committees/${committeeSlug}`)} />
       </div>
 
       {/* Header */}

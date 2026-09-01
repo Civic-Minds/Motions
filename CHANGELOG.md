@@ -6,6 +6,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Shared back navigation styling**: Motion, meeting, and committee pages now use one reusable back-button component, keeping desktop and mobile treatment consistent.
+- **Standardized back navigation**: Meeting and committee pages now use the same responsive back-button placement and styling as motion pages.
 - **Removed duplicate meeting totals**: Unfiltered meeting pages no longer repeat the same count in the tab and below the filters; filtered results still show their narrowed total.
 - **Tightened meeting list rows**: Long Toronto and Vancouver meeting archives now use less vertical space while keeping the same meeting details visible.
 - **Aligned meeting-page back navigation**: The back button now sits with the page content instead of floating outside the layout on wide screens.
