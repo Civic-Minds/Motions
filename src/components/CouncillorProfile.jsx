@@ -1,7 +1,7 @@
 import { getWardId } from '../utils/storage';
 import React, { useMemo, useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { Mail, Phone, Vote } from 'lucide-react';
+import { ExternalLink, Mail, Phone, Vote } from 'lucide-react';
 import VsPickerModal from './VsPickerModal';
 import { getAttendance, getVotedWith } from '../utils/analytics';
 import { TOPIC_LIGHT, WARD_COUNCILLORS, FORMER_MEMBERS, getCommittee } from '../constants/data';
@@ -13,6 +13,20 @@ import { PageMeta } from './PageMeta';
 import { previewImage } from '../utils/meta';
 import ShareButton from './ShareButton';
 import { CivicCard } from './ui/CivicCard';
+
+const VANCOUVER_PROFILE_SLUGS = {
+  'Mayor Ken Sim': 'mayor-ken-sim',
+  'Rebecca Bligh': 'rebecca-bligh',
+  'Lisa Dominato': 'lisa-dominato',
+  'Pete Fry': 'pete-fry',
+  'Sarah Kirby-Yung': 'sarah-kirby-yung',
+  'Mike Klassen': 'mike-klassen',
+  'Lucy Maloney': 'lucy-maloney',
+  'Peter Meiszner': 'peter-meiszner',
+  'Brian Montague': 'brian-montague',
+  'Sean Orr': 'sean-orr',
+  'Lenny Zhou': 'lenny-zhou',
+};
 
 // ── Sub-component: profile header ─────────────────────────────────────────
 function ProfileHeader({ selected, ward, committees, isMyCouncillor, electionStatus, jurisdiction }) {
@@ -330,6 +344,9 @@ export default function CouncillorProfile({ motions, councillors = [], jurisdict
   const selected = useMemo(() => slugToName(slug, allNames), [slug, allNames]);
   const ward = selected ? COUNCILLOR_WARD[selected] : null;
   const contact = councillors.find(c => c.name === selected) ?? null;
+  const vancouverProfileUrl = isVancouver && VANCOUVER_PROFILE_SLUGS[selected]
+    ? `https://vancouver.ca/your-government/${VANCOUVER_PROFILE_SLUGS[selected]}.aspx`
+    : null;
   const electionStatus = useMemo(() => {
     if (isVancouver) return null;
     if (!candidateData || !selected) return null;
@@ -475,6 +492,11 @@ export default function CouncillorProfile({ motions, councillors = [], jurisdict
             {contact?.email && (
               <a href={`mailto:${contact.email}`} className="flex items-center gap-2 text-xs text-[#004a99] hover:underline break-all">
                 <Mail className="w-3.5 h-3.5 shrink-0" />{contact.email}
+              </a>
+            )}
+            {vancouverProfileUrl && (
+              <a href={vancouverProfileUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-xs text-[#004a99] hover:underline">
+                <ExternalLink className="w-3.5 h-3.5 shrink-0" /> City profile & contact
               </a>
             )}
           </div>
