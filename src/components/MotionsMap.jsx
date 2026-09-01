@@ -57,7 +57,7 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
         <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Motions on the map</h1>
         <p className="mt-3 max-w-2xl text-slate-500">
           {hasWards
-            ? <>Motions plotted at their address — wards are shown for reference. See the <a href="/wards" className="font-semibold text-[#004a99] hover:underline">wards page</a> to browse by ward. </>
+            ? <>Motions plotted at their exact address. For ward-level browsing, see the <a href="/wards" className="font-semibold text-[#004a99] hover:underline">wards page</a>. </>
             : `${jurisdiction.name} has no wards — every seat is elected citywide — so motions are plotted at their address instead. `}
           {mappedMotionCount.toLocaleString()} of {motions.length.toLocaleString()} have one on record{topTopics.length > 0 && (
             <>, mostly {topTopics.map((topic, i) => (
