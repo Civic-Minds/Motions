@@ -6,6 +6,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+- **Tightened meeting list rows**: Long Toronto and Vancouver meeting archives now use less vertical space while keeping the same meeting details visible.
 - **Aligned meeting-page back navigation**: The back button now sits with the page content instead of floating outside the layout on wide screens.
 - **Fixed Vancouver motion metadata filters**: Council and topic labels now return to the homepage with the matching filter applied instead of opening a meeting detail page.
 - **Removed duplicate Vancouver source links from Documents**: The agenda and voting record already appear beside the motion details; Documents now only contains actual supporting documents.

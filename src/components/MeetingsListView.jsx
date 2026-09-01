@@ -287,7 +287,7 @@ export default function MeetingsListView({ meetings = [], jurisdiction = { name:
                     <button
                       key={i}
                       onClick={() => navigate(dest)}
-                      className="w-full flex items-center gap-4 px-5 py-4 hover:bg-slate-50 transition-colors group text-left"
+                      className="w-full flex items-center gap-4 px-5 py-3 hover:bg-slate-50 transition-colors group text-left"
                     >
                       <div className="shrink-0 w-10 text-center">
                         <p className="text-[11px] font-bold text-slate-500 uppercase leading-none">
