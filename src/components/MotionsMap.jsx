@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { MapContainer, TileLayer, GeoJSON, CircleMarker, Tooltip, useMap } from 'react-leaflet';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import 'leaflet/dist/leaflet.css';
 import { PageMeta } from './PageMeta';
 import PageColumn from './PageColumn';
@@ -43,7 +43,7 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
       if (!Array.isArray(m.locations) || !m.locations.length || !m.topic || m.topic === 'General') return;
       counts[m.topic] = (counts[m.topic] || 0) + 1;
     });
-    return Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 2).map(([topic]) => topic.toLowerCase());
+    return Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 2).map(([topic]) => topic);
   }, [motions]);
 
   return (
@@ -59,7 +59,14 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
           {hasWards
             ? <>This map plots motions at their exact address instead of by ward — see the <a href="/wards" className="font-semibold text-[#004a99] hover:underline">wards page</a> for that. </>
             : `${jurisdiction.name} doesn’t have wards — every seat is elected citywide — so this map plots motions at their address instead. `}
-          Only {mappedMotionCount.toLocaleString()} of {motions.length.toLocaleString()} motions have one on record{topTopics.length > 0 ? `, mostly ${topTopics.join(' and ')} items` : ''}.
+          Only {mappedMotionCount.toLocaleString()} of {motions.length.toLocaleString()} motions have one on record{topTopics.length > 0 && (
+            <>, mostly {topTopics.map((topic, i) => (
+              <span key={topic}>
+                {i > 0 && ' and '}
+                <Link to={`/?topic=${topic}`} className="font-semibold text-[#004a99] hover:underline">{topic.toLowerCase()}</Link>
+              </span>
+            ))} items</>
+          )}.
         </p>
       </PageColumn>
 
@@ -91,9 +98,9 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
               }}
               eventHandlers={{ click: () => navigate(`/motions/${pin.motion.id}`) }}
             >
-              <Tooltip direction="top" offset={[0, -6]}>
-                <div className="max-w-52 text-xs leading-tight">
-                  <p className="font-semibold">{pin.motion.title}</p>
+              <Tooltip direction="top" offset={[0, -6]} className="!w-52 !whitespace-normal">
+                <div className="text-xs leading-tight">
+                  <p className="line-clamp-2 font-semibold">{pin.motion.title}</p>
                   {pin.address && <p className="mt-0.5 text-slate-500">{pin.address}</p>}
                 </div>
               </Tooltip>

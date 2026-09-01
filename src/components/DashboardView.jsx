@@ -400,7 +400,10 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
   const electionOver = isOnOrAfter(jurisdiction.election?.date);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [filters, dispatch] = useReducer(filtersReducer, initialFilters);
+  const [filters, dispatch] = useReducer(filtersReducer, initialFilters, initial => {
+    const topicParam = searchParams.get('topic');
+    return topicParam && TOPICS.includes(topicParam) ? { ...initial, topics: [topicParam] } : initial;
+  });
   const [visibleCount, setVisibleCount] = useState(() => isMobileViewport() ? 10 : 20);
   const [wardGeoData, setWardGeoData] = useState(null);
 

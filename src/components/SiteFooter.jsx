@@ -46,7 +46,6 @@ export default function SiteFooter({ jurisdiction, standalone = false }) {
             <FooterLink to="/" onClick={scrollToTop} className={linkClass}>Motions</FooterLink>
             <FooterLink to="/councillors" onClick={scrollToTop} className={linkClass}>Councillors</FooterLink>
             {isToronto && <FooterLink to="/wards" onClick={scrollToTop} className={linkClass}>Wards</FooterLink>}
-            <FooterLink to="/map" onClick={scrollToTop} className={linkClass}>Map</FooterLink>
             <FooterLink to="/election" onClick={scrollToTop} className={`${linkClass} inline-flex items-center gap-2`}>
               <span>Election</span>
               <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-semibold text-[#004a99]">{electionDate}</span>
@@ -58,6 +57,7 @@ export default function SiteFooter({ jurisdiction, standalone = false }) {
           <p className="text-[10px] font-bold uppercase tracking-wide text-slate-500">Understand</p>
           <div className="flex flex-col gap-2">
             <FooterLink to="/learn" onClick={scrollToTop} className={linkClass}>Learn</FooterLink>
+            <FooterLink to="/map" onClick={scrollToTop} className={linkClass}>Map</FooterLink>
             <FooterLink to="/transparency" onClick={scrollToTop} className={linkClass}>Transparency</FooterLink>
             <FooterLink to="/sources" onClick={scrollToTop} className={linkClass}>Sources</FooterLink>
           </div>

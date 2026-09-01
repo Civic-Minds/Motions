@@ -88,8 +88,8 @@ export default function WardMotionMap({ wardFeature, motions, mapCenter = [43.7,
           }}
           eventHandlers={{ click: () => navigate(`/motions/${pin.motion.id}`) }}
         >
-          <Tooltip direction="top" offset={[0, -8]}>
-            <div className="max-w-40 text-[10px] leading-tight">
+          <Tooltip direction="top" offset={[0, -8]} className="!w-40 !whitespace-normal">
+            <div className="text-[10px] leading-tight">
               <p className="line-clamp-2 font-semibold">{pin.motion.title.slice(0, 48)}{pin.motion.title.length > 48 ? '…' : ''}</p>
               <p className="mt-0.5 text-[9px] text-slate-500">{pin.address}</p>
             </div>

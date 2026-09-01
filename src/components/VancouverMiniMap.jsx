@@ -69,8 +69,8 @@ export default function VancouverMiniMap({ motions }) {
               },
             }}
           >
-            <Tooltip direction="top" offset={[0, -6]}>
-              <div className="max-w-40 text-[10px] leading-tight">
+            <Tooltip direction="top" offset={[0, -6]} className="!w-40 !whitespace-normal">
+              <div className="text-[10px] leading-tight">
                 <p className="line-clamp-2 font-semibold">{pin.motion.title.slice(0, 48)}{pin.motion.title.length > 48 ? '…' : ''}</p>
                 {pin.address && <p className="mt-0.5 text-[9px] text-slate-500">{pin.address}</p>}
               </div>
