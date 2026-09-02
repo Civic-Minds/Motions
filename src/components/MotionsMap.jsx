@@ -47,7 +47,7 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
     fetch(url).then(r => r.json()).then(setWards).catch(() => {});
   }, [hasWards]);
 
-  const topics = useMemo(() => ['All', ...new Set(motions
+  const topics = useMemo(() => [...new Set(motions
     .filter(m => Array.isArray(m.locations) && m.locations.length > 0 && m.topic && m.topic !== 'General')
     .map(m => m.topic)
     .sort())], [motions]);
@@ -171,26 +171,26 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
         <MapZoomControls mapRef={mapRef} className="top-[4.5rem]" />
 
         <div className="absolute left-3 top-3 z-[500] flex max-w-[calc(100%-7rem)] flex-wrap gap-2">
-          {(topics.length > 1 || motions.some(m => m.status !== 'Adopted')) && (
+          {(topics.length > 0 || motions.some(m => m.status !== 'Adopted')) && (
             <div className="flex min-h-8 flex-wrap items-center gap-1 rounded-xl border border-slate-200 bg-white/95 px-2 py-1.5 text-xs font-semibold text-slate-700 shadow-md">
               {topics.length > 1 && (
                 <>
                   <span className="px-1">Topic</span>
                   {topics.map(topic => {
-                    const active = topic === 'All' ? topicFilters.length === 0 : topicFilters.includes(topic);
+                    const active = topicFilters.length === 0 || topicFilters.includes(topic);
                     return (
                       <button
                         key={topic}
                         type="button"
                         aria-pressed={active}
-                        onClick={() => topic === 'All'
-                          ? setTopicFilters([])
-                          : setTopicFilters(current => current.includes(topic)
+                        onClick={() => setTopicFilters(current => current.length === 0
+                          ? topics.filter(candidate => candidate !== topic)
+                          : current.includes(topic)
                             ? current.filter(selected => selected !== topic)
                             : [...current, topic])}
                         className={`rounded-lg px-2 py-1 font-normal transition-colors ${active ? 'bg-[#004a99] text-white shadow-sm' : 'bg-slate-100 text-slate-400'}`}
                       >
-                        {topic === 'All' ? 'All topics' : topic}
+                        {topic}
                       </button>
                     );
                   })}
