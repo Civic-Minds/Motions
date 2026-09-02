@@ -167,12 +167,12 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
           {isFullscreen ? <X className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
         </button>
 
-        <div className="absolute right-3 top-[4.5rem] z-[500] flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white/95 shadow-md">
+        <div className="absolute right-3 top-[4.5rem] z-[500] flex flex-col gap-2">
           <button
             type="button"
             onClick={() => mapRef.current?.zoomIn()}
             aria-label="Zoom in"
-            className="flex h-9 w-10 items-center justify-center border-b border-slate-200 text-slate-600 transition-colors hover:bg-slate-50 hover:text-[#004a99]"
+            className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white/95 text-slate-600 shadow-md transition-colors hover:border-[#004a99]/40 hover:text-[#004a99]"
           >
             <Plus className="h-4 w-4" />
           </button>
@@ -180,7 +180,7 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
             type="button"
             onClick={() => mapRef.current?.zoomOut()}
             aria-label="Zoom out"
-            className="flex h-9 w-10 items-center justify-center text-slate-600 transition-colors hover:bg-slate-50 hover:text-[#004a99]"
+            className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white/95 text-slate-600 shadow-md transition-colors hover:border-[#004a99]/40 hover:text-[#004a99]"
           >
             <Minus className="h-4 w-4" />
           </button>
