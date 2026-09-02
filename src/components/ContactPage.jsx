@@ -60,13 +60,15 @@ export default function ContactPage() {
         </section>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-wide text-[#004a99]">{city}</p>
-            <h2 className="mt-1 text-lg font-semibold text-slate-900">{subject}</h2>
-          </div>
+          <label className="block">
+            <span className="text-sm font-semibold text-slate-700">Reason</span>
+            <select id="contact-subject" value={subject} onChange={event => setSubject(event.target.value)} className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition focus:border-[#004a99] focus:ring-2 focus:ring-blue-100">
+              {SUBJECTS.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
+            </select>
+          </label>
           {motionUrl && (
             <div className="rounded-lg bg-slate-50 px-3 py-2.5 text-sm text-slate-500">
-              <span className="block">This report is about:</span>
+              <span className="block">This message is about:</span>
               <a href={motionUrl} target="_blank" rel="noreferrer" className="mt-1 block break-all text-[#004a99] hover:underline">
                 {motionUrl}
               </a>
