@@ -74,8 +74,8 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
     return () => cancelAnimationFrame(frame);
   }, [isFullscreen]);
   const mappedMotionCount = useMemo(() =>
-    filteredMotions.filter(m => Array.isArray(m.locations) && m.locations.length > 0).length,
-  [filteredMotions]);
+    motions.filter(m => Array.isArray(m.locations) && m.locations.length > 0).length,
+  [motions]);
   const topTopics = useMemo(() => {
     const counts = {};
     motions.forEach(m => {
