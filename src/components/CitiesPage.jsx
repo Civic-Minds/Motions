@@ -59,7 +59,7 @@ export default function CitiesPage() {
     <div className="space-y-10 pb-20">
       <PageMeta
         title="Motions | See every vote. Know every decision."
-        description="Motions connects you with your city council — plain-language summaries of what’s up for a vote, how each councillor voted, and what happens next."
+        description="Follow what city councils are deciding, see how councillors vote, and understand what local decisions mean for your neighbourhood."
       />
 
       <div className="max-w-2xl mx-auto space-y-10">
