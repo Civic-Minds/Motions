@@ -73,6 +73,14 @@ export default function WardGrid({ motions }) {
 
   const wardActivity = useMemo(() => getWardActivityMetrics(motions, geoData), [motions, geoData]);
   const topWard = [...wardActivity].sort((a, b) => b.count - a.count)[0];
+  const wardTaggedMotionCount = useMemo(() => motions.filter(m =>
+    TORONTO_WARDS.some(ward => {
+      const feature = geoData?.features?.find(candidate =>
+        String(candidate.properties.AREA_SHORT_CODE).replace(/^0+/, '') === String(ward.id)
+      ) ?? null;
+      return motionBelongsToWard(m, ward.id, feature);
+    })
+  ).length, [motions, geoData]);
 
   const selectedWardFeature = useMemo(() => {
     if (!geoData || !selectedWard) return null;
@@ -156,7 +164,7 @@ export default function WardGrid({ motions }) {
 
           <div className="flex items-center gap-3 p-4 bg-slate-50 border border-slate-200 rounded-2xl text-xs text-slate-500">
             <MapPin className="w-4 h-4 shrink-0 mt-0.5 text-slate-500" />
-            <span>Motion counts are all-time (2022–2026 term). <Link to="/transparency" className="font-medium text-[#004a99] underline underline-offset-2 hover:text-[#003875]">Learn how ward activity is tagged</Link>.</span>
+            <span>Toronto: {wardTaggedMotionCount.toLocaleString()} of {motions.length.toLocaleString()} motions are linked to a ward. Counts are all-time (2022–2026 term). <Link to="/transparency" className="font-medium text-[#004a99] underline underline-offset-2 hover:text-[#003875]">Learn how ward activity is tagged</Link>.</span>
           </div>
         </>
       ) : (
