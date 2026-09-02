@@ -63,6 +63,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Fixed
 
+- **Issue contact flow**: Keeps the main reason dropdown visible and preselected when a visitor arrives from a report link.
 - **Homepage loading**: Deferred the interactive Canada map until it enters view so the headline and city explanation appear faster on slow connections.
 - **Homepage logo link**: Made the Motions wordmark clickable so visitors can return to the homepage.
 - **Toronto meeting source links**: Meetings without a stored record URL now link to the official Toronto Council site instead of showing dead source text.

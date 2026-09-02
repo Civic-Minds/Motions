@@ -78,7 +78,13 @@ export default function ContactPage() {
         </section>
       ) : subject === 'Report an issue' && !issueType ? (
         <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="contact-issue-type">
-          <label htmlFor="contact-issue-type" className="block text-lg font-semibold text-slate-900">What kind of issue is it?</label>
+          <label className="block">
+            <span className="text-sm font-semibold text-slate-700">What can we help with?</span>
+            <select id="contact-subject" value={subject} onChange={event => setSubject(event.target.value)} className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition focus:border-[#004a99] focus:ring-2 focus:ring-blue-100">
+              {SUBJECTS.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
+            </select>
+          </label>
+          <label htmlFor="contact-issue-type" className="mt-5 block text-lg font-semibold text-slate-900">What kind of issue is it?</label>
           <select id="contact-issue-type" defaultValue="" onChange={event => setIssueType(event.target.value)} className="mt-5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition focus:border-[#004a99] focus:ring-2 focus:ring-blue-100">
             <option value="">Select one</option>
             {ISSUE_TYPES.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
