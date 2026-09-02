@@ -11,6 +11,7 @@ import { AppProvider, useAppContext } from './contexts/AppContext';
 import { getInitialJurisdiction, getJurisdiction, JURISDICTIONS } from './constants/jurisdictions';
 import { formatElectionDate } from './utils/electionDate';
 import { getLastJurisdiction, setLastJurisdiction } from './utils/storage';
+import { trackGoogleEvent } from './utils/googleAnalytics';
 
 const DashboardView     = lazy(() => import('./components/DashboardView'));
 const MotionPage        = lazy(() => import('./components/MotionPage'));
@@ -185,7 +186,10 @@ function Navbar({ onSearchOpen, jurisdiction, wardId = null, handleLocate, handl
                     href={city.path}
                     role="menuitem"
                     aria-current={city.id === jurisdiction.id ? 'page' : undefined}
-                    onClick={() => setCityOpen(false)}
+                    onClick={() => {
+                      if (city.id !== jurisdiction.id) trackGoogleEvent('change_city', { city: city.id });
+                      setCityOpen(false);
+                    }}
                     className={cn(
                       'block rounded-lg px-3 py-2 text-left text-sm transition-colors',
                       city.id === jurisdiction.id ? 'bg-slate-100 font-semibold text-slate-900' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
@@ -257,6 +261,9 @@ function Navbar({ onSearchOpen, jurisdiction, wardId = null, handleLocate, handl
               <a
                 key={city.id}
                 href={city.path}
+                onClick={() => {
+                  if (city.id !== jurisdiction.id) trackGoogleEvent('change_city', { city: city.id });
+                }}
                 className="flex items-center w-full px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100"
               >
                 Switch to {city.name}

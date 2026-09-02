@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { formatElectionDate } from '../utils/electionDate';
 import { JURISDICTIONS } from '../constants/jurisdictions';
+import { trackGoogleEvent } from '../utils/googleAnalytics';
 
 const linkClass = 'text-sm text-slate-500 transition-colors hover:text-slate-900';
 
@@ -78,7 +79,7 @@ export default function SiteFooter({ jurisdiction, standalone = false }) {
           <div className="flex flex-col gap-2">
             <a href="/about" className={linkClass}>About Motions</a>
             <a href="https://github.com/Civic-Minds/Motions" target="_blank" rel="noopener noreferrer" className={linkClass}>GitHub</a>
-            <a href="/contact?subject=Report%20an%20issue" className={linkClass}>Report an issue</a>
+            <a href="/contact?subject=Report%20an%20issue" onClick={() => trackGoogleEvent('report_issue_click', { city: jurisdiction.id })} className={linkClass}>Report an issue</a>
           </div>
         </div>
 

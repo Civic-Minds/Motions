@@ -10,6 +10,7 @@ import { previewImage } from '../utils/meta';
 import ShareButton from './ShareButton';
 import MotionFunding from './MotionFunding';
 import BackButton from './ui/BackButton';
+import { trackGoogleEvent } from '../utils/googleAnalytics';
 
 const WardMotionMap = lazy(() => import('./WardMotionMap'));
 
@@ -268,6 +269,10 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
     };
   }, [motionId]);
 
+  useEffect(() => {
+    trackGoogleEvent('view_motion', { motion_id: motionId, city: jurisdiction.id });
+  }, [motionId, jurisdiction.id]);
+
   const subEntries = useMemo(
     () => motions.filter(m => m.parentId === motionId),
     [motions, motionId]
@@ -339,7 +344,7 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
           )}
         </div>
         <div className="ml-auto flex shrink-0 items-center gap-2">
-          <a href={reportUrl} className="inline-flex items-center rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-600 transition-colors hover:border-[#004a99]/40 hover:text-[#004a99]">
+          <a href={reportUrl} onClick={() => trackGoogleEvent('report_issue_click', { motion_id: motionId, city: jurisdiction.id })} className="inline-flex items-center rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-600 transition-colors hover:border-[#004a99]/40 hover:text-[#004a99]">
             Report
           </a>
           <ShareButton title={displayTitle} />
@@ -357,7 +362,7 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
             <span className="text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full">Notable</span>
           )}
           <div className="ml-auto flex items-center gap-2">
-            <a href={reportUrl} className="inline-flex items-center rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-600 transition-colors hover:border-[#004a99]/40 hover:text-[#004a99]">
+            <a href={reportUrl} onClick={() => trackGoogleEvent('report_issue_click', { motion_id: motionId, city: jurisdiction.id })} className="inline-flex items-center rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-600 transition-colors hover:border-[#004a99]/40 hover:text-[#004a99]">
               Report
             </a>
             <ShareButton title={displayTitle} />
