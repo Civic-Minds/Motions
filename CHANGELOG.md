@@ -27,7 +27,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Changed
 
-- **Legal-page contact links**: Privacy and Terms now open the contact form with the relevant reason already selected.
+- **Legal-page contact links**: Privacy opens the contact form with a privacy request selected, while Terms uses the general question option.
 - **Cities footer navigation**: Added an “All cities” link back to the city picker.
 - **Winnipeg homepage status**: Labels Winnipeg as coming soon while its coverage finishes testing.
 - **Search preview**: Replaced the generic homepage title and slogan with a clearer description of Motions’ council-voting coverage.

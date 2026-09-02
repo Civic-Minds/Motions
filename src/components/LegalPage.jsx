@@ -56,7 +56,7 @@ export default function LegalPage({ type }) {
           </section>
         ))}
       </div>
-      <p className="text-sm text-slate-500">Questions about this page? <a href={type === 'privacy' ? '/contact?subject=Privacy%20request' : '/contact?subject=Terms%20question'} className="text-[#004a99] hover:underline">Contact us</a>.</p>
+      <p className="text-sm text-slate-500">Questions about this page? <a href={type === 'privacy' ? '/contact?subject=Privacy%20request' : '/contact?subject=General%20question'} className="text-[#004a99] hover:underline">Contact us</a>.</p>
     </PageColumn>
   );
 }

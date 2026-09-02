@@ -10,7 +10,6 @@ const SUBJECTS = [
   { value: 'General question', label: 'I have a question' },
   { value: 'Report an issue', label: 'I have an issue' },
   { value: 'Privacy request', label: 'I have a privacy request' },
-  { value: 'Terms question', label: 'I have a question about the terms' },
 ];
 const ISSUE_CONTEXTS = [
   { value: 'motion', label: 'A motion' },
