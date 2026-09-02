@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { PageMeta } from './PageMeta';
+import PageColumn from './PageColumn';
 
 const CONTACT_EMAIL = 'hey@ryanisnota.pro';
 
@@ -17,13 +19,16 @@ export default function ContactPage() {
   }
 
   return (
-    <article className="mx-auto max-w-2xl py-8 sm:py-14">
-      <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Contact Motions</h1>
-      <p className="mt-4 text-base leading-7 text-slate-600">
+    <PageColumn className="space-y-7 pb-20">
+      <PageMeta title="Contact | Motions" description="Contact Motions with a question, issue report, or privacy request." />
+      <div>
+        <h1 className="text-3xl font-bold tracking-tight text-slate-900">Contact Motions</h1>
+        <p className="mt-2 leading-relaxed text-slate-500">
         Have a question, found an issue, or need to make a privacy request? Send us a note.
-      </p>
+        </p>
+      </div>
 
-      <form onSubmit={handleSubmit} className="mt-8 space-y-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+      <form onSubmit={handleSubmit} className="space-y-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
         <label className="block">
           <span className="text-sm font-semibold text-slate-700">Name</span>
           <input name="name" required autoComplete="name" className="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm outline-none transition focus:border-[#004a99] focus:ring-2 focus:ring-blue-100" />
@@ -53,6 +58,6 @@ export default function ContactPage() {
       <p className="mt-5 text-xs leading-5 text-slate-500">
         Do not include passwords or other sensitive information in a general message. This form currently opens your device’s email app; messages are not stored by Motions.
       </p>
-    </article>
+    </PageColumn>
   );
 }
