@@ -130,17 +130,6 @@ jobs:
       - name: Geocode Vancouver motion addresses
         run: node scripts/geocode_vancouver_addresses.js
 
-      - name: Scrape Vancouver agenda text
-        run: node scripts/scrape_agenda_text.js --vancouver
-
-      - name: Generate Vancouver summaries
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: node scripts/generate_summaries.js --vancouver
-
-      - name: Strip Vancouver body text
-        run: node scripts/strip_body.js --vancouver
-
       - name: Record Vancouver refresh time
         run: node scripts/write_data_metadata.js --vancouver
 
