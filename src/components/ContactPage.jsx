@@ -26,7 +26,6 @@ const ISSUE_TYPES = [
 export default function ContactPage() {
   const [searchParams] = useSearchParams();
   const motionUrl = searchParams.get('motion') ?? '';
-  const pageTitle = searchParams.get('title') ?? '';
   const presetSubject = searchParams.get('subject');
   const presetAbout = searchParams.get('about') ?? '';
   const presetIssueType = searchParams.get('type') ?? '';
@@ -41,6 +40,12 @@ export default function ContactPage() {
     return getJurisdiction(cityId || getLastJurisdiction()).name;
   }, [motionUrl]);
 
+  function handleAboutChange(event) {
+    const nextAbout = event.target.value;
+    setAbout(nextAbout);
+    setPageUrl(nextAbout === 'motion' ? motionUrl : '');
+  }
+
   const prompt = subject === 'Report an issue'
     ? 'What should we check?'
     : subject === 'Privacy request'
@@ -50,7 +55,7 @@ export default function ContactPage() {
   function handleSubmit(event) {
     event.preventDefault();
     const aboutLabel = ISSUE_CONTEXTS.find(option => option.value === about)?.label;
-    const referenceUrl = motionUrl || pageUrl;
+    const referenceUrl = pageUrl;
     const opening = subject === 'Report an issue'
       ? 'Hi, I’d like to report an issue with Motions.'
       : subject === 'Privacy request'
@@ -116,7 +121,7 @@ export default function ContactPage() {
             </select>
           </label>
           <label htmlFor="contact-about" className="mt-5 block text-sm font-semibold text-slate-700">What is this about?</label>
-          <select id="contact-about" defaultValue="" onChange={event => setAbout(event.target.value)} className="mt-5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition focus:border-[#004a99] focus:ring-2 focus:ring-blue-100">
+          <select id="contact-about" defaultValue="" onChange={handleAboutChange} className="mt-5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition focus:border-[#004a99] focus:ring-2 focus:ring-blue-100">
             <option value="">Select one</option>
             {ISSUE_CONTEXTS.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
           </select>
@@ -140,21 +145,12 @@ export default function ContactPage() {
           {subject === 'Report an issue' && (
             <label className="block">
               <span className="text-sm font-semibold text-slate-700">About</span>
-              <select id="contact-about" value={about} onChange={event => setAbout(event.target.value)} className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition focus:border-[#004a99] focus:ring-2 focus:ring-blue-100">
+              <select id="contact-about" value={about} onChange={handleAboutChange} className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition focus:border-[#004a99] focus:ring-2 focus:ring-blue-100">
                 {ISSUE_CONTEXTS.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
               </select>
             </label>
           )}
-          {motionUrl && (
-            <div className="rounded-lg bg-slate-50 px-3 py-2.5 text-sm text-slate-500">
-              <span className="block">Page link</span>
-              <a href={motionUrl} target="_blank" rel="noreferrer" className="mt-1 block font-semibold text-[#004a99] hover:underline">
-                {pageTitle || `Open ${about || 'source'} page`} ↗
-              </a>
-              <code className="mt-1 block break-all text-xs text-slate-500">{motionUrl}</code>
-            </div>
-          )}
-          {subject === 'Report an issue' && !motionUrl && (
+          {subject === 'Report an issue' && (
             <label className="block">
               <span className="text-sm font-semibold text-slate-700">What page is this about? <span className="font-normal text-slate-400">(optional)</span></span>
               <input type="url" value={pageUrl} onChange={event => setPageUrl(event.target.value)} placeholder="https://motions.watch/..." className="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm outline-none transition focus:border-[#004a99] focus:ring-2 focus:ring-blue-100" />
