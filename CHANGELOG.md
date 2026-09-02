@@ -8,6 +8,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Added
 
+- **Google Analytics** — adds longer-term and campaign traffic reporting alongside Vercel Analytics.
+
 - **Vancouver's official upcoming meeting schedule**: Scheduled Council and committee meetings now appear even before voting records are published.
 - **Learn participation guidance**: Added the dedicated "How to Depute" guide and placed its supporting resources beside the steps they explain.
 - **Vancouver council coverage**: Added Vancouver as a second city with citywide motion browsing, councillor voting records, election information, and an official-data importer while keeping Toronto's ward experience intact.
