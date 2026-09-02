@@ -147,7 +147,7 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
         </MapContainer>
 
         {(topics.length > 1 || motions.some(m => m.status !== 'Adopted')) && (
-          <div className="absolute left-3 top-3 z-[500] flex flex-wrap gap-2 rounded-xl border border-slate-200 bg-white/95 px-3 py-2 text-xs font-semibold text-slate-700 shadow-md">
+          <div className="absolute left-14 top-3 z-[500] flex flex-wrap gap-2 rounded-xl border border-slate-200 bg-white/95 px-3 py-2 text-xs font-semibold text-slate-700 shadow-md">
             {topics.length > 1 && (
               <label className="flex items-center gap-1.5">
                 <span>Topic</span>
