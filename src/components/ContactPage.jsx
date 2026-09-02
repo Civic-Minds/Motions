@@ -112,7 +112,6 @@ export default function ContactPage() {
           </label>
           <div className="flex items-center gap-3">
             <button type="submit" className="rounded-lg bg-[#004a99] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#003b7a]">Send email</button>
-            <button type="button" onClick={() => setSubject('')} className="text-sm font-semibold text-slate-500 hover:text-slate-900">Back</button>
           </div>
         </form>
       )}
