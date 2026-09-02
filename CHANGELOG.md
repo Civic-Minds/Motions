@@ -27,6 +27,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Changed
 
+- **Contact emails**: Tells issue reporters that the automatically included details should remain in the message.
 - **Contact emails**: Formats issue reports as readable messages with a clear greeting, page reference, and message prompt.
 - **Issue reporting**: Asks what kind of issue a visitor is reporting before asking whether it concerns a motion or meeting.
 - **Legal-page contact links**: Privacy opens the contact form with a privacy request selected, while Terms uses the general question option.

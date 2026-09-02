@@ -58,6 +58,7 @@ export default function ContactPage() {
         : 'Hi, I have a question about Motions.';
     const body = [
       opening,
+      subject === 'Report an issue' ? 'The details below were added automatically. Please leave them in place.' : '',
       subject === 'Report an issue' ? `City: ${city}` : '',
       issueType ? `Issue type: ${issueType}` : '',
       aboutLabel ? `About: ${aboutLabel}` : '',
