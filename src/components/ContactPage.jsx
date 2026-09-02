@@ -15,6 +15,12 @@ const ISSUE_CONTEXTS = [
   { value: 'motion', label: 'A motion' },
   { value: 'meeting', label: 'A meeting' },
 ];
+const ISSUE_TYPES = [
+  { value: 'Incorrect information', label: 'The information is incorrect' },
+  { value: 'Broken link or feature', label: 'A link or feature is broken' },
+  { value: 'Suggestion or improvement', label: 'I have a suggestion' },
+  { value: 'Something else', label: 'Something else' },
+];
 
 export default function ContactPage() {
   const [searchParams] = useSearchParams();
@@ -22,8 +28,10 @@ export default function ContactPage() {
   const pageTitle = searchParams.get('title') ?? '';
   const presetSubject = searchParams.get('subject');
   const presetAbout = searchParams.get('about') ?? '';
+  const presetIssueType = searchParams.get('type') ?? '';
   const [subject, setSubject] = useState(presetSubject || '');
   const [about, setAbout] = useState(presetAbout);
+  const [issueType, setIssueType] = useState(presetIssueType);
   const [message, setMessage] = useState('');
 
   const city = useMemo(() => {
@@ -42,6 +50,7 @@ export default function ContactPage() {
     const body = [
       `City: ${city}`,
       `Reason: ${subject}`,
+      issueType ? `Issue type: ${issueType}` : '',
       about ? `About: ${about}` : '',
       message,
       motionUrl ? `\nMotion URL: ${motionUrl}` : '',
@@ -67,6 +76,14 @@ export default function ContactPage() {
             {SUBJECTS.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
           </select>
         </section>
+      ) : subject === 'Report an issue' && !issueType ? (
+        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="contact-issue-type">
+          <label htmlFor="contact-issue-type" className="block text-lg font-semibold text-slate-900">What kind of issue is it?</label>
+          <select id="contact-issue-type" defaultValue="" onChange={event => setIssueType(event.target.value)} className="mt-5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition focus:border-[#004a99] focus:ring-2 focus:ring-blue-100">
+            <option value="">Select one</option>
+            {ISSUE_TYPES.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
+          </select>
+        </section>
       ) : subject === 'Report an issue' && !about ? (
         <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="contact-about">
           <label className="block">
@@ -89,6 +106,14 @@ export default function ContactPage() {
               {SUBJECTS.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
             </select>
           </label>
+          {subject === 'Report an issue' && (
+            <label className="block">
+              <span className="text-sm font-semibold text-slate-700">Issue type</span>
+              <select id="contact-issue-type" value={issueType} onChange={event => setIssueType(event.target.value)} className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition focus:border-[#004a99] focus:ring-2 focus:ring-blue-100">
+                {ISSUE_TYPES.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
+              </select>
+            </label>
+          )}
           {subject === 'Report an issue' && (
             <label className="block">
               <span className="text-sm font-semibold text-slate-700">About</span>

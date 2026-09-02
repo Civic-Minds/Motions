@@ -27,6 +27,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Changed
 
+- **Issue reporting**: Asks what kind of issue a visitor is reporting before asking whether it concerns a motion or meeting.
 - **Legal-page contact links**: Privacy opens the contact form with a privacy request selected, while Terms uses the general question option.
 - **Cities footer navigation**: Added an “All cities” link back to the city picker.
 - **Winnipeg homepage status**: Labels Winnipeg as coming soon while its coverage finishes testing.
