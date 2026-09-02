@@ -4,6 +4,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import 'leaflet/dist/leaflet.css';
 import { PageMeta } from './PageMeta';
 import PageColumn from './PageColumn';
+import { formatMotionDate } from '../utils/date';
 
 // If a specific motion was requested (arrived here via a "see it on the map"
 // link), center on that pin instead of fitting to every pin.
@@ -32,6 +33,8 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
   const hasWards = jurisdiction.geography === 'ward';
   const [wards, setWards] = useState(null);
   const focusedMarkerRef = useRef(null);
+  const [topicFilter, setTopicFilter] = useState('All');
+  const [outcomeFilter, setOutcomeFilter] = useState('All');
 
   useEffect(() => {
     if (!hasWards) return;
@@ -40,9 +43,19 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
     fetch(url).then(r => r.json()).then(setWards).catch(() => {});
   }, [hasWards]);
 
-  const pins = useMemo(() => motions.flatMap(m =>
+  const topics = useMemo(() => ['All', ...new Set(motions
+    .filter(m => Array.isArray(m.locations) && m.locations.length > 0 && m.topic && m.topic !== 'General')
+    .map(m => m.topic)
+    .sort())], [motions]);
+  const filteredMotions = useMemo(() => motions.filter(m => {
+    const matchesTopic = topicFilter === 'All' || m.topic === topicFilter;
+    const matchesOutcome = outcomeFilter === 'All'
+      || (outcomeFilter === 'Adopted' ? m.status === 'Adopted' : m.status !== 'Adopted');
+    return matchesTopic && matchesOutcome;
+  }), [motions, outcomeFilter, topicFilter]);
+  const pins = useMemo(() => filteredMotions.flatMap(m =>
     (m.locations ?? []).map(loc => ({ ...loc, motion: m }))
-  ), [motions]);
+  ), [filteredMotions]);
   const focusPin = useMemo(() =>
     focusId ? pins.find(pin => String(pin.motion.id) === focusId) : null,
   [pins, focusId]);
@@ -51,8 +64,8 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
     focusedMarkerRef.current?.openTooltip();
   }, [focusPin]);
   const mappedMotionCount = useMemo(() =>
-    motions.filter(m => Array.isArray(m.locations) && m.locations.length > 0).length,
-  [motions]);
+    filteredMotions.filter(m => Array.isArray(m.locations) && m.locations.length > 0).length,
+  [filteredMotions]);
   const topTopics = useMemo(() => {
     const counts = {};
     motions.forEach(m => {
@@ -120,16 +133,40 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
               }}
               eventHandlers={{ click: () => navigate(`/motions/${pin.motion.id}`) }}
             >
-              <Tooltip direction="top" offset={[0, -6]} className="!w-52 !whitespace-normal">
+              <Tooltip direction="top" offset={[0, -6]} className="!w-56 !rounded-xl !border !border-slate-200 !bg-white !whitespace-normal !shadow-lg">
                 <div className="text-xs leading-tight">
                   <p className="line-clamp-2 font-semibold">{pin.motion.title}</p>
                   {pin.address && <p className="mt-0.5 text-slate-500">{pin.address}</p>}
+                  {pin.motion.summary && <p className="mt-1 line-clamp-2 text-slate-600">{pin.motion.summary}</p>}
+                  <p className="mt-1 text-slate-500">{pin.motion.status} · {formatMotionDate(pin.motion.date)}</p>
                 </div>
               </Tooltip>
             </CircleMarker>
             );
           })}
         </MapContainer>
+
+        {(topics.length > 1 || motions.some(m => m.status !== 'Adopted')) && (
+          <div className="absolute left-3 top-3 z-[500] flex flex-wrap gap-2 rounded-xl border border-slate-200 bg-white/95 px-3 py-2 text-xs font-semibold text-slate-700 shadow-md">
+            {topics.length > 1 && (
+              <label className="flex items-center gap-1.5">
+                <span>Topic</span>
+                <select value={topicFilter} onChange={event => setTopicFilter(event.target.value)} className="bg-transparent font-normal text-slate-600 outline-none">
+                  <option value="All">All topics</option>
+                  {topics.slice(1).map(topic => <option key={topic} value={topic}>{topic}</option>)}
+                </select>
+              </label>
+            )}
+            <label className="flex items-center gap-1.5">
+              <span>Outcome</span>
+              <select value={outcomeFilter} onChange={event => setOutcomeFilter(event.target.value)} className="bg-transparent font-normal text-slate-600 outline-none">
+                <option value="All">All outcomes</option>
+                <option value="Adopted">Adopted</option>
+                <option value="Not adopted">Not adopted</option>
+              </select>
+            </label>
+          </div>
+        )}
 
         <div className="pointer-events-none absolute bottom-3 left-3 z-[500] flex items-center gap-3 rounded-xl border border-slate-200 bg-white/90 px-3 py-2 text-xs font-medium text-slate-600 shadow-sm backdrop-blur-sm">
           <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-emerald-500" /> Adopted</span>

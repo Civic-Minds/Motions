@@ -1,8 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { MapContainer, TileLayer, GeoJSON, CircleMarker, Tooltip, useMap } from 'react-leaflet';
 import { useNavigate } from 'react-router-dom';
 import { Maximize2, X } from 'lucide-react';
-import { formatMotionDate } from '../utils/date';
 import 'leaflet/dist/leaflet.css';
 
 // Fit map to the ward boundary on load/change
@@ -27,8 +26,6 @@ function FitBounds({ feature, pins }) {
 export default function WardMotionMap({ wardFeature, motions, mapCenter = [43.7, -79.38], isFullscreen = false, onToggleFullscreen }) {
   const navigate = useNavigate();
   const mapRef = useRef(null);
-  const [topicFilter, setTopicFilter] = useState('All');
-  const [outcomeFilter, setOutcomeFilter] = useState('All');
 
   useEffect(() => {
     if (!isFullscreen) return;
@@ -42,16 +39,9 @@ export default function WardMotionMap({ wardFeature, motions, mapCenter = [43.7,
   }, [isFullscreen]);
 
   // Motions with location data
-  const topics = useMemo(() => ['All', ...new Set(motions.map(m => m.topic).filter(Boolean).sort())], [motions]);
-  const filteredMotions = useMemo(() => motions.filter(m => {
-    const matchesTopic = topicFilter === 'All' || m.topic === topicFilter;
-    const matchesOutcome = outcomeFilter === 'All'
-      || (outcomeFilter === 'Adopted' ? m.status === 'Adopted' : m.status !== 'Adopted');
-    return matchesTopic && matchesOutcome;
-  }), [motions, outcomeFilter, topicFilter]);
-  const pins = useMemo(() => filteredMotions.flatMap(m =>
+  const pins = useMemo(() => motions.flatMap(m =>
     (m.locations ?? []).map(loc => ({ ...loc, motion: m }))
-  ), [filteredMotions]);
+  ), [motions]);
 
   return (
     <div className={isFullscreen
@@ -98,40 +88,15 @@ export default function WardMotionMap({ wardFeature, motions, mapCenter = [43.7,
           }}
           eventHandlers={{ click: () => navigate(`/motions/${pin.motion.id}`) }}
         >
-          <Tooltip direction="top" offset={[0, -8]} className="!w-56 !rounded-xl !border !border-slate-200 !bg-white !whitespace-normal !shadow-lg">
+          <Tooltip direction="top" offset={[0, -8]} className="!w-40 !whitespace-normal">
             <div className="text-[10px] leading-tight">
               <p className="line-clamp-2 font-semibold">{pin.motion.title.slice(0, 48)}{pin.motion.title.length > 48 ? '…' : ''}</p>
               <p className="mt-0.5 text-[9px] text-slate-500">{pin.address}</p>
-              {pin.motion.summary && <p className="mt-1 line-clamp-2 text-[9px] leading-snug text-slate-600">{pin.motion.summary}</p>}
-              <p className="mt-0.5 text-[9px] font-medium text-slate-600">{pin.motion.status} · {formatMotionDate(pin.motion.date)}</p>
             </div>
           </Tooltip>
         </CircleMarker>
         ))}
       </MapContainer>
-
-      {(topics.length > 1 || motions.some(m => m.status !== 'Adopted')) && (
-        <div className="absolute left-3 top-3 z-[1000] flex flex-wrap gap-2 rounded-xl border border-slate-200 bg-white/95 px-3 py-2 text-xs font-semibold text-slate-700 shadow-md">
-          {topics.length > 1 && (
-            <label className="flex items-center gap-2">
-              <span>Topic</span>
-              <select value={topicFilter} onChange={event => setTopicFilter(event.target.value)} className="bg-transparent font-normal text-slate-600 outline-none">
-                {topics.map(topic => <option key={topic} value={topic}>{topic === 'All' ? 'All topics' : topic}</option>)}
-              </select>
-            </label>
-          )}
-          {motions.some(m => m.status !== 'Adopted') && (
-            <label className="flex items-center gap-2">
-              <span>Outcome</span>
-              <select value={outcomeFilter} onChange={event => setOutcomeFilter(event.target.value)} className="bg-transparent font-normal text-slate-600 outline-none">
-                <option value="All">All outcomes</option>
-                <option value="Adopted">Adopted</option>
-                <option value="Not adopted">Not adopted</option>
-              </select>
-            </label>
-          )}
-        </div>
-      )}
 
       {onToggleFullscreen && (
         <button

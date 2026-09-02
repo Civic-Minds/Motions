@@ -27,11 +27,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Changed
 
-- **Map popups**: Match the site’s rounded card styling.
-- **Ward map controls**: Added outcome filtering for adopted and non-adopted motions alongside topic filtering.
-- **Map popups**: Add each motion’s plain-language summary so the map explains what the item is about before it is opened.
-- **Ward map controls**: Added topic filtering so residents can focus the map on one category of motion.
-- **Map popups**: Show each mapped motion’s outcome and date alongside its title and address.
+- Full map popups now show motion summaries and the map supports topic and outcome filters.
 - **Contact emails**: Tells issue reporters that the automatically included details should remain in the message.
 - **Contact emails**: Formats issue reports as readable messages with a clear greeting, page reference, and message prompt.
 - **Issue reporting**: Asks what kind of issue a visitor is reporting before asking whether it concerns a motion or meeting.
