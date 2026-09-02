@@ -5,6 +5,8 @@ import { cn } from '../lib/utils';
 import { committeeToSlug } from '../utils/slug';
 import { PageMeta } from './PageMeta';
 import BackButton from './ui/BackButton';
+import ShareButton from './ShareButton';
+import { trackGoogleEvent } from '../utils/googleAnalytics';
 
 const PROCEDURAL_TITLES = /^(call to order|confirmation of minutes|declarations of interest|petitions|review of the order paper|introduction of committee reports|presentations, introductions|adjournment|questions of privilege|other business)/i;
 
@@ -22,6 +24,7 @@ export default function MeetingPage({ meetings, jurisdiction = { name: 'Toronto'
   const meeting = meetings?.find(m => m.meetingReference === meetingRef);
   const committeeSlug = committeeToSlug(meeting?.committee ?? '');
   const sourceUrl = meeting?.sourceUrl || (jurisdiction.name === 'Toronto' ? 'https://secure.toronto.ca/council/' : null);
+  const reportUrl = `/contact?subject=${encodeURIComponent('Report an issue')}&motion=${encodeURIComponent(window.location.href)}`;
   const agendaItems = useMemo(() => meeting?.agendaItems ?? [], [meeting?.agendaItems]);
   const hasAgenda = agendaItems.length > 0;
 
@@ -64,8 +67,20 @@ export default function MeetingPage({ meetings, jurisdiction = { name: 'Toronto'
       </div>
 
       {/* Header */}
-      <div className="space-y-3 mb-8">
-        <h1 className="text-xl font-bold text-slate-900">{meeting.committee}</h1>
+      <div className="mb-8 space-y-3">
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <h1 className="text-xl font-bold text-slate-900">{meeting.committee}</h1>
+          <div className="flex shrink-0 items-center gap-2">
+            <a
+              href={reportUrl}
+              onClick={() => trackGoogleEvent('report_issue_click', { meeting_id: meetingRef, city: jurisdiction.id })}
+              className="inline-flex items-center rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-600 transition-colors hover:border-[#004a99]/40 hover:text-[#004a99]"
+            >
+              Report
+            </a>
+            <ShareButton title={`${meeting.committee} meeting`} />
+          </div>
+        </div>
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500">
           <span className="font-mono">{meeting.meetingReference}</span>
           <span>·</span>
