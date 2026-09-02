@@ -8,6 +8,7 @@ import { WARD_COUNCILLORS } from '../constants/data';
 import { TORONTO_WARDS } from '../constants/wards';
 import { getWardId } from '../utils/storage';
 import { cn } from '../lib/utils';
+import MapZoomControls from './MapZoomControls';
 
 export default function TorontoFullMap({ geojson, wardActivity, wardSubtextById, onWardSelect, isFullscreen = false, onToggleFullscreen, compact = false, wardLabel = 'Ward', wardLabelById = null, highlightWardId = null }) {
   const navigate = useNavigate();
@@ -82,7 +83,7 @@ export default function TorontoFullMap({ geojson, wardActivity, wardSubtextById,
         className="w-full h-full z-0"
         scrollWheelZoom={false}
         attributionControl={false}
-        zoomControl={true}
+        zoomControl={false}
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         <GeoJSON
@@ -93,13 +94,15 @@ export default function TorontoFullMap({ geojson, wardActivity, wardSubtextById,
         />
       </MapContainer>
 
+      <MapZoomControls mapRef={mapRef} className="top-[4.5rem]" />
+
       {onToggleFullscreen && (
         <button
           type="button"
           onClick={onToggleFullscreen}
           aria-label={isFullscreen ? 'Close fullscreen map' : 'View map fullscreen'}
           title={isFullscreen ? 'Close fullscreen map' : 'View map fullscreen'}
-          className="absolute top-3 right-3 z-[500] flex items-center justify-center w-9 h-9 rounded-xl bg-white/95 border border-slate-200 text-slate-600 shadow-sm hover:text-[#004a99] hover:border-[#004a99]/40 transition-colors"
+          className="absolute top-3 right-3 z-[500] flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white/95 text-slate-600 shadow-md transition-colors hover:border-[#004a99]/40 hover:text-[#004a99]"
         >
           {isFullscreen ? <X className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
         </button>

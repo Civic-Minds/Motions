@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, GeoJSON, CircleMarker, Tooltip, useMap } from 
 import { useNavigate } from 'react-router-dom';
 import { Maximize2, X } from 'lucide-react';
 import 'leaflet/dist/leaflet.css';
+import MapZoomControls from './MapZoomControls';
 
 // Fit map to the ward boundary on load/change
 function FitBounds({ feature, pins }) {
@@ -53,7 +54,7 @@ export default function WardMotionMap({ wardFeature, motions, mapCenter = [43.7,
         center={mapCenter}
         zoom={12}
         className="w-full h-full z-0"
-        zoomControl={true}
+        zoomControl={false}
         scrollWheelZoom={isFullscreen}
       >
       <TileLayer
@@ -97,6 +98,8 @@ export default function WardMotionMap({ wardFeature, motions, mapCenter = [43.7,
         </CircleMarker>
         ))}
       </MapContainer>
+
+      <MapZoomControls mapRef={mapRef} className="top-[4.5rem] right-4" />
 
       {onToggleFullscreen && (
         <button

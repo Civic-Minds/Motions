@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { MapContainer, TileLayer, GeoJSON, CircleMarker, Tooltip, useMap } from 'react-leaflet';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { Maximize2, Minus, Plus, X } from 'lucide-react';
+import { Maximize2, X } from 'lucide-react';
 import 'leaflet/dist/leaflet.css';
 import { PageMeta } from './PageMeta';
 import PageColumn from './PageColumn';
+import MapZoomControls from './MapZoomControls';
 import { formatMotionDate } from '../utils/date';
 
 // If a specific motion was requested (arrived here via a "see it on the map"
@@ -167,24 +168,7 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
           {isFullscreen ? <X className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
         </button>
 
-        <div className="absolute right-3 top-[4.5rem] z-[500] flex flex-col gap-2">
-          <button
-            type="button"
-            onClick={() => mapRef.current?.zoomIn()}
-            aria-label="Zoom in"
-            className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white/95 text-slate-600 shadow-md transition-colors hover:border-[#004a99]/40 hover:text-[#004a99]"
-          >
-            <Plus className="h-4 w-4" />
-          </button>
-          <button
-            type="button"
-            onClick={() => mapRef.current?.zoomOut()}
-            aria-label="Zoom out"
-            className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white/95 text-slate-600 shadow-md transition-colors hover:border-[#004a99]/40 hover:text-[#004a99]"
-          >
-            <Minus className="h-4 w-4" />
-          </button>
-        </div>
+        <MapZoomControls mapRef={mapRef} className="top-[4.5rem]" />
 
         {(topics.length > 1 || motions.some(m => m.status !== 'Adopted')) && (
           <div className="absolute left-14 top-3 z-[500] flex flex-wrap gap-2 rounded-xl border border-slate-200 bg-white/95 px-3 py-2 text-xs font-semibold text-slate-700 shadow-md">

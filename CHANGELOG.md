@@ -27,6 +27,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Changed
 
+- Map zoom controls now use the same rounded buttons across every map.
 - Full map popups now show motion summaries and the map supports topic and outcome filters.
 - **Contact emails**: Tells issue reporters that the automatically included details should remain in the message.
 - **Contact emails**: Formats issue reports as readable messages with a clear greeting, page reference, and message prompt.

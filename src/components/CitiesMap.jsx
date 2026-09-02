@@ -6,6 +6,7 @@ import { COVERED_CITIES, OTHER_ELECTION_CITIES } from '../constants/cities';
 import { JURISDICTIONS } from '../constants/jurisdictions';
 import { isOnOrAfter, formatElectionDateFull } from '../utils/electionDate';
 import 'leaflet/dist/leaflet.css';
+import MapZoomControls from './MapZoomControls';
 
 // Fixed Canada-wide frame — independent of which cities are pinned, so the
 // map always shows the whole country instead of cropping to the pins' bounds.
@@ -115,7 +116,9 @@ export default function CitiesMap() {
             </Tooltip>
           </CircleMarker>
         ))}
-      </MapContainer>
+        </MapContainer>
+
+        <MapZoomControls mapRef={mapRef} />
 
       {/* Card carousel — floats over bottom of map, matching TorontoFullMap */}
       <div
