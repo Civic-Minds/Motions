@@ -465,8 +465,8 @@ function StandaloneShell() {
               <Link to="/about" className="hover:text-slate-600">About</Link>
               <a href="https://github.com/Civic-Minds/Motions" target="_blank" rel="noopener noreferrer" className="hover:text-slate-600">GitHub</a>
               <Link to="/privacy" className="hover:text-slate-600">Privacy</Link>
-              <a href="mailto:hey@ryanisnota.pro?subject=Motions%20contact" className="hover:text-slate-600">Contact</a>
               <Link to="/terms" className="hover:text-slate-600">Terms</Link>
+              <a href="mailto:hey@ryanisnota.pro?subject=Motions%20contact" className="hover:text-slate-600">Contact</a>
               <span>© {new Date().getFullYear()} Civic Minds</span>
             </div>
           </div>
