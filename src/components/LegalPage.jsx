@@ -6,18 +6,18 @@ const CONTENT = {
   privacy: {
     title: 'Privacy | Motions',
     heading: 'Privacy',
-    intro: 'This policy explains what information Motions collects, how it is used, and the choices available to visitors.',
+    intro: 'This policy explains what information Motions collects, why we use it, and the choices you have.',
     updated: 'August 31, 2026',
     sections: [
-      ['Responsible organization', 'Motions is operated by Civic Minds, an independent civic data project. Civic Minds is responsible for the personal information, if any, that it collects or controls through Motions.'],
-      ['Information collected', 'Motions does not require an account and does not ask visitors to submit personal information to browse the site. Google Analytics and Vercel Web Analytics may process information about visits, pages, referrers, devices, and broad location. Google Analytics may use cookies or similar identifiers; Vercel describes its analytics service as anonymized and cookie-free.'],
-      ['Local storage and location access', 'Motions may store your selected city, ward (in cities with wards), or followed committees in your browser so the site can remember your preferences. These values are not submitted to Motions. Where a Find My Ward feature is available, it requests your device location only after you choose that feature; the location is used in your browser to identify a ward and is not stored by Motions.'],
-      ['Use, disclosure, and retention', 'Information is used only to operate, understand, and improve the site. Motions does not sell personal information. Analytics and hosting providers may process technical information on Civic Minds’ behalf under their own terms and policies. Browser preferences remain until you clear them or remove them through the site.'],
-          ['Service providers and transfers', 'Motions is hosted on Vercel and uses Google Analytics and Vercel Web Analytics. Questions, privacy requests, and issue reports are handled through the Motions contact flow and email. These providers may process technical information in Canada, the United States, or another jurisdiction where they operate. Their own privacy policies govern their handling of information.'],
-      ['Safeguards and public records', 'Civic Minds takes reasonable measures to protect information under its control. The council records displayed by Motions come from public city datasets and official council pages and are not treated as private submissions.'],
-      ['Security incidents', 'If Civic Minds experiences a security incident involving personal information, it will assess the incident and take the notification or other steps required by applicable privacy law.'],
-      ['Access, correction, and complaints', 'If you believe Civic Minds holds personal information about you, or if you have a privacy complaint, contact Civic Minds at hey@ryanisnota.pro. Do not include sensitive personal information in a public GitHub issue.'],
-          ['External links and changes', 'When you open an official source, map, or other external link, that service’s own privacy policy applies. This policy may be updated when the site or its services change.'],
+      ['Who runs Motions', 'Motions is run by Civic Minds, an independent civic data project. If Motions collects information from you, Civic Minds is responsible for it.'],
+      ['What we collect', 'You do not need an account to use Motions, and you can browse without sending us personal information. Google Analytics and Vercel Web Analytics may receive information about visits, pages, referrers, devices, and general location. Google Analytics may use cookies or similar identifiers. Vercel describes its analytics as anonymized and cookie-free.'],
+      ['Information saved in your browser and location access', 'Motions may save your selected city, ward, or followed committees in your browser so it can remember your preferences. We do not send these preferences to Motions. If you choose Find My Ward, your device shares its location with your browser so Motions can identify your ward. We do not store that location.'],
+      ['How we use information', 'We use information to run, understand, and improve Motions. We do not sell personal information. Analytics and hosting providers may process technical information for us under their own policies. Browser preferences stay until you clear them in your browser.'],
+      ['Service providers and transfers', 'Motions is hosted on Vercel and uses Google Analytics and Vercel Web Analytics. These providers may process technical information in Canada, the United States, or another country where they operate. Their own privacy policies explain how they handle that information.'],
+      ['Security and public records', 'Civic Minds takes reasonable steps to protect information under its control. The council records shown on Motions come from public city datasets and official council pages; they are not private submissions to Motions.'],
+      ['Security incidents', 'If Civic Minds experiences a security incident involving personal information, we will assess it and take any steps required by applicable privacy law.'],
+      ['Questions, corrections, and complaints', 'If you have a privacy question, request, or complaint, email Civic Minds at hey@ryanisnota.pro. Please do not include sensitive personal information in a public GitHub issue.'],
+      ['External links and updates', 'When you open an official source, map, or other external link, that service’s own privacy policy applies. We may update this policy when Motions or its services change.'],
     ],
   },
   terms: {
@@ -55,7 +55,7 @@ export default function LegalPage({ type }) {
           </section>
         ))}
       </div>
-      <p className="text-sm text-slate-500">Questions about the project? <a href={type === 'privacy' ? '/contact?subject=Privacy%20request' : '/contact'} className="text-[#004a99] hover:underline">Contact Civic Minds</a>.</p>
+      <p className="text-sm text-slate-500">Questions about Motions? <a href={type === 'privacy' ? '/contact?subject=Privacy%20request' : '/contact'} className="text-[#004a99] hover:underline">Contact Civic Minds</a>.</p>
     </PageColumn>
   );
 }
