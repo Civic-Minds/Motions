@@ -188,7 +188,7 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
                           : setTopicFilters(current => current.includes(topic)
                             ? current.filter(selected => selected !== topic)
                             : [...current, topic])}
-                        className={`rounded-lg px-2 py-1 font-normal transition-colors ${active ? 'text-slate-600 hover:bg-slate-50' : 'bg-slate-100 text-slate-400'}`}
+                        className={`rounded-lg px-2 py-1 font-normal transition-colors ${active ? 'bg-blue-50 text-[#004a99]' : 'bg-slate-100 text-slate-400'}`}
                       >
                         {topic === 'All' ? 'All topics' : topic}
                       </button>
