@@ -206,21 +206,26 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
                   </div>
                 </details>
               )}
-              <label className="flex items-center gap-1.5">
-                <span>Outcome</span>
-                <select value={outcomeFilter} onChange={event => setOutcomeFilter(event.target.value)} className="bg-transparent font-normal text-slate-600 outline-none">
-                  <option value="All">All outcomes</option>
-                  <option value="Adopted">Adopted</option>
-                  <option value="Not adopted">Not adopted</option>
-                </select>
-              </label>
+              <details className="relative">
+                <summary className="flex cursor-pointer list-none items-center gap-1.5 [&::-webkit-details-marker]:hidden">
+                  <span>Outcome</span>
+                  <span className="font-normal text-slate-600">{outcomeFilter === 'All' ? 'All outcomes' : outcomeFilter}</span>
+                  <span className="text-slate-500">⌄</span>
+                </summary>
+                <div className="absolute left-0 top-full z-10 mt-2 min-w-44 rounded-xl border border-slate-200 bg-white p-2 font-normal text-slate-700 shadow-lg">
+                  <button type="button" onClick={() => setOutcomeFilter('All')} className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left hover:bg-slate-50">
+                    All outcomes
+                  </button>
+                  <button type="button" onClick={() => setOutcomeFilter('Adopted')} className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left hover:bg-slate-50">
+                    <span className="h-2.5 w-2.5 rounded-full bg-emerald-500" /> Adopted
+                  </button>
+                  <button type="button" onClick={() => setOutcomeFilter('Not adopted')} className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left hover:bg-slate-50">
+                    <span className="h-2.5 w-2.5 rounded-full bg-rose-500" /> Not adopted
+                  </button>
+                </div>
+              </details>
             </div>
           )}
-
-          <div className="pointer-events-none flex items-center gap-3 rounded-xl border border-slate-200 bg-white/90 px-3 py-2 text-xs font-medium text-slate-600 shadow-sm backdrop-blur-sm">
-            <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-emerald-500" /> Adopted</span>
-            <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-rose-500" /> Not adopted</span>
-          </div>
         </div>
       </div>
 
