@@ -172,7 +172,7 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
 
         <div className="absolute left-3 top-3 z-[500] flex max-w-[calc(100%-7rem)] flex-wrap gap-2">
           {(topics.length > 0 || motions.some(m => m.status !== 'Adopted')) && (
-            <div className="flex min-h-8 flex-wrap items-center gap-1 rounded-xl border border-slate-200 bg-white/95 px-2 py-1.5 text-xs font-semibold text-slate-700 shadow-md">
+            <div className="flex h-8 max-w-full flex-nowrap items-center gap-1 overflow-x-auto rounded-xl border border-slate-200 bg-white/95 px-2 py-1.5 text-xs font-semibold text-slate-700 shadow-md" style={{ scrollbarWidth: 'none' }}>
               {topics.length > 1 && (
                 <>
                   <span className="px-1">Topic</span>
