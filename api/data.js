@@ -1,22 +1,22 @@
 import { promisify } from 'node:util';
 import { gzip as gzipCallback } from 'node:zlib';
+import { JURISDICTIONS } from '../src/constants/jurisdictions.js';
 
 const gzip = promisify(gzipCallback);
 const BLOB_BASE = 'https://qcbqayy3ivvb6sia.public.blob.vercel-storage.com';
 const ALLOWED_FILES = new Set(['motions.json', 'meetings.json', 'councillors.json']);
-const ALLOWED_JURISDICTIONS = new Set(['toronto', 'vancouver']);
 
 export default async function handler(request, response) {
   const url = new URL(request.url, 'https://motions.watch');
   const file = url.searchParams.get('file');
   const jurisdiction = url.searchParams.get('jurisdiction') || 'toronto';
 
-  if (!ALLOWED_FILES.has(file) || !ALLOWED_JURISDICTIONS.has(jurisdiction)) {
+  if (!ALLOWED_FILES.has(file) || !JURISDICTIONS[jurisdiction]) {
     response.status(400).json({ error: 'Invalid data request' });
     return;
   }
 
-  const prefix = jurisdiction === 'vancouver' ? 'vancouver/' : '';
+  const prefix = jurisdiction === 'toronto' ? '' : `${jurisdiction}/`;
   const upstream = await fetch(`${BLOB_BASE}/${prefix}${file}`);
   if (!upstream.ok) {
     response.status(upstream.status).send('Data unavailable');

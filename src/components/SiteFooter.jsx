@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { formatElectionDate } from '../utils/electionDate';
+import { JURISDICTIONS } from '../constants/jurisdictions';
 
 const linkClass = 'text-sm text-slate-500 transition-colors hover:text-slate-900';
 
 export default function SiteFooter({ jurisdiction, standalone = false }) {
   const isToronto = jurisdiction.geography === 'ward';
+  const hasElectionPage = jurisdiction.id === 'toronto' || jurisdiction.id === 'vancouver';
   const electionDate = formatElectionDate(jurisdiction.election.date);
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -35,8 +37,9 @@ export default function SiteFooter({ jurisdiction, standalone = false }) {
         <div className="space-y-3 lg:col-start-3">
           <p className="text-[10px] font-bold uppercase tracking-wide text-slate-500">Cities</p>
           <div className="flex flex-col gap-2">
-            <a href="/toronto" onClick={scrollToTop} className={linkClass}>Toronto</a>
-            <a href="/vancouver" onClick={scrollToTop} className={linkClass}>Vancouver</a>
+            {Object.values(JURISDICTIONS).map(city => (
+              <a key={city.id} href={city.path} onClick={scrollToTop} className={linkClass}>{city.name}</a>
+            ))}
           </div>
         </div>
 
@@ -46,10 +49,17 @@ export default function SiteFooter({ jurisdiction, standalone = false }) {
             <FooterLink to="/" onClick={scrollToTop} className={linkClass}>Motions</FooterLink>
             <FooterLink to="/councillors" onClick={scrollToTop} className={linkClass}>Councillors</FooterLink>
             {isToronto && <FooterLink to="/wards" onClick={scrollToTop} className={linkClass}>Wards</FooterLink>}
-            <FooterLink to="/election" onClick={scrollToTop} className={`${linkClass} inline-flex items-center gap-2`}>
-              <span>Election</span>
-              <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-semibold text-[#004a99]">{electionDate}</span>
-            </FooterLink>
+            {hasElectionPage ? (
+              <FooterLink to="/election" onClick={scrollToTop} className={`${linkClass} inline-flex items-center gap-2`}>
+                <span>Election</span>
+                <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-semibold text-[#004a99]">{electionDate}</span>
+              </FooterLink>
+            ) : (
+              <a href={jurisdiction.election.officialUrl} target="_blank" rel="noopener noreferrer" className={`${linkClass} inline-flex items-center gap-2`}>
+                <span>Election</span>
+                <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-semibold text-[#004a99]">{electionDate}</span>
+              </a>
+            )}
           </div>
         </div>
 

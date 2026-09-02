@@ -38,6 +38,22 @@ const SOURCES = [
     label: 'Vancouver council pages',
   },
   {
+    city: 'Winnipeg',
+    category: 'Open Data',
+    icon: Database,
+    description: 'Official council voting records used for Winnipeg motions and councillor histories.',
+    href: 'https://data.winnipeg.ca/Council-Services/Council-Voting-Data/f9mn-vti8',
+    label: 'Winnipeg Open Data',
+  },
+  {
+    city: 'Winnipeg',
+    category: 'Council Pages',
+    icon: Building2,
+    description: 'Official meeting agendas, minutes, and decisions on the Decision Making Information System (DMIS).',
+    href: 'https://dmis.winnipeg.ca/',
+    label: 'Winnipeg council pages',
+  },
+  {
     city: 'Maps',
     category: 'Maps',
     icon: Map,

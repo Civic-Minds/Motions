@@ -7,8 +7,31 @@ import PageColumn from './PageColumn';
 
 const SOURCE_LINK_CLASS = 'text-[#004a99] underline underline-offset-2 hover:text-[#003875]';
 
+const SOURCE_URLS = {
+  toronto: 'https://open.toronto.ca/dataset/members-of-toronto-city-council-voting-record/',
+  vancouver: 'https://opendata.vancouver.ca/explore/dataset/council-voting-records/',
+  winnipeg: 'https://data.winnipeg.ca/Council-Services/Council-Voting-Data/f9mn-vti8',
+};
+
+// Toronto has ward boundary data wired up, so its motions map to wards.
+// Vancouver's council is genuinely elected at-large. Every other city
+// (Winnipeg included) is ward-based in real life but has no ward
+// boundary/mapping built yet, so locations stay citywide for now.
+const LOCATION_COPY = {
+  toronto: 'Addresses and named places get mapped when we can pin them down, then matched to official Toronto wards.',
+  vancouver: 'Addresses and named places get mapped when we can pin them down. Vancouver councillors are elected at-large, so locations aren’t tied to wards.',
+};
+const GEOGRAPHY_COPY = {
+  toronto: { label: 'WARD COVERAGE', heading: 'Citywide and ward-specific activity', body: 'A motion is shown for a ward when its record identifies that ward or includes a reliably mapped location inside it. Citywide motions remain available in the overall record and are not placed on individual ward maps.' },
+  vancouver: { label: 'GEOGRAPHY', heading: 'Citywide council activity', body: 'Vancouver’s mayor and councillors represent the entire city. Motions therefore remain in one shared citywide record.' },
+};
+
 export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toronto' }, motions = [], metadata = null }) {
-  const isVancouver = jurisdiction.id === 'vancouver';
+  const isToronto = jurisdiction.id === 'toronto';
+  const locationCopy = LOCATION_COPY[jurisdiction.id]
+    ?? `Addresses and named places get mapped when we can pin them down. ${jurisdiction.name}’s ward boundaries aren’t mapped yet, so locations stay citywide for now.`;
+  const geographyCopy = GEOGRAPHY_COPY[jurisdiction.id]
+    ?? { label: 'GEOGRAPHY', heading: 'Citywide council activity', body: `Motions currently tracks ${jurisdiction.name}’s council activity citywide; ward-level mapping isn’t available yet.` };
   const [earliestMotionDate, latestMotionDate] = motions.reduce(([earliest, latest], motion) => {
     const parsed = new Date(motion.date);
     if (Number.isNaN(parsed.getTime())) return [earliest, latest];
@@ -24,9 +47,7 @@ export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toront
   const formattedLastChecked = metadata?.lastChecked
     ? new Date(metadata.lastChecked).toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' })
     : null;
-  const sourceUrl = isVancouver
-    ? 'https://opendata.vancouver.ca/explore/dataset/council-voting-records/'
-    : 'https://open.toronto.ca/dataset/members-of-toronto-city-council-voting-record/';
+  const sourceUrl = SOURCE_URLS[jurisdiction.id] ?? SOURCE_URLS.toronto;
   return (
     <PageColumn className="space-y-8 pb-20">
       <PageMeta
@@ -37,7 +58,7 @@ export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toront
       <div className="space-y-3">
         <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">Transparency</h1>
         <p className="text-base sm:text-lg text-slate-500 max-w-2xl">
-          {isVancouver ? 'Motions turns public Vancouver council records into a clearer way to follow decisions and votes across the city.' : 'Motions turns public Toronto council records into a clearer way to follow decisions, votes, and neighbourhood-level activity.'}
+          {isToronto ? 'Motions turns public Toronto council records into a clearer way to follow decisions, votes, and neighbourhood-level activity.' : `Motions turns public ${jurisdiction.name} council records into a clearer way to follow decisions and votes across the city.`}
         </p>
       </div>
 
@@ -84,25 +105,23 @@ export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toront
           <CivicCard className="gap-2">
             <h2 className="font-semibold text-slate-900">Topics</h2>
             <p className="text-sm leading-relaxed text-slate-500">
-              {isVancouver
-                ? 'A vote’s score weighs how contested it was, its topic, and its outcome — higher scores rise to the top.'
-                : 'A vote’s score weighs how contested it was, its outcome, and how much debate it got — big stuff like the budget or zoning gets a boost, routine items get docked.'}
+              {isToronto
+                ? 'A vote’s score weighs how contested it was, its outcome, and how much debate it got — big stuff like the budget or zoning gets a boost, routine items get docked.'
+                : 'A vote’s score weighs how contested it was, its topic, and its outcome — higher scores rise to the top.'}
             </p>
           </CivicCard>
           <CivicCard className="gap-2">
             <h2 className="font-semibold text-slate-900">Locations</h2>
-            <p className="text-sm leading-relaxed text-slate-500">{isVancouver ? 'Addresses and named places get mapped when we can pin them down. Vancouver councillors are elected at-large, so locations aren’t tied to wards.' : 'Addresses and named places get mapped when we can pin them down, then matched to official Toronto wards.'}</p>
+            <p className="text-sm leading-relaxed text-slate-500">{locationCopy}</p>
           </CivicCard>
         </div>
       </section>
 
       <section className="space-y-3">
-        <CivicSectionLabel>{isVancouver ? 'GEOGRAPHY' : 'WARD COVERAGE'}</CivicSectionLabel>
+        <CivicSectionLabel>{geographyCopy.label}</CivicSectionLabel>
         <CivicCard className="gap-2">
-          <h2 className="text-lg font-semibold text-slate-900">{isVancouver ? 'Citywide council activity' : 'Citywide and ward-specific activity'}</h2>
-          <p className="text-sm leading-relaxed text-slate-500">
-            {isVancouver ? 'Vancouver’s mayor and councillors represent the entire city. Motions therefore remain in one shared citywide record.' : 'A motion is shown for a ward when its record identifies that ward or includes a reliably mapped location inside it. Citywide motions remain available in the overall record and are not placed on individual ward maps.'}
-          </p>
+          <h2 className="text-lg font-semibold text-slate-900">{geographyCopy.heading}</h2>
+          <p className="text-sm leading-relaxed text-slate-500">{geographyCopy.body}</p>
         </CivicCard>
       </section>
 

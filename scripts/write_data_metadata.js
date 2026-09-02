@@ -1,8 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 
-const isVancouver = process.argv.includes('--vancouver');
-const directory = isVancouver ? 'public/data/vancouver' : 'public/data';
+/* global process */
+
+const cityArg = process.argv.find(arg => arg.startsWith('--city='));
+const city = cityArg ? cityArg.slice('--city='.length) : process.argv.includes('--vancouver') ? 'vancouver' : 'toronto';
+const directory = city === 'toronto' ? 'public/data' : `public/data/${city}`;
 
 fs.writeFileSync(
   path.join(process.cwd(), directory, 'metadata.json'),

@@ -66,7 +66,12 @@ export default function CommitteesView({ motions, meetings = [] }) {
           topTopics,
           latest,
           members,
-          description: COMMITTEE_DESCRIPTIONS[c.name] ?? `A ${jurisdiction.name} city committee reviewing motions and policy.`,
+          // COMMITTEE_DESCRIPTIONS is hand-written for Toronto/Vancouver committee
+          // names only — a generic name like "Council" collides across cities, so
+          // only look it up for the cities it was actually written for.
+          description: (jurisdiction.id === 'toronto' || jurisdiction.id === 'vancouver')
+            ? COMMITTEE_DESCRIPTIONS[c.name] ?? `A ${jurisdiction.name} city committee reviewing motions and policy.`
+            : `A ${jurisdiction.name} city committee reviewing motions and policy.`,
         };
       })
       .sort((a, b) => {

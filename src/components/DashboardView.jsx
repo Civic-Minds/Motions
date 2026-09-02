@@ -397,6 +397,8 @@ function UpcomingMeeting({ meetings, navigate, className = '' }) {
 export default function DashboardView({ motions, meetings = [], jurisdiction = { id: 'toronto' } }) {
   const { followedCommittees = [] } = useAppContext();
   const isVancouver = jurisdiction.id === 'vancouver';
+  const isToronto = jurisdiction.id === 'toronto';
+  const hasElectionPromo = isToronto || isVancouver;
   const electionOver = isOnOrAfter(jurisdiction.election?.date);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -412,7 +414,7 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
   const [visibleCount, setVisibleCount] = useState(() => isMobileViewport() ? 10 : 20);
   const [wardGeoData, setWardGeoData] = useState(null);
 
-  const savedWardId = useMemo(() => isVancouver ? null : getWardId(), [isVancouver]);
+  const savedWardId = useMemo(() => isToronto ? getWardId() : null, [isToronto]);
   const wardFilter = searchParams.get('ward');
   const savedCouncillor = savedWardId ? WARD_COUNCILLORS[savedWardId] : null;
   const savedWardFeature = useMemo(() => wardGeoData?.features?.find(feature =>
@@ -624,6 +626,20 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
               </CivicCardFooter>
             </CivicCard>
           </div>
+        ) : !isToronto ? (
+          <div className="flex flex-col gap-1.5 min-w-0">
+            <div className="flex items-center justify-between px-1">
+              <p className="text-xs lg:text-[10px] font-bold text-slate-500 uppercase tracking-wide">Council</p>
+            </div>
+            <CivicCard className="flex-1">
+              <Vote className="w-4 h-4 text-[#004a99]" />
+              <p className="text-xs font-semibold text-slate-800 line-clamp-3 leading-snug">Ward-level browsing isn’t available for {jurisdiction.name} yet — browse the full council instead.</p>
+              <CivicCardFooter>
+                <span className="text-[9px] text-slate-500">{jurisdiction.currentCouncillors?.length ?? 0} members</span>
+                <Link to="/councillors" className="text-[9px] font-semibold text-[#004a99]">See council</Link>
+              </CivicCardFooter>
+            </CivicCard>
+          </div>
         ) : (
           <div className="flex flex-col gap-1.5 min-w-0">
             <div className="flex items-center justify-between px-1">
@@ -646,19 +662,22 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-3 items-stretch flex-1 min-w-0">
             <CivicCard
-              as={Link}
-              to="/election"
+              {...(hasElectionPromo
+                ? { as: Link, to: '/election' }
+                : { as: 'a', href: jurisdiction.election?.officialUrl, target: '_blank', rel: 'noopener noreferrer' })}
               className="bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-100 hover:border-blue-300"
             >
               <CivicPill className="bg-blue-100 text-blue-700">{electionOver ? 'Election result' : 'Election'}</CivicPill>
               <p className="text-xs font-semibold text-slate-800 group-hover:text-blue-700 transition-colors line-clamp-3 leading-snug">
-                {electionOver
-                  ? (isVancouver ? 'See Vancouver’s new council.' : 'See your ward’s new council.')
-                  : (isVancouver ? 'Register to run before September 11.' : 'See your ward’s candidates before election day.')}
+                {!hasElectionPromo
+                  ? `${jurisdiction.name}’s municipal election is coming up.`
+                  : electionOver
+                    ? (isVancouver ? 'See Vancouver’s new council.' : 'See your ward’s new council.')
+                    : (isVancouver ? 'Register to run before September 11.' : 'See your ward’s candidates before election day.')}
               </p>
               <div className="flex items-center justify-between mt-auto pt-2 border-t border-blue-100">
                 <span className="text-[9px] text-slate-500">{formatMotionDate(jurisdiction.election?.date)}</span>
-                <span className="text-[9px] font-semibold text-blue-700">{electionOver ? 'See council' : (isVancouver ? 'See details' : 'Get ready')}</span>
+                <span className="text-[9px] font-semibold text-blue-700">{!hasElectionPromo ? 'Official info' : electionOver ? 'See council' : (isVancouver ? 'See details' : 'Get ready')}</span>
               </div>
             </CivicCard>
             {homeMotionCards.map((m, i) => (
@@ -684,7 +703,10 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
       )}
 
       {/* ── Main: Filter sidebar + motion list (same column widths as bento) ── */}
-      <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr_220px] lg:gap-x-3 lg:items-start gap-y-4">
+      <div className={cn(
+        'grid grid-cols-1 lg:gap-x-3 lg:items-start gap-y-4',
+        (isToronto || isVancouver) ? 'lg:grid-cols-[200px_1fr_220px]' : 'lg:grid-cols-[200px_1fr]'
+      )}>
 
         <FilterSidebar>
           <DashboardFilterContent
@@ -713,12 +735,16 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
 
         <UpcomingMeeting meetings={meetings} navigate={navigate} className="lg:hidden" />
 
-        {/* City mini-map */}
-        <div className="hidden lg:flex flex-col sticky top-24">
-          <Suspense fallback={<div className="rounded-2xl bg-slate-100 animate-pulse h-[calc(100vh-7rem)] min-h-[480px] border border-slate-200" />}>
-            {isVancouver ? <VancouverMiniMap motions={motions} /> : <TorontoMiniMap motions={motions} />}
-          </Suspense>
-        </div>
+        {/* City mini-map — Toronto/Vancouver only for now; each mini-map is
+            its own hand-built component with a hardcoded city center, and
+            neither has real geocoded locations to plot for other cities. */}
+        {(isToronto || isVancouver) && (
+          <div className="hidden lg:flex flex-col sticky top-24">
+            <Suspense fallback={<div className="rounded-2xl bg-slate-100 animate-pulse h-[calc(100vh-7rem)] min-h-[480px] border border-slate-200" />}>
+              {isVancouver ? <VancouverMiniMap motions={motions} /> : <TorontoMiniMap motions={motions} />}
+            </Suspense>
+          </div>
+        )}
 
       </div>
 

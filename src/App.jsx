@@ -75,6 +75,14 @@ function Navbar({ onSearchOpen, jurisdiction, wardId = null, handleLocate, handl
   const tabs = jurisdiction.geography === 'atLarge'
     ? TABS.filter(tab => tab.path !== '/wards')
     : TABS;
+  const hasElectionPage = jurisdiction.id === 'toronto' || jurisdiction.id === 'vancouver';
+  const goToTab = (path) => {
+    if (path === '/election' && !hasElectionPage) {
+      window.open(jurisdiction.election.officialUrl, '_blank', 'noopener,noreferrer');
+      return;
+    }
+    goTo(path);
+  };
 
   useEffect(() => {
     if (!cityOpen) return undefined;
@@ -111,7 +119,7 @@ function Navbar({ onSearchOpen, jurisdiction, wardId = null, handleLocate, handl
             return (
               <button
                 key={tab.path}
-                onClick={() => goTo(tab.path)}
+                onClick={() => goToTab(tab.path)}
                 className={cn(
                   "flex items-center gap-1.5 rounded-lg px-2 py-2 text-sm whitespace-nowrap transition-colors duration-200",
                   isActive
@@ -226,7 +234,7 @@ function Navbar({ onSearchOpen, jurisdiction, wardId = null, handleLocate, handl
               return (
                 <button
                   key={tab.path}
-                  onClick={() => { goTo(tab.path); setOpen(false); }}
+                  onClick={() => { goToTab(tab.path); setOpen(false); }}
                   className={cn(
                     "flex items-center gap-3 w-full px-4 py-3 rounded-xl text-sm font-medium transition-colors",
                     isActive ? "bg-slate-900 text-white" : "text-slate-600 hover:bg-slate-100"
@@ -244,12 +252,15 @@ function Navbar({ onSearchOpen, jurisdiction, wardId = null, handleLocate, handl
                 </button>
               );
             })}
-            <a
-              href={jurisdiction.id === 'toronto' ? '/vancouver' : '/toronto'}
-              className="flex items-center w-full px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100"
-            >
-              Switch to {jurisdiction.id === 'toronto' ? 'Vancouver' : 'Toronto'}
-            </a>
+            {Object.values(JURISDICTIONS).filter(city => city.id !== jurisdiction.id).map(city => (
+              <a
+                key={city.id}
+                href={city.path}
+                className="flex items-center w-full px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100"
+              >
+                Switch to {city.name}
+              </a>
+            ))}
           </motion.div>
         )}
       </AnimatePresence>
@@ -266,6 +277,7 @@ function ScrollToTop() {
 function AppShell() {
   const { jurisdiction, wardId, handleLocate, handleClearWard } = useAppContext();
   const { motions, councillors, meetings, metadata, loading, error } = useMotions(jurisdiction);
+  const hasGuideContent = jurisdiction.id === 'toronto' || jurisdiction.id === 'vancouver';
   const [searchOpen, setSearchOpen] = useState(false);
   const [compareMode, setCompareMode] = useState(false);
   const toggleCompareMode = () => setCompareMode(m => !m);
@@ -329,10 +341,18 @@ function AppShell() {
           <Route path="/committees/:committeeSlug" element={<CommitteesView motions={motions} meetings={meetings} />} />
           <Route path="/meetings" element={<MeetingsListView meetings={meetings} jurisdiction={jurisdiction} />} />
           <Route path="/meetings/:meetingRef" element={<MeetingPage meetings={meetings} jurisdiction={jurisdiction} />} />
-          <Route path="/election" element={jurisdiction.id === 'vancouver' ? <VancouverElection /> : <ElectionView />} />
+          <Route path="/election" element={
+            jurisdiction.id === 'vancouver' ? <VancouverElection /> :
+            jurisdiction.id === 'toronto' ? <ElectionView /> :
+            <Navigate to="/" replace />
+          } />
           <Route path="/election/how-to-vote" element={<Navigate to="/learn/how-voting-works" replace />} />
           <Route path="/learn/how-to-vote" element={<Navigate to="/learn/how-voting-works" replace />} />
-          <Route path="/learn/how-voting-works" element={jurisdiction.id === 'vancouver' ? <VancouverVotingGuide jurisdiction={jurisdiction} /> : <VotingGuide jurisdiction={jurisdiction} />} />
+          <Route path="/learn/how-voting-works" element={
+            jurisdiction.id === 'vancouver' ? <VancouverVotingGuide jurisdiction={jurisdiction} /> :
+            jurisdiction.id === 'toronto' ? <VotingGuide jurisdiction={jurisdiction} /> :
+            <Navigate to="/learn" replace />
+          } />
           <Route path="/budget" element={<BudgetTranslator />} />
           <Route path="/transparency" element={<DataPage jurisdiction={jurisdiction} motions={motions} metadata={metadata} />} />
           <Route path="/data" element={<Navigate to="/transparency" replace />} />
@@ -342,10 +362,13 @@ function AppShell() {
           <Route path="/terms" element={<HardRedirect to="/terms" />} />
           <Route path="/about" element={<HardRedirect to="/about" />} />
           <Route path="/learn" element={<LearnPage jurisdiction={jurisdiction} />} />
-          <Route path="/learn/how-council-works" element={<CivicGuidePage type="council" jurisdiction={jurisdiction} />} />
-          <Route path="/learn/how-a-council-vote-works" element={<CivicGuidePage type="voting" jurisdiction={jurisdiction} />} />
-          <Route path="/learn/how-to-get-involved" element={<CivicGuidePage type="involvement" jurisdiction={jurisdiction} />} />
-          <Route path="/learn/how-to-depute" element={<CivicGuidePage type="depute" jurisdiction={jurisdiction} />} />
+          {/* CivicGuidePage's content is hand-written per city (see GUIDE_CONTENT
+              in the component) — it has no fallback and crashes for a city it
+              doesn't know, so only route jurisdictions with real content. */}
+          <Route path="/learn/how-council-works" element={hasGuideContent ? <CivicGuidePage type="council" jurisdiction={jurisdiction} /> : <Navigate to="/learn" replace />} />
+          <Route path="/learn/how-a-council-vote-works" element={hasGuideContent ? <CivicGuidePage type="voting" jurisdiction={jurisdiction} /> : <Navigate to="/learn" replace />} />
+          <Route path="/learn/how-to-get-involved" element={hasGuideContent ? <CivicGuidePage type="involvement" jurisdiction={jurisdiction} /> : <Navigate to="/learn" replace />} />
+          <Route path="/learn/how-to-depute" element={hasGuideContent ? <CivicGuidePage type="depute" jurisdiction={jurisdiction} /> : <Navigate to="/learn" replace />} />
           {jurisdiction.id === 'toronto' && <Route path="/learn/how-strong-mayor-powers-work" element={<CivicGuidePage type="strongMayor" jurisdiction={jurisdiction} />} />}
           {jurisdiction.id === 'toronto' && <>
             <Route path="/council-voting-records" element={<TorontoSeoPage type="council" motions={motions} />} />

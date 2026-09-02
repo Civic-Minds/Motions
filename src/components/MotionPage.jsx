@@ -284,7 +284,7 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
   const topicHref = motion.topic ? `/?topic=${encodeURIComponent(motion.topic)}` : null;
   const isMultiVote = subEntries.length > 0;
 
-  const myWardId = isVancouver ? null : getWardId();
+  const myWardId = jurisdiction.id === 'toronto' ? getWardId() : null;
   const myCouncillor = myWardId ? WARD_COUNCILLORS[myWardId] : null;
   const myVote = myCouncillor ? (motion.votes?.[myCouncillor] ?? null) : null;
 
@@ -391,7 +391,7 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 text-[#004a99] hover:underline font-medium"
               >
-                {isVancouver ? 'Voting record' : 'toronto.ca'} <ExternalLink className="w-3 h-3" />
+                {jurisdiction.id === 'toronto' ? 'toronto.ca' : 'Voting record'} <ExternalLink className="w-3 h-3" />
               </a>
             </>
           )}
@@ -465,7 +465,7 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
                 <Suspense fallback={<div className="w-full h-72 rounded-2xl bg-slate-100 animate-pulse" />}>
                   <WardMotionMap
                     motions={[motion]}
-                    mapCenter={isVancouver ? [49.2827, -123.1207] : undefined}
+                    mapCenter={jurisdiction.id === 'toronto' ? undefined : jurisdiction.mapCenter}
                     isFullscreen={mapFullscreen}
                     onToggleFullscreen={() => setMapFullscreen(open => !open)}
                   />

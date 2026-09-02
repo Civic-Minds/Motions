@@ -38,6 +38,29 @@ export const JURISDICTIONS = {
             officialUrl: 'https://vancouver.ca/your-government/2026-election.aspx',
         },
     },
+    winnipeg: {
+        id: 'winnipeg',
+        name: 'Winnipeg',
+        shortName: 'Winnipeg',
+        path: '/winnipeg',
+        // Winnipeg's council is genuinely ward-based (15 wards), but no ward
+        // boundary/councillor mapping is wired up yet — 'atLarge' here means
+        // "no ward UI," matching how geography is actually consumed across
+        // the app (App.jsx, SiteFooter, MotionsMap). Revisit once wards land.
+        geography: 'atLarge',
+        representativeLabel: 'Councillor',
+        representativesLabel: 'Councillors',
+        mayorName: 'Scott Gillingham',
+        mapCenter: [49.895, -97.14],
+        currentCouncillors: ['Mayor Scott Gillingham', 'Matt Allard', 'Jeff Browaty', 'Markus Chambers', 'Shawn Dobson', 'Emma Durand-Wood', 'Evan Duncan', 'Ross Eadie', 'Cindy Gilroy', 'Janice Lukes', 'Brian Mayes', 'John Orlikow', 'Sherri Rollins', 'Vivian Santos', 'Devi Sharma', 'Russ Wyatt'],
+        dataBaseEnv: 'VITE_WINNIPEG_DATA_BASE_URL',
+        localDataPath: '/data/winnipeg',
+        election: {
+            date: '2026-10-28',
+            offices: ['Mayor', 'City Councillor'],
+            officialUrl: 'https://www.winnipeg.ca/city-governance/wards-elections/2026-election',
+        },
+    },
 };
 
 export function getJurisdiction(id = 'toronto') {

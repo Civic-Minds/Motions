@@ -6,36 +6,46 @@ import { CivicCard } from './ui/CivicCard';
 import PageColumn from './PageColumn';
 import { isOnOrAfter } from '../utils/electionDate';
 
+// CivicGuidePage's content is hand-written per city and only covers
+// Toronto/Vancouver so far — mark these coming soon for any other city
+// rather than routing to a page that has no content for it.
+const hasNoGuideContent = (city, jurisdictionId) => !['toronto', 'vancouver'].includes(jurisdictionId);
+
 const GUIDES = [
   {
     path: '/learn/how-council-works',
     title: 'How City Council Works',
     description: city => `Follow a local issue from proposal to public decision in ${city}.`,
+    comingSoon: hasNoGuideContent,
   },
   {
     path: '/learn/how-a-council-vote-works',
     title: 'How a Council Vote Works',
     description: city => `Learn how to follow ${city}’s council votes and what to do next.`,
+    comingSoon: hasNoGuideContent,
   },
   {
     path: '/learn/how-voting-works',
     title: 'How Voting Works',
     description: city => `Practical voting information for ${city}’s municipal election.`,
+    comingSoon: hasNoGuideContent,
   },
   {
     path: '/learn/how-to-get-involved',
     title: 'How to Get Involved',
     description: city => `Find consultations, public notices, hearings, and ways to share your views in ${city}.`,
+    comingSoon: hasNoGuideContent,
   },
   {
     path: '/learn/how-to-depute',
     title: 'How to Depute',
     description: city => `Register to speak to ${city}’s council or committee about an item on the agenda.`,
+    comingSoon: hasNoGuideContent,
   },
 ];
 
 function GuideCard({ guide, jurisdiction }) {
-  if (guide.comingSoon?.(jurisdiction.name)) {
+  if (guide.comingSoon?.(jurisdiction.name, jurisdiction.id)) {
     return (
       <CivicCard className="h-full gap-3">
         <h2 className="text-lg font-semibold text-slate-900">{guide.title}</h2>

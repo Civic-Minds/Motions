@@ -35,9 +35,19 @@ async function uploadDataDirectory(directory, prefix = '') {
   }
 }
 
+// --vancouver / --vancouver-only kept for the existing CI workflow; --city=<id>
+// and --city-only=<id> generalize the same "also upload this city" / "only this
+// city" pattern for cities added after Vancouver.
+const cityOnlyArg = process.argv.find(arg => arg.startsWith('--city-only='));
+const cityArg = process.argv.find(arg => arg.startsWith('--city='));
 const vancouverOnly = process.argv.includes('--vancouver-only');
-if (!vancouverOnly) await uploadDataDirectory('public/data');
-if (process.argv.includes('--vancouver') || vancouverOnly) await uploadDataDirectory('public/data/vancouver', 'vancouver/');
+const secondaryCity = cityOnlyArg ? cityOnlyArg.slice('--city-only='.length)
+  : cityArg ? cityArg.slice('--city='.length)
+  : (process.argv.includes('--vancouver') || vancouverOnly) ? 'vancouver'
+  : null;
+
+if (!vancouverOnly && !cityOnlyArg) await uploadDataDirectory('public/data');
+if (secondaryCity) await uploadDataDirectory(`public/data/${secondaryCity}`, `${secondaryCity}/`);
 
 for (const filename of CACHE_FILES) {
   const filePath = path.join(process.cwd(), 'scripts/cache', filename);

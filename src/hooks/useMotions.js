@@ -26,12 +26,10 @@ export function useMotions(jurisdiction = { id: 'toronto', dataBaseEnv: 'VITE_BL
         let isMounted = true;
 
         async function loadData() {
-            const configuredBase = jurisdiction.id === 'vancouver'
-                ? import.meta.env.VITE_VANCOUVER_DATA_BASE_URL
-                : import.meta.env.VITE_BLOB_BASE_URL;
+            const configuredBase = import.meta.env[jurisdiction.dataBaseEnv];
             const base = configuredBase || (
-                jurisdiction.id === 'vancouver' && !import.meta.env.DEV && import.meta.env.VITE_BLOB_BASE_URL
-                    ? `${import.meta.env.VITE_BLOB_BASE_URL}/vancouver`
+                jurisdiction.id !== 'toronto' && !import.meta.env.DEV && import.meta.env.VITE_BLOB_BASE_URL
+                    ? `${import.meta.env.VITE_BLOB_BASE_URL}/${jurisdiction.id}`
                     : jurisdiction.localDataPath
             );
             const dataUrl = file => import.meta.env.DEV
@@ -81,7 +79,7 @@ export function useMotions(jurisdiction = { id: 'toronto', dataBaseEnv: 'VITE_BL
 
         loadData();
         return () => { isMounted = false; };
-    }, [jurisdiction.id, jurisdiction.localDataPath]);
+    }, [jurisdiction.id, jurisdiction.dataBaseEnv, jurisdiction.localDataPath]);
 
     const metrics = useMemo(() => {
         return calculateTrivialityMetrics(motions);
