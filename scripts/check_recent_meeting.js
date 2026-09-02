@@ -4,7 +4,7 @@
 const BLOB_BASE = 'https://qcbqayy3ivvb6sia.public.blob.vercel-storage.com';
 const WINDOW_DAYS = 8;
 
-const meetingUrls = [`${BLOB_BASE}/meetings.json`, `${BLOB_BASE}/vancouver/meetings.json`, `${BLOB_BASE}/winnipeg/meetings.json`];
+const meetingUrls = [`${BLOB_BASE}/meetings.json`, `${BLOB_BASE}/vancouver/meetings.json`];
 const responses = await Promise.all(meetingUrls.map(url => fetch(url).catch(() => null)));
 if (responses.every(res => !res?.ok)) {
     process.stdout.write('true'); // fail open — run the pipeline if we can't check

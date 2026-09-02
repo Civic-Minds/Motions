@@ -50,14 +50,11 @@ jobs:
         run: |
           node scripts/write_data_metadata.js
           node scripts/write_data_metadata.js --vancouver
-          node scripts/write_data_metadata.js --city=winnipeg
 
       - name: Upload check timestamp to Blob
         env:
           BLOB_READ_WRITE_TOKEN: ${{ secrets.BLOB_READ_WRITE_TOKEN }}
-        run: |
-          node scripts/upload_to_blob.js --vancouver
-          node scripts/upload_to_blob.js --city-only=winnipeg
+        run: node scripts/upload_to_blob.js --vancouver
 
   refresh:
     needs: check
@@ -140,20 +137,6 @@ jobs:
         env:
           BLOB_READ_WRITE_TOKEN: ${{ secrets.BLOB_READ_WRITE_TOKEN }}
         run: node scripts/upload_to_blob.js --vancouver-only
-
-      # Winnipeg's Socrata council-voting API is already structured (no agenda
-      # scraping or AI summarization involved), so its pipeline is shorter than
-      # Toronto's or Vancouver's — not a step list they share.
-      - name: Refresh Winnipeg council data
-        run: node scripts/import_winnipeg_data.js
-
-      - name: Record Winnipeg refresh time
-        run: node scripts/write_data_metadata.js --city=winnipeg
-
-      - name: Upload Winnipeg data to Vercel Blob
-        env:
-          BLOB_READ_WRITE_TOKEN: ${{ secrets.BLOB_READ_WRITE_TOKEN }}
-        run: node scripts/upload_to_blob.js --city-only=winnipeg
 
       - name: Close stale summary issues
         env:
