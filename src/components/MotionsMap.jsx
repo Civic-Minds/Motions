@@ -170,31 +170,33 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
 
         <MapZoomControls mapRef={mapRef} className="top-[4.5rem]" />
 
-        {(topics.length > 1 || motions.some(m => m.status !== 'Adopted')) && (
-          <div className="absolute left-14 top-3 z-[500] flex flex-wrap gap-2 rounded-xl border border-slate-200 bg-white/95 px-3 py-2 text-xs font-semibold text-slate-700 shadow-md">
-            {topics.length > 1 && (
+        <div className="absolute left-3 top-3 z-[500] flex max-w-[calc(100%-7rem)] flex-wrap gap-2">
+          {(topics.length > 1 || motions.some(m => m.status !== 'Adopted')) && (
+            <div className="flex flex-wrap gap-2 rounded-xl border border-slate-200 bg-white/95 px-3 py-2 text-xs font-semibold text-slate-700 shadow-md">
+              {topics.length > 1 && (
+                <label className="flex items-center gap-1.5">
+                  <span>Topic</span>
+                  <select value={topicFilter} onChange={event => setTopicFilter(event.target.value)} className="bg-transparent font-normal text-slate-600 outline-none">
+                    <option value="All">All topics</option>
+                    {topics.slice(1).map(topic => <option key={topic} value={topic}>{topic}</option>)}
+                  </select>
+                </label>
+              )}
               <label className="flex items-center gap-1.5">
-                <span>Topic</span>
-                <select value={topicFilter} onChange={event => setTopicFilter(event.target.value)} className="bg-transparent font-normal text-slate-600 outline-none">
-                  <option value="All">All topics</option>
-                  {topics.slice(1).map(topic => <option key={topic} value={topic}>{topic}</option>)}
+                <span>Outcome</span>
+                <select value={outcomeFilter} onChange={event => setOutcomeFilter(event.target.value)} className="bg-transparent font-normal text-slate-600 outline-none">
+                  <option value="All">All outcomes</option>
+                  <option value="Adopted">Adopted</option>
+                  <option value="Not adopted">Not adopted</option>
                 </select>
               </label>
-            )}
-            <label className="flex items-center gap-1.5">
-              <span>Outcome</span>
-              <select value={outcomeFilter} onChange={event => setOutcomeFilter(event.target.value)} className="bg-transparent font-normal text-slate-600 outline-none">
-                <option value="All">All outcomes</option>
-                <option value="Adopted">Adopted</option>
-                <option value="Not adopted">Not adopted</option>
-              </select>
-            </label>
-          </div>
-        )}
+            </div>
+          )}
 
-        <div className="pointer-events-none absolute bottom-3 left-3 z-[500] flex items-center gap-3 rounded-xl border border-slate-200 bg-white/90 px-3 py-2 text-xs font-medium text-slate-600 shadow-sm backdrop-blur-sm">
-          <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-emerald-500" /> Adopted</span>
-          <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-rose-500" /> Not adopted</span>
+          <div className="pointer-events-none flex items-center gap-3 rounded-xl border border-slate-200 bg-white/90 px-3 py-2 text-xs font-medium text-slate-600 shadow-sm backdrop-blur-sm">
+            <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-emerald-500" /> Adopted</span>
+            <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-rose-500" /> Not adopted</span>
+          </div>
         </div>
       </div>
 
