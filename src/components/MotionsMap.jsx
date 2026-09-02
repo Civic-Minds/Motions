@@ -37,7 +37,7 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
   const focusedMarkerRef = useRef(null);
   const mapRef = useRef(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [topicFilters, setTopicFilters] = useState([]);
+  const [topicFilters, setTopicFilters] = useState(null);
   const [outcomeFilters, setOutcomeFilters] = useState(['Adopted', 'Not adopted']);
 
   useEffect(() => {
@@ -52,7 +52,7 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
     .map(m => m.topic)
     .sort())], [motions]);
   const filteredMotions = useMemo(() => motions.filter(m => {
-    const matchesTopic = topicFilters.length === 0 || topicFilters.includes(m.topic);
+    const matchesTopic = topicFilters === null || topicFilters.includes(m.topic);
     const motionOutcome = m.status === 'Adopted' ? 'Adopted' : 'Not adopted';
     const matchesOutcome = outcomeFilters.includes(motionOutcome);
     return matchesTopic && matchesOutcome;
@@ -177,13 +177,13 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
                 <>
                   <span className="px-1">Topic</span>
                   {topics.map(topic => {
-                    const active = topicFilters.length === 0 || topicFilters.includes(topic);
+                    const active = topicFilters === null || topicFilters.includes(topic);
                     return (
                       <button
                         key={topic}
                         type="button"
                         aria-pressed={active}
-                        onClick={() => setTopicFilters(current => current.length === 0
+                        onClick={() => setTopicFilters(current => current === null
                           ? topics.filter(candidate => candidate !== topic)
                           : current.includes(topic)
                             ? current.filter(selected => selected !== topic)
