@@ -16,7 +16,7 @@ const CONTENT = {
       ['Service providers and transfers', 'Motions is hosted on Vercel and uses Google Analytics and Vercel Web Analytics. These providers may process technical information in Canada, the United States, or another country where they operate. Their own privacy policies explain how they handle that information.'],
       ['Security and public records', 'Civic Minds takes reasonable steps to protect information under its control. The council records shown on Motions come from public city datasets and official council pages; they are not private submissions to Motions.'],
       ['Security incidents', 'If Civic Minds experiences a security incident involving personal information, we will assess it and take any steps required by applicable privacy law.'],
-      ['Questions, corrections, and complaints', <>If you have a privacy question, request, or complaint, use the <a href="/contact?subject=Privacy%20request" className="text-[#004a99] hover:underline">privacy contact form</a>. Please do not include sensitive personal information in a public GitHub issue.</>],
+      ['Questions, corrections, and complaints', <>If you have a privacy question, request, or complaint, use the <a href="/contact?subject=Privacy%20request" className="text-[#004a99] hover:underline">privacy contact form</a>.</>],
       ['External links and updates', 'When you open an official source, map, or other external link, that service’s own privacy policy applies. We may update this policy when Motions or its services change.'],
     ],
   },
