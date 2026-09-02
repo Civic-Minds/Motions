@@ -14,6 +14,7 @@ const SUBJECTS = [
 const ISSUE_CONTEXTS = [
   { value: 'motion', label: 'A motion' },
   { value: 'meeting', label: 'A meeting' },
+  { value: 'other', label: 'Something else' },
 ];
 const ISSUE_TYPES = [
   { value: 'Incorrect information', label: 'The information is incorrect' },
@@ -32,6 +33,7 @@ export default function ContactPage() {
   const [subject, setSubject] = useState(presetSubject || '');
   const [about, setAbout] = useState(presetAbout);
   const [issueType, setIssueType] = useState(presetIssueType);
+  const [pageUrl, setPageUrl] = useState(motionUrl);
   const [message, setMessage] = useState('');
 
   const city = useMemo(() => {
@@ -52,6 +54,7 @@ export default function ContactPage() {
       `Reason: ${subject}`,
       issueType ? `Issue type: ${issueType}` : '',
       about ? `About: ${about}` : '',
+      pageUrl && !motionUrl ? `Page URL: ${pageUrl}` : '',
       message,
       motionUrl ? `\nMotion URL: ${motionUrl}` : '',
     ].join('\n\n');
@@ -142,6 +145,12 @@ export default function ContactPage() {
               </a>
               <code className="mt-1 block break-all text-xs text-slate-500">{motionUrl}</code>
             </div>
+          )}
+          {subject === 'Report an issue' && !motionUrl && (
+            <label className="block">
+              <span className="text-sm font-semibold text-slate-700">What page is this about? <span className="font-normal text-slate-400">(optional)</span></span>
+              <input type="url" value={pageUrl} onChange={event => setPageUrl(event.target.value)} placeholder="https://motions.watch/..." className="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm outline-none transition focus:border-[#004a99] focus:ring-2 focus:ring-blue-100" />
+            </label>
           )}
           <label className="block">
             <span className="text-sm font-semibold text-slate-700">{prompt}</span>

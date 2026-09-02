@@ -63,6 +63,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Fixed
 
+- **Footer issue reports**: Lets visitors provide the page URL when a report was not started from a specific motion or meeting.
 - **Issue contact flow**: Keeps the selected issue type visible and editable while the visitor completes the remaining issue details.
 - **Issue contact flow**: Keeps the main reason dropdown visible and preselected when a visitor arrives from a report link.
 - **Homepage loading**: Deferred the interactive Canada map until it enters view so the headline and city explanation appear faster on slow connections.
