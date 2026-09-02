@@ -32,7 +32,6 @@ const TorontoSeoPage    = lazy(() => import('./components/TorontoSeoPage'));
 const CitiesPage        = lazy(() => import('./components/CitiesPage'));
 const SourcesPage       = lazy(() => import('./components/SourcesPage'));
 const LegalPage         = lazy(() => import('./components/LegalPage'));
-const ContactPage       = lazy(() => import('./components/ContactPage'));
 const AboutPage         = lazy(() => import('./components/AboutPage'));
 const CivicGuidePage    = lazy(() => import('./components/CivicGuidePage'));
 const LearnPage         = lazy(() => import('./components/LearnPage'));
@@ -414,7 +413,7 @@ function AppShell() {
   );
 }
 
-const STANDALONE_PATHS = new Set(['/', '/about', '/contact', '/privacy', '/terms']);
+const STANDALONE_PATHS = new Set(['/', '/about', '/privacy', '/terms']);
 
 function StandaloneShell() {
   // About/Privacy/Terms sit outside any city's URL, but a visitor still has
@@ -446,7 +445,6 @@ function StandaloneShell() {
           <Routes>
             <Route path="/" element={<CitiesPage />} />
             <Route path="/about" element={<AboutPage />} />
-            <Route path="/contact" element={<ContactPage />} />
             <Route path="/privacy" element={<LegalPage type="privacy" />} />
             <Route path="/terms" element={<LegalPage type="terms" />} />
           </Routes>
@@ -467,7 +465,7 @@ function StandaloneShell() {
               <Link to="/about" className="hover:text-slate-600">About</Link>
               <a href="https://github.com/Civic-Minds/Motions" target="_blank" rel="noopener noreferrer" className="hover:text-slate-600">GitHub</a>
               <Link to="/privacy" className="hover:text-slate-600">Privacy</Link>
-              <Link to="/contact" className="hover:text-slate-600">Contact</Link>
+              <a href="mailto:hey@ryanisnota.pro?subject=Motions%20contact" className="hover:text-slate-600">Contact</a>
               <Link to="/terms" className="hover:text-slate-600">Terms</Link>
               <span>© {new Date().getFullYear()} Civic Minds</span>
             </div>
