@@ -55,7 +55,7 @@ export default function LegalPage({ type }) {
           </section>
         ))}
       </div>
-      <p className="text-sm text-slate-500">Questions about the project? <a href="https://github.com/Civic-Minds/Motions/issues" className="text-[#004a99] hover:underline">Open an issue on GitHub</a>.</p>
+      <p className="text-sm text-slate-500">Questions about the project? <a href="mailto:hey@ryanisnota.pro?subject=Motions%20contact" className="text-[#004a99] hover:underline">Contact Civic Minds</a>.</p>
     </PageColumn>
   );
 }

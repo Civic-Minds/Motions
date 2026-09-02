@@ -24,6 +24,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Changed
 
+- **Issue reporting** — report links now open a private email with the relevant motion details instead of sending residents to GitHub.
+
 - **Vancouver onto shared components**: Vancouver progressively moved off standalone implementations onto the same shared components Toronto already used — election page layout, voting guide shell, static-page layout, map markers, homepage map, meeting and committee screens, councillor profiles and council directory, motion details, and page metadata — instead of maintaining a second copy of each. Vancouver-specific details (at-large council, citywide geography, official record links) are preserved through parameters rather than forked code.
 - **Vancouver motion data cleanup**: Removed leading agenda labels (e.g. "Motion 3.", "CD-1") from displayed motion titles, both on new imports and retroactively for already-imported records, while preserving the official source links. Motion sources now link to their filtered official voting-record entry instead of the generic dataset page; documents (agenda/voting-record links) are visible via the shared Documents section; and mapped locations survive re-imports since existing coordinates are preserved while the importer rebuilds voting records.
 - **Vancouver council/committee content**: Wrote real per-committee descriptions for all 6 Vancouver committees, replacing generic fallback text, and refined the at-large council wording site-wide to remove confusing "record" language.

@@ -313,7 +313,7 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
   }, [motion.title, motion.mover, motion.seconder]);
 
   const displayTitle = authorship ? authorship.displayTitle : motion.title;
-  const reportUrl = `https://github.com/Civic-Minds/Motions/issues/new?title=${encodeURIComponent(`Motion issue: ${displayTitle}`)}&body=${encodeURIComponent(`Motion ID: ${motion.id}\n\nWhat needs attention?`)}`;
+  const reportUrl = `mailto:hey@ryanisnota.pro?subject=${encodeURIComponent(`Motions report: ${displayTitle}`)}&body=${encodeURIComponent(`Motion ID: ${motion.id}\n\nWhat needs attention?`)}`;
 
   return (
     <div className="max-w-5xl mx-auto py-2 px-4 sm:px-6 lg:px-8 relative">
@@ -339,7 +339,7 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
           )}
         </div>
         <div className="ml-auto flex shrink-0 items-center gap-2">
-          <a href={reportUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-600 transition-colors hover:border-[#004a99]/40 hover:text-[#004a99]">
+          <a href={reportUrl} className="inline-flex items-center rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-600 transition-colors hover:border-[#004a99]/40 hover:text-[#004a99]">
             Report
           </a>
           <ShareButton title={displayTitle} />
@@ -357,7 +357,7 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
             <span className="text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full">Notable</span>
           )}
           <div className="ml-auto flex items-center gap-2">
-            <a href={reportUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-600 transition-colors hover:border-[#004a99]/40 hover:text-[#004a99]">
+            <a href={reportUrl} className="inline-flex items-center rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-600 transition-colors hover:border-[#004a99]/40 hover:text-[#004a99]">
               Report
             </a>
             <ShareButton title={displayTitle} />
