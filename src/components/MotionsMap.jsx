@@ -37,7 +37,7 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
   const focusedMarkerRef = useRef(null);
   const mapRef = useRef(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [topicFilter, setTopicFilter] = useState('All');
+  const [topicFilters, setTopicFilters] = useState([]);
   const [outcomeFilter, setOutcomeFilter] = useState('All');
 
   useEffect(() => {
@@ -52,11 +52,11 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
     .map(m => m.topic)
     .sort())], [motions]);
   const filteredMotions = useMemo(() => motions.filter(m => {
-    const matchesTopic = topicFilter === 'All' || m.topic === topicFilter;
+    const matchesTopic = topicFilters.length === 0 || topicFilters.includes(m.topic);
     const matchesOutcome = outcomeFilter === 'All'
       || (outcomeFilter === 'Adopted' ? m.status === 'Adopted' : m.status !== 'Adopted');
     return matchesTopic && matchesOutcome;
-  }), [motions, outcomeFilter, topicFilter]);
+  }), [motions, outcomeFilter, topicFilters]);
   const pins = useMemo(() => filteredMotions.flatMap(m =>
     (m.locations ?? []).map(loc => ({ ...loc, motion: m }))
   ), [filteredMotions]);
@@ -174,13 +174,37 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
           {(topics.length > 1 || motions.some(m => m.status !== 'Adopted')) && (
             <div className="flex flex-wrap gap-2 rounded-xl border border-slate-200 bg-white/95 px-3 py-2 text-xs font-semibold text-slate-700 shadow-md">
               {topics.length > 1 && (
-                <label className="flex items-center gap-1.5">
-                  <span>Topic</span>
-                  <select value={topicFilter} onChange={event => setTopicFilter(event.target.value)} className="bg-transparent font-normal text-slate-600 outline-none">
-                    <option value="All">All topics</option>
-                    {topics.slice(1).map(topic => <option key={topic} value={topic}>{topic}</option>)}
-                  </select>
-                </label>
+                <details className="relative">
+                  <summary className="flex cursor-pointer list-none items-center gap-1.5 [&::-webkit-details-marker]:hidden">
+                    <span>Topic</span>
+                    <span className="font-normal text-slate-600">{topicFilters.length === 0 ? 'All topics' : `${topicFilters.length} selected`}</span>
+                    <span className="text-slate-500">⌄</span>
+                  </summary>
+                  <div className="absolute left-0 top-full z-10 mt-2 max-h-64 min-w-56 overflow-y-auto rounded-xl border border-slate-200 bg-white p-2 font-normal text-slate-700 shadow-lg">
+                    <label className="flex items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-slate-50">
+                      <input
+                        type="checkbox"
+                        checked={topicFilters.length === 0}
+                        onChange={() => setTopicFilters([])}
+                        className="accent-[#004a99]"
+                      />
+                      All topics
+                    </label>
+                    {topics.slice(1).map(topic => (
+                      <label key={topic} className="flex items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-slate-50">
+                        <input
+                          type="checkbox"
+                          checked={topicFilters.includes(topic)}
+                          onChange={() => setTopicFilters(current => current.includes(topic)
+                            ? current.filter(selected => selected !== topic)
+                            : [...current, topic])}
+                          className="accent-[#004a99]"
+                        />
+                        {topic}
+                      </label>
+                    ))}
+                  </div>
+                </details>
               )}
               <label className="flex items-center gap-1.5">
                 <span>Outcome</span>
