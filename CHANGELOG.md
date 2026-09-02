@@ -58,6 +58,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Fixed
 
+- **Homepage logo link**: Made the Motions wordmark clickable so visitors can return to the homepage.
 - **Toronto meeting source links**: Meetings without a stored record URL now link to the official Toronto Council site instead of showing dead source text.
 - **Vancouver motion metadata links**: Council and topic labels now return to the homepage with the matching filter applied instead of opening a meeting detail page.
 - **Vancouver motion source handling**: Documents no longer duplicate the agenda and voting-record links, and blocked, missing, or unmatched agenda pages are rejected before summary generation.
