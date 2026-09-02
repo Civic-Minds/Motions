@@ -25,7 +25,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Changed
 
-- **Contact flow** — uses a compact reason selector before showing the message form.
+- **Contact flow** — opens the message form immediately after a visitor selects a reason.
 - **Issue reporting** — opens a guided private contact flow with the motion URL and city included automatically.
 
 - **Vancouver onto shared components**: Vancouver progressively moved off standalone implementations onto the same shared components Toronto already used — election page layout, voting guide shell, static-page layout, map markers, homepage map, meeting and committee screens, councillor profiles and council directory, motion details, and page metadata — instead of maintaining a second copy of each. Vancouver-specific details (at-large council, citywide geography, official record links) are preserved through parameters rather than forked code.

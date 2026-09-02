@@ -17,7 +17,6 @@ export default function ContactPage() {
   const motionUrl = searchParams.get('motion') ?? '';
   const presetSubject = searchParams.get('subject');
   const [subject, setSubject] = useState(presetSubject || '');
-  const [selectedSubject, setSelectedSubject] = useState(presetSubject || '');
   const [message, setMessage] = useState('');
 
   const city = useMemo(() => {
@@ -54,15 +53,10 @@ export default function ContactPage() {
       {!subject ? (
         <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="contact-reason">
           <label htmlFor="contact-subject" className="block text-lg font-semibold text-slate-900">What can we help with?</label>
-          <select id="contact-subject" value={selectedSubject} onChange={event => setSelectedSubject(event.target.value)} className="mt-5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition focus:border-[#004a99] focus:ring-2 focus:ring-blue-100">
+          <select id="contact-subject" defaultValue="" onChange={event => setSubject(event.target.value)} className="mt-5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition focus:border-[#004a99] focus:ring-2 focus:ring-blue-100">
             <option value="">Select a reason</option>
             {SUBJECTS.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
           </select>
-          <div className="mt-5">
-            <button type="button" disabled={!selectedSubject} onClick={() => setSubject(selectedSubject)} className="rounded-lg bg-[#004a99] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#003b7a] disabled:cursor-not-allowed disabled:opacity-50">
-              Continue
-            </button>
-          </div>
         </section>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
@@ -72,7 +66,10 @@ export default function ContactPage() {
           </div>
           {motionUrl && (
             <div className="rounded-lg bg-slate-50 px-3 py-2.5 text-sm text-slate-500">
-              This report is about the motion you were viewing. We’ll include its page link automatically.
+              <span className="block">This report is about:</span>
+              <a href={motionUrl} target="_blank" rel="noreferrer" className="mt-1 block break-all text-[#004a99] hover:underline">
+                {motionUrl}
+              </a>
             </div>
           )}
           <label className="block">
