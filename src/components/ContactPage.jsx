@@ -8,15 +8,22 @@ import { getLastJurisdiction } from '../utils/storage';
 const CONTACT_EMAIL = 'hey@ryanisnota.pro';
 const SUBJECTS = [
   { value: 'General question', label: 'I have a question' },
-  { value: 'Report an issue', label: 'I found an issue' },
+  { value: 'Report an issue', label: 'I have an issue' },
   { value: 'Privacy request', label: 'I have a privacy request' },
+];
+const ISSUE_CONTEXTS = [
+  { value: 'motion', label: 'A motion' },
+  { value: 'meeting', label: 'A meeting' },
 ];
 
 export default function ContactPage() {
   const [searchParams] = useSearchParams();
   const motionUrl = searchParams.get('motion') ?? '';
+  const pageTitle = searchParams.get('title') ?? '';
   const presetSubject = searchParams.get('subject');
+  const presetAbout = searchParams.get('about') ?? '';
   const [subject, setSubject] = useState(presetSubject || '');
+  const [about, setAbout] = useState(presetAbout);
   const [message, setMessage] = useState('');
 
   const city = useMemo(() => {
@@ -34,6 +41,8 @@ export default function ContactPage() {
     event.preventDefault();
     const body = [
       `City: ${city}`,
+      `Reason: ${subject}`,
+      about ? `About: ${about}` : '',
       message,
       motionUrl ? `\nMotion URL: ${motionUrl}` : '',
     ].join('\n\n');
@@ -58,6 +67,14 @@ export default function ContactPage() {
             {SUBJECTS.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
           </select>
         </section>
+      ) : subject === 'Report an issue' && !about ? (
+        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="contact-about">
+          <label htmlFor="contact-about" className="block text-lg font-semibold text-slate-900">What is this about?</label>
+          <select id="contact-about" defaultValue="" onChange={event => setAbout(event.target.value)} className="mt-5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition focus:border-[#004a99] focus:ring-2 focus:ring-blue-100">
+            <option value="">Select one</option>
+            {ISSUE_CONTEXTS.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
+          </select>
+        </section>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
           <label className="block">
@@ -66,12 +83,21 @@ export default function ContactPage() {
               {SUBJECTS.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
             </select>
           </label>
+          {subject === 'Report an issue' && (
+            <label className="block">
+              <span className="text-sm font-semibold text-slate-700">About</span>
+              <select id="contact-about" value={about} onChange={event => setAbout(event.target.value)} className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition focus:border-[#004a99] focus:ring-2 focus:ring-blue-100">
+                {ISSUE_CONTEXTS.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
+              </select>
+            </label>
+          )}
           {motionUrl && (
             <div className="rounded-lg bg-slate-50 px-3 py-2.5 text-sm text-slate-500">
-              <span className="block">This message is about:</span>
-              <a href={motionUrl} target="_blank" rel="noreferrer" className="mt-1 block break-all text-[#004a99] hover:underline">
-                {motionUrl}
+              <span className="block">Page link</span>
+              <a href={motionUrl} target="_blank" rel="noreferrer" className="mt-1 block font-semibold text-[#004a99] hover:underline">
+                {pageTitle || `Open ${about || 'source'} page`} ↗
               </a>
+              <code className="mt-1 block break-all text-xs text-slate-500">{motionUrl}</code>
             </div>
           )}
           <label className="block">

@@ -12,6 +12,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Contact page** — gives residents a guided way to ask questions, report issues, or make privacy requests.
 - **Analytics events** — records motion views, city changes, and issue-report clicks for useful usage patterns.
 - **Meeting actions** — adds report and share controls to meeting pages for easier feedback and sharing.
+- **Issue reporting** — asks whether a report concerns a motion or meeting, while preserving relevant page context.
 
 - **Vancouver's official upcoming meeting schedule**: Scheduled Council and committee meetings now appear even before voting records are published.
 - **Learn participation guidance**: Added the dedicated "How to Depute" guide and placed its supporting resources beside the steps they explain.

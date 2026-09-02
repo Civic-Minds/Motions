@@ -24,7 +24,7 @@ export default function MeetingPage({ meetings, jurisdiction = { name: 'Toronto'
   const meeting = meetings?.find(m => m.meetingReference === meetingRef);
   const committeeSlug = committeeToSlug(meeting?.committee ?? '');
   const sourceUrl = meeting?.sourceUrl || (jurisdiction.name === 'Toronto' ? 'https://secure.toronto.ca/council/' : null);
-  const reportUrl = `/contact?subject=${encodeURIComponent('Report an issue')}&motion=${encodeURIComponent(window.location.href)}`;
+  const reportUrl = `/contact?subject=${encodeURIComponent('Report an issue')}&about=meeting&title=${encodeURIComponent(`${meeting.committee} — ${meeting.displayDate}`)}&motion=${encodeURIComponent(window.location.href)}`;
   const agendaItems = useMemo(() => meeting?.agendaItems ?? [], [meeting?.agendaItems]);
   const hasAgenda = agendaItems.length > 0;
 
