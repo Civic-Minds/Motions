@@ -84,7 +84,7 @@ export default function ContactPage() {
               {SUBJECTS.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
             </select>
           </label>
-          <label htmlFor="contact-issue-type" className="mt-5 block text-lg font-semibold text-slate-900">What kind of issue is it?</label>
+          <label htmlFor="contact-issue-type" className="mt-5 block text-sm font-semibold text-slate-700">What kind of issue is it?</label>
           <select id="contact-issue-type" defaultValue="" onChange={event => setIssueType(event.target.value)} className="mt-5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition focus:border-[#004a99] focus:ring-2 focus:ring-blue-100">
             <option value="">Select one</option>
             {ISSUE_TYPES.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
