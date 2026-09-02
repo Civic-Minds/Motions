@@ -313,7 +313,7 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
   }, [motion.title, motion.mover, motion.seconder]);
 
   const displayTitle = authorship ? authorship.displayTitle : motion.title;
-  const reportUrl = `mailto:hey@ryanisnota.pro?subject=${encodeURIComponent(`Motions report: ${displayTitle}`)}&body=${encodeURIComponent(`Motion ID: ${motion.id}\n\nWhat needs attention?`)}`;
+  const reportUrl = `/contact?subject=${encodeURIComponent('Report an issue')}&motion=${encodeURIComponent(window.location.href)}`;
 
   return (
     <div className="max-w-5xl mx-auto py-2 px-4 sm:px-6 lg:px-8 relative">

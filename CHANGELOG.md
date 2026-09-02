@@ -9,7 +9,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 ### Added
 
 - **Google Analytics** — adds longer-term and campaign traffic reporting alongside Vercel Analytics.
-- **Contact link** — opens a direct email to Civic Minds from the footer.
+- **Contact page** — gives residents a guided way to ask questions, report issues, or make privacy requests.
 
 - **Vancouver's official upcoming meeting schedule**: Scheduled Council and committee meetings now appear even before voting records are published.
 - **Learn participation guidance**: Added the dedicated "How to Depute" guide and placed its supporting resources beside the steps they explain.
@@ -24,7 +24,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Changed
 
-- **Issue reporting** — report links now open a private email with the relevant motion details instead of sending residents to GitHub.
+- **Issue reporting** — opens a guided private contact flow with the motion URL and city included automatically.
 
 - **Vancouver onto shared components**: Vancouver progressively moved off standalone implementations onto the same shared components Toronto already used — election page layout, voting guide shell, static-page layout, map markers, homepage map, meeting and committee screens, councillor profiles and council directory, motion details, and page metadata — instead of maintaining a second copy of each. Vancouver-specific details (at-large council, citywide geography, official record links) are preserved through parameters rather than forked code.
 - **Vancouver motion data cleanup**: Removed leading agenda labels (e.g. "Motion 3.", "CD-1") from displayed motion titles, both on new imports and retroactively for already-imported records, while preserving the official source links. Motion sources now link to their filtered official voting-record entry instead of the generic dataset page; documents (agenda/voting-record links) are visible via the shared Documents section; and mapped locations survive re-imports since existing coordinates are preserved while the importer rebuilds voting records.

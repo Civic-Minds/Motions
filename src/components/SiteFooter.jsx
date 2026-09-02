@@ -78,7 +78,7 @@ export default function SiteFooter({ jurisdiction, standalone = false }) {
           <div className="flex flex-col gap-2">
             <a href="/about" className={linkClass}>About Motions</a>
             <a href="https://github.com/Civic-Minds/Motions" target="_blank" rel="noopener noreferrer" className={linkClass}>GitHub</a>
-            <a href="mailto:hey@ryanisnota.pro?subject=Motions%20report" className={linkClass}>Report an issue</a>
+            <a href="/contact?subject=Report%20an%20issue" className={linkClass}>Report an issue</a>
           </div>
         </div>
 
@@ -96,7 +96,7 @@ export default function SiteFooter({ jurisdiction, standalone = false }) {
           <div className="flex items-center gap-3">
             <a href="/privacy" className="hover:text-slate-600">Privacy</a>
             <a href="/terms" className="hover:text-slate-600">Terms</a>
-            <a href="mailto:hey@ryanisnota.pro?subject=Motions%20contact" className="hover:text-slate-600">Contact</a>
+            <a href="/contact" className="hover:text-slate-600">Contact</a>
             <span>© {new Date().getFullYear()} Civic Minds</span>
           </div>
         </div>
