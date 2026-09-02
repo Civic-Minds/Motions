@@ -27,6 +27,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Changed
 
+- **Ward map controls**: Added topic filtering so residents can focus the map on one category of motion.
+- **Map popups**: Show each mapped motion’s outcome and date alongside its title and address.
 - **Contact emails**: Tells issue reporters that the automatically included details should remain in the message.
 - **Contact emails**: Formats issue reports as readable messages with a clear greeting, page reference, and message prompt.
 - **Issue reporting**: Asks what kind of issue a visitor is reporting before asking whether it concerns a motion or meeting.

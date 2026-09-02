@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { MapContainer, TileLayer, GeoJSON, CircleMarker, Tooltip, useMap } from 'react-leaflet';
 import { useNavigate } from 'react-router-dom';
 import { Maximize2, X } from 'lucide-react';
+import { formatMotionDate } from '../utils/date';
 import 'leaflet/dist/leaflet.css';
 
 // Fit map to the ward boundary on load/change
@@ -26,6 +27,7 @@ function FitBounds({ feature, pins }) {
 export default function WardMotionMap({ wardFeature, motions, mapCenter = [43.7, -79.38], isFullscreen = false, onToggleFullscreen }) {
   const navigate = useNavigate();
   const mapRef = useRef(null);
+  const [topicFilter, setTopicFilter] = useState('All');
 
   useEffect(() => {
     if (!isFullscreen) return;
@@ -39,9 +41,13 @@ export default function WardMotionMap({ wardFeature, motions, mapCenter = [43.7,
   }, [isFullscreen]);
 
   // Motions with location data
-  const pins = useMemo(() => motions.flatMap(m =>
+  const topics = useMemo(() => ['All', ...new Set(motions.map(m => m.topic).filter(Boolean).sort())], [motions]);
+  const filteredMotions = useMemo(() => topicFilter === 'All'
+    ? motions
+    : motions.filter(m => m.topic === topicFilter), [motions, topicFilter]);
+  const pins = useMemo(() => filteredMotions.flatMap(m =>
     (m.locations ?? []).map(loc => ({ ...loc, motion: m }))
-  ), [motions]);
+  ), [filteredMotions]);
 
   return (
     <div className={isFullscreen
@@ -92,11 +98,21 @@ export default function WardMotionMap({ wardFeature, motions, mapCenter = [43.7,
             <div className="text-[10px] leading-tight">
               <p className="line-clamp-2 font-semibold">{pin.motion.title.slice(0, 48)}{pin.motion.title.length > 48 ? '…' : ''}</p>
               <p className="mt-0.5 text-[9px] text-slate-500">{pin.address}</p>
+              <p className="mt-0.5 text-[9px] font-medium text-slate-600">{pin.motion.status} · {formatMotionDate(pin.motion.date)}</p>
             </div>
           </Tooltip>
         </CircleMarker>
         ))}
       </MapContainer>
+
+      {topics.length > 1 && (
+        <label className="absolute left-3 top-3 z-[1000] flex items-center gap-2 rounded-xl border border-slate-200 bg-white/95 px-3 py-2 text-xs font-semibold text-slate-700 shadow-md">
+          <span>Topic</span>
+          <select value={topicFilter} onChange={event => setTopicFilter(event.target.value)} className="bg-transparent font-normal text-slate-600 outline-none">
+            {topics.map(topic => <option key={topic} value={topic}>{topic === 'All' ? 'All topics' : topic}</option>)}
+          </select>
+        </label>
+      )}
 
       {onToggleFullscreen && (
         <button
