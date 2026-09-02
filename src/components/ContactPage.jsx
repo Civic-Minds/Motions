@@ -49,15 +49,22 @@ export default function ContactPage() {
 
   function handleSubmit(event) {
     event.preventDefault();
+    const aboutLabel = ISSUE_CONTEXTS.find(option => option.value === about)?.label;
+    const referenceUrl = motionUrl || pageUrl;
+    const opening = subject === 'Report an issue'
+      ? 'Hi, I’d like to report an issue with Motions.'
+      : subject === 'Privacy request'
+        ? 'Hi, I’d like to make a privacy request.'
+        : 'Hi, I have a question about Motions.';
     const body = [
-      `City: ${city}`,
-      `Reason: ${subject}`,
+      opening,
+      subject === 'Report an issue' ? `City: ${city}` : '',
       issueType ? `Issue type: ${issueType}` : '',
-      about ? `About: ${about}` : '',
-      pageUrl && !motionUrl ? `Page URL: ${pageUrl}` : '',
-      message,
-      motionUrl ? `\nMotion URL: ${motionUrl}` : '',
-    ].join('\n\n');
+      aboutLabel ? `About: ${aboutLabel}` : '',
+      referenceUrl ? `Page: ${referenceUrl}` : '',
+      subject === 'Report an issue' ? `What should we check?\n${message}` : message,
+      'Thanks,',
+    ].filter(Boolean).join('\n\n');
     window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(`Motions — ${subject}`)}&body=${encodeURIComponent(body)}`;
   }
 
