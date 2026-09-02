@@ -98,6 +98,12 @@ export default function ContactPage() {
               {SUBJECTS.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
             </select>
           </label>
+          <label className="mt-5 block">
+            <span className="text-sm font-semibold text-slate-700">Issue type</span>
+            <select id="contact-issue-type" value={issueType} onChange={event => setIssueType(event.target.value)} className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition focus:border-[#004a99] focus:ring-2 focus:ring-blue-100">
+              {ISSUE_TYPES.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
+            </select>
+          </label>
           <label htmlFor="contact-about" className="mt-5 block text-sm font-semibold text-slate-700">What is this about?</label>
           <select id="contact-about" defaultValue="" onChange={event => setAbout(event.target.value)} className="mt-5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition focus:border-[#004a99] focus:ring-2 focus:ring-blue-100">
             <option value="">Select one</option>
