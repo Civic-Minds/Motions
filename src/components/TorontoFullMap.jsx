@@ -102,7 +102,7 @@ export default function TorontoFullMap({ geojson, wardActivity, wardSubtextById,
           onClick={onToggleFullscreen}
           aria-label={isFullscreen ? 'Close fullscreen map' : 'View map fullscreen'}
           title={isFullscreen ? 'Close fullscreen map' : 'View map fullscreen'}
-          className="absolute top-3 right-3 z-[500] flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white/95 text-slate-600 shadow-md transition-colors hover:border-[#004a99]/40 hover:text-[#004a99]"
+          className="absolute top-3 right-3 z-[500] flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200 bg-white/95 text-slate-600 shadow-md transition-colors hover:border-[#004a99]/40 hover:text-[#004a99]"
         >
           {isFullscreen ? <X className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
         </button>

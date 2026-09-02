@@ -163,7 +163,7 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
           onClick={() => setIsFullscreen(open => !open)}
           aria-label={isFullscreen ? 'Close fullscreen map' : 'View map fullscreen'}
           title={isFullscreen ? 'Close fullscreen map' : 'View map fullscreen'}
-          className="absolute right-3 top-3 z-[500] flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white/95 text-slate-600 shadow-md transition-colors hover:border-[#004a99]/40 hover:text-[#004a99]"
+          className="absolute right-3 top-3 z-[500] flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200 bg-white/95 text-slate-600 shadow-md transition-colors hover:border-[#004a99]/40 hover:text-[#004a99]"
         >
           {isFullscreen ? <X className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
         </button>

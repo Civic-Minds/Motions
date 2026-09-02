@@ -107,7 +107,7 @@ export default function WardMotionMap({ wardFeature, motions, mapCenter = [43.7,
           onClick={onToggleFullscreen}
           aria-label={isFullscreen ? 'Close fullscreen map' : 'View map fullscreen'}
           title={isFullscreen ? 'Close fullscreen map' : 'View map fullscreen'}
-          className="absolute right-4 top-4 z-[1000] flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white/95 text-slate-600 shadow-md hover:border-[#004a99]/40 hover:text-[#004a99] transition-colors"
+          className="absolute right-4 top-4 z-[1000] flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200 bg-white/95 text-slate-600 shadow-md hover:border-[#004a99]/40 hover:text-[#004a99] transition-colors"
         >
           {isFullscreen ? <X className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
         </button>
