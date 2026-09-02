@@ -54,8 +54,8 @@ export const TOPIC_BADGE = {
     Housing: 'border-blue-400 text-blue-700 bg-blue-50',
     Transit: 'border-red-400 text-red-600 bg-red-50',
     Finance: 'border-emerald-400 text-emerald-700 bg-emerald-50',
-    Parks:   'border-green-400 text-green-700 bg-green-50',
-    Climate: 'border-teal-400 text-teal-700 bg-teal-50',
+    Parks:   'border-lime-400 text-lime-700 bg-lime-50',
+    Climate: 'border-cyan-400 text-cyan-700 bg-cyan-50',
     Events:  'border-purple-400 text-purple-700 bg-purple-50',
     General: 'border-slate-300 text-slate-500 bg-slate-50',
 };
@@ -65,8 +65,8 @@ export const TOPIC_LIGHT = {
     Housing: 'bg-blue-50 text-blue-700',
     Transit: 'bg-amber-50 text-amber-700',
     Finance: 'bg-emerald-50 text-emerald-700',
-    Parks:   'bg-green-50 text-green-700',
-    Climate: 'bg-teal-50 text-teal-700',
+    Parks:   'bg-lime-50 text-lime-700',
+    Climate: 'bg-cyan-50 text-cyan-700',
     Events:  'bg-purple-50 text-purple-700',
     General: 'bg-slate-100 text-slate-600',
 };
@@ -76,8 +76,8 @@ export const TOPIC_DOT = {
     Housing: 'bg-blue-500',
     Transit: 'bg-amber-500',
     Finance: 'bg-emerald-500',
-    Parks:   'bg-green-500',
-    Climate: 'bg-teal-500',
+    Parks:   'bg-lime-500',
+    Climate: 'bg-cyan-500',
     Events:  'bg-purple-500',
     General: 'bg-slate-400',
 };
@@ -87,8 +87,8 @@ export const TOPIC_PILL = {
     Housing: 'bg-blue-50 text-blue-600',
     Transit: 'bg-red-50 text-red-600',
     Finance: 'bg-emerald-50 text-emerald-700',
-    Parks:   'bg-green-50 text-green-700',
-    Climate: 'bg-teal-50 text-teal-700',
+    Parks:   'bg-lime-50 text-lime-700',
+    Climate: 'bg-cyan-50 text-cyan-700',
     Events:  'bg-purple-50 text-purple-700',
     General: 'bg-slate-100 text-slate-600',
 };
