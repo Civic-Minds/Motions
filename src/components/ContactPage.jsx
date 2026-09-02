@@ -18,8 +18,7 @@ export default function ContactPage() {
 
   return (
     <article className="mx-auto max-w-2xl py-8 sm:py-14">
-      <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#004a99]">Civic Minds</p>
-      <h1 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Contact Motions</h1>
+      <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Contact Motions</h1>
       <p className="mt-4 text-base leading-7 text-slate-600">
         Have a question, found an issue, or need to make a privacy request? Send us a note.
       </p>
