@@ -27,6 +27,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Changed
 
+- **Map popups**: Match the site’s rounded card styling.
+- **Ward map controls**: Added outcome filtering for adopted and non-adopted motions alongside topic filtering.
 - **Map popups**: Add each motion’s plain-language summary so the map explains what the item is about before it is opened.
 - **Ward map controls**: Added topic filtering so residents can focus the map on one category of motion.
 - **Map popups**: Show each mapped motion’s outcome and date alongside its title and address.
