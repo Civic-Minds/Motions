@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { MapContainer, TileLayer, GeoJSON, CircleMarker, Tooltip, useMap } from 'react-leaflet';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Maximize2, X } from 'lucide-react';
 import 'leaflet/dist/leaflet.css';
 import { PageMeta } from './PageMeta';
 import PageColumn from './PageColumn';
@@ -33,6 +34,8 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
   const hasWards = jurisdiction.geography === 'ward';
   const [wards, setWards] = useState(null);
   const focusedMarkerRef = useRef(null);
+  const mapRef = useRef(null);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const [topicFilter, setTopicFilter] = useState('All');
   const [outcomeFilter, setOutcomeFilter] = useState('All');
 
@@ -63,6 +66,12 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
   useEffect(() => {
     focusedMarkerRef.current?.openTooltip();
   }, [focusPin]);
+
+  useEffect(() => {
+    if (!isFullscreen) return;
+    const frame = requestAnimationFrame(() => mapRef.current?.invalidateSize());
+    return () => cancelAnimationFrame(frame);
+  }, [isFullscreen]);
   const mappedMotionCount = useMemo(() =>
     filteredMotions.filter(m => Array.isArray(m.locations) && m.locations.length > 0).length,
   [filteredMotions]);
@@ -101,8 +110,9 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
         </p>
       </PageColumn>
 
-      <div className="relative h-[560px] w-full overflow-hidden rounded-2xl border border-slate-200">
+      <div className={`relative w-full overflow-hidden border border-slate-200 ${isFullscreen ? 'fixed inset-0 z-[60] h-screen rounded-none' : 'h-[560px] rounded-2xl'}`}>
         <MapContainer
+          ref={mapRef}
           center={jurisdiction.mapCenter}
           zoom={11}
           className="z-0 h-full w-full"
@@ -145,6 +155,16 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
             );
           })}
         </MapContainer>
+
+        <button
+          type="button"
+          onClick={() => setIsFullscreen(open => !open)}
+          aria-label={isFullscreen ? 'Close fullscreen map' : 'View map fullscreen'}
+          title={isFullscreen ? 'Close fullscreen map' : 'View map fullscreen'}
+          className="absolute right-3 top-3 z-[500] flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white/95 text-slate-600 shadow-md transition-colors hover:border-[#004a99]/40 hover:text-[#004a99]"
+        >
+          {isFullscreen ? <X className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
+        </button>
 
         {(topics.length > 1 || motions.some(m => m.status !== 'Adopted')) && (
           <div className="absolute left-14 top-3 z-[500] flex flex-wrap gap-2 rounded-xl border border-slate-200 bg-white/95 px-3 py-2 text-xs font-semibold text-slate-700 shadow-md">
