@@ -93,7 +93,7 @@ export default function ContactPage() {
       ) : subject === 'Report an issue' && !about ? (
         <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="contact-about">
           <label className="block">
-            <span className="text-sm font-semibold text-slate-700">Reason</span>
+            <span className="text-sm font-semibold text-slate-700">What can we help with?</span>
             <select id="contact-subject" value={subject} onChange={event => setSubject(event.target.value)} className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition focus:border-[#004a99] focus:ring-2 focus:ring-blue-100">
               {SUBJECTS.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
             </select>
@@ -113,7 +113,7 @@ export default function ContactPage() {
       ) : (
         <form onSubmit={handleSubmit} className="space-y-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
           <label className="block">
-            <span className="text-sm font-semibold text-slate-700">Reason</span>
+            <span className="text-sm font-semibold text-slate-700">What can we help with?</span>
             <select id="contact-subject" value={subject} onChange={event => setSubject(event.target.value)} className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition focus:border-[#004a99] focus:ring-2 focus:ring-blue-100">
               {SUBJECTS.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
             </select>
