@@ -155,11 +155,11 @@ export default function CitiesMap() {
             <div
               key={city.name}
               onMouseEnter={() => flyToCity(city)}
-              className="shrink-0 w-44 rounded-xl border border-slate-200 bg-white/80 px-3 py-2.5 text-left"
+              className="flex h-[108px] shrink-0 w-44 flex-col rounded-xl border border-slate-200 bg-white/80 px-3 py-2.5 text-left"
             >
               <p className="text-sm font-semibold text-slate-500">{city.name}</p>
               <p className="mt-0.5 text-[11px] text-slate-400">Election {formatElectionDateFull(city.electionDate)}</p>
-              {city.status && <p className="mt-1 text-[11px] font-semibold text-[#004a99]">{city.status}</p>}
+              {city.status && <p className="mt-auto text-[11px] font-semibold text-[#004a99]">{city.status}</p>}
             </div>
           ))}
         </div>
