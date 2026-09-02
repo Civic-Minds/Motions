@@ -17,6 +17,7 @@ export default async function handler(request, response) {
     loadJson('meetings.json'),
   ]);
   const paths = new Set([
+    '/',
     '/toronto',
     '/toronto/cities',
     '/toronto/sources',

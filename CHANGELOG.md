@@ -27,6 +27,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Changed
 
+- **Search preview**: Replaced the generic homepage title and slogan with a clearer description of Motions’ council-voting coverage.
 - **Contact flow** — opens the message form immediately after a visitor selects a reason.
 - **Contact flow** — keeps preselected reasons editable before a message is sent.
 - **Issue reporting** — opens a guided private contact flow with the motion URL and city included automatically.

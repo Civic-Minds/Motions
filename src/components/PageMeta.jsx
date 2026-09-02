@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const SITE_URL = 'https://motions.watch';
-const DEFAULT_TITLE = 'Motions | Toronto Council Voting Tracker';
-const DEFAULT_DESCRIPTION = "See every vote. Know every decision. It's your city.";
+const DEFAULT_TITLE = 'Motions — City Council Voting Records Across Canada';
+const DEFAULT_DESCRIPTION = 'Explore city council motions, voting records, and plain-language explanations of local decisions across Canada.';
 const DEFAULT_IMAGE = `${SITE_URL}/og-image.jpg`;
 
 function setMeta(attribute, value, content) {
