@@ -51,7 +51,7 @@ export const WARD_COUNCILLORS = {
 
 /** Bordered pill — used in ContestBoard, VersusOverlay */
 export const TOPIC_BADGE = {
-    Housing: 'border-blue-400 text-blue-700 bg-blue-50',
+    Housing: 'border-stone-400 text-stone-700 bg-stone-50',
     Transit: 'border-red-400 text-red-600 bg-red-50',
     Finance: 'border-emerald-400 text-emerald-700 bg-emerald-50',
     Parks:   'border-lime-400 text-lime-700 bg-lime-50',
@@ -62,7 +62,7 @@ export const TOPIC_BADGE = {
 
 /** Borderless light pill — used across motion lists, search, ward/committee views */
 export const TOPIC_LIGHT = {
-    Housing: 'bg-blue-50 text-blue-700',
+    Housing: 'bg-stone-50 text-stone-700',
     Transit: 'bg-amber-50 text-amber-700',
     Finance: 'bg-emerald-50 text-emerald-700',
     Parks:   'bg-lime-50 text-lime-700',
@@ -73,7 +73,7 @@ export const TOPIC_LIGHT = {
 
 /** Solid dot/bar colour — used in sidebar filters and VersusOverlay bars */
 export const TOPIC_DOT = {
-    Housing: 'bg-blue-500',
+    Housing: 'bg-stone-500',
     Transit: 'bg-amber-500',
     Finance: 'bg-emerald-500',
     Parks:   'bg-lime-500',
@@ -84,7 +84,7 @@ export const TOPIC_DOT = {
 
 /** Borderless pill — used in ProfilePanel */
 export const TOPIC_PILL = {
-    Housing: 'bg-blue-50 text-blue-600',
+    Housing: 'bg-stone-50 text-stone-700',
     Transit: 'bg-red-50 text-red-600',
     Finance: 'bg-emerald-50 text-emerald-700',
     Parks:   'bg-lime-50 text-lime-700',

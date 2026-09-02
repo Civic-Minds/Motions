@@ -27,7 +27,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Changed
 
-- Topic colours now distinguish Finance, Parks, and Climate more clearly.
+- Topic colours now give Housing a warm stone colour and distinguish Finance, Parks, and Climate more clearly.
 - Map zoom controls now use the same rounded buttons across every map.
 - Full map popups now show motion summaries and the map supports topic and outcome filters.
 - **Contact emails**: Tells issue reporters that the automatically included details should remain in the message.
