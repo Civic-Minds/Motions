@@ -17,6 +17,7 @@ export default function ContactPage() {
   const motionUrl = searchParams.get('motion') ?? '';
   const presetSubject = searchParams.get('subject');
   const [subject, setSubject] = useState(presetSubject || '');
+  const [selectedSubject, setSelectedSubject] = useState(presetSubject || '');
   const [message, setMessage] = useState('');
 
   const city = useMemo(() => {
@@ -52,13 +53,15 @@ export default function ContactPage() {
 
       {!subject ? (
         <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="contact-reason">
-          <h2 id="contact-reason" className="text-lg font-semibold text-slate-900">What can we help with?</h2>
-          <div className="mt-5 grid gap-3">
-            {SUBJECTS.map(option => (
-              <button key={option.value} type="button" onClick={() => setSubject(option.value)} className="rounded-xl border border-slate-200 px-4 py-3 text-left text-sm font-semibold text-slate-700 transition hover:border-[#004a99]/40 hover:bg-blue-50/50 hover:text-[#004a99]">
-                {option.label}
-              </button>
-            ))}
+          <label htmlFor="contact-subject" className="block text-lg font-semibold text-slate-900">What can we help with?</label>
+          <select id="contact-subject" value={selectedSubject} onChange={event => setSelectedSubject(event.target.value)} className="mt-5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition focus:border-[#004a99] focus:ring-2 focus:ring-blue-100">
+            <option value="">Select a reason</option>
+            {SUBJECTS.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
+          </select>
+          <div className="mt-5">
+            <button type="button" disabled={!selectedSubject} onClick={() => setSubject(selectedSubject)} className="rounded-lg bg-[#004a99] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#003b7a] disabled:cursor-not-allowed disabled:opacity-50">
+              Continue
+            </button>
           </div>
         </section>
       ) : (
