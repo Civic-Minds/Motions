@@ -95,6 +95,7 @@ export default function SiteFooter({ jurisdiction, standalone = false }) {
           </span>
           <div className="flex items-center gap-3">
             <a href="/privacy" className="hover:text-slate-600">Privacy</a>
+            <a href="/contact" className="hover:text-slate-600">Contact</a>
             <a href="/terms" className="hover:text-slate-600">Terms</a>
             <span>© {new Date().getFullYear()} Civic Minds</span>
           </div>

@@ -9,6 +9,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 ### Added
 
 - **Google Analytics** — adds longer-term and campaign traffic reporting alongside Vercel Analytics.
+- **Contact page** — gives residents a direct place to ask questions, report issues, or make privacy requests.
 
 - **Vancouver's official upcoming meeting schedule**: Scheduled Council and committee meetings now appear even before voting records are published.
 - **Learn participation guidance**: Added the dedicated "How to Depute" guide and placed its supporting resources beside the steps they explain.
