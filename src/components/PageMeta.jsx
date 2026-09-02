@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 const SITE_URL = 'https://motions.watch';
 const DEFAULT_TITLE = 'Motions — City Council Voting Records Across Canada';
-const DEFAULT_DESCRIPTION = 'Follow what city councils are deciding, see how councillors vote, and understand what local decisions mean for your neighbourhood.';
+const DEFAULT_DESCRIPTION = 'Your city. Your vote. See what councillors are deciding, how they voted, and what each decision means for your neighbourhood.';
 const DEFAULT_IMAGE = `${SITE_URL}/og-image.jpg`;
 
 function setMeta(attribute, value, content) {
