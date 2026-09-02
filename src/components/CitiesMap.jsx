@@ -158,6 +158,7 @@ export default function CitiesMap() {
               className="shrink-0 w-44 rounded-xl border border-slate-200 bg-white/80 px-3 py-2.5 text-left"
             >
               <p className="text-sm font-semibold text-slate-500">{city.name}</p>
+              {city.status && <p className="mt-0.5 text-[11px] font-medium text-slate-500">{city.status}</p>}
               <p className="mt-0.5 text-[11px] text-slate-400">Election {formatElectionDateFull(city.electionDate)}</p>
             </div>
           ))}

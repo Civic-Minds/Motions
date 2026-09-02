@@ -27,6 +27,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Changed
 
+- **Winnipeg homepage status**: Labels Winnipeg as coming soon while its coverage finishes testing.
 - **Search preview**: Replaced the generic homepage title and slogan with a clearer description of Motions’ council-voting coverage.
 - **Contact flow** — opens the message form immediately after a visitor selects a reason.
 - **Contact flow** — keeps preselected reasons editable before a message is sent.

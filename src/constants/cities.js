@@ -20,6 +20,6 @@ export const COVERED_CITIES = [
 export const OTHER_ELECTION_CITIES = [
   { name: 'Ottawa', electionDate: '2026-10-26', lat: 45.4215, lng: -75.6972 },
   { name: 'Hamilton', electionDate: '2026-10-26', lat: 43.2557, lng: -79.8711 },
-  { name: 'Winnipeg', electionDate: '2026-10-28', lat: 49.8951, lng: -97.1384 },
+  { name: 'Winnipeg', electionDate: '2026-10-28', status: 'Coming soon', lat: 49.8951, lng: -97.1384 },
   { name: 'Victoria', electionDate: '2026-10-17', lat: 48.4284, lng: -123.3656 },
 ];
