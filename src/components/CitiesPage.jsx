@@ -1,8 +1,47 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { CivicCard } from './ui/CivicCard';
 import { PageMeta } from './PageMeta';
 
 const CitiesMap = lazy(() => import('./CitiesMap'));
+
+function DeferredCitiesMap() {
+  const mapPlaceholderRef = useRef(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
+
+  useEffect(() => {
+    const placeholder = mapPlaceholderRef.current;
+    if (!placeholder) return undefined;
+    if (!('IntersectionObserver' in window)) {
+      const fallbackTimer = window.setTimeout(() => setShouldLoad(true), 0);
+      return () => window.clearTimeout(fallbackTimer);
+    }
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      setShouldLoad(true);
+      observer.disconnect();
+    });
+    // Give the hero and supporting copy a clean first paint before starting
+    // the Leaflet/map tile requests, even when the map is already near view.
+    const deferTimer = window.setTimeout(() => observer.observe(placeholder), 1200);
+    return () => {
+      window.clearTimeout(deferTimer);
+      observer.disconnect();
+    };
+  }, []);
+
+  return (
+    <div ref={mapPlaceholderRef}>
+      {shouldLoad ? (
+        <Suspense fallback={<div className="h-[460px] w-full rounded-2xl bg-slate-100 animate-pulse sm:h-[560px]" />}>
+          <CitiesMap />
+        </Suspense>
+      ) : (
+        <div className="h-[460px] w-full rounded-2xl bg-slate-100 sm:h-[560px]" aria-hidden="true" />
+      )}
+    </div>
+  );
+}
 
 const WHY = [
   {
@@ -43,9 +82,7 @@ export default function CitiesPage() {
         </div>
       </div>
 
-      <Suspense fallback={<div className="h-[460px] w-full rounded-2xl bg-slate-100 animate-pulse sm:h-[560px]" />}>
-        <CitiesMap />
-      </Suspense>
+      <DeferredCitiesMap />
     </div>
   );
 }
