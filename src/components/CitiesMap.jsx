@@ -159,7 +159,7 @@ export default function CitiesMap() {
             >
               <p className="text-sm font-semibold text-slate-500">{city.name}</p>
               <p className="mt-0.5 text-[11px] text-slate-400">Election {formatElectionDateFull(city.electionDate)}</p>
-              {city.status && <p className="mt-auto mb-2 text-[11px] font-semibold text-[#004a99]">{city.status}</p>}
+              {city.status && <p className="mt-auto mb-2 text-[11px] font-semibold text-slate-500">{city.status}</p>}
             </div>
           ))}
         </div>
