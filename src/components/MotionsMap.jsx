@@ -38,7 +38,7 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
   const mapRef = useRef(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [topicFilters, setTopicFilters] = useState([]);
-  const [outcomeFilter, setOutcomeFilter] = useState('All');
+  const [outcomeFilters, setOutcomeFilters] = useState(['Adopted', 'Not adopted']);
 
   useEffect(() => {
     if (!hasWards) return;
@@ -53,10 +53,10 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
     .sort())], [motions]);
   const filteredMotions = useMemo(() => motions.filter(m => {
     const matchesTopic = topicFilters.length === 0 || topicFilters.includes(m.topic);
-    const matchesOutcome = outcomeFilter === 'All'
-      || (outcomeFilter === 'Adopted' ? m.status === 'Adopted' : m.status !== 'Adopted');
+    const motionOutcome = m.status === 'Adopted' ? 'Adopted' : 'Not adopted';
+    const matchesOutcome = outcomeFilters.includes(motionOutcome);
     return matchesTopic && matchesOutcome;
-  }), [motions, outcomeFilter, topicFilters]);
+  }), [motions, outcomeFilters, topicFilters]);
   const pins = useMemo(() => filteredMotions.flatMap(m =>
     (m.locations ?? []).map(loc => ({ ...loc, motion: m }))
   ), [filteredMotions]);
@@ -206,26 +206,29 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
                   </div>
                 </details>
               )}
-              <details className="relative">
-                <summary className="flex cursor-pointer list-none items-center gap-1.5 [&::-webkit-details-marker]:hidden">
-                  <span>Outcome</span>
-                  <span className="font-normal text-slate-600">{outcomeFilter === 'All' ? 'All outcomes' : outcomeFilter}</span>
-                  <span className="text-slate-500">⌄</span>
-                </summary>
-                <div className="absolute left-0 top-full z-10 mt-2 min-w-44 rounded-xl border border-slate-200 bg-white p-2 font-normal text-slate-700 shadow-lg">
-                  <button type="button" onClick={() => setOutcomeFilter('All')} className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left hover:bg-slate-50">
-                    All outcomes
-                  </button>
-                  <button type="button" onClick={() => setOutcomeFilter('Adopted')} className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left hover:bg-slate-50">
-                    <span className="h-2.5 w-2.5 rounded-full bg-emerald-500" /> Adopted
-                  </button>
-                  <button type="button" onClick={() => setOutcomeFilter('Not adopted')} className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left hover:bg-slate-50">
-                    <span className="h-2.5 w-2.5 rounded-full bg-rose-500" /> Not adopted
-                  </button>
-                </div>
-              </details>
             </div>
           )}
+
+          <div className="flex items-center gap-1 rounded-xl border border-slate-200 bg-white/90 px-2 py-1.5 text-xs font-medium shadow-sm backdrop-blur-sm">
+            {['Adopted', 'Not adopted'].map(outcome => {
+              const active = outcomeFilters.includes(outcome);
+              const adopted = outcome === 'Adopted';
+              return (
+                <button
+                  key={outcome}
+                  type="button"
+                  aria-pressed={active}
+                  onClick={() => setOutcomeFilters(current => active
+                    ? current.filter(selected => selected !== outcome)
+                    : [...current, outcome])}
+                  className={`inline-flex items-center gap-1.5 rounded-lg px-2 py-1 transition-colors ${active ? 'text-slate-600 hover:bg-slate-50' : 'bg-slate-100 text-slate-400'}`}
+                >
+                  <span className={`h-2.5 w-2.5 rounded-full ${active ? adopted ? 'bg-emerald-500' : 'bg-rose-500' : 'bg-slate-300'}`} />
+                  {outcome}
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
 
