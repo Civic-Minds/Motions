@@ -188,7 +188,7 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
                           : current.includes(topic)
                             ? current.filter(selected => selected !== topic)
                             : [...current, topic])}
-                        className={`rounded-lg px-2 py-1 font-normal transition-colors ${active ? 'bg-[#004a99] text-white shadow-sm' : 'bg-slate-100 text-slate-400'}`}
+                        className={`rounded-lg px-2 py-1 font-normal transition-colors ${active ? 'bg-blue-100 text-[#004a99] shadow-sm' : 'bg-slate-100 text-slate-400'}`}
                       >
                         {topic}
                       </button>
