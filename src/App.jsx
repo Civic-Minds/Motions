@@ -474,7 +474,6 @@ function StandaloneShell() {
             </span>
             <div className="flex items-center gap-3">
               <Link to="/about" className="hover:text-slate-600">About</Link>
-              <a href="https://github.com/Civic-Minds/Motions" target="_blank" rel="noopener noreferrer" className="hover:text-slate-600">GitHub</a>
               <Link to="/privacy" className="hover:text-slate-600">Privacy</Link>
               <Link to="/terms" className="hover:text-slate-600">Terms</Link>
               <Link to="/contact" className="hover:text-slate-600">Contact</Link>

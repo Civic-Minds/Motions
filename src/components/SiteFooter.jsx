@@ -79,7 +79,6 @@ export default function SiteFooter({ jurisdiction, standalone = false }) {
           <p className="text-[10px] font-bold uppercase tracking-wide text-slate-500">Project</p>
           <div className="flex flex-col gap-2">
             <a href="/about" className={linkClass}>About Motions</a>
-            <a href="https://github.com/Civic-Minds/Motions" target="_blank" rel="noopener noreferrer" className={linkClass}>GitHub</a>
             <a href="/contact?subject=Report%20an%20issue" onClick={() => trackGoogleEvent('report_issue_click', { city: jurisdiction.id })} className={linkClass}>Report an issue</a>
           </div>
         </div>
