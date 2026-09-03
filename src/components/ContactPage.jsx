@@ -23,6 +23,15 @@ const ISSUE_TYPES = [
   { value: 'Something else', label: 'Something else' },
 ];
 
+function getSafePageUrl(value) {
+  try {
+    const url = new URL(value, window.location.origin);
+    return ['http:', 'https:'].includes(url.protocol) ? url.href : '';
+  } catch {
+    return '';
+  }
+}
+
 export default function ContactPage() {
   const [searchParams] = useSearchParams();
   const motionUrl = searchParams.get('motion') ?? '';
@@ -37,6 +46,7 @@ export default function ContactPage() {
   const [pageUrl, setPageUrl] = useState(motionUrl || presetPageUrl);
   const [editingPageUrl, setEditingPageUrl] = useState(false);
   const [message, setMessage] = useState('');
+  const safePageUrl = getSafePageUrl(pageUrl);
 
   const city = useMemo(() => {
     const cityId = motionUrl.match(/\/(toronto|vancouver)(?:\/|$)/i)?.[1]?.toLowerCase();
@@ -164,9 +174,15 @@ export default function ContactPage() {
           )}
           {subject === 'Report an issue' && pageUrl && !editingPageUrl && (motionUrl || presetPageUrl) ? (
             <div className="rounded-lg bg-slate-50 px-3 py-2.5 text-sm text-slate-500">
-              <a href={pageUrl} target="_blank" rel="noreferrer" className="mt-1 block font-semibold text-[#004a99] hover:underline">
-                {pageTitle || `Open ${about === 'meeting' ? 'meeting' : about === 'motion' ? 'motion' : 'page'}`} ↗
-              </a>
+              {safePageUrl ? (
+                <a href={safePageUrl} target="_blank" rel="noreferrer" className="mt-1 block font-semibold text-[#004a99] hover:underline">
+                  {pageTitle || `Open ${about === 'meeting' ? 'meeting' : about === 'motion' ? 'motion' : 'page'}`} ↗
+                </a>
+              ) : (
+                <span className="mt-1 block font-semibold text-slate-500">
+                  {pageTitle || `Open ${about === 'meeting' ? 'meeting' : about === 'motion' ? 'motion' : 'page'}`}
+                </span>
+              )}
               <code className="mt-1 block break-all text-xs text-slate-500">{pageUrl}</code>
               <div className="mt-2 flex gap-3">
                 <button type="button" onClick={() => setEditingPageUrl(true)} className="text-xs font-semibold text-[#004a99] hover:underline">Change URL</button>
