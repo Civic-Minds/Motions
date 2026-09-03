@@ -13,6 +13,10 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Faster page load**: The dashboard no longer waits on the full meetings history (~300KB gzipped) before showing content — only its small "next meeting" card needs that data, so it now loads in the background instead of blocking first render.
 - **Smaller vendor bundle**: Replaced the framer-motion animation library with plain CSS transitions across cards, modals, and list entrances — same look, one fewer vendor chunk (about 43KB gzipped) for every visitor to download.
 
+### Fixed
+
+- **Data load failures on flaky connections**: A dropped or slow connection could return a non-JSON response and leave people stuck on a cryptic "Unexpected token" error with no way to recover. The error message is now readable, and a "Try again" button retries without a full page reload.
+
 ## [3.0.0] — 2026-09-02
 
 ### Added

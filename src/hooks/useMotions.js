@@ -21,6 +21,12 @@ export function useMotions(jurisdiction = { id: 'toronto', dataBaseEnv: 'VITE_BL
     const [metadata, setMetadata] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [retryCount, setRetryCount] = useState(0);
+    const retry = () => {
+        setLoading(true);
+        setError(null);
+        setRetryCount(c => c + 1);
+    };
 
     useEffect(() => {
         let isMounted = true;
@@ -48,6 +54,18 @@ export function useMotions(jurisdiction = { id: 'toronto', dataBaseEnv: 'VITE_BL
                 .then(meetingsData => { if (isMounted) setMeetings(meetingsData); })
                 .catch(err => console.error('Error loading meetings:', err));
 
+            // A flaky connection can return a 200 with an HTML error/captive-portal
+            // page instead of JSON — .json() then throws a cryptic "Unexpected
+            // token '<'" SyntaxError. Give that case a message people can act on.
+            const readJson = async res => {
+                const text = await res.text();
+                try {
+                    return JSON.parse(text);
+                } catch {
+                    throw new Error('Got an unexpected response instead of data — this usually means the connection dropped mid-request.');
+                }
+            };
+
             try {
                 const [motionsRes, councillorsRes, metadataRes] = await Promise.all([
                     fetch(motionsUrl),
@@ -56,9 +74,9 @@ export function useMotions(jurisdiction = { id: 'toronto', dataBaseEnv: 'VITE_BL
                 ]);
                 if (!motionsRes.ok) throw new Error('Failed to fetch data');
                 const [motionsData, councillorsData, metadataData] = await Promise.all([
-                    motionsRes.json(),
-                    councillorsRes.ok ? councillorsRes.json() : Promise.resolve([]),
-                    metadataRes.ok ? metadataRes.json() : Promise.resolve(null),
+                    readJson(motionsRes),
+                    councillorsRes.ok ? readJson(councillorsRes) : Promise.resolve([]),
+                    metadataRes.ok ? readJson(metadataRes) : Promise.resolve(null),
                 ]);
 
                 if (isMounted) {
@@ -85,7 +103,7 @@ export function useMotions(jurisdiction = { id: 'toronto', dataBaseEnv: 'VITE_BL
 
         loadData();
         return () => { isMounted = false; };
-    }, [jurisdiction.id, jurisdiction.dataBaseEnv, jurisdiction.localDataPath]);
+    }, [jurisdiction.id, jurisdiction.dataBaseEnv, jurisdiction.localDataPath, retryCount]);
 
     const metrics = useMemo(() => {
         return calculateTrivialityMetrics(motions);
@@ -98,6 +116,7 @@ export function useMotions(jurisdiction = { id: 'toronto', dataBaseEnv: 'VITE_BL
         metadata,
         loading,
         error,
+        retry,
         metrics,
     };
 }

@@ -283,7 +283,7 @@ function ScrollToTop() {
 
 function AppShell() {
   const { jurisdiction, wardId, handleLocate, handleClearWard } = useAppContext();
-  const { motions, councillors, meetings, metadata, loading, error } = useMotions(jurisdiction);
+  const { motions, councillors, meetings, metadata, loading, error, retry } = useMotions(jurisdiction);
   const hasGuideContent = jurisdiction.id === 'toronto' || jurisdiction.id === 'vancouver';
   const [searchOpen, setSearchOpen] = useState(false);
   const [compareMode, setCompareMode] = useState(false);
@@ -325,7 +325,13 @@ function AppShell() {
       <div className="flex items-center justify-center py-32">
         <div className="text-center max-w-sm">
           <p className="font-semibold text-slate-800 mb-1">Could not load data</p>
-          <p className="text-sm text-slate-500">{error}</p>
+          <p className="text-sm text-slate-500 mb-4">{error}</p>
+          <button
+            onClick={retry}
+            className="px-4 py-2 text-sm font-semibold text-white bg-[#004a99] rounded-xl hover:bg-[#003875] transition-colors"
+          >
+            Try again
+          </button>
         </div>
       </div>
     );
