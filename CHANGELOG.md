@@ -12,6 +12,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Smaller councillor photos**: Headshots were being served at their full 820×1024 source size everywhere, including 40px avatars — resized to the largest size actually used on screen, cutting the councillor photo payload from 5.3MB to about 0.2MB. Avatars below the fold now also defer loading until scrolled into view.
 - **Faster page load**: The dashboard no longer waits on the full meetings history (~300KB gzipped) before showing content — only its small "next meeting" card needs that data, so it now loads in the background instead of blocking first render.
 - **Smaller vendor bundle**: Replaced the framer-motion animation library with plain CSS transitions across cards, modals, and list entrances — same look, one fewer vendor chunk (about 43KB gzipped) for every visitor to download.
+- **Smaller Election page**: A mapping library used only for merging school-trustee ward boundaries now loads on demand instead of being bundled into every visit to the Election page — cut that page's download by about two-thirds (22.6KB to 7.1KB gzipped).
 
 ### Fixed
 
