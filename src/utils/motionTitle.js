@@ -40,7 +40,8 @@ export function cleanVancouverTitle(title) {
     do {
         previous = cleaned;
         cleaned = cleaned
-            .replace(/^(?:Item\s+\d+[.)]?|\d+[a-z]?[.)]|[A-Z]{1,8}\d+[a-z]?(?:[.)]|\s+)|Motion\s+\d+[.)]?|CD-1(?:\s*\(\d+\))?)\s*/i, '')
+            .replace(/^(?:Item\s+\d+[.)]?|Administrative\s+Motion\s+\d+[.)]?|\d+[a-z]?[.)]|[A-Z]{1,8}\d+[a-z]?(?:[.)]|\s+)|Motion\s+\d+[.)]?|CD-1(?:\s*\(\d+\))?)\s*(?:[-–—:]\s*)?/i, '')
+            .replace(/^[-–—]\s*/, '')
             .trim();
     } while (cleaned !== previous);
     return cleaned;
