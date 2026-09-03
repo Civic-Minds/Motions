@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { TOPIC_LIGHT, getCommittee } from '../constants/data';
@@ -30,10 +29,9 @@ export default function MotionCardItem({
     : 'bg-amber-50 text-amber-700';
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 6 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: Math.min(index * 0.02, 0.3) }}
+    <div
+      style={{ animationDelay: `${Math.min(index * 0.02, 0.3)}s` }}
+      className="animate-fade-in-up"
     >
       <div
         onClick={() => navigate(`/motions/${m.id}`)}
@@ -99,6 +97,6 @@ export default function MotionCardItem({
         </div>
         <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-[#004a99] shrink-0 mt-0.5 transition-colors" />
       </div>
-    </motion.div>
+    </div>
   );
 }

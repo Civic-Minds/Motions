@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, X, FileText, User, Building2 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { usePresence } from '../hooks/usePresence';
 import Fuse from 'fuse.js';
 import { cn } from '../lib/utils';
 import { nameToSlug, committeeToSlug } from '../utils/slug';
@@ -124,27 +124,27 @@ export default function GlobalSearch({ motions, councillorNames, open, onClose }
 
   const showEmpty = query.trim().length >= 2 && total === 0;
 
+  const { rendered, entered } = usePresence(open, 150);
+
+  if (!rendered) return null;
+
   return (
-    <AnimatePresence>
-      {open && (
-        <>
+    <>
           {/* Backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
-            className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[1000]"
+          <div
+            className={cn(
+              "fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[1000] transition-opacity duration-150 ease-out",
+              entered ? "opacity-100" : "opacity-0"
+            )}
             onClick={onClose}
           />
 
           {/* Modal */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.97, y: -8 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.97, y: -8 }}
-            transition={{ duration: 0.15 }}
-            className="fixed top-[15vh] left-1/2 -translate-x-1/2 w-full max-w-xl z-[1010] px-4"
+          <div
+            className={cn(
+              "fixed top-[15vh] left-1/2 -translate-x-1/2 w-full max-w-xl z-[1010] px-4 transition-all duration-150 ease-out",
+              entered ? "opacity-100 scale-100 -translate-y-0" : "opacity-0 scale-[0.97] -translate-y-2"
+            )}
           >
             <div className="bg-white rounded-2xl shadow-2xl shadow-slate-900/20 border border-slate-200 overflow-hidden">
 
@@ -323,9 +323,7 @@ export default function GlobalSearch({ motions, councillorNames, open, onClose }
                 </div>
               )}
             </div>
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
+          </div>
+    </>
   );
 }

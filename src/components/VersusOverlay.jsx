@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { ExternalLink } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { cn } from '../lib/utils';
 import { TOPIC_LIGHT } from '../constants/data';
 import { formatMotionDate } from '../utils/date';
@@ -58,13 +57,7 @@ export default function VersusOverlay({ selection, onClose, motions }) {
   const c2Last = c2.split(' ').at(-1);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.2 }}
-      className="space-y-5 pb-20"
-    >
+    <div className="animate-fade-in-up space-y-5 pb-20">
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
         <div>
@@ -185,6 +178,6 @@ export default function VersusOverlay({ selection, onClose, motions }) {
           </div>
         )}
       </div>
-    </motion.div>
+    </div>
   );
 }

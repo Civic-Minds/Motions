@@ -21,3 +21,34 @@
     cursor: pointer;
   }
 }
+
+/*
+ * Entrance animations — replace framer-motion's `initial`/`animate` props for
+ * components that only ever animate in (no exit). For anything that also
+ * needs an exit transition (modals, dropdowns), see `src/hooks/usePresence.js`
+ * instead, which drives plain `transition` classes off component state.
+ */
+@layer utilities {
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes fade-in-up {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fade-in-scale {
+    from { opacity: 0; transform: scale(0.97); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.15s ease-out both;
+  }
+  .animate-fade-in-up {
+    animation: fade-in-up 0.3s ease-out both;
+  }
+  .animate-fade-in-scale {
+    animation: fade-in-scale 0.25s ease-out both;
+  }
+}

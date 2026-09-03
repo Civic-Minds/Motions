@@ -4,7 +4,7 @@ import { SpeedInsights } from '@vercel/speed-insights/react';
 import { BrowserRouter, Routes, Route, Navigate, Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Search, MapPin, ChevronDown } from 'lucide-react';
 import { WARD_COUNCILLORS } from './constants/data';
-import { AnimatePresence, motion } from 'framer-motion';
+import { usePresence } from './hooks/usePresence';
 import { cn } from './lib/utils';
 import { useMotions } from './hooks/useMotions';
 import { AppProvider, useAppContext } from './contexts/AppContext';
@@ -60,6 +60,7 @@ function Navbar({ onSearchOpen, jurisdiction, wardId = null, handleLocate, handl
   const location = useLocation();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const { rendered: menuRendered, entered: menuEntered } = usePresence(open, 200);
   const [cityOpen, setCityOpen] = useState(false);
   const cityMenuRef = useRef(null);
   const councillorName = jurisdiction.geography === 'ward' && wardId ? WARD_COUNCILLORS[wardId] : null;
@@ -226,14 +227,13 @@ function Navbar({ onSearchOpen, jurisdiction, wardId = null, handleLocate, handl
       </div>
 
       {/* Mobile menu */}
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            className="lg:hidden absolute w-full bg-white border-b border-slate-200 px-4 py-3 space-y-1 shadow-lg"
-          >
+      {menuRendered && (
+        <div
+          className={cn(
+            "lg:hidden absolute w-full bg-white border-b border-slate-200 px-4 py-3 space-y-1 shadow-lg transition-all duration-200 ease-out",
+            menuEntered ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"
+          )}
+        >
             {tabs.map(tab => {
               const isActive = active?.path === tab.path;
               return (
@@ -269,9 +269,8 @@ function Navbar({ onSearchOpen, jurisdiction, wardId = null, handleLocate, handl
                 Switch to {city.name}
               </a>
             ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
+        </div>
+      )}
     </header>
   );
 }

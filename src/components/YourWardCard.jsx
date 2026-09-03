@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MapPin, Loader2, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { WARD_COUNCILLORS } from '../constants/data';
 import { TORONTO_WARDS } from '../constants/wards';
 import { nameToSlug } from '../utils/slug';
@@ -86,12 +85,9 @@ export default function YourWardCard() {
   }
 
   return (
-    <AnimatePresence>
       <CivicCard
-        as={motion.div}
+        as="div"
         data-testid="your-ward-card"
-        initial={{ opacity: 0, y: 6 }}
-        animate={{ opacity: 1, y: 0 }}
         onClick={() => navigate(`/wards/${wardId}`)}
         onKeyDown={e => {
           if (e.key === 'Enter' || e.key === ' ') {
@@ -102,7 +98,7 @@ export default function YourWardCard() {
         tabIndex={0}
         role="button"
         aria-label={`Ward ${wardId}${ward?.name ? ` - ${ward.name}` : ''}. Councillor ${councillorName || ''}. Click to view ward motions.`}
-        className="gap-3 h-[140px] lg:h-full w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#004a99] cursor-pointer"
+        className="animate-fade-in-up gap-3 h-[140px] lg:h-full w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#004a99] cursor-pointer"
       >
         {/* Top row */}
         <div className="flex items-center justify-between gap-1">
@@ -137,6 +133,5 @@ export default function YourWardCard() {
         </div>
 
       </CivicCard>
-    </AnimatePresence>
   );
 }

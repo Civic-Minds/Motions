@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { ArrowRight, Star, Calendar } from 'lucide-react';
 import { getCommittee, COMMITTEE_NAMES, TOPIC_LIGHT, COMMITTEE_DESCRIPTIONS } from '../constants/data';
 import { nameToSlug, committeeToSlug } from '../utils/slug';
@@ -254,16 +253,14 @@ export default function CommitteesView({ motions, meetings = [] }) {
         <div className="space-y-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {committees.map((c, i) => (
-            <motion.div
+            <div
               key={c.name}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.04 }}
+              style={{ animationDelay: `${i * 0.04}s` }}
               onClick={() => navigate(`/committees/${c.slug}`)}
               onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') navigate(`/committees/${c.slug}`); }}
               role="button"
               tabIndex={0}
-              className="bg-white border border-slate-200 rounded-2xl p-5 text-left hover:border-[#004a99]/40 hover:shadow-md transition-all group"
+              className="animate-fade-in-up bg-white border border-slate-200 rounded-2xl p-5 text-left hover:border-[#004a99]/40 hover:shadow-md transition-all group"
             >
               <div className="flex items-start justify-between gap-3">
                 <p className="font-semibold text-slate-900 text-sm leading-snug group-hover:text-[#004a99] transition-colors">
@@ -316,7 +313,7 @@ export default function CommitteesView({ motions, meetings = [] }) {
                   ))}
                 </div>
               )}
-            </motion.div>
+            </div>
           ))}
         </div>
 
@@ -328,12 +325,10 @@ export default function CommitteesView({ motions, meetings = [] }) {
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
               {meetingsOnlyBodies.map((b) => (
-                <motion.button
+                <button
                   key={b.name}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
                   onClick={() => navigate(`/committees/${b.slug}`)}
-                  className="bg-white border border-slate-200 rounded-2xl p-5 text-left hover:border-[#004a99]/40 hover:shadow-md transition-all group"
+                  className="animate-fade-in-up bg-white border border-slate-200 rounded-2xl p-5 text-left hover:border-[#004a99]/40 hover:shadow-md transition-all group"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <p className="font-semibold text-slate-900 text-sm leading-snug group-hover:text-[#004a99] transition-colors line-clamp-2">
@@ -346,7 +341,7 @@ export default function CommitteesView({ motions, meetings = [] }) {
                     <span className="text-2xl font-black text-slate-900 leading-none">{b.upcomingCount.toLocaleString()}</span>
                     <span className="text-xs text-slate-500">upcoming</span>
                   </div>
-                </motion.button>
+                </button>
               ))}
             </div>
           </div>
@@ -359,13 +354,11 @@ export default function CommitteesView({ motions, meetings = [] }) {
           {/* LEFT: Motions */}
           <div className="lg:col-span-2 space-y-2">
             {committeeMotions.map((m, i) => (
-              <motion.button
+              <button
                 key={m.id}
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: Math.min(i * 0.02, 0.3) }}
+                style={{ animationDelay: `${Math.min(i * 0.02, 0.3)}s` }}
                 onClick={() => navigate(`/motions/${m.id}`)}
-                className="w-full text-left bg-white border border-slate-200 rounded-xl p-4 flex items-start gap-3 hover:border-[#004a99]/40 hover:shadow-sm transition-all group"
+                className="animate-fade-in-up w-full text-left bg-white border border-slate-200 rounded-xl p-4 flex items-start gap-3 hover:border-[#004a99]/40 hover:shadow-sm transition-all group"
               >
                 <div className={cn("w-1 self-stretch rounded-full shrink-0", m.status === 'Adopted' ? 'bg-emerald-400' : 'bg-rose-400')} />
                 <div className="flex-1 min-w-0">
@@ -378,7 +371,7 @@ export default function CommitteesView({ motions, meetings = [] }) {
                   </div>
                 </div>
                 <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-[#004a99] shrink-0 mt-0.5 transition-colors" />
-              </motion.button>
+              </button>
             ))}
           </div>
 

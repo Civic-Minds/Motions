@@ -5,7 +5,6 @@ import { ArrowRight, ChevronLeft, MapPin } from 'lucide-react';
 import YourWardCard from './YourWardCard';
 const WardMotionMap = lazy(() => import('./WardMotionMap'));
 const TorontoFullMap = lazy(() => import('./TorontoFullMap'));
-import { motion, AnimatePresence } from 'framer-motion';
 import { getWardActivityMetrics } from '../utils/analytics';
 import { WARD_COUNCILLORS, TOPIC_LIGHT } from '../constants/data';
 import { TORONTO_WARDS } from '../constants/wards';
@@ -169,13 +168,9 @@ export default function WardGrid({ motions }) {
         </>
       ) : (
         /* ── Ward detail: motion list ── */
-        <AnimatePresence mode="wait">
-          <motion.div
+          <div
             key={selectedWard.id}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            className="space-y-4"
+            className="animate-fade-in-up space-y-4"
           >
             {/* Councillor callout */}
             {WARD_COUNCILLORS[selectedWard.id] && (() => {
@@ -230,13 +225,11 @@ export default function WardGrid({ motions }) {
               </div>
             ) : (
               wardMotions.map((m, i) => (
-                <motion.button
+                <button
                   key={m.id}
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: Math.min(i * 0.02, 0.3) }}
+                  style={{ animationDelay: `${Math.min(i * 0.02, 0.3)}s` }}
                   onClick={() => navigate(`/motions/${m.id}`)}
-                  className="w-full text-left bg-white border border-slate-200 rounded-2xl p-4 flex items-start gap-3 hover:border-[#004a99]/40 hover:shadow-sm transition-all group"
+                  className="animate-fade-in-up w-full text-left bg-white border border-slate-200 rounded-2xl p-4 flex items-start gap-3 hover:border-[#004a99]/40 hover:shadow-sm transition-all group"
                 >
                   <div className={cn("w-1 self-stretch rounded-full shrink-0", m.status === 'Adopted' ? 'bg-emerald-400' : 'bg-rose-400')} />
                   <div className="flex-1 min-w-0">
@@ -250,7 +243,7 @@ export default function WardGrid({ motions }) {
                     </div>
                   </div>
                   <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-[#004a99] shrink-0 mt-0.5 transition-colors" />
-                </motion.button>
+                </button>
               ))
             )}
 
@@ -267,13 +260,11 @@ export default function WardGrid({ motions }) {
                   <span className="text-xs font-semibold text-[#004a99]">{showCitywide ? 'Hide' : 'Show'}</span>
                 </button>
                 {showCitywide && citywideMotions.map((m, i) => (
-                  <motion.button
+                  <button
                     key={`citywide-${m.id}`}
-                    initial={{ opacity: 0, y: 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: Math.min(i * 0.02, 0.3) }}
+                    style={{ animationDelay: `${Math.min(i * 0.02, 0.3)}s` }}
                     onClick={() => navigate(`/motions/${m.id}`)}
-                    className="w-full text-left bg-white border border-slate-200 rounded-2xl p-4 flex items-start gap-3 hover:border-[#004a99]/40 hover:shadow-sm transition-all group"
+                    className="animate-fade-in-up w-full text-left bg-white border border-slate-200 rounded-2xl p-4 flex items-start gap-3 hover:border-[#004a99]/40 hover:shadow-sm transition-all group"
                   >
                     <div className={cn("w-1 self-stretch rounded-full shrink-0", m.status === 'Adopted' ? 'bg-emerald-400' : 'bg-rose-400')} />
                     <div className="flex-1 min-w-0">
@@ -285,12 +276,11 @@ export default function WardGrid({ motions }) {
                       </div>
                     </div>
                     <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-[#004a99] shrink-0 mt-0.5 transition-colors" />
-                  </motion.button>
+                  </button>
                 ))}
               </div>
             )}
-          </motion.div>
-        </AnimatePresence>
+          </div>
       )}
     </div>
   );

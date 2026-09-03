@@ -1,6 +1,5 @@
 import React, { useState, useMemo, useEffect, useReducer, lazy, Suspense } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { AlertCircle, X, Search, Star, Calendar, Vote } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { getCommittee, TOPIC_LIGHT, TOPIC_DOT, WARD_COUNCILLORS } from '../constants/data';
@@ -539,12 +538,10 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
     const total    = yesCount + noCount;
     return (
       <CivicCard
-        as={motion.button}
-        className="h-full"
+        as="button"
+        className="h-full animate-fade-in-scale"
         key={m.id}
-        initial={{ opacity: 0, scale: 0.97 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: i * 0.04 }}
+        style={{ animationDelay: `${i * 0.04}s` }}
         onClick={() => navigate(`/motions/${m.id}`)}
       >
         <div className="flex items-center justify-between gap-1">
@@ -590,11 +587,9 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
                 <Star className="w-3 h-3 text-amber-500 fill-current shrink-0" />
               </div>
               <CivicCard
-                as={motion.button}
-                initial={{ opacity: 0, scale: 0.97 }}
-                animate={{ opacity: 1, scale: 1 }}
+                as="button"
                 onClick={() => navigate(`/motions/${m.id}`)}
-                className="flex-1"
+                className="flex-1 animate-fade-in-scale"
               >
                 <div className="flex items-center justify-between gap-1">
                   <span className={cn("text-[9px] font-semibold px-1.5 py-0.5 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>

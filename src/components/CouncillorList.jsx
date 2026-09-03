@@ -1,7 +1,7 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { GitCompare, ChevronRight, MapPin, Info } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { usePresence } from '../hooks/usePresence';
 import { getMemberAlignmentScore, getAttendance } from '../utils/analytics';
 import { nameToSlug, slugToName } from '../utils/slug';
 import { WARD_COUNCILLORS, FORMER_MEMBERS } from '../constants/data';
@@ -142,6 +142,8 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
 
   const filtered = councillors;
 
+  const { rendered: compareBannerRendered, entered: compareBannerEntered } = usePresence(compareMode, 200);
+
   // Full-page versus view
   if (versusSelection.length >= 2) {
     return (
@@ -180,13 +182,12 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
       </div>
 
       {/* Compare banner */}
-      <AnimatePresence>
-        {compareMode && (
-          <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            className="flex items-center justify-between bg-[#004a99] text-white rounded-2xl px-6 py-4"
+      {compareBannerRendered && (
+          <div
+            className={cn(
+              "flex items-center justify-between bg-[#004a99] text-white rounded-2xl px-6 py-4 transition-all duration-200 ease-out",
+              compareBannerEntered ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"
+            )}
           >
             <div className="flex items-center gap-3">
               <GitCompare className="w-5 h-5 text-white/70" />
@@ -204,18 +205,12 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
                 Compare <ChevronRight className="w-4 h-4" />
               </button>
             )}
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+      )}
 
       {/* Grid */}
-      <motion.div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
-        initial="hidden"
-        animate="show"
-        variants={{ hidden: {}, show: { transition: { staggerChildren: 0.04 } } }}
-      >
-        {filtered.map(({ name, alignment, attendance, voteCount }) => {
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {filtered.map(({ name, alignment, attendance, voteCount }, i) => {
           const ward = COUNCILLOR_WARD[name];
           const isSelected = compareSlots.includes(name);
           const isFaded = compareMode && compareSlots.length === 2 && !isSelected;
@@ -226,13 +221,13 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
           const isMayor = isMayorName(name);
 
           return (
-            <motion.div
+            <div
               key={name}
               id={`councillor-${nameToSlug(name)}`}
-              variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 280, damping: 28 } } }}
+              style={{ animationDelay: `${Math.min(i * 0.04, 0.6)}s` }}
               onClick={() => compareMode ? handleCompareClick(name) : openProfile(name)}
               className={cn(
-                "group relative bg-white border rounded-2xl p-5 cursor-pointer transition-all duration-200",
+                "animate-fade-in-up group relative bg-white border rounded-2xl p-5 cursor-pointer transition-all duration-200",
                 isSelected
                   ? 'border-[#004a99] shadow-lg shadow-blue-900/10 scale-[1.02]'
                   : isMyCouncillor
@@ -322,10 +317,10 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
                 </div>
                 <ChevronRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-[#004a99] transition-colors" />
               </div>
-            </motion.div>
+            </div>
           );
         })}
-      </motion.div>
+      </div>
 
     </div>
   );
