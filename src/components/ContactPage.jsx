@@ -170,7 +170,7 @@ export default function ContactPage() {
               <code className="mt-1 block break-all text-xs text-slate-500">{pageUrl}</code>
               <div className="mt-2 flex gap-3">
                 <button type="button" onClick={() => setEditingPageUrl(true)} className="text-xs font-semibold text-[#004a99] hover:underline">Change URL</button>
-                <button type="button" onClick={() => { setPageUrl(''); setEditingPageUrl(true); }} className="text-xs font-semibold text-slate-500 hover:text-slate-700 hover:underline">Remove URL</button>
+                <button type="button" onClick={() => { setPageUrl(''); setEditingPageUrl(true); }} className="text-xs font-semibold text-[#004a99] hover:underline">Remove URL</button>
               </div>
             </div>
           ) : subject === 'Report an issue' && (
