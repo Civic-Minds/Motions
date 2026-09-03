@@ -34,6 +34,7 @@ export default function ContactPage() {
   const [about, setAbout] = useState(presetAbout);
   const [issueType, setIssueType] = useState(presetIssueType);
   const [pageUrl, setPageUrl] = useState(motionUrl || presetPageUrl);
+  const [editingPageUrl, setEditingPageUrl] = useState(false);
   const [message, setMessage] = useState('');
 
   const city = useMemo(() => {
@@ -45,6 +46,7 @@ export default function ContactPage() {
     const nextAbout = event.target.value;
     setAbout(nextAbout);
     setPageUrl(nextAbout === 'motion' ? motionUrl : '');
+    setEditingPageUrl(false);
   }
 
   const prompt = subject === 'Report an issue'
@@ -151,7 +153,19 @@ export default function ContactPage() {
               </select>
             </label>
           )}
-          {subject === 'Report an issue' && (
+          {subject === 'Report an issue' && about === 'motion' && motionUrl && pageUrl && !editingPageUrl ? (
+            <div className="rounded-lg bg-slate-50 px-3 py-2.5 text-sm text-slate-500">
+              <span className="block">Page link</span>
+              <a href={pageUrl} target="_blank" rel="noreferrer" className="mt-1 block font-semibold text-[#004a99] hover:underline">
+                Open motion page ↗
+              </a>
+              <code className="mt-1 block break-all text-xs text-slate-500">{pageUrl}</code>
+              <div className="mt-2 flex gap-3">
+                <button type="button" onClick={() => setEditingPageUrl(true)} className="text-xs font-semibold text-[#004a99] hover:underline">Change URL</button>
+                <button type="button" onClick={() => { setPageUrl(''); setEditingPageUrl(true); }} className="text-xs font-semibold text-slate-500 hover:text-slate-700 hover:underline">Remove URL</button>
+              </div>
+            </div>
+          ) : subject === 'Report an issue' && (
             <label className="block">
               <span className="text-sm font-semibold text-slate-700">What page is this about? <span className="font-normal text-slate-400">(optional)</span></span>
               <input type="url" value={pageUrl} onChange={event => setPageUrl(event.target.value)} placeholder="https://motions.watch/..." className="mt-2 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm outline-none transition focus:border-[#004a99] focus:ring-2 focus:ring-blue-100" />
