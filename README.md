@@ -1,6 +1,6 @@
 # Motions
 
-A civic-intelligence engine that surfaces how Toronto city council votes, per-motion, in plain language.
+A civic-intelligence engine that surfaces how city council votes, per-motion, in plain language — currently covering Toronto and Vancouver.
 
 ## Problem
 
@@ -17,9 +17,9 @@ City council makes decisions that affect your rent, your commute, your neighbour
 
 ## Stack
 - **AI**: Google Gemini 2.5 Flash
-- **Frontend**: React 19, Vite 7, Tailwind CSS v4, Framer Motion
+- **Frontend**: React 19, Vite 8, Tailwind CSS v4, Framer Motion
 - **Maps**: Leaflet, react-leaflet
-- **Data**: Toronto Open Data
+- **Data**: Toronto & Vancouver Open Data
 - **Deployment**: Vercel
 
 ---
