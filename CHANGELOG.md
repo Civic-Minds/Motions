@@ -9,42 +9,32 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 ### Added
 
 - **Google Analytics** — adds longer-term and campaign traffic reporting alongside Vercel Analytics.
-- **Contact page** — gives residents a guided way to ask questions, report issues, or make privacy requests.
+- **Contact & issue reporting**: A new Contact page lets residents ask questions, report issues, or make privacy requests. Motion, meeting, and Learn pages now have Share and Report actions — Report opens this contact flow with the page's context (URL, city, and whether it concerns a motion or meeting) automatically included and previewed, editable before sending; if no page context applies (e.g. reported from the footer), the URL can be entered manually.
 - **Analytics events** — records motion views, city changes, and issue-report clicks for useful usage patterns.
-- **Meeting actions** — adds report and share controls to meeting pages for easier feedback and sharing.
-- **Issue reporting** — asks whether a report concerns a motion or meeting, while preserving relevant page context.
 - **Vancouver's official upcoming meeting schedule**: Scheduled Council and committee meetings now appear even before voting records are published.
 - **Learn participation guidance**: Added the dedicated "How to Depute" guide and placed its supporting resources beside the steps they explain.
 - **Vancouver council coverage**: Added Vancouver as a second city with citywide motion browsing, councillor voting records, election information, and an official-data importer while keeping Toronto's ward experience intact.
 - **Map page**: Added a full-page map plotting motions at their address (Toronto: 346 of 1,496; Vancouver: 421 of 2,164) for both cities, separate from Toronto's ward-grouped Wards page — each city's homepage mini-map opens it, with motion-location deep links, a legend overlay, and reliably clickable/hoverable pins. Later merged the two cities' near-identical implementations into one `MotionsMap.jsx` component, and made its "mostly X and Y" topics filter the homepage (`/?topic=X`) when clicked, matching the existing `?ward=` pattern.
-- **Real homepage**: motions.watch no longer redirects straight into Toronto — it's now a landing page with a hero, a short "why Motions" section, and a Canada-wide map/city picker. Toronto and Vancouver are clickable pins; other cities are limited to the three actually on the roadmap (`docs/roadmap/DATA_CITIES.md`: Calgary, Ottawa, Montreal) shown as muted "Planned" pins, after an earlier pass added speculative cities with no real near-term path or already-past elections. City cards float on the map as a bottom carousel, sync with what's in view, fly the map to a city on hover, and show real per-city facts (ward structure, mayor, live election date) instead of a repeated template sentence.
+- **Real homepage**: motions.watch no longer redirects straight into Toronto — it's now a landing page with a hero, a short "why Motions" section, and a Canada-wide map/city picker. Toronto and Vancouver are clickable pins; other cities are limited to the three actually on the roadmap (`docs/roadmap/DATA_CITIES.md`: Calgary, Ottawa, Montreal) shown as muted "Planned" pins, after an earlier pass added speculative cities with no real near-term path or already-past elections. City cards float on the map as a bottom carousel, sync with what's in view, fly the map to a city on hover, and show real per-city facts (ward structure, mayor, live election date) instead of a repeated template sentence. The Canada map now loads only once it enters view for faster loading on slow connections, the Motions wordmark is clickable to return home, and the page uses the same max-width/padding container as every other page instead of sitting flush against the browser edge.
 - **Learn hub**: Transparency and the footer now point residents to city-aware guides explaining how council decisions and recorded votes work.
 - **About page**: Residents can now see what Motions covers, how municipal decisions differ from other levels of government, and how the project supports participation.
-- **Motion issue reporting**: Motion pages now include a prefilled GitHub report link beside each motion's official sources for incorrect titles, votes, or locations.
 - **Toronto's "How to Get Involved" guide**: Replaced the "coming soon" placeholder with real steps and links — Have Your Say Toronto, Public Notices & Bylaws, the Application Information Centre, and how to register to speak at a committee meeting.
 - **Vancouver's civic participation guide**: Residents can now find consultations, public notices, rezoning opportunities, meeting participation options, and official follow-up resources in one place; Toronto's equivalent is marked coming soon.
 
 ### Changed
 
 - Report previews now show the title of the linked Learn article.
-- Issue reports now show the page context before the issue type when it is preselected.
-- Report forms now show automatic page links as a readable preview with change and remove actions.
-- Learn pages now offer Share and Report actions with the page URL prefilled in issue reports.
 - Topic colours now give Housing a warm stone colour and distinguish Finance, Parks, and Climate more clearly.
 - Map zoom controls now use the same rounded buttons across every map.
 - Full map popups now show motion summaries and the map supports topic and outcome filters.
-- **Contact emails**: Tells issue reporters that the automatically included details should remain in the message.
-- **Contact emails**: Formats issue reports as readable messages with a clear greeting, page reference, and message prompt.
-- **Issue reporting**: Asks what kind of issue a visitor is reporting before asking whether it concerns a motion or meeting.
+- **Contact emails**: Issue reports are formatted as readable messages with a clear greeting, page reference, and message prompt, and tell reporters to keep the automatically included details in the message.
 - **Legal-page contact links**: Privacy opens the contact form with a privacy request selected, while Terms uses the general question option.
 - **Cities footer navigation**: Added an “All cities” link back to the city picker.
 - **Winnipeg homepage status**: Labels Winnipeg as coming soon while its coverage finishes testing.
 - **Search preview**: Replaced the generic homepage title and slogan with a clearer description of Motions’ council-voting coverage.
-- **Contact flow** — opens the message form immediately after a visitor selects a reason.
-- **Contact flow** — keeps preselected reasons editable before a message is sent.
-- **Issue reporting** — opens a guided private contact flow with the motion URL and city included automatically.
+- **Contact flow**: Opens the message form immediately after a visitor picks a reason, with the reason, issue type, and any auto-included page details staying visible and editable throughout — including when arriving from a report link elsewhere on the site — and the page context shown before the issue-type question when it's preselected.
 - **Vancouver onto shared components**: Vancouver progressively moved off standalone implementations onto the same shared components Toronto already used — election page layout, voting guide shell, static-page layout, map markers, homepage map, meeting and committee screens, councillor profiles and council directory, motion details, and page metadata — instead of maintaining a second copy of each. Vancouver-specific details (at-large council, citywide geography, official record links) are preserved through parameters rather than forked code.
-- **Vancouver motion data cleanup**: Removed leading agenda labels (e.g. "Motion 3.", "CD-1") from displayed motion titles, both on new imports and retroactively for already-imported records, while preserving the official source links. Motion sources now link to their filtered official voting-record entry instead of the generic dataset page; documents (agenda/voting-record links) are visible via the shared Documents section; and mapped locations survive re-imports since existing coordinates are preserved while the importer rebuilds voting records.
+- **Vancouver motion data cleanup**: Removed leading agenda labels (e.g. "Motion 3.", "CD-1") from displayed motion titles, both on new imports and retroactively for already-imported records, while preserving the official source links. Motion sources now link to their filtered official voting-record entry instead of the generic dataset page; documents (agenda/voting-record links) are visible via the shared Documents section without duplicating the agenda and voting-record links; mapped locations survive re-imports since existing coordinates are preserved while the importer rebuilds voting records; and blocked, missing, or unmatched agenda pages are rejected before summary generation.
 - **Vancouver council/committee content**: Wrote real per-committee descriptions for all 6 Vancouver committees, replacing generic fallback text, and refined the at-large council wording site-wide to remove confusing "record" language.
 - **Vancouver data refresh**: Vancouver now has its own scheduled import/upload workflow independent of Toronto's, and each data page shows its own latest voting-record date; scheduled refreshes run when either city has new meeting data.
 - **Election card copy** (Toronto + Vancouver): Iterated the homepage election cards to a consistent final treatment — dates pulled from shared jurisdiction data instead of hardcoded strings, the year dropped for a compact format, Toronto's headline pointing to election day with the exact date in the footer, and Vancouver's headline highlighting the nomination deadline with a "Register to run by [date]" candidate call to action.
@@ -70,14 +60,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Fixed
 
-- **Footer issue reports**: Lets visitors provide the page URL when a report was not started from a specific motion or meeting.
-- **Issue contact flow**: Keeps the selected issue type visible and editable while the visitor completes the remaining issue details.
-- **Issue contact flow**: Keeps the main reason dropdown visible and preselected when a visitor arrives from a report link.
-- **Homepage loading**: Deferred the interactive Canada map until it enters view so the headline and city explanation appear faster on slow connections.
-- **Homepage logo link**: Made the Motions wordmark clickable so visitors can return to the homepage.
 - **Toronto meeting source links**: Meetings without a stored record URL now link to the official Toronto Council site instead of showing dead source text.
 - **Vancouver motion metadata links**: Council and topic labels now return to the homepage with the matching filter applied instead of opening a meeting detail page.
-- **Vancouver motion source handling**: Documents no longer duplicate the agenda and voting-record links, and blocked, missing, or unmatched agenda pages are rejected before summary generation.
 - **Trustee candidate selection**: Prevented unselected trustee wards from appearing empty and showing false zero-candidate counts while candidate data loads.
 - **Alignment/spacing fixes**: The voting guide header now matches other detail pages' Back-link and header spacing, the Election nav pill no longer sits flush against its label, and the Documents card's fixed minimum height no longer leaves blank space below a single short document link.
 - **Voting guide clarity**: Explained that the three-hour voting entitlement means three consecutive hours free to vote, not three additional hours off work.
@@ -92,7 +76,6 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Transparency alignment fixes**: Fixed misaligned disclaimer text (missing the same inline padding as the section label above it) and aligned "Latest voting record"/"Last checked" onto the same line regardless of how much content sits above them.
 - **Fixed "Latest voting record: Invalid Date" on Transparency**: The date comparison compared display-formatted strings instead of parsing them, so it picked the wrong motion and then failed to parse it. Now compares real dates.
 - **Fixed "last checked" never appearing on Transparency**: The metadata-writing step only lived inside the gated refresh job, so on the common case (no new meeting found, job skipped) it never ran — the site's "last checked" date had been silently missing since this feature was added. Added an ungated step that always records a check.
-- **Fixed the homepage's missing side margins**: The new homepage's `<main>` wrapper was missing the same max-width/padding container every other page uses, so content sat flush against the browser edge.
 - **Fixed stale voting-guide links**: The Election page's "How to vote" / "Non-partisan guide" links pointed at the old `/learn/how-to-vote` URL; updated to the renamed `/learn/how-voting-works`.
 - **Fixed council-vote guide rendering**: City-specific guide steps now load correctly instead of leaving the page blank.
 
