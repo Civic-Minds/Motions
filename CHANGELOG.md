@@ -13,7 +13,6 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Analytics events** — records motion views, city changes, and issue-report clicks for useful usage patterns.
 - **Meeting actions** — adds report and share controls to meeting pages for easier feedback and sharing.
 - **Issue reporting** — asks whether a report concerns a motion or meeting, while preserving relevant page context.
-
 - **Vancouver's official upcoming meeting schedule**: Scheduled Council and committee meetings now appear even before voting records are published.
 - **Learn participation guidance**: Added the dedicated "How to Depute" guide and placed its supporting resources beside the steps they explain.
 - **Vancouver council coverage**: Added Vancouver as a second city with citywide motion browsing, councillor voting records, election information, and an official-data importer while keeping Toronto's ward experience intact.
@@ -44,7 +43,6 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Contact flow** — opens the message form immediately after a visitor selects a reason.
 - **Contact flow** — keeps preselected reasons editable before a message is sent.
 - **Issue reporting** — opens a guided private contact flow with the motion URL and city included automatically.
-
 - **Vancouver onto shared components**: Vancouver progressively moved off standalone implementations onto the same shared components Toronto already used — election page layout, voting guide shell, static-page layout, map markers, homepage map, meeting and committee screens, councillor profiles and council directory, motion details, and page metadata — instead of maintaining a second copy of each. Vancouver-specific details (at-large council, citywide geography, official record links) are preserved through parameters rather than forked code.
 - **Vancouver motion data cleanup**: Removed leading agenda labels (e.g. "Motion 3.", "CD-1") from displayed motion titles, both on new imports and retroactively for already-imported records, while preserving the official source links. Motion sources now link to their filtered official voting-record entry instead of the generic dataset page; documents (agenda/voting-record links) are visible via the shared Documents section; and mapped locations survive re-imports since existing coordinates are preserved while the importer rebuilds voting records.
 - **Vancouver council/committee content**: Wrote real per-committee descriptions for all 6 Vancouver committees, replacing generic fallback text, and refined the at-large council wording site-wide to remove confusing "record" language.
