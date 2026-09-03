@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
+## [Unreleased]
+
+### Changed
+
+- **Faster font load**: The Inter font stylesheet no longer blocks first paint — it loads in the background and swaps in once ready.
+- **Smaller councillor photos**: Headshots were being served at their full 820×1024 source size everywhere, including 40px avatars — resized to the largest size actually used on screen, cutting the councillor photo payload from 5.3MB to about 0.2MB. Avatars below the fold now also defer loading until scrolled into view.
+
 ## [3.0.0] — 2026-09-02
 
 ### Added

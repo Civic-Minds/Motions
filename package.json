@@ -8,7 +8,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "optimize:images": "node scripts/optimize_councillor_photos.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.122.0",

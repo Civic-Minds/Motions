@@ -41,6 +41,7 @@ function ProfileHeader({ selected, ward, committees, isMyCouncillor, electionSta
           src={photoUrl}
           alt={selected}
           className="w-full h-full object-cover"
+          decoding="async"
           onError={e => { e.currentTarget.style.display = 'none'; e.currentTarget.nextSibling.style.display = 'flex'; }}
         />
         <span className="text-white font-bold text-xl hidden w-full h-full items-center justify-center">{initials}</span>
@@ -182,6 +183,8 @@ function PeerAlignment({ dna, votedWith }) {
                     src={`/images/councillors/${peer.name.split(' ').at(-1)}.jpg`}
                     alt={peer.name}
                     className="absolute inset-0 w-full h-full object-cover"
+                    loading="lazy"
+                    decoding="async"
                     onError={e => { e.currentTarget.style.display = 'none'; }}
                   />
                 </Link>
@@ -217,6 +220,8 @@ function PeerAlignment({ dna, votedWith }) {
                       src={`/images/councillors/${peer.name.split(' ').at(-1)}.jpg`}
                       alt={peer.name}
                       className="absolute inset-0 w-full h-full object-cover"
+                      loading="lazy"
+                      decoding="async"
                       onError={e => { e.currentTarget.style.display = 'none'; }}
                     />
                   </Link>

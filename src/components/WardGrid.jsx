@@ -190,6 +190,8 @@ export default function WardGrid({ motions }) {
                       src={`/images/councillors/${lastName}.jpg`}
                       alt={name}
                       className="w-full h-full object-cover"
+                      loading="lazy"
+                      decoding="async"
                       onError={e => { e.currentTarget.style.display = 'none'; e.currentTarget.nextSibling.style.display = 'flex'; }}
                     />
                     <span className="text-white font-bold text-sm hidden w-full h-full items-center justify-center">{initials}</span>

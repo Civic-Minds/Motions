@@ -260,6 +260,8 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
                     src={photoUrl}
                     alt={name}
                     className="w-full h-full object-cover absolute inset-0 z-10"
+                    loading="lazy"
+                    decoding="async"
                     onError={e => { e.currentTarget.style.display = 'none'; }}
                   />
                 </div>
