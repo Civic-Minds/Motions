@@ -44,7 +44,7 @@ export default function VotingGuideShell({ title, description, intro, jurisdicti
         </Link>
       )}
 
-      {children}
+      <div className={electionDate ? 'pt-4' : undefined}>{children}</div>
     </PageColumn>
   );
 }
