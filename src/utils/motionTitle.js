@@ -31,6 +31,11 @@ function repairVancouverText(value) {
         .replaceAll('\\r', ' ')
         .replaceAll('\\t', ' ')
         .replace(/\s+/g, ' ')
+        .replace(/\?\?y\?alm\?x\?\/Iy\?ï¿½lmexw\//, 'ʔəy̓alməxʷ/Iy̓álmexw/')
+        .replace(/Member'\s+Motion/g, 'Member’s Motion')
+        .replace(/Approval(?=\d)/g, 'Approval ')
+        .replace(/\s+Report PDF$/i, '')
+        .replace(/\s+[-–—]$/, '')
         .trim();
 }
 

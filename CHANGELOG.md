@@ -16,7 +16,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Fixed
 
-- **Vancouver motion titles**: Older records no longer show broken punctuation, escaped whitespace, stray separators, or stacked agenda labels.
+- **Vancouver motion titles**: Older records no longer show broken punctuation, escaped whitespace, stray separators, source boilerplate, or stacked agenda labels.
 - **Unsafe report links**: Issue-report page links now allow only web URLs, preventing crafted contact links from executing code when opened.
 - **Data load failures on flaky connections**: A dropped or slow connection could return a non-JSON response and leave people stuck on a cryptic "Unexpected token" error with no way to recover. The error message is now readable, and a "Try again" button retries without a full page reload.
 
