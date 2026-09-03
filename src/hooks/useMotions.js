@@ -39,18 +39,25 @@ export function useMotions(jurisdiction = { id: 'toronto', dataBaseEnv: 'VITE_BL
             const meetingsUrl    = dataUrl('meetings.json');
             const councillorsUrl = dataUrl('councillors.json');
             const metadataUrl    = dataUrl('metadata.json');
+
+            // meetings.json is the full historical meeting list (~300KB gzipped) but
+            // only the Dashboard's "next upcoming meeting" card needs it on first
+            // paint — fetch it in the background instead of blocking `loading`.
+            fetch(meetingsUrl)
+                .then(res => res.ok ? res.json() : [])
+                .then(meetingsData => { if (isMounted) setMeetings(meetingsData); })
+                .catch(err => console.error('Error loading meetings:', err));
+
             try {
-                const [motionsRes, councillorsRes, meetingsRes, metadataRes] = await Promise.all([
+                const [motionsRes, councillorsRes, metadataRes] = await Promise.all([
                     fetch(motionsUrl),
                     fetch(councillorsUrl),
-                    fetch(meetingsUrl),
                     fetch(metadataUrl),
                 ]);
                 if (!motionsRes.ok) throw new Error('Failed to fetch data');
-                const [motionsData, councillorsData, meetingsData, metadataData] = await Promise.all([
+                const [motionsData, councillorsData, metadataData] = await Promise.all([
                     motionsRes.json(),
                     councillorsRes.ok ? councillorsRes.json() : Promise.resolve([]),
-                    meetingsRes.ok ? meetingsRes.json() : Promise.resolve([]),
                     metadataRes.ok ? metadataRes.json() : Promise.resolve(null),
                 ]);
 
@@ -64,7 +71,6 @@ export function useMotions(jurisdiction = { id: 'toronto', dataBaseEnv: 'VITE_BL
                             : normalized;
                     }));
                     setCouncillors(councillorsData);
-                    setMeetings(meetingsData);
                     setMetadata(metadataData);
                     setLoading(false);
                 }
