@@ -170,7 +170,7 @@ export default function CivicGuidePage({ type, jurisdiction = { id: 'toronto', n
           action: 'Find your councillor',
         }
     : null;
-  const reportUrl = `/contact?subject=${encodeURIComponent('Report an issue')}&about=other&page=${encodeURIComponent(window.location.href)}`;
+  const reportUrl = `/contact?subject=${encodeURIComponent('Report an issue')}&about=other&title=${encodeURIComponent(content.title)}&page=${encodeURIComponent(window.location.href)}`;
 
   return (
     <PageColumn className="space-y-8 pb-20">

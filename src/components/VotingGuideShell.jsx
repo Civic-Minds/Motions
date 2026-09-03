@@ -12,7 +12,7 @@ export default function VotingGuideShell({ title, description, intro, jurisdicti
   const electionDate = jurisdiction?.election?.date
     ? new Date(`${jurisdiction.election.date}T00:00:00`).toLocaleDateString('en-CA', { month: 'long', day: 'numeric', year: 'numeric' })
     : null;
-  const reportUrl = `/contact?subject=${encodeURIComponent('Report an issue')}&about=other&page=${encodeURIComponent(window.location.href)}`;
+  const reportUrl = `/contact?subject=${encodeURIComponent('Report an issue')}&about=other&title=${encodeURIComponent('How Voting Works')}&page=${encodeURIComponent(window.location.href)}`;
 
   return (
     <PageColumn className="space-y-8 pb-20">

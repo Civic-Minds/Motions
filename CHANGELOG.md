@@ -27,6 +27,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Changed
 
+- Report previews now show the title of the linked Learn article.
 - Issue reports now show the page context before the issue type when it is preselected.
 - Report forms now show automatic page links as a readable preview with change and remove actions.
 - Learn pages now offer Share and Report actions with the page URL prefilled in issue reports.

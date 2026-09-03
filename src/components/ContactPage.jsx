@@ -27,6 +27,7 @@ export default function ContactPage() {
   const [searchParams] = useSearchParams();
   const motionUrl = searchParams.get('motion') ?? '';
   const presetPageUrl = searchParams.get('page') ?? '';
+  const pageTitle = searchParams.get('title') ?? '';
   const presetSubject = searchParams.get('subject');
   const presetAbout = searchParams.get('about') ?? '';
   const presetIssueType = searchParams.get('type') ?? '';
@@ -165,7 +166,7 @@ export default function ContactPage() {
             <div className="rounded-lg bg-slate-50 px-3 py-2.5 text-sm text-slate-500">
               <span className="block">Page link</span>
               <a href={pageUrl} target="_blank" rel="noreferrer" className="mt-1 block font-semibold text-[#004a99] hover:underline">
-                Open motion page ↗
+                {pageTitle || `Open ${about === 'meeting' ? 'meeting' : about === 'motion' ? 'motion' : 'page'}`} ↗
               </a>
               <code className="mt-1 block break-all text-xs text-slate-500">{pageUrl}</code>
               <div className="mt-2 flex gap-3">
