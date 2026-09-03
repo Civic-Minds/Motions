@@ -162,7 +162,7 @@ export default function ContactPage() {
               </select>
             </label>
           )}
-          {subject === 'Report an issue' && about === 'motion' && motionUrl && pageUrl && !editingPageUrl ? (
+          {subject === 'Report an issue' && pageUrl && !editingPageUrl && (motionUrl || presetPageUrl) ? (
             <div className="rounded-lg bg-slate-50 px-3 py-2.5 text-sm text-slate-500">
               <span className="block">Page link</span>
               <a href={pageUrl} target="_blank" rel="noreferrer" className="mt-1 block font-semibold text-[#004a99] hover:underline">
