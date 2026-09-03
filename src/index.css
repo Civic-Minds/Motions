@@ -42,13 +42,21 @@
     to { opacity: 1; transform: scale(1); }
   }
 
+  /*
+   * `backwards` (not `both`): applies keyframe 0 during animation-delay so
+   * staggered items don't flash unstyled, but releases opacity/transform
+   * back to the normal cascade once the animation ends. `both` would keep
+   * animation-priority on those properties forever, silently overriding any
+   * later hover/selected-state utility that also sets opacity or transform
+   * (e.g. `hover:-translate-y-0.5`, `scale-[1.02]`, `opacity-50`).
+   */
   .animate-fade-in {
-    animation: fade-in 0.15s ease-out both;
+    animation: fade-in 0.15s ease-out backwards;
   }
   .animate-fade-in-up {
-    animation: fade-in-up 0.3s ease-out both;
+    animation: fade-in-up 0.3s ease-out backwards;
   }
   .animate-fade-in-scale {
-    animation: fade-in-scale 0.25s ease-out both;
+    animation: fade-in-scale 0.25s ease-out backwards;
   }
 }

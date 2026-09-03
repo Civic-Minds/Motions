@@ -30,18 +30,28 @@ export function usePresence(show, duration = 200) {
   const [rendered, setRendered] = useState(show);
   const [entered, setEntered] = useState(show);
   const timeoutRef = useRef(null);
+  const rafRef = useRef(null);
 
   useEffect(() => {
     clearTimeout(timeoutRef.current);
 
     if (show) {
       // Deliberate: mounting immediately (not deferred to a callback) is what
-      // makes the element present in the DOM in time for the very next frame,
-      // which is when `entered` flips true to kick off the CSS transition.
+      // makes the element present in the DOM in time for the next frame.
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setRendered(true);
-      const raf = requestAnimationFrame(() => setEntered(true));
-      return () => cancelAnimationFrame(raf);
+      // Double rAF: the first fires before the browser has necessarily
+      // painted the just-mounted (pre-transition) styles, so flipping
+      // `entered` there can coincide with that first paint and skip the
+      // transition entirely. Waiting for a second frame guarantees the
+      // "closed" styles paint first, so the transition to "entered" is
+      // never dropped.
+      const raf1 = requestAnimationFrame(() => {
+        const raf2 = requestAnimationFrame(() => setEntered(true));
+        rafRef.current = raf2;
+      });
+      rafRef.current = raf1;
+      return () => cancelAnimationFrame(rafRef.current);
     }
 
     setEntered(false);
