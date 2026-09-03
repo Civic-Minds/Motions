@@ -15,6 +15,17 @@ const MOJIBAKE_REPLACEMENTS = [
     ['Â ', ' '],
 ];
 
+// Vancouver's source feed truncates a small number of agenda descriptions.
+// These full titles are copied from the City's official agendas.
+const SOURCE_TITLE_OVERRIDES = {
+    'van-18344-8988': 'Piloting a Culturally Appropriate, Indigenous-led Supportive Housing and Wellness Centre Project in Partnership with Indigenous Peoples (Member Motion B.2)',
+    'van-18344-8989': 'Piloting a Culturally Appropriate, Indigenous-led Supportive Housing and Wellness Centre Project in Partnership with Indigenous Peoples (Member Motion B.2)',
+    'van-18347-9009': 'Appointment of Childcare Operators, Lease Approvals, Childcare Grant Approvals, and Approval of Funding for Maintenance of Licensed Childcare Centres at West Fraser Lands, Henry Hudson Elementary School, and Marpole Community Centre',
+    'van-18472-9502': 'Text Amendment: 120-150 West Georgia Street, 720-770 Beatty Street and 701 Expo Boulevard (Formerly 720 Beatty Street and 701 Expo Boulevard)',
+    'van-18411-9605': 'Removal of Certain Occupancy Permit Holds in respect of Construction of Social Housing for the Little Mountain Development (formerly 155 East 37th Avenue and with the current addresses and legal descriptions set out in Appendix C)',
+    'van-18784-11329': 'Downtown Eastside Housing Implementation – Amendments to the FC-1 District in the Zoning and Development By-law and the Downtown Eastside/Oppenheimer District Official Development Plan (DEOD ODP) By-law to Accelerate SRO Replacement and Increase Social Housing',
+};
+
 function repairVancouverText(value) {
     let repaired = String(value ?? '');
     for (const [broken, replacement] of MOJIBAKE_REPLACEMENTS) {
@@ -39,7 +50,9 @@ function repairVancouverText(value) {
         .trim();
 }
 
-export function cleanVancouverTitle(title) {
+export function cleanVancouverTitle(title, motionId) {
+    if (motionId && SOURCE_TITLE_OVERRIDES[motionId]) return SOURCE_TITLE_OVERRIDES[motionId];
+
     let cleaned = repairVancouverText(title);
     let previous;
     do {

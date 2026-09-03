@@ -77,7 +77,7 @@ export function useMotions(jurisdiction = { id: 'toronto', dataBaseEnv: 'VITE_BL
                 if (isMounted) {
                     setMotions(motionsData.map(motion => {
                         const normalized = jurisdiction.id === 'vancouver'
-                            ? { ...motion, title: cleanVancouverTitle(motion.title) }
+                            ? { ...motion, title: cleanVancouverTitle(motion.title, motion.id) }
                             : motion;
                         return MOTION_TOPIC_OVERRIDES[motion.id]
                             ? { ...normalized, topic: MOTION_TOPIC_OVERRIDES[motion.id] }

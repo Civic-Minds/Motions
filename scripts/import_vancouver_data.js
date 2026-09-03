@@ -152,7 +152,7 @@ async function main() {
         const key = `${row.meeting_id}:${row.vote_number}`;
         const event = eventMap.get(key) ?? {
             id: `van-${row.meeting_id}-${row.vote_number}`,
-            title: cleanVancouverTitle(row.agenda_description),
+            title: cleanVancouverTitle(row.agenda_description, `van-${row.meeting_id}-${row.vote_number}`),
             date: row.vote_date,
             committee: row.meeting_type || 'Vancouver City Council',
             meetingId: row.meeting_id,
