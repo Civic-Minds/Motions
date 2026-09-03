@@ -103,6 +103,14 @@ export default function ContactPage() {
               {SUBJECTS.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
             </select>
           </label>
+          {about && (
+            <label className="mt-5 block">
+              <span className="text-sm font-semibold text-slate-700">About</span>
+              <select id="contact-about" value={about} onChange={handleAboutChange} className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition focus:border-[#004a99] focus:ring-2 focus:ring-blue-100">
+                {ISSUE_CONTEXTS.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
+              </select>
+            </label>
+          )}
           <label htmlFor="contact-issue-type" className="mt-5 block text-sm font-semibold text-slate-700">What kind of issue is it?</label>
           <select id="contact-issue-type" defaultValue="" onChange={event => setIssueType(event.target.value)} className="mt-5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition focus:border-[#004a99] focus:ring-2 focus:ring-blue-100">
             <option value="">Select one</option>
@@ -139,17 +147,17 @@ export default function ContactPage() {
           </label>
           {subject === 'Report an issue' && (
             <label className="block">
-              <span className="text-sm font-semibold text-slate-700">Issue type</span>
-              <select id="contact-issue-type" value={issueType} onChange={event => setIssueType(event.target.value)} className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition focus:border-[#004a99] focus:ring-2 focus:ring-blue-100">
-                {ISSUE_TYPES.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
+              <span className="text-sm font-semibold text-slate-700">About</span>
+              <select id="contact-about" value={about} onChange={handleAboutChange} className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition focus:border-[#004a99] focus:ring-2 focus:ring-blue-100">
+                {ISSUE_CONTEXTS.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
               </select>
             </label>
           )}
           {subject === 'Report an issue' && (
             <label className="block">
-              <span className="text-sm font-semibold text-slate-700">About</span>
-              <select id="contact-about" value={about} onChange={handleAboutChange} className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition focus:border-[#004a99] focus:ring-2 focus:ring-blue-100">
-                {ISSUE_CONTEXTS.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
+              <span className="text-sm font-semibold text-slate-700">Issue type</span>
+              <select id="contact-issue-type" value={issueType} onChange={event => setIssueType(event.target.value)} className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-700 outline-none transition focus:border-[#004a99] focus:ring-2 focus:ring-blue-100">
+                {ISSUE_TYPES.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
               </select>
             </label>
           )}

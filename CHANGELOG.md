@@ -27,6 +27,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Changed
 
+- Issue reports now show the page context before the issue type when it is preselected.
 - Report forms now show automatic page links as a readable preview with change and remove actions.
 - Learn pages now offer Share and Report actions with the page URL prefilled in issue reports.
 - Topic colours now give Housing a warm stone colour and distinguish Finance, Parks, and Climate more clearly.
