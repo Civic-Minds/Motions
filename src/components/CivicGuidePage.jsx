@@ -4,6 +4,7 @@ import { ArrowRight } from 'lucide-react';
 import { PageMeta } from './PageMeta';
 import { CivicCard, CivicSectionLabel } from './ui/CivicCard';
 import PageColumn from './PageColumn';
+import ShareButton from './ShareButton';
 
 const GUIDE_CONTENT = {
   council: {
@@ -169,13 +170,20 @@ export default function CivicGuidePage({ type, jurisdiction = { id: 'toronto', n
           action: 'Find your councillor',
         }
     : null;
+  const reportUrl = `/contact?subject=${encodeURIComponent('Report an issue')}&about=other&page=${encodeURIComponent(window.location.href)}`;
 
   return (
     <PageColumn className="space-y-8 pb-20">
       <PageMeta title={`${content.title} | Motions ${jurisdiction.name}`} description={content.description(jurisdiction.name)} />
 
       <div className="space-y-3">
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900">{content.title}</h1>
+        <div className="flex items-start gap-3">
+          <h1 className="min-w-0 flex-1 text-3xl font-bold tracking-tight text-slate-900">{content.title}</h1>
+          <div className="flex shrink-0 items-center gap-2">
+            <a href={reportUrl} className="inline-flex items-center rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-600 transition-colors hover:border-[#004a99]/40 hover:text-[#004a99]">Report</a>
+            <ShareButton title={`${content.title} | Motions ${jurisdiction.name}`} />
+          </div>
+        </div>
         <p className="max-w-2xl text-base leading-relaxed text-slate-500">{content.intro(jurisdiction.name)}</p>
         {content.context?.[jurisdiction.name] && <p className="max-w-2xl text-sm leading-relaxed text-slate-500">{content.context[jurisdiction.name]}</p>}
         <p className="text-xs text-slate-400">Last updated: {content.lastUpdated}</p>

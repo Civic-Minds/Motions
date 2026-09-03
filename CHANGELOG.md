@@ -27,6 +27,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Changed
 
+- Learn pages now offer Share and Report actions with the page URL prefilled in issue reports.
 - Topic colours now give Housing a warm stone colour and distinguish Finance, Parks, and Climate more clearly.
 - Map zoom controls now use the same rounded buttons across every map.
 - Full map popups now show motion summaries and the map supports topic and outcome filters.

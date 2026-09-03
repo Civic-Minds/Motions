@@ -26,13 +26,14 @@ const ISSUE_TYPES = [
 export default function ContactPage() {
   const [searchParams] = useSearchParams();
   const motionUrl = searchParams.get('motion') ?? '';
+  const presetPageUrl = searchParams.get('page') ?? '';
   const presetSubject = searchParams.get('subject');
   const presetAbout = searchParams.get('about') ?? '';
   const presetIssueType = searchParams.get('type') ?? '';
   const [subject, setSubject] = useState(presetSubject || '');
   const [about, setAbout] = useState(presetAbout);
   const [issueType, setIssueType] = useState(presetIssueType);
-  const [pageUrl, setPageUrl] = useState(motionUrl);
+  const [pageUrl, setPageUrl] = useState(motionUrl || presetPageUrl);
   const [message, setMessage] = useState('');
 
   const city = useMemo(() => {
