@@ -4,7 +4,7 @@ import { JURISDICTIONS } from '../src/constants/jurisdictions.js';
 
 const gzip = promisify(gzipCallback);
 const BLOB_BASE = 'https://qcbqayy3ivvb6sia.public.blob.vercel-storage.com';
-const ALLOWED_FILES = new Set(['motions.json', 'meetings.json', 'councillors.json']);
+const ALLOWED_FILES = new Set(['motions.json', 'meetings.json', 'councillors.json', 'metadata.json']);
 
 export default async function handler(request, response) {
   const url = new URL(request.url, 'https://motions.watch');

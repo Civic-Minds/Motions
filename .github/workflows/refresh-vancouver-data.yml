@@ -30,6 +30,9 @@ jobs:
       - name: Geocode Vancouver motion addresses
         run: node scripts/geocode_vancouver_addresses.js
 
+      - name: Validate Vancouver motion data
+        run: npm run validate:vancouver
+
       - name: Upload Vancouver data to Vercel Blob
         env:
           BLOB_READ_WRITE_TOKEN: ${{ secrets.BLOB_READ_WRITE_TOKEN }}
