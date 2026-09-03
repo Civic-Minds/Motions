@@ -22,6 +22,7 @@
 import fetch from 'node-fetch';
 import fs from 'fs';
 import path from 'path';
+import { classifyByKeywords } from './lib/topicClassification.js';
 
 /* global process */
 
@@ -169,16 +170,7 @@ const WARD_KEYWORDS = {
 };
 
 function classifyTopic(title) {
-    const lower = title.toLowerCase();
-    for (const [topic, keywords] of Object.entries(TOPIC_KEYWORDS)) {
-        if (keywords.some(keyword => {
-            const normalized = keyword.trim().toLowerCase();
-            return /^[a-z]+$/.test(normalized)
-                ? new RegExp(`\\b${normalized}\\b`).test(lower)
-                : lower.includes(normalized);
-        })) return topic;
-    }
-    return 'General';
+    return classifyByKeywords(title, TOPIC_KEYWORDS, { wordBoundarySingleWords: true });
 }
 
 function classifyWard(title) {

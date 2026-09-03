@@ -12,6 +12,8 @@
 import fetch from 'node-fetch';
 import fs from 'fs';
 import path from 'path';
+import { cleanVancouverTitle } from '../src/utils/motionTitle.js';
+import { classifyByKeywords } from './lib/topicClassification.js';
 
 /* global process */
 
@@ -73,11 +75,7 @@ const TOPIC_KEYWORDS = {
 };
 
 function classifyTopic(title) {
-    const lower = title.toLowerCase();
-    for (const [topic, keywords] of Object.entries(TOPIC_KEYWORDS)) {
-        if (keywords.some(keyword => lower.includes(keyword))) return topic;
-    }
-    return 'General';
+    return classifyByKeywords(title, TOPIC_KEYWORDS);
 }
 
 function normalizeVote(vote) {
@@ -94,15 +92,6 @@ function normalizeVote(vote) {
 
 function statusFromDecision(decision) {
     return decision?.toLowerCase().includes('lost') ? 'Lost' : 'Adopted';
-}
-
-// Vancouver's agenda descriptions include the meeting item label (for
-// example "1.", "RR1.", or "Motion 3."). Keep the source link/vote number,
-// but present the motion title without navigation-only prefixes.
-function cleanTitle(title) {
-    return title.trim()
-        .replace(/^(?:\d+[a-z]?[.)]|[A-Z]{1,8}\d+[a-z]?(?:[.)]|\s+)|Motion\s+\d+[.)]?|CD-1)\s*/i, '')
-        .trim();
 }
 
 function significanceFor(votes, decision, title) {
@@ -163,7 +152,7 @@ async function main() {
         const key = `${row.meeting_id}:${row.vote_number}`;
         const event = eventMap.get(key) ?? {
             id: `van-${row.meeting_id}-${row.vote_number}`,
-            title: cleanTitle(row.agenda_description),
+            title: cleanVancouverTitle(row.agenda_description),
             date: row.vote_date,
             committee: row.meeting_type || 'Vancouver City Council',
             meetingId: row.meeting_id,

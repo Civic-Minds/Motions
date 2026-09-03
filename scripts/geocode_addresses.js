@@ -19,6 +19,7 @@
 
 import fs from 'fs';
 import path from 'path';
+import { extractAddresses as extractAddressesShared } from './lib/addressExtraction.js';
 
 const DATA_PATH = path.join(process.cwd(), 'public/data/motions.json');
 
@@ -76,13 +77,10 @@ const KNOWN_LOCATIONS_BY_MOTION_ID = {
   'IE15.2': { address: 'Toronto Island Park', lat: 43.6202078, lng: -79.3677528, source: 'verified-place' },
 };
 
+const EXCLUDE_RE = /^(?:\d+\s+Complete Street|\d{4}\s+Local Road|\d+\s+on Updates)/i;
+
 function extractAddresses(title) {
-  const grouped = [...title.matchAll(GROUPED_ADDRESS_RE)].flatMap(match =>
-    match[1].split(/\s*(?:,|and|&)\s*/i).map(number => `${number} ${match[2]}`)
-  );
-  const individual = [...title.matchAll(ADDRESS_RE)].map(m => m[1].trim());
-  return [...new Set([...grouped, ...individual])]
-    .filter(address => !/^(?:\d+\s+Complete Street|\d{4}\s+Local Road|\d+\s+on Updates)/i.test(address));
+  return extractAddressesShared(title, { addressRe: ADDRESS_RE, groupedRe: GROUPED_ADDRESS_RE, exclude: EXCLUDE_RE });
 }
 
 async function geocode(address) {

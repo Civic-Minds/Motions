@@ -1,15 +1,10 @@
 import { useState, useEffect, useMemo } from 'react';
 import { calculateTrivialityMetrics } from '../utils/analytics';
+import { cleanVancouverTitle } from '../utils/motionTitle';
 
 const MOTION_TOPIC_OVERRIDES = {
     'CC42.2': 'General',
 };
-
-function cleanVancouverTitle(title) {
-    return title.trim()
-        .replace(/^(?:\d+[a-z]?[.)]|[A-Z]{1,8}\d+[a-z]?(?:[.)]|\s+)|Motion\s+\d+[.)]?|CD-1)\s*/i, '')
-        .trim();
-}
 
 /**
  * Custom hook to manage motions data and derived metrics.

@@ -1,6 +1,7 @@
 /** Add high-confidence Vancouver address locations to imported motions. */
 import fs from 'fs';
 import path from 'path';
+import { extractAddresses as extractAddressesShared } from './lib/addressExtraction.js';
 
 const DATA_PATH = path.join(process.cwd(), 'public/data/vancouver/motions.json');
 const CACHE_PATH = path.join(process.cwd(), 'scripts/cache/vancouver_address_geocodes.json');
@@ -8,14 +9,16 @@ const BOUNDS = { minLat: 49.15, maxLat: 49.35, minLng: -123.30, maxLng: -123.00 
 const ADDRESS_RE = /\b(\d{1,5}(?:\s*(?:to|-|–)\s*\d{1,5})?\s+(?:The\s+)?[A-Z][a-zA-Z.'-]*(?:\s+[A-Z][a-zA-Z.'-]*){0,4}\s+(?:Street|St\.?|Avenue|Ave\.?|Road|Rd\.?|Drive|Dr\.?|Boulevard|Blvd\.?|Lane|Ln\.?|Court|Ct\.?|Way|Crescent|Cres\.?|Place|Pl\.?|Trail|Terrace|Gate|Path|Circle|Parkway|Pkwy|Square|Sq\.?|Esplanade)(?:\s+(?:East|West|North|South))?)/gi;
 const GROUPED_ADDRESS_RE = /\b((?:\d{1,5}(?:(?:\s*,\s*|\s+and\s+|\s*&\s*)\d{1,5})+))\s+((?:The\s+)?[A-Z][a-zA-Z.'-]*(?:\s+[A-Z][a-zA-Z.'-]*){0,4}\s+(?:Street|St\.?|Avenue|Ave\.?|Road|Rd\.?|Drive|Dr\.?|Boulevard|Blvd\.?|Lane|Ln\.?|Court|Ct\.?|Way|Crescent|Cres\.?|Place|Pl\.?|Trail|Terrace|Gate|Path|Circle|Parkway|Pkwy|Square|Sq\.?|Esplanade)(?:\s+(?:East|West|North|South))?)/gi;
 
+const EXCLUDE_RE = /^\d{4}\s+(?:Street|Water Street|Supplemental Street)$/i;
+const cleanupAddress = address => address.replace(/\.$/, '').replace(/\s+/g, ' ');
+
 function extractAddresses(title) {
-  const grouped = [...title.matchAll(GROUPED_ADDRESS_RE)].flatMap(match =>
-    match[1].split(/\s*(?:,|and|&)\s*/i).map(number => `${number} ${match[2]}`)
-  );
-  const individual = [...title.matchAll(ADDRESS_RE)].map(match => match[1].trim());
-  return [...new Set([...grouped, ...individual])]
-    .map(address => address.replace(/\.$/, '').replace(/\s+/g, ' '))
-    .filter(address => !/^\d{4}\s+(?:Street|Water Street|Supplemental Street)$/i.test(address));
+  return extractAddressesShared(title, {
+    addressRe: ADDRESS_RE,
+    groupedRe: GROUPED_ADDRESS_RE,
+    exclude: EXCLUDE_RE,
+    cleanup: cleanupAddress,
+  });
 }
 
 function isVancouver(location) {
