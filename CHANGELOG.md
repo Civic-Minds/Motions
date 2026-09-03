@@ -17,7 +17,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 ### Fixed
 
 - **Transparency refresh date**: The production data endpoint now serves metadata correctly, so the Transparency page can show when council data was last checked.
-- **Vancouver title protection**: Data refreshes now fail before upload if a motion title is malformed or a tracked source-title correction was lost.
+- **Vancouver title audit**: Data refreshes now report malformed titles or lost tracked corrections before upload without blocking otherwise valid new data.
 
 - **Vancouver motion titles**: Older records no longer show broken punctuation, escaped whitespace, stray separators, source boilerplate, stacked agenda labels, or feed-truncated titles.
 - **Unsafe report links**: Issue-report page links now allow only web URLs, preventing crafted contact links from executing code when opened.
