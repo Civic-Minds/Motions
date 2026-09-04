@@ -469,6 +469,19 @@ const decisions = new Map([
   ['Change Order to PS20240847-VBPR-RFP - Construction Manager - FIFA World Cup 26 Vancouver Venue Specific Training Site (VSTS)', 'Finance'],
   ["Support for BC Parks Foundation's Learning by Nature Initiative", 'Parks'],
   ['Honouring the Horse: Saving Vancouver\'s Iconic Lunar New Year Community Gala in Chinatown - amendment', 'Parks'],
+  ['Approval of Council Initiatives â€“ Business Improvement Area (BIA) Renewals 2023\nNovember 1, 2022', 'Finance'],
+  ["Provincial 'Growing Communities Fund': Initial Allocation to City Projects - amendment to the amendment one", 'Finance'],
+  ["Allowing Wine-on-Shelf Sales in Vancouver Grocery Stores - Amendments to Zoning and Development By-law", 'Planning & Development'],
+  ['Building Safer Communities Program - Youth Safety and Violence Prevention Strategy - final motion D', 'Public Safety'],
+  ['Residential Laneway Design & Local Improvement Procedure By-Law Updates - Amended Amendment', 'Planning & Development'],
+  ['Regulating Continuous Flame Butane Lighters', 'Public Safety'],
+  ['Reimagining and Replacing Kitsilano Outdoor Pool', 'Parks'],
+  ['Boundary Road Maintenance Agreement - AMENDMENT', 'Transit'],
+  ["Protecting and Enhancing Greenspace for the East End, Chinatown, Hogan's Alley and Strathcona", 'Parks'],
+  ['Vancouver Community Sport Events Grants - Fall 2024 Intake', 'Parks'],
+  ['Declaration of Dangerous Building at 500 Dunsmuir Street, Vancouver - Second Amendment', 'Public Safety'],
+  ['Youth Voices: Amend the Charter for Age Sixteen Starter', 'Governance'],
+  ['Nomination Subcommittee Recommendations Transmittal Report', 'Governance'],
 ]);
 
 const motions = JSON.parse(fs.readFileSync(path, 'utf8'));
