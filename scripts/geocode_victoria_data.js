@@ -13,10 +13,24 @@ const force = process.argv.includes('--force');
 const known = {
     'City Hall': { lat: 48.4284, lng: -123.3656 },
     'Topaz Park': { lat: 48.4349, lng: -123.3506 },
+    'Victoria City Hall': { lat: 48.4284, lng: -123.3656 },
+    'Centennial Square': { lat: 48.4287, lng: -123.3652 },
+    'Bastion Square': { lat: 48.4282, lng: -123.3694 },
+    'Inner Harbour': { lat: 48.4219, lng: -123.3716 },
+    'Victoria Harbour': { lat: 48.4225, lng: -123.3742 },
+    'James Bay': { lat: 48.4166, lng: -123.3674 },
+    'North Park': { lat: 48.4324, lng: -123.3578 },
+    Fernwood: { lat: 48.4316, lng: -123.3486 },
+    Fairfield: { lat: 48.4138, lng: -123.3513 },
+    'Victoria West': { lat: 48.4312, lng: -123.3885 },
+    'Downtown Victoria': { lat: 48.4278, lng: -123.3650 },
+    'Caledonia Place': { lat: 48.4335, lng: -123.3560 },
+    'Crystal Pool and Fitness Centre': { lat: 48.4321, lng: -123.3557 },
+    'Royal Theatre': { lat: 48.4220, lng: -123.3654 },
 };
 
 const candidates = [...new Set(motions.flatMap(motion => motion.locationCandidates ?? []))];
-const cache = new Map();
+const cache = new Map(motions.flatMap(motion => (motion.locations ?? []).map(location => [location.address, location])));
 
 function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
 

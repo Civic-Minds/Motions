@@ -152,7 +152,14 @@ function compact(value) {
 
 function locationsFromTitle(title) {
     const matches = title.match(/\b\d{1,5}(?:\s*(?:and|&)\s*\d{1,5})?\s+[A-Z][A-Za-z.'-]*(?:\s+[A-Z][A-Za-z.'-]*){0,3}\s+(?:Street|St|Avenue|Ave|Road|Rd|Drive|Dr|Boulevard|Blvd|Lane|Ln|Court|Ct|Way|Crescent|Cres|Place|Pl|Trail|Terrace|Gate|Path|Circle|Parkway|Pkwy)\b/gi) ?? [];
-    return [...new Set(matches.map(address => ({ address: compact(address) })))] ;
+    const namedPlaces = [
+        'Topaz Park', 'Crystal Pool and Fitness Centre', 'Centennial Square', 'Bastion Square',
+        'Victoria City Hall', 'Victoria Harbour', 'Inner Harbour', 'Songhees Nation',
+        'James Bay', 'North Park', 'Fernwood', 'Fairfield', 'Victoria West', 'Downtown Victoria',
+        'Caledonia Place', 'Vancouver Island Brewing', 'Victoria Curling Club', 'Royal Theatre',
+        'Capital Regional District', 'Greater Victoria Harbour Authority',
+    ].filter(place => title.toLowerCase().includes(place.toLowerCase()));
+    return [...new Set([...matches.map(address => compact(address)), ...namedPlaces])];
 }
 
 export function outcomeFromMinutes(text, title) {
@@ -246,7 +253,7 @@ async function makeOutput(rows, sourceLastRefreshed) {
     await enrichOutcomes(motions);
     for (const motion of motions) {
         const locations = locationsFromTitle(motion.title);
-        if (locations.length) motion.locationCandidates = locations.map(location => location.address);
+        if (locations.length) motion.locationCandidates = locations;
         motion.backgroundFiles = [
             motion.agendaUrl && { label: 'Council agenda', url: motion.agendaUrl },
             motion.decisionSourceUrl && { label: 'Council minutes', url: motion.decisionSourceUrl },
