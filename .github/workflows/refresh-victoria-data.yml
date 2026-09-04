@@ -25,7 +25,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install --yes poppler-utils
 
       - name: Import Victoria council data
-        run: node scripts/import_victoria_data.js --from=2022-11-01 --meetings=1000 --rows=10000
+        run: node scripts/import_victoria_data.js --from=2022-11-01 --meetings=1000 --rows=50000
 
       - name: Validate Victoria data
         run: npm run validate:victoria

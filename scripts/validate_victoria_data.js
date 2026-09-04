@@ -7,6 +7,7 @@ import path from 'node:path';
 
 const DATA_DIR = path.join(process.cwd(), 'public/data/victoria');
 const FROM_DATE = '2022-11-01';
+const MAX_SOURCE_AGE_DAYS = 90;
 const VALID_VOTES = new Set(['YES', 'NO', 'ABSENT', 'CONFLICT', 'NO_VOTE']);
 const VALID_STATUSES = new Set(['Adopted', 'Lost', 'Referred', 'Recorded']);
 
@@ -25,6 +26,12 @@ if (!motions.length) errors.push('no motions were imported');
 if (!meetings.length) errors.push('no meetings were imported');
 if (metadata.sample) errors.push('dataset is still marked as a sample');
 if (!metadata.sourceLastRefreshed) errors.push('dashboard refresh time is missing');
+else {
+    const sourceAge = Date.now() - new Date(metadata.sourceLastRefreshed).getTime();
+    if (!Number.isFinite(sourceAge) || sourceAge < 0 || sourceAge > MAX_SOURCE_AGE_DAYS * 86400000) {
+        errors.push(`dashboard data is older than ${MAX_SOURCE_AGE_DAYS} days`);
+    }
+}
 if (councillors.length !== 9) errors.push(`expected 9 council members, found ${councillors.length}`);
 
 for (const motion of motions) {
