@@ -284,7 +284,7 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
     : { yes: 'YES', no: 'NO', absent: 'Absent', abstain: 'Abstain', conflict: 'Conflict' };
   const committee = motion.committee || getCommittee(motion.id);
   const sourceUrl = motion.url || motion.sourceUrl;
-  const agendaUrl = isVancouver ? motion.agendaUrl : null;
+  const agendaUrl = motion.agendaUrl;
   const committeeHref = `/?committee=${encodeURIComponent(committee)}`;
   const topicHref = motion.topic ? `/?topic=${encodeURIComponent(motion.topic)}` : null;
   const isMultiVote = subEntries.length > 0;
@@ -574,6 +574,16 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
                   </a>
                 ))}
               </div>
+            </div>
+          )}
+
+          {motion.decisionSourceUrl && !motion.backgroundFiles?.some(file => file.url === motion.decisionSourceUrl) && (
+            <div className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-4">
+              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide mb-3">Documents</p>
+              <a href={motion.decisionSourceUrl} target="_blank" rel="noopener noreferrer" className="flex items-start gap-2 text-xs text-[#004a99] hover:underline leading-snug">
+                <FileText className="w-3.5 h-3.5 shrink-0 mt-0.5 text-slate-500" />
+                <span>Council minutes</span>
+              </a>
             </div>
           )}
 

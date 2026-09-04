@@ -19,6 +19,7 @@ import os from 'node:os';
 import path from 'node:path';
 import * as cheerio from 'cheerio';
 import fetch from 'node-fetch';
+import { classifyByKeywords } from './lib/topicClassification.js';
 
 /* global process, Buffer */
 
@@ -40,6 +41,15 @@ const VOTE_MAP = {
     Conflict: 'CONFLICT',
     Leave: 'ABSENT',
     Resigned: 'ABSENT',
+};
+
+const TOPIC_KEYWORDS = {
+    Housing: ['housing', 'rental', 'tenant', 'shelter', 'zoning', 'rezoning', 'residential', 'homeless', 'affordable', 'development permit', 'official community plan'],
+    Transit: ['transit', 'bike', 'cycling', 'pedestrian', 'traffic', 'road', 'street', 'bus', 'transportation', 'parking'],
+    Finance: ['budget', 'tax', 'levy', 'fee', 'financial', 'revenue', 'grant', 'contract', 'procurement', 'capital', 'borrowing', 'funding'],
+    Parks: ['park', 'recreation', 'garden', 'tree', 'playground', 'waterfront', 'shore', 'arena', 'community centre'],
+    Climate: ['climate', 'environment', 'emissions', 'carbon', 'energy', 'flood', 'resilience', 'sustainability', 'disaster', 'weather'],
+    Events: ['festival', 'event', 'celebration', 'permit', 'liquor', 'fireworks'],
 };
 
 function stableId(value) {
@@ -140,6 +150,11 @@ function compact(value) {
     return String(value || '').replace(/\s+/g, ' ').trim();
 }
 
+function locationsFromTitle(title) {
+    const matches = title.match(/\b\d{1,5}(?:\s*(?:and|&)\s*\d{1,5})?\s+[A-Z][A-Za-z.'-]*(?:\s+[A-Z][A-Za-z.'-]*){0,3}\s+(?:Street|St|Avenue|Ave|Road|Rd|Drive|Dr|Boulevard|Blvd|Lane|Ln|Court|Ct|Way|Crescent|Cres|Place|Pl|Trail|Terrace|Gate|Path|Circle|Parkway|Pkwy)\b/gi) ?? [];
+    return [...new Set(matches.map(address => ({ address: compact(address) })))] ;
+}
+
 export function outcomeFromMinutes(text, title) {
     const normalized = String(text || '').replace(/\u00a0/g, ' ').replace(/[ \t]+/g, ' ');
     const words = compact(title).split(/\s+/).filter(word => word.length > 3).slice(0, 6);
@@ -218,6 +233,7 @@ async function makeOutput(rows, sourceLastRefreshed) {
             agendaUrl: row.agendaUrl || null,
             meetingId: `vic-${stableId(`${row.date}|${row.agendaUrl}`)}`,
             meetingReference: `victoria-${stableId(`${row.date}|${row.agendaUrl}`)}`,
+            topic: classifyByKeywords(row.title, TOPIC_KEYWORDS),
         };
         const vote = VOTE_MAP[row.vote] ?? 'NO_VOTE';
         motion.votes[row.councillor] = vote;
@@ -228,6 +244,14 @@ async function makeOutput(rows, sourceLastRefreshed) {
 
     const motions = [...motionMap.values()].sort((a, b) => a.date.localeCompare(b.date) || a.id.localeCompare(b.id));
     await enrichOutcomes(motions);
+    for (const motion of motions) {
+        const locations = locationsFromTitle(motion.title);
+        if (locations.length) motion.locationCandidates = locations.map(location => location.address);
+        motion.backgroundFiles = [
+            motion.agendaUrl && { label: 'Council agenda', url: motion.agendaUrl },
+            motion.decisionSourceUrl && { label: 'Council minutes', url: motion.decisionSourceUrl },
+        ].filter(Boolean);
+    }
     const meetings = [...new Map(motions.map(motion => [motion.meetingId, {
         committee: motion.committee,
         date: motion.date,

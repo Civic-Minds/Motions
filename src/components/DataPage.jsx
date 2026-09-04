@@ -12,6 +12,7 @@ const SOURCE_URLS = {
   vancouver: 'https://opendata.vancouver.ca/explore/dataset/council-voting-records/',
   victoria: 'https://opendata.victoria.ca/pages/mayor-and-council',
   winnipeg: 'https://data.winnipeg.ca/Council-Services/Council-Voting-Data/f9mn-vti8',
+  yellowknife: 'https://events.yellowknife.ca/meetings',
 };
 
 // Toronto has ward boundary data wired up, so its motions map to wards.
@@ -70,7 +71,11 @@ export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toront
           <Database className="w-5 h-5 text-[#004a99]" />
           <h2 className="text-lg font-semibold text-slate-900">Sources</h2>
           <p className="text-sm leading-relaxed text-slate-500">
-            Voting records come from <a className={SOURCE_LINK_CLASS} href={sourceUrl} target="_blank" rel="noopener noreferrer">{jurisdiction.name} Open Data</a>. Meeting details and agenda records come from the City of {jurisdiction.name}’s council and committee pages.
+            {jurisdiction.id === 'victoria'
+              ? <>Victoria records are copied from the City’s official voting dashboard and meeting documents. Topic labels are simple keyword groupings; Motions does not generate summaries or significance scores for Victoria.</>
+              : jurisdiction.id === 'yellowknife'
+              ? <>Council decisions come from <a className={SOURCE_LINK_CLASS} href={sourceUrl} target="_blank" rel="noopener noreferrer">Yellowknife’s official meeting calendar</a>, which links to meeting agendas and minutes.</>
+              : <>Voting records come from <a className={SOURCE_LINK_CLASS} href={sourceUrl} target="_blank" rel="noopener noreferrer">{jurisdiction.name} Open Data</a>. Meeting details and agenda records come from the City of {jurisdiction.name}’s council and committee pages.</>}
           </p>
           <Link className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#004a99]" to="/sources">
             See all sources
@@ -109,7 +114,7 @@ export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toront
             <h2 className="font-semibold text-slate-900">Topics</h2>
             <p className="text-sm leading-relaxed text-slate-500">
               {jurisdiction.id === 'victoria'
-                ? 'Victoria records currently show source titles and vote results only; no automated topic or importance labels are added.'
+                ? 'Victoria records use simple keyword topic labels; no AI summaries or importance scores are added.'
                 : isToronto
                 ? 'A vote’s score weighs how contested it was, its outcome, and how much debate it got — big stuff like the budget or zoning gets a boost, routine items get docked.'
                 : 'A vote’s score weighs how contested it was, its topic, and its outcome — higher scores rise to the top.'}

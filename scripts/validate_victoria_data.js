@@ -10,6 +10,7 @@ const FROM_DATE = '2022-11-01';
 const MAX_SOURCE_AGE_DAYS = 90;
 const VALID_VOTES = new Set(['YES', 'NO', 'ABSENT', 'CONFLICT', 'NO_VOTE']);
 const VALID_STATUSES = new Set(['Adopted', 'Lost', 'Referred', 'Recorded']);
+const VALID_TOPICS = new Set(['Housing', 'Transit', 'Finance', 'Parks', 'Climate', 'Events', 'General']);
 
 function readJson(file) {
     return JSON.parse(fs.readFileSync(path.join(DATA_DIR, file), 'utf8'));
@@ -39,12 +40,21 @@ for (const motion of motions) {
     ids.add(motion.id);
     if (!motion.title || !motion.date || motion.date < FROM_DATE) errors.push(`invalid date/title: ${motion.id}`);
     if (!motion.sourceUrl) errors.push(`missing official source URL: ${motion.id}`);
+    if (!motion.backgroundFiles?.length) errors.push(`missing direct official document: ${motion.id}`);
     if (!VALID_STATUSES.has(motion.status)) errors.push(`invalid status ${motion.status}: ${motion.id}`);
-    if (motion.topic !== undefined) errors.push(`source-only record contains topic enrichment: ${motion.id}`);
+    if (!VALID_TOPICS.has(motion.topic)) errors.push(`invalid topic: ${motion.id}`);
     if (motion.significance !== 0 || motion.trivial !== true) errors.push(`source-only scoring fields are not neutral: ${motion.id}`);
     for (const [member, vote] of Object.entries(motion.votes ?? {})) {
         if (!councillors.includes(member)) errors.push(`unknown councillor ${member}: ${motion.id}`);
         if (!VALID_VOTES.has(vote)) errors.push(`invalid vote ${vote}: ${motion.id}`);
+    }
+    for (const location of motion.locations ?? []) {
+        if (!location.address || !Number.isFinite(Number(location.lat)) || !Number.isFinite(Number(location.lng))) {
+            errors.push(`invalid location: ${motion.id}`);
+        }
+    }
+    for (const file of motion.backgroundFiles ?? []) {
+        if (!file.label || !/^https:\/\//.test(file.url)) errors.push(`invalid document link: ${motion.id}`);
     }
 }
 

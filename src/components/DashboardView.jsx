@@ -628,7 +628,7 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
             </div>
             <CivicCard className="flex-1">
               <Vote className="w-4 h-4 text-[#004a99]" />
-              <p className="text-xs font-semibold text-slate-800 line-clamp-3 leading-snug">Ward-level browsing isn’t available for {jurisdiction.name} yet — browse the full council instead.</p>
+              <p className="text-xs font-semibold text-slate-800 line-clamp-3 leading-snug">{jurisdiction.geography === 'atLarge' ? `${jurisdiction.name} elects councillors citywide — browse the full council.` : `Ward-level browsing isn’t available for ${jurisdiction.name} yet — browse the full council instead.`}</p>
               <CivicCardFooter>
                 <span className="text-[9px] text-slate-500">{jurisdiction.currentCouncillors?.length ?? 0} members</span>
                 <Link to="/councillors" className="text-[9px] font-semibold text-[#004a99]">See council</Link>
