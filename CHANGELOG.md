@@ -8,6 +8,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Changed
 
+- **Yellowknife council coverage**: Registered Yellowknife as a citywide jurisdiction and added an importer for its official agenda/minutes records, bringing the city’s council decisions onto the shared Motions data model.
 - **Faster font load**: The Inter font stylesheet no longer blocks first paint — it loads in the background and swaps in once ready.
 - **Smaller councillor photos**: Headshots were being served at their full 820×1024 source size everywhere, including 40px avatars — resized to the largest size actually used on screen, cutting the councillor photo payload from 5.3MB to about 0.2MB. Avatars below the fold now also defer loading until scrolled into view.
 - **Faster page load**: The dashboard no longer waits on the full meetings history (~300KB gzipped) before showing content — only its small "next meeting" card needs that data, so it now loads in the background instead of blocking first render.
@@ -17,6 +18,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 ### Fixed
 
 - **Broken social share images**: Toronto's share preview image (used when links are posted to X, Facebook, Slack, etc.) showed empty boxes instead of text — the generator asked for the "Arial" font, which doesn't exist on Vercel's servers. It now embeds Inter directly so the image always renders correctly. Vancouver, Victoria, and Yellowknife still need the same fix.
+- **Incumbents who aren't on the ballot**: The Election page listed every ward's sitting councillor as a 2026 candidate, even when they were retiring, running in a different ward, or running for mayor — wrong in four wards. Each ward now states which, and only shows the "Incumbent" tag when the councillor is actually on that ward's ballot.
 - **Transparency refresh date**: The production data endpoint now serves metadata correctly, so the Transparency page can show when council data was last checked.
 - **Vancouver title audit**: Data refreshes now report malformed titles or lost tracked corrections before upload without blocking otherwise valid new data.
 

@@ -19,6 +19,32 @@ const TorontoFullMap = lazy(() => import('./TorontoFullMap'));
 
 const candidateCountLabel = count => `${count.toLocaleString()} candidate${count === 1 ? '' : 's'}`;
 
+const normalizeName = name => (name || '')
+  .normalize('NFD')
+  .replace(/[̀-ͯ]/g, '')
+  .toLowerCase()
+  .replace(/[^a-z ]/g, ' ')
+  .replace(/\s+/g, ' ')
+  .trim();
+
+// A sitting councillor is not automatically a 2026 candidate: they may be retiring,
+// switching wards, or running for mayor. Their name must be matched against the
+// nomination list before the ballot shows them as one.
+function resolveIncumbentStatus(candidateData, wardId, councillorName) {
+  if (!candidateData || !wardId || !councillorName) return null;
+  const target = normalizeName(councillorName);
+  const matches = list => (list || []).some(candidate => normalizeName(candidate.name) === target);
+
+  if (matches(candidateData.wards?.[wardId])) return { label: 'Incumbent', status: null, onBallot: true };
+  if (matches(candidateData.mayor)) return { label: 'Your councillor', status: 'Running for mayor', onBallot: false };
+
+  const otherWard = Object.entries(candidateData.wards || {})
+    .find(([id, list]) => id !== wardId && matches(list))?.[0];
+  if (otherWard) return { label: 'Your councillor', status: `Running in Ward ${otherWard}`, onBallot: false };
+
+  return { label: 'Your councillor', status: 'Not seeking re-election', onBallot: false };
+}
+
 const ELECTION_DAY_TEXT = 'October 26, 2026, from 10 a.m. to 8 p.m.';
 const ADVANCE_VOTING_TEXT = 'October 6–11, 2026, from 10 a.m. to 7 p.m.';
 const VOTER_INFO_URL = 'https://www.toronto.ca/city-government/elections/voter-information/';
@@ -301,6 +327,16 @@ export default function ElectionView() {
   const councillorName = savedWardId ? WARD_COUNCILLORS[savedWardId] : null;
   const selectedCouncillorName = selectedWardId ? WARD_COUNCILLORS[selectedWardId] : null;
 
+  const selectedIncumbentStatus = useMemo(
+    () => resolveIncumbentStatus(candidateData, selectedWardId, selectedCouncillorName),
+    [candidateData, selectedWardId, selectedCouncillorName]
+  );
+
+  const savedIncumbentStatus = useMemo(
+    () => resolveIncumbentStatus(candidateData, savedWardId, councillorName),
+    [candidateData, savedWardId, councillorName]
+  );
+
   const wardCandidateCounts = useMemo(() => {
     if (!candidateData) return null;
     return Object.fromEntries(
@@ -378,8 +414,11 @@ export default function ElectionView() {
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="text-[10px] font-bold text-[#004a99] uppercase tracking-widest">Incumbent</p>
+                        <p className="text-[10px] font-bold text-[#004a99] uppercase tracking-widest">{savedIncumbentStatus?.label || 'Incumbent'}</p>
                         <p className="text-xs text-slate-500">{councillorName}</p>
+                        {savedIncumbentStatus?.status && (
+                          <p className="text-[10px] text-amber-700 font-semibold">{savedIncumbentStatus.status}</p>
+                        )}
                       </div>
                     </div>
 
@@ -459,13 +498,22 @@ export default function ElectionView() {
                 <h4 className="font-bold text-sm text-slate-900">{selectedWard ? `Ward ${selectedWard.id} · ${selectedWard.name}` : 'Choose a ward first'}</h4>
                   </div>
                 </div>
-                {selectedWard && selectedCouncillorName && (
-                  <div className="flex items-center justify-between gap-3 rounded-xl bg-slate-50 border border-slate-200 px-3 py-2.5">
+                {selectedWard && selectedCouncillorName && selectedIncumbentStatus && (
+                  <div className={cn(
+                    "flex items-center justify-between gap-3 rounded-xl border px-3 py-2.5",
+                    selectedIncumbentStatus.onBallot ? "bg-slate-50 border-slate-200" : "bg-amber-50 border-amber-200"
+                  )}>
                     <div>
-                      <p className="text-[9px] font-bold text-[#004a99] uppercase tracking-widest">Incumbent</p>
+                      <p className={cn(
+                        "text-[9px] font-bold uppercase tracking-widest",
+                        selectedIncumbentStatus.onBallot ? "text-[#004a99]" : "text-amber-700"
+                      )}>{selectedIncumbentStatus.label}</p>
                       <p className="text-sm font-bold text-slate-900">{selectedCouncillorName}</p>
+                      {selectedIncumbentStatus.status && (
+                        <p className="text-[11px] text-amber-800">{selectedIncumbentStatus.status}, so they are not on this ward's ballot.</p>
+                      )}
                     </div>
-                    <Link to={`/councillors/${nameToSlug(selectedCouncillorName)}`} className="text-xs font-semibold text-[#004a99] hover:underline">Voting Record</Link>
+                    <Link to={`/councillors/${nameToSlug(selectedCouncillorName)}`} className="text-xs font-semibold text-[#004a99] hover:underline shrink-0">Voting Record</Link>
                   </div>
                 )}
                 <CandidateList
