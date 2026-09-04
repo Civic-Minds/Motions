@@ -19,7 +19,7 @@ import os from 'node:os';
 import path from 'node:path';
 import * as cheerio from 'cheerio';
 import fetch from 'node-fetch';
-import { classifyByKeywords } from './lib/topicClassification.js';
+import { classifyVictoriaTopic } from './lib/victoriaClassification.js';
 
 /* global process, Buffer */
 
@@ -41,15 +41,6 @@ const VOTE_MAP = {
     Conflict: 'CONFLICT',
     Leave: 'ABSENT',
     Resigned: 'ABSENT',
-};
-
-const TOPIC_KEYWORDS = {
-    Housing: ['housing', 'rental', 'tenant', 'shelter', 'zoning', 'rezoning', 'residential', 'homeless', 'affordable', 'development permit', 'official community plan'],
-    Transit: ['transit', 'bike', 'cycling', 'pedestrian', 'traffic', 'road', 'street', 'bus', 'transportation', 'parking'],
-    Finance: ['budget', 'tax', 'levy', 'fee', 'financial', 'revenue', 'grant', 'contract', 'procurement', 'capital', 'borrowing', 'funding'],
-    Parks: ['park', 'recreation', 'garden', 'tree', 'playground', 'waterfront', 'shore', 'arena', 'community centre'],
-    Climate: ['climate', 'environment', 'emissions', 'carbon', 'energy', 'flood', 'resilience', 'sustainability', 'disaster', 'weather'],
-    Events: ['festival', 'event', 'celebration', 'permit', 'liquor', 'fireworks'],
 };
 
 function stableId(value) {
@@ -240,7 +231,7 @@ async function makeOutput(rows, sourceLastRefreshed) {
             agendaUrl: row.agendaUrl || null,
             meetingId: `vic-${stableId(`${row.date}|${row.agendaUrl}`)}`,
             meetingReference: `victoria-${stableId(`${row.date}|${row.agendaUrl}`)}`,
-            topic: classifyByKeywords(row.title, TOPIC_KEYWORDS),
+            topic: classifyVictoriaTopic(row.title),
         };
         const vote = VOTE_MAP[row.vote] ?? 'NO_VOTE';
         motion.votes[row.councillor] = vote;

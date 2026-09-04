@@ -12,6 +12,7 @@
     "validate:vancouver": "node scripts/validate_vancouver_data.js",
     "validate:victoria": "node scripts/validate_victoria_data.js",
     "geocode:victoria": "node scripts/geocode_victoria_data.js",
+    "review:victoria-categories": "node scripts/review_victoria_categories.js",
     "optimize:images": "node scripts/optimize_councillor_photos.js"
   },
   "dependencies": {
