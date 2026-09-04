@@ -2,6 +2,9 @@
   "framework": "vite",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
+  "functions": {
+    "api/og.js": { "includeFiles": "api/fonts/**" }
+  },
   "redirects": [
     { "source": "/toronto/", "destination": "/toronto", "permanent": true },
     { "source": "/vancouver/", "destination": "/vancouver", "permanent": true }
