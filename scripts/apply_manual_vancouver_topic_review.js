@@ -482,6 +482,20 @@ const decisions = new Map([
   ['Declaration of Dangerous Building at 500 Dunsmuir Street, Vancouver - Second Amendment', 'Public Safety'],
   ['Youth Voices: Amend the Charter for Age Sixteen Starter', 'Governance'],
   ['Nomination Subcommittee Recommendations Transmittal Report', 'Governance'],
+  ["Provincial 'Growing Communities Fund': Initial Allocation to City Projects - amendment two", 'Finance'],
+  ['Whistleblower Policy Update', 'Governance'],
+  ['Creating a Regulatory Framework for Retail Sales of Psilocybin and Entheogens in Vancouver', 'Public Safety'],
+  ['Cultural Tourism Events Fund', 'Parks'],
+  ['Inappropriate Public Behaviours - Updating the City\'s Violence Prevention Program to Ensure a Respectful and Safe Work Environment for Employees', 'Public Safety'],
+  ['Business Improvement Areas (BIA) Renewals and Expansion 2025', 'Finance'],
+  ['Update on the Youth Safety and Violence Prevention Strategy 2023-2026 and Building Safer Communities Program Sustainability Plan', 'Public Safety'],
+  ['Change Orders for Consulting Services for ServiceNow Resources Augmentation', 'Finance'],
+  ['Identifying Progressive Revenues to Protect Public Services', 'Finance'],
+  ['No More Developer Handouts: Requiring the Full Replacement of Waived SRA Conversion Fees', 'Housing'],
+  ["Ensuring Continuity of the Women's Equity Strategy Following the Closure of the Equity Office", 'Governance'],
+  ['2026 Annual Review of Water Rates and Water Works By-law Amendments', 'Finance'],
+  ['Demolition Permitting Optimization - Adopted on Consent', 'Planning & Development'],
+  ['(519) Text Amendment and Gaming Control Act Approval: 39-65 Smithe Street', 'Planning & Development'],
 ]);
 
 const motions = JSON.parse(fs.readFileSync(path, 'utf8'));

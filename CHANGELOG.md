@@ -8,7 +8,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Changed
 
-- Manually reviewed all 2,164 Vancouver motion topics against their titles, correcting 478 clear category errors while leaving defensible and ambiguous classifications unchanged.
+- Manually reviewed all 2,164 Vancouver motion topics against their titles, correcting 492 clear category errors while leaving defensible and ambiguous classifications unchanged.
 - Manually reviewed all 592 Yellowknife motion topics against their titles, correcting 60 clear category errors while leaving defensible and ambiguous classifications unchanged.
 - Spot-checked 30 Yellowknife motions by hand and corrected the remaining clear Governance miss in the corporate risk-oversight record.
 - Unified motion topic categories across all four cities (Toronto, Vancouver, Victoria, Yellowknife) to the same nine labels — added Planning & Development, Governance, and Public Safety, retired the Toronto/Vancouver-only "Events" bucket, and gave Yellowknife real topic classification for the first time instead of a hardcoded General. Board/committee appointments now consistently route to Governance instead of landing in whichever board's own topic (e.g. a TTC board appointment no longer shows up under Transit).
