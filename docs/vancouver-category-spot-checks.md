@@ -47,5 +47,6 @@ records where the title clearly named that subject.
 Nine further batches of 108 motions were reviewed by hand. Selection continued
 from the remaining IDs using the same deterministic order; no sampled motion
 was reused. Batch 15 had 8 clear mismatches (92.6% accurate), which were fixed
-before the next round. Because the target is per round, the review remains
+before the next round. Batches 16–20 also remained below 95% and were corrected
+before sampling onward. Because the target is per round, the review remains
 active until one fresh 108-motion round reaches at least 103 correct records.

@@ -496,6 +496,21 @@ const decisions = new Map([
   ['2026 Annual Review of Water Rates and Water Works By-law Amendments', 'Finance'],
   ['Demolition Permitting Optimization - Adopted on Consent', 'Planning & Development'],
   ['(519) Text Amendment and Gaming Control Act Approval: 39-65 Smithe Street', 'Planning & Development'],
+  ['- Funding Application to the UBCM Community Emergency Preparedness Fund for Emergency Support Services', 'Public Safety'],
+  ['CD-1 Text Amendment: Vancouver Community College (1111 East 7th Avenue, 1155 East Broadway and 2350 Glen Drive)', 'Planning & Development'],
+  ["Provincial 'Growing Communities Fund': Initial Allocation to City Projects - amendment 3 with D and subection ii", 'Finance'],
+  ['CD-1 Text Amendment: 1111 East 7th Avenue, 1155 East Broadway and 2350 Glen Drive', 'Planning & Development'],
+  ['Shared Electric Kick Scooter Pilot By-Law Amendments - Adopted on Consent', 'Transit'],
+  ["Revisiting and Refreshing Vancouver's Commitment to Safer Slower Streets - Amended Motion", 'Transit'],
+  ['Agricultural Land Reserve - Soil Deposit at 2999 West 53rd Avenue', 'Planning & Development'],
+  ['Vancouver Civic Theatres Rental Rates 2025-2026', 'Parks'],
+  ['CD-1 (25) Amendment: 3215 Macdonald Street', 'Planning & Development'],
+  ["Mayor's Budget Task Force Implementation Oversight Committee Recommendations Transmittal Report", 'Governance'],
+  ['Expanding the School Travel Planning Program - First Clause of Amendment', 'Transit'],
+  ['Removing Obstacles Preventing Sustainable Food Systems in Vancouver', 'Climate'],
+  ['Vancouver Community Sport Event Grants â€“ Fall 2023 Intake - Adopted on Consent', 'Parks'],
+  ['Vancouver Civic Theatres Rental Rates 2026-2027', 'Parks'],
+  ['2026 Annual Review of Sewer Rates â€“ Sewer and Watercourse By-law', 'Finance'],
 ]);
 
 const motions = JSON.parse(fs.readFileSync(path, 'utf8'));
