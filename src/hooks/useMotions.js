@@ -46,7 +46,18 @@ export function useMotions(jurisdiction = { id: 'toronto', dataBaseEnv: 'VITE_BL
             // paint — fetch it in the background instead of blocking `loading`.
             fetch(meetingsUrl)
                 .then(res => res.ok ? res.json() : [])
-                .then(meetingsData => { if (isMounted) setMeetings(meetingsData); })
+                .then(meetingsData => {
+                    if (!isMounted) return;
+                    setMeetings(jurisdiction.id === 'vancouver'
+                        ? meetingsData.map(meeting => ({
+                            ...meeting,
+                            agendaItems: meeting.agendaItems?.map(item => ({
+                                ...item,
+                                title: cleanVancouverTitle(item.title, item.reference),
+                            })),
+                        }))
+                        : meetingsData);
+                })
                 .catch(err => console.error('Error loading meetings:', err));
 
             // A flaky connection can return a 200 with an HTML error/captive-portal
