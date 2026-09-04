@@ -24,5 +24,4 @@ export const OTHER_ELECTION_CITIES = [
   { name: 'Ottawa', electionDate: '2026-10-26', lat: 45.4215, lng: -75.6972 },
   { name: 'Hamilton', electionDate: '2026-10-26', lat: 43.2557, lng: -79.8711 },
   { name: 'Victoria', electionDate: '2026-10-17', lat: 48.4284, lng: -123.3656 },
-  { name: 'Yellowknife', electionDate: '2026-10-19', status: 'Coming soon', lat: 62.4540, lng: -114.3718 },
 ];

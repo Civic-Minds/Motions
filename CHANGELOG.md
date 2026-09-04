@@ -22,6 +22,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Yellowknife administrative records**: Routine minute approvals and meeting adjournments no longer clutter the public motion list, while remaining available in the underlying records.
 - **Yellowknife motion titles**: Imported decisions now show the actual motion question instead of mover/seconder and adjacent agenda-item text.
 - **Yellowknife homepage decisions**: Removed OCR, embedded PDF header artifacts, and misleading homepage labels from imported decisions.
+- **Duplicate Yellowknife pin on the homepage map**: Yellowknife appeared twice — once as a real, clickable city and once as a muted "Coming soon" placeholder left over from before it launched.
 - **Transparency refresh date**: The production data endpoint now serves metadata correctly, so the Transparency page can show when council data was last checked.
 - **Vancouver title audit**: Data refreshes now report malformed titles or lost tracked corrections before upload without blocking otherwise valid new data.
 
