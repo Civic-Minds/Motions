@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { formatElectionDate } from '../utils/electionDate';
-import { JURISDICTIONS } from '../constants/jurisdictions';
+import { getVisibleJurisdictions } from '../constants/jurisdictions';
 import { trackGoogleEvent } from '../utils/googleAnalytics';
 
 const linkClass = 'text-sm text-slate-500 transition-colors hover:text-slate-900';
@@ -38,7 +38,7 @@ export default function SiteFooter({ jurisdiction, standalone = false }) {
         <div className="space-y-3 lg:col-start-3">
           <p className="text-[10px] font-bold uppercase tracking-wide text-slate-500">Cities</p>
           <div className="flex flex-col gap-2">
-            {Object.values(JURISDICTIONS).map(city => (
+            {getVisibleJurisdictions().map(city => (
               <a key={city.id} href={city.path} onClick={scrollToTop} className={linkClass}>{city.name}</a>
             ))}
             <a href="/" onClick={scrollToTop} className={linkClass}>All cities</a>

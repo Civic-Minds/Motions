@@ -4,7 +4,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import { ExternalLink, Mail, Phone, Vote } from 'lucide-react';
 import VsPickerModal from './VsPickerModal';
 import { getAttendance, getVotedWith } from '../utils/analytics';
-import { TOPIC_LIGHT, WARD_COUNCILLORS, FORMER_MEMBERS, getCommittee } from '../constants/data';
+import { TOPIC_LIGHT, TOPICS, WARD_COUNCILLORS, FORMER_MEMBERS, getCommittee } from '../constants/data';
 import { nameToSlug, slugToName } from '../utils/slug';
 import { COUNCILLOR_WARD } from '../utils/councillorWard';
 import { cn } from '../lib/utils';
@@ -387,7 +387,7 @@ export default function CouncillorProfile({ motions, councillors = [], jurisdict
 
   const dna = useMemo(() => {
     if (!selected) return [];
-    return ['Housing', 'Transit', 'Finance', 'Parks', 'Climate', 'General']
+    return TOPICS
       .map(topic => {
         const relevant = motions.filter(m => m.topic === topic && m.votes?.[selected]);
         const total = relevant.length;

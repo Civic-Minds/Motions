@@ -28,14 +28,14 @@
 import fs from 'fs';
 import path from 'path';
 
-const DATA_PATH = path.join(process.cwd(), 'public/data/motions.json');
-
 const args = Object.fromEntries(
   process.argv.slice(2)
     .filter(a => a.startsWith('--'))
     .map(a => { const [k, v] = a.slice(2).split('='); return [k, v ?? true]; })
 );
 const FORCE = !!args['force'];
+const CITY = args['city'] ?? 'toronto';
+const DATA_PATH = path.join(process.cwd(), CITY === 'toronto' ? 'public/data/motions.json' : `public/data/${CITY}/motions.json`);
 
 // ─── Dollar amount extraction ─────────────────────────────────────────────────
 

@@ -2,10 +2,9 @@ import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { ExternalLink } from 'lucide-react';
 import { cn } from '../lib/utils';
-import { TOPIC_LIGHT } from '../constants/data';
+import { TOPIC_LIGHT, TOPICS } from '../constants/data';
 import { formatMotionDate } from '../utils/date';
 
-const TOPICS = ['Housing', 'Transit', 'Finance', 'Parks', 'Climate', 'General'];
 const isRecordedVote = value => value === 'YES' || value === 'NO';
 
 export default function VersusOverlay({ selection, onClose, motions }) {

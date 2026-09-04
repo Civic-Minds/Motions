@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect, useReducer, lazy, Suspense } from 
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { AlertCircle, X, Search, Star, Calendar, Vote } from 'lucide-react';
 import { cn } from '../lib/utils';
-import { getCommittee, TOPIC_LIGHT, TOPIC_DOT, WARD_COUNCILLORS } from '../constants/data';
+import { getCommittee, TOPIC_LIGHT, TOPIC_DOT, TOPICS, WARD_COUNCILLORS } from '../constants/data';
 import { getWardId } from '../utils/storage';
 import { committeeToSlug } from '../utils/slug';
 import { fetchWardBoundaries, motionBelongsToWard } from '../utils/ward';
@@ -17,8 +17,8 @@ import { CivicCard, CivicCardFooter, CivicPill } from './ui/CivicCard';
 
 const TorontoMiniMap = lazy(() => import('./TorontoMiniMap'));
 const VancouverMiniMap = lazy(() => import('./VancouverMiniMap'));
-
-const TOPICS = ['Housing', 'Transit', 'Finance', 'Parks', 'Climate', 'General'];
+const VictoriaMiniMap = lazy(() => import('./VictoriaMiniMap'));
+const YellowknifeMiniMap = lazy(() => import('./YellowknifeMiniMap'));
 
 const VOTE_TYPES = [
   { label: 'All', value: 'All' },
@@ -397,6 +397,8 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
   const { followedCommittees = [] } = useAppContext();
   const isVancouver = jurisdiction.id === 'vancouver';
   const isToronto = jurisdiction.id === 'toronto';
+  const isVictoria = jurisdiction.id === 'victoria';
+  const isYellowknife = jurisdiction.id === 'yellowknife';
   const hasElectionPromo = isToronto || isVancouver;
   const electionOver = isOnOrAfter(jurisdiction.election?.date);
   const navigate = useNavigate();
@@ -628,7 +630,7 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
             </div>
             <CivicCard className="flex-1">
               <Vote className="w-4 h-4 text-[#004a99]" />
-              <p className="text-xs font-semibold text-slate-800 line-clamp-3 leading-snug">Ward-level browsing isn’t available for {jurisdiction.name} yet — browse the full council instead.</p>
+              <p className="text-xs font-semibold text-slate-800 line-clamp-3 leading-snug">{jurisdiction.geography === 'atLarge' ? `${jurisdiction.name} elects councillors citywide — browse the full council.` : `Ward-level browsing isn’t available for ${jurisdiction.name} yet — browse the full council instead.`}</p>
               <CivicCardFooter>
                 <span className="text-[9px] text-slate-500">{jurisdiction.currentCouncillors?.length ?? 0} members</span>
                 <Link to="/councillors" className="text-[9px] font-semibold text-[#004a99]">See council</Link>
@@ -700,7 +702,7 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
       {/* ── Main: Filter sidebar + motion list (same column widths as bento) ── */}
       <div className={cn(
         'grid grid-cols-1 lg:gap-x-3 lg:items-start gap-y-4',
-        (isToronto || isVancouver) ? 'lg:grid-cols-[200px_1fr_220px]' : 'lg:grid-cols-[200px_1fr]'
+        (isToronto || isVancouver || isVictoria || isYellowknife) ? 'lg:grid-cols-[200px_1fr_220px]' : 'lg:grid-cols-[200px_1fr]'
       )}>
 
         <FilterSidebar>
@@ -730,13 +732,14 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
 
         <UpcomingMeeting meetings={meetings} navigate={navigate} className="lg:hidden" />
 
-        {/* City mini-map — Toronto/Vancouver only for now; each mini-map is
-            its own hand-built component with a hardcoded city center, and
-            neither has real geocoded locations to plot for other cities. */}
-        {(isToronto || isVancouver) && (
+        {/* City mini-map — each is its own hand-built component with a
+            hardcoded city center. Yellowknife's agenda rarely names a
+            specific address, so its coverage will stay thin (single digits
+            of motions) even as more meetings get imported. */}
+        {(isToronto || isVancouver || isVictoria || isYellowknife) && (
           <div className="hidden lg:flex flex-col sticky top-24">
             <Suspense fallback={<div className="rounded-2xl bg-slate-100 animate-pulse h-[calc(100vh-7rem)] min-h-[480px] border border-slate-200" />}>
-              {isVancouver ? <VancouverMiniMap motions={motions} /> : <TorontoMiniMap motions={motions} />}
+              {isVancouver ? <VancouverMiniMap motions={motions} /> : isVictoria ? <VictoriaMiniMap motions={motions} /> : isYellowknife ? <YellowknifeMiniMap motions={motions} /> : <TorontoMiniMap motions={motions} />}
             </Suspense>
           </div>
         )}

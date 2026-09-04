@@ -25,10 +25,10 @@ const args = Object.fromEntries(
     .map(a => { const [k, v] = a.slice(2).split('='); return [k, v ?? true]; })
 );
 
-const IS_VANCOUVER = !!args.vancouver;
-const CITY_NAME = IS_VANCOUVER ? 'Vancouver' : 'Toronto';
-const DATA_PATH  = path.join(process.cwd(), IS_VANCOUVER ? 'public/data/vancouver/motions.json' : 'public/data/motions.json');
-const CACHE_PATH = path.join(process.cwd(), IS_VANCOUVER ? 'scripts/cache/vancouver_summaries_cache.json' : 'scripts/cache/summaries_cache.json');
+const CITY = args.city ?? (args.vancouver ? 'vancouver' : 'toronto');
+const CITY_NAME = CITY[0].toUpperCase() + CITY.slice(1);
+const DATA_PATH  = path.join(process.cwd(), CITY === 'toronto' ? 'public/data/motions.json' : `public/data/${CITY}/motions.json`);
+const CACHE_PATH = path.join(process.cwd(), CITY === 'toronto' ? 'scripts/cache/summaries_cache.json' : `scripts/cache/${CITY}_summaries_cache.json`);
 const LIMIT       = args['limit']        ? parseInt(args['limit'], 10) : Infinity;
 const FORCE       = !!args['force'];
 const FILL_AMOUNTS = !!args['fill-amounts'];

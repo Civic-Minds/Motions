@@ -22,6 +22,14 @@ const SOURCES = [
     label: 'Vancouver Open Data',
   },
   {
+    city: 'Victoria',
+    category: 'Open Data',
+    icon: Database,
+    description: 'Official council voting records published through the City of Victoria’s public dashboard.',
+    href: 'https://opendata.victoria.ca/pages/mayor-and-council',
+    label: 'Victoria council dashboard',
+  },
+  {
     city: 'Toronto',
     category: 'Council Pages',
     icon: Building2,
@@ -38,6 +46,14 @@ const SOURCES = [
     label: 'Vancouver council pages',
   },
   {
+    city: 'Victoria',
+    category: 'Council Pages',
+    icon: Building2,
+    description: 'Official meeting agendas, minutes, and archived webcasts for Victoria City Council.',
+    href: 'https://www.victoria.ca/city-government/mayor-council/council-committee-meetings',
+    label: 'Victoria council pages',
+  },
+  {
     city: 'Winnipeg',
     category: 'Open Data',
     icon: Database,
@@ -52,6 +68,14 @@ const SOURCES = [
     description: 'Official meeting agendas, minutes, and decisions on the Decision Making Information System (DMIS).',
     href: 'https://dmis.winnipeg.ca/',
     label: 'Winnipeg council pages',
+  },
+  {
+    city: 'Yellowknife',
+    category: 'Council Pages',
+    icon: Building2,
+    description: 'Official meeting agendas, minutes, and recordings from Yellowknife City Council and committees.',
+    href: 'https://events.yellowknife.ca/meetings',
+    label: 'Yellowknife council calendar',
   },
   {
     city: 'Maps',

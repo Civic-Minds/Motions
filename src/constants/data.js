@@ -48,15 +48,19 @@ export const WARD_COUNCILLORS = {
 };
 
 // ─── Topic styling ────────────────────────────────────────────────────────────
+// Keys here are the canonical short topic labels from docs/CATEGORIZATION_GUIDE.md.
+// Every city's classifier must emit one of these exact strings.
 
 /** Bordered pill — used in ContestBoard, VersusOverlay */
 export const TOPIC_BADGE = {
     Housing: 'border-stone-400 text-stone-700 bg-stone-50',
     Transit: 'border-red-400 text-red-600 bg-red-50',
     Finance: 'border-emerald-400 text-emerald-700 bg-emerald-50',
+    'Planning & Development': 'border-indigo-400 text-indigo-700 bg-indigo-50',
     Parks:   'border-lime-400 text-lime-700 bg-lime-50',
     Climate: 'border-cyan-400 text-cyan-700 bg-cyan-50',
-    Events:  'border-purple-400 text-purple-700 bg-purple-50',
+    Governance: 'border-purple-400 text-purple-700 bg-purple-50',
+    'Public Safety': 'border-orange-400 text-orange-700 bg-orange-50',
     General: 'border-slate-300 text-slate-500 bg-slate-50',
 };
 
@@ -65,9 +69,11 @@ export const TOPIC_LIGHT = {
     Housing: 'bg-stone-50 text-stone-700',
     Transit: 'bg-amber-50 text-amber-700',
     Finance: 'bg-emerald-50 text-emerald-700',
+    'Planning & Development': 'bg-indigo-50 text-indigo-700',
     Parks:   'bg-lime-50 text-lime-700',
     Climate: 'bg-cyan-50 text-cyan-700',
-    Events:  'bg-purple-50 text-purple-700',
+    Governance: 'bg-purple-50 text-purple-700',
+    'Public Safety': 'bg-orange-50 text-orange-700',
     General: 'bg-slate-100 text-slate-600',
 };
 
@@ -76,9 +82,11 @@ export const TOPIC_DOT = {
     Housing: 'bg-stone-500',
     Transit: 'bg-amber-500',
     Finance: 'bg-emerald-500',
+    'Planning & Development': 'bg-indigo-500',
     Parks:   'bg-lime-500',
     Climate: 'bg-cyan-500',
-    Events:  'bg-purple-500',
+    Governance: 'bg-purple-500',
+    'Public Safety': 'bg-orange-500',
     General: 'bg-slate-400',
 };
 
@@ -87,11 +95,31 @@ export const TOPIC_PILL = {
     Housing: 'bg-stone-50 text-stone-700',
     Transit: 'bg-red-50 text-red-600',
     Finance: 'bg-emerald-50 text-emerald-700',
+    'Planning & Development': 'bg-indigo-50 text-indigo-700',
     Parks:   'bg-lime-50 text-lime-700',
     Climate: 'bg-cyan-50 text-cyan-700',
-    Events:  'bg-purple-50 text-purple-700',
+    Governance: 'bg-purple-50 text-purple-700',
+    'Public Safety': 'bg-orange-50 text-orange-700',
     General: 'bg-slate-100 text-slate-600',
 };
+
+/** Full descriptive name — used on the motion detail page and anywhere the
+ *  short sidebar label alone would be ambiguous. Keys match TOPIC_LIGHT. */
+export const TOPIC_LONG = {
+    Housing: 'Housing & Homelessness',
+    Transit: 'Transit & Transportation',
+    Finance: 'Finance & Budgets',
+    'Planning & Development': 'Planning, Zoning & Development',
+    Parks: 'Parks, Recreation & Culture',
+    Climate: 'Climate & Environment',
+    Governance: 'Governance & Council Operations',
+    'Public Safety': 'Public Safety & Emergency Services',
+    General: 'General',
+};
+
+/** Canonical short topic labels, in guide order. Single source of truth for
+ *  filter lists — derive from this instead of hand-writing topic arrays. */
+export const TOPICS = Object.keys(TOPIC_LIGHT);
 
 /** Badge + dot tokens — used in MotionTable */
 export const TOPIC_COLOR = {

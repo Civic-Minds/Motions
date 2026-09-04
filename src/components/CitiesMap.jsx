@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { MapContainer, TileLayer, CircleMarker, Tooltip, useMap, useMapEvents } from 'react-leaflet';
 import { ArrowRight } from 'lucide-react';
 import { cn } from '../lib/utils';
-import { COVERED_CITIES, OTHER_ELECTION_CITIES } from '../constants/cities';
-import { JURISDICTIONS } from '../constants/jurisdictions';
+import { OTHER_ELECTION_CITIES } from '../constants/cities';
+import { getVisibleJurisdictions } from '../constants/jurisdictions';
 import { isOnOrAfter, formatElectionDateFull } from '../utils/electionDate';
 import 'leaflet/dist/leaflet.css';
 import MapZoomControls from './MapZoomControls';
@@ -14,6 +14,17 @@ const CANADA_BOUNDS = [
   [41.5, -141],
   [68, -52],
 ];
+const coveredCities = getVisibleJurisdictions()
+  .filter(jurisdiction => jurisdiction.directory)
+  .map(jurisdiction => ({
+    id: jurisdiction.id,
+    name: jurisdiction.name,
+    href: jurisdiction.path,
+    tagline: jurisdiction.directory.tagline,
+    lat: jurisdiction.directory.coordinates[0],
+    lng: jurisdiction.directory.coordinates[1],
+  }));
+const otherElectionCities = OTHER_ELECTION_CITIES;
 
 function FitCanada() {
   const map = useMap();
@@ -43,8 +54,8 @@ function ViewportSync({ onChange, suppressRef }) {
       const bounds = map.getBounds();
       const inView = city => bounds.contains([city.lat, city.lng]);
       onChange({
-        covered: COVERED_CITIES.filter(inView).map(city => city.href),
-        other: OTHER_ELECTION_CITIES.filter(inView).map(city => city.name),
+        covered: coveredCities.filter(inView).map(city => city.href),
+        other: otherElectionCities.filter(inView).map(city => city.id),
       });
     },
   });
@@ -55,13 +66,13 @@ export default function CitiesMap() {
   const mapRef = useRef(null);
   const suppressRef = useRef(false);
   const [visible, setVisible] = useState({
-    covered: COVERED_CITIES.map(city => city.href),
-    other: OTHER_ELECTION_CITIES.map(city => city.name),
+    covered: coveredCities.map(city => city.href),
+    other: otherElectionCities.map(city => city.id),
   });
-  const shownCovered = COVERED_CITIES.filter(city => visible.covered.includes(city.href));
-  const shownOther = OTHER_ELECTION_CITIES.filter(city => visible.other.includes(city.name));
+  const shownCovered = coveredCities.filter(city => visible.covered.includes(city.href));
+  const shownOther = otherElectionCities.filter(city => visible.other.includes(city.id));
   const anyVisible = shownCovered.length > 0 || shownOther.length > 0;
-  const coveredCards = anyVisible ? shownCovered : COVERED_CITIES;
+  const coveredCards = anyVisible ? shownCovered : coveredCities;
   const otherCards = anyVisible ? shownOther : [];
 
   function flyToCity(city) {
@@ -91,7 +102,7 @@ export default function CitiesMap() {
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         <FitCanada />
         <ViewportSync onChange={setVisible} suppressRef={suppressRef} />
-        {OTHER_ELECTION_CITIES.map(city => (
+        {otherElectionCities.map(city => (
           <CircleMarker
             key={city.name}
             center={[city.lat, city.lng]}
@@ -103,7 +114,7 @@ export default function CitiesMap() {
             </Tooltip>
           </CircleMarker>
         ))}
-        {COVERED_CITIES.map(city => (
+        {coveredCities.map(city => (
           <CircleMarker
             key={city.name}
             center={[city.lat, city.lng]}
@@ -117,7 +128,6 @@ export default function CitiesMap() {
           </CircleMarker>
         ))}
         </MapContainer>
-
         <MapZoomControls mapRef={mapRef} />
 
       {/* Card carousel — floats over bottom of map, matching TorontoFullMap */}

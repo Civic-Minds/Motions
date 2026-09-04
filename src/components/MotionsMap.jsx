@@ -49,7 +49,7 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
   }, [hasWards]);
 
   const topics = useMemo(() => [...new Set(motions
-    .filter(m => Array.isArray(m.locations) && m.locations.length > 0 && m.topic && m.topic !== 'General')
+    .filter(m => Array.isArray(m.locations) && m.locations.length > 0 && m.topic && m.topic !== 'Governance')
     .map(m => m.topic)
     .sort())], [motions]);
   const filteredMotions = useMemo(() => motions.filter(m => {
@@ -80,7 +80,7 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
   const topTopics = useMemo(() => {
     const counts = {};
     motions.forEach(m => {
-      if (!Array.isArray(m.locations) || !m.locations.length || !m.topic || m.topic === 'General') return;
+      if (!Array.isArray(m.locations) || !m.locations.length || !m.topic || m.topic === 'Governance') return;
       counts[m.topic] = (counts[m.topic] || 0) + 1;
     });
     return Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 2).map(([topic]) => topic);
@@ -98,9 +98,7 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
         <p className="mt-3 max-w-2xl text-slate-500">
           {hasWards
             ? <>Motions plotted at their exact address. To browse by ward instead, see <a href="/wards" className="font-semibold text-[#004a99] hover:underline">wards</a>. </>
-            : jurisdiction.id === 'vancouver'
-              ? `${jurisdiction.name} has no wards — every seat is elected citywide — so motions are plotted at their address instead. `
-              : `Ward boundaries aren’t mapped for ${jurisdiction.name} yet, so motions are plotted at their address instead. `}
+            : `${jurisdiction.name} has no wards — every seat is elected citywide — so motions are plotted at their address instead. `}
           {mappedMotionCount.toLocaleString()} of {motions.length.toLocaleString()} have an address on record{topTopics.length > 0 && (
             <>, mostly {topTopics.map((topic, i) => (
               <span key={topic}>

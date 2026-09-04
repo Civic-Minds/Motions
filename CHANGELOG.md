@@ -8,6 +8,30 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Changed
 
+- Manually reviewed all 2,164 Vancouver motion topics against their titles, correcting 509 clear category errors while leaving defensible and ambiguous classifications unchanged.
+- Manually reviewed all 592 Yellowknife motion topics against their titles, correcting 60 clear category errors while leaving defensible and ambiguous classifications unchanged.
+- Spot-checked 30 Yellowknife motions by hand and corrected the remaining clear Governance miss in the corporate risk-oversight record.
+- Unified motion topic categories across all four cities (Toronto, Vancouver, Victoria, Yellowknife) to the same nine labels — added Planning & Development, Governance, and Public Safety, retired the Toronto/Vancouver-only "Events" bucket, and gave Yellowknife real topic classification for the first time instead of a hardcoded General. Board/committee appointments now consistently route to Governance instead of landing in whichever board's own topic (e.g. a TTC board appointment no longer shows up under Transit).
+- Victoria's homepage now shows a map of nearby motions, matching Toronto and Vancouver — it already had real geocoded addresses (426 of 1,029 motions) but the homepage widget had only ever been built for the other two cities.
+- Added address extraction and geocoding for Yellowknife, plus a homepage map matching the other three cities. Coverage is thin (9 of 592 motions) because Yellowknife's agenda is dominated by appointments and bylaw readings rather than address-specific development items — expected to grow slowly as more meetings are imported, not a bug.
+- Share previews (link titles/images posted to X, Slack, etc.) are now city-aware instead of hardcoded to Toronto — motion, election, councillor, and ward pages all show the correct city's name. The data-pipeline scripts (`extract_fields`, `generate_summaries`, `strip_body`) now take a generic `--city=` flag instead of a Vancouver-only special case, and Yellowknife was added to the Sources page.
+
+### Added
+
+- Victoria’s category pass now applies title context before assigning labels, leaving administrative, licensing, heritage-only, travel, and ambiguous records blank.
+- Victoria category review now avoids broad-word false positives and leaves unclear titles blank.
+- Victoria motion categories are now reviewed from titles with blank values for unclear items instead of a forced `General` label.
+- Victoria location tagging now splits multi-address records and uses a second geocoder when the primary service is unavailable, increasing mapped coverage without guessing.
+- Expanded Victoria location tagging to include verified named places and neighbourhoods in addition to street addresses.
+- Added deterministic Victoria topic labels, official agenda/minutes links on motion pages, and a source-named address geocoding pass; unresolved locations remain unmapped.
+- Added a bounded Victoria council-vote importer from the City’s official public dashboard; Victoria stays off the public selector until the sample is validated.
+- Added source-only Victoria outcome parsing, validation, and scheduled Blob refresh infrastructure without AI-generated enrichment.
+- Victoria now opens from the city picker instead of appearing as a non-clickable election-date card.
+- Victoria imports now cover the current council term and refuse publication when the City source is stale.
+
+### Changed
+
+- **Unreleased cities stay local**: Victoria and Yellowknife remain available in development while public navigation, routes, and the sitemap exclude them until enabled.
 - **Yellowknife council coverage**: Registered Yellowknife as a citywide jurisdiction and added an importer for its official agenda/minutes records, bringing the city’s council decisions onto the shared Motions data model.
 - **Faster font load**: The Inter font stylesheet no longer blocks first paint — it loads in the background and swaps in once ready.
 - **Smaller councillor photos**: Headshots were being served at their full 820×1024 source size everywhere, including 40px avatars — resized to the largest size actually used on screen, cutting the councillor photo payload from 5.3MB to about 0.2MB. Avatars below the fold now also defer loading until scrolled into view.
@@ -23,6 +47,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Vancouver title audit**: Data refreshes now report malformed titles or lost tracked corrections before upload without blocking otherwise valid new data.
 
 - **Vancouver motion titles**: Older records no longer show broken punctuation, escaped whitespace, stray separators, source boilerplate, stacked agenda labels, or feed-truncated titles.
+- **Vancouver agenda numbers**: Parenthesized agenda numbers no longer appear at the start of Vancouver motion titles.
 - **Unsafe report links**: Issue-report page links now allow only web URLs, preventing crafted contact links from executing code when opened.
 - **Data load failures on flaky connections**: A dropped or slow connection could return a non-JSON response and leave people stuck on a cryptic "Unexpected token" error with no way to recover. The error message is now readable, and a "Try again" button retries without a full page reload.
 

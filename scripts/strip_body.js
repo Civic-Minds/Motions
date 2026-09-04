@@ -11,8 +11,9 @@
 import fs from 'fs';
 import path from 'path';
 
-const IS_VANCOUVER = process.argv.includes('--vancouver');
-const DATA_PATH = path.join(process.cwd(), IS_VANCOUVER ? 'public/data/vancouver/motions.json' : 'public/data/motions.json');
+const cityArg = process.argv.find(arg => arg.startsWith('--city='));
+const CITY = cityArg ? cityArg.slice('--city='.length) : process.argv.includes('--vancouver') ? 'vancouver' : 'toronto';
+const DATA_PATH = path.join(process.cwd(), CITY === 'toronto' ? 'public/data/motions.json' : `public/data/${CITY}/motions.json`);
 
 const motions = JSON.parse(fs.readFileSync(DATA_PATH, 'utf8'));
 const before = JSON.stringify(motions).length;

@@ -8,7 +8,7 @@ import { usePresence } from './hooks/usePresence';
 import { cn } from './lib/utils';
 import { useMotions } from './hooks/useMotions';
 import { AppProvider, useAppContext } from './contexts/AppContext';
-import { getInitialJurisdiction, getJurisdiction, JURISDICTIONS } from './constants/jurisdictions';
+import { getInitialJurisdiction, getJurisdiction, getVisibleJurisdictions, isJurisdictionPublic } from './constants/jurisdictions';
 import { formatElectionDate } from './utils/electionDate';
 import { getLastJurisdiction, setLastJurisdiction } from './utils/storage';
 import { trackGoogleEvent } from './utils/googleAnalytics';
@@ -181,7 +181,7 @@ function Navbar({ onSearchOpen, jurisdiction, wardId = null, handleLocate, handl
             </button>
             {cityOpen && (
               <div className="absolute right-0 top-full z-50 mt-2 min-w-36 rounded-xl border border-slate-200 bg-white p-1.5 shadow-lg" role="menu">
-                {Object.values(JURISDICTIONS).map(city => (
+                {getVisibleJurisdictions().map(city => (
                   <a
                     key={city.id}
                     href={city.path}
@@ -257,7 +257,7 @@ function Navbar({ onSearchOpen, jurisdiction, wardId = null, handleLocate, handl
                 </button>
               );
             })}
-            {Object.values(JURISDICTIONS).filter(city => city.id !== jurisdiction.id).map(city => (
+            {getVisibleJurisdictions().filter(city => city.id !== jurisdiction.id).map(city => (
               <a
                 key={city.id}
                 href={city.path}
@@ -506,6 +506,12 @@ export default function App() {
     );
   }
 
+  const requestedCity = window.location.pathname.split('/').filter(Boolean)[0];
+  const requestedJurisdiction = getJurisdiction(requestedCity);
+  if (!isJurisdictionPublic(requestedJurisdiction)) {
+    window.location.replace('/');
+    return null;
+  }
   const jurisdiction = getInitialJurisdiction();
   setLastJurisdiction(jurisdiction.id);
   return (
