@@ -450,6 +450,13 @@ const decisions = new Map([
   ['Single Room Occupancy (SRO) Upgrading Grants - final vote', 'Housing'],
   ['2026 Business Licence, Vehicles for Hire and Animal Control Fees - Amendment', 'Finance'],
   ["Ensuring Councillors Motions Maintain Public Confidence in the Good Rule of the City", 'Governance'],
+  ['Building Safer Communities Program - Youth Safety and Violence Prevention Strategy - Amendment E', 'Public Safety'],
+  ['Approval of Council Initiatives - Business Improvement Areas; Renewals and Expansion 2024', 'Finance'],
+  ['Directions Report: Consideration of Modification to Conditions of Approval 1616-1698 West Georgia Street, CD-1 (812) - Final Vote', 'Planning & Development'],
+  ['Residential Laneway Design & Local Improvement Procedure By-Law Updates - Amendment to the Amendment', 'Planning & Development'],
+  ['CD-1 Text Amendment: 8 East Broadway (Formerly 2-24 East Broadway and 2520 Ontario Street)', 'Planning & Development'],
+  ['Recommitting to $10 a Day Childcare', 'Housing'],
+  ['Annual Federation of Canadian Municipalities (FCM), Union of British Columbia Municipalities (UBCM), and Lower Mainland Local Government Association (LMLGA) Membership Fees for 2026 to 2027', 'Finance'],
 ]);
 
 const motions = JSON.parse(fs.readFileSync(path, 'utf8'));
