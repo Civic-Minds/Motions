@@ -31,20 +31,23 @@ changes are substantive even when routine or unanimous.
 
 ## Topics
 
-Assign one topic only when the subject is clear from the title:
+Assign one topic only when the subject is clear from the title. Use these
+topic labels consistently across cities:
 
-- **Housing & homelessness** — housing supply, shelters, homelessness, supportive housing
-- **Transportation & streets** — transit, roads, traffic, parking, active transportation
-- **Finance & taxes** — budgets, taxes, fees, grants, contracts, procurement, reserves
-- **Planning & development** — zoning, development permits, land use, building and property approvals
-- **Parks, recreation & culture** — parks, trails, recreation, libraries, arts, heritage, events
-- **Climate, environment & waste** — climate, emissions, energy, water, waste, recycling, conservation
-- **Public safety** — policing, fire, emergency services, safety, disaster response
-- **Governance & other** — elections, boards, bylaws without a clearer subject, council structure, and everything else
+- **Housing** — housing supply, shelters, homelessness, supportive housing
+- **Transit** — transit, roads, traffic, parking, active transportation
+- **Finance** — budgets, taxes, fees, grants, contracts, procurement, reserves
+- **Planning & Development** — zoning, development permits, land use, building and property approvals
+- **Parks** — parks, trails, recreation, libraries, arts, heritage, events
+- **Climate** — climate, emissions, energy, water, waste, recycling, conservation
+- **Governance** — elections, boards, bylaws, council structure, appointments, and other government-operation decisions
+- **Public Safety** — policing, fire, emergency services, safety, disaster response
+- **General** — a substantive motion whose subject is not clear enough for another topic
 
 If more than one topic applies, choose the primary subject stated in the
-motion. If the subject is not clear, use **Governance & other** rather than
-guessing.
+motion. If the subject is not clear, use **General** rather than guessing.
+Routine administrative records such as minutes and adjournments should
+normally use General unless the title clearly identifies another subject.
 
 ## Review rules
 
@@ -54,6 +57,5 @@ guessing.
 3. Do not treat agenda-item numbers or numbered clauses as separate motions.
 4. Flag titles containing PDF headers, OCR corruption, or unrelated agenda text
    for title cleanup before categorizing them.
-5. When uncertain, leave the motion visible, use Governance & other, and note
-   the uncertainty for later review.
-
+5. When uncertain, leave the motion visible, use General, and note the
+   uncertainty for later review.
