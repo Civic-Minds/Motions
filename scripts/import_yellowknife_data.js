@@ -18,7 +18,8 @@ import * as cheerio from 'cheerio';
 
 /* global process, Buffer */
 
-export const CALENDAR_URL = 'https://events.yellowknife.ca/meetings';
+export const CALENDAR_URL = 'https://pub-yellowknife.escribemeetings.com';
+const CALENDAR_API_URL = `${CALENDAR_URL}/MeetingsCalendarView.aspx/GetCalendarMeetings`;
 export const COUNCIL_MEMBERS = [
   'Mayor Ben Hendriksen', 'Garett Cochrane', 'Ryan Fequet', 'Rob Foote',
   'Cat McGurk', 'Tom McLennan', 'Stacie Arden-Smith', 'Steve Payne', 'Rob Warburton',
@@ -99,32 +100,19 @@ function pdfText(buffer) {
   finally { fs.rmSync(tempDir, { recursive: true, force: true }); }
 }
 
-async function readPage(url) {
-  const response = await fetch(url);
-  if (!response.ok) throw new Error(`Yellowknife page returned HTTP ${response.status}: ${url}`);
-  return response.text();
-}
-
 async function readPdf(url) {
   const response = await fetch(url);
   if (!response.ok) throw new Error(`Yellowknife document returned HTTP ${response.status}: ${url}`);
-  return pdfText(Buffer.from(await response.arrayBuffer()));
+  const buffer = Buffer.from(await response.arrayBuffer());
+  if (buffer.subarray(0, 4).toString() !== '%PDF') {
+    console.warn(`Skipped non-PDF Yellowknife minutes document: ${url}`);
+    return null;
+  }
+  return pdfText(buffer);
 }
 
-function documentLinks(html, pageUrl) {
-  const $ = cheerio.load(html);
-  return $('a[href]').map((_, element) => {
-    const label = compact($(element).text());
-    const href = new URL($(element).attr('href'), pageUrl).href;
-    return { label, href };
-  }).get().filter(link => /\.pdf(?:$|\?)/i.test(link.href) || /agenda|minutes|report/i.test(link.label));
-}
-
-function meetingFromPath(url) {
-  const match = url.match(/\/meetings\/Detail\/(\d{4}-\d{2}-\d{2})-(\d{4})-([^/]+)/i);
-  if (!match) return null;
-  const committee = match[3].replace(/-/g, ' ').replace(/\b\w/g, letter => letter.toUpperCase());
-  return { date: match[1], startTime: match[2], committee, meetingReference: `yellowknife-${match[1]}-${slugify(committee)}` };
+function decodeHtml(value) {
+  return compact(cheerio.load(`<span>${value ?? ''}</span>`)('span').text());
 }
 
 function dateWindows(fromDate, toDate) {
@@ -136,24 +124,23 @@ function dateWindows(fromDate, toDate) {
     const windowEndDate = new Date(cursor);
     windowEndDate.setUTCDate(windowEndDate.getUTCDate() + 364);
     const windowEnd = new Date(Math.min(windowEndDate.getTime(), end.getTime())).toISOString().slice(0, 10);
-    const params = new URLSearchParams({
-      StartDate: `${windowStart.slice(5, 7)}/${windowStart.slice(8, 10)}/${windowStart.slice(0, 4)}`,
-      EndDate: `${windowEnd.slice(5, 7)}/${windowEnd.slice(8, 10)}/${windowEnd.slice(0, 4)}`,
-    });
-    windows.push(`${CALENDAR_URL}?${params}`);
+    windows.push([windowStart, windowEnd]);
     cursor.setUTCDate(cursor.getUTCDate() + 365);
   }
   return windows;
 }
 
 async function main() {
-  const detailUrls = new Set();
-  for (const calendarUrl of dateWindows(FROM_DATE, TO_DATE)) {
-    const $ = cheerio.load(await readPage(calendarUrl));
-    $('a[href]').each((_, element) => {
-      const href = $(element).attr('href');
-      if (/\/meetings\/detail\//i.test(href ?? '')) detailUrls.add(new URL(href, calendarUrl).href);
+  const calendarMeetings = [];
+  for (const [startDate, endDate] of dateWindows(FROM_DATE, TO_DATE)) {
+    const response = await fetch(CALENDAR_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ calendarStartDate: startDate, calendarEndDate: endDate }),
     });
+    if (!response.ok) throw new Error(`Yellowknife calendar returned HTTP ${response.status}`);
+    const payload = await response.json();
+    calendarMeetings.push(...(payload.d ?? []));
   }
   const motions = [];
   const meetings = [];
@@ -162,24 +149,32 @@ async function main() {
   const existingById = new Map(existingMotions.map(motion => [motion.id, motion]));
   const fetchedMeetingRefs = new Set();
 
-  for (const detailUrl of detailUrls) {
-    const detail = meetingFromPath(detailUrl);
-    if (!detail || detail.date < FROM_DATE || detail.date > TO_DATE) continue;
-    const detailHtml = await readPage(detailUrl);
-    const links = documentLinks(detailHtml, detailUrl);
-    const minutesLink = links.find(link => /minutes/i.test(link.label)) ?? links.find(link => /minutes/i.test(link.href));
-    const agendaLink = links.find(link => /agenda/i.test(link.label)) ?? links.find(link => /agenda/i.test(link.href));
-    const meeting = { ...detail, meetingId: detail.meetingReference, meetingNumber: detail.meetingReference, isCouncil: /council/i.test(detail.committee), sourceUrl: detailUrl, agendaUrl: agendaLink?.href ?? null, agendaItems: [] };
-    fetchedMeetingRefs.add(detail.meetingReference);
+  for (const item of [...new Map(calendarMeetings.map(meeting => [meeting.ID, meeting])).values()]) {
+    const date = item.StartDate?.slice(0, 10).replaceAll('/', '-');
+    if (!date || date < FROM_DATE || date > TO_DATE) continue;
+    const committee = decodeHtml(item.MeetingName);
+    const meetingId = item.ID;
+    const meetingReference = `yellowknife-${date}-${slugify(committee)}-${meetingId}`;
+    const detailUrl = `${CALENDAR_URL}/Meeting?Id=${meetingId}`;
+    const documents = (item.MeetingDocumentLink ?? []).map(document => ({
+      type: document.Type,
+      label: decodeHtml(document.Title),
+      href: new URL(document.Url, CALENDAR_URL).href,
+    }));
+    const minutesLink = documents.find(link => /minutes|postminutes/i.test(`${link.type} ${link.label}`));
+    const agendaLink = documents.find(link => /agenda/i.test(`${link.type} ${link.label}`));
+    const meeting = { date, startTime: item.StartDate.slice(11, 16).replace(':', ''), committee, meetingId, meetingNumber: meetingId, meetingReference, isCouncil: /council/i.test(committee), sourceUrl: detailUrl, agendaUrl: agendaLink?.href ?? null, agendaItems: [] };
+    fetchedMeetingRefs.add(meetingReference);
     if (minutesLink) {
-      for (const motion of parseMotions(await readPdf(minutesLink.href), detail.date, detail.committee, minutesLink.href, detail.meetingReference)) {
+      const minutesText = await readPdf(minutesLink.href);
+      for (const motion of minutesText ? parseMotions(minutesText, date, committee, minutesLink.href, meetingReference) : []) {
         const prior = existingById.get(motion.id);
         motions.push({ ...prior, ...motion, summary: prior?.summary, keyAmounts: prior?.keyAmounts });
         meeting.agendaItems.push({ reference: motion.id, title: motion.title, inCamera: false, url: motion.sourceUrl });
       }
     }
     meetings.push(meeting);
-    console.log(`Processed ${detail.date} ${detail.committee}: ${meeting.agendaItems.length} motions`);
+    console.log(`Processed ${date} ${committee}: ${meeting.agendaItems.length} motions`);
   }
 
   const mergedMotions = [...existingMotions.filter(motion => !motions.some(next => next.id === motion.id)), ...motions]

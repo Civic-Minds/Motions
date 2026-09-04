@@ -8,6 +8,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Changed
 
+- **Yellowknife refresh reliability**: Council imports now use the City’s current eSCRIBE calendar, so scheduled refreshes can retrieve the official meeting records again.
 - **Source-only Yellowknife refreshes**: Yellowknife data now refreshes from official council records without requiring AI summaries or an AI API key.
 - **Yellowknife council coverage**: Registered Yellowknife as a citywide jurisdiction and added an importer for its official agenda/minutes records, bringing the city’s council decisions onto the shared Motions data model.
 - **Faster font load**: The Inter font stylesheet no longer blocks first paint — it loads in the background and swaps in once ready.

@@ -10,7 +10,7 @@ const SOURCE_LINK_CLASS = 'text-[#004a99] underline underline-offset-2 hover:tex
 const SOURCE_URLS = {
   toronto: 'https://open.toronto.ca/dataset/members-of-toronto-city-council-voting-record/',
   vancouver: 'https://opendata.vancouver.ca/explore/dataset/council-voting-records/',
-  yellowknife: 'https://events.yellowknife.ca/meetings',
+  yellowknife: 'https://www.yellowknife.ca/council-meetings-and-agendas/council-calendar-and-livestream',
   winnipeg: 'https://data.winnipeg.ca/Council-Services/Council-Voting-Data/f9mn-vti8',
 };
 
