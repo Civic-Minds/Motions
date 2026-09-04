@@ -427,7 +427,7 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
   }, []);
 
   // Only primary entries (no parentId) for display and stats
-  const primaryMotions = useMemo(() => motions.filter(m => !m.parentId), [motions]);
+  const primaryMotions = useMemo(() => motions.filter(m => !m.parentId && (jurisdiction.id !== 'yellowknife' || !m.trivial)), [motions, jurisdiction.id]);
 
   // Last Meeting
   const lastMeeting = useMemo(() => {
@@ -477,14 +477,17 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
 
   const recentFallback = useMemo(() => {
     const usedIds = new Set([...followedHighlights.map(m => m.id), ...highlights.map(m => m.id), ...wardHighlights.map(m => m.id)]);
-    return [...primaryMotions]
+    const candidates = jurisdiction.id === 'yellowknife'
+      ? primaryMotions.filter(m => !m.trivial)
+      : primaryMotions;
+    return [...candidates]
       // The homepage always has room for three motion cards. If fewer than
       // three recent notable/ward motions qualify, fill the remaining slots
       // with the next newest motions instead of leaving an empty slot.
       .filter(m => !usedIds.has(m.id))
       .sort((a, b) => new Date(b.date) - new Date(a.date) || (b.significance ?? 0) - (a.significance ?? 0))
       .slice(0, 3);
-  }, [primaryMotions, followedHighlights, highlights, wardHighlights]);
+  }, [primaryMotions, followedHighlights, highlights, wardHighlights, jurisdiction.id]);
 
   const homeMotionCards = useMemo(() => {
     const preferred = highlights.length > 0
@@ -494,6 +497,8 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
     const fillers = [...recentFallback, ...wardHighlights].filter(m => !usedIds.has(m.id));
     return [...preferred, ...fillers].slice(0, 3);
   }, [highlights, wardHighlights, recentFallback]);
+
+  const motionSectionLabel = jurisdiction.id === 'yellowknife' ? 'Recent Decisions' : 'Most Notable';
 
   // Available committees and years
   const committees = useMemo(() => {
@@ -651,7 +656,7 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 px-1">
             <p className="text-xs lg:text-[10px] font-bold text-slate-500 uppercase tracking-wide col-span-2">
               <span className="lg:hidden">Election</span>
-              <span className="hidden lg:inline">Most Notable</span>
+              <span className="hidden lg:inline">{motionSectionLabel}</span>
             </p>
             {wardHighlights.length > 0 && (
               <p className="hidden lg:block text-[10px] font-bold text-slate-500 uppercase tracking-wide col-span-2">Ward Motions</p>
@@ -692,7 +697,7 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
       {/* Mobile notable motions — the election card stays beside My Ward above. */}
       {homeMotionCards.length > 0 && (
         <div className="lg:hidden space-y-1.5">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide px-1">Most Notable</p>
+          <p className="text-xs font-bold text-slate-500 uppercase tracking-wide px-1">{motionSectionLabel}</p>
           <div className="grid grid-cols-2 gap-3 items-stretch">
             {homeMotionCards.slice(0, 2).map(renderHomeMotionCard)}
           </div>

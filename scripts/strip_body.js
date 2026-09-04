@@ -8,6 +8,8 @@
  *   node scripts/strip_body.js
  */
 
+/* global process */
+
 import fs from 'fs';
 import path from 'path';
 
@@ -18,7 +20,9 @@ const DATA_PATH = path.join(process.cwd(), CITY === 'toronto' ? 'public/data/mot
 const motions = JSON.parse(fs.readFileSync(DATA_PATH, 'utf8'));
 const before = JSON.stringify(motions).length;
 
-const stripped = motions.map(({ body: _, ...m }) => m);
+const stripped = motions.map(motion => Object.fromEntries(
+  Object.entries(motion).filter(([key]) => key !== 'body'),
+));
 fs.writeFileSync(DATA_PATH, JSON.stringify(stripped, null, 2));
 
 const after = JSON.stringify(stripped).length;

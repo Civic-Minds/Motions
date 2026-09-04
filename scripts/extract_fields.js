@@ -1,3 +1,5 @@
+/* global process */
+
 /**
  * extract_fields.js
  *

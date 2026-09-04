@@ -1,3 +1,5 @@
+/* global process */
+
 /**
  * generate_summaries.js
  *

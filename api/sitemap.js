@@ -1,9 +1,8 @@
 const BLOB_BASE = 'https://qcbqayy3ivvb6sia.public.blob.vercel-storage.com';
 const SITE_URL = 'https://motions.watch';
-const PUBLIC_CITY_IDS = new Set(['toronto', 'vancouver']);
 
 function escapeXml(value) {
-  return String(value).replace(/[<>&'\"]/g, char => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', "'": '&apos;', '"': '&quot;' }[char]));
+  return String(value).replace(/[<>&'"]/g, char => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', "'": '&apos;', '"': '&quot;' }[char]));
 }
 
 async function loadJson(path) {
@@ -47,7 +46,7 @@ export default async function handler(request, response) {
   };
   addCityPaths('toronto', torontoMotions, torontoCouncillors, torontoMeetings, true);
   addCityPaths('vancouver', vancouverMotions, vancouverCouncillors, vancouverMeetings);
-  if (PUBLIC_CITY_IDS.has('yellowknife')) addCityPaths('yellowknife', yellowknifeMotions, yellowknifeCouncillors, yellowknifeMeetings);
+  addCityPaths('yellowknife', yellowknifeMotions, yellowknifeCouncillors, yellowknifeMeetings);
 
   const body = [...paths].map(path => `<url><loc>${escapeXml(`${SITE_URL}${path}`)}</loc></url>`).join('');
   response.setHeader('Content-Type', 'application/xml; charset=utf-8');

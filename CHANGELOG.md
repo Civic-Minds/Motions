@@ -32,6 +32,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 ### Changed
 
 - **Unreleased cities stay local**: Victoria and Yellowknife remain available in development while public navigation, routes, and the sitemap exclude them until enabled.
+- **Yellowknife refresh reliability**: Council imports now use the City’s current eSCRIBE calendar, so scheduled refreshes can retrieve the official meeting records again.
+- **Source-only Yellowknife refreshes**: Yellowknife data now refreshes from official council records without requiring AI summaries or an AI API key.
 - **Yellowknife council coverage**: Registered Yellowknife as a citywide jurisdiction and added an importer for its official agenda/minutes records, bringing the city’s council decisions onto the shared Motions data model.
 - **Faster font load**: The Inter font stylesheet no longer blocks first paint — it loads in the background and swaps in once ready.
 - **Smaller councillor photos**: Headshots were being served at their full 820×1024 source size everywhere, including 40px avatars — resized to the largest size actually used on screen, cutting the councillor photo payload from 5.3MB to about 0.2MB. Avatars below the fold now also defer loading until scrolled into view.
@@ -43,6 +45,10 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 - **Broken social share images**: Toronto's share preview image (used when links are posted to X, Facebook, Slack, etc.) showed empty boxes instead of text. An earlier attempt embedded the font directly in the image but still failed in production — Vercel's image renderer doesn't reliably support embedded fonts at all. Text is now converted to vector outlines before rendering, so nothing depends on font resolution at request time; verified against an actual Vercel deployment, not just localhost. Vancouver, Victoria, and Yellowknife still need the same fix.
 - **Incumbents who aren't on the ballot**: The Election page listed every ward's sitting councillor as a 2026 candidate, even when they were retiring, running in a different ward, or running for mayor — wrong in four wards. Each ward now states which, and only shows the "Incumbent" tag when the councillor is actually on that ward's ballot.
+- **Yellowknife administrative records**: Routine minute approvals and meeting adjournments no longer clutter the public motion list, while remaining available in the underlying records.
+- **Yellowknife motion titles**: Imported decisions now show the actual motion question instead of mover/seconder and adjacent agenda-item text.
+- **Yellowknife homepage decisions**: Removed OCR, embedded PDF header artifacts, and misleading homepage labels from imported decisions.
+- **Duplicate Yellowknife pin on the homepage map**: Yellowknife appeared twice — once as a real, clickable city and once as a muted "Coming soon" placeholder left over from before it launched.
 - **Transparency refresh date**: The production data endpoint now serves metadata correctly, so the Transparency page can show when council data was last checked.
 - **Vancouver title audit**: Data refreshes now report malformed titles or lost tracked corrections before upload without blocking otherwise valid new data.
 

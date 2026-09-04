@@ -54,6 +54,14 @@ const SOURCES = [
     label: 'Victoria council pages',
   },
   {
+    city: 'Yellowknife',
+    category: 'Council Pages',
+    icon: Building2,
+    description: 'Official meeting agendas, minutes, and recordings from Yellowknife City Council and committees.',
+    href: 'https://www.yellowknife.ca/council-meetings-and-agendas/council-calendar-and-livestream',
+    label: 'Yellowknife council calendar',
+  },
+  {
     city: 'Winnipeg',
     category: 'Open Data',
     icon: Database,
@@ -68,14 +76,6 @@ const SOURCES = [
     description: 'Official meeting agendas, minutes, and decisions on the Decision Making Information System (DMIS).',
     href: 'https://dmis.winnipeg.ca/',
     label: 'Winnipeg council pages',
-  },
-  {
-    city: 'Yellowknife',
-    category: 'Council Pages',
-    icon: Building2,
-    description: 'Official meeting agendas, minutes, and recordings from Yellowknife City Council and committees.',
-    href: 'https://events.yellowknife.ca/meetings',
-    label: 'Yellowknife council calendar',
   },
   {
     city: 'Maps',

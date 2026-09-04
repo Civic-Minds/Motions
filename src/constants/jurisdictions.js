@@ -78,7 +78,6 @@ export const JURISDICTIONS = {
         dataBaseEnv: 'VITE_YELLOWKNIFE_DATA_BASE_URL',
         localDataPath: '/data/yellowknife',
         directory: { tagline: '8 councillors · Mayor Ben Hendriksen', coordinates: [62.4540, -114.3718] },
-        public: false,
         election: {
             date: '2026-10-19',
             offices: ['Mayor', 'City Councillor'],

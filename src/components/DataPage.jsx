@@ -11,8 +11,8 @@ const SOURCE_URLS = {
   toronto: 'https://open.toronto.ca/dataset/members-of-toronto-city-council-voting-record/',
   vancouver: 'https://opendata.vancouver.ca/explore/dataset/council-voting-records/',
   victoria: 'https://opendata.victoria.ca/pages/mayor-and-council',
+  yellowknife: 'https://www.yellowknife.ca/council-meetings-and-agendas/council-calendar-and-livestream',
   winnipeg: 'https://data.winnipeg.ca/Council-Services/Council-Voting-Data/f9mn-vti8',
-  yellowknife: 'https://events.yellowknife.ca/meetings',
 };
 
 // Toronto has ward boundary data wired up, so its motions map to wards.
