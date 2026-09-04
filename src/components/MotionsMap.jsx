@@ -49,7 +49,7 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
   }, [hasWards]);
 
   const topics = useMemo(() => [...new Set(motions
-    .filter(m => Array.isArray(m.locations) && m.locations.length > 0 && m.topic && m.topic !== 'General')
+    .filter(m => Array.isArray(m.locations) && m.locations.length > 0 && m.topic && m.topic !== 'Governance')
     .map(m => m.topic)
     .sort())], [motions]);
   const filteredMotions = useMemo(() => motions.filter(m => {
@@ -80,7 +80,7 @@ export default function MotionsMap({ jurisdiction, motions = [] }) {
   const topTopics = useMemo(() => {
     const counts = {};
     motions.forEach(m => {
-      if (!Array.isArray(m.locations) || !m.locations.length || !m.topic || m.topic === 'General') return;
+      if (!Array.isArray(m.locations) || !m.locations.length || !m.topic || m.topic === 'Governance') return;
       counts[m.topic] = (counts[m.topic] || 0) + 1;
     });
     return Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 2).map(([topic]) => topic);

@@ -22,7 +22,8 @@
 import fetch from 'node-fetch';
 import fs from 'fs';
 import path from 'path';
-import { classifyByKeywords } from './lib/topicClassification.js';
+import { isAdministrativeTitle } from './lib/topicClassification.js';
+import { classifyTorontoTopic } from './lib/torontoClassification.js';
 
 /* global process */
 
@@ -94,53 +95,6 @@ function parseCSV(text) {
 // Classification
 // ---------------------------------------------------------------------------
 
-const TOPIC_KEYWORDS = {
-    Housing:  [
-        'housing', 'rental', 'tenant', 'shelter', 'demolition', 'affordable',
-        'eviction', 'residential', 'zoning', 'official plan', 'secondary plan',
-        'rentsafeto', 'renter', 'laneway', 'alterations to a', 'heritage',
-        'community benefits charge', 'infill', 'inclusionary', 'rent-geared',
-        'modular', 'encampment', 'supportive housing', 'development application',
-    ],
-    Transit:  [
-        'ttc', 'transit', 'bus', 'lrt', 'subway', 'cycling', 'bike lane', 'bixi',
-        'pedestrian', 'traffic', 'road', 'ontario line', 'eglinton', 'crosstown',
-        'go train', 'go expansion', 'metrolinx', 'streetcar', 'fare', 'station',
-        'speed enforcement', 'car-share', 'carshare', 'automated speed',
-        'vision zero', 'active transportation', 'e-bike', 'micromobility',
-    ],
-    Finance:  [
-        'budget', 'capital', 'operating', 'tax', 'levy', 'fee', 'financial',
-        'revenue', 'expenditure', 'reserve fund', 'collective bargaining',
-        'labour', 'sponsorship', 'procurement', 'contract ', 'grant', 'subsidy',
-        'debenture', 'borrowing', 'insurance', 'assessment', 'variance report',
-        'remuneration', 'compensation',
-    ],
-    Parks:    [
-        'park', 'recreation', 'garden', 'trail', 'green space', 'tree canopy',
-        'tree maintenance', 'urban forest', 'arena', 'community centre',
-        'splash pad', 'ravine', 'waterfront', 'shoreline', 'conservation',
-    ],
-    Events:   [
-        'festival', 'event ', 'celebration', 'permit', 'alcohol', 'liquor',
-        'olympic', 'world cup', 'film', 'fireworks', 'closure of',
-    ],
-    Climate:  [
-        'climate', 'net zero', 'transformto', 'heat relief', 'environment',
-        'emissions', 'carbon', 'green building', 'energy retrofit', 'flood',
-        'stormwater', 'resilience', 'sustainability', 'clean energy',
-        'tree planting', 'urban heat', 'electrification',
-    ],
-};
-
-const ROUTINE_KEYWORDS = [
-    'by-law', 'confirmatory', 'order paper', 'declarations of interest',
-    'minutes', 'routine', 'enactment', 'administrative', 'appointment',
-    'ceremonial', 'petitions', 'call to order', 'nomination', 'recess',
-    'in-camera', 'procedural', 'request for city solicitor to attend',
-    'request for staff report', 'city solicitor to attend',
-];
-
 const WARD_KEYWORDS = {
     '1':  ['Etobicoke North', 'Rexdale', 'Thistletown'],
     '2':  ['Etobicoke Centre', 'Islington', 'Kingsway'],
@@ -169,9 +123,7 @@ const WARD_KEYWORDS = {
     '25': ['Scarborough-Rouge Park', 'Rouge', 'Malvern'],
 };
 
-function classifyTopic(title) {
-    return classifyByKeywords(title, TOPIC_KEYWORDS, { wordBoundarySingleWords: true });
-}
+const classifyTopic = classifyTorontoTopic;
 
 function classifyWard(title) {
     for (const [w, keywords] of Object.entries(WARD_KEYWORDS)) {
@@ -279,7 +231,7 @@ function computeSignificance(votes, status, motionTypes, multiDay, minutes, titl
 
     // Routine keyword penalty
     const lower = title.toLowerCase();
-    if (ROUTINE_KEYWORDS.some(k => lower.includes(k))) score -= 25;
+    if (isAdministrativeTitle(title)) score -= 25;
 
     // High-importance keyword boost
     const HIGH_IMPORTANCE = [

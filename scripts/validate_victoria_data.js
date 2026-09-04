@@ -2,6 +2,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { CANONICAL_TOPICS } from './lib/topicClassification.js';
 
 /* global process */
 
@@ -10,7 +11,7 @@ const FROM_DATE = '2022-11-01';
 const MAX_SOURCE_AGE_DAYS = 90;
 const VALID_VOTES = new Set(['YES', 'NO', 'ABSENT', 'CONFLICT', 'NO_VOTE']);
 const VALID_STATUSES = new Set(['Adopted', 'Lost', 'Referred', 'Recorded']);
-const VALID_TOPICS = new Set(['Housing', 'Transit', 'Finance', 'Parks', 'Climate', 'Events', null]);
+const VALID_TOPICS = new Set(CANONICAL_TOPICS);
 
 function readJson(file) {
     return JSON.parse(fs.readFileSync(path.join(DATA_DIR, file), 'utf8'));

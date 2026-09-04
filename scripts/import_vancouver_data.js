@@ -13,7 +13,7 @@ import fetch from 'node-fetch';
 import fs from 'fs';
 import path from 'path';
 import { cleanVancouverTitle } from '../src/utils/motionTitle.js';
-import { classifyByKeywords } from './lib/topicClassification.js';
+import { classifyVancouverTopic } from './lib/vancouverClassification.js';
 
 /* global process */
 
@@ -66,17 +66,7 @@ const CURRENT_COUNCIL = [
     'Brian Montague', 'Sean Orr', 'Lenny Zhou',
 ];
 
-const TOPIC_KEYWORDS = {
-    Housing: ['housing', 'rental', 'tenant', 'shelter', 'zoning', 'rezoning', 'residential', 'homeless', 'affordable'],
-    Transit: ['transit', 'bike', 'cycling', 'pedestrian', 'traffic', 'road', 'street', 'bus', 'transportation'],
-    Finance: ['budget', 'tax', 'levy', 'fee', 'financial', 'revenue', 'grant', 'contract', 'procurement', 'capital plan'],
-    Parks: ['park', 'recreation', 'garden', 'tree', 'playground', 'waterfront', 'shore'],
-    Climate: ['climate', 'environment', 'emissions', 'carbon', 'energy', 'flood', 'resilience', 'sustainability'],
-};
-
-function classifyTopic(title) {
-    return classifyByKeywords(title, TOPIC_KEYWORDS);
-}
+const classifyTopic = classifyVancouverTopic;
 
 function normalizeVote(vote) {
     return {

@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect, useReducer, lazy, Suspense } from 
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { AlertCircle, X, Search, Star, Calendar, Vote } from 'lucide-react';
 import { cn } from '../lib/utils';
-import { getCommittee, TOPIC_LIGHT, TOPIC_DOT, WARD_COUNCILLORS } from '../constants/data';
+import { getCommittee, TOPIC_LIGHT, TOPIC_DOT, TOPICS, WARD_COUNCILLORS } from '../constants/data';
 import { getWardId } from '../utils/storage';
 import { committeeToSlug } from '../utils/slug';
 import { fetchWardBoundaries, motionBelongsToWard } from '../utils/ward';
@@ -17,8 +17,6 @@ import { CivicCard, CivicCardFooter, CivicPill } from './ui/CivicCard';
 
 const TorontoMiniMap = lazy(() => import('./TorontoMiniMap'));
 const VancouverMiniMap = lazy(() => import('./VancouverMiniMap'));
-
-const TOPICS = ['Housing', 'Transit', 'Finance', 'Parks', 'Climate', 'General'];
 
 const VOTE_TYPES = [
   { label: 'All', value: 'All' },

@@ -3,7 +3,7 @@ import React, { lazy, Suspense, useState, useMemo, useEffect } from 'react';
 import { Link, useParams, useNavigate, Navigate } from 'react-router-dom';
 import { ExternalLink, FileText, Info } from 'lucide-react';
 import { cn } from '../lib/utils';
-import { getCommittee, WARD_COUNCILLORS } from '../constants/data';
+import { getCommittee, TOPIC_LONG, WARD_COUNCILLORS } from '../constants/data';
 import { nameToSlug } from '../utils/slug';
 import { PageMeta } from './PageMeta';
 import { previewImage } from '../utils/meta';
@@ -377,7 +377,7 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
           <span>{motion.date}</span>
           <span>·</span>
           <Link to={committeeHref} className="text-[#004a99] hover:underline" title={`View ${committee} motions`}>{committee}</Link>
-          {topicHref && <><span>·</span><Link to={topicHref} className="text-[#004a99] hover:underline" title={`View ${motion.topic} motions`}>{motion.topic}</Link></>}
+          {topicHref && <><span>·</span><Link to={topicHref} className="text-[#004a99] hover:underline" title={`View ${TOPIC_LONG[motion.topic] ?? motion.topic} motions`}>{TOPIC_LONG[motion.topic] ?? motion.topic}</Link></>}
           {sourceUrl && (
             <>
               <span>·</span>
