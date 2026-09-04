@@ -49,7 +49,7 @@ export default function ContactPage() {
   const safePageUrl = getSafePageUrl(pageUrl);
 
   const city = useMemo(() => {
-    const cityId = motionUrl.match(/\/(toronto|vancouver)(?:\/|$)/i)?.[1]?.toLowerCase();
+    const cityId = motionUrl.match(/\/(toronto|vancouver|victoria)(?:\/|$)/i)?.[1]?.toLowerCase();
     return getJurisdiction(cityId || getLastJurisdiction()).name;
   }, [motionUrl]);
 

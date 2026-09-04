@@ -10,6 +10,7 @@ const SOURCE_LINK_CLASS = 'text-[#004a99] underline underline-offset-2 hover:tex
 const SOURCE_URLS = {
   toronto: 'https://open.toronto.ca/dataset/members-of-toronto-city-council-voting-record/',
   vancouver: 'https://opendata.vancouver.ca/explore/dataset/council-voting-records/',
+  victoria: 'https://opendata.victoria.ca/pages/mayor-and-council',
   winnipeg: 'https://data.winnipeg.ca/Council-Services/Council-Voting-Data/f9mn-vti8',
 };
 
@@ -20,10 +21,12 @@ const SOURCE_URLS = {
 const LOCATION_COPY = {
   toronto: 'Addresses and named places get mapped when we can pin them down, then matched to official Toronto wards.',
   vancouver: 'Addresses and named places get mapped when we can pin them down. Vancouver councillors are elected at-large, so locations aren’t tied to wards.',
+  victoria: 'Addresses and named places get mapped when we can pin them down. Victoria councillors are elected citywide, so locations aren’t tied to wards.',
 };
 const GEOGRAPHY_COPY = {
   toronto: { label: 'WARD COVERAGE', heading: 'Citywide and ward-specific activity', body: 'A motion is shown for a ward when its record identifies that ward or includes a reliably mapped location inside it. Citywide motions remain available in the overall record and are not placed on individual ward maps.' },
   vancouver: { label: 'GEOGRAPHY', heading: 'Citywide council activity', body: 'Vancouver’s mayor and councillors represent the entire city. Motions therefore remain in one shared citywide record.' },
+  victoria: { label: 'GEOGRAPHY', heading: 'Citywide council activity', body: 'Victoria’s mayor and councillors represent the entire city. Motions therefore remain in one shared citywide record.' },
 };
 
 export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toronto' }, motions = [], metadata = null }) {

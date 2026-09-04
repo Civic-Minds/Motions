@@ -22,6 +22,14 @@ const SOURCES = [
     label: 'Vancouver Open Data',
   },
   {
+    city: 'Victoria',
+    category: 'Open Data',
+    icon: Database,
+    description: 'Official council voting records published through the City of Victoria’s public dashboard.',
+    href: 'https://opendata.victoria.ca/pages/mayor-and-council',
+    label: 'Victoria council dashboard',
+  },
+  {
     city: 'Toronto',
     category: 'Council Pages',
     icon: Building2,
@@ -36,6 +44,14 @@ const SOURCES = [
     description: 'Official city council and committee pages provide meeting details, agenda context, and source documents.',
     href: 'https://vancouver.ca/your-government/city-council-meetings-and-decisions.aspx',
     label: 'Vancouver council pages',
+  },
+  {
+    city: 'Victoria',
+    category: 'Council Pages',
+    icon: Building2,
+    description: 'Official meeting agendas, minutes, and archived webcasts for Victoria City Council.',
+    href: 'https://www.victoria.ca/city-government/mayor-council/council-committee-meetings',
+    label: 'Victoria council pages',
   },
   {
     city: 'Winnipeg',

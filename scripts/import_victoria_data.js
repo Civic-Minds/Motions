@@ -132,7 +132,7 @@ function buildQuery(body) {
     return query;
 }
 
-function makeOutput(rows) {
+function makeOutput(rows, sourceLastRefreshed) {
     const dates = [...new Set(rows.map(row => row.date))].sort().slice(-MEETING_LIMIT);
     const selected = rows.filter(row => dates.includes(row.date));
     const motionMap = new Map();
@@ -181,6 +181,7 @@ function makeOutput(rows) {
         city: 'Victoria',
         source: SOURCE_URL,
         sample: true,
+        sourceLastRefreshed,
         lastChecked: new Date().toISOString(),
         note: 'Bounded feasibility sample from the City of Victoria public Power BI voting dashboard; not ready for public jurisdiction registration.',
     };
@@ -192,6 +193,13 @@ async function main() {
     const browser = await chromium.launch({ headless: true });
     const page = await browser.newPage();
     let capturedRequest;
+    let sourceLastRefreshed;
+    page.on('response', async response => {
+        if (!sourceLastRefreshed && response.url().includes('modelsAndExploration')) {
+            const model = await response.json();
+            sourceLastRefreshed = model.models?.['0']?.LastRefreshTime ?? null;
+        }
+    });
     page.on('request', request => {
         if (!capturedRequest && request.method() === 'POST' && request.url().includes('/querydata') && request.postData()?.includes('1d6bdaf206e10ad0a92e')) {
             capturedRequest = { body: request.postData(), headers: request.headers() };
@@ -218,7 +226,7 @@ async function main() {
     if (result.status !== 200) throw new Error(`Victoria Power BI query returned HTTP ${result.status}`);
 
     const rows = decodeRows(result.payload.results?.[0]?.result?.data);
-    const output = makeOutput(rows);
+    const output = makeOutput(rows, sourceLastRefreshed);
     if (!output.motions.length || !output.meetings.length) throw new Error('Victoria query returned no usable sample records.');
     fs.mkdirSync(DATA_DIR, { recursive: true });
     for (const [file, value] of Object.entries(output)) {
@@ -226,6 +234,7 @@ async function main() {
     }
     console.log(`Imported ${output.motions.length} motions across ${output.meetings.length} meetings from ${output.councillors.length} observed councillors.`);
     console.log(`Date range: ${output.meetings[0].date} → ${output.meetings.at(-1).date}`);
+    console.log(`Dashboard last refreshed: ${sourceLastRefreshed ?? 'unknown'}`);
     console.log('Status values are intentionally Recorded until official decision outcomes are mapped.');
 }
 

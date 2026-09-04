@@ -38,6 +38,26 @@ export const JURISDICTIONS = {
             officialUrl: 'https://vancouver.ca/your-government/2026-election.aspx',
         },
     },
+    victoria: {
+        id: 'victoria',
+        name: 'Victoria',
+        shortName: 'Victoria',
+        path: '/victoria',
+        geography: 'atLarge',
+        representativeLabel: 'Councillor',
+        representativesLabel: 'Councillors',
+        mayorName: 'Marianne Alto',
+        mapCenter: [48.4284, -123.3656],
+        currentCouncillors: [],
+        dataBaseEnv: 'VITE_VICTORIA_DATA_BASE_URL',
+        localDataPath: '/data/victoria',
+        public: false,
+        election: {
+            date: '2026-10-17',
+            offices: ['Mayor', 'City Councillor'],
+            officialUrl: 'https://www.victoria.ca/city-government/elections',
+        },
+    },
     // Winnipeg intentionally not registered yet — see scripts/import_winnipeg_data.js
     // and the winnipeg-city branch. Not ready to show publicly; the shared-code
     // fixes that came out of building it (this file's generalized consumers,
@@ -46,6 +66,10 @@ export const JURISDICTIONS = {
 
 export function getJurisdiction(id = 'toronto') {
     return JURISDICTIONS[id] ?? JURISDICTIONS.toronto;
+}
+
+export function getVisibleJurisdictions() {
+    return Object.values(JURISDICTIONS).filter(jurisdiction => jurisdiction.public !== false);
 }
 
 export function getInitialJurisdiction() {
