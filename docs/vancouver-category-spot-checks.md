@@ -34,10 +34,18 @@ Four further batches of 108 motions were reviewed by hand. Their IDs were
 selected from the records not used by Batches 1–2, then each later batch was
 selected from the remaining IDs. No record from Batches 1–4 was reused.
 
-The cumulative sample is now 648 motions. The observed rate is still below
-95%, so the review remains active. Clear mismatches in these rounds included
+The review remained active because these rounds were below 95% individually.
+Clear mismatches in these rounds included
 additional General → Planning & Development records (CD-1, development,
 building, permitting, and land-use titles), General → Finance records (funds,
 grants, and tax titles), General → Transit records (school travel and
 e-scooter titles), and General → Governance/Public Safety/Parks/Housing/Climate
 records where the title clearly named that subject.
+
+## Batches 7–15 — 2026-09-04
+
+Nine further batches of 108 motions were reviewed by hand. Selection continued
+from the remaining IDs using the same deterministic order; no sampled motion
+was reused. Batch 15 had 8 clear mismatches (92.6% accurate), which were fixed
+before the next round. Because the target is per round, the review remains
+active until one fresh 108-motion round reaches at least 103 correct records.
