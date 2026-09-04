@@ -511,6 +511,7 @@ const decisions = new Map([
   ['Vancouver Community Sport Event Grants â€“ Fall 2023 Intake - Adopted on Consent', 'Parks'],
   ['Vancouver Civic Theatres Rental Rates 2026-2027', 'Parks'],
   ['2026 Annual Review of Sewer Rates â€“ Sewer and Watercourse By-law', 'Finance'],
+  ['Vancouver Civic Theatres Activating Spaces Grant 2023', 'Parks'],
 ]);
 
 const motions = JSON.parse(fs.readFileSync(path, 'utf8'));

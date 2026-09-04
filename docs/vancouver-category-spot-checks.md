@@ -50,3 +50,9 @@ was reused. Batch 15 had 8 clear mismatches (92.6% accurate), which were fixed
 before the next round. Batches 16–20 also remained below 95% and were corrected
 before sampling onward. Because the target is per round, the review remains
 active until one fresh 108-motion round reaches at least 103 correct records.
+
+## Remaining records — 2026-09-04
+
+The 20 non-overlapping batches exhausted 2,160 of the 2,164 records. The final
+4 never-sampled records were checked separately: 3 were accurate and 1 clear
+Finance → Parks error was fixed. They cannot form a further 5% round.
