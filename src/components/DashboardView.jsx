@@ -17,6 +17,7 @@ import { CivicCard, CivicCardFooter, CivicPill } from './ui/CivicCard';
 
 const TorontoMiniMap = lazy(() => import('./TorontoMiniMap'));
 const VancouverMiniMap = lazy(() => import('./VancouverMiniMap'));
+const VictoriaMiniMap = lazy(() => import('./VictoriaMiniMap'));
 
 const VOTE_TYPES = [
   { label: 'All', value: 'All' },
@@ -395,6 +396,7 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
   const { followedCommittees = [] } = useAppContext();
   const isVancouver = jurisdiction.id === 'vancouver';
   const isToronto = jurisdiction.id === 'toronto';
+  const isVictoria = jurisdiction.id === 'victoria';
   const hasElectionPromo = isToronto || isVancouver;
   const electionOver = isOnOrAfter(jurisdiction.election?.date);
   const navigate = useNavigate();
@@ -698,7 +700,7 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
       {/* ── Main: Filter sidebar + motion list (same column widths as bento) ── */}
       <div className={cn(
         'grid grid-cols-1 lg:gap-x-3 lg:items-start gap-y-4',
-        (isToronto || isVancouver) ? 'lg:grid-cols-[200px_1fr_220px]' : 'lg:grid-cols-[200px_1fr]'
+        (isToronto || isVancouver || isVictoria) ? 'lg:grid-cols-[200px_1fr_220px]' : 'lg:grid-cols-[200px_1fr]'
       )}>
 
         <FilterSidebar>
@@ -728,13 +730,13 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
 
         <UpcomingMeeting meetings={meetings} navigate={navigate} className="lg:hidden" />
 
-        {/* City mini-map — Toronto/Vancouver only for now; each mini-map is
-            its own hand-built component with a hardcoded city center, and
-            neither has real geocoded locations to plot for other cities. */}
-        {(isToronto || isVancouver) && (
+        {/* City mini-map — each is its own hand-built component with a
+            hardcoded city center. Other cities don't have real geocoded
+            locations to plot yet (see docs on Yellowknife's coverage). */}
+        {(isToronto || isVancouver || isVictoria) && (
           <div className="hidden lg:flex flex-col sticky top-24">
             <Suspense fallback={<div className="rounded-2xl bg-slate-100 animate-pulse h-[calc(100vh-7rem)] min-h-[480px] border border-slate-200" />}>
-              {isVancouver ? <VancouverMiniMap motions={motions} /> : <TorontoMiniMap motions={motions} />}
+              {isVancouver ? <VancouverMiniMap motions={motions} /> : isVictoria ? <VictoriaMiniMap motions={motions} /> : <TorontoMiniMap motions={motions} />}
             </Suspense>
           </div>
         )}

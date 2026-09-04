@@ -10,6 +10,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 - Manually reviewed all 592 Yellowknife motion topics against their titles, correcting 60 clear category errors while leaving defensible and ambiguous classifications unchanged.
 - Unified motion topic categories across all four cities (Toronto, Vancouver, Victoria, Yellowknife) to the same nine labels — added Planning & Development, Governance, and Public Safety, retired the Toronto/Vancouver-only "Events" bucket, and gave Yellowknife real topic classification for the first time instead of a hardcoded General. Board/committee appointments now consistently route to Governance instead of landing in whichever board's own topic (e.g. a TTC board appointment no longer shows up under Transit).
+- Victoria's homepage now shows a map of nearby motions, matching Toronto and Vancouver — it already had real geocoded addresses (426 of 1,029 motions) but the homepage widget had only ever been built for the other two cities.
 
 ### Added
 
