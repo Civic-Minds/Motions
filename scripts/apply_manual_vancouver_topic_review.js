@@ -457,6 +457,18 @@ const decisions = new Map([
   ['CD-1 Text Amendment: 8 East Broadway (Formerly 2-24 East Broadway and 2520 Ontario Street)', 'Planning & Development'],
   ['Recommitting to $10 a Day Childcare', 'Housing'],
   ['Annual Federation of Canadian Municipalities (FCM), Union of British Columbia Municipalities (UBCM), and Lower Mainland Local Government Association (LMLGA) Membership Fees for 2026 to 2027', 'Finance'],
+  ['Approval of Council Initiatives â€“ Business Improvement Area (BIA) Renewals 2023\nNovember 1, 2022', 'Finance'],
+  ['2022 Community Services and Other Social Grants', 'Finance'],
+  ['Building Safer Communities Program - Youth Safety and Violence Prevention Strategy - final amended A, B, C and E', 'Public Safety'],
+  ['Residential Laneway Design & Local Improvement Procedure By-Law Updates - Amended Amendment', 'Planning & Development'],
+  ['2024 Graffiti Abatement Grants to Business Improvement Associations (BIAs)', 'Finance'],
+  ['2024 Cultural Grants (CASC, Capacity, Cultural Spaces)', 'Parks'],
+  ['Unlocking Attainable Home Ownership', 'Housing'],
+  ['Declaration of Dangerous Building at 500 Dunsmuir Street, Vancouver - first amendment', 'Public Safety'],
+  ["Contract Award for Consulting Services for City of Vancouver False Creek South Landowner's Conceptual Development Plan", 'Planning & Development'],
+  ['Change Order to PS20240847-VBPR-RFP - Construction Manager - FIFA World Cup 26 Vancouver Venue Specific Training Site (VSTS)', 'Finance'],
+  ["Support for BC Parks Foundation's Learning by Nature Initiative", 'Parks'],
+  ['Honouring the Horse: Saving Vancouver\'s Iconic Lunar New Year Community Gala in Chinatown - amendment', 'Parks'],
 ]);
 
 const motions = JSON.parse(fs.readFileSync(path, 'utf8'));
