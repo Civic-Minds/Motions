@@ -23,6 +23,7 @@ const coveredCities = getVisibleJurisdictions()
     tagline: jurisdiction.directory.tagline,
     lat: jurisdiction.directory.coordinates[0],
     lng: jurisdiction.directory.coordinates[1],
+    election: jurisdiction.election,
   }));
 const otherElectionCities = OTHER_ELECTION_CITIES;
 
@@ -141,7 +142,7 @@ export default function CitiesMap() {
           onMouseLeave={resetView}
         >
           {coveredCards.map(city => {
-            const election = JURISDICTIONS[city.id]?.election;
+            const election = city.election;
             const electionUpcoming = election && !isOnOrAfter(election.date);
             return (
               <a
