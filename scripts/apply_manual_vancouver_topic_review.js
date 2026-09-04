@@ -442,6 +442,14 @@ const decisions = new Map([
   ['Audit of Land Sales and Exchanges - amendment', 'Finance'],
   ['Audit of Land Sales and Exchanges', 'Finance'],
   ['2026 Graffiti Abatement Grants for Business Improvement Areas (BIAs)', 'Finance'],
+  ['Building Safer Communities Program - Youth Safety and Violence Prevention Strategy - Amendment C as amended', 'Public Safety'],
+  ['Approval of Business Improvement Area (BIA) Renewals and Expansion 2024 - Final vote', 'Finance'],
+  ['CD-1 (845) Text Amendment: 728-796 Main Street and 205 Union Street', 'Planning & Development'],
+  ['2024 Annual Whistleblower Report', 'Governance'],
+  ['Vancouver Community Sport Event Grants â€“ Spring 2025 Intake', 'Parks'],
+  ['Single Room Occupancy (SRO) Upgrading Grants - final vote', 'Housing'],
+  ['2026 Business Licence, Vehicles for Hire and Animal Control Fees - Amendment', 'Finance'],
+  ["Ensuring Councillors Motions Maintain Public Confidence in the Good Rule of the City", 'Governance'],
 ]);
 
 const motions = JSON.parse(fs.readFileSync(path, 'utf8'));
