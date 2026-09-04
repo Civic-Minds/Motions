@@ -6,6 +6,7 @@ const path = 'public/data/yellowknife/motions.json';
 // docs/CATEGORIZATION_GUIDE.md. This is an explicit review record, not a
 // keyword classifier.
 const changes = {
+  'yk-2022-12-12-0178-22': 'Governance',
   'yk-2023-01-09-0005-23': 'General',
   'yk-2023-01-09-0006-23': 'General',
   'yk-2023-01-23-00010-23': 'General',
