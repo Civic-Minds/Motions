@@ -6,7 +6,7 @@
  * from the minutes. Individual votes are populated only for unanimous results
  * or named opposing members; a bare "carried" result gets no invented roll call.
  *
- * Usage: node scripts/import_yellowknife_data.js [--from=2025-01-01]
+ * Usage: node scripts/import_yellowknife_data.js [--from=2022-10-18]
  */
 
 import { execFileSync } from 'node:child_process';
@@ -23,21 +23,24 @@ export const COUNCIL_MEMBERS = [
   'Mayor Ben Hendriksen', 'Garett Cochrane', 'Ryan Fequet', 'Rob Foote',
   'Cat McGurk', 'Tom McLennan', 'Stacie Arden-Smith', 'Steve Payne', 'Rob Warburton',
 ];
+const TERM_MEMBERS = [
+  'Mayor Rebecca Alty', ...COUNCIL_MEMBERS,
+];
 
 const DATA_DIR = path.join(process.cwd(), 'public/data/yellowknife');
 const fromArg = process.argv.find(arg => arg.startsWith('--from='));
-const FROM_DATE = fromArg?.slice('--from='.length) ?? '2025-01-01';
+const FROM_DATE = fromArg?.slice('--from='.length) ?? '2022-10-18';
 const TO_DATE = new Date().toISOString().slice(0, 10);
 
 function compact(value) { return value.replace(/\s+/g, ' ').trim(); }
 function slugify(value) { return value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
 
 function memberFromReference(reference) {
-  const match = reference.match(/(?:Mayor|Deputy Mayor|Councillor)\s+([A-Z])\.\s+([A-Za-z][A-Za-z'’-]*(?:-[A-Za-z][A-Za-z'’-]*)*)/i);
+  const match = reference.match(/(?:Mayor|Deputy Mayor|Councillor)\s+([A-Z5])\.\s+([A-Za-z][A-Za-z'’-]*(?:-[A-Za-z][A-Za-z'’-]*)*)/i);
   if (!match) return null;
-  const initial = match[1].toUpperCase();
+  const initial = ({ '5': 'S' }[match[1]] ?? match[1]).toUpperCase();
   const surname = match[2].toLowerCase();
-  return COUNCIL_MEMBERS.find(member => {
+  return TERM_MEMBERS.find(member => {
     const bare = member.replace(/^Mayor\s+/i, '');
     const parts = bare.split(' ');
     return parts.at(-1).toLowerCase() === surname && parts[0][0].toUpperCase() === initial;
@@ -47,7 +50,7 @@ function memberFromReference(reference) {
 export function parsePresentMembers(text) {
   const section = text.match(/\bPresent:\s*([\s\S]*?)(?=\n\s*(?:City Staff|Staff|Administration)\s*:)/i)?.[1] ?? '';
   const present = new Set();
-  for (const match of section.matchAll(/(?:Mayor|Deputy Mayor|Councillor)\s+[A-Z]\.\s+[A-Za-z][A-Za-z'’-]*(?:-[A-Za-z][A-Za-z'’-]*)*/gi)) {
+  for (const match of section.matchAll(/(?:Mayor|Deputy Mayor|Councillor)\s+[A-Z5]\.\s+[A-Za-z][A-Za-z'’-]*(?:-[A-Za-z][A-Za-z'’-]*)*/gi)) {
     const member = memberFromReference(match[0]);
     if (member) present.add(member);
   }
@@ -61,7 +64,7 @@ function normalizeText(text) {
 export function parseMotions(text, date, committee, sourceUrl, meetingReference) {
   const normalized = normalizeText(text);
   const present = parsePresentMembers(normalized);
-  const blocks = [...normalized.matchAll(/(^|\n)\s*#(\d{3,6})-(\d{2})\s+([\s\S]*?)(?=\n\s*#\d{3,6}-\d{2}\b|\n\s*ADJOURNMENT\b|$)/gmi)];
+  const blocks = [...normalized.matchAll(/(^|\n)\s*#(\d{3,6})-(\d{2})\s+([\s\S]*?)(?=\n\s*#\d{3,6}-\d{2}\b|\n\s*ADJOURNMENT\b|$)/gi)];
 
   return blocks.map(match => {
     const number = `${match[2]}-${match[3]}`;
@@ -70,7 +73,7 @@ export function parseMotions(text, date, committee, sourceUrl, meetingReference)
     if (!outcome) return null;
     const question = body.match(/\bThat\s+([\s\S]*?)(?=\s+MOTION\s+(?:CARRIED|DEFEATED)\b)/i)?.[1] ?? body;
     const title = compact(question).replace(/[.;:]$/, '').slice(0, 280);
-    const opposed = [...(outcome[2] ?? '').matchAll(/(?:Mayor|Deputy Mayor|Councillor)\s+[A-Z]\.\s+[A-Za-z][A-Za-z'’-]*(?:-[A-Za-z][A-Za-z'’-]*)*/gi)]
+    const opposed = [...(outcome[2] ?? '').matchAll(/(?:Mayor|Deputy Mayor|Councillor)\s+[A-Z5]\.\s+[A-Za-z][A-Za-z'’-]*(?:-[A-Za-z][A-Za-z'’-]*)*/gi)]
       .map(item => memberFromReference(item[0])).filter(Boolean);
     const unanimous = /UNANIMOUSLY/i.test(outcome[0]);
     const votes = {};
@@ -124,12 +127,34 @@ function meetingFromPath(url) {
   return { date: match[1], startTime: match[2], committee, meetingReference: `yellowknife-${match[1]}-${slugify(committee)}` };
 }
 
+function dateWindows(fromDate, toDate) {
+  const windows = [];
+  const cursor = new Date(`${fromDate}T00:00:00Z`);
+  const end = new Date(`${toDate}T00:00:00Z`);
+  while (cursor <= end) {
+    const windowStart = cursor.toISOString().slice(0, 10);
+    const windowEndDate = new Date(cursor);
+    windowEndDate.setUTCDate(windowEndDate.getUTCDate() + 364);
+    const windowEnd = new Date(Math.min(windowEndDate.getTime(), end.getTime())).toISOString().slice(0, 10);
+    const params = new URLSearchParams({
+      StartDate: `${windowStart.slice(5, 7)}/${windowStart.slice(8, 10)}/${windowStart.slice(0, 4)}`,
+      EndDate: `${windowEnd.slice(5, 7)}/${windowEnd.slice(8, 10)}/${windowEnd.slice(0, 4)}`,
+    });
+    windows.push(`${CALENDAR_URL}?${params}`);
+    cursor.setUTCDate(cursor.getUTCDate() + 365);
+  }
+  return windows;
+}
+
 async function main() {
-  const calendarHtml = await readPage(CALENDAR_URL);
-  const $ = cheerio.load(calendarHtml);
-  const detailUrls = [...new Set($('a[href]').map((_, element) => $(element).attr('href')).get()
-    .filter(href => /\/meetings\/detail\//i.test(href))
-    .map(href => new URL(href, CALENDAR_URL).href))];
+  const detailUrls = new Set();
+  for (const calendarUrl of dateWindows(FROM_DATE, TO_DATE)) {
+    const $ = cheerio.load(await readPage(calendarUrl));
+    $('a[href]').each((_, element) => {
+      const href = $(element).attr('href');
+      if (/\/meetings\/detail\//i.test(href ?? '')) detailUrls.add(new URL(href, calendarUrl).href);
+    });
+  }
   const motions = [];
   const meetings = [];
   const existingMotions = fs.existsSync(path.join(DATA_DIR, 'motions.json')) ? JSON.parse(fs.readFileSync(path.join(DATA_DIR, 'motions.json'), 'utf8')) : [];
