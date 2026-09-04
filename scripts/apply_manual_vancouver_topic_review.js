@@ -427,6 +427,21 @@ const decisions = new Map([
   ['Contract Award for Construction Services for Permanent Plazas', 'Parks'],
   ['Urgent Action to Save Car Free Days 2026 - AMENDMENT TO THE AMENDMENT', 'Transit'],
   ['Igniting our Spirits: Bringing Vancouver Together Through Summer Celebration - amendment', 'Parks'],
+  ['Resolution - Closure and Sale of a Portion of Eveleigh Street Adjacent to 1025 Dunsmuir Street', 'Planning & Development'],
+  ['998 Thurlow Street - Heritage Revitalization Agreement and Heritage Designation', 'Parks'],
+  ['2023 OAG Annual Report and 2024 Operational Plan', 'Governance'],
+  ['Annual Federation of Canadian Municipalities (FCM), UBCM, LMLGA Membership Fees for 2024 to 2025', 'Finance'],
+  ['Potential to Update the Vancouver Building Bylaw to enable Single Egress Stairs Low & Mid-Rise Buildings to Align with Provincial Changes to the B', 'Planning & Development'],
+  ['CD-1 (843) Text Amendment: 888 West Broadway (formerly 878-898 West Broadway)', 'Planning & Development'],
+  ['CD-1 (519) Text Amendment and Gaming Control Act Approval: 39-65 Smithe Street', 'Planning & Development'],
+  ['CD-1 (519) Text Amendment and Gaming Control Act Approval: 39-65 Smithe Street - Amendment', 'Planning & Development'],
+  ['Enhanced Tools for Standards of Property Maintenance', 'Planning & Development'],
+  ['Unlocking the Creative and Economic Potential of Vancouver\'s Railtown District - Final motion as amended', 'Planning & Development'],
+  ['Reopening Clark Drive: Protecting East Vancouverâ€™s Livability and Port Access - Amendment to E and add F', 'Transit'],
+  ['Assessing Motor Vehicle Speeding Risk at Vancouver\'s Most Dangerous Intersections', 'Transit'],
+  ['Audit of Land Sales and Exchanges - amendment', 'Finance'],
+  ['Audit of Land Sales and Exchanges', 'Finance'],
+  ['2026 Graffiti Abatement Grants for Business Improvement Areas (BIAs)', 'Finance'],
 ]);
 
 const motions = JSON.parse(fs.readFileSync(path, 'utf8'));
