@@ -295,7 +295,7 @@ export default function GlobalSearch({ motions, councillorNames, open, onClose }
                   <div>
                     <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide mb-2">Topics</p>
                     <div className="flex flex-wrap gap-1.5">
-                      {['Housing', 'Transit', 'Finance', 'Parks', 'Climate'].map(t => (
+                      {['Housing & homelessness', 'Transportation & streets', 'Finance & taxes', 'Planning & development', 'Parks, recreation & culture', 'Climate, environment & waste', 'Public safety'].map(t => (
                         <button
                           key={t}
                           onClick={() => { setQuery(t); setCursor(0); }}
