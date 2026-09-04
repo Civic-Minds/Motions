@@ -8,7 +8,7 @@ import { usePresence } from './hooks/usePresence';
 import { cn } from './lib/utils';
 import { useMotions } from './hooks/useMotions';
 import { AppProvider, useAppContext } from './contexts/AppContext';
-import { getInitialJurisdiction, getJurisdiction, getVisibleJurisdictions } from './constants/jurisdictions';
+import { getInitialJurisdiction, getJurisdiction, getVisibleJurisdictions, isJurisdictionPublic } from './constants/jurisdictions';
 import { formatElectionDate } from './utils/electionDate';
 import { getLastJurisdiction, setLastJurisdiction } from './utils/storage';
 import { trackGoogleEvent } from './utils/googleAnalytics';
@@ -506,6 +506,12 @@ export default function App() {
     );
   }
 
+  const requestedCity = window.location.pathname.split('/').filter(Boolean)[0];
+  const requestedJurisdiction = getJurisdiction(requestedCity);
+  if (!isJurisdictionPublic(requestedJurisdiction)) {
+    window.location.replace('/');
+    return null;
+  }
   const jurisdiction = getInitialJurisdiction();
   setLastJurisdiction(jurisdiction.id);
   return (
