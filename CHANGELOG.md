@@ -6,6 +6,10 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+### Added
+
+- Added a bounded Victoria council-vote importer from the City’s official public dashboard; Victoria stays off the public selector until the sample is validated.
+
 ### Changed
 
 - **Faster font load**: The Inter font stylesheet no longer blocks first paint — it loads in the background and swaps in once ready.
