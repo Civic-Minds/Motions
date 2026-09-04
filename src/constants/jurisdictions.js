@@ -38,6 +38,14 @@ export const JURISDICTIONS = {
             officialUrl: 'https://vancouver.ca/your-government/2026-election.aspx',
         },
     },
+    yellowknife: {
+        id: 'yellowknife', name: 'Yellowknife', shortName: 'Yellowknife', path: '/yellowknife',
+        geography: 'atLarge', representativeLabel: 'Councillor', representativesLabel: 'Councillors',
+        mayorName: 'Mayor Ben Hendriksen', mapCenter: [62.454, -114.372],
+        currentCouncillors: ['Mayor Ben Hendriksen', 'Garett Cochrane', 'Ryan Fequet', 'Rob Foote', 'Cat McGurk', 'Tom McLennan', 'Stacie Arden-Smith', 'Steve Payne', 'Rob Warburton'],
+        dataBaseEnv: 'VITE_YELLOWKNIFE_DATA_BASE_URL', localDataPath: '/data/yellowknife',
+        election: { date: '2026-10-19', offices: ['Mayor', 'City Councillor'], officialUrl: 'https://www.yellowknife.ca/elections' },
+    },
     // Winnipeg intentionally not registered yet — see scripts/import_winnipeg_data.js
     // and the winnipeg-city branch. Not ready to show publicly; the shared-code
     // fixes that came out of building it (this file's generalized consumers,

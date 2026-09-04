@@ -1,0 +1,45 @@
+name: Refresh Yellowknife Council Data
+
+on:
+  schedule:
+    - cron: '0 7 * * 2,4,6'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - name: Install PDF text extractor
+        run: sudo apt-get update && sudo apt-get install --yes poppler-utils
+      - name: Install dependencies
+        run: npm ci
+      - name: Download existing Yellowknife data
+        run: |
+          mkdir -p public/data/yellowknife scripts/cache
+          curl -sf "https://qcbqayy3ivvb6sia.public.blob.vercel-storage.com/yellowknife/motions.json" -o public/data/yellowknife/motions.json || echo "No existing motions, starting fresh"
+          curl -sf "https://qcbqayy3ivvb6sia.public.blob.vercel-storage.com/yellowknife/meetings.json" -o public/data/yellowknife/meetings.json || echo "No existing meetings, starting fresh"
+          curl -sf "https://qcbqayy3ivvb6sia.public.blob.vercel-storage.com/yellowknife/councillors.json" -o public/data/yellowknife/councillors.json || echo "No existing councillors, starting fresh"
+          curl -sf "https://qcbqayy3ivvb6sia.public.blob.vercel-storage.com/cache/yellowknife_summaries_cache.json" -o scripts/cache/yellowknife_summaries_cache.json || echo "No existing summaries cache"
+      - name: Import Yellowknife council minutes
+        run: node scripts/import_yellowknife_data.js --from=2025-01-01
+      - name: Extract structured fields
+        run: node scripts/extract_fields.js --city=yellowknife
+      - name: Generate plain-language summaries
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: node scripts/generate_summaries.js --city=yellowknife
+      - name: Strip source document text
+        run: node scripts/strip_body.js --city=yellowknife
+      - name: Record Yellowknife refresh time
+        run: node scripts/write_data_metadata.js --city=yellowknife
+      - name: Upload Yellowknife data to Vercel Blob
+        env:
+          BLOB_READ_WRITE_TOKEN: ${{ secrets.BLOB_READ_WRITE_TOKEN }}
+        run: node scripts/upload_to_blob.js --city-only=yellowknife

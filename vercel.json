@@ -4,7 +4,8 @@
   "outputDirectory": "dist",
   "redirects": [
     { "source": "/toronto/", "destination": "/toronto", "permanent": true },
-    { "source": "/vancouver/", "destination": "/vancouver", "permanent": true }
+    { "source": "/vancouver/", "destination": "/vancouver", "permanent": true },
+    { "source": "/yellowknife/", "destination": "/yellowknife", "permanent": true }
   ],
   "rewrites": [
     { "source": "/sitemap.xml", "destination": "/api/sitemap" },
@@ -17,6 +18,11 @@
       "source": "/vancouver",
       "has": [{ "type": "header", "key": "user-agent", "value": "(?i).*(twitterbot|facebookexternalhit|redditbot|linkedinbot|slackbot|discordbot).*" }],
       "destination": "/api/preview?path=/vancouver"
+    },
+    {
+      "source": "/yellowknife",
+      "has": [{ "type": "header", "key": "user-agent", "value": "(?i).*(twitterbot|facebookexternalhit|redditbot|linkedinbot|slackbot|discordbot).*" }],
+      "destination": "/api/preview?path=/yellowknife"
     },
     {
       "source": "/toronto/(.*)",

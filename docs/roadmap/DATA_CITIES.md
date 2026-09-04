@@ -15,7 +15,7 @@ Future municipal expansions for the Motions platform.
 
 - [ ] **Ottawa** — Currently requires parsing meeting minutes or scraping [Agendas & Minutes](https://ottawa.ca/).
 - [ ] **Montreal** — Requires parsing text-based "procès-verbaux" from [Données ouvertes Montréal](https://donnees.montreal.ca/).
-- [ ] **Yellowknife** — Official council agendas and minutes are available through the City's [Council Calendar](https://events.yellowknife.ca/meetings), but voting records will require extracting decisions and roll calls from meeting documents. Yellowknife's next municipal election is October 19, 2026.
+- [ ] **Yellowknife** — Official council agendas and minutes are available through the City's [Council Calendar](https://events.yellowknife.ca/meetings). The initial importer extracts numbered decisions and only records individual votes when the minutes explicitly provide them; improve historical pagination and roll-call coverage before promoting the jurisdiction broadly. Yellowknife's next municipal election is October 19, 2026.
 
 ## Global Infrastructure
 

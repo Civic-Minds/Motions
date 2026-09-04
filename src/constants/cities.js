@@ -2,6 +2,7 @@
 export const COVERED_CITIES = [
   { id: 'toronto', name: 'Toronto', href: '/toronto', tagline: '25 wards · Mayor Olivia Chow', lat: 43.6532, lng: -79.3832 },
   { id: 'vancouver', name: 'Vancouver', href: '/vancouver', tagline: 'Elected at-large · Mayor Ken Sim', lat: 49.2827, lng: -123.1207 },
+  { id: 'yellowknife', name: 'Yellowknife', href: '/yellowknife', tagline: '8 councillors · Mayor Ben Hendriksen', lat: 62.4540, lng: -114.3718 },
 ];
 
 // Other major Canadian cities with a confirmed municipal election this cycle —

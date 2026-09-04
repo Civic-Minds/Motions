@@ -10,6 +10,7 @@ const SOURCE_LINK_CLASS = 'text-[#004a99] underline underline-offset-2 hover:tex
 const SOURCE_URLS = {
   toronto: 'https://open.toronto.ca/dataset/members-of-toronto-city-council-voting-record/',
   vancouver: 'https://opendata.vancouver.ca/explore/dataset/council-voting-records/',
+  yellowknife: 'https://events.yellowknife.ca/meetings',
   winnipeg: 'https://data.winnipeg.ca/Council-Services/Council-Voting-Data/f9mn-vti8',
 };
 
@@ -67,7 +68,9 @@ export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toront
           <Database className="w-5 h-5 text-[#004a99]" />
           <h2 className="text-lg font-semibold text-slate-900">Sources</h2>
           <p className="text-sm leading-relaxed text-slate-500">
-            Voting records come from <a className={SOURCE_LINK_CLASS} href={sourceUrl} target="_blank" rel="noopener noreferrer">{jurisdiction.name} Open Data</a>. Meeting details and agenda records come from the City of {jurisdiction.name}’s council and committee pages.
+            {jurisdiction.id === 'yellowknife'
+              ? <>Council decisions come from <a className={SOURCE_LINK_CLASS} href={sourceUrl} target="_blank" rel="noopener noreferrer">Yellowknife’s official meeting calendar</a>, which links to meeting agendas and minutes.</>
+              : <>Voting records come from <a className={SOURCE_LINK_CLASS} href={sourceUrl} target="_blank" rel="noopener noreferrer">{jurisdiction.name} Open Data</a>. Meeting details and agenda records come from the City of {jurisdiction.name}’s council and committee pages.</>}
           </p>
           <Link className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#004a99]" to="/sources">
             See all sources

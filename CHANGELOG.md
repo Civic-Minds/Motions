@@ -8,7 +8,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Changed
 
-- **Yellowknife on the city map**: Added Yellowknife as a coming-soon city with its confirmed October 19, 2026 municipal election date while council-record coverage is researched.
+- **Yellowknife council coverage**: Registered Yellowknife as a citywide jurisdiction and added an importer for its official agenda/minutes records, bringing the city’s council decisions onto the shared Motions data model.
 - **Faster font load**: The Inter font stylesheet no longer blocks first paint — it loads in the background and swaps in once ready.
 - **Smaller councillor photos**: Headshots were being served at their full 820×1024 source size everywhere, including 40px avatars — resized to the largest size actually used on screen, cutting the councillor photo payload from 5.3MB to about 0.2MB. Avatars below the fold now also defer loading until scrolled into view.
 - **Faster page load**: The dashboard no longer waits on the full meetings history (~300KB gzipped) before showing content — only its small "next meeting" card needs that data, so it now loads in the background instead of blocking first render.

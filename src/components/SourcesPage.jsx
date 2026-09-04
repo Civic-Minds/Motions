@@ -38,6 +38,14 @@ const SOURCES = [
     label: 'Vancouver council pages',
   },
   {
+    city: 'Yellowknife',
+    category: 'Council Pages',
+    icon: Building2,
+    description: 'Official meeting agendas, minutes, and recordings from Yellowknife City Council and committees.',
+    href: 'https://events.yellowknife.ca/meetings',
+    label: 'Yellowknife council calendar',
+  },
+  {
     city: 'Winnipeg',
     category: 'Open Data',
     icon: Database,
