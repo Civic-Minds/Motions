@@ -27,6 +27,22 @@ MOTION CARRIED (Councillor R. Warburton opposed)
 9. Councillor G. Cochrane moved, Councillor C. McGurk seconded,
 That: the City reject the proposal.
 MOTION DEFEATED
+
+#0004-22
+10. Councillor G. Cochrane moved, Councillor C. McGurk seconded,
+First Reading of By-law No. 5063.
+MOTION CARRIED UNANIMOUSLY
+11. There was no deferred business.
+
+#0005-22
+12. Councillor G. Cochrane moved/ Councillor C. McGurk seco nded/
+Second Reading of By-law No. 5063.
+MOTION CARRIED UNANIMOUSLY
+
+#0006-22
+13. Councillor G. Cochrane moved, Councillor C. McGurk second ed,
+Third Reading of By-law No. 5063.
+MOTION CARRIED UNANIMOUSLY
 `;
 
 assert.deepEqual(parsePresentMembers(text), [
@@ -34,7 +50,7 @@ assert.deepEqual(parsePresentMembers(text), [
 ]);
 
 const motions = parseMotions(text, '2022-10-24', 'Council Meeting', sourceUrl, 'yellowknife-2022-10-24-council-meeting');
-assert.equal(motions.length, 3);
+assert.equal(motions.length, 6);
 assert.equal(Object.keys(motions[0].votes).length, 5);
 assert.equal(motions[0].title, 'the City approve the budget');
 assert.equal(motions[0].votes['Mayor Rebecca Alty'], 'YES');
@@ -42,6 +58,9 @@ assert.equal(motions[1].title, 'the City defer the item');
 assert.equal(motions[1].votes['Rob Warburton'], 'NO');
 assert.deepEqual(motions[2].votes, {});
 assert.equal(motions[2].status, 'Not adopted');
+assert.equal(motions[3].title, 'First Reading of By-law No. 5063');
+assert.equal(motions[4].title, 'Second Reading of By-law No. 5063');
+assert.equal(motions[5].title, 'Third Reading of By-law No. 5063');
 assert.equal(motions.every(motion => motion.sourceUrl === sourceUrl), true);
 
 console.log('Yellowknife parser fixtures passed');

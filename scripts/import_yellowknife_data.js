@@ -36,6 +36,16 @@ const TO_DATE = new Date().toISOString().slice(0, 10);
 function compact(value) { return value.replace(/\s+/g, ' ').trim(); }
 function slugify(value) { return value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
 
+function topicForTitle(title) {
+  const value = title.toLowerCase();
+  if (/\b(housing|homeless|shelter|affordable)\b/.test(value)) return 'Housing';
+  if (/\b(transit|transportation|road|street|traffic)\b/.test(value)) return 'Transit';
+  if (/\b(budget|tax|finance|financial|expenditure|procurement|contract)\b/.test(value)) return 'Finance';
+  if (/\b(park|recreation|trail|playground)\b/.test(value)) return 'Parks';
+  if (/\b(climate|emission|energy|waste|recycl|environment)\b/.test(value)) return 'Climate';
+  return 'General';
+}
+
 function memberFromReference(reference) {
   const match = reference.match(/(?:Mayor|Deputy Mayor|Councillor)\s+([A-Z5])\.\s+([A-Za-z][A-Za-z'’-]*(?:-[A-Za-z][A-Za-z'’-]*)*)/i);
   if (!match) return null;
@@ -72,8 +82,16 @@ export function parseMotions(text, date, committee, sourceUrl, meetingReference)
     const body = compact(match[4]);
     const outcome = body.match(/MOTION\s+(CARRIED|DEFEATED)(?:\s+UNANIMOUSLY)?(?:\s*\(([^)]*)\))?/i);
     if (!outcome) return null;
-    const question = body.match(/\bThat\s*:?\s*([\s\S]*?)(?=\s+MOTION\s+(?:CARRIED|DEFEATED)\b)/i)?.[1] ?? body;
-    const title = compact(question).replace(/[.;:]$/, '').slice(0, 280);
+    const preOutcome = compact(body.slice(0, outcome.index));
+    const question = preOutcome.match(/\bThat\s*:?\s*([\s\S]*)/i)?.[1] ?? preOutcome;
+    const title = compact(question)
+      .replace(/\bCounci\s+llor\b/gi, 'Councillor')
+      .replace(/^\d+\.\s*/, '')
+      .replace(/^(?:Mayor|Councillor)\s+[^,/]+?\s+moved\s*[,/]\s*(?:Mayor|Councillor)\s+[^,/]+?\s+(?:secon\s*d\s*ed|seco\s*nded)\s*[,/]\s*/i, '')
+      .replace(/\s+DM#\d+.*$/i, '')
+      .replace(/[.;:]$/, '')
+      .replace(/^the (Meeting|Minutes)\b/, (_, word) => `the ${word.toLowerCase()}`)
+      .slice(0, 280);
     const opposed = [...(outcome[2] ?? '').matchAll(/(?:Mayor|Deputy Mayor|Councillor)\s+[A-Z5]\.\s+[A-Za-z][A-Za-z'’-]*(?:-[A-Za-z][A-Za-z'’-]*)*/gi)]
       .map(item => memberFromReference(item[0])).filter(Boolean);
     const unanimous = /UNANIMOUSLY/i.test(outcome[0]);
@@ -85,8 +103,9 @@ export function parseMotions(text, date, committee, sourceUrl, meetingReference)
     const status = outcome[1].toUpperCase() === 'CARRIED' ? 'Adopted' : 'Not adopted';
     return {
       id: `yk-${date}-${number}`, title, date, committee, status, votes, yesCount, noCount,
-      topic: 'General', significance: status === 'Adopted' ? (unanimous ? 10 : 20) : 25,
-      trivial: true, sourceUrl, agendaUrl: null, meetingReference, motionNumber: number,
+      topic: topicForTitle(title), significance: status === 'Adopted' ? (unanimous ? 10 : 20) : 25,
+      trivial: /^(?:the minutes of council|the meeting be adjourned|approve the agenda|adopt the agenda)\b/i.test(title),
+      sourceUrl, agendaUrl: null, meetingReference, motionNumber: number,
       body: `${body}\n\nSource: ${sourceUrl}`,
     };
   }).filter(Boolean);
