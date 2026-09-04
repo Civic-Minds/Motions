@@ -366,6 +366,22 @@ const decisions = new Map([
   ['Promoting Cultural Inclusion and Economic Vitality: Advancing the Main Street Filipino Cultural Centre and Hotel Project', 'Parks'],
   ['A World Cup for Everyone: Exploring Free Public Viewing Opportunities at BC Place and the PNE Amphitheatre - amendment', 'Parks'],
   ['A World Cup for Everyone: Exploring Free Public Viewing Opportunities at BC Place and the PNE Amphitheatre', 'Parks'],
+  ['CD-1 Rezonings: (i) 5392-5472 Manson Street and (ii) 5250-5270 Ash Street and 595 West 37th Avenue', 'Planning & Development'],
+  ['Tools and Incentives to Encourage Mass Timber Construction', 'Planning & Development'],
+  ['Tools and Incentives to Encourage Mass Timber Construction - Amendment', 'Planning & Development'],
+  ['Amendments to the Mayor and Councillors Expenses By-Law', 'Governance'],
+  ['Amendments to the Mayor and Councillor Expenses By-law', 'Governance'],
+  ['Report 3. Contract Award for Construction Services - City-wide Cut Repair Project', 'Transit'],
+  ['Opportunity for a Cultural Precinct in the Heart of Downtown', 'Parks'],
+  ['Opportunity for a Cultural Precinct in the Heart of Downtown - Amendment', 'Parks'],
+  ['Granville Street Plan - amendment', 'Planning & Development'],
+  ['Granville Street Plan - amendment to the amendment', 'Planning & Development'],
+  ['Cementing the City of Vancouver\'s Support for Pride Weekend', 'Parks'],
+  ['Presentation - VanStat Update on Roads and Sidewalks', 'Transit'],
+  ['Presentation - VanStat Update on Roads and Sidewalks - Amendment', 'Transit'],
+  ['CD-1 Rezonings: (i) 15-27 West Hastings Street and (ii) 8-36 West Cordova Street', 'Planning & Development'],
+  ['CD-1 (893) Text Amendment: 325-343 West 41st Avenue and 5696 Alberta Street - Adopted on Consent', 'Planning & Development'],
+  ['CD-1 (454) Text Amendment: 215 West 1st Avenue', 'Planning & Development'],
 ]);
 
 const motions = JSON.parse(fs.readFileSync(path, 'utf8'));
