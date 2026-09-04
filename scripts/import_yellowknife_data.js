@@ -199,6 +199,15 @@ async function main() {
   }
 
   const mergedMotions = [...existingMotions.filter(motion => !motions.some(next => next.id === motion.id)), ...motions]
+    .map(motion => ({
+      ...motion,
+      title: compact(motion.title ?? '')
+        .replace(/^DM#\d+.*?(First|Second|Third)\s+Reading/i, '$1 Reading')
+        .replace(/^DM#\d+.*?(?=\d+\.\s+[A-Z])/, '')
+        .replace(/^\d+\.\s*/, '')
+        .replace(/\bCounci\s+llor\b/gi, 'Councillor')
+        .replace(/\s+DM#\d+.*$/i, ''),
+    }))
     .sort((a, b) => a.date.localeCompare(b.date) || a.id.localeCompare(b.id));
   const mergedMeetings = [...existingMeetings.filter(meeting => !fetchedMeetingRefs.has(meeting.meetingReference)), ...meetings]
     .sort((a, b) => a.date.localeCompare(b.date) || a.committee.localeCompare(b.committee));
