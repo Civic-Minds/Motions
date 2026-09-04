@@ -86,6 +86,7 @@ export function parseMotions(text, date, committee, sourceUrl, meetingReference)
     const question = preOutcome.match(/\bThat\s*:?\s*([\s\S]*)/i)?.[1] ?? preOutcome;
     const title = compact(question)
       .replace(/\bCounci\s+llor\b/gi, 'Councillor')
+      .replace(/^DM#\d+.*?(?=(?:First|Second|Third)\s+Reading|\d+\.\s+[A-Z])/i, '')
       .replace(/^\d+\.\s*/, '')
       .replace(/^(?:Mayor|Councillor)\s+[^,/]+?\s+moved\s*[,/]\s*(?:Mayor|Councillor)\s+[^,/]+?\s+(?:secon\s*d\s*ed|seco\s*nded)\s*[,/]\s*/i, '')
       .replace(/\s+DM#\d+.*$/i, '')
