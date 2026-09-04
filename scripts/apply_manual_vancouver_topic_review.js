@@ -414,6 +414,19 @@ const decisions = new Map([
   ['Update on Accessibility Strategy and Multi-Year Action Plan Implementation - Amendment', 'Governance'],
   ['Update on Accessibility Strategy and Multi-Year Action Plan Implementation - Amended Motion', 'Governance'],
   ['Procedure By-law Update in Response to New Provincial Legislation: Bill 18', 'Governance'],
+  ['2023 Community Services and Other Social Grants', 'Finance'],
+  ['Closure and Sale of a Portion of Eveleigh Street Adjacent to 1025 Dunsmuir Street', 'Planning & Development'],
+  ['CD-1 (511) Text Amendment: 138 East 7th Avenue', 'Planning & Development'],
+  ['CD-1 (776) Text Amendment: 118-150 Robson Street (Now 828 Cambie Street)', 'Planning & Development'],
+  ['CD-1 (818) Text Amendment: 120-150 West Georgia Street, 720-770 Beatty Street and 701 Expo Boulevard (Formerly 720-770 Beatty Street and 701 Expo Boulevard)', 'Planning & Development'],
+  ['CD-1 (409) Text Amendment: 1109-1139 West Pender Street and 1122-1152 West Hastings Street (Formerly 1128 West Hastings Street)', 'Planning & Development'],
+  ['Report 6. Business Improvement Areas (BIA) Renewals 2026', 'Finance'],
+  ['998 Thurlow Street - Heritage Revitalization Agreement and Heritage Designation', 'Parks'],
+  ['Grant to Amicae Co-op for Below Market Lease at 1047 Barclay Street - Adopted on Consent', 'Housing'],
+  ['Contract Award for Construction Services   for Granville Bridge South Main Approach and Ramps Rehabilitation - Phase 1', 'Transit'],
+  ['Contract Award for Construction Services for Permanent Plazas', 'Parks'],
+  ['Urgent Action to Save Car Free Days 2026 - AMENDMENT TO THE AMENDMENT', 'Transit'],
+  ['Igniting our Spirits: Bringing Vancouver Together Through Summer Celebration - amendment', 'Parks'],
 ]);
 
 const motions = JSON.parse(fs.readFileSync(path, 'utf8'));
