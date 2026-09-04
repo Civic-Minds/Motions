@@ -27,3 +27,17 @@ Clear mismatches:
 - `General → Governance`: council committee structure
 - `General → Public Safety`: dangerous-building declaration
 - `General → Transit`: school travel planning
+
+## Batches 3–6 — 2026-09-04
+
+Four further batches of 108 motions were reviewed by hand. Their IDs were
+selected from the records not used by Batches 1–2, then each later batch was
+selected from the remaining IDs. No record from Batches 1–4 was reused.
+
+The cumulative sample is now 648 motions. The observed rate is still below
+95%, so the review remains active. Clear mismatches in these rounds included
+additional General → Planning & Development records (CD-1, development,
+building, permitting, and land-use titles), General → Finance records (funds,
+grants, and tax titles), General → Transit records (school travel and
+e-scooter titles), and General → Governance/Public Safety/Parks/Housing/Climate
+records where the title clearly named that subject.
