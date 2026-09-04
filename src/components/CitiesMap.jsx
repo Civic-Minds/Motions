@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { MapContainer, TileLayer, CircleMarker, Tooltip, useMap, useMapEvents } from 'react-leaflet';
 import { ArrowRight } from 'lucide-react';
 import { cn } from '../lib/utils';
-import { CITIES } from '../constants/cities';
-import { isJurisdictionPublic, JURISDICTIONS } from '../constants/jurisdictions';
+import { OTHER_ELECTION_CITIES } from '../constants/cities';
+import { getVisibleJurisdictions } from '../constants/jurisdictions';
 import { isOnOrAfter, formatElectionDateFull } from '../utils/electionDate';
 import 'leaflet/dist/leaflet.css';
 import MapZoomControls from './MapZoomControls';
@@ -14,8 +14,17 @@ const CANADA_BOUNDS = [
   [41.5, -141],
   [68, -52],
 ];
-const coveredCities = CITIES.filter(city => city.href && isJurisdictionPublic(JURISDICTIONS[city.id]));
-const otherElectionCities = CITIES.filter(city => !city.href && city.electionDate);
+const coveredCities = getVisibleJurisdictions()
+  .filter(jurisdiction => jurisdiction.directory)
+  .map(jurisdiction => ({
+    id: jurisdiction.id,
+    name: jurisdiction.name,
+    href: jurisdiction.path,
+    tagline: jurisdiction.directory.tagline,
+    lat: jurisdiction.directory.coordinates[0],
+    lng: jurisdiction.directory.coordinates[1],
+  }));
+const otherElectionCities = OTHER_ELECTION_CITIES;
 
 function FitCanada() {
   const map = useMap();

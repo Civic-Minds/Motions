@@ -1,12 +1,5 @@
-// One registry powers both clickable covered cities and muted future cities.
-// A city becomes clickable by gaining an href; keeping the records together
-// prevents the picker from drifting away from the jurisdiction registry.
-export const CITIES = [
-  { id: 'toronto', name: 'Toronto', href: '/toronto', tagline: '25 wards · Mayor Olivia Chow', lat: 43.6532, lng: -79.3832 },
-  { id: 'vancouver', name: 'Vancouver', href: '/vancouver', tagline: 'Elected at-large · Mayor Ken Sim', lat: 49.2827, lng: -123.1207 },
-  { id: 'victoria', name: 'Victoria', href: '/victoria', tagline: '9 councillors · Mayor Marianne Alto', lat: 48.4284, lng: -123.3656 },
-  { id: 'yellowknife', name: 'Yellowknife', href: '/yellowknife', tagline: '8 councillors · Mayor Ben Hendriksen', lat: 62.4540, lng: -114.3718 },
-
+// Election-only places are not jurisdictions and therefore do not have routes.
+export const OTHER_ELECTION_CITIES = [
 // Other major Canadian cities with a confirmed municipal election this cycle —
 // represented as muted, non-clickable records with just their election date. This is
 // informational (which cities are voting when), NOT a claim that Motions plans
