@@ -31,6 +31,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Fixed
 
+- **Broken social share images**: Toronto's share preview image (used when links are posted to X, Facebook, Slack, etc.) showed empty boxes instead of text — the generator asked for the "Arial" font, which doesn't exist on Vercel's servers. It now embeds Inter directly so the image always renders correctly. Vancouver, Victoria, and Yellowknife still need the same fix.
 - **Incumbents who aren't on the ballot**: The Election page listed every ward's sitting councillor as a 2026 candidate, even when they were retiring, running in a different ward, or running for mayor — wrong in four wards. Each ward now states which, and only shows the "Incumbent" tag when the councillor is actually on that ward's ballot.
 - **Transparency refresh date**: The production data endpoint now serves metadata correctly, so the Transparency page can show when council data was last checked.
 - **Vancouver title audit**: Data refreshes now report malformed titles or lost tracked corrections before upload without blocking otherwise valid new data.
