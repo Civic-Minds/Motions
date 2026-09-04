@@ -72,7 +72,7 @@ export function parseMotions(text, date, committee, sourceUrl, meetingReference)
     const body = compact(match[4]);
     const outcome = body.match(/MOTION\s+(CARRIED|DEFEATED)(?:\s+UNANIMOUSLY)?(?:\s*\(([^)]*)\))?/i);
     if (!outcome) return null;
-    const question = body.match(/\bThat\s+([\s\S]*?)(?=\s+MOTION\s+(?:CARRIED|DEFEATED)\b)/i)?.[1] ?? body;
+    const question = body.match(/\bThat\s*:?\s*([\s\S]*?)(?=\s+MOTION\s+(?:CARRIED|DEFEATED)\b)/i)?.[1] ?? body;
     const title = compact(question).replace(/[.;:]$/, '').slice(0, 280);
     const opposed = [...(outcome[2] ?? '').matchAll(/(?:Mayor|Deputy Mayor|Councillor)\s+[A-Z5]\.\s+[A-Za-z][A-Za-z'’-]*(?:-[A-Za-z][A-Za-z'’-]*)*/gi)]
       .map(item => memberFromReference(item[0])).filter(Boolean);

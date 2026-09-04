@@ -13,15 +13,19 @@ City Staff:
 City Manager
 
 #0001-22
-That the City approve the budget.
+6. Councillor G. Cochrane moved, Councillor C. McGurk seconded,
+That: the City approve the budget.
 MOTION CARRIED UNANIMOUSLY
 
 #0002-22
-That the City defer the item.
+7. Councillor G. Cochrane moved, Councillor C. McGurk seconded,
+That: the City defer the item.
 MOTION CARRIED (Councillor R. Warburton opposed)
+8. Councillor R. Warburton returned to the meeting.
 
 #0003-22
-That the City reject the proposal.
+9. Councillor G. Cochrane moved, Councillor C. McGurk seconded,
+That: the City reject the proposal.
 MOTION DEFEATED
 `;
 
@@ -32,7 +36,9 @@ assert.deepEqual(parsePresentMembers(text), [
 const motions = parseMotions(text, '2022-10-24', 'Council Meeting', sourceUrl, 'yellowknife-2022-10-24-council-meeting');
 assert.equal(motions.length, 3);
 assert.equal(Object.keys(motions[0].votes).length, 5);
+assert.equal(motions[0].title, 'the City approve the budget');
 assert.equal(motions[0].votes['Mayor Rebecca Alty'], 'YES');
+assert.equal(motions[1].title, 'the City defer the item');
 assert.equal(motions[1].votes['Rob Warburton'], 'NO');
 assert.deepEqual(motions[2].votes, {});
 assert.equal(motions[2].status, 'Not adopted');

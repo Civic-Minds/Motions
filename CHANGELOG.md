@@ -19,6 +19,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Fixed
 
+- **Yellowknife motion titles**: Imported decisions now show the actual motion question instead of mover/seconder and adjacent agenda-item text.
 - **Transparency refresh date**: The production data endpoint now serves metadata correctly, so the Transparency page can show when council data was last checked.
 - **Vancouver title audit**: Data refreshes now report malformed titles or lost tracked corrections before upload without blocking otherwise valid new data.
 
