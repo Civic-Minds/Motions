@@ -19,6 +19,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Fixed
 
+- **Yellowknife administrative records**: Routine minute approvals and meeting adjournments no longer clutter the public motion list, while remaining available in the underlying records.
 - **Yellowknife motion titles**: Imported decisions now show the actual motion question instead of mover/seconder and adjacent agenda-item text.
 - **Yellowknife homepage decisions**: Removed OCR, embedded PDF header artifacts, and misleading homepage labels from imported decisions.
 - **Transparency refresh date**: The production data endpoint now serves metadata correctly, so the Transparency page can show when council data was last checked.

@@ -425,7 +425,7 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
   }, []);
 
   // Only primary entries (no parentId) for display and stats
-  const primaryMotions = useMemo(() => motions.filter(m => !m.parentId), [motions]);
+  const primaryMotions = useMemo(() => motions.filter(m => !m.parentId && (jurisdiction.id !== 'yellowknife' || !m.trivial)), [motions, jurisdiction.id]);
 
   // Last Meeting
   const lastMeeting = useMemo(() => {
