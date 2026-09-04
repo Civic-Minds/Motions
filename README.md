@@ -17,7 +17,7 @@ City council makes decisions that affect your rent, your commute, your neighbour
 
 ## Stack
 - **AI**: Google Gemini 2.5 Flash
-- **Frontend**: React 19, Vite 8, Tailwind CSS v4, Framer Motion
+- **Frontend**: React 19, Vite 8, Tailwind CSS v4
 - **Maps**: Leaflet, react-leaflet
 - **Data**: Municipal open data + official council records
 - **Deployment**: Vercel
