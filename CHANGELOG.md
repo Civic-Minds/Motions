@@ -9,6 +9,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 ### Added
 
 - Added a bounded Victoria council-vote importer from the City’s official public dashboard; Victoria stays off the public selector until the sample is validated.
+- Added source-only Victoria outcome parsing, validation, and scheduled Blob refresh infrastructure without AI-generated enrichment.
 
 ### Changed
 

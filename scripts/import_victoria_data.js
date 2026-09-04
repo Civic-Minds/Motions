@@ -1,23 +1,26 @@
 /**
- * Import a bounded Victoria, BC sample from the City's public council voting
- * dashboard.
+ * Import Victoria, BC council votes from the City's public voting dashboard
+ * and mechanically read outcomes from official meeting minutes.
  *
  * The City publishes the records through a public Power BI report rather than
  * a downloadable table. We capture the report's public query contract, remove
- * its default "latest meeting" filter, and request a small sample for source
- * validation. This is deliberately not part of the refresh workflow yet.
+ * its default "latest meeting" filter. No AI enrichment or generated text is
+ * used; records without a confirmed outcome remain Recorded.
  *
  * Usage:
  *   node scripts/import_victoria_data.js
- *   node scripts/import_victoria_data.js --meetings=20 --rows=2000
+ *   node scripts/import_victoria_data.js --from=2022-11-01 --meetings=1000 --rows=10000
  */
 
 import { chromium } from 'playwright';
+import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
-import { classifyByKeywords } from './lib/topicClassification.js';
+import * as cheerio from 'cheerio';
+import fetch from 'node-fetch';
 
-/* global process */
+/* global process, Buffer */
 
 const DASHBOARD_PAGE = 'https://opendata.victoria.ca/pages/mayor-and-council';
 const QUERYDATA_URL = 'https://wabi-canada-central-api.analysis.windows.net/public/reports/querydata?synchronous=true';
@@ -25,16 +28,10 @@ const SOURCE_URL = 'https://opendata.victoria.ca/pages/mayor-and-council';
 const DATA_DIR = path.join(process.cwd(), 'public/data/victoria');
 const meetingsArg = process.argv.find(arg => arg.startsWith('--meetings='));
 const rowsArg = process.argv.find(arg => arg.startsWith('--rows='));
+const fromArg = process.argv.find(arg => arg.startsWith('--from='));
 const MEETING_LIMIT = Number(meetingsArg?.slice('--meetings='.length) || 20);
-const ROW_LIMIT = Number(rowsArg?.slice('--rows='.length) || 2000);
-
-const TOPIC_KEYWORDS = {
-    Housing: ['housing', 'rental', 'tenant', 'shelter', 'zoning', 'rezoning', 'residential', 'homeless', 'affordable', 'heritage'],
-    Transit: ['transit', 'bike', 'cycling', 'pedestrian', 'traffic', 'road', 'street', 'bus', 'transportation'],
-    Finance: ['budget', 'tax', 'levy', 'fee', 'financial', 'revenue', 'grant', 'contract', 'procurement', 'capital plan'],
-    Parks: ['park', 'recreation', 'garden', 'tree', 'playground', 'waterfront', 'shore'],
-    Climate: ['climate', 'environment', 'emissions', 'carbon', 'energy', 'flood', 'resilience', 'sustainability'],
-};
+const ROW_LIMIT = Number(rowsArg?.slice('--rows='.length) || 10000);
+const FROM_DATE = fromArg?.slice('--from='.length) || '2022-11-01';
 
 const VOTE_MAP = {
     'In Favour': 'YES',
@@ -44,10 +41,6 @@ const VOTE_MAP = {
     Leave: 'ABSENT',
     Resigned: 'ABSENT',
 };
-
-function classifyTopic(title) {
-    return classifyByKeywords(title, TOPIC_KEYWORDS);
-}
 
 function stableId(value) {
     let hash = 2166136261;
@@ -132,8 +125,79 @@ function buildQuery(body) {
     return query;
 }
 
-function makeOutput(rows, sourceLastRefreshed) {
-    const dates = [...new Set(rows.map(row => row.date))].sort().slice(-MEETING_LIMIT);
+function pdfText(buffer) {
+    const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'motions-victoria-'));
+    const pdfPath = path.join(tempDir, 'minutes.pdf');
+    fs.writeFileSync(pdfPath, buffer);
+    try {
+        return execFileSync('pdftotext', ['-layout', pdfPath, '-'], { encoding: 'utf8' });
+    } finally {
+        fs.rmSync(tempDir, { recursive: true, force: true });
+    }
+}
+
+function compact(value) {
+    return String(value || '').replace(/\s+/g, ' ').trim();
+}
+
+export function outcomeFromMinutes(text, title) {
+    const normalized = String(text || '').replace(/\u00a0/g, ' ').replace(/[ \t]+/g, ' ');
+    const words = compact(title).split(/\s+/).filter(word => word.length > 3).slice(0, 6);
+    const escaped = words.map(word => word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+    const anchor = escaped.length >= 3 ? new RegExp(escaped.join('[\\s\\S]{0,24}'), 'i') : null;
+    const start = anchor?.exec(normalized)?.index ?? -1;
+    const block = start >= 0 ? normalized.slice(start, start + 5000) : normalized;
+    const match = block.match(/\b(CARRIED|ADOPTED|DEFEATED|LOST|REFERRED|DEFERRED)\b(?:\s+(?:UNANIMOUSLY|AS AMENDED))?/i);
+    if (!match) return { status: 'Recorded', resultText: null };
+    const word = match[1].toUpperCase();
+    return {
+        status: ['CARRIED', 'ADOPTED'].includes(word) ? 'Adopted'
+            : ['DEFEATED', 'LOST'].includes(word) ? 'Lost'
+                : ['REFERRED', 'DEFERRED'].includes(word) ? 'Referred' : 'Recorded',
+        resultText: compact(match[0]),
+    };
+}
+
+function minutesLink(html, pageUrl) {
+    const $ = cheerio.load(html);
+    return $('a[href]').map((_, element) => ({
+        label: compact($(element).text()),
+        title: compact($(element).attr('data-original-title')),
+        href: new URL($(element).attr('href'), pageUrl).href,
+    })).get().find(link => link.href.startsWith('http') && /minutes|post[- ]meeting/i.test(`${link.label} ${link.title} ${link.href}`)) ?? null;
+}
+
+async function enrichOutcomes(motions) {
+    const byAgenda = new Map();
+    for (const motion of motions) {
+        if (!byAgenda.has(motion.agendaUrl)) byAgenda.set(motion.agendaUrl, []);
+        byAgenda.get(motion.agendaUrl).push(motion);
+    }
+    for (const [agendaUrl, agendaMotions] of byAgenda) {
+        if (!agendaUrl) continue;
+        try {
+            const agendaResponse = await fetch(agendaUrl);
+            if (!agendaResponse.ok) throw new Error(`agenda HTTP ${agendaResponse.status}`);
+            const link = minutesLink(await agendaResponse.text(), agendaUrl);
+            if (!link) continue;
+            const minutesResponse = await fetch(link.href);
+            if (!minutesResponse.ok) throw new Error(`minutes HTTP ${minutesResponse.status}`);
+            const text = pdfText(Buffer.from(await minutesResponse.arrayBuffer()));
+            for (const motion of agendaMotions) {
+                const outcome = outcomeFromMinutes(text, motion.title);
+                motion.status = outcome.status;
+                motion.resultText = outcome.resultText;
+                motion.decisionSourceUrl = link.href;
+            }
+        } catch (error) {
+            console.warn(`Could not read minutes for ${agendaUrl}: ${error.message}`);
+        }
+    }
+    return motions;
+}
+
+async function makeOutput(rows, sourceLastRefreshed) {
+    const dates = [...new Set(rows.map(row => row.date).filter(date => date >= FROM_DATE))].sort().slice(-MEETING_LIMIT);
     const selected = rows.filter(row => dates.includes(row.date));
     const motionMap = new Map();
 
@@ -148,9 +212,8 @@ function makeOutput(rows, sourceLastRefreshed) {
             votes: {},
             yesCount: 0,
             noCount: 0,
-            topic: classifyTopic(row.title),
-            significance: 25,
-            trivial: false,
+            significance: 0,
+            trivial: true,
             sourceUrl: row.agendaUrl || SOURCE_URL,
             agendaUrl: row.agendaUrl || null,
             meetingId: `vic-${stableId(`${row.date}|${row.agendaUrl}`)}`,
@@ -164,6 +227,7 @@ function makeOutput(rows, sourceLastRefreshed) {
     }
 
     const motions = [...motionMap.values()].sort((a, b) => a.date.localeCompare(b.date) || a.id.localeCompare(b.id));
+    await enrichOutcomes(motions);
     const meetings = [...new Map(motions.map(motion => [motion.meetingId, {
         committee: motion.committee,
         date: motion.date,
@@ -180,10 +244,11 @@ function makeOutput(rows, sourceLastRefreshed) {
     const metadata = {
         city: 'Victoria',
         source: SOURCE_URL,
-        sample: true,
+        sample: MEETING_LIMIT < 1000,
+        fromDate: FROM_DATE,
         sourceLastRefreshed,
         lastChecked: new Date().toISOString(),
-        note: 'Bounded feasibility sample from the City of Victoria public Power BI voting dashboard; not ready for public jurisdiction registration.',
+        note: 'Source-only Victoria council vote records. Titles, votes, meeting links, and outcomes come from official City records; unconfirmed outcomes remain Recorded.',
     };
 
     return { motions, meetings, councillors, metadata };
@@ -226,7 +291,7 @@ async function main() {
     if (result.status !== 200) throw new Error(`Victoria Power BI query returned HTTP ${result.status}`);
 
     const rows = decodeRows(result.payload.results?.[0]?.result?.data);
-    const output = makeOutput(rows, sourceLastRefreshed);
+    const output = await makeOutput(rows, sourceLastRefreshed);
     if (!output.motions.length || !output.meetings.length) throw new Error('Victoria query returned no usable sample records.');
     fs.mkdirSync(DATA_DIR, { recursive: true });
     for (const [file, value] of Object.entries(output)) {
@@ -235,10 +300,10 @@ async function main() {
     console.log(`Imported ${output.motions.length} motions across ${output.meetings.length} meetings from ${output.councillors.length} observed councillors.`);
     console.log(`Date range: ${output.meetings[0].date} → ${output.meetings.at(-1).date}`);
     console.log(`Dashboard last refreshed: ${sourceLastRefreshed ?? 'unknown'}`);
-    console.log('Status values are intentionally Recorded until official decision outcomes are mapped.');
+    console.log(`Outcome statuses mapped from official minutes where available; ${output.motions.filter(motion => motion.status === 'Recorded').length} remain Recorded.`);
 }
 
-main().catch(error => {
+if (import.meta.url === `file://${process.argv[1]}`) main().catch(error => {
     console.error(error.message);
     process.exitCode = 1;
 });

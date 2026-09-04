@@ -108,7 +108,9 @@ export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toront
           <CivicCard className="gap-2">
             <h2 className="font-semibold text-slate-900">Topics</h2>
             <p className="text-sm leading-relaxed text-slate-500">
-              {isToronto
+              {jurisdiction.id === 'victoria'
+                ? 'Victoria records currently show source titles and vote results only; no automated topic or importance labels are added.'
+                : isToronto
                 ? 'A vote’s score weighs how contested it was, its outcome, and how much debate it got — big stuff like the budget or zoning gets a boost, routine items get docked.'
                 : 'A vote’s score weighs how contested it was, its topic, and its outcome — higher scores rise to the top.'}
             </p>
@@ -131,7 +133,7 @@ export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toront
       <section className="border-t border-slate-200 pt-6 space-y-2 text-sm text-slate-500">
         <CivicSectionLabel>DISCLAIMER</CivicSectionLabel>
         <p className="px-1">
-          Motions is an independent civic-information project and is not affiliated with the City of {jurisdiction.name}. Summaries, classifications, significance scores, and location tags are provided as helpful interpretations of public records; consult the linked official documents for the authoritative record.
+          Motions is an independent civic-information project and is not affiliated with the City of {jurisdiction.name}. {jurisdiction.id === 'victoria' ? 'Victoria records are presented from official public documents without AI-generated summaries or enrichment.' : 'Summaries, classifications, significance scores, and location tags are provided as helpful interpretations of public records.'} Consult the linked official documents for the authoritative record.
         </p>
       </section>
     </PageColumn>

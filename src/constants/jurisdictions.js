@@ -48,7 +48,7 @@ export const JURISDICTIONS = {
         representativesLabel: 'Councillors',
         mayorName: 'Marianne Alto',
         mapCenter: [48.4284, -123.3656],
-        currentCouncillors: [],
+        currentCouncillors: ['Marianne Alto', 'Dave Thompson', 'Jeremy Caradonna', 'Krista Loughton', 'Marg Gardiner', 'Matt Dell', 'Stephen Hammond', 'Susan Kim', 'Chris Coleman'],
         dataBaseEnv: 'VITE_VICTORIA_DATA_BASE_URL',
         localDataPath: '/data/victoria',
         public: false,

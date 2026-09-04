@@ -10,6 +10,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "validate:vancouver": "node scripts/validate_vancouver_data.js",
+    "validate:victoria": "node scripts/validate_victoria_data.js",
     "optimize:images": "node scripts/optimize_councillor_photos.js"
   },
   "dependencies": {
