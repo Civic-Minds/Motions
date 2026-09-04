@@ -382,6 +382,19 @@ const decisions = new Map([
   ['CD-1 Rezonings: (i) 15-27 West Hastings Street and (ii) 8-36 West Cordova Street', 'Planning & Development'],
   ['CD-1 (893) Text Amendment: 325-343 West 41st Avenue and 5696 Alberta Street - Adopted on Consent', 'Planning & Development'],
   ['CD-1 (454) Text Amendment: 215 West 1st Avenue', 'Planning & Development'],
+  ['- Miscellaneous Amendments Concerning Various CD-1 By-laws', 'Planning & Development'],
+  ['Closure and Sale of a Portion of Eveleigh Street Adjacent to 1025 Dunsmuir Street', 'Planning & Development'],
+  ['Scope Review for Improved Governance', 'Governance'],
+  ['Villages Planning Program - Scope of Work', 'Planning & Development'],
+  ['2023-2026 Capital Plan Mid-term Update Presentation - amendment 4', 'Finance'],
+  ['2023-2026 Capital Plan Mid-term Update Presentation - amendment 3', 'Finance'],
+  ['Contract Award for Construction Services - City-wide Cut Repair Project', 'Transit'],
+  ['Granville Street Plan - amendment as amended', 'Planning & Development'],
+  ['Closure and Conveyance of a Portion of Road within the Granville Loops Lands - Adopted on Consent', 'Planning & Development'],
+  ['Modification to a Condition of Enactment for 3077 Maddams Street (formerly 1405 East 15th Avenue & 3047-3071 Maddams Street)', 'Planning & Development'],
+  ['Modification to a Condition of Enactment for 3077 Maddams Street', 'Planning & Development'],
+  ['Item 3.\tCD-1 (893) Text Amendment: 325-343 West 41st Avenue and 5696 Alberta Street', 'Planning & Development'],
+  ['CD-1 (893) Text Amendment: 325-343 West 41st Avenue and 5696 Alberta Street - Adopted on Consent', 'Planning & Development'],
 ]);
 
 const motions = JSON.parse(fs.readFileSync(path, 'utf8'));
