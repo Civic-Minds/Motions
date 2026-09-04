@@ -27,6 +27,7 @@ const known = {
     'Caledonia Place': { lat: 48.4335, lng: -123.3560 },
     'Crystal Pool and Fitness Centre': { lat: 48.4321, lng: -123.3557 },
     'Royal Theatre': { lat: 48.4220, lng: -123.3654 },
+    'Vancouver Island Brewing': { lat: 48.4428, lng: -123.3695 },
 };
 
 const candidates = [...new Set(motions.flatMap(motion => motion.locationCandidates ?? []))];
@@ -34,15 +35,32 @@ const cache = new Map(motions.flatMap(motion => (motion.locations ?? []).map(loc
 
 function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
 
+function queryVariants(address) {
+    const variants = [address];
+    const multi = address.match(/^(\d{1,5})\s+(?:and|&)\s+\d{1,5}\s+(.+)$/i);
+    if (multi) variants.push(`${multi[1]} ${multi[2]}`);
+    const block = address.match(/^(\d{1,5})\s+Block of\s+(.+)$/i);
+    if (block) variants.push(`${block[1]} ${block[2]}`);
+    return [...new Set(variants)];
+}
+
 async function geocode(address) {
     if (known[address]) return { address, ...known[address], source: 'verified-place' };
-    const query = encodeURIComponent(`${address}, Victoria, British Columbia, Canada`);
-    const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${query}&format=json&limit=1&countrycodes=ca`, {
-        headers: { 'User-Agent': 'Motions/1.0 (motions.watch)' },
-    });
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    const result = (await response.json())[0];
-    return result ? { address, lat: Number(result.lat), lng: Number(result.lon), source: 'geocoder' } : null;
+    for (const variant of queryVariants(address)) {
+        const query = encodeURIComponent(`${variant}, Victoria, British Columbia, Canada`);
+        const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${query}&format=json&limit=1&countrycodes=ca`, {
+            headers: { 'User-Agent': 'Motions/1.0 (motions.watch)' },
+        });
+        const result = response.ok ? (await response.json())[0] : null;
+        if (result) return { address, lat: Number(result.lat), lng: Number(result.lon), source: 'geocoder' };
+
+        const fallback = await fetch(`https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?SingleLine=${query}&f=json&maxLocations=1`);
+        const candidate = fallback.ok ? (await fallback.json()).candidates?.[0] : null;
+        if (candidate?.location && candidate.score >= 85) {
+            return { address, lat: candidate.location.y, lng: candidate.location.x, source: 'geocoder' };
+        }
+    }
+    return null;
 }
 
 for (const address of candidates) {

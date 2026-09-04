@@ -8,6 +8,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Added
 
+- Victoria location tagging now splits multi-address records and uses a second geocoder when the primary service is unavailable, increasing mapped coverage without guessing.
 - Expanded Victoria location tagging to include verified named places and neighbourhoods in addition to street addresses.
 - Added deterministic Victoria topic labels, official agenda/minutes links on motion pages, and a source-named address geocoding pass; unresolved locations remain unmapped.
 - Added a bounded Victoria council-vote importer from the City’s official public dashboard; Victoria stays off the public selector until the sample is validated.
