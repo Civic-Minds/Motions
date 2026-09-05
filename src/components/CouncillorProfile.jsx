@@ -489,7 +489,7 @@ export default function CouncillorProfile({ motions, councillors = [], jurisdict
 
         <div className="flex flex-col gap-1.5">
           <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide px-1">Contact</p>
-          <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col justify-center gap-3 h-[112px]">
+          <div className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col gap-3">
             {contact?.phone && (
               <a href={`tel:${contact.phone}`} className="flex items-center gap-2 text-xs text-slate-600 hover:text-[#004a99] transition-colors break-all">
                 <Phone className="w-3.5 h-3.5 shrink-0" />{contact.phone}

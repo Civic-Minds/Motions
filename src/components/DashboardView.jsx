@@ -545,11 +545,11 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
     const total    = yesCount + noCount;
     return (
       <CivicCard
-        as="button"
+        as={Link}
+        to={`/motions/${m.id}`}
         className="h-full animate-fade-in-scale"
         key={m.id}
         style={{ animationDelay: `${i * 0.04}s` }}
-        onClick={() => navigate(`/motions/${m.id}`)}
       >
         <div className="flex items-center justify-between gap-1">
           <span className={cn("text-[9px] font-semibold px-1.5 py-0.5 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>
@@ -594,8 +594,8 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
                 <Star className="w-3 h-3 text-amber-500 fill-current shrink-0" />
               </div>
               <CivicCard
-                as="button"
-                onClick={() => navigate(`/motions/${m.id}`)}
+                as={Link}
+                to={`/motions/${m.id}`}
                 className="flex-1 animate-fade-in-scale"
               >
                 <div className="flex items-center justify-between gap-1">
