@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowRight, Star, Calendar } from 'lucide-react';
 import { getCommittee, COMMITTEE_NAMES, TOPIC_LIGHT, COMMITTEE_DESCRIPTIONS } from '../constants/data';
@@ -6,8 +6,10 @@ import { nameToSlug, committeeToSlug } from '../utils/slug';
 import { cn } from '../lib/utils';
 import { useAppContext } from '../contexts/AppContext';
 import { PageMeta } from './PageMeta';
-import { formatMotionDate } from '../utils/date';
 import BackButton from './ui/BackButton';
+import MotionCardItem from './MotionCardItem';
+
+const PAGE_SIZE = 20;
 
 export default function CommitteesView({ motions, meetings = [] }) {
   const { followedCommittees = [], handleToggleFollow: onToggleFollow, jurisdiction = { name: 'Toronto' } } = useAppContext();
@@ -125,6 +127,10 @@ export default function CommitteesView({ motions, meetings = [] }) {
         return (b.significance ?? 0) - (a.significance ?? 0);
       });
   }, [selectedCommittee]);
+
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  useEffect(() => { setVisibleCount(PAGE_SIZE); }, [committeeSlug]);
+  const visibleMotions = committeeMotions.slice(0, visibleCount);
 
   return (
     <div className="space-y-6 px-4 py-2 sm:px-6 lg:px-8">
@@ -353,26 +359,18 @@ export default function CommitteesView({ motions, meetings = [] }) {
 
           {/* LEFT: Motions */}
           <div className="lg:col-span-2 space-y-2">
-            {committeeMotions.map((m, i) => (
-              <button
-                key={m.id}
-                style={{ animationDelay: `${Math.min(i * 0.02, 0.3)}s` }}
-                onClick={() => navigate(`/motions/${m.id}`)}
-                className="animate-fade-in-up w-full text-left bg-white border border-slate-200 rounded-xl p-4 flex items-start gap-3 hover:border-[#004a99]/40 hover:shadow-sm transition-all group"
-              >
-                <div className={cn("w-1 self-stretch rounded-full shrink-0", m.status === 'Adopted' ? 'bg-emerald-400' : 'bg-rose-400')} />
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-slate-800 group-hover:text-[#004a99] transition-colors line-clamp-2 leading-snug">{m.title}</p>
-                  <div className="flex items-center gap-2 mt-2 flex-wrap">
-                    <span className={cn("text-xs font-semibold px-2 py-0.5 rounded-full", m.status === 'Adopted' ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-700')}>{m.status}</span>
-                    <span className={cn("text-xs px-2 py-0.5 rounded-full", TOPIC_LIGHT[m.topic] || 'bg-slate-100 text-slate-600')}>{m.topic}</span>
-                    {m.significance >= 60 && <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-600">Notable</span>}
-                    <span className="text-xs text-slate-500 ml-auto">{formatMotionDate(m.date)}</span>
-                  </div>
-                </div>
-                <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-[#004a99] shrink-0 mt-0.5 transition-colors" />
-              </button>
+            {visibleMotions.map((m, i) => (
+              <MotionCardItem key={m.id} motion={m} index={i} showCommittee={false} />
             ))}
+
+            {visibleCount < committeeMotions.length && (
+              <button
+                onClick={() => setVisibleCount(c => c + PAGE_SIZE)}
+                className="w-full py-3 text-sm font-medium text-slate-500 hover:text-slate-900 bg-white border border-slate-200 rounded-2xl hover:bg-slate-50 transition-all"
+              >
+                Show {PAGE_SIZE} more ({(committeeMotions.length - visibleCount).toLocaleString()} remaining)
+              </button>
+            )}
           </div>
 
           {/* RIGHT: Sidebar */}
