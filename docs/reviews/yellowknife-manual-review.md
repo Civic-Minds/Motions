@@ -134,3 +134,53 @@ needed, and rechecked after import. Final batch result: 20/20 error-free.
 | `yk-2026-03-25-0065-26` | Fixed | Reading title now preserves the source final period. |
 
 Official sources queried: [March 4, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2050), [March 18, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2053), and [March 25, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2057).
+
+## Batch 6 — 40 manually queried title reviews
+
+Each record was checked against the official adopted-minutes PDF, fixed where
+needed, and rechecked after import. Final batch result: 40/40 error-free.
+
+| Motion | Result | Title review |
+|---|---|---|
+| `yk-2026-01-12-0006-26` | Fixed | Reading title now preserves the source final period. |
+| `yk-2026-01-12-0007-26` | Fixed | Adjournment title now has the source capitalization and final period. |
+| `yk-2026-01-26-0008-26` | Fixed | Minutes-adoption title now has the source capitalization and final period. |
+| `yk-2026-01-26-0009-26` | Fixed | Full conference-authorization title restored; it is no longer cut off at 280 characters. |
+| `yk-2026-01-26-0010-26` | Fixed | Full committee-representative title and table restored; no PDF header contamination remains. |
+| `yk-2026-01-26-0011-26` | Fixed | Appointment title now preserves the source final period. |
+| `yk-2026-01-26-0012-26` | Fixed | Both Canada Winter Games clauses are now present. |
+| `yk-2026-01-26-0013-26` | Fixed | Vote-explanation text was removed; the title now ends with the official motion question. |
+| `yk-2026-01-26-0014-26` | Fixed | OCR-missing seconder name no longer leaves the mover/seconder prefix in the title. |
+| `yk-2026-01-26-0015-26` | Fixed | Full remuneration-review motion and final period restored. |
+| `yk-2026-01-26-0016-26` | Fixed | Reading title now preserves the source final period. |
+| `yk-2026-01-26-0017-26` | Fixed | Reading title now preserves the source final period. |
+| `yk-2026-01-26-0018-26` | Fixed | Adjournment title now has the source capitalization and final period. |
+| `yk-2026-02-18-0019-26` | Fixed | MOU title now preserves the source final period. |
+| `yk-2026-02-18-0020-26` | Fixed | Adjournment title now has the source capitalization and final period. |
+| `yk-2026-02-25-0021-26` | Fixed | Minutes-adoption title now has the source capitalization and final period. |
+| `yk-2026-02-25-0022-26` | Fixed | Minutes-adoption title now has the source capitalization and final period. |
+| `yk-2026-02-25-0023-26` | Fixed | Reading title now preserves the source final period. |
+| `yk-2026-02-25-0024-26` | Fixed | Reading title now preserves the source final period. |
+| `yk-2026-02-25-0025-26` | Fixed | Climate Action Plan title now preserves the source final period. |
+| `yk-2026-02-25-0026-26` | Fixed | Public Engagement Policy title now preserves both clauses and final period. |
+| `yk-2026-02-25-0027-26` | Fixed | Travel-authorization title now preserves the source final period. |
+| `yk-2026-02-25-0028-26` | Fixed | Full Reaching Home allocation title and all three numbered items restored. |
+| `yk-2026-02-25-0029-26` | Fixed | Housing Infrastructure Fund title now preserves the source final period. |
+| `yk-2026-02-25-0030-26` | Fixed | Heritage Committee appointment title now preserves the source final period. |
+| `yk-2026-02-25-0031-26` | Fixed | Full Franklin Avenue resolution restored; the old title was cut off mid-resolution. |
+| `yk-2026-02-25-0032-26` | Fixed | Reading title now preserves the source final period. |
+| `yk-2026-02-25-0033-26` | Fixed | Reading title now preserves the source final period. |
+| `yk-2026-02-25-0034-26` | Fixed | Reading title now preserves the source final period. |
+| `yk-2026-02-25-0035-26` | Fixed | Reading title now preserves the source final period. |
+| `yk-2026-02-25-0036-26` | Fixed | Reading title now preserves the source final period. |
+| `yk-2026-02-25-0037-26` | Fixed | Leading OCR comma removed and the complete amendment title now has its final period. |
+| `yk-2026-02-25-0038-26` | Clean | Amendment title matches the official question; the source ends without a period. |
+| `yk-2026-02-25-0039-26` | Fixed | Reading title now preserves the source final period. |
+| `yk-2026-02-25-0040-26` | Fixed | Reading title now preserves the source final period. |
+| `yk-2026-02-25-0041-26` | Fixed | Reading title now preserves the source final period. |
+| `yk-2026-02-25-0042-26` | Fixed | Reading title now preserves the source final period. |
+| `yk-2026-02-25-0043-26` | Fixed | Reading title now preserves the source final period. |
+| `yk-2026-02-25-0044-26` | Fixed | Adjournment title now has the source capitalization and final period. |
+| `yk-2026-03-04-0045-26` | Clean | Registrar appointment title matches the official question, including its final period. |
+
+Official sources queried: [January 12, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2030), [January 26, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2034), [February 18, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2045), [February 25, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2047), and [March 4, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2050).
