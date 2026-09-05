@@ -321,19 +321,16 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
   const reportUrl = `/contact?subject=${encodeURIComponent('Report an issue')}&about=motion&title=${encodeURIComponent(displayTitle)}&motion=${encodeURIComponent(window.location.href)}`;
 
   return (
-    <div className="max-w-5xl mx-auto py-2 px-4 sm:px-6 lg:px-8 relative">
+    <div className="max-w-5xl mx-auto py-2 pr-4 pl-4 sm:pr-6 sm:pl-24 lg:pr-8 lg:pl-28 relative">
       <PageMeta
         title={`${displayTitle} | Motions ${jurisdiction.name}`}
         description={motion.summary || `${motion.status} · ${committee}`}
         image={previewImage(displayTitle, committee)}
       />
 
-      {/* Back Button (Desktop - Floating Left) */}
-      <BackButton onClick={() => navigate(-1)} desktop />
-
       {/* Mobile/tablet header row */}
-      <div className="mb-3 flex items-center gap-3 xl:hidden">
-        <BackButton onClick={() => navigate(-1)} className="shrink-0" />
+      <div className="mb-3 flex items-center gap-3 sm:hidden">
+        <BackButton onClick={() => navigate(-1)} />
         <div className="flex min-w-0 flex-wrap items-center gap-2">
           <StatusBadge status={motion.status} />
           {motion.significance >= 90 && (
@@ -353,7 +350,7 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
 
       {/* Header (Full Width) */}
       <div className="space-y-2 mb-4">
-        <div className="hidden flex-wrap items-center gap-2 xl:flex">
+        <div className="hidden flex-wrap items-center gap-2 sm:flex">
           <StatusBadge status={motion.status} />
           {motion.significance >= 90 && (
             <span className="text-xs font-semibold text-amber-600 bg-amber-50 px-2.5 py-0.5 rounded-full">High Impact</span>
@@ -369,6 +366,7 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
           </div>
         </div>
 
+        <BackButton onClick={() => navigate(-1)} floating className="left-4 top-10 lg:left-6" />
         <h1 className="text-xl font-bold text-slate-900 leading-snug lg:w-4/5">{displayTitle}</h1>
 
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500">

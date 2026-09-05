@@ -55,21 +55,18 @@ export default function MeetingPage({ meetings, jurisdiction = { name: 'Toronto'
   }
 
   return (
-    <div className="max-w-5xl mx-auto py-2 px-4 sm:px-6 lg:px-8 relative">
+    <div className="max-w-5xl mx-auto py-2 pr-4 pl-4 sm:pr-6 sm:pl-24 lg:pr-8 lg:pl-28 relative">
       <PageMeta title={`${meeting.committee} | Motions ${jurisdiction.name}`} description={`${meeting.committee} meeting records and agenda items for ${jurisdiction.name}.`} />
 
-      {/* Back Button (Desktop - Floating Left) */}
-      <BackButton onClick={() => navigate(`/committees/${committeeSlug}`)} desktop />
-
-      {/* Mobile/tablet back button */}
-      <div className="mb-6 xl:hidden">
+      <BackButton onClick={() => navigate(`/committees/${committeeSlug}`)} floating className="left-4 top-2 lg:left-6" />
+      <div className="mb-3 sm:hidden">
         <BackButton onClick={() => navigate(`/committees/${committeeSlug}`)} />
       </div>
 
       {/* Header */}
       <div className="mb-8 space-y-3">
         <div className="flex flex-wrap items-start justify-between gap-3">
-          <h1 className="text-xl font-bold text-slate-900">{meeting.committee}</h1>
+          <h1 className="text-xl font-bold text-slate-900 min-w-0">{meeting.committee}</h1>
           <div className="flex shrink-0 items-center gap-2">
             <a
               href={reportUrl}

@@ -138,9 +138,9 @@ export default function CommitteesView({ motions, meetings = [] }) {
 
       {/* ── Meetings-only body detail ── */}
       {selectedBody && (
-        <div className="space-y-4 max-w-5xl mx-auto relative">
-          <BackButton onClick={() => navigate('/committees')} desktop className="top-[1px]" />
-          <div className="mb-6 xl:hidden">
+        <div className="space-y-4 max-w-5xl mx-auto sm:pl-20 lg:pl-24 relative">
+          <BackButton onClick={() => navigate('/committees')} floating className="left-0 top-1 lg:left-1" />
+          <div className="sm:hidden">
             <BackButton onClick={() => navigate('/committees')} />
           </div>
           <h1 className="text-xl font-bold text-slate-900">{selectedBody.name}</h1>
@@ -228,13 +228,13 @@ export default function CommitteesView({ motions, meetings = [] }) {
       )}
 
       {selectedCommittee && (
-        <div className="space-y-3 mb-2 relative">
-          <BackButton onClick={() => navigate('/committees')} desktop className="top-[1px]" />
-          <div className="mb-6 xl:hidden">
+        <div className="space-y-3 mb-2 sm:pl-20 lg:pl-24 relative">
+          <BackButton onClick={() => navigate('/committees')} floating className="left-0 top-1 lg:left-1" />
+          <div className="sm:hidden">
             <BackButton onClick={() => navigate('/committees')} />
           </div>
           <div className="flex items-start justify-between gap-4">
-            <div>
+            <div className="min-w-0">
               <h1 className="text-xl font-bold text-slate-900">{selectedCommittee.name}</h1>
               <p className="text-sm text-slate-500 mt-1 max-w-xl leading-relaxed">{selectedCommittee.description}</p>
             </div>
