@@ -47,6 +47,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Fixed
 
+- **Yellowknife motion titles**: Long motion questions are no longer cut off, and imported titles now preserve the source capitalization and ending punctuation.
 - **Broken social share images**: Every city's share preview image (used when links are posted to X, Facebook, Slack, etc.) showed empty boxes instead of text. An earlier attempt embedded the font directly in the image but still failed in production — Vercel's image renderer doesn't reliably support embedded fonts at all. Text is now converted to vector outlines before rendering, so nothing depends on font resolution at request time; verified against an actual Vercel deployment, not just localhost.
 - **Homepage share image**: The root `motions.watch` link shared a static portrait phone photo (667×1024) instead of a proper 1200×630 landscape image, so it rendered oddly or tiny on social platforms. It now uses the same generated card as every other page.
 - **Privacy/About/Terms landed pre-scrolled**: Navigating there from the homepage footer kept whatever scroll position the homepage was at, instead of starting at the top.

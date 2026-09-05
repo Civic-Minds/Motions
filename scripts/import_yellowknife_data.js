@@ -89,10 +89,7 @@ export function parseMotions(text, date, committee, sourceUrl, meetingReference)
       .replace(/^\d{2}-\d{2}\s+/, '')
       .replace(/^\d+\.\s*/, '')
       .replace(/^(?:Mayor|Councillor)\s+[^,/]+?\s+moved\s*[,/]\s*(?:Mayor|Councillor)\s+[^,/]+?\s+(?:secon\s*d\s*ed|seco\s*nded)\s*[,/]\s*/i, '')
-      .replace(/\s+DM#\d+.*$/i, '')
-      .replace(/[.;:]$/, '')
-      .replace(/^the (Meeting|Minutes)\b/, (_, word) => `the ${word.toLowerCase()}`)
-      .slice(0, 280);
+      .replace(/\s+DM#\d+.*$/i, '');
     const opposed = [...(outcome[2] ?? '').matchAll(/(?:Mayor|Deputy Mayor|Councillor)\s+[A-Z5]\.\s+[A-Za-z][A-Za-z'’-]*(?:-[A-Za-z][A-Za-z'’-]*)*/gi)]
       .map(item => memberFromReference(item[0])).filter(Boolean);
     const unanimous = /UNANIMOUSLY/i.test(outcome[0]);

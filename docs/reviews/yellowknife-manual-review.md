@@ -52,3 +52,24 @@ decisions. Review follows `docs/CATEGORIZATION_GUIDE.md`.
 | `yk-2026-03-25-0058-26` | Yes | General | Previous minutes |
 | `yk-2026-03-25-0057-26` | Yes | General | Previous minutes |
 | `yk-2026-03-25-0056-26` | Yes | General | Previous minutes |
+
+## Batch 3 — 10 manually queried title reviews
+
+Each record was checked against the official adopted-minutes PDF linked in
+the record. This batch is a title review only; no topic or administrative
+classification was changed.
+
+| Motion | Result | Title review |
+|---|---|---|
+| `yk-2026-04-22-0081-26` | Clean | Stored title correctly omits the source's unnecessary leading “That”; remaining wording, capitalization, and punctuation are clean. |
+| `yk-2026-04-22-0082-26` | Fixed | Title was cut off after “taking”; it now includes the complete official motion question through “borne by the City.” |
+| `yk-2026-04-22-0083-26` | Clean | “Third Reading of By-law No. 5121” matches the official motion wording. |
+| `yk-2026-04-22-0084-26` | Clean | “Third Reading of By-law No. 5122” matches the official motion wording. |
+| `yk-2026-04-22-0085-26` | Clean | “Third Reading of By-law No. 5123” matches the official motion wording. |
+| `yk-2026-04-22-0086-26` | Clean | “First Reading of By-law No. 5129” matches the official motion wording. |
+| `yk-2026-04-22-0087-26` | Fixed | “the meeting” was corrected to “the Meeting” and the missing final period was restored. The source's leading “That” remains omitted as an unnecessary display word. |
+| `yk-2026-05-13-0088-26` | Clean | “Second Reading of By-law No. 5129” matches the official motion wording. |
+| `yk-2026-05-13-0089-26` | Clean | “Third Reading of By-law No. 5129” matches the official motion wording. |
+| `yk-2026-05-13-0090-26` | Fixed | “the meeting” was corrected to “the Meeting” and the missing final period was restored. The source's leading “That” remains omitted as an unnecessary display word. |
+
+Official sources queried: [April 22, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2073) and [May 13, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2077).
