@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { slugToName } from '../utils/slug';
 import { COUNCILLOR_WARD } from '../utils/councillorWard';
 import { getCommittee } from '../constants/data';
@@ -94,7 +94,6 @@ function FilterPanel({ topics, committees, years, topicFilter, outcomeFilter, co
 
 export default function CouncillorVotes({ motions }) {
   const { slug } = useParams();
-  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const { followedCommittees } = useAppContext();
@@ -165,13 +164,13 @@ export default function CouncillorVotes({ motions }) {
     <div className="pb-20">
 
       {/* Back to profile */}
-      <button
-        onClick={() => navigate(`/councillors/${slug}`)}
+      <Link
+        to={`/councillors/${slug}`}
         className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 transition-colors mb-6"
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7"/></svg>
         {selected}
-      </button>
+      </Link>
 
       <div className="mb-6">
         <h1 className="text-xl font-bold text-slate-900">Voting record</h1>

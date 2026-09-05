@@ -530,12 +530,12 @@ export default function CouncillorProfile({ motions, councillors = [], jurisdict
             ))}
           </div>
 
-          <button
-            onClick={() => navigate(`/councillors/${slug}/votes`)}
-            className="w-full mt-3 py-3 text-sm font-semibold text-[#004a99] bg-white border border-slate-200 rounded-2xl hover:border-[#004a99]/40 hover:shadow-sm transition-all"
+          <Link
+            to={`/councillors/${slug}/votes`}
+            className="block w-full mt-3 py-3 text-sm font-semibold text-center text-[#004a99] bg-white border border-slate-200 rounded-2xl hover:border-[#004a99]/40 hover:shadow-sm transition-all"
           >
             See all {totalVoteCount.toLocaleString()} votes →
-          </button>
+          </Link>
         </div>
 
         {expenseRecord && (

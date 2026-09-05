@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { ArrowRight, Star, Calendar } from 'lucide-react';
 import { getCommittee, COMMITTEE_NAMES, TOPIC_LIGHT, COMMITTEE_DESCRIPTIONS } from '../constants/data';
 import { nameToSlug, committeeToSlug } from '../utils/slug';
@@ -163,43 +163,51 @@ export default function CommitteesView({ motions, meetings = [] }) {
                       if (aUp) return a.date.localeCompare(b.date);   // upcoming: nearest first
                       return b.date.localeCompare(a.date);             // past: most recent first
                     })
-                    .map((m, i) => (
-                      <button
-                        key={i}
-                        onClick={() => m.meetingReference ? navigate(`/meetings/${m.meetingReference}`) : null}
-                        className={cn(
-                          "w-full flex items-center gap-4 px-5 py-3.5 text-left transition-colors",
-                          m.meetingReference ? "hover:bg-slate-50 group" : "cursor-default"
-                        )}
-                      >
-                        <div className="shrink-0 w-10 text-center">
-                          <p className="text-[10px] font-bold text-slate-500 uppercase leading-none">
-                            {new Date(m.date + 'T12:00:00').toLocaleString('en-CA', { month: 'short' })}
-                          </p>
-                          <p className="text-lg font-black text-slate-700 leading-tight">
-                            {new Date(m.date + 'T12:00:00').getDate()}
-                          </p>
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className={cn("text-sm font-medium text-slate-700 transition-colors", m.meetingReference && "group-hover:text-[#004a99]")}>
-                            {m.displayDate}
-                          </p>
-                          <div className="flex items-center gap-3 mt-0.5">
-                            {m.startTime && <span className="text-[11px] text-slate-500">{m.startTime}</span>}
-                            {m.agendaItems?.length > 0 && (
-                              <span className="text-[11px] text-slate-500">{m.agendaItems.length.toLocaleString()} agenda items</span>
-                            )}
-                            {m.date >= TODAY
-                              ? <span className="text-[10px] font-semibold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-full">Upcoming</span>
-                              : <span className="text-[10px] text-slate-300">Past</span>
-                            }
+                    .map((m, i) => {
+                      const meetingClassName = cn(
+                        "w-full flex items-center gap-4 px-5 py-3.5 text-left transition-colors",
+                        m.meetingReference ? "hover:bg-slate-50 group" : "cursor-default"
+                      );
+                      const inner = (
+                        <>
+                          <div className="shrink-0 w-10 text-center">
+                            <p className="text-[10px] font-bold text-slate-500 uppercase leading-none">
+                              {new Date(m.date + 'T12:00:00').toLocaleString('en-CA', { month: 'short' })}
+                            </p>
+                            <p className="text-lg font-black text-slate-700 leading-tight">
+                              {new Date(m.date + 'T12:00:00').getDate()}
+                            </p>
                           </div>
+                          <div className="flex-1 min-w-0">
+                            <p className={cn("text-sm font-medium text-slate-700 transition-colors", m.meetingReference && "group-hover:text-[#004a99]")}>
+                              {m.displayDate}
+                            </p>
+                            <div className="flex items-center gap-3 mt-0.5">
+                              {m.startTime && <span className="text-[11px] text-slate-500">{m.startTime}</span>}
+                              {m.agendaItems?.length > 0 && (
+                                <span className="text-[11px] text-slate-500">{m.agendaItems.length.toLocaleString()} agenda items</span>
+                              )}
+                              {m.date >= TODAY
+                                ? <span className="text-[10px] font-semibold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-full">Upcoming</span>
+                                : <span className="text-[10px] text-slate-300">Past</span>
+                              }
+                            </div>
+                          </div>
+                          {m.meetingReference && (
+                            <ArrowRight className="w-4 h-4 text-slate-200 group-hover:text-[#004a99] shrink-0 transition-colors" />
+                          )}
+                        </>
+                      );
+                      return m.meetingReference ? (
+                        <Link key={i} to={`/meetings/${m.meetingReference}`} className={meetingClassName}>
+                          {inner}
+                        </Link>
+                      ) : (
+                        <div key={i} className={meetingClassName}>
+                          {inner}
                         </div>
-                        {m.meetingReference && (
-                          <ArrowRight className="w-4 h-4 text-slate-200 group-hover:text-[#004a99] shrink-0 transition-colors" />
-                        )}
-                      </button>
-                    ))}
+                      );
+                    })}
                 </div>
               </div>
             </div>
@@ -215,13 +223,13 @@ export default function CommitteesView({ motions, meetings = [] }) {
                   <span className="text-sm font-bold text-emerald-600">{selectedBody.upcomingCount.toLocaleString()}</span>
                 </div>
               </div>
-              <button
-                onClick={() => navigate(`/meetings?committee=${selectedBody.slug}`)}
+              <Link
+                to={`/meetings?committee=${selectedBody.slug}`}
                 className="w-full text-left px-4 py-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-500 hover:border-[#004a99]/40 hover:text-[#004a99] transition-colors flex items-center justify-between"
               >
                 <span>View all meetings</span>
                 <ArrowRight className="w-3 h-3" />
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -259,13 +267,10 @@ export default function CommitteesView({ motions, meetings = [] }) {
         <div className="space-y-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {committees.map((c, i) => (
-            <div
+            <Link
               key={c.name}
+              to={`/committees/${c.slug}`}
               style={{ animationDelay: `${i * 0.04}s` }}
-              onClick={() => navigate(`/committees/${c.slug}`)}
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') navigate(`/committees/${c.slug}`); }}
-              role="button"
-              tabIndex={0}
               className="animate-fade-in-up bg-white border border-slate-200 rounded-2xl p-5 text-left hover:border-[#004a99]/40 hover:shadow-md transition-all group"
             >
               <div className="flex items-start justify-between gap-3">
@@ -274,7 +279,7 @@ export default function CommitteesView({ motions, meetings = [] }) {
                 </p>
                 <div className="flex items-center gap-2">
                   <button
-                    onClick={(e) => { e.stopPropagation(); onToggleFollow(c.name); }}
+                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); onToggleFollow(c.name); }}
                     className={cn(
                       "p-1.5 rounded-lg transition-colors border",
                       followedCommittees.includes(c.name)
@@ -319,7 +324,7 @@ export default function CommitteesView({ motions, meetings = [] }) {
                   ))}
                 </div>
               )}
-            </div>
+            </Link>
           ))}
         </div>
 
@@ -331,9 +336,9 @@ export default function CommitteesView({ motions, meetings = [] }) {
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
               {meetingsOnlyBodies.map((b) => (
-                <button
+                <Link
                   key={b.name}
-                  onClick={() => navigate(`/committees/${b.slug}`)}
+                  to={`/committees/${b.slug}`}
                   className="animate-fade-in-up bg-white border border-slate-200 rounded-2xl p-5 text-left hover:border-[#004a99]/40 hover:shadow-md transition-all group"
                 >
                   <div className="flex items-start justify-between gap-3">
@@ -347,7 +352,7 @@ export default function CommitteesView({ motions, meetings = [] }) {
                     <span className="text-2xl font-black text-slate-900 leading-none">{b.upcomingCount.toLocaleString()}</span>
                     <span className="text-xs text-slate-500">upcoming</span>
                   </div>
-                </button>
+                </Link>
               ))}
             </div>
           </div>
@@ -410,12 +415,12 @@ export default function CommitteesView({ motions, meetings = [] }) {
                       <Calendar className="w-3.5 h-3.5 text-slate-500" />
                       <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">Upcoming Meetings</p>
                     </div>
-                    <button
-                      onClick={() => navigate(`/meetings?committee=${selectedCommittee.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`)}
+                    <Link
+                      to={`/meetings?committee=${selectedCommittee.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`}
                       className="text-[11px] font-semibold text-[#004a99]/60 hover:text-[#004a99] transition-colors"
                     >
                       See all
-                    </button>
+                    </Link>
                   </div>
                   <div className="space-y-1">
                     {upcoming.map((m, i) => {
@@ -431,10 +436,10 @@ export default function CommitteesView({ motions, meetings = [] }) {
                         </>
                       );
                       return m.meetingReference ? (
-                        <button key={i} onClick={() => navigate(`/meetings/${m.meetingReference}`)}
+                        <Link key={i} to={`/meetings/${m.meetingReference}`}
                           className="w-full flex items-center justify-between hover:bg-slate-50 -mx-2 px-2 py-1.5 rounded-lg transition-colors">
                           {inner}
-                        </button>
+                        </Link>
                       ) : (
                         <div key={i} className="flex items-center justify-between py-1.5">{inner}</div>
                       );
@@ -450,13 +455,13 @@ export default function CommitteesView({ motions, meetings = [] }) {
                 <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3">Members</p>
                 <div className="flex flex-wrap gap-1.5">
                   {selectedCommittee.members.map(name => (
-                    <button
+                    <Link
                       key={name}
-                      onClick={() => navigate(`/councillors/${nameToSlug(name)}`)}
+                      to={`/councillors/${nameToSlug(name)}`}
                       className="text-xs font-medium px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 hover:bg-[#004a99] hover:text-white transition-colors"
                     >
                       {name}
-                    </button>
+                    </Link>
                   ))}
                 </div>
               </div>

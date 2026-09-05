@@ -1,6 +1,6 @@
 import { useRef, useMemo, useState, useEffect } from 'react';
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Maximize2, X } from 'lucide-react';
 import 'leaflet/dist/leaflet.css';
 import { extractWardId } from '../utils/ward';
@@ -125,20 +125,16 @@ export default function TorontoFullMap({ geojson, wardActivity, wardSubtextById,
             const displayName = ward.name === wardTitle ? null : ward.name;
             const isSaved = ward.id === activeWardId;
             const isHovered = ward.id === hoveredWardId;
-            return (
-              <button
-                key={ward.id}
-                onMouseEnter={() => { setHoveredWardId(ward.id); flyToWard(ward.id); }}
-                onClick={() => onWardSelect ? onWardSelect(ward.id) : navigate(`/wards/${ward.id}`)}
-                className={cn(
-                  "shrink-0 w-36 text-left rounded-xl px-3 py-2 border transition-all",
-                  isSaved
-                    ? "bg-[#004a99] text-white border-[#004a99]"
-                    : isHovered
-                    ? "bg-white border-[#004a99]/40 shadow-md"
-                    : "bg-white/90 border-slate-200 hover:border-[#004a99]/40"
-                )}
-              >
+            const wardClassName = cn(
+              "shrink-0 w-36 text-left rounded-xl px-3 py-2 border transition-all",
+              isSaved
+                ? "bg-[#004a99] text-white border-[#004a99]"
+                : isHovered
+                ? "bg-white border-[#004a99]/40 shadow-md"
+                : "bg-white/90 border-slate-200 hover:border-[#004a99]/40"
+            );
+            const wardInner = (
+              <>
                 <p className={cn("text-[9px] font-bold uppercase tracking-wide", isSaved ? "text-white/70" : "text-[#004a99]")}>
                   {wardTitle}
                 </p>
@@ -152,7 +148,27 @@ export default function TorontoFullMap({ geojson, wardActivity, wardSubtextById,
                     {subtext}
                   </p>
                 )}
+              </>
+            );
+            return onWardSelect ? (
+              <button
+                key={ward.id}
+                type="button"
+                onMouseEnter={() => { setHoveredWardId(ward.id); flyToWard(ward.id); }}
+                onClick={() => onWardSelect(ward.id)}
+                className={wardClassName}
+              >
+                {wardInner}
               </button>
+            ) : (
+              <Link
+                key={ward.id}
+                to={`/wards/${ward.id}`}
+                onMouseEnter={() => { setHoveredWardId(ward.id); flyToWard(ward.id); }}
+                className={wardClassName}
+              >
+                {wardInner}
+              </Link>
             );
           })}
         </div>

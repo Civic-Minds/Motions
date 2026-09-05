@@ -1,6 +1,6 @@
 import { getWardId } from '../utils/storage';
 import React, { useMemo, useState, useEffect, lazy, Suspense } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { ArrowRight, ChevronLeft, MapPin } from 'lucide-react';
 import YourWardCard from './YourWardCard';
 const WardMotionMap = lazy(() => import('./WardMotionMap'));
@@ -54,7 +54,6 @@ function WardMap({ feature }) {
 
 export default function WardGrid({ motions }) {
   const { wardId: wardIdParam } = useParams();
-  const navigate = useNavigate();
   const foundWardId = getWardId();
   const [geoData, setGeoData] = useState(null);
   const [mapFullscreen, setMapFullscreen] = useState(false);
@@ -197,12 +196,12 @@ export default function WardGrid({ motions }) {
                     </p>
                     <p className="text-sm font-semibold text-slate-900">{name}</p>
                   </div>
-                  <button
-                    onClick={() => navigate(`/councillors/${nameToSlug(name)}`)}
+                  <Link
+                    to={`/councillors/${nameToSlug(name)}`}
                     className="flex items-center gap-1.5 px-3 py-1.5 bg-[#004a99] text-white text-xs font-semibold rounded-lg hover:bg-[#003875] transition-colors shrink-0"
                   >
                     View profile <ArrowRight className="w-3 h-3" />
-                  </button>
+                  </Link>
                 </div>
               );
             })()}
@@ -225,10 +224,10 @@ export default function WardGrid({ motions }) {
               </div>
             ) : (
               wardMotions.map((m, i) => (
-                <button
+                <Link
                   key={m.id}
+                  to={`/motions/${m.id}`}
                   style={{ animationDelay: `${Math.min(i * 0.02, 0.3)}s` }}
-                  onClick={() => navigate(`/motions/${m.id}`)}
                   className="animate-fade-in-up w-full text-left bg-white border border-slate-200 rounded-2xl p-4 flex items-start gap-3 hover:border-[#004a99]/40 hover:shadow-sm transition-all group"
                 >
                   <div className={cn("w-1 self-stretch rounded-full shrink-0", m.status === 'Adopted' ? 'bg-emerald-400' : 'bg-rose-400')} />
@@ -243,7 +242,7 @@ export default function WardGrid({ motions }) {
                     </div>
                   </div>
                   <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-[#004a99] shrink-0 mt-0.5 transition-colors" />
-                </button>
+                </Link>
               ))
             )}
 
@@ -260,10 +259,10 @@ export default function WardGrid({ motions }) {
                   <span className="text-xs font-semibold text-[#004a99]">{showCitywide ? 'Hide' : 'Show'}</span>
                 </button>
                 {showCitywide && citywideMotions.map((m, i) => (
-                  <button
+                  <Link
                     key={`citywide-${m.id}`}
+                    to={`/motions/${m.id}`}
                     style={{ animationDelay: `${Math.min(i * 0.02, 0.3)}s` }}
-                    onClick={() => navigate(`/motions/${m.id}`)}
                     className="animate-fade-in-up w-full text-left bg-white border border-slate-200 rounded-2xl p-4 flex items-start gap-3 hover:border-[#004a99]/40 hover:shadow-sm transition-all group"
                   >
                     <div className={cn("w-1 self-stretch rounded-full shrink-0", m.status === 'Adopted' ? 'bg-emerald-400' : 'bg-rose-400')} />
@@ -276,7 +275,7 @@ export default function WardGrid({ motions }) {
                       </div>
                     </div>
                     <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-[#004a99] shrink-0 mt-0.5 transition-colors" />
-                  </button>
+                  </Link>
                 ))}
               </div>
             )}
