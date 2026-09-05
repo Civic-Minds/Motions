@@ -335,3 +335,53 @@ Final batch result: 40/40 error-free.
 | `yk-2025-07-28-0142-25` | Clean | Reading title matches the official question. |
 
 Official sources queried: [May 12, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1917), [June 9, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1935), [June 9, 2025 special adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1937), [June 16, 2025 special adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1942), [June 24, 2025 special adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1948), and [July 28, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1953).
+
+## Batch 10 — 40 manually queried title reviews
+
+Each record was checked against the official adopted-minutes PDF. Classification
+fields were not changed. Final batch result: 40/40 error-free.
+
+| Motion | Result | Title review |
+|---|---|---|
+| `yk-2025-10-14-0191-25` | Clean | Reading title matches the official question. |
+| `yk-2025-10-14-0192-25` | Clean | Reading title matches the official question. |
+| `yk-2025-10-14-0193-25` | Clean | Adjournment title matches the official question. |
+| `yk-2025-10-27-00194-25` | Clean | Minutes-adoption title matches the official question. |
+| `yk-2025-10-27-0195-25` | Clean | Presenter-extension title matches the official question. |
+| `yk-2025-10-27-0196-25` | Clean | Presenter-extension title matches the official question. |
+| `yk-2025-10-27-0197-25` | Clean | Presenter-extension title matches the official question. |
+| `yk-2025-10-27-0198-25` | Clean | Presenter-extension title matches the official question. |
+| `yk-2025-10-27-0199-25` | Clean | Presenter-extension title matches the official question. |
+| `yk-2025-10-27-0200-25` | Clean | Presenter-extension title matches the official question. |
+| `yk-2025-10-27-0201-25` | Clean | Water and sewer rate-structure title matches the official question. |
+| `yk-2025-10-27-0202-25` | Clean | Amnesty Days title matches the official question. |
+| `yk-2025-10-27-0203-25` | Clean | Heritage Committee appointment title matches the official question. |
+| `yk-2025-10-27-0204-25` | Clean | Development Appeal Board appointment title matches the official question. |
+| `yk-2025-10-27-0205-25` | Clean | Community Advisory Board appointment title matches the official question. |
+| `yk-2025-10-27-0206-25` | Clean | Agenda-addition title matches the official question. |
+| `yk-2025-10-27-0207-25` | Clean | Arctic Security and NORAD/CAF/DND resolution title matches the official question. |
+| `yk-2025-10-27-0209-25` | Clean | Adjournment title matches the official question. |
+| `yk-2025-11-24-0215-25` | Clean | Minutes-adoption title matches the official question. |
+| `yk-2025-11-24-0216-25` | Clean | Presenter-extension title matches the official question. |
+| `yk-2025-11-24-0217-25` | Clean | Presenter-extension title matches the official question. |
+| `yk-2025-11-24-0220-25` | Clean | Audit Committee appointment title matches the official question. |
+| `yk-2025-11-24-0221-25` | Clean | Adjournment title matches the official question. |
+| `yk-2025-12-01-0365-93` | Clean | Travel-policy title matches the tracked source-backed override. |
+| `yk-2025-12-08-0222-25` | Clean | Minutes-adoption title matches the official question. |
+| `yk-2025-12-08-0223-25` | Clean | Policy-adoption title matches the official question. |
+| `yk-2025-12-08-0224-25` | Clean | Copper recycling agreement title matches the official question. |
+| `yk-2025-12-08-0227-25` | Clean | Mine Training Building title matches the official question. |
+| `yk-2025-12-08-0228-25` | Clean | Budget-approval title matches the official question. |
+| `yk-2025-12-08-0229-25` | Clean | Canada Winter Games committee title matches the official question. |
+| `yk-2025-12-08-0230-25` | Clean | First Reading title matches the official question. |
+| `yk-2025-12-08-0233-25` | Clean | Third-Reading presentation title matches the official question. |
+| `yk-2025-12-08-0235-25` | Clean | Third-Reading presentation title matches the official question. |
+| `yk-2025-12-08-0236-25` | Clean | Third Reading title matches the official question. |
+| `yk-2025-12-08-0237-25` | Clean | Adjournment title matches the official question. |
+| `yk-2026-01-12-0001-26` | Clean | Minutes-adoption title matches the official question. |
+| `yk-2026-01-12-0002-26` | Clean | Policy-repeal title matches the official question. |
+| `yk-2026-01-12-0003-26` | Clean | First Reading title matches the official question. |
+| `yk-2026-01-12-0004-26` | Clean | Second Reading title matches the official question. |
+| `yk-2026-01-12-0005-26` | Clean | Third-Reading presentation title matches the official question. |
+
+Official sources queried: [October 14, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1985), [October 27, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1993), [November 24, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2009), [December 1, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2015), [December 8, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2022), and [January 12, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2030).
