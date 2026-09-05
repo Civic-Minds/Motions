@@ -185,6 +185,56 @@ needed, and rechecked after import. Final batch result: 40/40 error-free.
 
 Official sources queried: [January 12, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2030), [January 26, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2034), [February 18, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2045), [February 25, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2047), and [March 4, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2050).
 
+## Batch 12 — 40 manually queried title reviews
+
+Each record was checked against the official adopted-minutes PDF. Classification
+fields were not changed. Final batch result: 40/40 error-free.
+
+| Motion | Result | Title review |
+|---|---|---|
+| `yk-2026-03-04-0046-26` | Clean | Veterans Homelessness Program funding title matches the official question. |
+| `yk-2026-03-04-0047-26` | Clean | Development Officers appointment title matches the official question. |
+| `yk-2026-03-04-0048-26` | Clean | Adjournment title matches the official question. |
+| `yk-2026-03-18-0049-26` | Clean | First Reading title matches the official question. |
+| `yk-2026-03-18-0050-26` | Clean | Second Reading title matches the official question. |
+| `yk-2026-03-18-0051-26` | Clean | Third-Reading presentation title matches the official question. |
+| `yk-2026-03-18-0052-26` | Clean | Third Reading title matches the official question. |
+| `yk-2026-03-18-0053-26` | Clean | Agenda-amendment title matches the official question. |
+| `yk-2026-03-18-0054-26` | Clean | Water and sewer infrastructure agreement title matches the official question. |
+| `yk-2026-03-18-0055-26` | Clean | Adjournment title matches the official question. |
+| `yk-2026-03-25-0056-26` | Clean | Minutes-adoption title matches the official question. |
+| `yk-2026-03-25-0057-26` | Clean | Minutes-adoption title matches the official question. |
+| `yk-2026-03-25-0058-26` | Clean | Minutes-adoption title matches the official question. |
+| `yk-2026-03-25-0059-26` | Clean | Property-tax exemption title matches the official question. |
+| `yk-2026-03-25-0060-26` | Clean | Property auction title matches the official question. |
+| `yk-2026-03-25-0061-26` | Clean | Grant Review Committee funding title matches the official question. |
+| `yk-2026-03-25-0062-26` | Clean | Development Appeal Board appointment title matches the official question. |
+| `yk-2026-03-25-0063-26` | Clean | Board of Revision appointment title matches the official question. |
+| `yk-2026-03-25-0064-26` | Clean | Property-tax policy amendment title matches the official question. |
+| `yk-2026-03-25-0065-26` | Clean | Third Reading title matches the official question. |
+| `yk-2026-03-25-0066-26` | Clean | Third Reading title matches the official question. |
+| `yk-2026-03-25-0067-26` | Clean | First Reading title matches the official question. |
+| `yk-2026-03-25-0068-26` | Clean | Second Reading title matches the official question. |
+| `yk-2026-03-25-0069-26` | Clean | Presenter-extension title matches the official question. |
+| `yk-2026-03-25-0070-26` | Clean | Adjournment title matches the official question. |
+| `yk-2026-03-25-0071-26` | Clean | Second Reading title matches the official question. |
+| `yk-2026-03-25-0072-26` | Clean | Second Reading title matches the official question. |
+| `yk-2026-03-25-0073-26` | Clean | Second Reading title matches the official question. |
+| `yk-2026-03-25-0074-26` | Clean | Third Reading title matches the official question. |
+| `yk-2026-03-25-0075-26` | Clean | Adjournment title matches the official question. |
+| `yk-2026-04-01-0071-26` | Clean | Third Reading title matches the official question. |
+| `yk-2026-04-01-0072-26` | Clean | Adjournment title matches the official question. |
+| `yk-2026-04-15-0073-26` | Clean | Electoral-reform resolution title matches the official question. |
+| `yk-2026-04-15-0074-26` | Clean | Adjournment title matches the official question. |
+| `yk-2026-04-22-0075-26` | Clean | Minutes-adoption title matches the official question. |
+| `yk-2026-04-22-0076-26` | Clean | Minutes-adoption title matches the official question. |
+| `yk-2026-04-22-0077-26` | Clean | Minutes-adoption title matches the official question. |
+| `yk-2026-04-22-0078-26` | Clean | Minutes-adoption title matches the official question. |
+| `yk-2026-04-22-0079-26` | Clean | Community Advisory Board appointment title matches the official question. |
+| `yk-2026-04-22-0080-26` | Clean | Development Officer appointment title matches the official question. |
+
+Official sources queried: [March 4, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2050), [March 18, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2053), [March 25, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2057), [March 25, 2026 special adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2059), [April 1, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2064), [April 15, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2070), and [April 22, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2073).
+
 ## Batch 7 — 40 manually queried title reviews
 
 Each record was checked against the official adopted-minutes PDF, fixed where
