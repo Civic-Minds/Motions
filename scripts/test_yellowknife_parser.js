@@ -19,7 +19,7 @@ MOTION CARRIED UNANIMOUSLY
 
 #0002-22
 7. Councillor G. Cochrane moved, Councillor C. McGurk seconded,
-That: the City defer the item.
+That, the City defer the item.
 MOTION CARRIED (Councillor R. Warburton opposed)
 8. Councillor R. Warburton returned to the meeting.
 
@@ -67,5 +67,11 @@ assert.equal(motions[4].title, 'Second Reading of By-law No. 5063.');
 assert.equal(motions[5].title, 'Third Reading of By-law No. 5063.');
 assert.equal(motions[6].title, 'First Reading of By-law No. 5064.');
 assert.equal(motions.every(motion => motion.sourceUrl === sourceUrl), true);
+
+const embeddedThat = parseMotions(`#0008-22
+15. Councillor G. Cochrane moved, Councillor C. McGurk seconded,
+Whereas residents should understand how they vote; Therefore, the City should publish the record.
+MOTION CARRIED UNANIMOUSLY`, '2022-10-24', 'Council Meeting', sourceUrl, 'yellowknife-2022-10-24-council-meeting');
+assert.equal(embeddedThat[0].title, 'Whereas residents should understand how they vote; Therefore, the City should publish the record.');
 
 console.log('Yellowknife parser fixtures passed');

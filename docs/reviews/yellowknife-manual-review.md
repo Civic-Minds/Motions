@@ -73,3 +73,34 @@ classification was changed.
 | `yk-2026-05-13-0090-26` | Fixed | “the meeting” was corrected to “the Meeting” and the missing final period was restored. The source's leading “That” remains omitted as an unnecessary display word. |
 
 Official sources queried: [April 22, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2073) and [May 13, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2077).
+
+## Batch 4 — 20 manually queried title reviews
+
+Each record was checked against the official adopted-minutes PDF, fixed where
+needed, and rechecked after the importer update. Final batch result: 20/20
+error-free.
+
+| Motion | Result | Title review |
+|---|---|---|
+| `yk-2026-04-22-0080-26` | Clean | Complete appointment motion; display title correctly omits the unnecessary leading “That” and list-number prefix. |
+| `yk-2026-04-22-0079-26` | Clean | Complete Community Advisory Board appointment title; source colon is retained because the official question introduces the member list. |
+| `yk-2026-04-22-0078-26` | Clean | Minutes-adoption title matches the official question, including capitalization and final period. |
+| `yk-2026-04-22-0077-26` | Clean | Minutes-adoption title matches the official question, including capitalization and final period. |
+| `yk-2026-04-22-0076-26` | Clean | Minutes-adoption title matches the official question, including capitalization and final period. |
+| `yk-2026-04-22-0075-26` | Clean | Minutes-adoption title matches the official question, including capitalization and final period. |
+| `yk-2026-04-15-0074-26` | Clean | Adjournment title has the source capitalization and final period. |
+| `yk-2026-04-15-0073-26` | Fixed | The title previously began at the embedded words “they vote” and included an “ADOPTED MINUTES” PDF header; it now contains the complete motion from “Whereas” onward with the header removed. |
+| `yk-2026-04-01-0072-26` | Clean | Adjournment title has the source capitalization and final period. |
+| `yk-2026-04-01-0071-26` | Clean | “Third Reading of By-law No. 5128.” matches the official motion wording. |
+| `yk-2026-03-25-0075-26` | Clean | Adjournment title has the source capitalization and final period. |
+| `yk-2026-03-25-0074-26` | Clean | “Third Reading of By-law No. 5124.” matches the official motion wording. |
+| `yk-2026-03-25-0073-26` | Clean | “Second Reading of By-law No. 5124.” matches the official motion wording. |
+| `yk-2026-03-25-0072-26` | Clean | “Second Reading of By-law No. 5123.” matches the official motion wording. |
+| `yk-2026-03-25-0071-26` | Clean | “Second Reading of By-law No. 5122.” matches the official motion wording. |
+| `yk-2026-03-25-0070-26` | Clean | Adjournment title has the source capitalization and final period. |
+| `yk-2026-03-25-0069-26` | Fixed | A leading “That,” from the motion question was removed as an unnecessary display word and the title now starts with “pursuant”. |
+| `yk-2026-03-25-0068-26` | Clean | “Second Reading of By-law No. 5128.” matches the official motion wording. |
+| `yk-2026-03-25-0067-26` | Clean | “First Reading of By-law No. 5128.” matches the official motion wording. |
+| `yk-2026-03-25-0066-26` | Clean | “Third Reading of By-law No. 5126.” matches the official motion wording. |
+
+Official sources queried: [March 25, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2057), [March 25, 2026 special adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2059), [April 1, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2064), [April 15, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2070), and [April 22, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2073).
