@@ -185,6 +185,59 @@ needed, and rechecked after import. Final batch result: 40/40 error-free.
 
 Official sources queried: [January 12, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2030), [January 26, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2034), [February 18, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2045), [February 25, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2047), and [March 4, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2050).
 
+## Batch 17 — 40 manually queried title reviews
+
+Each record was checked by hand against the official adopted-minutes PDF and
+corrected in the tracked Yellowknife title override map where needed.
+Classification fields were not changed. Final batch result: 40/40 reviewed,
+with title corrections applied where the imported title had OCR, truncation,
+punctuation, capitalization, or source-header issues.
+
+| Motion | Result | Title review |
+|---|---|---|
+| `yk-2023-11-27-0139-23` | Fixed | Minutes title restored capitalization and final period. |
+| `yk-2023-11-27-0140-23` | Fixed | Minutes title restored capitalization and final period. |
+| `yk-2023-11-27-0143-23` | Fixed | Final period restored. |
+| `yk-2023-11-27-0144-23` | Fixed | Final period restored. |
+| `yk-2023-11-27-0145-23` | Fixed | Leading OCR comma removed and final period restored. |
+| `yk-2023-11-27-0146-23` | Fixed | Leading OCR comma removed and final period restored. |
+| `yk-2023-11-27-0147-23` | Fixed | Adjournment title restored capitalization and final period. |
+| `yk-2023-12-11-0148-23` | Fixed | Minutes title restored capitalization and final period. |
+| `yk-2023-12-11-0149-23` | Fixed | Leading OCR comma removed and final period restored. |
+| `yk-2023-12-11-0150-23` | Fixed | Leading OCR comma removed and final period restored. |
+| `yk-2023-12-11-0151-23` | Fixed | Leading OCR comma removed and final period restored. |
+| `yk-2023-12-11-0152-23` | Fixed | Leading OCR comma removed and final period restored. |
+| `yk-2023-12-11-0153-23` | Fixed | Full strategic-directions implementation title restored after the imported title was cut off. |
+| `yk-2023-12-11-0154-23` | Fixed | Full ceasefire-letter motion restored and vote commentary removed. |
+| `yk-2023-12-11-0155-23` | Fixed | Full ceasefire-letter motion restored after truncation. |
+| `yk-2023-12-11-0156-23` | Fixed | OCR “lslamophobia” corrected to “Islamophobia” and final period restored. |
+| `yk-2023-12-11-0157-23` | Fixed | Full By-law Officer appointment motion restored after truncation and OCR spacing errors. |
+| `yk-2023-12-11-0158-23` | Fixed | Adjournment title restored capitalization and final period. |
+| `yk-2024-01-08-0001-24` | Fixed | Minutes title restored capitalization and final period. |
+| `yk-2024-01-08-0003-24` | Fixed | Vote commentary and adopted-minutes PDF header contamination removed. |
+| `yk-2024-01-08-0004-24` | Fixed | Adjournment title restored capitalization and final period. |
+| `yk-2024-01-22-0005-24` | Fixed | Minutes title restored capitalization and final period. |
+| `yk-2024-01-22-0006-24` | Fixed | Leading OCR comma removed and final period restored. |
+| `yk-2024-01-22-0007-24` | Fixed | Leading OCR slash removed and final period restored. |
+| `yk-2024-01-22-0008-24` | Fixed | Full Mayor’s Task Force appointment and terms-of-reference motion restored. |
+| `yk-2024-01-22-0009-24` | Fixed | Full HRCC, special-committee appointments, and community-roundtables motion restored. |
+| `yk-2024-01-22-0010-24` | Fixed | Adjournment title restored capitalization and final period. |
+| `yk-2024-02-12-0011-24` | Fixed | By-law reading title restored final period. |
+| `yk-2024-02-12-0012-24` | Fixed | Adjournment title restored capitalization and final period. |
+| `yk-2024-02-12-0013-24` | Fixed | Minutes title restored capitalization and final period. |
+| `yk-2024-02-12-0014-24` | Fixed | Full Emerging Issues Reserve Fund and 2024 Draft Budget motion restored. |
+| `yk-2024-02-12-0015-24` | Fixed | By-law reading title restored final period. |
+| `yk-2024-02-12-0016-24` | Fixed | Missing space in “No.5075” corrected and final period restored. |
+| `yk-2024-02-12-0017-24` | Fixed | Adjournment title restored capitalization and final period. |
+| `yk-2024-02-26-0018-24` | Fixed | Minutes title restored capitalization and final period. |
+| `yk-2024-02-26-0019-24` | Fixed | Minutes title restored capitalization and final period. |
+| `yk-2024-02-26-0020-24` | Fixed | Leading OCR comma removed, property-list introduction restored, and ending colon added. |
+| `yk-2024-02-26-0021-24` | Fixed | Heritage Committee member names and appointment context restored. |
+| `yk-2024-02-26-0024-24` | Fixed | Final period restored to the Terms of Reference amendment title. |
+| `yk-2024-02-26-0025-24` | Fixed | Full Reaching Home and Winter Emergency Funding allocation motion restored. |
+
+Official sources queried: [November 27, 2023 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1686), [December 11, 2023 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1696), [January 8, 2024 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1698), [January 22, 2024 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1707), [February 12, 2024 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1718), and [February 26, 2024 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1726).
+
 ## Batch 12 — 40 manually queried title reviews
 
 Each record was checked against the official adopted-minutes PDF. Classification
