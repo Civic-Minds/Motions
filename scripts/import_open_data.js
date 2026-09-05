@@ -24,7 +24,7 @@ import fs from 'fs';
 import path from 'path';
 import { isAdministrativeTitle } from './lib/topicClassification.js';
 import { classifyTorontoTopic } from './lib/torontoClassification.js';
-import { applyAdministrativePenalty } from './lib/significance.js';
+import { applyAdministrativePenalty, computeFlags } from './lib/significance.js';
 
 /* global process */
 
@@ -241,24 +241,6 @@ function computeSignificance(votes, status, motionTypes, multiDay, minutes, titl
     if (HIGH_IMPORTANCE.some(k => lower.includes(k))) score += 20;
 
     return applyAdministrativePenalty(score, title);
-}
-
-function computeFlags(votes, status, score) {
-    const flags = [];
-    const vals = Object.values(votes);
-    if (vals.length === 0) return flags;
-
-    const yes = vals.filter(v => v === 'YES').length;
-    const no  = vals.filter(v => v === 'NO').length;
-    const total = yes + no;
-    const margin = Math.abs(yes - no);
-
-    if (score >= 25 && total >= 15 && margin <= 5) flags.push('close-vote');
-    if (score >= 25 && status === 'Lost') flags.push('defeated');
-    if (score >= 25 && total >= 20 && no === 0) flags.push('unanimous');
-    if (score >= 25 && status === 'Lost' && yes <= 5 && total >= 15) flags.push('landslide-defeat');
-
-    return flags;
 }
 
 function slugifyType(type) {
