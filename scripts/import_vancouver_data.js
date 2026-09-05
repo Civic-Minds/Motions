@@ -92,7 +92,9 @@ function significanceFor(votes, decision, title) {
     const contested = total > 0 ? Math.round((Math.min(yes, no) / total) * 30) : 0;
     const topicWeight = classifyTopic(title) === 'General' ? 10 : 25;
     const outcomeWeight = decision?.toLowerCase().includes('lost') ? 20 : 10;
-    return Math.min(100, topicWeight + contested + outcomeWeight);
+    let score = topicWeight + contested + outcomeWeight;
+    if (isAdministrativeTitle(title)) score -= 25;
+    return Math.max(0, Math.min(100, score));
 }
 
 async function fetchPage(offset, startDate, endDate) {
