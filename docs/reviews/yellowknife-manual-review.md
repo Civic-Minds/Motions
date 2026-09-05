@@ -337,6 +337,57 @@ changed. Final batch result: 40/40 corrected or verified error-free.
 
 Official sources queried: [February 6, 2023 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1563), [February 13, 2023 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1565), [February 27, 2023 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1571), [March 13, 2023 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1578), [March 16, 2023 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1582), [March 17, 2023 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1584), [March 27, 2023 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1587), [March 27, 2023 special adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1591), [April 11, 2023 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1594), and [April 24, 2023 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1604).
 
+## Batch 15 — 40 manually queried title reviews
+
+Each record was checked against the official adopted-minutes PDF and corrected
+in the tracked Yellowknife title override map. Classification fields were not
+changed. Final batch result: 40/40 corrected or verified error-free.
+
+| Motion | Result | Title review |
+|---|---|---|
+| `yk-2023-04-24-0061-23` | Fixed | Reconciliation Action Plan title now preserves the source final period. |
+| `yk-2023-04-24-0064-23` | Fixed | Terms-of-Reference referral title now preserves the source final period. |
+| `yk-2023-04-24-0065-23` | Fixed | Meeting-materials timing title now preserves the source final period. |
+| `yk-2023-04-24-0066-23` | Fixed | Reading title now preserves the source final period. |
+| `yk-2023-04-24-0067-23` | Fixed | Reading title now preserves the source final period. |
+| `yk-2023-04-24-0068-23` | Fixed | Adjournment title now has source capitalization and punctuation. |
+| `yk-2023-05-08-0069-23` | Fixed | Minutes-adoption title now preserves source capitalization and punctuation. |
+| `yk-2023-05-08-0070-23` | Fixed | Complete Aurora Tracking Station agreement title restored. |
+| `yk-2023-05-08-0071-23` | Fixed | Complete Work Camps legislative-amendment title restored. |
+| `yk-2023-05-08-0072-23` | Fixed | Reading title now preserves the source final period. |
+| `yk-2023-05-08-0073-23` | Fixed | Reading title now preserves the source final period. |
+| `yk-2023-05-08-0074-23` | Fixed | Reading title now preserves the source final period. |
+| `yk-2023-05-08-0075-23` | Fixed | Leading OCR punctuation removed from the presentation title. |
+| `yk-2023-05-08-0076-23` | Fixed | Leading OCR punctuation removed from the presentation title. |
+| `yk-2023-05-08-0077-23` | Fixed | Adjournment title now has source capitalization and punctuation. |
+| `yk-2023-05-23-0078-23` | Fixed | Reading title now preserves the source final period. |
+| `yk-2023-05-23-0079-23` | Fixed | Reading title now preserves the source final period. |
+| `yk-2023-05-23-0080-23` | Fixed | Reading title now preserves the source final period. |
+| `yk-2023-05-23-0081-23` | Fixed | Reading title now preserves the source final period. |
+| `yk-2023-05-23-0082-23` | Fixed | Adjournment title now has source capitalization and punctuation. |
+| `yk-2023-05-23-0083-23` | Fixed | Minutes-adoption title now preserves source capitalization and punctuation. |
+| `yk-2023-05-23-0084-23` | Fixed | Complete MED strategic-priorities title restored. |
+| `yk-2023-05-23-0085-23` | Fixed | Complete Reaching Home funding title and allocations restored. |
+| `yk-2023-05-23-0086-23` | Fixed | Grant-funding title restored to the source table introduction. |
+| `yk-2023-05-23-0087-23` | Fixed | OCR word spacing corrected in the Museum Project title. |
+| `yk-2023-05-23-0088-23` | Fixed | Trailing discussion text and OCR spacing removed from the Strategic Directions title. |
+| `yk-2023-05-23-0089-23` | Fixed | Reading title now preserves the source final period. |
+| `yk-2023-05-23-0090-23` | Fixed | Reading title now preserves the source final period. |
+| `yk-2023-05-23-0091-23` | Fixed | Reading title now preserves the source final period. |
+| `yk-2023-05-23-0092-23` | Fixed | Adjournment title now has source capitalization and punctuation. |
+| `yk-2023-06-12-0058-17` | Fixed | Complete historical water-rate resolution restored. |
+| `yk-2023-06-12-0083-23` | Fixed | Minutes-adoption title now preserves source capitalization and punctuation. |
+| `yk-2023-06-12-0084-23` | Fixed | Minutes-adoption title now preserves source capitalization and punctuation. |
+| `yk-2023-06-12-0085-23` | Fixed | Housing Accelerator Fund title now preserves the source final period. |
+| `yk-2023-06-12-0086-23` | Fixed | Table-removal title now preserves the source final period. |
+| `yk-2023-06-12-0087-23` | Fixed | Referral title now preserves the source final period. |
+| `yk-2023-06-12-0088-23` | Fixed | Adjournment title now has source capitalization and punctuation. |
+| `yk-2023-06-26-0089-23` | Fixed | Minutes-adoption title now preserves source capitalization and punctuation. |
+| `yk-2023-06-26-0090-23` | Fixed | Audit Committee appointment title now preserves the source final period. |
+| `yk-2023-06-26-0091-23` | Fixed | Strategic Directions title now preserves the source final period. |
+
+Official sources queried: [April 24, 2023 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1604), [May 8, 2023 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1608), [May 23, 2023 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1621), [May 23, 2023 special adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1615), [June 12, 2023 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1629), and [June 26, 2023 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1637).
+
 ## Batch 7 — 40 manually queried title reviews
 
 Each record was checked against the official adopted-minutes PDF, fixed where
