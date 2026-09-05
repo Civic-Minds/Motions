@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { TOPIC_LIGHT, getCommittee } from '../constants/data';
@@ -16,8 +16,6 @@ export default function MotionCardItem({
   showVoteBadge = !!vote,
   votePlacement = 'header',
 }) {
-  const navigate = useNavigate();
-
   const dotColor = vote != null
     ? (vote === 'YES' ? 'bg-emerald-400' : vote === 'NO' ? 'bg-rose-400' : 'bg-slate-200')
     : (m.status === 'Adopted' ? 'bg-emerald-400' : 'bg-rose-400');
@@ -33,8 +31,8 @@ export default function MotionCardItem({
       style={{ animationDelay: `${Math.min(index * 0.02, 0.3)}s` }}
       className="animate-fade-in-up"
     >
-      <div
-        onClick={() => navigate(`/motions/${m.id}`)}
+      <Link
+        to={`/motions/${m.id}`}
         className="bg-white border border-slate-200 rounded-2xl p-4 flex items-start gap-3 hover:border-[#004a99]/40 hover:shadow-sm transition-all group cursor-pointer"
       >
         <div className={cn('w-1 self-stretch rounded-full shrink-0', dotColor)} />
@@ -96,7 +94,7 @@ export default function MotionCardItem({
           </div>
         </div>
         <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-[#004a99] shrink-0 mt-0.5 transition-colors" />
-      </div>
+      </Link>
     </div>
   );
 }
