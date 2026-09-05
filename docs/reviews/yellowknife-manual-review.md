@@ -291,6 +291,59 @@ vote-commentary, table-contamination, capitalization, or punctuation issues.
 
 Official sources queried: [February 26, 2024 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1726), [March 11, 2024 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1730), [March 25, 2024 adopted special minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1741), [March 25, 2024 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1737), [April 2, 2024 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1744), [April 8, 2024 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1750), and [April 22, 2024 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1754).
 
+## Batch 19 — 40 manually queried title reviews
+
+Each record was checked by hand against the official adopted-minutes PDF and
+corrected in the tracked Yellowknife title override map where needed.
+Classification fields were not changed. Final batch result: 40/40 reviewed,
+with title corrections applied where the imported title had truncation, OCR,
+table contamination, vote-commentary, capitalization, or punctuation issues.
+
+| Motion | Result | Title review |
+|---|---|---|
+| `yk-2024-04-22-0072-24` | Fixed | Minutes title restored capitalization and final period. |
+| `yk-2024-04-22-0073-24` | Fixed | Minutes title restored capitalization and final period. |
+| `yk-2024-04-22-0074-24` | Fixed | Final period restored. |
+| `yk-2024-04-22-0075-24` | Fixed | Final period restored. |
+| `yk-2024-04-22-0076-24` | Fixed | Full Community Advisory Board member table restored after truncation. |
+| `yk-2024-04-22-0077-24` | Fixed | Reading title now has the source final period. |
+| `yk-2024-04-22-0078-24` | Fixed | Reading title now has the source final period. |
+| `yk-2024-04-22-0079-24` | Fixed | Final period restored. |
+| `yk-2024-04-22-0080-24` | Fixed | Reading title now has the source final period. |
+| `yk-2024-04-22-0081-24` | Fixed | Reading title now has the source final period. |
+| `yk-2024-04-22-0082-24` | Fixed | Reading title now has the source final period. |
+| `yk-2024-04-22-0083-24` | Fixed | Final period restored. |
+| `yk-2024-04-22-0084-24` | Fixed | Missing space in “No.5085” corrected and final period restored. |
+| `yk-2024-04-22-0085-24` | Fixed | Leading OCR comma and malformed parenthesis removed; final period restored. |
+| `yk-2024-04-22-0086-24` | Fixed | Leading OCR comma and malformed parenthesis removed; final period restored. |
+| `yk-2024-04-22-0087-24` | Fixed | Leading OCR comma removed and final period restored. |
+| `yk-2024-04-22-0089-24` | Fixed | Adjournment title restored capitalization and final period. |
+| `yk-2024-05-13-0090-24` | Fixed | Reading title now has the source final period. |
+| `yk-2024-05-13-0091-24` | Fixed | Reading title now has the source final period. |
+| `yk-2024-05-13-0092-24` | Fixed | Adjournment title restored capitalization and final period. |
+| `yk-2024-05-13-0093-24` | Fixed | Minutes title restored capitalization and final period. |
+| `yk-2024-05-13-0094-24` | Fixed | Full audited-statements and reserve-transfer motion restored. |
+| `yk-2024-05-13-0095-24` | Fixed | Final period restored. |
+| `yk-2024-05-13-0096-24` | Fixed | Full Mayor’s Task Force appointment table restored. |
+| `yk-2024-05-13-0097-24` | Fixed | Reading title now has the source final period. |
+| `yk-2024-05-13-0098-24` | Fixed | Reading title now has the source final period. |
+| `yk-2024-05-13-0099-24` | Fixed | Reading title now has the source final period. |
+| `yk-2024-05-13-0100-24` | Fixed | Reading title now has the source final period. |
+| `yk-2024-05-13-0101-24` | Fixed | Adjournment title restored capitalization and final period. |
+| `yk-2024-05-27-0102-24` | Fixed | Minutes title restored capitalization and final period. |
+| `yk-2024-05-27-0103-24` | Fixed | Minutes title restored capitalization and final period. |
+| `yk-2024-05-27-0106-24` | Fixed | Vote commentary removed from the amendment title. |
+| `yk-2024-05-27-0109-24` | Fixed | Final period restored. |
+| `yk-2024-05-27-0110-24` | Fixed | Reading title now has the source final period. |
+| `yk-2024-05-27-0111-24` | Fixed | Adjournment title restored capitalization and final period. |
+| `yk-2024-06-10-0112-24` | Fixed | Minutes title restored capitalization and final period. |
+| `yk-2024-06-10-0115-24` | Fixed | Final period restored. |
+| `yk-2024-06-10-0116-24` | Fixed | Reading title now has the source final period. |
+| `yk-2024-06-10-0117-24` | Fixed | Reading title now has the source final period. |
+| `yk-2024-06-10-0118-24` | Fixed | Reading title now has the source final period. |
+
+Official sources queried: [April 22, 2024 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1754), [May 13, 2024 adopted special minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1772), [May 13, 2024 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1770), [May 27, 2024 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1776), and [June 10, 2024 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1783).
+
 ## Batch 12 — 40 manually queried title reviews
 
 Each record was checked against the official adopted-minutes PDF. Classification
