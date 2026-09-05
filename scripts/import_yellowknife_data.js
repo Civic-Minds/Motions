@@ -93,6 +93,7 @@ export function parseMotions(text, date, committee, sourceUrl, meetingReference)
       .replace(/^(?:Mayor|Councillor)\s+[^,/]+?\s+moved\s*[,/]\s*(?:Mayor|Councillor)(?:\s+[^,/]+?)?\s+(?:secon\s*d\s*ed|seco\s*nded)\s*[,/]\s*(?:\d(?!\.\s))?\s*/i, '');
     const question = questionText.match(/^That\s*[:,]?\s*([\s\S]*)/i)?.[1] ?? questionText;
     const title = compact(question)
+      .replace(/-\s+/g, '-')
       .replace(/\bCounci\s+llor\b/gi, 'Councillor')
       .replace(/^DM#\d+.*?(First|Second|Third)\s+Reading/i, '$1 Reading')
       .replace(/^\d+\.\s*That\s*[:,]?\s*/i, '')
@@ -218,6 +219,7 @@ async function main() {
     .map(motion => ({
       ...motion,
       title: compact(YELLOWKNIFE_TITLE_OVERRIDES[motion.id] ?? motion.title ?? '')
+        .replace(/-\s+/g, '-')
         .replace(/^DM#\d+.*?(First|Second|Third)\s+Reading/i, '$1 Reading')
         .replace(/^DM#\d+.*?(?=\d+\.\s+[A-Z])/, '')
         .replace(/^\d+\.\s*/, '')

@@ -234,3 +234,53 @@ needed, and rechecked after import. Final batch result: 40/40 error-free.
 | `yk-2026-01-12-0005-26` | Fixed | Third-reading title now preserves the source final period. |
 
 Official sources queried: [October 14, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1985), [October 27, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1993), [November 24, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2009), [December 1, 2025 Governance and Priorities Committee report](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2015), [December 8, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2022), and [January 12, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2030).
+
+## Batch 8 — 40 manually queried title reviews
+
+Each record was checked against the official adopted-minutes PDF, fixed where
+needed, and rechecked after import. Final batch result: 40/40 error-free.
+
+| Motion | Result | Title review |
+|---|---|---|
+| `yk-2025-07-28-0143-25` | Fixed | Reading title now preserves the source final period. |
+| `yk-2025-07-28-0144-25` | Fixed | Reading title now preserves the source final period. |
+| `yk-2025-07-28-0145-25` | Fixed | Reading title now preserves the source final period. |
+| `yk-2025-07-28-0146-25` | Fixed | Reading title now preserves the source final period. |
+| `yk-2025-07-28-0147-25` | Fixed | Reading title now preserves the source final period. |
+| `yk-2025-07-28-0148-25` | Fixed | Reading title now preserves the source final period. |
+| `yk-2025-07-28-0149-25` | Fixed | Adjournment title now has the source capitalization and final period. |
+| `yk-2025-08-25-0150-25` | Fixed | Minutes-adoption title now has the source capitalization and final period. |
+| `yk-2025-08-25-0151-25` | Fixed | Minutes-adoption title now has the source capitalization and final period. |
+| `yk-2025-08-25-0152-25` | Fixed | Presenter-extension title now preserves the source final period. |
+| `yk-2025-08-25-0153-25` | Fixed | Malformed mover text was removed; presenter-extension title now matches the official question. |
+| `yk-2025-08-25-0156-25` | Fixed | Adjournment title now has the source capitalization and final period. |
+| `yk-2025-09-08-0157-25` | Fixed | Minutes-adoption title now has the source capitalization and final period. |
+| `yk-2025-09-08-0158-25` | Fixed | Audit Committee appointment title now preserves the source final period. |
+| `yk-2025-09-08-0159-25` | Fixed | PDF line-break artifact in “non-government” was removed. |
+| `yk-2025-09-08-0160-25` | Fixed | Integrity Commissioner contract title now preserves the source final period. |
+| `yk-2025-09-08-0161-25` | Fixed | Reading title now preserves the source final period. |
+| `yk-2025-09-08-0162-25` | Fixed | Reading title now preserves the source final period. |
+| `yk-2025-09-08-0163-25` | Fixed | Reading title now preserves the source final period. |
+| `yk-2025-09-08-0166-25` | Fixed | Presenter-extension title now preserves the source final period. |
+| `yk-2025-09-08-0167-25` | Fixed | Adjournment title now has the source capitalization and final period. |
+| `yk-2025-09-15-0168-25` | Fixed | Reading title now preserves the source final period. |
+| `yk-2025-09-15-0169-25` | Fixed | Adjournment title now has the source capitalization and final period. |
+| `yk-2025-09-22-0170-25` | Fixed | Complete agenda-amendment title restored. |
+| `yk-2025-09-22-0171-25` | Fixed | Table-removal title now preserves the source final period. |
+| `yk-2025-09-22-0172-25` | Fixed | Reading title now preserves the source final period. |
+| `yk-2025-09-22-0173-25` | Fixed | Minutes-adoption title now has the source capitalization and final period. |
+| `yk-2025-09-22-0174-25` | Fixed | Minutes-adoption title now has the source capitalization and final period. |
+| `yk-2025-09-22-0175-25` | Fixed | Financial-contribution title now preserves the source final period. |
+| `yk-2025-09-22-0177-25` | Fixed | Motion-split title now preserves the source final period. |
+| `yk-2025-09-22-0179-25` | Fixed | Leading list marker and “That” were removed; the complete subdivision title is preserved. |
+| `yk-2025-09-22-0180-25` | Fixed | Complete CHIF contribution title restored. |
+| `yk-2025-09-22-0181-25` | Fixed | OCR-missing seconder name no longer contaminates the presenter-extension title. |
+| `yk-2025-09-22-0182-25` | Fixed | Water-rate review title now preserves the source final period. |
+| `yk-2025-09-22-0183-25` | Fixed | Adjournment title now has the source capitalization and final period. |
+| `yk-2025-10-14-0186-25` | Clean | Minutes-adoption title matches the official question, including its final period. |
+| `yk-2025-10-14-0187-25` | Clean | By-law hearing/reading title matches the official question. |
+| `yk-2025-10-14-0188-25` | Clean | Amnesty Days voucher-system title matches the official question. |
+| `yk-2025-10-14-0189-25` | Fixed | Reading title now preserves the source final period. |
+| `yk-2025-10-14-0190-25` | Fixed | Reading title now preserves the source final period. |
+
+Official sources queried: [July 28, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1953), [August 25, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1962), [September 8, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1972), [September 15, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1976), [September 22, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1978), and [October 14, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1985).
