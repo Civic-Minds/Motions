@@ -81,6 +81,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Stray "· ·" in the meeting info bar**: The start-time field always rendered a span even when empty, so meetings without a recorded time showed a doubled separator dot.
 - **Redundant "Substantive" filter chip**: Vancouver/Victoria/Yellowknife only import agenda items that had a recorded vote and never flag anything as in-camera, so every item was always "Substantive" — the filter chip duplicated the All count with nothing to actually filter. It's hidden now unless items are genuinely split across categories.
 - **Vancouver/Victoria/Yellowknife agenda items linked out instead of to their own vote page**: These cities' agenda items are built directly from the same tracked motions, so each one already has a full vote-breakdown page in this app — clicking an item sent people to the raw external source instead. Existing meetings pick up the in-app link on their next scheduled data refresh.
+- **Yellowknife's next data refresh would have duplicated all 293 meetings**: The earlier meetingReference format fix changed the field the import script used to tell "already have this meeting" from "need to add this one" apart, so the next refresh would have kept every old-format meeting *and* added a new-format copy of each. Caught before it ran — deduping now uses the meeting's stable source ID instead of the reference string.
+- **"Special Council Meeting meeting" in the share/description text**: Yellowknife's own body names already end in "Meeting" (e.g. "Special Council Meeting"), but the meeting page always appended " meeting" when building share titles and page descriptions.
 
 ## [3.0.0] — 2026-09-02
 

@@ -167,7 +167,7 @@ async function main() {
   const existingMotions = fs.existsSync(path.join(DATA_DIR, 'motions.json')) ? JSON.parse(fs.readFileSync(path.join(DATA_DIR, 'motions.json'), 'utf8')) : [];
   const existingMeetings = fs.existsSync(path.join(DATA_DIR, 'meetings.json')) ? JSON.parse(fs.readFileSync(path.join(DATA_DIR, 'meetings.json'), 'utf8')) : [];
   const existingById = new Map(existingMotions.map(motion => [motion.id, motion]));
-  const fetchedMeetingRefs = new Set();
+  const fetchedMeetingIds = new Set();
 
   for (const item of [...new Map(calendarMeetings.map(meeting => [meeting.ID, meeting])).values()]) {
     const date = item.StartDate?.slice(0, 10).replaceAll('/', '-');
@@ -189,7 +189,7 @@ async function main() {
     const minutesLink = documents.find(link => /minutes|postminutes/i.test(`${link.type} ${link.label}`));
     const agendaLink = documents.find(link => /agenda/i.test(`${link.type} ${link.label}`));
     const meeting = { date, startTime: item.StartDate.slice(11, 16).replace(':', ''), committee, meetingId, meetingNumber: meetingId, meetingReference, isCouncil: /council/i.test(committee), sourceUrl: detailUrl, agendaUrl: agendaLink?.href ?? null, agendaItems: [] };
-    fetchedMeetingRefs.add(meetingReference);
+    fetchedMeetingIds.add(meetingId);
     if (minutesLink) {
       const minutesText = await readPdf(minutesLink.href);
       for (const motion of minutesText ? parseMotions(minutesText, date, committee, minutesLink.href, meetingReference) : []) {
@@ -213,7 +213,7 @@ async function main() {
         .replace(/\s+DM#\d+.*$/i, ''),
     }))
     .sort((a, b) => a.date.localeCompare(b.date) || a.id.localeCompare(b.id));
-  const mergedMeetings = [...existingMeetings.filter(meeting => !fetchedMeetingRefs.has(meeting.meetingReference)), ...meetings]
+  const mergedMeetings = [...existingMeetings.filter(meeting => !fetchedMeetingIds.has(meeting.meetingId)), ...meetings]
     .sort((a, b) => a.date.localeCompare(b.date) || a.committee.localeCompare(b.committee));
   fs.mkdirSync(DATA_DIR, { recursive: true });
   fs.writeFileSync(path.join(DATA_DIR, 'motions.json'), JSON.stringify(mergedMotions, null, 2));

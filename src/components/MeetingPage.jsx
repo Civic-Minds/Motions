@@ -29,6 +29,9 @@ export default function MeetingPage({ meetings, jurisdiction = { name: 'Toronto'
   const committeeSlug = committeeToSlug(meeting?.committee ?? '');
   const sourceUrl = meeting?.sourceUrl || (jurisdiction.name === 'Toronto' ? 'https://secure.toronto.ca/council/' : null);
   const reportUrl = `/contact?subject=${encodeURIComponent('Report an issue')}&about=meeting&title=${encodeURIComponent(`${meeting.committee} — ${meeting.displayDate}`)}&motion=${encodeURIComponent(window.location.href)}`;
+  // Some cities' own body names already end in "Meeting" (e.g. Yellowknife's
+  // "Special Council Meeting") — avoid rendering "... Meeting meeting".
+  const meetingPhrase = /meeting$/i.test(meeting.committee) ? meeting.committee : `${meeting.committee} meeting`;
   const agendaItems = useMemo(() => meeting?.agendaItems ?? [], [meeting?.agendaItems]);
   const hasAgenda = agendaItems.length > 0;
 
@@ -66,7 +69,7 @@ export default function MeetingPage({ meetings, jurisdiction = { name: 'Toronto'
 
   return (
     <div className="max-w-5xl mx-auto py-2 pr-4 pl-4 sm:pr-6 sm:pl-24 lg:pr-8 lg:pl-28 relative">
-      <PageMeta title={`${meeting.committee} | Motions ${jurisdiction.name}`} description={`${meeting.committee} meeting records and agenda items for ${jurisdiction.name}.`} />
+      <PageMeta title={`${meeting.committee} | Motions ${jurisdiction.name}`} description={`${meetingPhrase} records and agenda items for ${jurisdiction.name}.`} />
 
       <div className="mb-3 sm:hidden">
         <BackButton onClick={() => navigate(`/committees/${committeeSlug}`)} />
@@ -85,7 +88,7 @@ export default function MeetingPage({ meetings, jurisdiction = { name: 'Toronto'
             >
               Report
             </a>
-            <ShareButton title={`${meeting.committee} meeting`} />
+            <ShareButton title={meetingPhrase} />
           </div>
           <div className="relative">
             <BackButton onClick={() => navigate(`/committees/${committeeSlug}`)} floating className="-left-20 top-0.5 lg:-left-24" />
