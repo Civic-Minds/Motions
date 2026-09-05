@@ -16,6 +16,7 @@ import path from 'node:path';
 import fetch from 'node-fetch';
 import * as cheerio from 'cheerio';
 import { isAdministrativeTitle } from './lib/topicClassification.js';
+import { cleanYellowknifeTitle, YELLOWKNIFE_TITLE_OVERRIDES } from '../src/utils/yellowknifeMotionTitle.js';
 
 /* global process, Buffer */
 
@@ -30,11 +31,6 @@ const TERM_MEMBERS = [
 ];
 
 const DATA_DIR = path.join(process.cwd(), 'public/data/yellowknife');
-export const YELLOWKNIFE_TITLE_OVERRIDES = {
-  // This committee-report policy item has no motion outcome marker, so it is
-  // retained from the prior snapshot and needs a source-backed full title.
-  'yk-2025-12-01-0365-93': 'All City sponsored travel by Yellowknife City Council members, inclusive of the Mayor, be approved by formal resolution of Council either prior to commencement of the travel, or at the first regular Council meeting after commencement of the travel; and Yellowknife City Council members, inclusive of the Mayor, be required to table a detailed expense claim for City sponsored travel within three weeks of their return from City travel. This claim is to be supported by a daily diary detailing City business.',
-};
 const fromArg = process.argv.find(arg => arg.startsWith('--from='));
 const FROM_DATE = fromArg?.slice('--from='.length) ?? '2022-10-18';
 const TO_DATE = new Date().toISOString().slice(0, 10);
@@ -99,6 +95,8 @@ export function parseMotions(text, date, committee, sourceUrl, meetingReference)
       .replace(/^\d+\.\s*That\s*[:,]?\s*/i, '')
       .replace(/^\d{2}-\d{2}\s+/, '')
       .replace(/^\d+\.\s*/, '')
+      .replace(/^ADOPTED MINUTES\s+[A-Za-z]+\s+\d{1,2},\s+\d{4}\s+\d{2}-\d{2}\s+That\s*[:,]?\s*/i, '')
+      .replace(/^ADOPTED MINUTES\s+[A-Za-z]+\s+\d{1,2},\s+\d{4}\s+\d{2}-\d{2}\s+/i, '')
       .replace(/^(?:Mayor|Councillor)\s+[^,/]+?\s+moved\s*[,/]\s*(?:Mayor|Councillor)(?:\s+[^,/]+?)?\s+(?:secon\s*d\s*ed|seco\s*nded)\s*[,/]\s*(?:\d(?!\.\s))?\s*/i, '')
       .replace(/\s+As there was an equal number of votes.*$/i, '')
       .replace(/\s+Those in favour of the motion.*$/i, '')
@@ -218,7 +216,7 @@ async function main() {
   const mergedMotions = [...existingMotions.filter(motion => !motions.some(next => next.id === motion.id)), ...motions]
     .map(motion => ({
       ...motion,
-      title: compact(YELLOWKNIFE_TITLE_OVERRIDES[motion.id] ?? motion.title ?? '')
+      title: cleanYellowknifeTitle(compact(YELLOWKNIFE_TITLE_OVERRIDES[motion.id] ?? motion.title ?? ''), motion.id)
         .replace(/-\s+/g, '-')
         .replace(/^DM#\d+.*?(First|Second|Third)\s+Reading/i, '$1 Reading')
         .replace(/^DM#\d+.*?(?=\d+\.\s+[A-Z])/, '')

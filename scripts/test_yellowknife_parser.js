@@ -80,6 +80,12 @@ That the City continue the program; DM#123456 Page 2 ADOPTED MINUTES March 4, 20
 MOTION CARRIED UNANIMOUSLY`, '2022-10-24', 'Council Meeting', sourceUrl, 'yellowknife-2022-10-24-council-meeting');
 assert.equal(embeddedHeader[0].title, 'the City continue the program; 2. the program be reviewed.');
 
+const leadingHeader = parseMotions(`#0011-22
+18. Councillor G. Cochrane moved, Councillor C. McGurk seconded,
+ADOPTED MINUTES June 24, 2025 15-25 That: the City appoint the officer.
+MOTION CARRIED UNANIMOUSLY`, '2022-10-24', 'Council Meeting', sourceUrl, 'yellowknife-2022-10-24-council-meeting');
+assert.equal(leadingHeader[0].title, 'the City appoint the officer.');
+
 const missingSeconder = parseMotions(`#0010-22
 17. Councillor G. Cochrane moved, Councillor seconded,
 That the City approve the recommendation.

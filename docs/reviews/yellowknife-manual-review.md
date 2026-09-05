@@ -284,3 +284,54 @@ needed, and rechecked after import. Final batch result: 40/40 error-free.
 | `yk-2025-10-14-0190-25` | Fixed | Reading title now preserves the source final period. |
 
 Official sources queried: [July 28, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1953), [August 25, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1962), [September 8, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1972), [September 15, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1976), [September 22, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1978), and [October 14, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1985).
+
+## Batch 9 — 40 manually queried title reviews
+
+Each record was checked against the official adopted-minutes PDF, fixed where
+needed, and rechecked after import. Classification fields were not changed.
+Final batch result: 40/40 error-free.
+
+| Motion | Result | Title review |
+|---|---|---|
+| `yk-2025-05-12-0094-25` | Fixed | Reading title now preserves the source final period. |
+| `yk-2025-05-12-0095-25` | Fixed | Reading title now preserves the source final period. |
+| `yk-2025-05-12-0096-25` | Fixed | Adjournment title now has the source capitalization and final period. |
+| `yk-2025-06-09-0106-25` | Fixed | Reading title now preserves the source final period. |
+| `yk-2025-06-09-0107-25` | Fixed | Reading title now preserves the source final period. |
+| `yk-2025-06-09-0108-25` | Fixed | Adjournment title now has the source capitalization and final period. |
+| `yk-2025-06-09-0109-25` | Fixed | Minutes-adoption title now has the source capitalization and final period. |
+| `yk-2025-06-09-0110-25` | Fixed | PDF header contamination was removed; the title now matches the official question. |
+| `yk-2025-06-09-0111-25` | Fixed | Leading punctuation was removed; the presenter-extension title now matches the official question. |
+| `yk-2025-06-09-0112-25` | Fixed | Complete strategic-priorities title restored. |
+| `yk-2025-06-09-0113-25` | Fixed | DMAF agreement title now preserves the source final period. |
+| `yk-2025-06-09-0114-25` | Fixed | Franklin Avenue title now preserves the source final period. |
+| `yk-2025-06-09-0115-25` | Fixed | Agenda-addition title now has the source capitalization and final period. |
+| `yk-2025-06-09-0116-25` | Fixed | Complete encampments resolution title restored. |
+| `yk-2025-06-09-0117-25` | Fixed | Complete Arctic Security Corridor resolution title restored. |
+| `yk-2025-06-09-0118-25` | Fixed | Reading title now preserves the source final period. |
+| `yk-2025-06-09-0119-25` | Fixed | Reading title now preserves the source final period. |
+| `yk-2025-06-09-0120-25` | Fixed | Reading title now preserves the source final period. |
+| `yk-2025-06-09-0121-25` | Fixed | Reading title now preserves the source final period. |
+| `yk-2025-06-09-0122-25` | Fixed | Adjournment title now has the source capitalization and final period. |
+| `yk-2025-06-16-0123-25` | Fixed | Reading title now preserves the source final period. |
+| `yk-2025-06-16-0124-25` | Fixed | Reading title now preserves the source final period. |
+| `yk-2025-06-16-0125-25` | Fixed | Adjournment title now has the source capitalization and final period. |
+| `yk-2025-06-24-0126-25` | Fixed | PDF header contamination was removed; the appointment title now matches the official question. |
+| `yk-2025-06-24-0127-25` | Fixed | Adjournment title now has the source capitalization and final period. |
+| `yk-2025-07-28-0128-25` | Clean | First Reading title matches the official question. |
+| `yk-2025-07-28-0129-25` | Clean | First Reading title matches the official question. |
+| `yk-2025-07-28-0130-25` | Clean | First Reading title matches the official question. |
+| `yk-2025-07-28-0131-25` | Clean | First Reading title matches the official question. |
+| `yk-2025-07-28-0132-25` | Clean | Adjournment title matches the official question. |
+| `yk-2025-07-28-0133-25` | Clean | Minutes-adoption title matches the official question. |
+| `yk-2025-07-28-0134-25` | Fixed | PDF header contamination was removed; the minutes-adoption title now matches the official question. |
+| `yk-2025-07-28-0135-25` | Clean | Minutes-adoption title matches the official question. |
+| `yk-2025-07-28-0136-25` | Clean | Minutes-adoption title matches the official question. |
+| `yk-2025-07-28-0137-25` | Clean | Water and Sewer Rate Structure Review title matches the official question. |
+| `yk-2025-07-28-0138-25` | Clean | Discretionary Use title matches the official question. |
+| `yk-2025-07-28-0139-25` | Clean | 311 service title matches the official question, including the source wording. |
+| `yk-2025-07-28-0140-25` | Clean | Development Officer appointment title matches the official question. |
+| `yk-2025-07-28-0141-25` | Clean | Reading title matches the official question. |
+| `yk-2025-07-28-0142-25` | Clean | Reading title matches the official question. |
+
+Official sources queried: [May 12, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1917), [June 9, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1935), [June 9, 2025 special adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1937), [June 16, 2025 special adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1942), [June 24, 2025 special adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1948), and [July 28, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1953).

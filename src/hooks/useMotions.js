@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { calculateTrivialityMetrics } from '../utils/analytics';
 import { cleanVancouverTitle } from '../utils/motionTitle';
+import { cleanYellowknifeTitle } from '../utils/yellowknifeMotionTitle';
 
 const MOTION_TOPIC_OVERRIDES = {
     'CC42.2': 'General',
@@ -56,7 +57,15 @@ export function useMotions(jurisdiction = { id: 'toronto', dataBaseEnv: 'VITE_BL
                                 title: cleanVancouverTitle(item.title, item.reference),
                             })),
                         }))
-                        : meetingsData);
+                        : jurisdiction.id === 'yellowknife'
+                            ? meetingsData.map(meeting => ({
+                                ...meeting,
+                                agendaItems: meeting.agendaItems?.map(item => ({
+                                    ...item,
+                                    title: cleanYellowknifeTitle(item.title, item.reference),
+                                })),
+                            }))
+                            : meetingsData);
                 })
                 .catch(err => console.error('Error loading meetings:', err));
 
@@ -89,7 +98,9 @@ export function useMotions(jurisdiction = { id: 'toronto', dataBaseEnv: 'VITE_BL
                     setMotions(motionsData.map(motion => {
                         const normalized = jurisdiction.id === 'vancouver'
                             ? { ...motion, title: cleanVancouverTitle(motion.title, motion.id) }
-                            : motion;
+                            : jurisdiction.id === 'yellowknife'
+                                ? { ...motion, title: cleanYellowknifeTitle(motion.title, motion.id) }
+                                : motion;
                         return MOTION_TOPIC_OVERRIDES[motion.id]
                             ? { ...normalized, topic: MOTION_TOPIC_OVERRIDES[motion.id] }
                             : normalized;
