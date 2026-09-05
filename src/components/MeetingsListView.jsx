@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useRef, useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { Calendar, Lock, FileText, ChevronRight, ChevronDown, SlidersHorizontal } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { committeeToSlug } from '../utils/slug';
@@ -52,7 +52,6 @@ function getTypeBadge(meeting) {
 }
 
 export default function MeetingsListView({ meetings = [], jurisdiction = { name: 'Toronto' } }) {
-  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const urlCommittee = searchParams.get('committee');
 
@@ -285,9 +284,9 @@ export default function MeetingsListView({ meetings = [], jurisdiction = { name:
                     : `/committees/${committeeToSlug(meeting.committee)}`;
 
                   return (
-                    <button
+                    <Link
                       key={i}
-                      onClick={() => navigate(dest)}
+                      to={dest}
                       className="w-full flex items-center gap-4 px-5 py-3 hover:bg-slate-50 transition-colors group text-left"
                     >
                       <div className="shrink-0 w-10 text-center">
@@ -332,7 +331,7 @@ export default function MeetingsListView({ meetings = [], jurisdiction = { name:
                       </div>
 
                       <ChevronRight className="w-4 h-4 text-slate-200 group-hover:text-[#004a99] shrink-0 transition-colors" />
-                    </button>
+                    </Link>
                   );
                 })}
               </div>

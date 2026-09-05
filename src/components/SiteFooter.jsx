@@ -10,7 +10,12 @@ export default function SiteFooter({ jurisdiction, standalone = false }) {
   const isToronto = jurisdiction.geography === 'ward';
   const hasElectionPage = jurisdiction.id === 'toronto' || jurisdiction.id === 'vancouver';
   const electionDate = formatElectionDate(jurisdiction.election.date);
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Skip the scroll on a modified click (cmd/ctrl/shift/middle-click) — those
+  // open the link in a new tab/window, so the current tab shouldn't jump.
+  const scrollToTop = (e) => {
+    if (e && (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button === 1)) return;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   // Standalone pages (About/Privacy/Terms) sit outside the jurisdiction
   // router, so an internal <Link> would resolve against the wrong (empty)

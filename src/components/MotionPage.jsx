@@ -331,15 +331,6 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
       {/* Mobile/tablet header row */}
       <div className="mb-3 flex items-center gap-3 sm:hidden">
         <BackButton onClick={() => navigate(-1)} />
-        <div className="flex min-w-0 flex-wrap items-center gap-2">
-          <StatusBadge status={motion.status} />
-          {motion.significance >= 90 && (
-            <span className="text-xs font-semibold text-amber-600 bg-amber-50 px-2.5 py-0.5 rounded-full">High Impact</span>
-          )}
-          {motion.significance >= 60 && motion.significance < 90 && (
-            <span className="text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full">Notable</span>
-          )}
-        </div>
         <div className="ml-auto flex shrink-0 items-center gap-2">
           <a href={reportUrl} onClick={() => trackGoogleEvent('report_issue_click', { motion_id: motionId, city: jurisdiction.id })} className="inline-flex items-center rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-600 transition-colors hover:border-[#004a99]/40 hover:text-[#004a99]">
             Report
@@ -350,15 +341,8 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
 
       {/* Header (Full Width) */}
       <div className="space-y-2 mb-4">
-        <div className="hidden flex-wrap items-center gap-2 sm:flex">
-          <StatusBadge status={motion.status} />
-          {motion.significance >= 90 && (
-            <span className="text-xs font-semibold text-amber-600 bg-amber-50 px-2.5 py-0.5 rounded-full">High Impact</span>
-          )}
-          {motion.significance >= 60 && motion.significance < 90 && (
-            <span className="text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full">Notable</span>
-          )}
-          <div className="ml-auto flex items-center gap-2">
+        <div className="hidden justify-end sm:flex">
+          <div className="flex items-center gap-2">
             <a href={reportUrl} onClick={() => trackGoogleEvent('report_issue_click', { motion_id: motionId, city: jurisdiction.id })} className="inline-flex items-center rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-600 transition-colors hover:border-[#004a99]/40 hover:text-[#004a99]">
               Report
             </a>
@@ -366,10 +350,20 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
           </div>
         </div>
 
-        <BackButton onClick={() => navigate(-1)} floating className="left-4 top-10 lg:left-6" />
-        <h1 className="text-xl font-bold text-slate-900 leading-snug lg:w-4/5">{displayTitle}</h1>
+        <div className="relative">
+          <BackButton onClick={() => navigate(-1)} floating className="-left-20 top-0.5 lg:-left-24" />
+          <h1 className="text-xl font-bold text-slate-900 leading-snug lg:w-4/5">{displayTitle}</h1>
+        </div>
 
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500">
+          <StatusBadge status={motion.status} />
+          {motion.significance >= 90 && (
+            <span className="text-xs font-semibold text-amber-600 bg-amber-50 px-2.5 py-0.5 rounded-full">High Impact</span>
+          )}
+          {motion.significance >= 60 && motion.significance < 90 && (
+            <span className="text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full">Notable</span>
+          )}
+          <span>·</span>
           <span className="font-mono">{motion.id}</span>
           <span>·</span>
           <span>{motion.date}</span>

@@ -1,7 +1,7 @@
 import { getWardId } from '../utils/storage';
 import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, GeoJSON, CircleMarker, useMap } from 'react-leaflet';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import 'leaflet/dist/leaflet.css';
 
 // If a ward is saved, zoom to that ward's bounds after GeoJSON loads
@@ -23,7 +23,6 @@ function FocusWard({ geojson, wardId }) {
 }
 
 export default function TorontoMiniMap({ motions }) {
-  const navigate = useNavigate();
   const [wards, setWards] = useState(null);
 
   const savedWardId = getWardId();
@@ -77,10 +76,11 @@ export default function TorontoMiniMap({ motions }) {
         ))}
       </MapContainer>
 
-      {/* Click overlay — sits above Leaflet (z ≥ 400), captures all events */}
-      <div
-        className="absolute inset-0 z-[400] bg-transparent group-hover:bg-[#004a99]/5 transition-colors"
-        onClick={() => navigate('/map')}
+      {/* Click overlay — sits above Leaflet (z ≥ 400), captures all events.
+          A real Link so cmd/ctrl-click and middle-click open a new tab. */}
+      <Link
+        to="/map"
+        className="absolute inset-0 z-[400] block bg-transparent group-hover:bg-[#004a99]/5 transition-colors"
       />
 
       {/* Label */}

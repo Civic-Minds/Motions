@@ -76,7 +76,6 @@ function Navbar({ onSearchOpen, jurisdiction, wardId = null, handleLocate, handl
   // Standalone pages (About/Privacy/Terms) sit outside the jurisdiction
   // router, so a relative navigate() would resolve against the wrong (empty)
   // basename — go there with a real navigation instead.
-  const goHome = () => { if (standalone) window.location.href = jurisdiction.path; else navigate('/'); };
   const goTo = (path) => { if (standalone) window.location.href = `${jurisdiction.path}${path}`; else navigate(path); };
 
   const active = TABS.find(t =>
@@ -115,12 +114,21 @@ function Navbar({ onSearchOpen, jurisdiction, wardId = null, handleLocate, handl
       <div className="relative max-w-[1400px] mx-auto px-6 h-16 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4">
 
         {/* Logo */}
-        <div className="flex w-[150px] shrink-0 items-center gap-3 cursor-pointer select-none" onClick={goHome}>
-          <span className="flex flex-col text-sm leading-[0.95]">
-            <span className="font-bold text-slate-900">Motions</span>
-          <span className="font-normal text-slate-500">{jurisdiction.name}</span>
-          </span>
-        </div>
+        {standalone ? (
+          <a href={jurisdiction.path} className="flex w-[150px] shrink-0 items-center gap-3 select-none">
+            <span className="flex flex-col text-sm leading-[0.95]">
+              <span className="font-bold text-slate-900">Motions</span>
+              <span className="font-normal text-slate-500">{jurisdiction.name}</span>
+            </span>
+          </a>
+        ) : (
+          <Link to="/" className="flex w-[150px] shrink-0 items-center gap-3 select-none">
+            <span className="flex flex-col text-sm leading-[0.95]">
+              <span className="font-bold text-slate-900">Motions</span>
+              <span className="font-normal text-slate-500">{jurisdiction.name}</span>
+            </span>
+          </Link>
+        )}
 
         {/* Desktop nav — absolutely centered so it never shifts */}
         <nav className="hidden lg:absolute lg:left-[max(236px,calc(50%-29rem))] lg:flex items-center gap-0">

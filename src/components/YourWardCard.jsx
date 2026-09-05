@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { MapPin, Loader2, X } from 'lucide-react';
 import { WARD_COUNCILLORS } from '../constants/data';
 import { TORONTO_WARDS } from '../constants/wards';
@@ -8,7 +8,6 @@ import { useAppContext } from '../contexts/AppContext';
 import { CivicCard, CivicCardFooter, CivicPill } from './ui/CivicCard';
 
 export default function YourWardCard() {
-  const navigate = useNavigate();
   const { wardId, handleSetWard } = useAppContext();
   const [status, setStatus] = useState('idle'); // idle | locating | error
   const [errorMsg, setErrorMsg] = useState('');
@@ -86,17 +85,9 @@ export default function YourWardCard() {
 
   return (
       <CivicCard
-        as="div"
+        as={Link}
+        to={`/wards/${wardId}`}
         data-testid="your-ward-card"
-        onClick={() => navigate(`/wards/${wardId}`)}
-        onKeyDown={e => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            navigate(`/wards/${wardId}`);
-          }
-        }}
-        tabIndex={0}
-        role="button"
         aria-label={`Ward ${wardId}${ward?.name ? ` - ${ward.name}` : ''}. Councillor ${councillorName || ''}. Click to view ward motions.`}
         className="animate-fade-in-up gap-3 h-[140px] lg:h-full w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#004a99] cursor-pointer"
       >
