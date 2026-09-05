@@ -99,6 +99,7 @@ export default function CitiesMap() {
         className="z-0 h-full w-full"
         scrollWheelZoom={false}
         attributionControl={false}
+        zoomControl={false}
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         <FitCanada />
@@ -128,14 +129,20 @@ export default function CitiesMap() {
             pathOptions={{ color: '#ffffff', weight: 2, fillColor: '#004a99', fillOpacity: 1 }}
             eventHandlers={{ click: () => { window.location.href = city.href; } }}
           >
+            {/* interactive + a real <a> so the label (unlike the SVG dot
+                underneath, which can't be a real link) supports cmd/ctrl
+                click, middle-click, and "open in new tab". */}
             <Tooltip
               direction={isVictoria ? 'left' : 'top'}
               offset={isVictoria ? [-10, 0] : [0, -10]}
               permanent
+              interactive
               opacity={1}
-              className="!rounded-full !border !border-slate-200 !bg-white !px-2.5 !py-1 !text-xs !font-semibold !text-[#004a99] !shadow-sm"
+              className="!rounded-full !border !border-slate-200 !bg-white !p-0 !shadow-sm"
             >
-              {city.name}
+              <a href={city.href} className="block px-2.5 py-1 text-xs font-semibold text-[#004a99]">
+                {city.name}
+              </a>
             </Tooltip>
           </CircleMarker>
           );
