@@ -155,7 +155,7 @@ function saveCache(motions) {
     : {};
   for (const m of motions) {
     if (m.summary !== undefined || m.keyAmounts !== undefined) {
-      existing[m.id] = { summary: m.summary, keyAmounts: m.keyAmounts };
+      existing[m.id] = { summary: m.summary, keyAmounts: m.keyAmounts, significance: m.significance };
     }
   }
   fs.writeFileSync(CACHE_PATH, JSON.stringify(existing, null, 2));
