@@ -64,12 +64,10 @@ export default function MeetingPage({ meetings, jurisdiction = { name: 'Toronto'
 
       {/* Header */}
       <div className="mb-8 space-y-3">
-        <div className="flex flex-wrap items-start justify-between gap-3">
-          <div className="relative min-w-0">
-            <BackButton onClick={() => navigate(`/committees/${committeeSlug}`)} floating className="-left-20 top-0.5 lg:-left-24" />
-            <h1 className="text-xl font-bold text-slate-900 min-w-0">{meeting.committee}</h1>
-          </div>
-          <div className="flex shrink-0 items-center gap-2">
+        <div>
+          {/* Floated (not flexed) so the title text wraps around it — only
+              the first line is narrowed by the buttons' width. */}
+          <div className="float-right ml-3 flex shrink-0 items-center gap-2">
             <a
               href={reportUrl}
               onClick={() => trackGoogleEvent('report_issue_click', { meeting_id: meetingRef, city: jurisdiction.id })}
@@ -78,6 +76,10 @@ export default function MeetingPage({ meetings, jurisdiction = { name: 'Toronto'
               Report
             </a>
             <ShareButton title={`${meeting.committee} meeting`} />
+          </div>
+          <div className="relative">
+            <BackButton onClick={() => navigate(`/committees/${committeeSlug}`)} floating className="-left-20 top-0.5 lg:-left-24" />
+            <h1 className="text-xl font-bold text-slate-900">{meeting.committee}</h1>
           </div>
         </div>
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500">
