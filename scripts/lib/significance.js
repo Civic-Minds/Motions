@@ -1,4 +1,5 @@
 import { isAdministrativeTitle } from './topicClassification.js';
+import { classifyVancouverTopic } from './vancouverClassification.js';
 
 // Every city's significance score applies this same penalty, clamped to 0-100.
 // Kept in one place so a city can't silently ship a formula that forgets it
@@ -27,4 +28,14 @@ export function computeFlags(votes, status, score) {
     if (score >= 25 && status === 'Lost' && yes <= 5 && total >= 15) flags.push('landslide-defeat');
 
     return flags;
+}
+
+export function computeVancouverSignificance(votes, decision, title) {
+    const yes = Object.values(votes).filter(v => v === 'YES').length;
+    const no = Object.values(votes).filter(v => v === 'NO').length;
+    const total = yes + no;
+    const contested = total > 0 ? Math.round((Math.min(yes, no) / total) * 30) : 0;
+    const topicWeight = classifyVancouverTopic(title) === 'General' ? 10 : 25;
+    const outcomeWeight = decision?.toLowerCase().includes('lost') ? 20 : 10;
+    return applyAdministrativePenalty(topicWeight + contested + outcomeWeight, title);
 }

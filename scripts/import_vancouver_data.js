@@ -15,7 +15,7 @@ import path from 'path';
 import { cleanVancouverTitle } from '../src/utils/motionTitle.js';
 import { classifyVancouverTopic } from './lib/vancouverClassification.js';
 import { isAdministrativeTitle } from './lib/topicClassification.js';
-import { applyAdministrativePenalty } from './lib/significance.js';
+import { computeVancouverSignificance } from './lib/significance.js';
 
 /* global process */
 
@@ -86,16 +86,6 @@ function statusFromDecision(decision) {
     return decision?.toLowerCase().includes('lost') ? 'Lost' : 'Adopted';
 }
 
-function significanceFor(votes, decision, title) {
-    const yes = Object.values(votes).filter(v => v === 'YES').length;
-    const no = Object.values(votes).filter(v => v === 'NO').length;
-    const total = yes + no;
-    const contested = total > 0 ? Math.round((Math.min(yes, no) / total) * 30) : 0;
-    const topicWeight = classifyTopic(title) === 'General' ? 10 : 25;
-    const outcomeWeight = decision?.toLowerCase().includes('lost') ? 20 : 10;
-    return applyAdministrativePenalty(topicWeight + contested + outcomeWeight, title);
-}
-
 async function fetchPage(offset, startDate, endDate) {
     const params = new URLSearchParams({
         limit: String(PAGE_SIZE),
@@ -162,7 +152,7 @@ async function main() {
     const motions = [...eventMap.values()].map(event => {
         const yesCount = Object.values(event.votes).filter(v => v === 'YES').length;
         const noCount = Object.values(event.votes).filter(v => v === 'NO').length;
-        const significance = significanceFor(event.votes, event.decision, event.title);
+        const significance = computeVancouverSignificance(event.votes, event.decision, event.title);
         return {
             id: event.id,
             title: event.title,
