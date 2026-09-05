@@ -450,6 +450,39 @@ punctuation, and embedded commentary.
 
 Official sources queried: [September 23, 2024 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1818), [October 15, 2024 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1826), [December 9, 2024 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1853), and [January 13, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1859).
 
+## Batch 22 — final 22 manually queried title reviews
+
+Each remaining record was checked by hand against the official adopted-minutes
+PDF and corrected in the tracked Yellowknife title override map. Classification
+fields were not changed. Final batch result: 22/22 reviewed.
+
+| Motion | Result | Title review |
+|---|---|---|
+| `yk-2025-03-24-0052-25` | Fixed | Minutes title restored capitalization and final period. |
+| `yk-2025-03-24-0053-25` | Fixed | Final period restored. |
+| `yk-2025-03-24-0054-25` | Fixed | Full Grant Review Committee funding tables restored after truncation. |
+| `yk-2025-03-24-0055-25` | Fixed | Full Reaching Home funding allocation restored after truncation. |
+| `yk-2025-03-24-0056-25` | Fixed | Final period restored. |
+| `yk-2025-03-24-0057-25` | Fixed | Full By-law Officer appointment restored after truncation. |
+| `yk-2025-03-24-0058-25` | Fixed | Final period restored. |
+| `yk-2025-03-24-0059-25` | Fixed | Final period restored. |
+| `yk-2025-03-24-0060-25` | Fixed | Leading OCR comma and vote commentary removed. |
+| `yk-2025-03-24-0061-25` | Fixed | OCR spacing in the Mayor’s name corrected and final period restored. |
+| `yk-2025-03-24-0062-25` | Fixed | Reading title now has the source final period. |
+| `yk-2025-03-24-0063-25` | Fixed | Reading title now has the source final period. |
+| `yk-2025-03-24-0066-25` | Fixed | Adjournment title restored capitalization and final period. |
+| `yk-2025-05-12-0082-25` | Fixed | Minutes title restored capitalization and final period. |
+| `yk-2025-05-12-0083-25` | Fixed | Mover/seconder and PDF-header contamination removed from the minutes title. |
+| `yk-2025-05-12-0084-25` | Fixed | Final period restored. |
+| `yk-2025-05-12-0085-25` | Fixed | Final period restored. |
+| `yk-2025-05-12-0087-25` | Fixed | Full first part of the split destination-marketing motion restored. |
+| `yk-2025-05-12-0088-25` | Fixed | Vote commentary removed from the defeated motion title. |
+| `yk-2025-05-12-0089-25` | Fixed | PDF header contamination removed and full appointment motion restored. |
+| `yk-2025-05-12-0092-25` | Fixed | Vote commentary removed from the Third Reading title. |
+| `yk-2025-05-12-0093-25` | Fixed | Final period retained in the reading title. |
+
+Official sources queried: [March 24, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1891) and [May 12, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1917).
+
 ## Batch 12 — 40 manually queried title reviews
 
 Each record was checked against the official adopted-minutes PDF. Classification
