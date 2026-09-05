@@ -21,6 +21,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Added
 
+- **"Hide administrative" filter, on by default**: The homepage motion filter bar now has a toggle to hide routine administrative motions (minute approvals, adjournments, etc.) — that classification already existed behind the scenes for curating Notable picks and committee stats, but visitors had no way to apply it themselves. Starts enabled everywhere, since a clean default list beats an extra click.
+- Yellowknife bylaw readings (First/Second/Third Reading of a by-law — 174 of 592 motions) are now tagged administrative too; they were missing from the existing minutes/adjournment pattern, so "Hide administrative" had no effect on them for Yellowknife specifically.
 - Victoria’s category pass now applies title context before assigning labels, leaving administrative, licensing, heritage-only, travel, and ambiguous records blank.
 - Victoria category review now avoids broad-word false positives and leaves unclear titles blank.
 - Victoria motion categories are now reviewed from titles with blank values for unclear items instead of a forced `General` label.

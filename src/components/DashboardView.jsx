@@ -37,6 +37,7 @@ const initialFilters = {
   showMyWard: false,
   showLastMeeting: false,
   showFollowingOnly: false,
+  hideAdministrative: true,
   committeeSearch: '',
   committeeOpen: false,
 };
@@ -71,6 +72,8 @@ function filtersReducer(state, action) {
       return { ...state, showLastMeeting: !state.showLastMeeting };
     case 'TOGGLE_FOLLOWING':
       return { ...state, showFollowingOnly: !state.showFollowingOnly, showNotableOnly: false, showMyWard: false };
+    case 'TOGGLE_HIDE_ADMINISTRATIVE':
+      return { ...state, hideAdministrative: !state.hideAdministrative };
     case 'SET_COMMITTEE_SEARCH':
       return { ...state, committeeSearch: action.value };
     case 'SET_COMMITTEE_OPEN':
@@ -84,7 +87,7 @@ function filtersReducer(state, action) {
 
 function hasActiveFilters(f) {
   return f.topics.length > 0 || f.committees.length > 0 || f.voteTypes.length > 0 || f.years.length > 0
-    || f.showNotableOnly || f.showMyWard || f.showLastMeeting || f.showFollowingOnly;
+    || f.showNotableOnly || f.showMyWard || f.showLastMeeting || f.showFollowingOnly || f.hideAdministrative;
 }
 
 // ── Sub-component: desktop filter sidebar ─────────────────────────────────
@@ -252,6 +255,15 @@ function DashboardFilterContent({ filters, dispatch, committees, years, sortedCo
             <Calendar className="w-3 h-3 shrink-0" /> Last meeting
           </button>
         )}
+        <button
+          onClick={() => dispatch({ type: 'TOGGLE_HIDE_ADMINISTRATIVE' })}
+          className={cn(
+            "px-2 py-0.5 rounded-full text-xs lg:text-[11px] font-medium transition-all",
+            filters.hideAdministrative ? "bg-[#004a99] text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+          )}
+        >
+          Hide administrative
+        </button>
       </div>
 
       {/* Footer */}
@@ -273,7 +285,7 @@ function DashboardFilterContent({ filters, dispatch, committees, years, sortedCo
 // ── Sub-component: motion list + load more ─────────────────────────────────
 function MotionList({ visibleMotions, sortedCount, visibleCount, onLoadMore, filters, dispatch, committees, years, savedCouncillor, lastMeeting }) {
   const activeFilterCount = filters.topics.length + filters.committees.length + filters.voteTypes.length + filters.years.length
-    + Number(filters.showNotableOnly) + Number(filters.showMyWard) + Number(filters.showLastMeeting) + Number(filters.showFollowingOnly);
+    + Number(filters.showNotableOnly) + Number(filters.showMyWard) + Number(filters.showLastMeeting) + Number(filters.showFollowingOnly) + Number(filters.hideAdministrative);
 
   return (
     <div className="space-y-4 min-w-0">
@@ -427,7 +439,7 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
   }, []);
 
   // Only primary entries (no parentId) for display and stats
-  const primaryMotions = useMemo(() => motions.filter(m => !m.parentId && (jurisdiction.id !== 'yellowknife' || !m.trivial)), [motions, jurisdiction.id]);
+  const primaryMotions = useMemo(() => motions.filter(m => !m.parentId), [motions]);
 
   // Last Meeting
   const lastMeeting = useMemo(() => {
@@ -525,6 +537,7 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
         if (filters.showFollowingOnly && !followedCommittees.includes(m.committee || getCommittee(m.id))) return false;
         if (filters.years.length > 0 && !filters.years.includes(m.date?.match(/\d{4}/)?.[0])) return false;
         if (filters.showLastMeeting && lastMeeting.date && m.date !== lastMeeting.date) return false;
+        if (filters.hideAdministrative && m.trivial) return false;
         return true;
       })
       .sort((a, b) => {
