@@ -21,8 +21,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Added
 
-- **"Hide administrative" filter, on by default**: The homepage motion filter bar now has a toggle to hide routine administrative motions (minute approvals, adjournments, etc.) — that classification already existed behind the scenes for curating Notable picks and committee stats, but visitors had no way to apply it themselves. Starts enabled everywhere, since a clean default list beats an extra click.
-- Yellowknife bylaw readings (First/Second/Third Reading of a by-law — 174 of 592 motions) are now tagged administrative too; they were missing from the existing minutes/adjournment pattern, so "Hide administrative" had no effect on them for Yellowknife specifically.
+- **"Hide administrative" filter, on by default**: The homepage motion filter bar now has a toggle to hide routine administrative motions (adopting minutes, adjournments, agenda changes) per the project's categorization guide. Starts enabled everywhere, since a clean default list beats an extra click.
 - Victoria’s category pass now applies title context before assigning labels, leaving administrative, licensing, heritage-only, travel, and ambiguous records blank.
 - Victoria category review now avoids broad-word false positives and leaves unclear titles blank.
 - Victoria motion categories are now reviewed from titles with blank values for unclear items instead of a forced `General` label.
@@ -49,6 +48,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Fixed
 
+- **"Hide administrative" was built on the wrong field**: It initially reused `trivial`, which actually measures how contested a vote was (margin, debate time), not whether the motion is routine — so it wrongly hid real decisions (a Billy Bishop Airport expansion response, several zoning amendments) just because they passed without much debate, and hid 100% of Victoria's motions outright (a separate pre-existing bug where Victoria's significance score is never computed past a placeholder). Added a real `administrative` field, computed the same way the app already classifies routine titles for topics (adopting minutes, adjournments, agenda changes — not appointments, grants, contracts, or bylaws, which the project's categorization guide treats as substantive regardless of how routine the vote looked).
 - **Yellowknife title extraction**: Older OCR-heavy records now retain complete policy, resolution, and administrative motion titles without stray list markers.
 - **Yellowknife title extraction**: Older minutes with long resolutions, OCR-missing mover details, and vote commentary now produce complete motion titles.
 - **Yellowknife title extraction**: Older minutes with OCR artifacts or page headers no longer produce truncated or contaminated motion titles.

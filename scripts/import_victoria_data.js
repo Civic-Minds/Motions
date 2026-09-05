@@ -20,6 +20,7 @@ import path from 'node:path';
 import * as cheerio from 'cheerio';
 import fetch from 'node-fetch';
 import { classifyVictoriaTopic } from './lib/victoriaClassification.js';
+import { isAdministrativeTitle } from './lib/topicClassification.js';
 
 /* global process, Buffer */
 
@@ -227,6 +228,7 @@ async function makeOutput(rows, sourceLastRefreshed) {
             noCount: 0,
             significance: 0,
             trivial: true,
+            administrative: isAdministrativeTitle(row.title),
             sourceUrl: row.agendaUrl || SOURCE_URL,
             agendaUrl: row.agendaUrl || null,
             meetingId: `vic-${stableId(`${row.date}|${row.agendaUrl}`)}`,

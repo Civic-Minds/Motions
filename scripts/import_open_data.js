@@ -452,6 +452,7 @@ async function main() {
                 committee,
                 topic: classifyTopic(title),
                 trivial: significance < 25,
+                administrative: isAdministrativeTitle(title),
                 significance,
                 ward: classifyWard(title),
                 scope: classifyWard(title) === 'City' ? 'citywide' : 'ward',

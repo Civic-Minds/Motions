@@ -14,6 +14,7 @@ import fs from 'fs';
 import path from 'path';
 import { cleanVancouverTitle } from '../src/utils/motionTitle.js';
 import { classifyVancouverTopic } from './lib/vancouverClassification.js';
+import { isAdministrativeTitle } from './lib/topicClassification.js';
 
 /* global process */
 
@@ -173,6 +174,7 @@ async function main() {
             topic: classifyTopic(event.title),
             significance,
             trivial: significance < 25,
+            administrative: isAdministrativeTitle(event.title),
             sourceUrl: event.sourceUrl,
             agendaUrl: event.agendaUrl,
             meetingId: event.meetingId,

@@ -537,7 +537,7 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
         if (filters.showFollowingOnly && !followedCommittees.includes(m.committee || getCommittee(m.id))) return false;
         if (filters.years.length > 0 && !filters.years.includes(m.date?.match(/\d{4}/)?.[0])) return false;
         if (filters.showLastMeeting && lastMeeting.date && m.date !== lastMeeting.date) return false;
-        if (filters.hideAdministrative && m.trivial) return false;
+        if (filters.hideAdministrative && m.administrative) return false;
         return true;
       })
       .sort((a, b) => {
