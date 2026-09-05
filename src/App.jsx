@@ -45,7 +45,14 @@ const MotionsMap         = lazy(() => import('./components/MotionsMap'));
 // relative to the basename again, so this forces a real full-page navigation
 // out to the bare path instead.
 function HardRedirect({ to }) {
-  useEffect(() => { window.location.href = to; }, [to]);
+  // A client-side link click already pushState'd the URL to `to` before this
+  // mounts, so setting location.href to that same URL makes the browser treat
+  // it as a same-document reload (which preserves scroll) instead of a fresh
+  // navigation — reset scroll first so the reload lands at the top.
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    window.location.href = to;
+  }, [to]);
   return null;
 }
 
@@ -439,6 +446,7 @@ function StandaloneShell() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <ScrollToTop />
       {isHome ? (
         <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 bg-white/80 backdrop-blur-xl">
           <div className="max-w-[1400px] mx-auto px-6 h-16 flex items-center">
