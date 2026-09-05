@@ -385,3 +385,54 @@ fields were not changed. Final batch result: 40/40 error-free.
 | `yk-2026-01-12-0005-26` | Clean | Third-Reading presentation title matches the official question. |
 
 Official sources queried: [October 14, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1985), [October 27, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1993), [November 24, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2009), [December 1, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2015), [December 8, 2025 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2022), and [January 12, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2030).
+
+## Batch 11 — 40 manually queried title reviews
+
+Each record was checked against the official adopted-minutes PDF and corrected
+where needed in the tracked Yellowknife title override map. Classification
+fields were not changed. Final batch result: 39/40 clean, 1 fixed.
+
+| Motion | Result | Title review |
+|---|---|---|
+| `yk-2026-01-12-0006-26` | Clean | Third Reading title matches the official question. |
+| `yk-2026-01-12-0007-26` | Clean | Adjournment title matches the official question. |
+| `yk-2026-01-26-0008-26` | Clean | Minutes-adoption title matches the official question. |
+| `yk-2026-01-26-0009-26` | Clean | Conference-travel authorization title matches the official question. |
+| `yk-2026-01-26-0010-26` | Clean | Council-representative appointments title matches the official question. |
+| `yk-2026-01-26-0011-26` | Clean | Audit Committee appointment title matches the official question. |
+| `yk-2026-01-26-0012-26` | Clean | Canada Winter Games feasibility title matches the official question. |
+| `yk-2026-01-26-0013-26` | Clean | Tax-abatement title matches the official question. |
+| `yk-2026-01-26-0014-26` | Clean | Reaching Home funding title matches the official question. |
+| `yk-2026-01-26-0015-26` | Clean | Council Remuneration By-law review title matches the official question. |
+| `yk-2026-01-26-0016-26` | Clean | First Reading title matches the official question. |
+| `yk-2026-01-26-0017-26` | Clean | First Reading title matches the official question. |
+| `yk-2026-01-26-0018-26` | Clean | Adjournment title matches the official question. |
+| `yk-2026-02-18-0019-26` | Clean | Arctic security MOU title matches the official question. |
+| `yk-2026-02-18-0020-26` | Clean | Adjournment title matches the official question. |
+| `yk-2026-02-25-0021-26` | Clean | Minutes-adoption title matches the official question. |
+| `yk-2026-02-25-0022-26` | Clean | Minutes-adoption title matches the official question. |
+| `yk-2026-02-25-0023-26` | Clean | Second Reading title matches the official question. |
+| `yk-2026-02-25-0024-26` | Clean | Second Reading title matches the official question. |
+| `yk-2026-02-25-0025-26` | Clean | Climate Action Plan title matches the official question. |
+| `yk-2026-02-25-0026-26` | Clean | Public Engagement Policy title matches the official question. |
+| `yk-2026-02-25-0027-26` | Clean | Travel-authorization title matches the official question. |
+| `yk-2026-02-25-0028-26` | Clean | Reaching Home funding title matches the official question. |
+| `yk-2026-02-25-0029-26` | Clean | Canada Housing Infrastructure Fund application title matches the official question. |
+| `yk-2026-02-25-0030-26` | Clean | Heritage Committee appointments title matches the official question. |
+| `yk-2026-02-25-0031-26` | Fixed | Indigenous place-name combining marks were normalized to the source spelling. |
+| `yk-2026-02-25-0032-26` | Clean | Second Reading title matches the official question. |
+| `yk-2026-02-25-0033-26` | Clean | Third Reading title matches the official question. |
+| `yk-2026-02-25-0034-26` | Clean | Second Reading title matches the official question. |
+| `yk-2026-02-25-0035-26` | Clean | First Reading title matches the official question. |
+| `yk-2026-02-25-0036-26` | Clean | First Reading title matches the official question. |
+| `yk-2026-02-25-0037-26` | Clean | By-law amendment-procedure title matches the official question. |
+| `yk-2026-02-25-0038-26` | Clean | Legal-description amendment title matches the official question. |
+| `yk-2026-02-25-0039-26` | Clean | First Reading title matches the official question. |
+| `yk-2026-02-25-0040-26` | Clean | First Reading title matches the official question. |
+| `yk-2026-02-25-0041-26` | Clean | Second Reading title matches the official question. |
+| `yk-2026-02-25-0042-26` | Clean | First Reading title matches the official question. |
+| `yk-2026-02-25-0043-26` | Clean | Second Reading title matches the official question. |
+| `yk-2026-02-25-0044-26` | Clean | Adjournment title matches the official question. |
+| `yk-2026-03-04-0045-26` | Clean | Registrar of Enumeration appointment title matches the official question. |
+
+Official sources queried: [January 12, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2030), [January 26, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2034), [February 18, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2045), [February 25, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2047), and [March 4, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2050).
