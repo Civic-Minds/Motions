@@ -377,7 +377,7 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
               <span className="text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full">Notable</span>
             )}
           </span>
-          <span className="font-mono">{motion.id}</span>
+          <span>{motion.id}</span>
           <span>{formatFullDate(motion.date)}</span>
           <CommitteeLink committee={committee} slug={committeeSlug} />
           {topicHref && <Link to={topicHref} className="text-[#004a99] hover:underline" title={`View ${TOPIC_LONG[motion.topic] ?? motion.topic} motions`}>{TOPIC_LONG[motion.topic] ?? motion.topic}</Link>}

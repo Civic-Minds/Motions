@@ -96,7 +96,7 @@ export default function MeetingPage({ meetings, jurisdiction = { name: 'Toronto'
           </div>
         </div>
         <InfoBar>
-          <span className="font-mono">{meeting.meetingReference}</span>
+          <span>{meeting.meetingReference}</span>
           <span>{formatFullDate(meeting.date)}</span>
           {meeting.startTime && <span>{meeting.startTime}</span>}
           {meeting.location && <span>{meeting.location}</span>}
@@ -111,7 +111,7 @@ export default function MeetingPage({ meetings, jurisdiction = { name: 'Toronto'
         <div className="lg:col-span-2">
           <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
             <div className="px-5 py-3.5 border-b border-slate-100 flex items-center justify-between gap-4 flex-wrap">
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">
+              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">
                 {hasAgenda ? `Agenda · ${meeting.agendaItems.length.toLocaleString()} items` : 'Agenda'}
               </p>
               {hasAgenda && hasMultipleCategories && (
