@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { ExternalLink, Lock, FileText, ChevronRight } from 'lucide-react';
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import { ExternalLink, Lock, FileText } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { committeeToSlug } from '../utils/slug';
 import { PageMeta } from './PageMeta';
@@ -89,6 +89,7 @@ export default function MeetingPage({ meetings, jurisdiction = { name: 'Toronto'
           <span>{formatFullDate(meeting.date)}</span>
           <span>{meeting.startTime}</span>
           {meeting.location && <span>{meeting.location}</span>}
+          <Link to={`/committees/${committeeSlug}`} className="text-[#004a99] hover:underline">{meeting.committee}</Link>
         </InfoBar>
       </div>
 
@@ -189,36 +190,30 @@ export default function MeetingPage({ meetings, jurisdiction = { name: 'Toronto'
             {hasAgenda ? 'Agenda published' : 'Agenda pending'}
           </div>
 
-          {/* Committee link */}
-          <button
-            onClick={() => navigate(`/committees/${committeeSlug}`)}
-            className="w-full text-left px-4 py-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-500 hover:border-[#004a99]/40 hover:text-[#004a99] transition-colors flex items-center justify-between"
-          >
-            <span>View committee page</span>
-            <ChevronRight className="w-3 h-3" />
-          </button>
-
-          {/* Official meeting record */}
+          {/* Sources */}
           {meeting.meetingReference && (
             <div className="space-y-2">
-              {meeting.agendaUrl && <a
-                href={meeting.agendaUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full text-left px-4 py-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-500 hover:border-[#004a99]/40 hover:text-[#004a99] transition-colors flex items-center justify-between"
-              >
-                <span>View official council agenda</span>
-                <ExternalLink className="w-3 h-3" />
-              </a>}
-              <a
-                href={sourceUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full text-left px-4 py-3 bg-white border border-slate-200 rounded-xl text-xs text-slate-500 hover:border-[#004a99]/40 hover:text-[#004a99] transition-colors flex items-center justify-between"
-              >
-                <span>View official meeting record</span>
-                <ExternalLink className="w-3 h-3" />
-              </a>
+              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest px-1">Sources</p>
+              <div className="bg-white border border-slate-200 rounded-xl divide-y divide-slate-100 overflow-hidden">
+                {meeting.agendaUrl && (
+                  <a
+                    href={meeting.agendaUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between px-4 py-3 text-xs text-slate-500 hover:text-[#004a99] transition-colors"
+                  >
+                    Council agenda <ExternalLink className="w-3 h-3" />
+                  </a>
+                )}
+                <a
+                  href={sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between px-4 py-3 text-xs text-slate-500 hover:text-[#004a99] transition-colors"
+                >
+                  Official record <ExternalLink className="w-3 h-3" />
+                </a>
+              </div>
             </div>
           )}
         </div>
