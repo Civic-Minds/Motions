@@ -74,4 +74,10 @@ Whereas residents should understand how they vote; Therefore, the City should pu
 MOTION CARRIED UNANIMOUSLY`, '2022-10-24', 'Council Meeting', sourceUrl, 'yellowknife-2022-10-24-council-meeting');
 assert.equal(embeddedThat[0].title, 'Whereas residents should understand how they vote; Therefore, the City should publish the record.');
 
+const embeddedHeader = parseMotions(`#0009-22
+16. Councillor G. Cochrane moved, Councillor C. McGurk seconded,
+That the City continue the program; DM#123456 Page 2 ADOPTED MINUTES March 4, 2026 05-26 2. the program be reviewed.
+MOTION CARRIED UNANIMOUSLY`, '2022-10-24', 'Council Meeting', sourceUrl, 'yellowknife-2022-10-24-council-meeting');
+assert.equal(embeddedHeader[0].title, 'the City continue the program; 2. the program be reviewed.');
+
 console.log('Yellowknife parser fixtures passed');

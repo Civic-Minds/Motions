@@ -104,3 +104,33 @@ error-free.
 | `yk-2026-03-25-0066-26` | Clean | “Third Reading of By-law No. 5126.” matches the official motion wording. |
 
 Official sources queried: [March 25, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2057), [March 25, 2026 special adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2059), [April 1, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2064), [April 15, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2070), and [April 22, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2073).
+
+## Batch 5 — 20 manually queried title reviews
+
+Each record was checked against the official adopted-minutes PDF, fixed where
+needed, and rechecked after import. Final batch result: 20/20 error-free.
+
+| Motion | Result | Title review |
+|---|---|---|
+| `yk-2026-03-04-0046-26` | Fixed | The title was previously cut off after the first funding item; it now includes both official funding items. |
+| `yk-2026-03-04-0047-26` | Fixed | The title was previously cut off after “and” and now includes the second appointment clause. |
+| `yk-2026-03-04-0048-26` | Fixed | Adjournment title now has the source capitalization and final period. |
+| `yk-2026-03-18-0049-26` | Fixed | Reading title now preserves the source final period. |
+| `yk-2026-03-18-0050-26` | Fixed | Reading title now preserves the source final period. |
+| `yk-2026-03-18-0051-26` | Fixed | The unnecessary leading “That” is omitted while the complete reading title is preserved. |
+| `yk-2026-03-18-0052-26` | Fixed | Reading title now preserves the source final period. |
+| `yk-2026-03-18-0053-26` | Fixed | The title was previously cut off mid-sentence; it now contains the complete agenda-amendment motion. |
+| `yk-2026-03-18-0054-26` | Fixed | The title was previously cut off mid-sentence; it now contains the complete contribution-agreement motion. |
+| `yk-2026-03-18-0055-26` | Fixed | Adjournment title now has the source capitalization and final period. |
+| `yk-2026-03-25-0056-26` | Clean | Minutes-adoption title matches the official question. |
+| `yk-2026-03-25-0057-26` | Clean | Minutes-adoption title matches the official question. |
+| `yk-2026-03-25-0058-26` | Clean | Minutes-adoption title matches the official question. |
+| `yk-2026-03-25-0059-26` | Clean | Property-tax exemption title matches the official question, including its final period. |
+| `yk-2026-03-25-0060-26` | Clean | Auction title matches the official question; the ending colon correctly introduces the source's property list. |
+| `yk-2026-03-25-0061-26` | Clean | Grant-funding title matches the official question; the ending colon correctly introduces the source's grant table. |
+| `yk-2026-03-25-0062-26` | Fixed | Appointment title now preserves the source final period. |
+| `yk-2026-03-25-0063-26` | Fixed | A stray OCR “0” and leading “That” were removed; the full Board of Revision appointment title is now correct. |
+| `yk-2026-03-25-0064-26` | Clean | Policy-amendment title matches the official question and quoted wording. |
+| `yk-2026-03-25-0065-26` | Fixed | Reading title now preserves the source final period. |
+
+Official sources queried: [March 4, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2050), [March 18, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2053), and [March 25, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2057).

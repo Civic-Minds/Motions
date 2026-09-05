@@ -84,14 +84,15 @@ export function parseMotions(text, date, committee, sourceUrl, meetingReference)
     const preOutcome = compact(body.slice(0, outcome.index));
     const questionText = preOutcome
       .replace(/^\d+\.\s*/, '')
-      .replace(/^(?:Mayor|Councillor)\s+[^,/]+?\s+moved\s*[,/]\s*(?:Mayor|Councillor)\s+[^,/]+?\s+(?:secon\s*d\s*ed|seco\s*nded)\s*[,/]\s*/i, '');
+      .replace(/^(?:Mayor|Councillor)\s+[^,/]+?\s+moved\s*[,/]\s*(?:Mayor|Councillor)\s+[^,/]+?\s+(?:secon\s*d\s*ed|seco\s*nded)\s*[,/]\s*\d?\s*/i, '');
     const question = questionText.match(/^That\s*[:,]?\s*([\s\S]*)/i)?.[1] ?? questionText;
     const title = compact(question)
       .replace(/\bCounci\s+llor\b/gi, 'Councillor')
       .replace(/^DM#\d+.*?(First|Second|Third)\s+Reading/i, '$1 Reading')
       .replace(/^\d{2}-\d{2}\s+/, '')
       .replace(/^\d+\.\s*/, '')
-      .replace(/^(?:Mayor|Councillor)\s+[^,/]+?\s+moved\s*[,/]\s*(?:Mayor|Councillor)\s+[^,/]+?\s+(?:secon\s*d\s*ed|seco\s*nded)\s*[,/]\s*/i, '')
+      .replace(/^(?:Mayor|Councillor)\s+[^,/]+?\s+moved\s*[,/]\s*(?:Mayor|Councillor)\s+[^,/]+?\s+(?:secon\s*d\s*ed|seco\s*nded)\s*[,/]\s*\d?\s*/i, '')
+      .replace(/\s+DM#\d+\s+Page\s+\d+\s+ADOPTED MINUTES\s+[A-Za-z]+\s+\d{1,2},\s+\d{4}\s+\d{2}-\d{2}\s+/gi, ' ')
       .replace(/\s+ADOPTED MINUTES\s+[A-Za-z]+\s+\d{1,2},\s+\d{4}\s+\d{2}-\d{2}\s+/gi, ' ')
       .replace(/\s+DM#\d+.*$/i, '');
     const opposed = [...(outcome[2] ?? '').matchAll(/(?:Mayor|Deputy Mayor|Councillor)\s+[A-Z5]\.\s+[A-Za-z][A-Za-z'’-]*(?:-[A-Za-z][A-Za-z'’-]*)*/gi)]

@@ -47,6 +47,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Fixed
 
+- **Yellowknife title extraction**: Older minutes with OCR artifacts or page headers no longer produce truncated or contaminated motion titles.
 - **Yellowknife title extraction**: Motion questions containing embedded PDF headers or the word “that” no longer start or end at the wrong text.
 - **Yellowknife motion titles**: Long motion questions are no longer cut off, and imported titles now preserve the source capitalization and ending punctuation.
 - **Broken social share images**: Every city's share preview image (used when links are posted to X, Facebook, Slack, etc.) showed empty boxes instead of text. An earlier attempt embedded the font directly in the image but still failed in production — Vercel's image renderer doesn't reliably support embedded fonts at all. Text is now converted to vector outlines before rendering, so nothing depends on font resolution at request time; verified against an actual Vercel deployment, not just localhost.
