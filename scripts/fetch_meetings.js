@@ -226,6 +226,7 @@ async function main() {
             meeting.meetingId        = prior.meetingId;
             meeting.meetingReference = prior.meetingReference;
             meeting.agendaItems      = prior.agendaItems;
+            meeting.sourceUrl        = `https://secure.toronto.ca/council/#/committees/${decisionBodyId}/${prior.meetingId}`;
             process.stdout.write(`   ${meeting.committee} #${meeting.meetingNumber} [cached ${prior.agendaItems.length} items]\n`);
             continue;
         }
@@ -237,6 +238,7 @@ async function main() {
 
             meeting.meetingId = meta.meetingId;
             meeting.meetingReference = meta.meetingReference;
+            meeting.sourceUrl = `https://secure.toronto.ca/council/#/committees/${decisionBodyId}/${meta.meetingId}`;
 
             // Also rekey the prior lookup now that we have the reference
             const refKey = meta.meetingReference;

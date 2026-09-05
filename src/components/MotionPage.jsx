@@ -332,7 +332,7 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
       <BackButton onClick={() => navigate(-1)} desktop />
 
       {/* Mobile/tablet header row */}
-      <div className="mb-3 flex items-center gap-3 lg:hidden">
+      <div className="mb-3 flex items-center gap-3 xl:hidden">
         <BackButton onClick={() => navigate(-1)} className="shrink-0" />
         <div className="flex min-w-0 flex-wrap items-center gap-2">
           <StatusBadge status={motion.status} />
@@ -353,7 +353,7 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
 
       {/* Header (Full Width) */}
       <div className="space-y-2 mb-4">
-        <div className="hidden flex-wrap items-center gap-2 lg:flex">
+        <div className="hidden flex-wrap items-center gap-2 xl:flex">
           <StatusBadge status={motion.status} />
           {motion.significance >= 90 && (
             <span className="text-xs font-semibold text-amber-600 bg-amber-50 px-2.5 py-0.5 rounded-full">High Impact</span>

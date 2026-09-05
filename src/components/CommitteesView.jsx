@@ -127,14 +127,14 @@ export default function CommitteesView({ motions, meetings = [] }) {
   }, [selectedCommittee]);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 px-4 py-2 sm:px-6 lg:px-8">
       <PageMeta title={`${jurisdiction.name} Committees | Motions`} description={`Explore ${jurisdiction.name} council committees and their voting records.`} />
 
       {/* ── Meetings-only body detail ── */}
       {selectedBody && (
         <div className="space-y-4 max-w-5xl mx-auto relative">
           <BackButton onClick={() => navigate('/committees')} desktop className="top-[1px]" />
-          <div className="mb-6 lg:hidden">
+          <div className="mb-6 xl:hidden">
             <BackButton onClick={() => navigate('/committees')} />
           </div>
           <h1 className="text-xl font-bold text-slate-900">{selectedBody.name}</h1>
@@ -224,7 +224,7 @@ export default function CommitteesView({ motions, meetings = [] }) {
       {selectedCommittee && (
         <div className="space-y-3 mb-2 relative">
           <BackButton onClick={() => navigate('/committees')} desktop className="top-[1px]" />
-          <div className="mb-6 lg:hidden">
+          <div className="mb-6 xl:hidden">
             <BackButton onClick={() => navigate('/committees')} />
           </div>
           <div className="flex items-start justify-between gap-4">
