@@ -91,7 +91,7 @@ export default function CitiesMap() {
   }
 
   return (
-    <div className="relative h-[460px] w-full overflow-hidden rounded-2xl border border-slate-200 sm:h-[560px]">
+    <div className="relative h-[520px] w-full overflow-hidden rounded-2xl border border-slate-200 sm:h-[660px]">
       <MapContainer
         ref={mapRef}
         center={[56, -96]}
@@ -115,7 +115,12 @@ export default function CitiesMap() {
             </Tooltip>
           </CircleMarker>
         ))}
-        {coveredCities.map(city => (
+        {coveredCities.map(city => {
+          // Victoria sits close enough to Vancouver that both markers'
+          // default top-anchored tooltips would overlap — give Victoria's
+          // its own side so the two labels stay clear of each other.
+          const isVictoria = city.id === 'victoria';
+          return (
           <CircleMarker
             key={city.name}
             center={[city.lat, city.lng]}
@@ -123,11 +128,18 @@ export default function CitiesMap() {
             pathOptions={{ color: '#ffffff', weight: 2, fillColor: '#004a99', fillOpacity: 1 }}
             eventHandlers={{ click: () => { window.location.href = city.href; } }}
           >
-            <Tooltip direction="top" offset={[0, -10]} permanent opacity={1} className="!rounded-full !border !border-slate-200 !bg-white !px-2.5 !py-1 !text-xs !font-semibold !text-[#004a99] !shadow-sm">
+            <Tooltip
+              direction={isVictoria ? 'left' : 'top'}
+              offset={isVictoria ? [-10, 0] : [0, -10]}
+              permanent
+              opacity={1}
+              className="!rounded-full !border !border-slate-200 !bg-white !px-2.5 !py-1 !text-xs !font-semibold !text-[#004a99] !shadow-sm"
+            >
               {city.name}
             </Tooltip>
           </CircleMarker>
-        ))}
+          );
+        })}
         </MapContainer>
         <MapZoomControls mapRef={mapRef} />
 
