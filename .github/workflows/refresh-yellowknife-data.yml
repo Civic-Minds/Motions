@@ -33,8 +33,6 @@ jobs:
         run: node scripts/import_yellowknife_data.js --from=2022-10-18
       - name: Extract structured fields
         run: node scripts/extract_fields.js --city=yellowknife
-      - name: Strip source document text
-        run: node scripts/strip_body.js --city=yellowknife
       - name: Record Yellowknife refresh time
         run: node scripts/write_data_metadata.js --city=yellowknife
       - name: Upload Yellowknife data to Vercel Blob
