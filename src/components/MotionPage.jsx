@@ -10,7 +10,9 @@ import { previewImage } from '../utils/meta';
 import ShareButton from './ShareButton';
 import MotionFunding from './MotionFunding';
 import BackButton from './ui/BackButton';
+import InfoBar from './ui/InfoBar';
 import { trackGoogleEvent } from '../utils/googleAnalytics';
+import { formatFullDate } from '../utils/date';
 
 const WardMotionMap = lazy(() => import('./WardMotionMap'));
 
@@ -363,44 +365,21 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
 
         <h1 className="text-xl font-bold text-slate-900 leading-snug sm:hidden">{displayTitle}</h1>
 
-        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500">
-          <StatusBadge status={motion.status} />
-          {motion.significance >= 90 && (
-            <span className="text-xs font-semibold text-amber-600 bg-amber-50 px-2.5 py-0.5 rounded-full">High Impact</span>
-          )}
-          {motion.significance >= 60 && motion.significance < 90 && (
-            <span className="text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full">Notable</span>
-          )}
-          <span>·</span>
+        <InfoBar>
+          <span className="flex items-center gap-2">
+            <StatusBadge status={motion.status} />
+            {motion.significance >= 90 && (
+              <span className="text-xs font-semibold text-amber-600 bg-amber-50 px-2.5 py-0.5 rounded-full">High Impact</span>
+            )}
+            {motion.significance >= 60 && motion.significance < 90 && (
+              <span className="text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full">Notable</span>
+            )}
+          </span>
           <span className="font-mono">{motion.id}</span>
-          <span>·</span>
-          <span>{motion.date}</span>
-          <span>·</span>
+          <span>{formatFullDate(motion.date)}</span>
           <Link to={committeeHref} className="text-[#004a99] hover:underline" title={`View ${committee} committee page`}>{committee}</Link>
-          {topicHref && <><span>·</span><Link to={topicHref} className="text-[#004a99] hover:underline" title={`View ${TOPIC_LONG[motion.topic] ?? motion.topic} motions`}>{TOPIC_LONG[motion.topic] ?? motion.topic}</Link></>}
-          {sourceUrl && (
-            <>
-              <span>·</span>
-              {agendaUrl && <a
-                href={agendaUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-[#004a99] hover:underline font-medium"
-              >
-                Council agenda <ExternalLink className="w-3 h-3" />
-              </a>}
-              {agendaUrl && <span>·</span>}
-              <a
-                href={sourceUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-[#004a99] hover:underline font-medium"
-              >
-                {jurisdiction.id === 'toronto' ? 'toronto.ca' : 'Voting record'} <ExternalLink className="w-3 h-3" />
-              </a>
-            </>
-          )}
-        </div>
+          {topicHref && <Link to={topicHref} className="text-[#004a99] hover:underline" title={`View ${TOPIC_LONG[motion.topic] ?? motion.topic} motions`}>{TOPIC_LONG[motion.topic] ?? motion.topic}</Link>}
+        </InfoBar>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
@@ -481,6 +460,33 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
               <Link to={`/map?focus=${motion.id}`} className="inline-flex items-center gap-1.5 px-1 text-xs font-semibold text-[#004a99] hover:underline">
                 Explore the map →
               </Link>
+            </div>
+          )}
+
+          {/* Sources */}
+          {sourceUrl && (
+            <div className="space-y-2">
+              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest px-1">Sources</p>
+              <div className="bg-white border border-slate-200 rounded-xl divide-y divide-slate-100 overflow-hidden">
+                {agendaUrl && (
+                  <a
+                    href={agendaUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between px-4 py-3 text-xs text-slate-500 hover:text-[#004a99] transition-colors"
+                  >
+                    Council agenda <ExternalLink className="w-3 h-3" />
+                  </a>
+                )}
+                <a
+                  href={sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between px-4 py-3 text-xs text-slate-500 hover:text-[#004a99] transition-colors"
+                >
+                  {jurisdiction.id === 'toronto' ? 'toronto.ca' : 'Voting record'} <ExternalLink className="w-3 h-3" />
+                </a>
+              </div>
             </div>
           )}
 

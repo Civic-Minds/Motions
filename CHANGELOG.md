@@ -8,6 +8,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Changed
 
+- **Unified motion/meeting info bars**: The metadata row under a motion or meeting's title now shares one component instead of two hand-duplicated copies that had quietly drifted apart. Motion pages' Council agenda/voting-record links moved off that row into a new "Sources" sidebar card (matching the existing Locations card style) since the row was getting overloaded with badge, id, date, committee, topic, and links all in one place. Both pages now show dates the same way ("April 21, 2026") instead of Motion pages showing a raw, ambiguous ISO date ("2026-04-21").
 - Manually reviewed all 2,164 Vancouver motion topics against their titles, correcting 509 clear category errors while leaving defensible and ambiguous classifications unchanged.
 - Manually reviewed all 592 Yellowknife motion topics against their titles, correcting 60 clear category errors while leaving defensible and ambiguous classifications unchanged.
 - Spot-checked 30 Yellowknife motions by hand and corrected the remaining clear Governance miss in the corporate risk-oversight record.

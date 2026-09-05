@@ -5,8 +5,10 @@ import { cn } from '../lib/utils';
 import { committeeToSlug } from '../utils/slug';
 import { PageMeta } from './PageMeta';
 import BackButton from './ui/BackButton';
+import InfoBar from './ui/InfoBar';
 import ShareButton from './ShareButton';
 import { trackGoogleEvent } from '../utils/googleAnalytics';
+import { formatFullDate } from '../utils/date';
 
 const PROCEDURAL_TITLES = /^(call to order|confirmation of minutes|declarations of interest|petitions|review of the order paper|introduction of committee reports|presentations, introductions|adjournment|questions of privilege|other business)/i;
 
@@ -82,14 +84,12 @@ export default function MeetingPage({ meetings, jurisdiction = { name: 'Toronto'
             <h1 className="text-xl font-bold text-slate-900 lg:max-w-[calc(66.6667%-0.667rem)]">{meeting.committee}</h1>
           </div>
         </div>
-        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500">
+        <InfoBar>
           <span className="font-mono">{meeting.meetingReference}</span>
-          <span>·</span>
-          <span>{meeting.displayDate}</span>
-          <span>·</span>
+          <span>{formatFullDate(meeting.date)}</span>
           <span>{meeting.startTime}</span>
-          {meeting.location && <><span>·</span><span>{meeting.location}</span></>}
-        </div>
+          {meeting.location && <span>{meeting.location}</span>}
+        </InfoBar>
       </div>
 
       {/* Two-column */}
