@@ -489,8 +489,14 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
 
   const recentFallback = useMemo(() => {
     const usedIds = new Set([...followedHighlights.map(m => m.id), ...highlights.map(m => m.id), ...wardHighlights.map(m => m.id)]);
-    const candidates = jurisdiction.id === 'yellowknife'
-      ? primaryMotions.filter(m => !m.trivial)
+    // Yellowknife and Victoria have no real significance scoring, so
+    // `highlights` above is always thin (Yellowknife) or empty (Victoria,
+    // whose trivial/significance stay neutral placeholders by design) —
+    // this fallback is what actually populates their homepage cards, so
+    // it should filter out genuinely administrative motions itself rather
+    // than showing whatever's most recent regardless of routineness.
+    const candidates = (isYellowknife || isVictoria)
+      ? primaryMotions.filter(m => !m.administrative)
       : primaryMotions;
     return [...candidates]
       // The homepage always has room for three motion cards. If fewer than
@@ -510,7 +516,7 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
     return [...preferred, ...fillers].slice(0, 3);
   }, [highlights, wardHighlights, recentFallback]);
 
-  const motionSectionLabel = jurisdiction.id === 'yellowknife' ? 'Recent Decisions' : 'Most Notable';
+  const motionSectionLabel = (isYellowknife || isVictoria) ? 'Recent Decisions' : 'Most Notable';
 
   // Available committees and years
   const committees = useMemo(() => {

@@ -116,7 +116,7 @@ export function parseMotions(text, date, committee, sourceUrl, meetingReference)
       id: `yk-${date}-${number}`, title, date, committee, status, votes, yesCount, noCount,
       topic: topicForTitle(title), significance: status === 'Adopted' ? (unanimous ? 10 : 20) : 25,
       trivial: /^(?:the minutes of council|the meeting be adjourned|approve the agenda|adopt the agenda)\b/i.test(title),
-      administrative: isAdministrativeTitle(title) || /^(?:approve the agenda|adopt the agenda)\b/i.test(title),
+      administrative: isAdministrativeTitle(title) || /^(?:approve the agenda|adopt the agenda)\b/i.test(title) || /pursuant to s\.\s?\d+.*?time allowed.*?be extended/i.test(title),
       sourceUrl, agendaUrl: null, meetingReference, motionNumber: number,
       body: `${body}\n\nSource: ${sourceUrl}`,
     };

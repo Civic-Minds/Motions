@@ -242,9 +242,9 @@ async function makeOutput(rows, sourceLastRefreshed) {
         motionMap.set(key, motion);
     }
 
-    const motions = [...motionMap.values()].sort((a, b) => a.date.localeCompare(b.date) || a.id.localeCompare(b.id));
-    await enrichOutcomes(motions);
-    for (const motion of motions) {
+    const allMotions = [...motionMap.values()].sort((a, b) => a.date.localeCompare(b.date) || a.id.localeCompare(b.id));
+    await enrichOutcomes(allMotions);
+    for (const motion of allMotions) {
         const locations = locationsFromTitle(motion.title);
         if (locations.length) motion.locationCandidates = locations;
         motion.backgroundFiles = [
@@ -252,6 +252,11 @@ async function makeOutput(rows, sourceLastRefreshed) {
             motion.decisionSourceUrl && { label: 'Council minutes', url: motion.decisionSourceUrl },
         ].filter(Boolean);
     }
+    // The dashboard's own export is missing an agenda link for a handful of
+    // rows (not a scraper bug — the source query returns null there), and
+    // without one we can neither point to an official document nor derive a
+    // meeting record. Drop those rather than publish an unverifiable vote.
+    const motions = allMotions.filter(motion => motion.backgroundFiles.length > 0);
     const meetings = [...new Map(motions.map(motion => [motion.meetingId, {
         committee: motion.committee,
         date: motion.date,
