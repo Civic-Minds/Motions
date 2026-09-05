@@ -235,6 +235,57 @@ fields were not changed. Final batch result: 40/40 error-free.
 
 Official sources queried: [March 4, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2050), [March 18, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2053), [March 25, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2057), [March 25, 2026 special adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2059), [April 1, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2064), [April 15, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2070), and [April 22, 2026 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=2073).
 
+## Batch 13 — 40 manually queried title reviews
+
+Each record was checked against the official adopted-minutes PDF and corrected
+in the tracked Yellowknife title override map. Classification fields were not
+changed. Final batch result: 40/40 corrected or verified error-free.
+
+| Motion | Result | Title review |
+|---|---|---|
+| `yk-2022-10-24-0155-22` | Fixed | Minutes-adoption title now preserves source capitalization and punctuation. |
+| `yk-2022-10-24-0156-22` | Fixed | Minutes-adoption title now preserves source capitalization and punctuation. |
+| `yk-2022-10-24-0157-22` | Fixed | Complete airport-development title restored. |
+| `yk-2022-10-24-0160-22` | Fixed | Audit Committee appointment title now preserves the source final period. |
+| `yk-2022-10-24-0161-22` | Fixed | Development Appeal Board appointment title now preserves the source final period. |
+| `yk-2022-10-24-0162-22` | Fixed | Reading title now preserves the source final period. |
+| `yk-2022-10-24-0163-22` | Fixed | Adjournment title now has source capitalization and punctuation. |
+| `yk-2022-11-14-0164-22` | Fixed | Minutes-adoption title now preserves source capitalization and punctuation. |
+| `yk-2022-11-14-0165-22` | Fixed | Complete committee-representative table restored. |
+| `yk-2022-11-14-0166-22` | Fixed | Adjournment title now has source capitalization and punctuation. |
+| `yk-2022-11-28-0167-22` | Fixed | Minutes-adoption title now preserves source capitalization and punctuation. |
+| `yk-2022-11-28-0168-22` | Fixed | Appointment title now preserves the source final period. |
+| `yk-2022-11-28-0170-22` | Fixed | Reading title now preserves the source final period. |
+| `yk-2022-11-28-0171-22` | Fixed | Reading title now preserves the source final period. |
+| `yk-2022-11-28-0172-22` | Fixed | Third-reading presentation title now preserves the source final period. |
+| `yk-2022-11-28-0173-22` | Fixed | Reading title now preserves the source final period. |
+| `yk-2022-11-28-0174-22` | Fixed | Adjournment title now has source capitalization and punctuation. |
+| `yk-2022-12-12-0175-22` | Fixed | Reading title now preserves the source final period. |
+| `yk-2022-12-12-0176-22` | Fixed | Adjournment title now has source capitalization and punctuation. |
+| `yk-2022-12-12-0177-22` | Fixed | Minutes-adoption title now preserves source capitalization and punctuation. |
+| `yk-2022-12-12-0178-22` | Fixed | Complete risk-oversight title restored. |
+| `yk-2022-12-12-0181-22` | Fixed | Complete six-part arts, governance, and budget title restored. |
+| `yk-2022-12-12-0182-22` | Fixed | Reading title now preserves the source final period. |
+| `yk-2022-12-12-0183-22` | Fixed | Reading title now preserves the source final period. |
+| `yk-2022-12-12-0184-22` | Fixed | Adjournment title now has source capitalization and punctuation. |
+| `yk-2023-01-09-0001-23` | Fixed | Minutes-adoption title now preserves source capitalization and punctuation. |
+| `yk-2023-01-09-0002-23` | Fixed | Minutes-adoption title now preserves source capitalization and punctuation. |
+| `yk-2023-01-09-0003-23` | Fixed | Heritage Committee appointment title now preserves the complete two-part motion. |
+| `yk-2023-01-09-0004-23` | Fixed | Grant Review Committee appointment title now preserves the source final period. |
+| `yk-2023-01-09-0005-23` | Fixed | OCR braces and missing punctuation were corrected in the presenter-extension title. |
+| `yk-2023-01-09-0006-23` | Fixed | OCR braces and missing punctuation were corrected in the presenter-extension title. |
+| `yk-2023-01-09-0007-22` | Fixed | Adjournment title now has source capitalization and punctuation. |
+| `yk-2023-01-23-00010-23` | Fixed | Leading OCR punctuation was removed from the presenter-extension title. |
+| `yk-2023-01-23-00014-23` | Fixed | Amendment title now preserves the source final period. |
+| `yk-2023-01-23-0008-23` | Fixed | Minutes-adoption title now preserves source capitalization and punctuation. |
+| `yk-2023-01-23-0009-23` | Fixed | Leading OCR punctuation was removed from the presenter-extension title. |
+| `yk-2023-01-23-0011-23` | Fixed | Complete conference-authorization title and table contents restored. |
+| `yk-2023-01-23-0015-23` | Fixed | Adjournment title now has source capitalization and punctuation. |
+| `yk-2023-02-06-0016-23` | Fixed | PDF header, OCR amounts, and complete funding title restored. |
+| `yk-2023-02-06-0017-23` | Fixed | Appointment title now preserves source capitalization and punctuation. |
+
+Official sources queried: [October 24, 2022 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1514), [November 14, 2022 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1520), [November 28, 2022 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1527), [December 12, 2022 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1539), [December 12, 2022 special adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1543), [January 9, 2023 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1548), [January 23, 2023 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1553), and [February 6, 2023 adopted minutes](https://pub-yellowknife.escribemeetings.com/FileStream.ashx?DocumentId=1563).
+
 ## Batch 7 — 40 manually queried title reviews
 
 Each record was checked against the official adopted-minutes PDF, fixed where
