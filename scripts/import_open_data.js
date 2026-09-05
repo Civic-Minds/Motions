@@ -24,6 +24,7 @@ import fs from 'fs';
 import path from 'path';
 import { isAdministrativeTitle } from './lib/topicClassification.js';
 import { classifyTorontoTopic } from './lib/torontoClassification.js';
+import { applyAdministrativePenalty } from './lib/significance.js';
 
 /* global process */
 
@@ -229,11 +230,8 @@ function computeSignificance(votes, status, motionTypes, multiDay, minutes, titl
         // < 3 min = 0 pts
     }
 
-    // Routine keyword penalty
-    const lower = title.toLowerCase();
-    if (isAdministrativeTitle(title)) score -= 25;
-
     // High-importance keyword boost
+    const lower = title.toLowerCase();
     const HIGH_IMPORTANCE = [
         'budget', 'property tax', 'tax rate', 'levy', 'bylaw', 'zoning',
         'official plan', 'development charge', 'expropriat', 'billion',
@@ -242,7 +240,7 @@ function computeSignificance(votes, status, motionTypes, multiDay, minutes, titl
     ];
     if (HIGH_IMPORTANCE.some(k => lower.includes(k))) score += 20;
 
-    return Math.max(0, Math.min(100, score));
+    return applyAdministrativePenalty(score, title);
 }
 
 function computeFlags(votes, status, score) {

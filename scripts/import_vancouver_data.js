@@ -15,6 +15,7 @@ import path from 'path';
 import { cleanVancouverTitle } from '../src/utils/motionTitle.js';
 import { classifyVancouverTopic } from './lib/vancouverClassification.js';
 import { isAdministrativeTitle } from './lib/topicClassification.js';
+import { applyAdministrativePenalty } from './lib/significance.js';
 
 /* global process */
 
@@ -92,9 +93,7 @@ function significanceFor(votes, decision, title) {
     const contested = total > 0 ? Math.round((Math.min(yes, no) / total) * 30) : 0;
     const topicWeight = classifyTopic(title) === 'General' ? 10 : 25;
     const outcomeWeight = decision?.toLowerCase().includes('lost') ? 20 : 10;
-    let score = topicWeight + contested + outcomeWeight;
-    if (isAdministrativeTitle(title)) score -= 25;
-    return Math.max(0, Math.min(100, score));
+    return applyAdministrativePenalty(topicWeight + contested + outcomeWeight, title);
 }
 
 async function fetchPage(offset, startDate, endDate) {
