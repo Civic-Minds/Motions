@@ -200,6 +200,7 @@ async function main() {
             title: motion.title,
             inCamera: false,
             url: motion.sourceUrl,
+            motionId: motion.id,
         });
         meetingsById.set(motion.meetingId, meeting);
     }

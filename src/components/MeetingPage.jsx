@@ -1,11 +1,13 @@
 import React, { useState, useMemo } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { ExternalLink, Lock, FileText } from 'lucide-react';
+import { ExternalLink, ChevronRight, Lock, FileText } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { committeeToSlug } from '../utils/slug';
 import { PageMeta } from './PageMeta';
 import BackButton from './ui/BackButton';
 import InfoBar from './ui/InfoBar';
+import SourcesCard from './ui/SourcesCard';
+import CommitteeLink from './ui/CommitteeLink';
 import ShareButton from './ShareButton';
 import { trackGoogleEvent } from '../utils/googleAnalytics';
 import { formatFullDate } from '../utils/date';
@@ -40,6 +42,12 @@ export default function MeetingPage({ meetings, jurisdiction = { name: 'Toronto'
     if (filter === 'all') return agendaItems;
     return agendaItems.filter(item => classifyItem(item) === filter);
   }, [agendaItems, filter]);
+
+  // Only worth showing filter chips when items actually fall into more than
+  // one bucket — e.g. Vancouver/Victoria/Yellowknife only import items with a
+  // recorded vote, so every item there is "substantive" and a filter row
+  // would just duplicate the "All" count.
+  const hasMultipleCategories = [counts.substantive, counts.inCamera, counts.procedural].filter(c => c > 0).length > 1;
 
   const FILTERS = [
     { id: 'all', label: 'All' },
@@ -87,9 +95,9 @@ export default function MeetingPage({ meetings, jurisdiction = { name: 'Toronto'
         <InfoBar>
           <span className="font-mono">{meeting.meetingReference}</span>
           <span>{formatFullDate(meeting.date)}</span>
-          <span>{meeting.startTime}</span>
+          {meeting.startTime && <span>{meeting.startTime}</span>}
           {meeting.location && <span>{meeting.location}</span>}
-          <Link to={`/committees/${committeeSlug}`} className="text-[#004a99] hover:underline">{meeting.committee}</Link>
+          <CommitteeLink committee={meeting.committee} slug={committeeSlug} />
         </InfoBar>
       </div>
 
@@ -103,7 +111,7 @@ export default function MeetingPage({ meetings, jurisdiction = { name: 'Toronto'
               <p className="text-xs font-bold text-slate-500 uppercase tracking-wide">
                 {hasAgenda ? `Agenda · ${meeting.agendaItems.length.toLocaleString()} items` : 'Agenda'}
               </p>
-              {hasAgenda && (
+              {hasAgenda && hasMultipleCategories && (
                 <div className="flex items-center gap-1.5 flex-wrap">
                   {FILTERS.map(f => (
                     counts[f.id] > 0 || f.id === 'all' ? (
@@ -133,44 +141,60 @@ export default function MeetingPage({ meetings, jurisdiction = { name: 'Toronto'
               </div>
             ) : (
               <div className="divide-y divide-slate-100">
-                {filteredItems.map((item, i) => (
-                  <a
-                    key={i}
-                    href={item.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-start gap-4 px-5 py-4 hover:bg-slate-50 transition-colors group"
-                  >
-                    {/* Item number */}
-                    <span className="shrink-0 text-[11px] font-mono font-bold text-slate-300 mt-0.5 w-12 pt-px">
-                      {item.reference.split('.').slice(1).join('.')}
-                    </span>
-
-                    {/* Title + badges */}
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm text-slate-800 leading-snug group-hover:text-[#004a99] transition-colors">
-                        {item.title}
-                      </p>
-                      {(item.wards || item.inCamera) && (
-                        <div className="flex items-center gap-2 mt-1.5 flex-wrap">
-                          {item.wards && item.wards !== 'null' && (
-                            <span className="text-[11px] text-slate-500">
-                              {item.wards === 'All' ? 'City-wide' : `Ward${item.wards.includes(',') ? 's' : ''} ${item.wards}`}
-                            </span>
-                          )}
-                          {item.inCamera && (
-                            <span className="flex items-center gap-1 text-[11px] text-amber-600 font-medium">
-                              <Lock className="w-2.5 h-2.5" />
-                              In camera
-                            </span>
-                          )}
-                        </div>
+                {filteredItems.map((item, i) => {
+                  const itemNumber = item.reference.split('.').slice(1).join('.');
+                  const rowClassName = "flex items-start gap-4 px-5 py-4 hover:bg-slate-50 transition-colors group";
+                  const rowIconClassName = "w-3.5 h-3.5 text-slate-200 group-hover:text-[#004a99] shrink-0 mt-0.5 transition-colors";
+                  const rowContent = (
+                    <>
+                      {/* Item number */}
+                      {itemNumber && (
+                        <span className="shrink-0 text-[11px] font-mono font-bold text-slate-300 mt-0.5 w-12 pt-px">
+                          {itemNumber}
+                        </span>
                       )}
-                    </div>
 
-                    <ExternalLink className="w-3.5 h-3.5 text-slate-200 group-hover:text-[#004a99] shrink-0 mt-0.5 transition-colors" />
-                  </a>
-                ))}
+                      {/* Title + badges */}
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm text-slate-800 leading-snug group-hover:text-[#004a99] transition-colors">
+                          {item.title}
+                        </p>
+                        {(item.wards || item.inCamera) && (
+                          <div className="flex items-center gap-2 mt-1.5 flex-wrap">
+                            {item.wards && item.wards !== 'null' && (
+                              <span className="text-[11px] text-slate-500">
+                                {item.wards === 'All' ? 'City-wide' : `Ward${item.wards.includes(',') ? 's' : ''} ${item.wards}`}
+                              </span>
+                            )}
+                            {item.inCamera && (
+                              <span className="flex items-center gap-1 text-[11px] text-amber-600 font-medium">
+                                <Lock className="w-2.5 h-2.5" />
+                                In camera
+                              </span>
+                            )}
+                          </div>
+                        )}
+                      </div>
+
+                      {item.motionId
+                        ? <ChevronRight className={rowIconClassName} />
+                        : <ExternalLink className={rowIconClassName} />}
+                    </>
+                  );
+
+                  // Vancouver/Victoria/Yellowknife agenda items are built directly
+                  // from tracked motions, so they have their own vote-detail page
+                  // in this app — link there instead of out to the raw source.
+                  return item.motionId ? (
+                    <Link key={i} to={`/motions/${item.motionId}`} className={rowClassName}>
+                      {rowContent}
+                    </Link>
+                  ) : (
+                    <a key={i} href={item.url} target="_blank" rel="noopener noreferrer" className={rowClassName}>
+                      {rowContent}
+                    </a>
+                  );
+                })}
               </div>
             )}
           </div>
@@ -191,31 +215,12 @@ export default function MeetingPage({ meetings, jurisdiction = { name: 'Toronto'
           </div>
 
           {/* Sources */}
-          {meeting.meetingReference && (
-            <div className="space-y-2">
-              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest px-1">Sources</p>
-              <div className="bg-white border border-slate-200 rounded-xl divide-y divide-slate-100 overflow-hidden">
-                {meeting.agendaUrl && (
-                  <a
-                    href={meeting.agendaUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-between px-4 py-3 text-xs text-slate-500 hover:text-[#004a99] transition-colors"
-                  >
-                    Council agenda <ExternalLink className="w-3 h-3" />
-                  </a>
-                )}
-                <a
-                  href={sourceUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-between px-4 py-3 text-xs text-slate-500 hover:text-[#004a99] transition-colors"
-                >
-                  Official record <ExternalLink className="w-3 h-3" />
-                </a>
-              </div>
-            </div>
-          )}
+          <SourcesCard
+            links={[
+              meeting.agendaUrl && { label: 'Council agenda', href: meeting.agendaUrl },
+              sourceUrl && { label: 'Official record', href: sourceUrl },
+            ]}
+          />
         </div>
       </div>
     </div>

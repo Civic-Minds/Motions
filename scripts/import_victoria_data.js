@@ -260,7 +260,7 @@ async function makeOutput(rows, sourceLastRefreshed) {
         isCouncil: true,
         sourceUrl: motion.agendaUrl || SOURCE_URL,
         agendaUrl: motion.agendaUrl || null,
-        agendaItems: motions.filter(item => item.meetingId === motion.meetingId).map(item => ({ reference: item.id, title: item.title, inCamera: false, url: item.sourceUrl })),
+        agendaItems: motions.filter(item => item.meetingId === motion.meetingId).map(item => ({ reference: item.id, title: item.title, inCamera: false, url: item.sourceUrl, motionId: item.id })),
     }])).values()].sort((a, b) => a.date.localeCompare(b.date));
     const councillors = [...new Set(motions.flatMap(motion => Object.keys(motion.votes)))].sort();
     const metadata = {

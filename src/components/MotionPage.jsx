@@ -1,7 +1,7 @@
 import { getWardId } from '../utils/storage';
 import React, { lazy, Suspense, useState, useMemo, useEffect } from 'react';
 import { Link, useParams, useNavigate, Navigate } from 'react-router-dom';
-import { ExternalLink, FileText, Info } from 'lucide-react';
+import { FileText, Info } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { getCommittee, TOPIC_LONG, WARD_COUNCILLORS } from '../constants/data';
 import { nameToSlug, committeeToSlug } from '../utils/slug';
@@ -11,6 +11,8 @@ import ShareButton from './ShareButton';
 import MotionFunding from './MotionFunding';
 import BackButton from './ui/BackButton';
 import InfoBar from './ui/InfoBar';
+import SourcesCard from './ui/SourcesCard';
+import CommitteeLink from './ui/CommitteeLink';
 import { trackGoogleEvent } from '../utils/googleAnalytics';
 import { formatFullDate } from '../utils/date';
 
@@ -287,7 +289,7 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
   const committee = motion.committee || getCommittee(motion.id);
   const sourceUrl = motion.url || motion.sourceUrl;
   const agendaUrl = motion.agendaUrl;
-  const committeeHref = `/committees/${committeeToSlug(committee)}`;
+  const committeeSlug = committeeToSlug(committee);
   const topicHref = motion.topic ? `/?topic=${encodeURIComponent(motion.topic)}` : null;
   const isMultiVote = subEntries.length > 0;
 
@@ -377,7 +379,7 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
           </span>
           <span className="font-mono">{motion.id}</span>
           <span>{formatFullDate(motion.date)}</span>
-          <Link to={committeeHref} className="text-[#004a99] hover:underline" title={`View ${committee} committee page`}>{committee}</Link>
+          <CommitteeLink committee={committee} slug={committeeSlug} />
           {topicHref && <Link to={topicHref} className="text-[#004a99] hover:underline" title={`View ${TOPIC_LONG[motion.topic] ?? motion.topic} motions`}>{TOPIC_LONG[motion.topic] ?? motion.topic}</Link>}
         </InfoBar>
       </div>
@@ -464,31 +466,12 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
           )}
 
           {/* Sources */}
-          {sourceUrl && (
-            <div className="space-y-2">
-              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest px-1">Sources</p>
-              <div className="bg-white border border-slate-200 rounded-xl divide-y divide-slate-100 overflow-hidden">
-                {agendaUrl && (
-                  <a
-                    href={agendaUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-between px-4 py-3 text-xs text-slate-500 hover:text-[#004a99] transition-colors"
-                  >
-                    Council agenda <ExternalLink className="w-3 h-3" />
-                  </a>
-                )}
-                <a
-                  href={sourceUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-between px-4 py-3 text-xs text-slate-500 hover:text-[#004a99] transition-colors"
-                >
-                  {jurisdiction.id === 'toronto' ? 'toronto.ca' : 'Voting record'} <ExternalLink className="w-3 h-3" />
-                </a>
-              </div>
-            </div>
-          )}
+          <SourcesCard
+            links={[
+              agendaUrl && { label: 'Council agenda', href: agendaUrl },
+              sourceUrl && { label: jurisdiction.id === 'toronto' ? 'toronto.ca' : 'Voting record', href: sourceUrl },
+            ]}
+          />
 
           {/* Your councillor callout */}
           {myCouncillor && myVote && (

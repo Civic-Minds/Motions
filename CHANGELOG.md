@@ -9,6 +9,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 ### Changed
 
 - **Unified motion/meeting info bars**: The metadata row under a motion or meeting's title now shares one component instead of two hand-duplicated copies that had quietly drifted apart. Motion pages' Council agenda/voting-record links moved off that row into a new "Sources" sidebar card (matching the existing Locations card style) since the row was getting overloaded with badge, id, date, committee, topic, and links all in one place. Both pages now show dates the same way ("April 21, 2026") instead of Motion pages showing a raw, ambiguous ISO date ("2026-04-21"). Meeting pages' committee link moved into the info bar (matching how motion pages link their committee), and its official-record links now sit under a "Sources" heading matching motion pages' new card.
+- **Info bars now share their actual content, not just the wrapper**: The prior InfoBar unification only shared the dot-separator layout — the committee link and Sources card were still separately hand-written on each page, which is exactly how their labels drifted apart in the first place. Both are now real shared components (`CommitteeLink`, `SourcesCard`) that motion and meeting pages both call, so this can't happen again.
 - Manually reviewed all 2,164 Vancouver motion topics against their titles, correcting 509 clear category errors while leaving defensible and ambiguous classifications unchanged.
 - Manually reviewed all 592 Yellowknife motion topics against their titles, correcting 60 clear category errors while leaving defensible and ambiguous classifications unchanged.
 - Spot-checked 30 Yellowknife motions by hand and corrected the remaining clear Governance miss in the corporate risk-oversight record.
@@ -76,6 +77,10 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 - **Vancouver agenda numbers**: Parenthesized agenda numbers no longer appear at the start of Vancouver motion titles.
 - **Unsafe report links**: Issue-report page links now allow only web URLs, preventing crafted contact links from executing code when opened.
 - **Data load failures on flaky connections**: A dropped or slow connection could return a non-JSON response and leave people stuck on a cryptic "Unexpected token" error with no way to recover. The error message is now readable, and a "Try again" button retries without a full page reload.
+- **Empty agenda-item number gutter**: Vancouver, Victoria, and Yellowknife agenda items don't use Toronto's dotted reference numbers, so the item-number column rendered blank but still reserved its width, pushing every title in needlessly. The column is now skipped when there's no number to show.
+- **Stray "· ·" in the meeting info bar**: The start-time field always rendered a span even when empty, so meetings without a recorded time showed a doubled separator dot.
+- **Redundant "Substantive" filter chip**: Vancouver/Victoria/Yellowknife only import agenda items that had a recorded vote and never flag anything as in-camera, so every item was always "Substantive" — the filter chip duplicated the All count with nothing to actually filter. It's hidden now unless items are genuinely split across categories.
+- **Vancouver/Victoria/Yellowknife agenda items linked out instead of to their own vote page**: These cities' agenda items are built directly from the same tracked motions, so each one already has a full vote-breakdown page in this app — clicking an item sent people to the raw external source instead. Existing meetings pick up the in-app link on their next scheduled data refresh.
 
 ## [3.0.0] — 2026-09-02
 

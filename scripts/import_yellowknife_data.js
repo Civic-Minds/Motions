@@ -34,7 +34,6 @@ const FROM_DATE = fromArg?.slice('--from='.length) ?? '2022-10-18';
 const TO_DATE = new Date().toISOString().slice(0, 10);
 
 function compact(value) { return value.replace(/\s+/g, ' ').trim(); }
-function slugify(value) { return value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
 
 function topicForTitle(title) {
   const value = title.toLowerCase();
@@ -175,7 +174,12 @@ async function main() {
     if (!date || date < FROM_DATE || date > TO_DATE) continue;
     const committee = decodeHtml(item.MeetingName);
     const meetingId = item.ID;
-    const meetingReference = `yellowknife-${date}-${slugify(committee)}-${meetingId}`;
+    // meetingId is a full eSCRIBE GUID (e.g. "a46df837-b515-..."); the city
+    // name and full committee slug are redundant here (both already shown
+    // elsewhere on the page), so keep this short like other cities'
+    // references ("2026.RG6", "van-18838-11541") instead of the ~90-char
+    // string a plain concatenation produced.
+    const meetingReference = `yk-${date}-${meetingId.slice(0, 8)}`;
     const detailUrl = `${CALENDAR_URL}/Meeting?Id=${meetingId}`;
     const documents = (item.MeetingDocumentLink ?? []).map(document => ({
       type: document.Type,
@@ -191,7 +195,7 @@ async function main() {
       for (const motion of minutesText ? parseMotions(minutesText, date, committee, minutesLink.href, meetingReference) : []) {
         const prior = existingById.get(motion.id);
         motions.push({ ...prior, ...motion, summary: prior?.summary, keyAmounts: prior?.keyAmounts });
-        meeting.agendaItems.push({ reference: motion.id, title: motion.title, inCamera: false, url: motion.sourceUrl });
+        meeting.agendaItems.push({ reference: motion.id, title: motion.title, inCamera: false, url: motion.sourceUrl, motionId: motion.id });
       }
     }
     meetings.push(meeting);
