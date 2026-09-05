@@ -341,8 +341,12 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
 
       {/* Header (Full Width) */}
       <div className="space-y-2 mb-4">
-        <div className="hidden justify-end sm:flex">
-          <div className="flex items-center gap-2">
+        <div className="hidden flex-wrap items-start justify-between gap-3 sm:flex">
+          <div className="relative min-w-0">
+            <BackButton onClick={() => navigate(-1)} floating className="-left-20 top-0.5 lg:-left-24" />
+            <h1 className="text-xl font-bold text-slate-900 leading-snug">{displayTitle}</h1>
+          </div>
+          <div className="flex shrink-0 items-center gap-2">
             <a href={reportUrl} onClick={() => trackGoogleEvent('report_issue_click', { motion_id: motionId, city: jurisdiction.id })} className="inline-flex items-center rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-600 transition-colors hover:border-[#004a99]/40 hover:text-[#004a99]">
               Report
             </a>
@@ -350,10 +354,7 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
           </div>
         </div>
 
-        <div className="relative">
-          <BackButton onClick={() => navigate(-1)} floating className="-left-20 top-0.5 lg:-left-24" />
-          <h1 className="text-xl font-bold text-slate-900 leading-snug lg:w-4/5">{displayTitle}</h1>
-        </div>
+        <h1 className="text-xl font-bold text-slate-900 leading-snug sm:hidden">{displayTitle}</h1>
 
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500">
           <StatusBadge status={motion.status} />
