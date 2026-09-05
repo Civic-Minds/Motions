@@ -29,6 +29,7 @@
 
 import fs from 'fs';
 import path from 'path';
+import { computeYellowknifeSignificance, computeFlags } from './lib/significance.js';
 
 const args = Object.fromEntries(
   process.argv.slice(2)
@@ -228,6 +229,17 @@ function main() {
     if (!motions[idx].mover) {
       const mover = extractMover(motion.body);
       if (mover) motions[idx].mover = mover;
+    }
+    if (CITY === 'yellowknife') {
+      const significance = computeYellowknifeSignificance({
+        votes: motions[idx].votes,
+        status: motions[idx].status,
+        title: motions[idx].title,
+        amounts: motions[idx].amounts,
+      });
+      motions[idx].significance = significance;
+      motions[idx].trivial = significance < 25;
+      motions[idx].flags = computeFlags(motions[idx].votes, motions[idx].status, significance);
     }
     done++;
   }
