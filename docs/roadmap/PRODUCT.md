@@ -26,7 +26,7 @@ The long-term vision is to expand beyond Toronto — letting residents of any Ca
 
 ## Significance Scoring
 
-- [x] **AI significance scoring** — replaced the keyword-based scorer with direct AI-assigned 0–100 scores for all 991 summarized motions. Scores reflect actual civic impact; budget items score 90–95, major housing/transit policy 66–80, routine procedural items 2–5. Fixes over-inflation for motions that incidentally mention common keywords like "transit" or "police".
+- [x] **AI significance scoring** — direct AI-assigned 0–100 scores for summarized motions, reflecting actual civic impact (budget items 90–95, major housing/transit policy 66–80, routine procedural items 2–5). Note: a since-fixed bug (see CHANGELOG, Sept 2026) let a fallback keyword-based score silently overwrite the real AI score on every scheduled refresh for most already-summarized motions — the AI score is now preserved correctly, but treat any claim of "already working for all N motions" with suspicion going forward; verify against live data, not this doc.
 
 ## Open Questions
 

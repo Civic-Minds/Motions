@@ -161,14 +161,18 @@ export function outcomeFromMinutes(text, title) {
     const anchor = escaped.length >= 3 ? new RegExp(escaped.join('[\\s\\S]{0,24}'), 'i') : null;
     const start = anchor?.exec(normalized)?.index ?? -1;
     const block = start >= 0 ? normalized.slice(start, start + 5000) : normalized;
+    // Only keep the excerpt when we actually located this motion in the text —
+    // otherwise `block` is the whole agenda's minutes, not this motion's.
+    const body = start >= 0 ? compact(block) : null;
     const match = block.match(/\b(CARRIED|ADOPTED|DEFEATED|LOST|REFERRED|DEFERRED)\b(?:\s+(?:UNANIMOUSLY|AS AMENDED))?/i);
-    if (!match) return { status: 'Recorded', resultText: null };
+    if (!match) return { status: 'Recorded', resultText: null, body };
     const word = match[1].toUpperCase();
     return {
         status: ['CARRIED', 'ADOPTED'].includes(word) ? 'Adopted'
             : ['DEFEATED', 'LOST'].includes(word) ? 'Lost'
                 : ['REFERRED', 'DEFERRED'].includes(word) ? 'Referred' : 'Recorded',
         resultText: compact(match[0]),
+        body,
     };
 }
 
@@ -202,6 +206,7 @@ async function enrichOutcomes(motions) {
                 motion.status = outcome.status;
                 motion.resultText = outcome.resultText;
                 motion.decisionSourceUrl = link.href;
+                if (outcome.body) motion.body = outcome.body;
             }
         } catch (error) {
             console.warn(`Could not read minutes for ${agendaUrl}: ${error.message}`);

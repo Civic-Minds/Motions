@@ -26,6 +26,8 @@ const SUPPLEMENTAL_TERMS = {
   'Frances Nunziata': [1997, 2000, 2003],              // post-amalgamation pre-2006 terms
 };
 
+// Add a new { year, url } entry here once each new term's Open Data CSV
+// resource exists — this list doesn't update itself.
 const TERMS = [
   { year: 2006, url: 'https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/7f5232d6-0d2a-4f95-864a-417cbf341cc4/resource/01655cbd-dc66-4339-9f27-891e64413cbf/download/member-voting-record-2006-2010.csv' },
   { year: 2010, url: 'https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/7f5232d6-0d2a-4f95-864a-417cbf341cc4/resource/6c7dd98b-08d0-4f68-bee7-a0ba77a7da92/download/member-voting-record-2010-2014.csv' },

@@ -8,7 +8,7 @@
  * TMMIS API (secure.toronto.ca/council/api/) and stores agenda items.
  *
  * Usage:
- *   node scripts/fetch_meetings.js
+ *   node scripts/fetch_meetings.js [--term=2022-2026]
  */
 
 import fetch from 'node-fetch';
@@ -38,8 +38,18 @@ const BROWSER_HEADERS = {
     'sec-fetch-site': 'same-origin',
 };
 
-// Term ID for current Council term (2022–2026)
-const TERM_ID = 8;
+// TMMIS's numeric term ID isn't derivable from the term label — each new
+// term's ID has to be looked up once (e.g. via the decisionbody-list API
+// with a guessed id, or TMMIS's own council-term picker) and added here.
+const TERM_IDS = {
+    '2022-2026': 8,
+};
+const termArg = process.argv.find(a => a.startsWith('--term='))?.split('=')[1] || '2022-2026';
+const TERM_ID = TERM_IDS[termArg];
+if (!TERM_ID) {
+    console.error(`Unknown term "${termArg}". Known: ${Object.keys(TERM_IDS).join(', ')}. Add its TMMIS term ID to TERM_IDS in fetch_meetings.js.`);
+    process.exit(1);
+}
 
 // Fetches all decision bodies for the term and returns a name→id map.
 // Names are normalised to lowercase for matching.

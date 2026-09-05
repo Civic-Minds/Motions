@@ -17,7 +17,7 @@ import path from 'path';
 try { process.loadEnvFile?.('.env'); } catch { console.warn('Could not load .env; using the existing environment.'); }
 
 const DATA_FILES = ['motions.json', 'meetings.json', 'councillors.json', 'candidates.json', 'tenure.json', 'expenses.json', 'wards.geojson', 'metadata.json'];
-const CACHE_FILES = ['summaries_cache.json', 'elo_scores.json', 'notability_cache.json'];
+const CACHE_FILES = ['summaries_cache.json', 'elo_scores.json', 'notability_cache.json', 'vancouver_address_geocodes.json'];
 
 async function uploadDataDirectory(directory, prefix = '') {
   for (const filename of DATA_FILES) {
