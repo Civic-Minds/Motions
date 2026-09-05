@@ -4,7 +4,7 @@ import { Link, useParams, useNavigate, Navigate } from 'react-router-dom';
 import { ExternalLink, FileText, Info } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { getCommittee, TOPIC_LONG, WARD_COUNCILLORS } from '../constants/data';
-import { nameToSlug } from '../utils/slug';
+import { nameToSlug, committeeToSlug } from '../utils/slug';
 import { PageMeta } from './PageMeta';
 import { previewImage } from '../utils/meta';
 import ShareButton from './ShareButton';
@@ -285,7 +285,7 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
   const committee = motion.committee || getCommittee(motion.id);
   const sourceUrl = motion.url || motion.sourceUrl;
   const agendaUrl = motion.agendaUrl;
-  const committeeHref = `/?committee=${encodeURIComponent(committee)}`;
+  const committeeHref = `/committees/${committeeToSlug(committee)}`;
   const topicHref = motion.topic ? `/?topic=${encodeURIComponent(motion.topic)}` : null;
   const isMultiVote = subEntries.length > 0;
 
@@ -376,7 +376,7 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
           <span>·</span>
           <span>{motion.date}</span>
           <span>·</span>
-          <Link to={committeeHref} className="text-[#004a99] hover:underline" title={`View ${committee} motions`}>{committee}</Link>
+          <Link to={committeeHref} className="text-[#004a99] hover:underline" title={`View ${committee} committee page`}>{committee}</Link>
           {topicHref && <><span>·</span><Link to={topicHref} className="text-[#004a99] hover:underline" title={`View ${TOPIC_LONG[motion.topic] ?? motion.topic} motions`}>{TOPIC_LONG[motion.topic] ?? motion.topic}</Link></>}
           {sourceUrl && (
             <>
