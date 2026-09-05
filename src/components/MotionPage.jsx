@@ -345,7 +345,10 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
           {/* Floated (not flexed) so the title text wraps around it — only
               the first line is narrowed by the buttons' width, later lines
               use the full column width instead of matching the buttons'
-              height for the whole element. */}
+              height for the whole element. Title itself is capped to the
+              same width as the content grid's left column below (2 of 3
+              equal columns, gap-8) so it doesn't run wider than that panel
+              even though this header isn't part of that grid. */}
           <div className="float-right ml-3 flex shrink-0 items-center gap-2">
             <a href={reportUrl} onClick={() => trackGoogleEvent('report_issue_click', { motion_id: motionId, city: jurisdiction.id })} className="inline-flex items-center rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-600 transition-colors hover:border-[#004a99]/40 hover:text-[#004a99]">
               Report
@@ -354,7 +357,7 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
           </div>
           <div className="relative">
             <BackButton onClick={() => navigate(-1)} floating className="-left-20 top-0.5 lg:-left-24" />
-            <h1 className="text-xl font-bold text-slate-900 leading-snug">{displayTitle}</h1>
+            <h1 className="text-xl font-bold text-slate-900 leading-snug lg:max-w-[calc(66.6667%-0.667rem)]">{displayTitle}</h1>
           </div>
         </div>
 

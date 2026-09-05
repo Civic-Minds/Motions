@@ -79,7 +79,7 @@ export default function MeetingPage({ meetings, jurisdiction = { name: 'Toronto'
           </div>
           <div className="relative">
             <BackButton onClick={() => navigate(`/committees/${committeeSlug}`)} floating className="-left-20 top-0.5 lg:-left-24" />
-            <h1 className="text-xl font-bold text-slate-900">{meeting.committee}</h1>
+            <h1 className="text-xl font-bold text-slate-900 lg:max-w-[calc(66.6667%-0.667rem)]">{meeting.committee}</h1>
           </div>
         </div>
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500">
