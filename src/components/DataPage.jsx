@@ -10,7 +10,7 @@ const SOURCE_LINK_CLASS = 'text-[#004a99] underline underline-offset-2 hover:tex
 const SOURCE_URLS = {
   toronto: 'https://open.toronto.ca/dataset/members-of-toronto-city-council-voting-record/',
   vancouver: 'https://opendata.vancouver.ca/explore/dataset/council-voting-records/',
-  victoria: 'https://opendata.victoria.ca/pages/mayor-and-council',
+  victoria: 'https://pub-victoria.escribemeetings.com',
   yellowknife: 'https://www.yellowknife.ca/council-meetings-and-agendas/council-calendar-and-livestream',
   winnipeg: 'https://data.winnipeg.ca/Council-Services/Council-Voting-Data/f9mn-vti8',
 };
@@ -71,10 +71,8 @@ export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toront
           <Database className="w-5 h-5 text-[#004a99]" />
           <h2 className="text-lg font-semibold text-slate-900">Sources</h2>
           <p className="text-sm leading-relaxed text-slate-500">
-            {jurisdiction.id === 'victoria'
-              ? <>Victoria records are copied from the City’s official voting dashboard and meeting documents. Topic labels are simple keyword groupings; Motions does not generate summaries or significance scores for Victoria.</>
-              : jurisdiction.id === 'yellowknife'
-              ? <>Council decisions come from <a className={SOURCE_LINK_CLASS} href={sourceUrl} target="_blank" rel="noopener noreferrer">Yellowknife’s official meeting calendar</a>, which links to meeting agendas and minutes.</>
+            {jurisdiction.id === 'victoria' || jurisdiction.id === 'yellowknife'
+              ? <>Council decisions come from <a className={SOURCE_LINK_CLASS} href={sourceUrl} target="_blank" rel="noopener noreferrer">{jurisdiction.name}’s official meeting calendar</a>, which links to meeting agendas and minutes.</>
               : <>Voting records come from <a className={SOURCE_LINK_CLASS} href={sourceUrl} target="_blank" rel="noopener noreferrer">{jurisdiction.name} Open Data</a>. Meeting details and agenda records come from the City of {jurisdiction.name}’s council and committee pages.</>}
           </p>
           <Link className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#004a99]" to="/sources">
@@ -113,9 +111,7 @@ export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toront
           <CivicCard className="gap-2">
             <h2 className="font-semibold text-slate-900">Topics</h2>
             <p className="text-sm leading-relaxed text-slate-500">
-              {jurisdiction.id === 'victoria'
-                ? 'Victoria records use simple keyword topic labels; no AI summaries or importance scores are added.'
-                : isToronto
+              {isToronto
                 ? 'A vote’s score weighs how contested it was, its outcome, and how much debate it got — big stuff like the budget or zoning gets a boost, routine items get docked.'
                 : 'A vote’s score weighs how contested it was, its topic, and its outcome — higher scores rise to the top.'}
             </p>
@@ -138,7 +134,7 @@ export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toront
       <section className="border-t border-slate-200 pt-6 space-y-2 text-sm text-slate-500">
         <CivicSectionLabel>DISCLAIMER</CivicSectionLabel>
         <p className="px-1">
-          Motions is an independent civic-information project and is not affiliated with the City of {jurisdiction.name}. {jurisdiction.id === 'victoria' ? 'Victoria records are presented from official public documents without AI-generated summaries or enrichment.' : 'Summaries, classifications, significance scores, and location tags are provided as helpful interpretations of public records.'} Consult the linked official documents for the authoritative record.
+          Motions is an independent civic-information project and is not affiliated with the City of {jurisdiction.name}. Summaries, classifications, significance scores, and location tags are provided as helpful interpretations of public records. Consult the linked official documents for the authoritative record.
         </p>
       </section>
     </PageColumn>

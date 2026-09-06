@@ -18,17 +18,27 @@ jobs:
         with:
           node-version: '24'
 
+      - name: Install PDF text extractor
+        run: sudo apt-get update && sudo apt-get install --yes poppler-utils
+
       - name: Install dependencies
         run: npm ci
 
-      - name: Install PDF tooling
-        run: sudo apt-get update && sudo apt-get install --yes poppler-utils
+      - name: Download existing Victoria data
+        run: |
+          mkdir -p public/data/victoria scripts/cache
+          curl -sf "https://qcbqayy3ivvb6sia.public.blob.vercel-storage.com/victoria/motions.json" -o public/data/victoria/motions.json || echo "No existing motions, starting fresh"
+          curl -sf "https://qcbqayy3ivvb6sia.public.blob.vercel-storage.com/victoria/meetings.json" -o public/data/victoria/meetings.json || echo "No existing meetings, starting fresh"
+          curl -sf "https://qcbqayy3ivvb6sia.public.blob.vercel-storage.com/victoria/councillors.json" -o public/data/victoria/councillors.json || echo "No existing councillors, starting fresh"
 
-      - name: Install Playwright browser
-        run: npx playwright install chromium --with-deps
+      - name: Import Victoria council minutes
+        run: node scripts/import_victoria_data.js --from=2022-11-01
 
-      - name: Import Victoria council data
-        run: node scripts/import_victoria_data.js --from=2022-11-01 --meetings=1000 --rows=50000
+      - name: Extract structured fields
+        run: node scripts/extract_fields.js --city=victoria
+
+      - name: Record Victoria refresh time
+        run: node scripts/write_data_metadata.js --city=victoria
 
       - name: Validate Victoria data
         run: npm run validate:victoria

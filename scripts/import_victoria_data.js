@@ -1,343 +1,494 @@
 /**
- * Import Victoria, BC council votes from the City's public voting dashboard
- * and mechanically read outcomes from official meeting minutes.
+ * Import Victoria, BC council votes from the City's public eSCRIBE meeting
+ * calendar (pub-victoria.escribemeetings.com) — the same platform
+ * Yellowknife's importer already reads. This replaces the old Power BI
+ * dashboard importer: that public report froze at 2026-01-22 and this
+ * project's own validator correctly refused to publish stale data, leaving
+ * Victoria with zero live records. eSCRIBE is updated weekly and current
+ * through the present, so this importer has no staleness problem to guard.
  *
- * The City publishes the records through a public Power BI report rather than
- * a downloadable table. We capture the report's public query contract, remove
- * its default "latest meeting" filter. No AI enrichment or generated text is
- * used; records without a confirmed outcome remain Recorded.
+ * Like Yellowknife, Victoria has no structured voting dataset — only agenda
+ * and minutes PDFs. Individual votes are populated only for named opposed/
+ * absent members (minutes read "OPPOSED (2): Councillor X, Councillor Y" on
+ * its own line, not inline with the outcome); a bare "CARRIED UNANIMOUSLY"
+ * gets every present member marked YES, no invented roll call otherwise.
  *
- * Usage:
- *   node scripts/import_victoria_data.js
- *   node scripts/import_victoria_data.js --from=2022-11-01 --meetings=1000 --rows=10000
+ * Format notes (see CHANGELOG / commit message for the full writeup):
+ *  - Agenda items use lettered/nested codes ("F.1", "F.1.a.c"), not numbers.
+ *    Unlike Yellowknife's source, each item's own heading text IS a clean,
+ *    human title, so titles come from there rather than being carved out of
+ *    "That Council ..." resolution text.
+ *  - Committee of the Whole recommendations get formally ratified by Council
+ *    roughly two weeks later, at a different meeting/date — not a same-day
+ *    duplicate. Both stages are real, distinct recorded votes, so both are
+ *    imported flat with no dedup/link, matching how Yellowknife's importer
+ *    treats every meeting's motions independently.
+ *  - A "Consent Agenda" block can bundle several lettered items behind one
+ *    shared CARRIED/DEFEATED line — those items are pulled out and each
+ *    gets its own motion sharing that one outcome; later restatements of the
+ *    same items elsewhere in the minutes ("This item was approved on the
+ *    Consent Agenda.") have no outcome marker of their own and are dropped.
+ *  - Only the current council term (2022-11-01 onward) is in scope by
+ *    default: minutes name councillors by surname only ("Councillor
+ *    Coleman"), and going further back pulls in past-term names this
+ *    importer's fixed 9-member roster (and the validator's councillor
+ *    checks) would reject. Older minutes (pre-2021ish) also use a
+ *    different, unstructured prose format this parser doesn't attempt.
+ *
+ * Usage: node scripts/import_victoria_data.js [--from=2022-11-01]
  */
 
-import { chromium } from 'playwright';
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import * as cheerio from 'cheerio';
 import fetch from 'node-fetch';
 import { classifyVictoriaTopic } from './lib/victoriaClassification.js';
 import { isAdministrativeTitle } from './lib/topicClassification.js';
 
 /* global process, Buffer */
 
-const DASHBOARD_PAGE = 'https://opendata.victoria.ca/pages/mayor-and-council';
-const QUERYDATA_URL = 'https://wabi-canada-central-api.analysis.windows.net/public/reports/querydata?synchronous=true';
-const SOURCE_URL = 'https://opendata.victoria.ca/pages/mayor-and-council';
+export const CALENDAR_URL = 'https://pub-victoria.escribemeetings.com';
+const CALENDAR_API_URL = `${CALENDAR_URL}/MeetingsCalendarView.aspx/GetCalendarMeetings`;
+
+// Current council term (took office November 2022). Minutes reference
+// members by surname only ("Mayor Alto", "Councillor Coleman") — kept in
+// sync with src/constants/jurisdictions.js's victoria.currentCouncillors.
+export const COUNCIL_MEMBERS = [
+  'Marianne Alto', 'Jeremy Caradonna', 'Chris Coleman', 'Matt Dell',
+  'Marg Gardiner', 'Stephen Hammond', 'Susan Kim', 'Krista Loughton', 'Dave Thompson',
+];
+
 const DATA_DIR = path.join(process.cwd(), 'public/data/victoria');
-const meetingsArg = process.argv.find(arg => arg.startsWith('--meetings='));
-const rowsArg = process.argv.find(arg => arg.startsWith('--rows='));
 const fromArg = process.argv.find(arg => arg.startsWith('--from='));
-const MEETING_LIMIT = Number(meetingsArg?.slice('--meetings='.length) || 20);
-const ROW_LIMIT = Number(rowsArg?.slice('--rows='.length) || 10000);
-const FROM_DATE = fromArg?.slice('--from='.length) || '2022-11-01';
+const FROM_DATE = fromArg?.slice('--from='.length) ?? '2022-11-01';
+const TO_DATE = new Date().toISOString().slice(0, 10);
 
-const VOTE_MAP = {
-    'In Favour': 'YES',
-    Opposed: 'NO',
-    Absent: 'ABSENT',
-    Conflict: 'CONFLICT',
-    Leave: 'ABSENT',
-    Resigned: 'ABSENT',
-};
+// Real recorded-vote bodies only. The same calendar also lists non-decision
+// items (By Election, Citizens' Assembly Council Committee, Lunch Time
+// Lecture Series, Public Lectures and Events, Town Hall Meetings) and two
+// committees retired before this importer's date floor (Governance &
+// Priorities Committee, Planning and Land Use Committee — both 2014-only).
+const DECISION_BODY_RE = /^(?:Special\s+)?(?:Council(?:\s*\(to follow COTW\))?|Committee of the Whole(?:\s+Meeting)?)$/i;
 
-function stableId(value) {
-    let hash = 2166136261;
-    for (const character of value) {
-        hash ^= character.charCodeAt(0);
-        hash = Math.imul(hash, 16777619);
+function compact(value) { return String(value ?? '').replace(/\s+/g, ' ').trim(); }
+
+function memberFromSurname(surname) {
+  const lower = surname.trim().toLowerCase();
+  return COUNCIL_MEMBERS.find(member => member.split(' ').at(-1).toLowerCase() === lower) ?? null;
+}
+
+function namesFromList(text) {
+  const names = [];
+  for (const match of String(text ?? '').matchAll(/(?:Mayor|Councillor)\s+([A-Z][A-Za-z'’-]*)/g)) {
+    const member = memberFromSurname(match[1]);
+    if (member) names.push(member);
+  }
+  return [...new Set(names)];
+}
+
+function parsePresentMembers(text) {
+  // Spans both "PRESENT:" and any "PRESENT ELECTRONICALLY:" sub-section —
+  // both fall inside this window, before "STAFF PRESENT:".
+  const section = text.match(/\bPRESENT:?\s*([\s\S]*?)(?=\n\s*STAFF PRESENT)/i)?.[1] ?? '';
+  return namesFromList(section);
+}
+
+// Addresses/named places mentioned in a title — carried over unchanged from
+// the old Power BI importer; still applies to eSCRIBE titles the same way,
+// and feeds geocode_victoria_data.js + VictoriaMiniMap.
+function locationsFromTitle(title) {
+  const matches = title.match(/\b\d{1,5}(?:\s*(?:and|&)\s*\d{1,5})?\s+[A-Z][A-Za-z.'-]*(?:\s+[A-Z][A-Za-z.'-]*){0,3}\s+(?:Street|St|Avenue|Ave|Road|Rd|Drive|Dr|Boulevard|Blvd|Lane|Ln|Court|Ct|Way|Crescent|Cres|Place|Pl|Trail|Terrace|Gate|Path|Circle|Parkway|Pkwy)\b/gi) ?? [];
+  const namedPlaces = [
+    'Topaz Park', 'Crystal Pool and Fitness Centre', 'Centennial Square', 'Bastion Square',
+    'Victoria City Hall', 'Victoria Harbour', 'Inner Harbour', 'Songhees Nation',
+    'James Bay', 'North Park', 'Fernwood', 'Fairfield', 'Victoria West', 'Downtown Victoria',
+    'Caledonia Place', 'Vancouver Island Brewing', 'Victoria Curling Club', 'Royal Theatre',
+    'Capital Regional District', 'Greater Victoria Harbour Authority',
+  ].filter(place => title.toLowerCase().includes(place.toLowerCase()));
+  return [...new Set([...matches.map(address => compact(address)), ...namedPlaces])];
+}
+
+// ─── Minutes parsing ──────────────────────────────────────────────────────
+
+// A lettered/nested agenda-item heading: "F.1", "F.1.a", "F.1.a.c", bare "C".
+// Requires the code to be followed by whitespace then genuine title text
+// (starting upper-case or a digit) — excludes ALL-CAPS run-on words like
+// "STAFF PRESENT:" and lower-case resolution sub-bullets ("a.", "b.").
+// The trailing period is captured (group 2), not just consumed, because a
+// bare letter's period is sometimes dropped by the source formatting (e.g.
+// "C        APPROVAL OF AGENDA") — but making it unconditionally optional
+// also matches the indefinite article "A" starting an ordinary sentence
+// ("A Council Member Motion dated..."), so bare-letter matches need an
+// extra check below (see firstWordAllCaps) that a suffixed code doesn't.
+const HEADING_RE = /^([A-Z](?:\.\d+)?(?:\.[a-z]+)*)(\.)?\s+(?=[A-Z0-9])(.*)$/;
+
+function firstWordAllCaps(text) {
+  const word = text.trim().split(/\s+/)[0] ?? '';
+  return word.length > 1 && word === word.toUpperCase() && /[A-Z]/.test(word);
+}
+const BODY_START_RE = /^(?:Moved and Seconded|Moved By|Amendment|Amendment to the amendment|Main motion|Council discussed|Committee discussed|This item was approved)/i;
+// Anchored to the WHOLE line on purpose — resolution text routinely uses
+// these same words in an ordinary sentence ("...after adoption of the
+// zoning bylaw amendment, if it is adopted..."), which a plain \b word
+// search would misfire on. A real outcome announcement is always its own
+// standalone line with nothing else on it.
+const OUTCOME_LINE_RE = /^(CARRIED|ADOPTED|DEFEATED|LOST|REFERRED|DEFERRED)\b(?:\s+(UNANIMOUSLY))?(?:\s*\(\s*(\d+)\s*(?:to|TO)\s*(\d+)\s*\))?\.?$/i;
+const NAMED_VOTE_LINE_RE = /^(FOR|OPPOSED|Absent|Conflict)\s*\(\s*(\d+)\s*\)\s*:\s*(.*)$/i;
+
+function outcomeFromMatch(match) {
+  const word = match[1].toUpperCase();
+  const status = ['CARRIED', 'ADOPTED'].includes(word) ? 'Adopted'
+    : ['DEFEATED', 'LOST'].includes(word) ? 'Lost'
+      : 'Referred';
+  const tally = match[3] && match[4] ? { yes: Number(match[3]), no: Number(match[4]) } : null;
+  return { status, tally, resultText: compact(match[0]) };
+}
+
+// Reads the outcome, plus any named OPPOSED/Absent votes, out of an item's
+// body lines. Multiple motions (an original, an amendment, the
+// amended-final vote) can appear inside one item — the LAST outcome line is
+// the one that actually happened to the item, so named-vote lines are only
+// read back to the *previous* outcome line (or the start of the body),
+// keeping an earlier amendment's dissent from bleeding into the final vote.
+function extractOutcome(bodyLines) {
+  const outcomeIdxs = [];
+  bodyLines.forEach((line, i) => { if (OUTCOME_LINE_RE.test(line)) outcomeIdxs.push(i); });
+  if (!outcomeIdxs.length) return null;
+  const lastIdx = outcomeIdxs.at(-1);
+  const prevIdx = outcomeIdxs.length > 1 ? outcomeIdxs.at(-2) : -1;
+
+  const forNamed = new Set();
+  const opposed = new Set();
+  const absent = new Set();
+  const conflict = new Set();
+  let sawForLine = false;
+  for (let i = prevIdx + 1; i < lastIdx; i++) {
+    const named = bodyLines[i].match(NAMED_VOTE_LINE_RE);
+    if (!named) continue;
+    const label = named[1].toUpperCase();
+    const declaredCount = Number(named[2]);
+    let namesText = named[3];
+    let j = i + 1;
+    // A long name list can wrap onto the next physical line(s).
+    while (j < lastIdx && bodyLines[j] && !NAMED_VOTE_LINE_RE.test(bodyLines[j]) && !OUTCOME_LINE_RE.test(bodyLines[j])) {
+      namesText += ' ' + bodyLines[j];
+      j++;
     }
-    return (hash >>> 0).toString(16).padStart(8, '0');
+    const names = namesFromList(namesText);
+    if (names.length !== declaredCount) {
+      console.warn(`Vote name count mismatch (declared ${declaredCount}, parsed ${names.length}): ${compact(namesText).slice(0, 140)}`);
+    }
+    if (label === 'FOR') { sawForLine = true; names.forEach(name => forNamed.add(name)); }
+    else if (label === 'OPPOSED') names.forEach(name => opposed.add(name));
+    else if (label === 'ABSENT') names.forEach(name => absent.add(name));
+    else if (label === 'CONFLICT') names.forEach(name => conflict.add(name));
+    i = j - 1;
+  }
+
+  return {
+    ...outcomeFromMatch(bodyLines[lastIdx].match(OUTCOME_LINE_RE)),
+    forNamed: [...forNamed], opposed: [...opposed], absent: [...absent], conflict: [...conflict],
+    // Some years name both sides explicitly ("FOR (4): ... OPPOSED (4):
+    // ..."), and the two lists don't always add up to everyone present --
+    // a member can go unmentioned on a specific vote without an explicit
+    // Absent/Conflict tag. When that FOR line exists, it's the authoritative
+    // yes-list, so anyone missing from every list is genuinely unaccounted
+    // for rather than assumed YES (which is the right default when only
+    // OPPOSED/Absent are ever named, the far more common era/format).
+    forIsAuthoritative: sawForLine,
+  };
 }
 
-function cleanTitle(value) {
-    return String(value || '')
-        .replace(/^\s*\d+[-–]\s*/, '')
-        .replace(/\s+/g, ' ')
-        .trim();
+function buildVotes(present, outcome) {
+  const votes = {};
+  for (const member of present) {
+    votes[member] = outcome.absent.includes(member) ? 'ABSENT'
+      : outcome.conflict.includes(member) ? 'CONFLICT'
+      : outcome.opposed.includes(member) ? 'NO'
+      : outcome.forNamed.includes(member) ? 'YES'
+      : outcome.forIsAuthoritative ? 'NO_VOTE' : 'YES';
+  }
+  return votes;
 }
 
-function formatDate(value) {
-    return new Date(value).toISOString().slice(0, 10);
+function finalizeWithOutcome(item, outcome, date, committee, sourceUrl, meetingReference, present) {
+  if (!outcome) return null;
+  const title = compact(item.titleLines.join(' '));
+  if (!title) return null;
+  const bodyText = compact(item.bodyLines.join('\n'));
+  const votes = buildVotes(present, outcome);
+  const yesCount = Object.values(votes).filter(vote => vote === 'YES').length;
+  const noCount = Object.values(votes).filter(vote => vote === 'NO').length;
+  if (outcome.tally && (outcome.tally.yes !== yesCount || outcome.tally.no !== noCount)) {
+    console.warn(`Tally mismatch for ${date} ${item.code} "${title}": parsed ${yesCount}-${noCount}, minutes say ${outcome.tally.yes}-${outcome.tally.no}`);
+  }
+  const locationCandidates = locationsFromTitle(title);
+  return {
+    // Scoped to the specific meeting, not just the date -- Committee of the
+    // Whole and Council both use the same A-N lettering, and can both sit on
+    // the same calendar day (Council follows COTW, or an evening Council
+    // session runs alongside a daytime one), so date+code alone can collide.
+    id: `${meetingReference}-${item.code}`,
+    title, date, committee, status: outcome.status, votes, yesCount, noCount,
+    topic: classifyVictoriaTopic(title),
+    // The shared topic-classification pattern doesn't recognize these two
+    // Victoria-specific procedural labels: some years give the "Consent
+    // Agenda" container its own blanket vote (redundant with the individual
+    // items' own votes right below it), and every meeting's agenda approval
+    // is itself a real recorded vote worth keeping, just a routine one.
+    administrative: isAdministrativeTitle(title) || /^(?:consent agenda|approval of agenda)$/i.test(title),
+    sourceUrl, agendaUrl: null, meetingReference, motionNumber: item.code,
+    ...(locationCandidates.length ? { locationCandidates } : {}),
+    backgroundFiles: [{ label: `${committee} minutes`, url: sourceUrl }],
+    body: `${bodyText}\n\nSource: ${sourceUrl}`,
+  };
 }
 
-function decodeRows(data) {
-    const block = data?.dsr?.DS?.[0];
-    const rows = block?.PH?.[0]?.DM0 ?? [];
-    const dictionaries = block?.ValueDicts ?? {};
-    const dictionaryByColumn = { 1: 'D0', 2: 'D1', 3: 'D2', 4: 'D3' };
-    let previous = [];
-
-    return rows.map(row => {
-        const values = [];
-        let valueIndex = 0;
-        const repeatMask = row.R || 0;
-        const nullMask = row['Ø'] || 0;
-        for (let column = 0; column < 5; column++) {
-            if (nullMask & (1 << column)) {
-                values[column] = null;
-            } else if (repeatMask & (1 << column)) {
-                values[column] = previous[column];
-            } else {
-                values[column] = row.C?.[valueIndex++];
-                const dictionary = dictionaries[dictionaryByColumn[column]];
-                if (dictionary && values[column] !== undefined && values[column] !== null) {
-                    values[column] = dictionary[values[column]] ?? values[column];
-                }
-            }
-        }
-        previous = values;
-        return {
-            date: values[0] === null ? null : formatDate(values[0]),
-            title: cleanTitle(values[1]),
-            agendaUrl: values[2],
-            councillor: values[3],
-            vote: values[4],
-        };
-    }).filter(row => row.date && row.title && row.councillor && row.vote);
+function finalizeItem(item, date, committee, sourceUrl, meetingReference, present) {
+  const outcome = extractOutcome(item.bodyLines);
+  return finalizeWithOutcome(item, outcome, date, committee, sourceUrl, meetingReference, present);
 }
 
-function buildQuery(body) {
-    const query = JSON.parse(body);
-    const command = query.queries[0].Query.Commands[0].SemanticQueryDataShapeCommand;
-    const column = (source, property) => ({
-        Column: { Expression: { SourceRef: { Source: source } }, Property: property },
-        Name: `${source}.${property}`,
-    });
-    command.Query.From = [
-        { Name: 'm', Entity: 'Meeting Information (just votes)', Type: 0 },
-        { Name: 'd', Entity: 'Distinct mayor and council members', Type: 0 },
-    ];
-    command.Query.Select = [
-        column('m', 'Meeting Date'),
-        column('m', 'ResolutionPerMtgIndexWithAgendaForSorting'),
-        column('m', 'URL for Agenda'),
-        column('d', 'First Name Last Name'),
-        column('m', 'Value'),
-    ];
-    command.Query.Where = [];
-    command.Binding = {
-        Primary: { Groupings: [{ Projections: [0, 1, 2, 3, 4] }] },
-        DataReduction: { DataVolume: 6, Primary: { Window: { Count: ROW_LIMIT } } },
-        Version: 1,
-    };
-    return query;
+export function parseMotions(text, date, committee, sourceUrl, meetingReference) {
+  // Every page break repeats a "<title ending in 'Minutes'> / <Month DD,
+  // YYYY> / <page number>" footer/header trio mid-document (the title
+  // varies -- "Committee of the Whole Meeting Minutes" in some years,
+  // abbreviated to "COTW Meeting Minutes" in others) -- strip it so it
+  // can't get swept into a title or body split across a page boundary.
+  // Replacing with a blank line (not nothing) preserves the paragraph break
+  // that would otherwise be there, which the heading-gating below depends on.
+  const footerRe = /\n\s*[A-Za-z][A-Za-z .()'-]*\bMinutes\s*\n\s*[A-Za-z]+ \d{1,2}, \d{4}\s*\n\s*\d{1,3}\s*\n/g;
+  // A page break can fall in the middle of a paragraph, leaving a bare
+  // form-feed with no surrounding blank line at all -- collapsing it to a
+  // blank line keeps the title/body split below (see "A blank line ends
+  // the current item's title") working the same way regardless.
+  const prepared = text.replace(/\xa0/g, ' ').replace(/\f/g, '\n\n').replace(footerRe, '\n\n').replace(/\n{3,}/g, '\n\n');
+  // Indentation is the load-bearing signal below (see MAX_HEADING_INDENT)
+  // that tells a genuine section heading (flush left, or lightly indented
+  // under a nested code) apart from a deeply-indented lettered/roman-numeral
+  // sub-bullet inside a long resolution's conditions list that would
+  // otherwise look identical to one ("I." can even BE a lowercase roman
+  // numeral "i." that a PDF's font rendered as uppercase). So indentation is
+  // measured per raw line here, before per-line internal-space collapsing
+  // (which would otherwise destroy it) produces the normalized line text
+  // used for matching.
+  const rawLines = prepared.split('\n');
+  const present = parsePresentMembers(rawLines.map(l => l.replace(/[ \t]+/g, ' ')).join('\n'));
+  const lines = rawLines.map(rawLine => ({
+    indent: rawLine.length - rawLine.trimStart().length,
+    text: rawLine.replace(/[ \t]+/g, ' ').trim(),
+  }));
+  const motions = [];
+
+  let current = null;
+  let consentQueue = null;
+  // Top-level bare letters (no digit/lowercase suffix) only ever advance
+  // through the document -- A, B, C, ... -- never repeating or going
+  // backward. A resolution's own lettered recommendation sub-list ("A. ...
+  // B. Direct staff to amend...") can otherwise pass every other check (it's
+  // shallow enough, and it has a period), so this is the deciding signal for
+  // bare letters specifically: reject one that doesn't advance past the
+  // last section actually accepted.
+  let lastTopLevelLetter = '';
+
+  function flushCurrent() {
+    if (!current) return;
+    if (consentQueue) consentQueue.push(current);
+    else {
+      const motion = finalizeItem(current, date, committee, sourceUrl, meetingReference, present);
+      if (motion) motions.push(motion);
+    }
+    current = null;
+  }
+
+  // Real section headings sit at a shallow indentation -- top-level letters
+  // are flush left through most of a document but shift to ~9 spaces once a
+  // closed-session sub-agenda starts, and nested codes ("F.1.a.c") run
+  // 5-31 spaces deep across every sample seen (2021-2026, several distinct
+  // minutes-formatting eras). A long resolution's own numbered/lettered
+  // conditions list can coincidentally contain what LOOKS like a heading --
+  // a run of bare letters as its own sub-list, or a lowercase roman numeral
+  // "i." rendered by the source PDF's font as an indistinguishable
+  // uppercase "I." -- but those sit far deeper (40+ spaces), so gating on
+  // indentation alone filters them out without needing a blank-line
+  // requirement too (blank-line-before-heading turned out to NOT hold
+  // consistently across minutes-formatting eras: some years run a
+  // section's first nested item on with no blank line at all).
+  const MAX_HEADING_INDENT = 35;
+  // Bare letters get a much tighter cap: real top-level sections sit at 0
+  // (most of a document) or ~9 (once a closed-session sub-agenda starts),
+  // while a "P. Carroll" staff-list entry ("Initial. Surname" in the
+  // STAFF PRESENT block) or a resolution's own lettered sub-list ("A. ...
+  // B. Direct staff to amend...") sit at 16-19+ -- shallow enough to clear
+  // MAX_HEADING_INDENT, but well past any real bare-letter section.
+  const MAX_BARE_LETTER_INDENT = 10;
+  for (const { indent, text: line } of lines) {
+    if (!line) {
+      // A blank line ends the current item's title — everything after
+      // belongs to its resolution/body text. Titles can wrap onto a second
+      // physical line with no blank line between them (a heading that's
+      // just long), so this only closes the title once a blank line has
+      // actually been seen; BODY_START_RE below is a secondary net for the
+      // rare case where body content starts with no blank-line separator at
+      // all (e.g. a consent-agenda item's "That the minutes ... be
+      // approved." runs straight on from the heading).
+      if (current) current.titleDone = true;
+      continue;
+    }
+    const candidate = indent <= MAX_HEADING_INDENT ? line.match(HEADING_RE) : null;
+    const isBareLetter = candidate && !candidate[1].includes('.');
+    const heading = candidate && (!isBareLetter
+      ? true
+      : indent <= MAX_BARE_LETTER_INDENT && (candidate[2] === '.' || firstWordAllCaps(candidate[3])) && candidate[1] > lastTopLevelLetter)
+      ? candidate : null;
+    if (heading) {
+      if (isBareLetter) lastTopLevelLetter = heading[1];
+      flushCurrent();
+      current = { code: heading[1], titleLines: [heading[3]], bodyLines: [] };
+      continue;
+    }
+    if (!current) continue;
+    if (consentQueue && current && OUTCOME_LINE_RE.test(line)) {
+      flushCurrent();
+      const outcome = extractOutcome([line]);
+      for (const queued of consentQueue) {
+        const motion = finalizeWithOutcome(queued, outcome, date, committee, sourceUrl, meetingReference, present);
+        if (motion) motions.push(motion);
+      }
+      consentQueue = null;
+      continue;
+    }
+    if (!consentQueue && /that the following consent agenda items?\s+be approved/i.test(line)) {
+      // Everything from here to the shared outcome belongs to the listed
+      // items, not to this "D. CONSENT AGENDA" container itself -- it never
+      // has a vote of its own, so reset it to an empty placeholder (an
+      // empty title makes finalize discard it) and start queuing.
+      current = { code: current.code, titleLines: [], bodyLines: [] };
+      consentQueue = [];
+      continue;
+    }
+    if (!current.titleDone && current.bodyLines.length === 0 && !BODY_START_RE.test(line) && !/^That\b/i.test(line)) {
+      current.titleLines.push(line);
+    } else {
+      current.titleDone = true;
+      current.bodyLines.push(line);
+    }
+  }
+  flushCurrent();
+  return motions;
 }
+
+// ─── PDF + calendar fetch ─────────────────────────────────────────────────
 
 function pdfText(buffer) {
-    const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'motions-victoria-'));
-    const pdfPath = path.join(tempDir, 'minutes.pdf');
-    fs.writeFileSync(pdfPath, buffer);
-    try {
-        return execFileSync('pdftotext', ['-layout', pdfPath, '-'], { encoding: 'utf8' });
-    } finally {
-        fs.rmSync(tempDir, { recursive: true, force: true });
-    }
+  const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'motions-victoria-'));
+  const pdfPath = path.join(tempDir, 'minutes.pdf');
+  fs.writeFileSync(pdfPath, buffer);
+  try { return execFileSync('pdftotext', ['-layout', pdfPath, '-'], { encoding: 'utf8' }); }
+  finally { fs.rmSync(tempDir, { recursive: true, force: true }); }
 }
 
-function compact(value) {
-    return String(value || '').replace(/\s+/g, ' ').trim();
+async function readPdf(url) {
+  const response = await fetch(url);
+  if (!response.ok) throw new Error(`Victoria document returned HTTP ${response.status}: ${url}`);
+  const buffer = Buffer.from(await response.arrayBuffer());
+  if (buffer.subarray(0, 4).toString() !== '%PDF') {
+    console.warn(`Skipped non-PDF Victoria minutes document: ${url}`);
+    return null;
+  }
+  return pdfText(buffer);
 }
 
-function locationsFromTitle(title) {
-    const matches = title.match(/\b\d{1,5}(?:\s*(?:and|&)\s*\d{1,5})?\s+[A-Z][A-Za-z.'-]*(?:\s+[A-Z][A-Za-z.'-]*){0,3}\s+(?:Street|St|Avenue|Ave|Road|Rd|Drive|Dr|Boulevard|Blvd|Lane|Ln|Court|Ct|Way|Crescent|Cres|Place|Pl|Trail|Terrace|Gate|Path|Circle|Parkway|Pkwy)\b/gi) ?? [];
-    const namedPlaces = [
-        'Topaz Park', 'Crystal Pool and Fitness Centre', 'Centennial Square', 'Bastion Square',
-        'Victoria City Hall', 'Victoria Harbour', 'Inner Harbour', 'Songhees Nation',
-        'James Bay', 'North Park', 'Fernwood', 'Fairfield', 'Victoria West', 'Downtown Victoria',
-        'Caledonia Place', 'Vancouver Island Brewing', 'Victoria Curling Club', 'Royal Theatre',
-        'Capital Regional District', 'Greater Victoria Harbour Authority',
-    ].filter(place => title.toLowerCase().includes(place.toLowerCase()));
-    return [...new Set([...matches.map(address => compact(address)), ...namedPlaces])];
-}
-
-export function outcomeFromMinutes(text, title) {
-    const normalized = String(text || '').replace(/\u00a0/g, ' ').replace(/[ \t]+/g, ' ');
-    const words = compact(title).split(/\s+/).filter(word => word.length > 3).slice(0, 6);
-    const escaped = words.map(word => word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
-    const anchor = escaped.length >= 3 ? new RegExp(escaped.join('[\\s\\S]{0,24}'), 'i') : null;
-    const start = anchor?.exec(normalized)?.index ?? -1;
-    const block = start >= 0 ? normalized.slice(start, start + 5000) : normalized;
-    // Only keep the excerpt when we actually located this motion in the text —
-    // otherwise `block` is the whole agenda's minutes, not this motion's.
-    const body = start >= 0 ? compact(block) : null;
-    const match = block.match(/\b(CARRIED|ADOPTED|DEFEATED|LOST|REFERRED|DEFERRED)\b(?:\s+(?:UNANIMOUSLY|AS AMENDED))?/i);
-    if (!match) return { status: 'Recorded', resultText: null, body };
-    const word = match[1].toUpperCase();
-    return {
-        status: ['CARRIED', 'ADOPTED'].includes(word) ? 'Adopted'
-            : ['DEFEATED', 'LOST'].includes(word) ? 'Lost'
-                : ['REFERRED', 'DEFERRED'].includes(word) ? 'Referred' : 'Recorded',
-        resultText: compact(match[0]),
-        body,
-    };
-}
-
-function minutesLink(html, pageUrl) {
-    const $ = cheerio.load(html);
-    return $('a[href]').map((_, element) => ({
-        label: compact($(element).text()),
-        title: compact($(element).attr('data-original-title')),
-        href: new URL($(element).attr('href'), pageUrl).href,
-    })).get().find(link => link.href.startsWith('http') && /minutes|post[- ]meeting/i.test(`${link.label} ${link.title} ${link.href}`)) ?? null;
-}
-
-async function enrichOutcomes(motions) {
-    const byAgenda = new Map();
-    for (const motion of motions) {
-        if (!byAgenda.has(motion.agendaUrl)) byAgenda.set(motion.agendaUrl, []);
-        byAgenda.get(motion.agendaUrl).push(motion);
-    }
-    for (const [agendaUrl, agendaMotions] of byAgenda) {
-        if (!agendaUrl) continue;
-        try {
-            const agendaResponse = await fetch(agendaUrl);
-            if (!agendaResponse.ok) throw new Error(`agenda HTTP ${agendaResponse.status}`);
-            const link = minutesLink(await agendaResponse.text(), agendaUrl);
-            if (!link) continue;
-            const minutesResponse = await fetch(link.href);
-            if (!minutesResponse.ok) throw new Error(`minutes HTTP ${minutesResponse.status}`);
-            const text = pdfText(Buffer.from(await minutesResponse.arrayBuffer()));
-            for (const motion of agendaMotions) {
-                const outcome = outcomeFromMinutes(text, motion.title);
-                motion.status = outcome.status;
-                motion.resultText = outcome.resultText;
-                motion.decisionSourceUrl = link.href;
-                if (outcome.body) motion.body = outcome.body;
-            }
-        } catch (error) {
-            console.warn(`Could not read minutes for ${agendaUrl}: ${error.message}`);
-        }
-    }
-    return motions;
-}
-
-async function makeOutput(rows, sourceLastRefreshed) {
-    const dates = [...new Set(rows.map(row => row.date).filter(date => date >= FROM_DATE))].sort().slice(-MEETING_LIMIT);
-    const selected = rows.filter(row => dates.includes(row.date));
-    const motionMap = new Map();
-
-    for (const row of selected) {
-        const key = `${row.date}|${row.title}|${row.agendaUrl}`;
-        const motion = motionMap.get(key) ?? {
-            id: `vic-${stableId(key)}`,
-            title: row.title,
-            date: row.date,
-            committee: 'Victoria City Council',
-            status: 'Recorded',
-            votes: {},
-            yesCount: 0,
-            noCount: 0,
-            significance: 0,
-            trivial: true,
-            administrative: isAdministrativeTitle(row.title),
-            sourceUrl: row.agendaUrl || SOURCE_URL,
-            agendaUrl: row.agendaUrl || null,
-            meetingId: `vic-${stableId(`${row.date}|${row.agendaUrl}`)}`,
-            meetingReference: `victoria-${stableId(`${row.date}|${row.agendaUrl}`)}`,
-            topic: classifyVictoriaTopic(row.title),
-        };
-        const vote = VOTE_MAP[row.vote] ?? 'NO_VOTE';
-        motion.votes[row.councillor] = vote;
-        if (vote === 'YES') motion.yesCount++;
-        if (vote === 'NO') motion.noCount++;
-        motionMap.set(key, motion);
-    }
-
-    const allMotions = [...motionMap.values()].sort((a, b) => a.date.localeCompare(b.date) || a.id.localeCompare(b.id));
-    await enrichOutcomes(allMotions);
-    for (const motion of allMotions) {
-        const locations = locationsFromTitle(motion.title);
-        if (locations.length) motion.locationCandidates = locations;
-        motion.backgroundFiles = [
-            motion.agendaUrl && { label: 'Council agenda', url: motion.agendaUrl },
-            motion.decisionSourceUrl && { label: 'Council minutes', url: motion.decisionSourceUrl },
-        ].filter(Boolean);
-    }
-    // The dashboard's own export is missing an agenda link for a handful of
-    // rows (not a scraper bug — the source query returns null there), and
-    // without one we can neither point to an official document nor derive a
-    // meeting record. Drop those rather than publish an unverifiable vote.
-    const motions = allMotions.filter(motion => motion.backgroundFiles.length > 0);
-    const meetings = [...new Map(motions.map(motion => [motion.meetingId, {
-        committee: motion.committee,
-        date: motion.date,
-        displayDate: new Date(`${motion.date}T12:00:00Z`).toLocaleDateString('en-CA', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' }),
-        meetingId: motion.meetingId,
-        meetingReference: motion.meetingReference,
-        meetingNumber: motion.meetingId,
-        isCouncil: true,
-        sourceUrl: motion.agendaUrl || SOURCE_URL,
-        agendaUrl: motion.agendaUrl || null,
-        agendaItems: motions.filter(item => item.meetingId === motion.meetingId).map(item => ({ reference: item.id, title: item.title, inCamera: false, url: item.sourceUrl, motionId: item.id })),
-    }])).values()].sort((a, b) => a.date.localeCompare(b.date));
-    const councillors = [...new Set(motions.flatMap(motion => Object.keys(motion.votes)))].sort();
-    const metadata = {
-        city: 'Victoria',
-        source: SOURCE_URL,
-        sample: MEETING_LIMIT < 1000,
-        fromDate: FROM_DATE,
-        sourceLastRefreshed,
-        lastChecked: new Date().toISOString(),
-        note: 'Source-only Victoria council vote records. Titles, votes, meeting links, and outcomes come from official City records; unconfirmed outcomes remain Recorded.',
-    };
-
-    return { motions, meetings, councillors, metadata };
+function dateWindows(fromDate, toDate) {
+  const windows = [];
+  const cursor = new Date(`${fromDate}T00:00:00Z`);
+  const end = new Date(`${toDate}T00:00:00Z`);
+  while (cursor <= end) {
+    const windowStart = cursor.toISOString().slice(0, 10);
+    const windowEndDate = new Date(cursor);
+    windowEndDate.setUTCDate(windowEndDate.getUTCDate() + 364);
+    const windowEnd = new Date(Math.min(windowEndDate.getTime(), end.getTime())).toISOString().slice(0, 10);
+    windows.push([windowStart, windowEnd]);
+    cursor.setUTCDate(cursor.getUTCDate() + 365);
+  }
+  return windows;
 }
 
 async function main() {
-    const browser = await chromium.launch({ headless: true });
-    const page = await browser.newPage();
-    let capturedRequest;
-    let sourceLastRefreshed;
-    page.on('response', async response => {
-        if (!sourceLastRefreshed && response.url().includes('modelsAndExploration')) {
-            const model = await response.json();
-            sourceLastRefreshed = model.models?.['0']?.LastRefreshTime ?? null;
-        }
+  const calendarMeetings = [];
+  for (const [startDate, endDate] of dateWindows(FROM_DATE, TO_DATE)) {
+    const response = await fetch(CALENDAR_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ calendarStartDate: startDate, calendarEndDate: endDate }),
     });
-    page.on('request', request => {
-        if (!capturedRequest && request.method() === 'POST' && request.url().includes('/querydata') && request.postData()?.includes('1d6bdaf206e10ad0a92e')) {
-            capturedRequest = { body: request.postData(), headers: request.headers() };
-        }
-    });
+    if (!response.ok) throw new Error(`Victoria calendar returned HTTP ${response.status}`);
+    const payload = await response.json();
+    calendarMeetings.push(...(payload.d ?? []));
+  }
 
-    await page.goto(DASHBOARD_PAGE, { waitUntil: 'networkidle', timeout: 60000 });
-    await page.waitForTimeout(5000);
-    if (!capturedRequest) throw new Error('Could not capture the Victoria dashboard query contract.');
+  const motions = [];
+  const meetings = [];
+  const existingMotions = fs.existsSync(path.join(DATA_DIR, 'motions.json')) ? JSON.parse(fs.readFileSync(path.join(DATA_DIR, 'motions.json'), 'utf8')) : [];
+  const existingMeetings = fs.existsSync(path.join(DATA_DIR, 'meetings.json')) ? JSON.parse(fs.readFileSync(path.join(DATA_DIR, 'meetings.json'), 'utf8')) : [];
+  const existingById = new Map(existingMotions.map(motion => [motion.id, motion]));
+  const fetchedMeetingIds = new Set();
 
-    const result = await page.evaluate(async ({ body, headers, querydataUrl }) => {
-        const requestHeaders = {};
-        for (const key of ['content-type', 'x-powerbi-resourcekey', 'origin', 'referer']) {
-            if (headers[key]) requestHeaders[key] = headers[key];
-        }
-        const response = await fetch(querydataUrl, {
-            method: 'POST',
-            headers: requestHeaders,
-            body: JSON.stringify(body),
+  for (const item of [...new Map(calendarMeetings.map(meeting => [meeting.ID, meeting])).values()]) {
+    const date = item.StartDate?.slice(0, 10).replaceAll('/', '-');
+    if (!date || date < FROM_DATE || date > TO_DATE) continue;
+    if (!DECISION_BODY_RE.test(item.MeetingType ?? '')) continue;
+    const committee = item.MeetingType;
+    const meetingId = item.ID;
+    const meetingReference = `vic-${date}-${meetingId.slice(0, 8)}`;
+    const detailUrl = `${CALENDAR_URL}/Meeting?Id=${meetingId}`;
+    const documents = (item.MeetingDocumentLink ?? []).map(document => ({
+      type: document.Type,
+      label: compact(document.Title),
+      href: new URL(document.Url, CALENDAR_URL).href,
+    }));
+    const minutesLink = documents.find(link => link.type === 'PostMinutes') ?? documents.find(link => /minutes/i.test(link.label));
+    const agendaLink = documents.find(link => /agenda/i.test(link.label));
+    const meeting = {
+      date, startTime: item.StartDate.slice(11, 16).replace(':', ''), committee, meetingId,
+      meetingNumber: meetingId, meetingReference, isCouncil: /^(?:Special\s+)?Council/i.test(committee),
+      sourceUrl: detailUrl, agendaUrl: agendaLink?.href ?? null, agendaItems: [],
+    };
+    fetchedMeetingIds.add(meetingId);
+    if (minutesLink) {
+      const minutesText = await readPdf(minutesLink.href);
+      for (const motion of minutesText ? parseMotions(minutesText, date, committee, minutesLink.href, meetingReference) : []) {
+        const prior = existingById.get(motion.id);
+        motions.push({
+          ...prior, ...motion,
+          summary: prior?.summary, keyAmounts: prior?.keyAmounts, amounts: prior?.amounts,
+          locations: prior?.locations,
+          locationCandidates: motion.locationCandidates ?? prior?.locationCandidates,
         });
-        return { status: response.status, payload: await response.json() };
-    }, { body: buildQuery(capturedRequest.body), headers: capturedRequest.headers, querydataUrl: QUERYDATA_URL });
-    await browser.close();
-    if (result.status !== 200) throw new Error(`Victoria Power BI query returned HTTP ${result.status}`);
-
-    const rows = decodeRows(result.payload.results?.[0]?.result?.data);
-    const output = await makeOutput(rows, sourceLastRefreshed);
-    if (!output.motions.length || !output.meetings.length) throw new Error('Victoria query returned no usable sample records.');
-    fs.mkdirSync(DATA_DIR, { recursive: true });
-    for (const [file, value] of Object.entries(output)) {
-        fs.writeFileSync(path.join(DATA_DIR, `${file}.json`), JSON.stringify(value, null, 2));
+        meeting.agendaItems.push({ reference: motion.id, title: motion.title, inCamera: false, url: motion.sourceUrl, motionId: motion.id });
+      }
     }
-    console.log(`Imported ${output.motions.length} motions across ${output.meetings.length} meetings from ${output.councillors.length} observed councillors.`);
-    console.log(`Date range: ${output.meetings[0].date} → ${output.meetings.at(-1).date}`);
-    console.log(`Dashboard last refreshed: ${sourceLastRefreshed ?? 'unknown'}`);
-    console.log(`Outcome statuses mapped from official minutes where available; ${output.motions.filter(motion => motion.status === 'Recorded').length} remain Recorded.`);
+    meetings.push(meeting);
+    console.log(`Processed ${date} ${committee}: ${meeting.agendaItems.length} motions`);
+  }
+
+  // A handful of source documents genuinely restate the same lettered/nested
+  // item elsewhere in the same meeting's minutes (observed rarely -- well
+  // under 1% of motions) in a way this parser doesn't otherwise catch;
+  // collapsing same-id duplicates from this run to the first occurrence is
+  // a safety net so a duplicate motion id never reaches the published data,
+  // whatever its root cause.
+  const dedupedMotions = [...new Map(motions.map(motion => [motion.id, motion])).values()];
+  const mergedMotions = [...existingMotions.filter(motion => !dedupedMotions.some(next => next.id === motion.id)), ...dedupedMotions]
+    .sort((a, b) => a.date.localeCompare(b.date) || a.id.localeCompare(b.id));
+  const mergedMeetings = [...existingMeetings.filter(meeting => !fetchedMeetingIds.has(meeting.meetingId)), ...meetings]
+    .sort((a, b) => a.date.localeCompare(b.date) || a.committee.localeCompare(b.committee));
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+  fs.writeFileSync(path.join(DATA_DIR, 'motions.json'), JSON.stringify(mergedMotions, null, 2));
+  fs.writeFileSync(path.join(DATA_DIR, 'meetings.json'), JSON.stringify(mergedMeetings, null, 2));
+  fs.writeFileSync(path.join(DATA_DIR, 'councillors.json'), JSON.stringify(COUNCIL_MEMBERS, null, 2));
+  console.log(`Imported ${motions.length} Victoria motions across ${meetings.length} meetings (${mergedMotions.length} total motions).`);
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) main().catch(error => {
-    console.error(error.message);
-    process.exitCode = 1;
-});
+if (import.meta.url === `file://${process.argv[1]}`) main().catch(error => { console.error(error.message); process.exitCode = 1; });

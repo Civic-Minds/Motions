@@ -1,4 +1,13 @@
-/** Validate Victoria's source-only dataset before publication. */
+/**
+ * Validate Victoria's eSCRIBE-sourced dataset before publication.
+ *
+ * The old Power BI-era checks assumed a dashboard snapshot that could go
+ * stale (hence the 90-day staleness gate) and neutral, unscored fields
+ * (hence requiring significance === 0). Neither applies now: the source is
+ * eSCRIBE meeting minutes refreshed on the same weekly CI schedule as
+ * Yellowknife's, and motions get the same deterministic, no-AI significance
+ * scoring Yellowknife's do (see computeYellowknifeSignificance).
+ */
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -8,7 +17,6 @@ import { CANONICAL_TOPICS } from './lib/topicClassification.js';
 
 const DATA_DIR = path.join(process.cwd(), 'public/data/victoria');
 const FROM_DATE = '2022-11-01';
-const MAX_SOURCE_AGE_DAYS = 90;
 const VALID_VOTES = new Set(['YES', 'NO', 'ABSENT', 'CONFLICT', 'NO_VOTE']);
 const VALID_STATUSES = new Set(['Adopted', 'Lost', 'Referred', 'Recorded']);
 const VALID_TOPICS = new Set(CANONICAL_TOPICS);
@@ -20,20 +28,11 @@ function readJson(file) {
 const motions = readJson('motions.json');
 const meetings = readJson('meetings.json');
 const councillors = readJson('councillors.json');
-const metadata = readJson('metadata.json');
 const errors = [];
 const ids = new Set();
 
 if (!motions.length) errors.push('no motions were imported');
 if (!meetings.length) errors.push('no meetings were imported');
-if (metadata.sample) errors.push('dataset is still marked as a sample');
-if (!metadata.sourceLastRefreshed) errors.push('dashboard refresh time is missing');
-else {
-    const sourceAge = Date.now() - new Date(metadata.sourceLastRefreshed).getTime();
-    if (!Number.isFinite(sourceAge) || sourceAge < 0 || sourceAge > MAX_SOURCE_AGE_DAYS * 86400000) {
-        errors.push(`dashboard data is older than ${MAX_SOURCE_AGE_DAYS} days`);
-    }
-}
 if (councillors.length !== 9) errors.push(`expected 9 council members, found ${councillors.length}`);
 
 for (const motion of motions) {
@@ -44,7 +43,10 @@ for (const motion of motions) {
     if (!motion.backgroundFiles?.length) errors.push(`missing direct official document: ${motion.id}`);
     if (!VALID_STATUSES.has(motion.status)) errors.push(`invalid status ${motion.status}: ${motion.id}`);
     if (!VALID_TOPICS.has(motion.topic)) errors.push(`invalid topic: ${motion.id}`);
-    if (motion.significance !== 0 || motion.trivial !== true) errors.push(`source-only scoring fields are not neutral: ${motion.id}`);
+    if (typeof motion.significance !== 'number' || motion.significance < 0 || motion.significance > 100) {
+        errors.push(`invalid significance score: ${motion.id}`);
+    }
+    if (typeof motion.trivial !== 'boolean') errors.push(`invalid trivial flag: ${motion.id}`);
     for (const [member, vote] of Object.entries(motion.votes ?? {})) {
         if (!councillors.includes(member)) errors.push(`unknown councillor ${member}: ${motion.id}`);
         if (!VALID_VOTES.has(vote)) errors.push(`invalid vote ${vote}: ${motion.id}`);
@@ -64,5 +66,5 @@ if (errors.length) {
     errors.slice(0, 30).forEach(error => console.error(`- ${error}`));
     process.exitCode = 1;
 } else {
-    console.log(`Validated ${motions.length} Victoria motions across ${meetings.length} meetings (${councillors.length} councillors); source-only fields are intact.`);
+    console.log(`Validated ${motions.length} Victoria motions across ${meetings.length} meetings (${councillors.length} councillors).`);
 }

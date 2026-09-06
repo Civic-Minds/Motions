@@ -223,14 +223,23 @@ function main() {
     motions[idx].staffRecommendation = extractStaffRecommendation(motion.body);
     motions[idx].developer = extractDeveloper(motion.body);
     motions[idx].relatedMotions = extractRelatedMotions(motion.body, motion.id);
-    motions[idx].backgroundFiles = extractBackgroundFiles(motion.body);
+    // These extractors hunt Toronto-specific headings ("Background
+    // Information", "Owner:"/"Applicant:") that don't exist in Yellowknife's
+    // or Victoria's minutes text — an empty result there is expected, but
+    // must not clobber a value the importer already set from real document
+    // links (Victoria's importer already sets backgroundFiles itself).
+    const backgroundFiles = extractBackgroundFiles(motion.body);
+    if (backgroundFiles.length) motions[idx].backgroundFiles = backgroundFiles;
     motions[idx].declaredInterests = extractDeclaredInterests(motion.body);
     // Only set mover from body if not already enriched
     if (!motions[idx].mover) {
       const mover = extractMover(motion.body);
       if (mover) motions[idx].mover = mover;
     }
-    if (CITY === 'yellowknife') {
+    if (CITY === 'yellowknife' || CITY === 'victoria') {
+      // Victoria is in the same position as Yellowknife: no AI, so
+      // significance is scored deterministically from votes/status/title/
+      // amounts rather than left as a neutral placeholder.
       const significance = computeYellowknifeSignificance({
         votes: motions[idx].votes,
         status: motions[idx].status,

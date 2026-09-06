@@ -483,11 +483,12 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
 
   const recentFallback = useMemo(() => {
     const usedIds = new Set([...followedHighlights.map(m => m.id), ...highlights.map(m => m.id), ...wardHighlights.map(m => m.id)]);
-    // Yellowknife and Victoria have no real significance scoring, so
-    // `highlights` above is always thin (Yellowknife) or empty (Victoria,
-    // whose trivial/significance stay neutral placeholders by design) —
-    // this fallback is what actually populates their homepage cards, so
-    // it should filter out genuinely administrative motions itself rather
+    // Yellowknife and Victoria score significance the same deterministic,
+    // no-AI way — contested vote + outcome + topic keywords + dollar
+    // amounts — which tends to keep most motions well under the >=60
+    // threshold `highlights` uses, so that pool is usually thin. This
+    // fallback is what actually populates their homepage cards, so it
+    // should filter out genuinely administrative motions itself rather
     // than showing whatever's most recent regardless of routineness.
     const candidates = (isYellowknife || isVictoria)
       ? primaryMotions.filter(m => !m.administrative)
