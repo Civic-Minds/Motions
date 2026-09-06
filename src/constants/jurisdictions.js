@@ -50,7 +50,7 @@ export const JURISDICTIONS = {
         mapCenter: [48.4284, -123.3656],
         dataBaseEnv: 'VITE_VICTORIA_DATA_BASE_URL',
         localDataPath: '/data/victoria',
-        directory: { tagline: '9 councillors · Mayor Marianne Alto', coordinates: [48.4284, -123.3656] },
+        directory: { tagline: '8 councillors · Mayor Marianne Alto', coordinates: [48.4284, -123.3656] },
         public: false,
         election: {
             date: '2026-10-17',
