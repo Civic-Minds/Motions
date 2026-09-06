@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { AlertCircle, X, Search, Star, Calendar, Vote } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { getCommittee, TOPIC_LIGHT, TOPIC_DOT, TOPICS, WARD_COUNCILLORS } from '../constants/data';
+import { getCurrentMembers } from '../utils/analytics';
 import { getWardId } from '../utils/storage';
 import { committeeToSlug } from '../utils/slug';
 import { fetchWardBoundaries, motionBelongsToWard } from '../utils/ward';
@@ -434,6 +435,7 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
 
   // Only primary entries (no parentId) for display and stats
   const primaryMotions = useMemo(() => motions.filter(m => !m.parentId), [motions]);
+  const currentMemberCount = useMemo(() => getCurrentMembers(motions).size, [motions]);
 
   // Last Meeting
   const lastMeeting = useMemo(() => {
@@ -651,7 +653,7 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
               <Vote className="w-4 h-4 text-[#004a99]" />
               <p className="text-xs font-semibold text-slate-800 line-clamp-3 leading-snug">{jurisdiction.geography === 'atLarge' ? `${jurisdiction.name} elects councillors citywide — browse the full council.` : `Ward-level browsing isn’t available for ${jurisdiction.name} yet — browse the full council instead.`}</p>
               <CivicCardFooter>
-                <span className="text-[9px] text-slate-500">{jurisdiction.currentCouncillors?.length ?? 0} members</span>
+                <span className="text-[9px] text-slate-500">{currentMemberCount} members</span>
                 <Link to="/councillors" className="text-[9px] font-semibold text-[#004a99]">See council</Link>
               </CivicCardFooter>
             </CivicCard>

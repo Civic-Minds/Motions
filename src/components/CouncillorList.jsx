@@ -2,7 +2,7 @@ import React, { useMemo, useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { GitCompare, ChevronRight, MapPin, Info } from 'lucide-react';
 import { usePresence } from '../hooks/usePresence';
-import { getMemberAlignmentScore, getAttendance } from '../utils/analytics';
+import { getMemberAlignmentScore, getAttendance, getCurrentMembers } from '../utils/analytics';
 import { nameToSlug, slugToName } from '../utils/slug';
 import { WARD_COUNCILLORS, FORMER_MEMBERS } from '../constants/data';
 import { TORONTO_WARDS } from '../constants/wards';
@@ -38,7 +38,7 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
   // in (e.g. Vancouver's "Mayor Ken Sim"), others don't (Toronto's "Olivia
   // Chow"). Normalize both sides so mayor detection works either way.
   const isMayorName = name => name.replace(/^Mayor\s+/i, '') === mayorName.replace(/^Mayor\s+/i, '');
-  const currentNames = useMemo(() => new Set((jurisdiction.currentCouncillors ?? []).map(c => typeof c === 'string' ? c : c.name)), [jurisdiction.currentCouncillors]);
+  const currentNames = useMemo(() => getCurrentMembers(motions), [motions]);
 
   const myCouncillor = hasWardLookup && myWardId ? WARD_COUNCILLORS[myWardId] : null;
 

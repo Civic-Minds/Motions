@@ -3,7 +3,7 @@ import React, { useMemo, useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { ExternalLink, Mail, Phone, Vote } from 'lucide-react';
 import VsPickerModal from './VsPickerModal';
-import { getAttendance, getVotedWith } from '../utils/analytics';
+import { getAttendance, getVotedWith, getCurrentMembers } from '../utils/analytics';
 import { TOPIC_LIGHT, TOPICS, WARD_COUNCILLORS, FORMER_MEMBERS, getCommittee } from '../constants/data';
 import { nameToSlug, slugToName } from '../utils/slug';
 import { COUNCILLOR_WARD } from '../utils/councillorWard';
@@ -321,7 +321,7 @@ export default function CouncillorProfile({ motions, councillors = [], jurisdict
   const [expenses, setExpenses] = useState(null);
   const [candidateData, setCandidateData] = useState(null);
   const isVancouver = jurisdiction.id === 'vancouver';
-  const currentNames = useMemo(() => new Set((jurisdiction.currentCouncillors ?? []).map(c => typeof c === 'string' ? c : c.name)), [jurisdiction.currentCouncillors]);
+  const currentNames = useMemo(() => getCurrentMembers(motions), [motions]);
 
   const blobBase = import.meta.env.VITE_BLOB_BASE_URL;
 

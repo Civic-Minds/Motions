@@ -52,8 +52,9 @@ export const CALENDAR_URL = 'https://pub-victoria.escribemeetings.com';
 const CALENDAR_API_URL = `${CALENDAR_URL}/MeetingsCalendarView.aspx/GetCalendarMeetings`;
 
 // Current council term (took office November 2022). Minutes reference
-// members by surname only ("Mayor Alto", "Councillor Coleman") — kept in
-// sync with src/constants/jurisdictions.js's victoria.currentCouncillors.
+// members by surname only ("Mayor Alto", "Councillor Coleman") — this list
+// resolves those surnames while parsing. Update after the 2026-10-17
+// election once the new council is seated.
 export const COUNCIL_MEMBERS = [
   'Marianne Alto', 'Jeremy Caradonna', 'Chris Coleman', 'Matt Dell',
   'Marg Gardiner', 'Stephen Hammond', 'Susan Kim', 'Krista Loughton', 'Dave Thompson',

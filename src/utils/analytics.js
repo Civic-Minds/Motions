@@ -26,9 +26,32 @@ export function calculateTrivialityMetrics(motions) {
 }
 
 /**
+ * Derives who's currently sitting on council from the data itself, instead of
+ * a hand-maintained roster that goes stale after every election. Anyone who
+ * cast a vote within `windowDays` of the most recent motion counts as
+ * current; council meets often enough (weekly to monthly per city) that a
+ * 120-day window survives a normal absence without also carrying someone
+ * who lost their seat months ago.
+ * @param {Array} motions
+ * @param {number} windowDays
+ * @returns {Set<string>}
+ */
+export function getCurrentMembers(motions, windowDays = 120) {
+    const dates = motions.map(m => new Date(m.date)).filter(d => !Number.isNaN(d));
+    if (!dates.length) return new Set();
+    const cutoff = new Date(Math.max(...dates) - windowDays * 24 * 60 * 60 * 1000);
+    const names = new Set();
+    motions.forEach(m => {
+        if (!m.votes || new Date(m.date) < cutoff) return;
+        Object.keys(m.votes).forEach(name => names.add(name));
+    });
+    return names;
+}
+
+/**
  * Calculates member alignment based on consensus voting.
- * @param {Array} motions 
- * @param {string} memberName 
+ * @param {Array} motions
+ * @param {string} memberName
  * @returns {number} Alignment percentage score
  */
 export function getMemberAlignmentScore(motions, memberName) {

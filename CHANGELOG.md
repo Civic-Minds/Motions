@@ -8,6 +8,8 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Changed
 
+- **"Who's currently on council" is now derived from vote data instead of a hand-typed list**: Vancouver, Victoria, and Yellowknife each had their current roster hardcoded in two places (the importer and the jurisdiction config), which would've gone stale after every election until someone remembered to update both. It's now computed from who's actually voted in the last 120 days, so it updates itself the moment new meetings come in — no manual step needed after this year's elections.
+
 - **Replaced Victoria's dead Power BI importer with a real one**: the City's public voting dashboard froze on 2026-01-22 and stopped updating, so Victoria had zero live data. The new importer reads directly from Victoria's official eSCRIBE meeting minutes (the same platform Yellowknife already uses) — real named votes, real minutes text, and a weekly refresh that can't go stale the way the dashboard did. Victoria also now gets the same deterministic significance scoring Yellowknife's motions get (no AI), instead of staying a neutral placeholder.
 - Restored Victoria's map-pin geocoding step, dropped from the scheduled refresh during the eSCRIBE rewrite above — the homepage map was rendering with zero pins live. Backfilled the 616 addressable motions immediately.
 
