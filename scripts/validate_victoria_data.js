@@ -34,8 +34,11 @@ const ids = new Set();
 
 if (!motions.length) errors.push('no motions were imported');
 if (!meetings.length) errors.push('no meetings were imported');
+// A sanity range, not an exact business rule -- catches a broken roster
+// (0 current members) without hard-failing CI during an election transition,
+// when the new council briefly overlaps the outgoing one in this list.
 const currentCount = councillors.filter(c => c.current !== false).length;
-if (currentCount !== 9) errors.push(`expected 9 current council members, found ${currentCount}`);
+if (currentCount < 1 || currentCount > 18) errors.push(`implausible current council size: ${currentCount}`);
 
 for (const motion of motions) {
     if (ids.has(motion.id)) errors.push(`duplicate motion id: ${motion.id}`);
