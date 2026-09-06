@@ -25,6 +25,8 @@ const coveredCities = getVisibleJurisdictions()
     lng: jurisdiction.directory.coordinates[1],
     election: jurisdiction.election,
   }));
+// Soonest election first (the stated point of this list); undated cities
+// (no confirmed election date yet) sort after all dated ones, alphabetically.
 const otherElectionCities = [
   ...OTHER_ELECTION_CITIES,
   ...getComingSoonJurisdictions().map(jurisdiction => ({
@@ -35,7 +37,11 @@ const otherElectionCities = [
     lat: jurisdiction.mapCenter[0],
     lng: jurisdiction.mapCenter[1],
   })),
-];
+].sort((a, b) => {
+  if (a.electionDate && b.electionDate) return a.electionDate.localeCompare(b.electionDate);
+  if (a.electionDate || b.electionDate) return a.electionDate ? -1 : 1;
+  return a.name.localeCompare(b.name);
+});
 
 function FitCanada() {
   const map = useMap();
