@@ -92,6 +92,13 @@ export function getVisibleJurisdictions() {
     return Object.values(JURISDICTIONS).filter(isJurisdictionPublic);
 }
 
+// Registered jurisdictions with real data behind the scenes, not yet public --
+// distinct from cities with no coverage at all (OTHER_ELECTION_CITIES). Empty
+// in dev, where isJurisdictionPublic already treats them as visible.
+export function getComingSoonJurisdictions() {
+    return import.meta.env.DEV ? [] : Object.values(JURISDICTIONS).filter(j => j.public === false);
+}
+
 export function isJurisdictionPublic(jurisdiction) {
     return import.meta.env.DEV || jurisdiction.public !== false;
 }

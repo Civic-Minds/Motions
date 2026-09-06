@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
+## [Unreleased]
+
+### Fixed
+
+- **Victoria and Yellowknife vanished from the homepage map**: Both are registered cities with real live data behind the scenes, just not public yet — but they were excluded from the real city pins (correctly) and never added to the separate "coming soon" list, so they showed up nowhere at all, unlike Winnipeg (which has no live data yet) getting a muted "Coming soon" pin. Victoria and Yellowknife now get the same muted placeholder treatment, sourced directly from the existing jurisdiction config instead of a second hardcoded list.
+
 ## [3.1.0] — 2026-09-06
 
 ### Added

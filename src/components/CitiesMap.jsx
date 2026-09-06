@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, CircleMarker, Tooltip, useMap, useMapEvents } 
 import { ArrowRight } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { OTHER_ELECTION_CITIES } from '../constants/cities';
-import { getVisibleJurisdictions } from '../constants/jurisdictions';
+import { getVisibleJurisdictions, getComingSoonJurisdictions } from '../constants/jurisdictions';
 import { isOnOrAfter, formatElectionDateFull } from '../utils/electionDate';
 import 'leaflet/dist/leaflet.css';
 import MapZoomControls from './MapZoomControls';
@@ -25,7 +25,17 @@ const coveredCities = getVisibleJurisdictions()
     lng: jurisdiction.directory.coordinates[1],
     election: jurisdiction.election,
   }));
-const otherElectionCities = OTHER_ELECTION_CITIES;
+const otherElectionCities = [
+  ...OTHER_ELECTION_CITIES,
+  ...getComingSoonJurisdictions().map(jurisdiction => ({
+    id: jurisdiction.id,
+    name: jurisdiction.name,
+    electionDate: jurisdiction.election.date,
+    status: 'Coming soon',
+    lat: jurisdiction.mapCenter[0],
+    lng: jurisdiction.mapCenter[1],
+  })),
+];
 
 function FitCanada() {
   const map = useMap();
