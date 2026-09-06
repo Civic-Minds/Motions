@@ -37,6 +37,9 @@ jobs:
       - name: Extract structured fields
         run: node scripts/extract_fields.js --city=victoria
 
+      - name: Geocode Victoria motion addresses
+        run: npm run geocode:victoria
+
       - name: Record Victoria refresh time
         run: node scripts/write_data_metadata.js --city=victoria
 
