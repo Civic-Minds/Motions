@@ -89,9 +89,18 @@ function namesFromList(text) {
 
 function parsePresentMembers(text) {
   // Spans both "PRESENT:" and any "PRESENT ELECTRONICALLY:" sub-section —
-  // both fall inside this window, before "STAFF PRESENT:".
-  const section = text.match(/\bPRESENT:?\s*([\s\S]*?)(?=\n\s*STAFF PRESENT)/i)?.[1] ?? '';
-  return namesFromList(section);
+  // both fall inside this window, before the staff block. Some years label
+  // that "STAFF PRESENT:", others just "STAFF:" — matching only the former
+  // left the whole PRESENT section unmatched (and every vote in the meeting
+  // silently empty) for minutes using the shorter label.
+  const section = text.match(/\bPRESENT:?\s*([\s\S]*?)(?=\n\s*STAFF\b)/i)?.[1] ?? '';
+  // An "ABSENT:" (sometimes "REGRETS:") sub-list can appear in this same
+  // window, before STAFF — without excluding it, an absent member's name
+  // still matches the plain Mayor/Councillor pattern and gets counted as
+  // present, defaulting them to a phantom YES on every vote that meeting.
+  const absentSection = section.match(/\b(?:ABSENT|REGRETS):?\s*([\s\S]*)$/i)?.[1] ?? '';
+  const absentNames = new Set(namesFromList(absentSection));
+  return namesFromList(section).filter(name => !absentNames.has(name));
 }
 
 // Addresses/named places mentioned in a title — carried over unchanged from
@@ -350,8 +359,13 @@ export function parseMotions(text, date, committee, sourceUrl, meetingReference)
     }
     if (!current) continue;
     if (consentQueue && current && OUTCOME_LINE_RE.test(line)) {
+      // Any FOR/OPPOSED/Absent lines naming how the shared vote actually
+      // went sit between the last queued item's heading and this outcome
+      // line -- they've been accumulating in `current.bodyLines` (nothing
+      // queues `current` until flushCurrent below), so include them or a
+      // contested consent-agenda vote silently looks unanimous.
+      const outcome = extractOutcome([...current.bodyLines, line]);
       flushCurrent();
-      const outcome = extractOutcome([line]);
       for (const queued of consentQueue) {
         const motion = finalizeWithOutcome(queued, outcome, date, committee, sourceUrl, meetingReference, present);
         if (motion) motions.push(motion);
