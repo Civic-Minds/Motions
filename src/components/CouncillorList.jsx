@@ -25,7 +25,7 @@ const attendanceBg = (pct) =>
 
 const MAYOR = 'Olivia Chow';
 
-export default function CouncillorList({ motions, compareMode, onCompareModeToggle, jurisdiction = { id: 'toronto', name: 'Toronto', mayorName: MAYOR } }) {
+export default function CouncillorList({ motions, councillors: councillorRoster = [], compareMode, onCompareModeToggle, jurisdiction = { id: 'toronto', name: 'Toronto', mayorName: MAYOR } }) {
   const [compareSlots, setCompareSlots] = useState([]);
   const [versusSelection, setVersusSelection] = useState([]);
   const [findPending, setFindPending] = useState(false);
@@ -38,7 +38,7 @@ export default function CouncillorList({ motions, compareMode, onCompareModeTogg
   // in (e.g. Vancouver's "Mayor Ken Sim"), others don't (Toronto's "Olivia
   // Chow"). Normalize both sides so mayor detection works either way.
   const isMayorName = name => name.replace(/^Mayor\s+/i, '') === mayorName.replace(/^Mayor\s+/i, '');
-  const currentNames = useMemo(() => getCurrentMembers(motions), [motions]);
+  const currentNames = useMemo(() => getCurrentMembers(councillorRoster), [councillorRoster]);
 
   const myCouncillor = hasWardLookup && myWardId ? WARD_COUNCILLORS[myWardId] : null;
 

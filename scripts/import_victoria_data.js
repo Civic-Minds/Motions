@@ -51,13 +51,22 @@ import { isAdministrativeTitle } from './lib/topicClassification.js';
 export const CALENDAR_URL = 'https://pub-victoria.escribemeetings.com';
 const CALENDAR_API_URL = `${CALENDAR_URL}/MeetingsCalendarView.aspx/GetCalendarMeetings`;
 
-// Current council term (took office November 2022). Minutes reference
-// members by surname only ("Mayor Alto", "Councillor Coleman") — this list
-// resolves those surnames while parsing. Update after the 2026-10-17
-// election once the new council is seated.
+// Every member of the current term, current or not. Minutes reference
+// members by surname only ("Mayor Alto", "Councillor Coleman") -- this list
+// resolves those surnames while parsing, and is also the published roster
+// (via the `current` flag). Flip a departing member to false rather than
+// deleting them, so their older minutes still parse correctly. Update after
+// the 2026-10-17 election once the new council is seated.
 export const COUNCIL_MEMBERS = [
-  'Marianne Alto', 'Jeremy Caradonna', 'Chris Coleman', 'Matt Dell',
-  'Marg Gardiner', 'Stephen Hammond', 'Susan Kim', 'Krista Loughton', 'Dave Thompson',
+  { name: 'Marianne Alto', current: true },
+  { name: 'Jeremy Caradonna', current: true },
+  { name: 'Chris Coleman', current: true },
+  { name: 'Matt Dell', current: true },
+  { name: 'Marg Gardiner', current: true },
+  { name: 'Stephen Hammond', current: true },
+  { name: 'Susan Kim', current: true },
+  { name: 'Krista Loughton', current: true },
+  { name: 'Dave Thompson', current: true },
 ];
 
 const DATA_DIR = path.join(process.cwd(), 'public/data/victoria');
@@ -76,7 +85,7 @@ function compact(value) { return String(value ?? '').replace(/\s+/g, ' ').trim()
 
 function memberFromSurname(surname) {
   const lower = surname.trim().toLowerCase();
-  return COUNCIL_MEMBERS.find(member => member.split(' ').at(-1).toLowerCase() === lower) ?? null;
+  return COUNCIL_MEMBERS.find(member => member.name.split(' ').at(-1).toLowerCase() === lower)?.name ?? null;
 }
 
 function namesFromList(text) {

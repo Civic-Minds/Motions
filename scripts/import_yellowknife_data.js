@@ -22,12 +22,21 @@ import { cleanYellowknifeTitle, YELLOWKNIFE_TITLE_OVERRIDES } from '../src/utils
 
 export const CALENDAR_URL = 'https://pub-yellowknife.escribemeetings.com';
 const CALENDAR_API_URL = `${CALENDAR_URL}/MeetingsCalendarView.aspx/GetCalendarMeetings`;
+// Every member of the current term, current or not. Minutes older than a
+// departure still reference the departed member by name, so this stays the
+// single list used both for parsing and for the published roster (via the
+// `current` flag) -- flip it to false rather than deleting the entry.
 export const COUNCIL_MEMBERS = [
-  'Mayor Ben Hendriksen', 'Garett Cochrane', 'Ryan Fequet', 'Rob Foote',
-  'Cat McGurk', 'Tom McLennan', 'Stacie Arden-Smith', 'Steve Payne', 'Rob Warburton',
-];
-const TERM_MEMBERS = [
-  'Mayor Rebecca Alty', ...COUNCIL_MEMBERS,
+  { name: 'Mayor Ben Hendriksen', current: true },
+  { name: 'Garett Cochrane', current: true },
+  { name: 'Ryan Fequet', current: true },
+  { name: 'Rob Foote', current: true },
+  { name: 'Cat McGurk', current: true },
+  { name: 'Tom McLennan', current: true },
+  { name: 'Stacie Arden-Smith', current: true },
+  { name: 'Steve Payne', current: true },
+  { name: 'Rob Warburton', current: true },
+  { name: 'Mayor Rebecca Alty', current: false },
 ];
 
 const DATA_DIR = path.join(process.cwd(), 'public/data/yellowknife');
@@ -52,11 +61,11 @@ function memberFromReference(reference) {
   if (!match) return null;
   const initial = ({ '5': 'S' }[match[1]] ?? match[1]).toUpperCase();
   const surname = match[2].toLowerCase();
-  return TERM_MEMBERS.find(member => {
-    const bare = member.replace(/^Mayor\s+/i, '');
+  return COUNCIL_MEMBERS.find(member => {
+    const bare = member.name.replace(/^Mayor\s+/i, '');
     const parts = bare.split(' ');
     return parts.at(-1).toLowerCase() === surname && parts[0][0].toUpperCase() === initial;
-  }) ?? null;
+  })?.name ?? null;
 }
 
 export function parsePresentMembers(text) {

@@ -62,10 +62,22 @@ const MEMBER_NAME_MAP = {
     'Councillor S Orr': 'Sean Orr',
     'Councillor L Zhou': 'Lenny Zhou',
 };
+// Every member of the current term, current or not -- also the published
+// roster (via the `current` flag). Flip a departing member to false rather
+// than deleting them, so their older votes still attribute correctly.
+// Update after the 2026-10-17 election once the new council is seated.
 const CURRENT_COUNCIL = [
-    'Mayor Ken Sim', 'Rebecca Bligh', 'Lisa Dominato', 'Pete Fry',
-    'Sarah Kirby-Yung', 'Mike Klassen', 'Lucy Maloney', 'Peter Meiszner',
-    'Brian Montague', 'Sean Orr', 'Lenny Zhou',
+    { name: 'Mayor Ken Sim', current: true },
+    { name: 'Rebecca Bligh', current: true },
+    { name: 'Lisa Dominato', current: true },
+    { name: 'Pete Fry', current: true },
+    { name: 'Sarah Kirby-Yung', current: true },
+    { name: 'Mike Klassen', current: true },
+    { name: 'Lucy Maloney', current: true },
+    { name: 'Peter Meiszner', current: true },
+    { name: 'Brian Montague', current: true },
+    { name: 'Sean Orr', current: true },
+    { name: 'Lenny Zhou', current: true },
 ];
 
 const classifyTopic = classifyVancouverTopic;

@@ -321,7 +321,7 @@ export default function CouncillorProfile({ motions, councillors = [], jurisdict
   const [expenses, setExpenses] = useState(null);
   const [candidateData, setCandidateData] = useState(null);
   const isVancouver = jurisdiction.id === 'vancouver';
-  const currentNames = useMemo(() => getCurrentMembers(motions), [motions]);
+  const currentNames = useMemo(() => getCurrentMembers(councillors), [councillors]);
 
   const blobBase = import.meta.env.VITE_BLOB_BASE_URL;
 

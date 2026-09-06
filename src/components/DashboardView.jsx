@@ -401,7 +401,7 @@ function UpcomingMeeting({ meetings, className = '' }) {
 }
 
 // ── Main component ─────────────────────────────────────────────────────────
-export default function DashboardView({ motions, meetings = [], jurisdiction = { id: 'toronto' } }) {
+export default function DashboardView({ motions, meetings = [], councillors = [], jurisdiction = { id: 'toronto' } }) {
   const { followedCommittees = [] } = useAppContext();
   const isVancouver = jurisdiction.id === 'vancouver';
   const isToronto = jurisdiction.id === 'toronto';
@@ -435,7 +435,7 @@ export default function DashboardView({ motions, meetings = [], jurisdiction = {
 
   // Only primary entries (no parentId) for display and stats
   const primaryMotions = useMemo(() => motions.filter(m => !m.parentId), [motions]);
-  const currentMemberCount = useMemo(() => getCurrentMembers(motions).size, [motions]);
+  const currentMemberCount = useMemo(() => getCurrentMembers(councillors).size, [councillors]);
 
   // Last Meeting
   const lastMeeting = useMemo(() => {
