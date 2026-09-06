@@ -28,12 +28,14 @@ function readJson(file) {
 const motions = readJson('motions.json');
 const meetings = readJson('meetings.json');
 const councillors = readJson('councillors.json');
+const councillorNames = councillors.map(c => c.name);
 const errors = [];
 const ids = new Set();
 
 if (!motions.length) errors.push('no motions were imported');
 if (!meetings.length) errors.push('no meetings were imported');
-if (councillors.length !== 9) errors.push(`expected 9 council members, found ${councillors.length}`);
+const currentCount = councillors.filter(c => c.current !== false).length;
+if (currentCount !== 9) errors.push(`expected 9 current council members, found ${currentCount}`);
 
 for (const motion of motions) {
     if (ids.has(motion.id)) errors.push(`duplicate motion id: ${motion.id}`);
@@ -48,7 +50,7 @@ for (const motion of motions) {
     }
     if (typeof motion.trivial !== 'boolean') errors.push(`invalid trivial flag: ${motion.id}`);
     for (const [member, vote] of Object.entries(motion.votes ?? {})) {
-        if (!councillors.includes(member)) errors.push(`unknown councillor ${member}: ${motion.id}`);
+        if (!councillorNames.includes(member)) errors.push(`unknown councillor ${member}: ${motion.id}`);
         if (!VALID_VOTES.has(vote)) errors.push(`invalid vote ${vote}: ${motion.id}`);
     }
     for (const location of motion.locations ?? []) {
