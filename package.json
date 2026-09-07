@@ -15,7 +15,7 @@
     "optimize:images": "node scripts/optimize_councillor_photos.js"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.122.0",
+    "@anthropic-ai/sdk": "^0.124.0",
     "@google/genai": "^2.19.0",
     "@tailwindcss/vite": "^4.3.3",
     "@turf/union": "^7.4.0",
