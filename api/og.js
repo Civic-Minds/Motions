@@ -41,7 +41,7 @@ export default async function handler(request, response) {
   const city = (url.searchParams.get('city') || 'Toronto').trim();
   const lines = title.match(/.{1,42}(?:\s|$)/g)?.slice(0, 4) || [title];
 
-  const headerPath = textPathData(boldFont, `MOTIONS ${city.toUpperCase()}`, 104, 130, 28, 3);
+  const headerPath = textPathData(boldFont, 'MOTIONS', 104, 130, 28, 3);
   const titlePath = lines.map((line, index) => textPathData(boldFont, line.trim(), 104, 238 + index * 68, 52)).join(' ');
   const contextPath = textPathData(regularFont, context, 104, 510, 28);
 
