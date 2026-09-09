@@ -20,9 +20,9 @@ export default async function handler(request, response) {
   const city = cityFromRoute(route);
   const cityName = city[0].toUpperCase() + city.slice(1);
   const prefix = city === 'toronto' ? '' : `${city}/`;
-  let title = `${cityName} Council Votes`;
+  let title = `${cityName} City Council`;
   let description = `Explore ${cityName} city council decisions, see how each councillor voted, and understand what those votes mean for your neighbourhood.`;
-  let context = `${cityName} Council Voting Tracker`;
+  let context = 'See every vote. Know every decision.';
 
   const motionMatch = route.match(/\/motions\/([^/]+)/);
   if (motionMatch) {
