@@ -54,7 +54,9 @@ export default async function handler(request, response) {
   }
 
   const canonical = `https://motions.watch${route}`;
-  const image = `https://motions.watch/api/og?title=${encodeURIComponent(title)}&context=${encodeURIComponent(context)}&city=${encodeURIComponent(cityName)}`;
+  const imageTitle = motionMatch ? title : 'See every vote. Know every decision.';
+  const imageContext = motionMatch ? context : `${cityName} City Council`;
+  const image = `https://motions.watch/api/og?title=${encodeURIComponent(imageTitle)}&context=${encodeURIComponent(imageContext)}&city=${encodeURIComponent(cityName)}`;
   response.setHeader('Content-Type', 'text/html; charset=utf-8');
   response.setHeader('Cache-Control', 'public, max-age=300, s-maxage=3600');
   response.status(200).send(`<!doctype html><html><head>
