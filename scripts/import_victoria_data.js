@@ -443,9 +443,15 @@ async function readPdf(url) {
       pdfBrowser = await chromium.launch({ headless: false });
       pdfPage = await pdfBrowser.newPage();
     }
-    const browserResponse = await pdfPage.goto(url, { waitUntil: 'domcontentloaded' });
-    if (!browserResponse?.ok()) throw new Error(`Victoria document returned HTTP ${browserResponse?.status() ?? 'unknown'}: ${url}`);
-    buffer = Buffer.from(await browserResponse.body());
+    await pdfPage.goto(CALENDAR_URL, { waitUntil: 'networkidle', timeout: 60000 }).catch(() => {});
+    for (let attempt = 1; attempt <= 3; attempt += 1) {
+      const browserResponse = await pdfPage.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
+      if (browserResponse?.ok()) {
+        buffer = Buffer.from(await browserResponse.body());
+        if (buffer.subarray(0, 4).toString() === '%PDF') break;
+      }
+      if (attempt < 3) await pdfPage.waitForTimeout(5000);
+    }
   }
   if (buffer.subarray(0, 4).toString() !== '%PDF') {
     console.warn(`Skipped non-PDF Victoria minutes document: ${url}`);
