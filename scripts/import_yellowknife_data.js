@@ -43,6 +43,9 @@ const DATA_DIR = path.join(process.cwd(), 'public/data/yellowknife');
 const fromArg = process.argv.find(arg => arg.startsWith('--from='));
 const FROM_DATE = fromArg?.slice('--from='.length) ?? '2022-10-18';
 const TO_DATE = new Date().toISOString().slice(0, 10);
+const PDF_REQUEST_GAP_MS = 1200;
+const PDF_RETRY_LIMIT = 5;
+let lastPdfRequestAt = 0;
 
 function compact(value) { return value.replace(/\s+/g, ' ').trim(); }
 
@@ -140,7 +143,23 @@ function pdfText(buffer) {
 }
 
 async function readPdf(url) {
-  const response = await fetch(url);
+  let response;
+  for (let attempt = 1; attempt <= PDF_RETRY_LIMIT; attempt += 1) {
+    const waitForGap = Math.max(0, PDF_REQUEST_GAP_MS - (Date.now() - lastPdfRequestAt));
+    if (waitForGap) await new Promise(resolve => setTimeout(resolve, waitForGap));
+    lastPdfRequestAt = Date.now();
+    response = await fetch(url, {
+      headers: { 'User-Agent': 'Motions civic data importer/1.0' },
+    });
+    if (response.status !== 429 && response.status < 500) break;
+    if (attempt === PDF_RETRY_LIMIT) break;
+    const retryAfter = Number(response.headers.get('retry-after'));
+    const delayMs = Number.isFinite(retryAfter) && retryAfter > 0
+      ? retryAfter * 1000
+      : Math.min(120000, 15000 * 2 ** (attempt - 1));
+    console.warn(`Yellowknife document returned HTTP ${response.status}; retrying in ${Math.round(delayMs / 1000)}s: ${url}`);
+    await new Promise(resolve => setTimeout(resolve, delayMs));
+  }
   if (!response.ok) throw new Error(`Yellowknife document returned HTTP ${response.status}: ${url}`);
   const buffer = Buffer.from(await response.arrayBuffer());
   if (buffer.subarray(0, 4).toString() !== '%PDF') {
