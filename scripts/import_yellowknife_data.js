@@ -14,6 +14,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import fetch from 'node-fetch';
+import { chromium } from 'playwright';
 import * as cheerio from 'cheerio';
 import { isAdministrativeTitle } from './lib/topicClassification.js';
 import { cleanYellowknifeTitle, YELLOWKNIFE_TITLE_OVERRIDES } from '../src/utils/yellowknifeMotionTitle.js';
@@ -46,6 +47,8 @@ const TO_DATE = new Date().toISOString().slice(0, 10);
 const PDF_REQUEST_GAP_MS = 1200;
 const PDF_RETRY_LIMIT = 5;
 let lastPdfRequestAt = 0;
+let pdfBrowser;
+let pdfPage;
 
 function compact(value) { return value.replace(/\s+/g, ' ').trim(); }
 
@@ -160,8 +163,16 @@ async function readPdf(url) {
     console.warn(`Yellowknife document returned HTTP ${response.status}; retrying in ${Math.round(delayMs / 1000)}s: ${url}`);
     await new Promise(resolve => setTimeout(resolve, delayMs));
   }
-  if (!response.ok) throw new Error(`Yellowknife document returned HTTP ${response.status}: ${url}`);
-  const buffer = Buffer.from(await response.arrayBuffer());
+  let buffer = response.ok ? Buffer.from(await response.arrayBuffer()) : null;
+  if (!buffer?.subarray(0, 4).toString().startsWith('%PDF')) {
+    if (!pdfPage) {
+      pdfBrowser = await chromium.launch({ headless: false });
+      pdfPage = await pdfBrowser.newPage();
+    }
+    const browserResponse = await pdfPage.goto(url, { waitUntil: 'domcontentloaded' });
+    if (!browserResponse?.ok()) throw new Error(`Yellowknife document returned HTTP ${browserResponse?.status() ?? 'unknown'}: ${url}`);
+    buffer = Buffer.from(await browserResponse.body());
+  }
   if (buffer.subarray(0, 4).toString() !== '%PDF') {
     console.warn(`Skipped non-PDF Yellowknife minutes document: ${url}`);
     return null;
@@ -261,4 +272,6 @@ async function main() {
   console.log(`Imported ${motions.length} Yellowknife motions across ${meetings.length} meetings (${mergedMotions.length} total motions).`);
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) main().catch(error => { console.error(error.message); process.exitCode = 1; });
+if (import.meta.url === `file://${process.argv[1]}`) main()
+  .catch(error => { console.error(error.message); process.exitCode = 1; })
+  .finally(async () => { await pdfBrowser?.close(); });

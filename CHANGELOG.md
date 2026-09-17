@@ -8,7 +8,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Fixed
 
-- **Victoria and Yellowknife refreshes no longer stop on temporary source throttling**: Official minutes downloads now identify themselves, keep a safe request gap, and retry HTTP 429/5xx responses with backoff instead of aborting the entire city refresh.
+- **Victoria and Yellowknife refreshes no longer stop on temporary source throttling or browser challenges**: Official minutes downloads now retry rate limits and use a browser fallback when the source protects PDFs with Cloudflare.
 - **Social preview cards are clearer**: City landing cards now use title-case branding, a city-council title, and a short voting tagline without duplicating the card title inside the image.
 - **Victoria and Yellowknife vanished from the homepage map**: Both are registered cities with real live data behind the scenes, just not public yet — but they were excluded from the real city pins (correctly) and never added to the separate "coming soon" list, so they showed up nowhere at all, unlike Winnipeg (which has no live data yet) getting a muted "Coming soon" pin. Victoria and Yellowknife now get the same muted placeholder treatment, sourced directly from the existing jurisdiction config instead of a second hardcoded list.
 - **"Coming soon" cities were in an arbitrary order**: Just an artifact of appending two separate lists together. Now sorted soonest-election-first (the stated point of the list), with any undated city sorted alphabetically after the dated ones.

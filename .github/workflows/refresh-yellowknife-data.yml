@@ -20,9 +20,11 @@ jobs:
         with:
           node-version: '24'
       - name: Install PDF text extractor
-        run: sudo apt-get update && sudo apt-get install --yes poppler-utils
+        run: sudo apt-get update && sudo apt-get install --yes poppler-utils xvfb
       - name: Install dependencies
         run: npm ci
+      - name: Install browser for challenged source PDFs
+        run: npx playwright install chromium
       - name: Download existing Yellowknife data
         run: |
           mkdir -p public/data/yellowknife scripts/cache
@@ -30,7 +32,7 @@ jobs:
           curl -sf "https://qcbqayy3ivvb6sia.public.blob.vercel-storage.com/yellowknife/meetings.json" -o public/data/yellowknife/meetings.json || echo "No existing meetings, starting fresh"
           curl -sf "https://qcbqayy3ivvb6sia.public.blob.vercel-storage.com/yellowknife/councillors.json" -o public/data/yellowknife/councillors.json || echo "No existing councillors, starting fresh"
       - name: Import Yellowknife council minutes
-        run: node scripts/import_yellowknife_data.js --from=2022-10-18
+        run: xvfb-run --auto-servernum node scripts/import_yellowknife_data.js --from=2022-10-18
       - name: Extract structured fields
         run: node scripts/extract_fields.js --city=yellowknife
       - name: Record Yellowknife refresh time
