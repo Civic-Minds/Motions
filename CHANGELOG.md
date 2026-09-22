@@ -6,6 +6,10 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+### Added
+
+- **Winnipeg is now available as a local-only prototype**: Added an importer for the City’s official council voting dataset and a dev-only Winnipeg route with motions, meetings, councillors, topics, and election context; it remains off the public selector until the source coverage is reviewed.
+
 ### Fixed
 
 - **Victoria and Yellowknife refreshes no longer stop on temporary source throttling or browser challenges**: Official minutes downloads now retry rate limits and use a browser fallback when the source protects PDFs with Cloudflare.

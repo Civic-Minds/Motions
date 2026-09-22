@@ -9,6 +9,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "import:winnipeg": "node scripts/import_winnipeg_data.js",
     "validate:vancouver": "node scripts/validate_vancouver_data.js",
     "validate:victoria": "node scripts/validate_victoria_data.js",
     "geocode:victoria": "node scripts/geocode_victoria_data.js",

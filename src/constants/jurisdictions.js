@@ -78,10 +78,26 @@ export const JURISDICTIONS = {
             officialUrl: 'https://www.yellowknife.ca/elections',
         },
     },
-    // Winnipeg intentionally not registered yet — see scripts/import_winnipeg_data.js
-    // and the winnipeg-city branch. Not ready to show publicly; the shared-code
-    // fixes that came out of building it (this file's generalized consumers,
-    // useMotions.js, api/data.js, etc.) are what's landing here.
+    winnipeg: {
+        id: 'winnipeg',
+        name: 'Winnipeg',
+        shortName: 'Winnipeg',
+        path: '/winnipeg',
+        geography: 'atLarge',
+        representativeLabel: 'Councillor',
+        representativesLabel: 'Councillors',
+        mayorName: 'Scott Gillingham',
+        mapCenter: [49.8951, -97.1384],
+        dataBaseEnv: 'VITE_WINNIPEG_DATA_BASE_URL',
+        localDataPath: '/data/winnipeg',
+        directory: { tagline: '15 wards · Mayor Scott Gillingham', coordinates: [49.8951, -97.1384] },
+        public: false,
+        election: {
+            date: '2026-10-28',
+            offices: ['Mayor', 'City Councillor'],
+            officialUrl: 'https://www.winnipeg.ca/city-governance/wards-elections/2026-election',
+        },
+    },
 };
 
 export function getJurisdiction(id = 'toronto') {
