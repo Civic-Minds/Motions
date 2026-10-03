@@ -445,11 +445,29 @@ async function readPdf(url) {
     }
     await pdfPage.goto(CALENDAR_URL, { waitUntil: 'networkidle', timeout: 60000 }).catch(() => {});
     for (let attempt = 1; attempt <= 3; attempt += 1) {
-      const browserResponse = await pdfPage.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
+      // eSCRIBE serves some minutes with Content-Disposition: attachment.
+      // Playwright emits a download for those responses and page.goto throws
+      // "Download is starting" instead of returning a response. Capture the
+      // download so the browser fallback works for both challenged and direct
+      // attachment URLs.
+      const downloadPromise = pdfPage.waitForEvent('download', { timeout: 60000 }).catch(() => null);
+      let browserResponse = null;
+      try {
+        browserResponse = await pdfPage.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
+      } catch (error) {
+        if (!/Download is starting/i.test(error.message)) {
+          console.warn(`Victoria browser PDF attempt failed: ${error.message}`);
+        }
+      }
+      const download = await downloadPromise;
+      if (download) {
+        const downloadPath = await download.path().catch(() => null);
+        if (downloadPath) buffer = fs.readFileSync(downloadPath);
+      }
       if (browserResponse?.ok()) {
         buffer = Buffer.from(await browserResponse.body());
-        if (buffer.subarray(0, 4).toString() === '%PDF') break;
       }
+      if (buffer?.subarray(0, 4).toString() === '%PDF') break;
       if (attempt < 3) await pdfPage.waitForTimeout(5000);
     }
   }
