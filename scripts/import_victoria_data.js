@@ -76,6 +76,7 @@ const FROM_DATE = fromArg?.slice('--from='.length) ?? '2022-11-01';
 const TO_DATE = new Date().toISOString().slice(0, 10);
 const PDF_REQUEST_GAP_MS = 1200;
 const PDF_RETRY_LIMIT = 5;
+const PDF_DOWNLOAD_WAIT_MS = 10000;
 let lastPdfRequestAt = 0;
 let pdfBrowser;
 let pdfPage;
@@ -450,7 +451,7 @@ async function readPdf(url) {
       // "Download is starting" instead of returning a response. Capture the
       // download so the browser fallback works for both challenged and direct
       // attachment URLs.
-      const downloadPromise = pdfPage.waitForEvent('download', { timeout: 60000 }).catch(() => null);
+      const downloadPromise = pdfPage.waitForEvent('download', { timeout: PDF_DOWNLOAD_WAIT_MS }).catch(() => null);
       let browserResponse = null;
       try {
         browserResponse = await pdfPage.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
