@@ -9,6 +9,10 @@ on:
         description: 'Skip meeting check and run pipeline'
         type: boolean
         default: false
+      include_archive:
+        description: 'Seed the Toronto 2018–2022 voting archive during this run'
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -81,8 +85,12 @@ jobs:
           curl -sf "https://qcbqayy3ivvb6sia.public.blob.vercel-storage.com/cache/elo_scores.json" -o scripts/cache/elo_scores.json || echo "No elo cache"
           curl -sf "https://qcbqayy3ivvb6sia.public.blob.vercel-storage.com/cache/notability_cache.json" -o scripts/cache/notability_cache.json || echo "No notability cache"
 
-      - name: Run data import
-        run: node scripts/import_open_data.js --term=2022-2026
+      - name: Seed Toronto historical voting archive
+        if: inputs.include_archive == true
+        run: node scripts/import_open_data.js --term=2018-2022 --merge
+
+      - name: Run current-term data import
+        run: node scripts/import_open_data.js --term=2022-2026 --merge
 
       - name: Geocode motion addresses
         run: node scripts/geocode_addresses.js
@@ -100,7 +108,7 @@ jobs:
         run: node scripts/fetch_candidates.js
 
       - name: Scrape agenda text
-        run: node scripts/scrape_agenda_text.js
+        run: node scripts/scrape_agenda_text.js --min-year=2022
 
       - name: Extract fields from body text
         run: node scripts/extract_fields.js

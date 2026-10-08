@@ -14,7 +14,7 @@
  * trivial: true when score < 25 (replaces keyword-only boolean classifier)
  *
  * Usage:
- *   node scripts/import_open_data.js [--term=2022-2026]
+ *   node scripts/import_open_data.js [--term=2022-2026] [--merge]
  *
  * Terms: 2022-2026 (default), 2018-2022, 2014-2018, 2010-2014, 2006-2010
  */
@@ -29,6 +29,7 @@ import { applyAdministrativePenalty, computeFlags } from './lib/significance.js'
 /* global process */
 
 const DATA_PATH = path.join(process.cwd(), 'public/data/motions.json');
+const MERGE_EXISTING = process.argv.includes('--merge');
 
 const TERM_URLS = {
     '2022-2026': 'https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/7f5232d6-0d2a-4f95-864a-417cbf341cc4/resource/c4feb78c-c867-42a9-b803-7c6d859df969/download/member-voting-record-2022-2026.csv',
@@ -484,6 +485,17 @@ async function main() {
                 motion.trivial = cached.significance < 25;
             }
         }
+    }
+
+    // Preserve motions from older terms when refreshing the current term. The
+    // newly imported term wins for duplicate IDs so corrected current records
+    // replace their previous versions.
+    if (MERGE_EXISTING && fs.existsSync(DATA_PATH)) {
+        const importedIds = new Set(motions.map(motion => motion.id));
+        const existing = JSON.parse(fs.readFileSync(DATA_PATH, 'utf8'));
+        const retained = existing.filter(motion => !importedIds.has(motion.id));
+        motions.push(...retained);
+        console.log(`   Preserved ${retained.length.toLocaleString()} existing motions from other terms`);
     }
 
     // Sort newest first

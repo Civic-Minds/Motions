@@ -12,6 +12,7 @@
  *   npm install playwright-core --save-dev   (first time only, no browser download)
  *   node scripts/scrape_agenda_text.js
  *   node scripts/scrape_agenda_text.js --limit=10     (test run)
+ *   node scripts/scrape_agenda_text.js --min-year=2022 (skip older archive records)
  */
 
 import { chromium } from 'playwright-core';
@@ -27,6 +28,7 @@ const args = Object.fromEntries(
 const IS_VANCOUVER = !!args.vancouver;
 const DATA_PATH = path.join(process.cwd(), IS_VANCOUVER ? 'public/data/vancouver/motions.json' : 'public/data/motions.json');
 const LIMIT   = args['limit'] ? parseInt(args['limit'], 10) : Infinity;
+const MIN_YEAR = args['min-year'] ? parseInt(args['min-year'], 10) : null;
 const DELAY_MS = 1200; // be polite
 
 async function extractTorontoAgendaText(page) {
@@ -106,13 +108,14 @@ async function main() {
   const targets = motions.filter(m =>
     !m.parentId &&
     (IS_VANCOUVER ? m.agendaUrl : m.url) &&
+    (!MIN_YEAR || Number(m.date.match(/20\d{2}/)?.[0]) >= MIN_YEAR) &&
     !m.body &&
     !m.summary  // already summarized (body was stripped) — no need to re-scrape
   );
 
   const queue = targets.slice(0, LIMIT);
 
-  console.log(`\n🎯 ${targets.length} motions need scraping`);
+  console.log(`\n🎯 ${targets.length} motions need scraping${MIN_YEAR ? ` (from ${MIN_YEAR})` : ''}`);
   if (LIMIT < Infinity) console.log(`   Running first ${queue.length} (--limit=${LIMIT})`);
   console.log(`   ${motions.filter(m => m.body).length} already have body text\n`);
 
