@@ -10,6 +10,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 - **Toronto motion history now includes the 2018–2022 council term**: The voting-record archive is preserved during scheduled refreshes, adding historical 2020 decisions without dropping current-term data.
 - **Historical Toronto motions now carry location metadata where the source supports it**: Address records are geocoded and ward references use official ward boundaries, without requiring AI enrichment.
+- **Historical Toronto submotions now have an explicit location review**: Eleven child records inherit a verified parent location; unsupported records remain unmapped instead of receiving guessed coordinates.
 - **Toronto’s 2019–2022 motion archive now has plain-language summaries**: All 472 historical records include manually written summaries that remain available after scheduled data refreshes.
 - **Victoria and Yellowknife refreshes no longer stop on temporary source throttling or browser challenges**: Official minutes downloads now retry rate limits, capture attachment downloads, and use a bounded browser fallback when the source protects PDFs with Cloudflare.
 - **Social preview cards are clearer**: City landing cards now use title-case branding, a city-council title, and a short voting tagline without duplicating the card title inside the image.
