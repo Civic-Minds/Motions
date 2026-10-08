@@ -9,6 +9,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 ### Fixed
 
 - **Toronto motion history now includes the 2018–2022 council term**: The voting-record archive is preserved during scheduled refreshes, adding historical 2020 decisions without dropping current-term data.
+- **Historical Toronto motions now carry location metadata where the source supports it**: Address records are geocoded and ward references use official ward boundaries, without requiring AI enrichment.
 - **Victoria and Yellowknife refreshes no longer stop on temporary source throttling or browser challenges**: Official minutes downloads now retry rate limits, capture attachment downloads, and use a bounded browser fallback when the source protects PDFs with Cloudflare.
 - **Social preview cards are clearer**: City landing cards now use title-case branding, a city-council title, and a short voting tagline without duplicating the card title inside the image.
 - **Victoria and Yellowknife vanished from the homepage map**: Both are registered cities with real live data behind the scenes, just not public yet — but they were excluded from the real city pins (correctly) and never added to the separate "coming soon" list, so they showed up nowhere at all, unlike Winnipeg (which has no live data yet) getting a muted "Coming soon" pin. Victoria and Yellowknife now get the same muted placeholder treatment, sourced directly from the existing jurisdiction config instead of a second hardcoded list.
