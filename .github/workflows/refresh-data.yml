@@ -104,6 +104,10 @@ jobs:
       - name: Run current-term data import
         run: node scripts/import_open_data.js --term=2022-2026 --merge
 
+      - name: Validate Toronto historical summaries
+        if: inputs.include_archive == true
+        run: node scripts/validate_toronto_historical_summaries.js
+
       - name: Geocode motion addresses
         if: inputs.source_only != true || inputs.include_metadata == true
         run: node scripts/geocode_addresses.js ${{ inputs.metadata_limit != '0' && format('--limit={0}', inputs.metadata_limit) || '' }}

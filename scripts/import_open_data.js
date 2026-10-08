@@ -456,9 +456,13 @@ async function main() {
     //    runs where no Blob download step exists. Applied unconditionally so it works even when
     //    motions.json is absent.
     const PRESERVE = ['summary', 'keyAmounts', 'notabilityRank', 'mover', 'seconder', 'body', 'locations', 'scope', 'backgroundFiles', 'declaredInterests', 'significance', 'trivial', 'flags'];
-    const CACHE_PATH = path.join(process.cwd(), 'scripts/cache/summaries_cache.json');
-    const summariesCache = fs.existsSync(CACHE_PATH)
+const CACHE_PATH = path.join(process.cwd(), 'scripts/cache/summaries_cache.json');
+const summariesCache = fs.existsSync(CACHE_PATH)
         ? JSON.parse(fs.readFileSync(CACHE_PATH, 'utf8'))
+        : {};
+    const MANUAL_TORONTO_SUMMARIES_PATH = path.join(process.cwd(), 'scripts/data/toronto_2019_2022_summaries.json');
+    const manualTorontoSummaries = CITY === 'toronto' && fs.existsSync(MANUAL_TORONTO_SUMMARIES_PATH)
+        ? JSON.parse(fs.readFileSync(MANUAL_TORONTO_SUMMARIES_PATH, 'utf8'))
         : {};
 
     if (fs.existsSync(DATA_PATH)) {
@@ -483,6 +487,17 @@ async function main() {
             if (cached.significance !== undefined) {
                 motion.significance = cached.significance;
                 motion.trivial = cached.significance < 25;
+            }
+        }
+    }
+
+    // Historical Toronto summaries are written by hand and kept in a tracked
+    // source file. Apply them after the general cache so they cannot be
+    // replaced by an older generated summary during a refresh.
+    if (CITY === 'toronto') {
+        for (const motion of motions) {
+            if (manualTorontoSummaries[motion.id]) {
+                motion.summary = manualTorontoSummaries[motion.id];
             }
         }
     }
