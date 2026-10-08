@@ -32,7 +32,7 @@ const LIMIT = args['limit'] ? parseInt(args['limit'], 10) : Infinity;
 const FORCE = !!args['force'];
 const IDS = args['ids'] ? new Set(String(args['ids']).split(',').map(id => id.trim())) : null;
 const SAVE_EVERY = 20;
-const GEOCODE_TIMEOUT_MS = 15000;
+const GEOCODE_TIMEOUT_MS = 5000;
 
 // Matches: "2775 Jane Street", "641 to 663 Danforth Road East",
 //          "4884-4896 Dundas Street West", "150 The Donway West"
