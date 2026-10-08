@@ -32,6 +32,7 @@ const LIMIT = args['limit'] ? parseInt(args['limit'], 10) : Infinity;
 const FORCE = !!args['force'];
 const IDS = args['ids'] ? new Set(String(args['ids']).split(',').map(id => id.trim())) : null;
 const SAVE_EVERY = 20;
+const GEOCODE_TIMEOUT_MS = 15000;
 
 // Matches: "2775 Jane Street", "641 to 663 Danforth Road East",
 //          "4884-4896 Dundas Street West", "150 The Donway West"
@@ -93,14 +94,15 @@ async function geocode(address) {
   const url = `https://nominatim.openstreetmap.org/search?q=${query}&format=json&limit=1&countrycodes=ca`;
 
   const res = await fetch(url, {
-    headers: { 'User-Agent': 'Motions/1.0 (motions.watch)' }
+    headers: { 'User-Agent': 'Motions/1.0 (motions.watch)' },
+    signal: AbortSignal.timeout(GEOCODE_TIMEOUT_MS),
   });
 
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   let results = await res.json();
   if (!results.length) {
     const fallbackUrl = `https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?SingleLine=${query}&f=json&maxLocations=1`;
-    const fallbackRes = await fetch(fallbackUrl);
+    const fallbackRes = await fetch(fallbackUrl, { signal: AbortSignal.timeout(GEOCODE_TIMEOUT_MS) });
     if (fallbackRes.ok) {
       const fallback = await fallbackRes.json();
       const candidate = fallback.candidates?.[0];
