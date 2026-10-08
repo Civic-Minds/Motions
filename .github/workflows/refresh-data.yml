@@ -13,6 +13,10 @@ on:
         description: 'Seed the Toronto 2018–2022 voting archive during this run'
         type: boolean
         default: false
+      source_only:
+        description: 'Skip agenda scraping and AI enrichment during this run'
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -108,17 +112,21 @@ jobs:
         run: node scripts/fetch_candidates.js
 
       - name: Scrape agenda text
+        if: inputs.source_only != true
         run: node scripts/scrape_agenda_text.js --min-year=2022
 
       - name: Extract fields from body text
+        if: inputs.source_only != true
         run: node scripts/extract_fields.js
 
       - name: Generate summaries
+        if: inputs.source_only != true
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: node scripts/generate_summaries.js
 
       - name: Strip body text from motions
+        if: inputs.source_only != true
         run: node scripts/strip_body.js
 
       - name: Record Toronto refresh time
