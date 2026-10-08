@@ -21,6 +21,10 @@ on:
         description: 'Run deterministic Toronto geocoding and ward tagging during a source-only run'
         type: boolean
         default: false
+      metadata_limit:
+        description: 'Maximum Toronto motions to geocode in this run (0 means all)'
+        type: string
+        default: '0'
 
 permissions:
   contents: read
@@ -102,7 +106,7 @@ jobs:
 
       - name: Geocode motion addresses
         if: inputs.source_only != true || inputs.include_metadata == true
-        run: node scripts/geocode_addresses.js
+        run: node scripts/geocode_addresses.js ${{ inputs.metadata_limit != '0' && format('--limit={0}', inputs.metadata_limit) || '' }}
 
       - name: Assign ward-level motion locations
         if: inputs.source_only != true || inputs.include_metadata == true
