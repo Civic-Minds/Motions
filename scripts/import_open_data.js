@@ -461,7 +461,7 @@ const summariesCache = fs.existsSync(CACHE_PATH)
         ? JSON.parse(fs.readFileSync(CACHE_PATH, 'utf8'))
         : {};
     const MANUAL_TORONTO_SUMMARIES_PATH = path.join(process.cwd(), 'scripts/data/toronto_2019_2022_summaries.json');
-    const manualTorontoSummaries = CITY === 'toronto' && fs.existsSync(MANUAL_TORONTO_SUMMARIES_PATH)
+    const manualTorontoSummaries = fs.existsSync(MANUAL_TORONTO_SUMMARIES_PATH)
         ? JSON.parse(fs.readFileSync(MANUAL_TORONTO_SUMMARIES_PATH, 'utf8'))
         : {};
 
@@ -494,11 +494,9 @@ const summariesCache = fs.existsSync(CACHE_PATH)
     // Historical Toronto summaries are written by hand and kept in a tracked
     // source file. Apply them after the general cache so they cannot be
     // replaced by an older generated summary during a refresh.
-    if (CITY === 'toronto') {
-        for (const motion of motions) {
-            if (manualTorontoSummaries[motion.id]) {
-                motion.summary = manualTorontoSummaries[motion.id];
-            }
+    for (const motion of motions) {
+        if (manualTorontoSummaries[motion.id]) {
+            motion.summary = manualTorontoSummaries[motion.id];
         }
     }
 

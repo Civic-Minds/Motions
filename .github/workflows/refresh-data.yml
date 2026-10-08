@@ -17,6 +17,10 @@ on:
         description: 'Skip agenda scraping and AI enrichment during this run'
         type: boolean
         default: false
+      summary_only:
+        description: 'Apply tracked Toronto historical summaries without reimporting council data'
+        type: boolean
+        default: false
       include_metadata:
         description: 'Run deterministic Toronto geocoding and ward tagging during a source-only run'
         type: boolean
@@ -98,14 +102,19 @@ jobs:
           curl -sf "https://qcbqayy3ivvb6sia.public.blob.vercel-storage.com/cache/notability_cache.json" -o scripts/cache/notability_cache.json || echo "No notability cache"
 
       - name: Seed Toronto historical voting archive
-        if: inputs.include_archive == true
+        if: inputs.include_archive == true && inputs.summary_only != true
         run: node scripts/import_open_data.js --term=2018-2022 --merge
 
       - name: Run current-term data import
+        if: inputs.summary_only != true
         run: node scripts/import_open_data.js --term=2022-2026 --merge
 
+      - name: Apply Toronto historical summaries
+        if: inputs.summary_only == true
+        run: node scripts/apply_toronto_historical_summaries.js
+
       - name: Validate Toronto historical summaries
-        if: inputs.include_archive == true
+        if: inputs.include_archive == true || inputs.summary_only == true
         run: node scripts/validate_toronto_historical_summaries.js
 
       - name: Geocode motion addresses
