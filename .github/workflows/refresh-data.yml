@@ -97,9 +97,11 @@ jobs:
         run: node scripts/import_open_data.js --term=2022-2026 --merge
 
       - name: Geocode motion addresses
+        if: inputs.source_only != true
         run: node scripts/geocode_addresses.js
 
       - name: Assign ward-level motion locations
+        if: inputs.source_only != true
         run: node scripts/assign_ward_locations.js
 
       - name: Fetch meeting schedule
