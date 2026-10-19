@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { parseMotions, parsePresentMembers } from './import_yellowknife_data.js';
+import { parseHtmlMinutes, parseMotions, parsePresentMembers } from './import_yellowknife_data.js';
 
 const sourceUrl = 'https://events.yellowknife.ca/meetings/Detail/example';
 const text = `
@@ -91,5 +91,25 @@ const missingSeconder = parseMotions(`#0010-22
 That the City approve the recommendation.
 MOTION CARRIED UNANIMOUSLY`, '2022-10-24', 'Council Meeting', sourceUrl, 'yellowknife-2022-10-24-council-meeting');
 assert.equal(missingSeconder[0].title, 'the City approve the recommendation.');
+
+// Trimmed from eSCRIBE's HTML minutes (Meeting.aspx?...&Agenda=PostMinutes).
+const htmlMinutes = `<h1 id="AgendaHeaderTitle"><p><span>CITY COUNCIL MINUTES</span></p>
+<p><span style="font-weight: bold;">Present: </span><span style="display: block;">Mayor B. Hendriksen (Chair)</span><span style="display: block;">Councillor G. Cochrane</span><span style="display: block;">Councillor S. Arden-Smith</span></p>
+<p><span style="font-weight: bold;">Absent: </span><span style="display: block;">Councillor S. Payne</span></p></h1>
+<ul class="AgendaItemMotions">
+<li class="AgendaItemMotion"><div class="Number"><span class="Label">#</span><span class="Value">0181-26</span></div><div class="MovedBy"><span class="Label">Moved by</span><span class="Value">Councillor G. Cochrane</span></div><div class="SecondedBy"><span class="Label">Seconded by</span><span class="Value">Councillor S. Arden-Smith</span></div><div class="MotionText RichText"><p><span>&#8203;That Council:</span></p><ol><li><span>Confirm the role;</span></li><li><span>Confirm the position.</span></li></ol></div><table class="MotionVoters"></table><div class="MotionResult"><br>MOTION CARRIED UNANIMOUSLY</div></li>
+<li class="AgendaItemMotion"><div class="Number"><span class="Value">0182-26</span></div><div class="MotionText RichText"><p>That Council reject the proposal.</p></div><div class="MotionResult">MOTION DEFEATED (Councillor G. Cochrane opposed)</div></li>
+<li class="AgendaItemMotion"><div class="Number"><span class="Value">0183-26</span></div><div class="MotionText RichText"><p>That the meeting be adjourned.</p></div><div class="MotionResult"></div></li>
+</ul>`;
+const htmlMotions = parseHtmlMinutes(htmlMinutes, '2026-08-26', 'Council Meeting', sourceUrl, 'yk-2026-08-26-4321455b');
+assert.equal(htmlMotions.length, 2);
+assert.equal(htmlMotions[0].id, 'yk-2026-08-26-0181-26');
+assert.equal(htmlMotions[0].title, 'Council: 1. Confirm the role; 2. Confirm the position.');
+assert.deepEqual(Object.keys(htmlMotions[0].votes), ['Mayor Ben Hendriksen', 'Garett Cochrane', 'Stacie Arden-Smith']);
+assert.equal(htmlMotions[0].status, 'Adopted');
+assert.match(htmlMotions[0].body, /^#0181-26 Moved by Councillor G\. Cochrane, seconded by Councillor S\. Arden-Smith\. That Council:/);
+assert.equal(htmlMotions[1].status, 'Not adopted');
+assert.deepEqual(htmlMotions[1].votes, { 'Garett Cochrane': 'NO' });
+assert.equal(parseHtmlMinutes('<html><title>Just a moment...</title></html>', '2026-08-26', 'Council Meeting', sourceUrl, 'r'), null);
 
 console.log('Yellowknife parser fixtures passed');

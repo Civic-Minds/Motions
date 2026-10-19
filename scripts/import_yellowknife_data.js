@@ -97,7 +97,7 @@ export function parseMotions(text, date, committee, sourceUrl, meetingReference)
   return blocks.map(match => {
     const number = `${match[2]}-${match[3]}`;
     const body = compact(match[4]);
-    const outcome = body.match(/MOTION\s+(CARRIED|DEFEATED)(?:\s+UNANIMOUSLY)?(?:\s*\(([^)]*)\))?/i);
+    const outcome = body.match(OUTCOME_RE);
     if (!outcome) return null;
     const preOutcome = compact(body.slice(0, outcome.index));
     const questionText = preOutcome
@@ -119,23 +119,92 @@ export function parseMotions(text, date, committee, sourceUrl, meetingReference)
       .replace(/\s+DM#\d+\s+Page\s+\d+\s+ADOPTED MINUTES\s+[A-Za-z]+\s+\d{1,2},\s+\d{4}\s+\d{2}-\d{2}\s+/gi, ' ')
       .replace(/\s+ADOPTED MINUTES\s+[A-Za-z]+\s+\d{1,2},\s+\d{4}\s+\d{2}-\d{2}\s+/gi, ' ')
       .replace(/\s+DM#\d+.*$/i, '');
-    const opposed = [...(outcome[2] ?? '').matchAll(/(?:Mayor|Deputy Mayor|Councillor)\s+[A-Z5]\.\s+[A-Za-z][A-Za-z'’-]*(?:-[A-Za-z][A-Za-z'’-]*)*/gi)]
-      .map(item => memberFromReference(item[0])).filter(Boolean);
-    const unanimous = /UNANIMOUSLY/i.test(outcome[0]);
-    const votes = {};
-    if (unanimous) present.forEach(member => { votes[member] = 'YES'; });
-    opposed.forEach(member => { votes[member] = 'NO'; });
-    const yesCount = Object.values(votes).filter(vote => vote === 'YES').length;
-    const noCount = Object.values(votes).filter(vote => vote === 'NO').length;
-    const status = outcome[1].toUpperCase() === 'CARRIED' ? 'Adopted' : 'Not adopted';
-    return {
-      id: `yk-${date}-${number}`, title, date, committee, status, votes, yesCount, noCount,
-      topic: topicForTitle(title),
-      administrative: isAdministrativeTitle(title) || /^(?:approve the agenda|adopt the agenda)\b/i.test(title) || /pursuant to s\.\s?\d+.*?time allowed.*?be extended/i.test(title),
-      sourceUrl, agendaUrl: null, meetingReference, motionNumber: number,
-      body: `${body}\n\nSource: ${sourceUrl}`,
-    };
+    return buildMotion({ number, title, body, outcome, present, date, committee, sourceUrl, meetingReference });
   }).filter(Boolean);
+}
+
+const OUTCOME_RE = /MOTION\s+(CARRIED|DEFEATED)(?:\s+UNANIMOUSLY)?(?:\s*\(([^)]*)\))?/i;
+
+function buildMotion({ number, title, body, outcome, present, date, committee, sourceUrl, meetingReference }) {
+  const opposed = [...(outcome[2] ?? '').matchAll(/(?:Mayor|Deputy Mayor|Councillor)\s+[A-Z5]\.\s+[A-Za-z][A-Za-z'’-]*(?:-[A-Za-z][A-Za-z'’-]*)*/gi)]
+    .map(item => memberFromReference(item[0])).filter(Boolean);
+  const unanimous = /UNANIMOUSLY/i.test(outcome[0]);
+  const votes = {};
+  if (unanimous) present.forEach(member => { votes[member] = 'YES'; });
+  opposed.forEach(member => { votes[member] = 'NO'; });
+  const yesCount = Object.values(votes).filter(vote => vote === 'YES').length;
+  const noCount = Object.values(votes).filter(vote => vote === 'NO').length;
+  const status = outcome[1].toUpperCase() === 'CARRIED' ? 'Adopted' : 'Not adopted';
+  return {
+    id: `yk-${date}-${number}`, title, date, committee, status, votes, yesCount, noCount,
+    topic: topicForTitle(title),
+    administrative: isAdministrativeTitle(title) || /^(?:approve the agenda|adopt the agenda)\b/i.test(title) || /pursuant to s\.\s?\d+.*?time allowed.*?be extended/i.test(title),
+    sourceUrl, agendaUrl: null, meetingReference, motionNumber: number,
+    body: `${body}\n\nSource: ${sourceUrl}`,
+  };
+}
+
+// eSCRIBE's HTML minutes (Meeting.aspx?...&Agenda=PostMinutes) mark up each
+// motion's number, mover, seconder, text and result separately, so titles
+// come straight from the motion text with no "moved/seconded" carving.
+// Attendance lists one member per display:block span after a bold label.
+function attendanceFromHtml($, label) {
+  const paragraph = $('#AgendaHeaderTitle p').filter((_, el) => new RegExp(`^\\s*${label}:`, 'i').test($(el).find('span').first().text())).first();
+  return paragraph.find('span').slice(1).toArray()
+    .map(el => memberFromReference(compact($(el).text())))
+    .filter(Boolean);
+}
+
+function motionTextFromHtml($, element) {
+  const copy = $(element).clone();
+  copy.find('li').each((_, li) => {
+    const list = $(li).parent();
+    const index = list.children('li').index(li);
+    const lettered = /^a$/i.test(list.attr('type') ?? '') || list.parents('ol').length > 0;
+    const marker = lettered ? `${String.fromCharCode(97 + index)}.` : `${index + 1}.`;
+    $(li).prepend(`${marker} `).append(' ');
+  });
+  copy.find('p, br, div').append(' ');
+  return compact(copy.text().replace(/[\u200b\u00a0]/g, ' '));
+}
+
+/** Returns null when the page isn't a minutes document (e.g. a browser-check page). */
+export function parseHtmlMinutes(html, date, committee, sourceUrl, meetingReference) {
+  const $ = cheerio.load(html);
+  if (!/MINUTES/i.test($('#AgendaHeaderTitle').text())) return null;
+  const present = attendanceFromHtml($, 'Present');
+  return $('.AgendaItemMotion').toArray().map(element => {
+    const item = $(element);
+    const number = compact(item.find('.Number .Value').first().text()).replace(/^#/, '');
+    const result = compact(item.find('.MotionResult').first().text());
+    const outcome = result.match(OUTCOME_RE);
+    if (!/^\d{3,6}-\d{2}$/.test(number) || !outcome) return null;
+    if (compact(item.find('.MotionVoters').text())) console.warn(`Yellowknife motion ${number} on ${date} has a recorded vote table; only the result line is parsed.`);
+    const text = motionTextFromHtml($, item.find('.MotionText').first());
+    const title = compact(text.match(/^That\s*[:,]?\s*([\s\S]*)/i)?.[1] ?? text);
+    const movedBy = compact(item.find('.MovedBy .Value').text());
+    const secondedBy = compact(item.find('.SecondedBy .Value').text());
+    const body = compact(`#${number} Moved by ${movedBy}, seconded by ${secondedBy}. ${text} ${result}`);
+    return buildMotion({ number, title, body, outcome, present, date, committee, sourceUrl, meetingReference });
+  }).filter(Boolean);
+}
+
+async function readHtml(url) {
+  let response;
+  for (let attempt = 1; attempt <= PDF_RETRY_LIMIT; attempt += 1) {
+    const waitForGap = Math.max(0, PDF_REQUEST_GAP_MS - (Date.now() - lastPdfRequestAt));
+    if (waitForGap) await new Promise(resolve => setTimeout(resolve, waitForGap));
+    lastPdfRequestAt = Date.now();
+    response = await fetch(url, { headers: { 'User-Agent': 'Motions civic data importer/1.0' } });
+    if (response.status !== 429 && response.status < 500) break;
+    if (attempt === PDF_RETRY_LIMIT) break;
+    await new Promise(resolve => setTimeout(resolve, Math.min(120000, 15000 * 2 ** (attempt - 1))));
+  }
+  if (!response.ok) {
+    console.warn(`Yellowknife HTML minutes returned HTTP ${response.status}: ${url}`);
+    return null;
+  }
+  return response.text();
 }
 
 function pdfText(buffer) {
@@ -225,8 +294,9 @@ async function main() {
   const existingById = new Map(existingMotions.map(motion => [motion.id, motion]));
   const existingMeetingsById = new Map(existingMeetings.map(meeting => [meeting.meetingId, meeting]));
   const fetchedMeetingIds = new Set();
-  let minutesAttempted = 0;
-  let minutesBlocked = 0;
+  let htmlAttempted = 0;
+  let htmlBlocked = 0;
+  let pdfBlocked = 0;
 
   for (const item of [...new Map(calendarMeetings.map(meeting => [meeting.ID, meeting])).values()]) {
     const date = item.StartDate?.slice(0, 10).replaceAll('/', '-');
@@ -242,23 +312,37 @@ async function main() {
     const detailUrl = `${CALENDAR_URL}/Meeting?Id=${meetingId}`;
     const documents = (item.MeetingDocumentLink ?? []).map(document => ({
       type: document.Type,
+      format: document.Format,
       label: decodeHtml(document.Title),
       href: new URL(document.Url, CALENDAR_URL).href,
     }));
-    const minutesLink = documents.find(link => /minutes|postminutes/i.test(`${link.type} ${link.label}`));
+    // Newer meetings (May 2026 on) also publish HTML minutes, which the
+    // City's browser check doesn't block; older ones only have PDFs.
+    const htmlMinutesLink = documents.find(link => link.type === 'PostMinutes' && /html/i.test(link.format ?? ''));
+    const minutesLink = htmlMinutesLink ?? documents.find(link => /minutes|postminutes/i.test(`${link.type} ${link.label}`));
     const agendaLink = documents.find(link => /agenda/i.test(`${link.type} ${link.label}`));
     const meeting = { date, startTime: item.StartDate.slice(11, 16).replace(':', ''), committee, meetingId, meetingNumber: meetingId, meetingReference, isCouncil: /council/i.test(committee), sourceUrl: detailUrl, agendaUrl: agendaLink?.href ?? null, agendaItems: [] };
     fetchedMeetingIds.add(meetingId);
     if (minutesLink) {
-      minutesAttempted += 1;
-      const minutesText = await readPdf(minutesLink.href);
-      if (!minutesText) {
+      let parsed;
+      if (htmlMinutesLink) {
+        const html = await readHtml(htmlMinutesLink.href);
+        parsed = html ? parseHtmlMinutes(html, date, committee, htmlMinutesLink.href, meetingReference) : null;
+        // The block-ratio gate covers the HTML minutes only: older meetings'
+        // PDFs are blocked indefinitely, but their motions are already stored.
+        htmlAttempted += 1;
+        if (!parsed) htmlBlocked += 1;
+      } else {
+        const minutesText = await readPdf(minutesLink.href);
+        parsed = minutesText ? parseMotions(minutesText, date, committee, minutesLink.href, meetingReference) : null;
+        if (!parsed) pdfBlocked += 1;
+      }
+      if (!parsed) {
         // Blocked or unreadable: keep this meeting's existing motion links
         // instead of publishing it with none.
-        minutesBlocked += 1;
         meeting.agendaItems = previousAgendaItems(existingMeetingsById.get(meetingId), existingMotions, meetingReference);
       }
-      for (const motion of minutesText ? parseMotions(minutesText, date, committee, minutesLink.href, meetingReference) : []) {
+      for (const motion of parsed ?? []) {
         const prior = existingById.get(motion.id);
         motions.push({ ...prior, ...motion, summary: prior?.summary, keyAmounts: prior?.keyAmounts });
         meeting.agendaItems.push({ reference: motion.id, title: motion.title, inCamera: false, url: motion.sourceUrl, motionId: motion.id });
@@ -267,7 +351,8 @@ async function main() {
     meetings.push(meeting);
     console.log(`Processed ${date} ${committee}: ${meeting.agendaItems.length} motions`);
   }
-  assertMinutesMostlyAvailable('Yellowknife', minutesAttempted, minutesBlocked);
+  if (pdfBlocked) console.warn(`${pdfBlocked} older Yellowknife PDF minutes were blocked or unreadable; kept their existing motion links.`);
+  assertMinutesMostlyAvailable('Yellowknife HTML', htmlAttempted, htmlBlocked);
 
   const mergedMotions = [...existingMotions.filter(motion => !motions.some(next => next.id === motion.id)), ...motions]
     .map(motion => ({
