@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.127.0",
-    "@google/genai": "^2.23.0",
+    "@google/genai": "^2.28.0",
     "@tailwindcss/vite": "^4.3.3",
     "@turf/union": "^7.4.0",
     "@vercel/analytics": "^2.0.1",
