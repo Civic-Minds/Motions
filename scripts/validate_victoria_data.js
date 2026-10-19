@@ -1,17 +1,16 @@
 /**
  * Validate Victoria's eSCRIBE-sourced dataset before publication.
  *
- * The old Power BI-era checks assumed a dashboard snapshot that could go
- * stale (hence the 90-day staleness gate) and neutral, unscored fields
- * (hence requiring significance === 0). Neither applies now: the source is
- * eSCRIBE meeting minutes refreshed on the same weekly CI schedule as
- * Yellowknife's, and motions get the same deterministic, no-AI significance
- * scoring Yellowknife's do (see computeYellowknifeSignificance).
+ * Besides per-motion field checks, this refuses publication when the newest
+ * motion is more than 90 days old or when meetings that have motions have
+ * lost their motion links -- both signs that minutes downloads are being
+ * blocked (see scripts/lib/escribeDataChecks.js).
  */
 
 import fs from 'node:fs';
 import path from 'node:path';
 import { CANONICAL_TOPICS } from './lib/topicClassification.js';
+import { linkAndFreshnessErrors } from './lib/escribeDataChecks.js';
 
 /* global process */
 
@@ -65,6 +64,8 @@ for (const motion of motions) {
         if (!file.label || !/^https:\/\//.test(file.url)) errors.push(`invalid document link: ${motion.id}`);
     }
 }
+
+errors.push(...linkAndFreshnessErrors(motions, meetings));
 
 if (errors.length) {
     console.error(`Victoria data validation failed with ${errors.length} error(s):`);

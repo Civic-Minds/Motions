@@ -46,6 +46,7 @@ import fetch from 'node-fetch';
 import { chromium } from 'playwright';
 import { classifyVictoriaTopic } from './lib/victoriaClassification.js';
 import { isAdministrativeTitle } from './lib/topicClassification.js';
+import { assertMinutesMostlyAvailable, previousAgendaItems } from './lib/minutesFallback.js';
 
 /* global process, Buffer */
 
@@ -472,7 +473,7 @@ async function readPdf(url) {
       if (attempt < 3) await pdfPage.waitForTimeout(5000);
     }
   }
-  if (buffer.subarray(0, 4).toString() !== '%PDF') {
+  if (buffer?.subarray(0, 4).toString() !== '%PDF') {
     console.warn(`Skipped non-PDF Victoria minutes document: ${url}`);
     return null;
   }
@@ -512,7 +513,10 @@ async function main() {
   const existingMotions = fs.existsSync(path.join(DATA_DIR, 'motions.json')) ? JSON.parse(fs.readFileSync(path.join(DATA_DIR, 'motions.json'), 'utf8')) : [];
   const existingMeetings = fs.existsSync(path.join(DATA_DIR, 'meetings.json')) ? JSON.parse(fs.readFileSync(path.join(DATA_DIR, 'meetings.json'), 'utf8')) : [];
   const existingById = new Map(existingMotions.map(motion => [motion.id, motion]));
+  const existingMeetingsById = new Map(existingMeetings.map(meeting => [meeting.meetingId, meeting]));
   const fetchedMeetingIds = new Set();
+  let minutesAttempted = 0;
+  let minutesBlocked = 0;
 
   for (const item of [...new Map(calendarMeetings.map(meeting => [meeting.ID, meeting])).values()]) {
     const date = item.StartDate?.slice(0, 10).replaceAll('/', '-');
@@ -536,7 +540,14 @@ async function main() {
     };
     fetchedMeetingIds.add(meetingId);
     if (minutesLink) {
+      minutesAttempted += 1;
       const minutesText = await readPdf(minutesLink.href);
+      if (!minutesText) {
+        // Blocked or unreadable: keep this meeting's existing motion links
+        // instead of publishing it with none.
+        minutesBlocked += 1;
+        meeting.agendaItems = previousAgendaItems(existingMeetingsById.get(meetingId), existingMotions, meetingReference);
+      }
       for (const motion of minutesText ? parseMotions(minutesText, date, committee, minutesLink.href, meetingReference) : []) {
         const prior = existingById.get(motion.id);
         motions.push({
@@ -551,6 +562,7 @@ async function main() {
     meetings.push(meeting);
     console.log(`Processed ${date} ${committee}: ${meeting.agendaItems.length} motions`);
   }
+  assertMinutesMostlyAvailable('Victoria', minutesAttempted, minutesBlocked);
 
   // A handful of source documents genuinely restate the same lettered/nested
   // item elsewhere in the same meeting's minutes (observed rarely -- well

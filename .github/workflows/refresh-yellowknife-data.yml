@@ -37,6 +37,8 @@ jobs:
         run: node scripts/extract_fields.js --city=yellowknife
       - name: Record Yellowknife refresh time
         run: node scripts/write_data_metadata.js --city=yellowknife
+      - name: Validate Yellowknife data
+        run: npm run validate:yellowknife
       - name: Upload Yellowknife data to Vercel Blob
         env:
           BLOB_READ_WRITE_TOKEN: ${{ secrets.BLOB_READ_WRITE_TOKEN }}
