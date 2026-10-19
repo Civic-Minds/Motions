@@ -14,7 +14,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import fetch from 'node-fetch';
-import { chromium } from 'playwright';
+import { closePdfBrowser, fetchPdfInBrowser } from './lib/browserPdf.js';
 import * as cheerio from 'cheerio';
 import { isAdministrativeTitle } from './lib/topicClassification.js';
 import { assertMinutesMostlyAvailable, previousAgendaItems } from './lib/minutesFallback.js';
@@ -48,8 +48,7 @@ const TO_DATE = new Date().toISOString().slice(0, 10);
 const PDF_REQUEST_GAP_MS = 1200;
 const PDF_RETRY_LIMIT = 5;
 let lastPdfRequestAt = 0;
-let pdfBrowser;
-let pdfPage;
+let sourceChallenged = false;
 
 function compact(value) { return value.replace(/\s+/g, ' ').trim(); }
 
@@ -216,6 +215,14 @@ function pdfText(buffer) {
 }
 
 async function readPdf(url) {
+  // Once the source has answered with its browser check, every direct request
+  // will too; go straight to the browser so each PDF is requested only once.
+  if (sourceChallenged) {
+    const buffer = await fetchPdfInBrowser(url);
+    if (buffer) return pdfText(buffer);
+    console.warn(`Skipped non-PDF Yellowknife minutes document: ${url}`);
+    return null;
+  }
   let response;
   for (let attempt = 1; attempt <= PDF_RETRY_LIMIT; attempt += 1) {
     const waitForGap = Math.max(0, PDF_REQUEST_GAP_MS - (Date.now() - lastPdfRequestAt));
@@ -233,22 +240,9 @@ async function readPdf(url) {
     console.warn(`Yellowknife document returned HTTP ${response.status}; retrying in ${Math.round(delayMs / 1000)}s: ${url}`);
     await new Promise(resolve => setTimeout(resolve, delayMs));
   }
+  if (response.headers.get('cf-mitigated') === 'challenge') sourceChallenged = true;
   let buffer = response.ok ? Buffer.from(await response.arrayBuffer()) : null;
-  if (!buffer?.subarray(0, 4).toString().startsWith('%PDF')) {
-    if (!pdfPage) {
-      pdfBrowser = await chromium.launch({ headless: false });
-      pdfPage = await pdfBrowser.newPage();
-    }
-    await pdfPage.goto(CALENDAR_URL, { waitUntil: 'networkidle', timeout: 60000 }).catch(() => {});
-    for (let attempt = 1; attempt <= 3; attempt += 1) {
-      const browserResponse = await pdfPage.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
-      if (browserResponse?.ok()) {
-        buffer = Buffer.from(await browserResponse.body());
-        if (buffer.subarray(0, 4).toString() === '%PDF') break;
-      }
-      if (attempt < 3) await pdfPage.waitForTimeout(5000);
-    }
-  }
+  if (buffer?.subarray(0, 4).toString() !== '%PDF') buffer = await fetchPdfInBrowser(url);
   if (buffer?.subarray(0, 4).toString() !== '%PDF') {
     console.warn(`Skipped non-PDF Yellowknife minutes document: ${url}`);
     return null;
@@ -377,4 +371,4 @@ async function main() {
 
 if (import.meta.url === `file://${process.argv[1]}`) main()
   .catch(error => { console.error(error.message); process.exitCode = 1; })
-  .finally(async () => { await pdfBrowser?.close(); });
+  .finally(closePdfBrowser);

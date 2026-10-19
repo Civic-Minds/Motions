@@ -10,6 +10,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 - **Victoria and Yellowknife meetings no longer lose their motions when the City blocks minutes downloads**: A blocked meeting keeps its existing motion links, and a refresh where most downloads are blocked, or where data has gone stale, now stops before publishing.
 - **Yellowknife motions are current again**: Meetings since May 2026 are now read from the City's web version of the minutes, adding about 100 missing motions with clean titles, outcomes and attendance-based votes.
+- **Victoria minutes download again**: The importer now gets past the City's browser check, so meetings since June 2026 can be imported instead of being skipped.
 - **Toronto motion history now includes the 2018–2022 council term**: The voting-record archive is preserved during scheduled refreshes, adding historical 2020 decisions without dropping current-term data.
 - **Historical Toronto motions now carry location metadata where the source supports it**: Address records are geocoded and ward references use official ward boundaries, without requiring AI enrichment.
 - **Historical Toronto submotions now have an explicit location review**: Eleven child records inherit a verified parent location; unsupported records remain unmapped instead of receiving guessed coordinates.
