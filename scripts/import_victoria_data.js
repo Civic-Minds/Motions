@@ -511,7 +511,7 @@ async function main() {
     const meeting = {
       date, startTime: item.StartDate.slice(11, 16).replace(':', ''), committee, meetingId,
       meetingNumber: meetingId, meetingReference, isCouncil: /^(?:Special\s+)?Council/i.test(committee),
-      sourceUrl: detailUrl, agendaUrl: agendaLink?.href ?? null, agendaItems: [],
+      sourceUrl: detailUrl, agendaUrl: agendaLink?.href ?? null, minutesUrl: minutesLink?.href ?? null, agendaItems: [],
     };
     fetchedMeetingIds.add(meetingId);
     if (minutesLink) {

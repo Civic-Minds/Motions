@@ -315,7 +315,7 @@ async function main() {
     const htmlMinutesLink = documents.find(link => link.type === 'PostMinutes' && /html/i.test(link.format ?? ''));
     const minutesLink = htmlMinutesLink ?? documents.find(link => /minutes|postminutes/i.test(`${link.type} ${link.label}`));
     const agendaLink = documents.find(link => /agenda/i.test(`${link.type} ${link.label}`));
-    const meeting = { date, startTime: item.StartDate.slice(11, 16).replace(':', ''), committee, meetingId, meetingNumber: meetingId, meetingReference, isCouncil: /council/i.test(committee), sourceUrl: detailUrl, agendaUrl: agendaLink?.href ?? null, agendaItems: [] };
+    const meeting = { date, startTime: item.StartDate.slice(11, 16).replace(':', ''), committee, meetingId, meetingNumber: meetingId, meetingReference, isCouncil: /council/i.test(committee), sourceUrl: detailUrl, agendaUrl: agendaLink?.href ?? null, minutesUrl: minutesLink?.href ?? null, agendaItems: [] };
     fetchedMeetingIds.add(meetingId);
     if (minutesLink) {
       let parsed;

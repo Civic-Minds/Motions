@@ -1,10 +1,11 @@
 /**
  * Validate Victoria's eSCRIBE-sourced dataset before publication.
  *
- * Besides per-motion field checks, this refuses publication when the newest
- * motion is more than 90 days old or when meetings that have motions have
- * lost their motion links -- both signs that minutes downloads are being
- * blocked (see scripts/lib/escribeDataChecks.js).
+ * Besides per-motion field checks, this refuses publication when meetings
+ * that have motions have lost their motion links, or when several meetings
+ * with posted minutes newer than the newest motion produced no motions --
+ * both signs that minutes downloads are being blocked
+ * (see scripts/lib/escribeDataChecks.js).
  */
 
 import fs from 'node:fs';
