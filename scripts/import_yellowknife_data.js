@@ -20,7 +20,6 @@ import { isAdministrativeTitle } from './lib/topicClassification.js';
 import { assertMinutesMostlyAvailable, previousAgendaItems } from './lib/minutesFallback.js';
 import { cleanYellowknifeTitle, YELLOWKNIFE_TITLE_OVERRIDES } from '../src/utils/yellowknifeMotionTitle.js';
 
-/* global process, Buffer */
 
 export const CALENDAR_URL = 'https://pub-yellowknife.escribemeetings.com';
 const CALENDAR_API_URL = `${CALENDAR_URL}/MeetingsCalendarView.aspx/GetCalendarMeetings`;

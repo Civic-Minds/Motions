@@ -161,7 +161,7 @@ async function main() {
         await sleep(1100); // Nominatim: max 1 req/s
         const result = await geocode(address);
         if (result) locations.push(result);
-      } catch (err) {
+      } catch {
         // silently skip failed geocodes
       }
     }

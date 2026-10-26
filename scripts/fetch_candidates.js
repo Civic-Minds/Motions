@@ -69,14 +69,6 @@ const VERIFIED_WEBSITES_BY_CANDIDATE_NAME = {
   'Victoria Davis': 'https://victoriaforcentre.ca/',
 };
 
-function verifiedWebsite(email, name) {
-  const normalized = email?.trim().toLowerCase();
-  return VERIFIED_WEBSITES_BY_EMAIL[normalized]
-    ?? VERIFIED_WEBSITES_BY_EMAIL_DOMAIN[normalized?.split('@')[1]]
-    ?? VERIFIED_WEBSITES_BY_CANDIDATE_NAME[name]
-    ?? null;
-}
-
 async function scrapeCandidates() {
   console.log('Launching browser to scrape candidates...');
   const browser = await chromium.launch();

@@ -38,7 +38,6 @@ export default async function handler(request, response) {
   const url = new URL(request.url, 'https://motions.watch');
   const title = (url.searchParams.get('title') || 'Toronto Council Voting Tracker').trim();
   const context = (url.searchParams.get('context') || 'Motions Toronto').trim();
-  const city = (url.searchParams.get('city') || 'Toronto').trim();
   const lines = title.match(/.{1,42}(?:\s|$)/g)?.slice(0, 4) || [title];
 
   const headerPath = textPathData(boldFont, 'Motions', 104, 130, 28, 3);

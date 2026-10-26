@@ -7,7 +7,6 @@
  * though its motions are still in the data.
  */
 
-/* global process */
 
 // Fail the import when more than this share of minutes downloads were blocked.
 export const MAX_BLOCKED_MINUTES_RATIO = 0.5;

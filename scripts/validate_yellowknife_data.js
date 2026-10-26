@@ -10,7 +10,6 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { linkAndFreshnessErrors } from './lib/escribeDataChecks.js';
 
-/* global process */
 
 const DATA_DIR = path.join(process.cwd(), 'public/data/yellowknife');
 const VALID_VOTES = new Set(['YES', 'NO', 'ABSENT', 'CONFLICT', 'NO_VOTE']);
