@@ -16,8 +16,8 @@
     "optimize:images": "node scripts/optimize_councillor_photos.js"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.127.0",
-    "@google/genai": "^2.23.0",
+    "@anthropic-ai/sdk": "^0.133.0",
+    "@google/genai": "^2.31.0",
     "@tailwindcss/vite": "^4.3.3",
     "@turf/union": "^7.4.0",
     "@vercel/analytics": "^2.0.1",
@@ -27,14 +27,14 @@
     "clsx": "^2.1.1",
     "fuse.js": "^7.5.0",
     "leaflet": "^1.9.4",
-    "lucide-react": "^1.47.0",
+    "lucide-react": "^1.61.0",
     "node-fetch": "^3.3.2",
     "opentype.js": "^2.0.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.8",
     "react-leaflet": "^5.0.0",
     "react-router-dom": "^7.18.4",
-    "sharp": "^0.35.4",
+    "sharp": "^0.35.5",
     "tailwind-merge": "^3.7.0",
     "tailwindcss": "^4.3.3"
   },
@@ -44,13 +44,13 @@
     "@eslint/js": "^10.0.1",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.5",
-    "@vitejs/plugin-react": "^6.1.1",
-    "eslint": "^10.11.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "eslint": "^10.13.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.7",
-    "globals": "^17.11.0",
-    "playwright": "^1.62.1",
-    "vite": "^8.2.2"
+    "globals": "^17.13.0",
+    "playwright": "^1.64.1",
+    "vite": "^8.3.5"
   },
   "overrides": {
     "protobufjs": ">=7.5.5",
