@@ -1,43 +1,8 @@
-import React, { createContext, useContext, useState } from 'react';
-import { getWardId, setWardId as saveWardId, getFollowedCommittees, setFollowedCommittees as saveFollowedCommittees } from '../utils/storage';
+import { createContext, useContext } from 'react';
 
-const AppContext = createContext(null);
-
-export function AppProvider({ children, jurisdiction }) {
-    const [wardId, setWardId] = useState(() => getWardId());
-    const [followedCommittees, setFollowedCommittees] = useState(() => getFollowedCommittees());
-
-    const handleLocate = async () => {
-        const { geolocateWard } = await import('../utils/ward');
-        const id = await geolocateWard();
-        setWardId(id);
-        saveWardId(id);
-    };
-
-    const handleClearWard = () => {
-        setWardId(null);
-        saveWardId(null);
-    };
-
-    const handleSetWard = (id) => {
-        setWardId(id || null);
-        saveWardId(id || null);
-    };
-
-    const handleToggleFollow = (name) => {
-        const next = followedCommittees.includes(name)
-            ? followedCommittees.filter(c => c !== name)
-            : [...followedCommittees, name];
-        setFollowedCommittees(next);
-        saveFollowedCommittees(next);
-    };
-
-    return (
-        <AppContext.Provider value={{ wardId, handleLocate, handleSetWard, handleClearWard, followedCommittees, handleToggleFollow, jurisdiction }}>
-            {children}
-        </AppContext.Provider>
-    );
-}
+// The provider lives in AppProvider.jsx so this file exports no components
+// (keeps React Fast Refresh working for both).
+export const AppContext = createContext(null);
 
 export function useAppContext() {
     return useContext(AppContext);

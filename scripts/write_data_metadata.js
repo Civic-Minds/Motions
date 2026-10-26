@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 
-/* global process */
 
 const cityArg = process.argv.find(arg => arg.startsWith('--city='));
 const city = cityArg ? cityArg.slice('--city='.length) : process.argv.includes('--vancouver') ? 'vancouver' : 'toronto';

@@ -10,7 +10,6 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { cleanVancouverTitle, VANCOUVER_TITLE_OVERRIDES } from '../src/utils/motionTitle.js';
 
-/* global process */
 
 const dataPath = path.join(process.cwd(), 'public/data/vancouver/motions.json');
 const motions = JSON.parse(fs.readFileSync(dataPath, 'utf8'));

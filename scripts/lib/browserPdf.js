@@ -11,7 +11,6 @@
 
 import { chromium } from 'playwright';
 
-/* global Buffer */
 
 const ATTEMPTS = 5;
 const REQUEST_GAP_MS = 1500;

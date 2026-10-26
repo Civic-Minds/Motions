@@ -13,7 +13,6 @@ import path from 'node:path';
 import { CANONICAL_TOPICS } from './lib/topicClassification.js';
 import { linkAndFreshnessErrors } from './lib/escribeDataChecks.js';
 
-/* global process */
 
 const DATA_DIR = path.join(process.cwd(), 'public/data/victoria');
 const FROM_DATE = '2022-11-01';

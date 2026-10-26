@@ -7,7 +7,8 @@ import { WARD_COUNCILLORS } from './constants/data';
 import { usePresence } from './hooks/usePresence';
 import { cn } from './lib/utils';
 import { useMotions } from './hooks/useMotions';
-import { AppProvider, useAppContext } from './contexts/AppContext';
+import { AppProvider } from './contexts/AppProvider';
+import { useAppContext } from './contexts/AppContext';
 import { getInitialJurisdiction, getJurisdiction, getVisibleJurisdictions, isJurisdictionPublic } from './constants/jurisdictions';
 import { formatElectionDate } from './utils/electionDate';
 import { getLastJurisdiction, setLastJurisdiction } from './utils/storage';
@@ -76,7 +77,7 @@ function Navbar({ onSearchOpen, jurisdiction, wardId = null, handleLocate, handl
   // Standalone pages (About/Privacy/Terms) sit outside the jurisdiction
   // router, so a relative navigate() would resolve against the wrong (empty)
   // basename — go there with a real navigation instead.
-  const goTo = (path) => { if (standalone) window.location.href = `${jurisdiction.path}${path}`; else navigate(path); };
+  const goTo = (path) => { if (standalone) window.location.assign(`${jurisdiction.path}${path}`); else navigate(path); };
 
   const active = TABS.find(t =>
     t.path === '/' ? location.pathname === '/' : location.pathname.startsWith(t.path)
@@ -304,9 +305,12 @@ function AppShell() {
   const [compareMode, setCompareMode] = useState(false);
   const toggleCompareMode = () => setCompareMode(m => !m);
   const location = useLocation();
-  useEffect(() => {
+  // Leaving the councillors pages turns compare mode off.
+  const [prevPathname, setPrevPathname] = useState(location.pathname);
+  if (prevPathname !== location.pathname) {
+    setPrevPathname(location.pathname);
     if (!location.pathname.startsWith('/councillors')) setCompareMode(false);
-  }, [location.pathname]);
+  }
 
   const councillorNames = useMemo(() => {
     if (!motions) return [];

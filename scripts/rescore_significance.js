@@ -1,4 +1,3 @@
-/* global process */
 
 /**
  * rescore_significance.js

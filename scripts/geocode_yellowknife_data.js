@@ -15,7 +15,6 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { locationsFromTitle } from './lib/yellowknifeGeocoding.js';
 
-/* global process */
 
 const DATA_PATH = path.join(process.cwd(), 'public/data/yellowknife/motions.json');
 const motions = JSON.parse(fs.readFileSync(DATA_PATH, 'utf8'));

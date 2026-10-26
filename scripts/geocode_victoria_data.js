@@ -4,7 +4,6 @@ import fetch from 'node-fetch';
 import fs from 'node:fs';
 import path from 'node:path';
 
-/* global process */
 
 const DATA_PATH = path.join(process.cwd(), 'public/data/victoria/motions.json');
 const motions = JSON.parse(fs.readFileSync(DATA_PATH, 'utf8'));

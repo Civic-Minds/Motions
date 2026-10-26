@@ -15,7 +15,6 @@ import fetch from 'node-fetch';
 import fs from 'fs';
 import path from 'path';
 
-/* global process */
 
 const DATA_PATH = path.join(process.cwd(), 'public/data/meetings.json');
 const CSV_URL = 'https://ckan0.cf.opendata.inter.prod-toronto.ca/datastore/dump/08c8aedb-afba-41f5-830e-bbfb305ebbc7';

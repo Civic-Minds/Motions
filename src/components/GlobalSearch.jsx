@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, X, FileText, User, Building2 } from 'lucide-react';
 import { usePresence } from '../hooks/usePresence';
@@ -60,13 +60,19 @@ export default function GlobalSearch({ motions, councillorNames, open, onClose }
     minMatchCharLength: 2,
   }), [committees]);
 
-  // Focus input when opened
-  useEffect(() => {
+  // Start fresh each time it opens (not on close, so results stay during the exit animation)
+  const [prevOpen, setPrevOpen] = useState(open);
+  if (prevOpen !== open) {
+    setPrevOpen(open);
     if (open) {
       setQuery('');
       setCursor(0);
-      setTimeout(() => inputRef.current?.focus(), 50);
     }
+  }
+
+  // Focus input when opened
+  useEffect(() => {
+    if (open) setTimeout(() => inputRef.current?.focus(), 50);
   }, [open]);
 
   // Cmd+K / ESC
@@ -90,12 +96,19 @@ export default function GlobalSearch({ motions, councillorNames, open, onClose }
     };
   }, [query, motionFuse, councillorFuse, committeeFuse]);
 
-  const flat = [
+  const flat = useMemo(() => [
     ...results.councillors.map(n => ({ type: 'councillor', name: n })),
     ...results.committees.map(c => ({ type: 'committee', name: c })),
     ...results.motions.map(m => ({ type: 'motion', motion: m })),
-  ];
+  ], [results]);
   const total = flat.length;
+
+  const selectItem = useCallback((item) => {
+    if (item.type === 'councillor') navigate(`/councillors/${nameToSlug(item.name)}`);
+    else if (item.type === 'committee') navigate(`/committees/${committeeToSlug(item.name)}`);
+    else navigate(`/motions/${item.motion.id}`);
+    onClose();
+  }, [navigate, onClose]);
 
   // Keyboard nav
   useEffect(() => {
@@ -107,20 +120,13 @@ export default function GlobalSearch({ motions, councillorNames, open, onClose }
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
-  }, [open, cursor, flat]);
+  }, [open, cursor, flat, total, selectItem]);
 
   // Scroll cursor into view
   useEffect(() => {
     const el = listRef.current?.children[cursor];
     el?.scrollIntoView({ block: 'nearest' });
   }, [cursor]);
-
-  function selectItem(item) {
-    if (item.type === 'councillor') navigate(`/councillors/${nameToSlug(item.name)}`);
-    else if (item.type === 'committee') navigate(`/committees/${committeeToSlug(item.name)}`);
-    else navigate(`/motions/${item.motion.id}`);
-    onClose();
-  }
 
   const showEmpty = query.trim().length >= 2 && total === 0;
 

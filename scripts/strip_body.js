@@ -8,7 +8,6 @@
  *   node scripts/strip_body.js
  */
 
-/* global process */
 
 import fs from 'fs';
 import path from 'path';

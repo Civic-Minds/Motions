@@ -1,6 +1,5 @@
 // Exits writing 'true' if a meeting occurred in the last WINDOW_DAYS days, 'false' otherwise.
 // Fails open (writes 'true') if the meetings feed can't be fetched.
-/* global process */
 const BLOB_BASE = 'https://qcbqayy3ivvb6sia.public.blob.vercel-storage.com';
 const WINDOW_DAYS = 8;
 

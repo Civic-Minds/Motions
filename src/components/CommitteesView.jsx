@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { ArrowRight, Star, Calendar } from 'lucide-react';
 import { getCommittee, COMMITTEE_NAMES, TOPIC_LIGHT, COMMITTEE_DESCRIPTIONS } from '../constants/data';
@@ -82,7 +82,10 @@ export default function CommitteesView({ motions, meetings = [] }) {
         if (!aFollowed && bFollowed) return 1;
         return b.total - a.total;
       });
-  }, [motions, jurisdiction]);
+    // followedCommittees is left out on purpose: following a committee keeps
+    // its card in place instead of jumping it to the top mid-click.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [primaryMotions, jurisdiction]);
 
   const TODAY = new Date().toISOString().slice(0, 10);
 
@@ -107,7 +110,7 @@ export default function CommitteesView({ motions, meetings = [] }) {
         if (a.upcomingCount === 0 && b.upcomingCount > 0) return 1;
         return a.name.localeCompare(b.name);
       });
-  }, [committees, meetings]);
+  }, [committees, meetings, TODAY]);
 
   const selectedCommittee = committeeSlug
     ? committees.find(c => c.slug === committeeSlug) ?? null
@@ -129,7 +132,11 @@ export default function CommitteesView({ motions, meetings = [] }) {
   }, [selectedCommittee]);
 
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
-  useEffect(() => { setVisibleCount(PAGE_SIZE); }, [committeeSlug]);
+  const [prevCommitteeSlug, setPrevCommitteeSlug] = useState(committeeSlug);
+  if (prevCommitteeSlug !== committeeSlug) {
+    setPrevCommitteeSlug(committeeSlug);
+    setVisibleCount(PAGE_SIZE);
+  }
   const visibleMotions = committeeMotions.slice(0, visibleCount);
 
   return (

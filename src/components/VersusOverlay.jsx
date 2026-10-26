@@ -8,10 +8,11 @@ import { formatMotionDate } from '../utils/date';
 const isRecordedVote = value => value === 'YES' || value === 'NO';
 
 export default function VersusOverlay({ selection, onClose, motions }) {
-  if (!selection || selection.length < 2) return null;
-  const [c1, c2] = selection;
+  const [c1, c2] = selection || [];
+  const hasPair = Boolean(selection && selection.length >= 2);
 
   const { alignmentScore, totalShared, c1Yes, c2Yes, c1Total, c2Total } = useMemo(() => {
+    if (!hasPair) return {};
     const shared = motions.filter(m => isRecordedVote(m.votes?.[c1]) && isRecordedVote(m.votes?.[c2]));
     const same   = shared.filter(m => m.votes[c1] === m.votes[c2]).length;
     const allC1  = motions.filter(m => m.votes?.[c1]);
@@ -24,9 +25,10 @@ export default function VersusOverlay({ selection, onClose, motions }) {
       c1Total: allC1.length,
       c2Total: allC2.length,
     };
-  }, [c1, c2, motions]);
+  }, [hasPair, c1, c2, motions]);
 
   const topicBreakdown = useMemo(() => {
+    if (!hasPair) return [];
     return TOPICS.map(topic => {
       const relevant = motions.filter(m => m.topic === topic && !m.trivial);
       const c1Votes  = relevant.filter(m => m.votes?.[c1] === 'YES' || m.votes?.[c1] === 'NO');
@@ -44,13 +46,15 @@ export default function VersusOverlay({ selection, onClose, motions }) {
         hasData: c1Votes.length >= 3 && c2Votes.length >= 3,
       };
     }).filter(t => t.hasData);
-  }, [c1, c2, motions]);
+  }, [hasPair, c1, c2, motions]);
 
-  const topDivergences = useMemo(() => motions
+  const topDivergences = useMemo(() => !hasPair ? [] : motions
     .filter(m => isRecordedVote(m.votes?.[c1]) && isRecordedVote(m.votes?.[c2]) && m.votes[c1] !== m.votes[c2] && !m.trivial)
     .sort((a, b) => (b.significance ?? 0) - (a.significance ?? 0))
     .slice(0, 6),
-  [c1, c2, motions]);
+  [hasPair, c1, c2, motions]);
+
+  if (!hasPair) return null;
 
   const c1Last = c1.split(' ').at(-1);
   const c2Last = c2.split(' ').at(-1);

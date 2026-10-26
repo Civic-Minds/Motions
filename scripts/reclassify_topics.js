@@ -20,7 +20,6 @@ import { classifyVancouverTopic } from './lib/vancouverClassification.js';
 import { classifyVictoriaTopic } from './lib/victoriaClassification.js';
 import { classifyYellowknifeTopic } from './lib/yellowknifeClassification.js';
 
-/* global process */
 
 const CITIES = {
     toronto: { dataPath: 'public/data/motions.json', classify: classifyTorontoTopic },

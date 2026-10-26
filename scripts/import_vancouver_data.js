@@ -17,7 +17,6 @@ import { classifyVancouverTopic } from './lib/vancouverClassification.js';
 import { isAdministrativeTitle } from './lib/topicClassification.js';
 import { computeVancouverSignificance } from './lib/significance.js';
 
-/* global process */
 
 const API_BASE = 'https://opendata.vancouver.ca/api/explore/v2.1/catalog/datasets/council-voting-records/records';
 const SOURCE_URL = 'https://opendata.vancouver.ca/explore/dataset/council-voting-records/';

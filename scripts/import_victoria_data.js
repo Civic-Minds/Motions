@@ -48,7 +48,6 @@ import { classifyVictoriaTopic } from './lib/victoriaClassification.js';
 import { isAdministrativeTitle } from './lib/topicClassification.js';
 import { assertMinutesMostlyAvailable, previousAgendaItems } from './lib/minutesFallback.js';
 
-/* global process, Buffer */
 
 export const CALENDAR_URL = 'https://pub-victoria.escribemeetings.com';
 const CALENDAR_API_URL = `${CALENDAR_URL}/MeetingsCalendarView.aspx/GetCalendarMeetings`;

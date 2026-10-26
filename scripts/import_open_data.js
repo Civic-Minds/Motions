@@ -26,7 +26,6 @@ import { isAdministrativeTitle } from './lib/topicClassification.js';
 import { classifyTorontoTopic } from './lib/torontoClassification.js';
 import { applyAdministrativePenalty, computeFlags } from './lib/significance.js';
 
-/* global process */
 
 const DATA_PATH = path.join(process.cwd(), 'public/data/motions.json');
 const MERGE_EXISTING = process.argv.includes('--merge');

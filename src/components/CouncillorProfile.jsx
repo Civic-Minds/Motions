@@ -311,6 +311,8 @@ function ExpenseBreakdown({ expenseRecord, sourceUrl }) {
   );
 }
 
+const blobBase = import.meta.env.VITE_BLOB_BASE_URL;
+
 // ── Main component ─────────────────────────────────────────────────────────
 export default function CouncillorProfile({ motions, councillors = [], jurisdiction = { id: 'toronto', name: 'Toronto' } }) {
   const { slug } = useParams();
@@ -323,7 +325,6 @@ export default function CouncillorProfile({ motions, councillors = [], jurisdict
   const isVancouver = jurisdiction.id === 'vancouver';
   const currentNames = useMemo(() => getCurrentMembers(councillors), [councillors]);
 
-  const blobBase = import.meta.env.VITE_BLOB_BASE_URL;
 
   useEffect(() => {
     const url = blobBase ? `${blobBase}/tenure.json` : '/data/tenure.json';

@@ -469,7 +469,7 @@ export default function DashboardView({ motions, meetings = [], councillors = []
       .sort((a, b) => (b.significance ?? 0) - (a.significance ?? 0) || new Date(b.date) - new Date(a.date));
     const recent = pool.filter(m => new Date(m.date) >= cutoff);
     return recent.slice(0, count);
-  }, [primaryMotions, savedWardId, followedHighlights]);
+  }, [primaryMotions, followedHighlights]);
 
   // Ward motions
   const wardHighlights = useMemo(() => {
@@ -502,7 +502,7 @@ export default function DashboardView({ motions, meetings = [], councillors = []
       .filter(m => !usedIds.has(m.id))
       .sort((a, b) => new Date(b.date) - new Date(a.date) || (b.significance ?? 0) - (a.significance ?? 0))
       .slice(0, 3);
-  }, [primaryMotions, followedHighlights, highlights, wardHighlights, jurisdiction.id]);
+  }, [primaryMotions, followedHighlights, highlights, wardHighlights, isYellowknife, isVictoria]);
 
   const homeMotionCards = useMemo(() => {
     const preferred = highlights.length > 0
@@ -551,7 +551,11 @@ export default function DashboardView({ motions, meetings = [], councillors = []
   }, [primaryMotions, filters, savedWardId, followedCommittees, lastMeeting, wardFilter]);
 
   // Reset visible count when filters or the responsive layout changes.
-  useEffect(() => { setVisibleCount(isMobileViewport() ? 10 : 20); }, [filters]);
+  const [prevFilters, setPrevFilters] = useState(filters);
+  if (prevFilters !== filters) {
+    setPrevFilters(filters);
+    setVisibleCount(isMobileViewport() ? 10 : 20);
+  }
 
   const visibleMotions = sortedMotions.slice(0, visibleCount);
 

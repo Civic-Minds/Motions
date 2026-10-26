@@ -10,7 +10,6 @@ import { put } from '@vercel/blob';
 import fs from 'fs';
 import path from 'path';
 
-/* global process */
 
 // Local runs can use the repo's ignored .env; CI continues to provide secrets
 // through the workflow environment.
