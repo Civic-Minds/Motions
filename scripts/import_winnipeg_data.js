@@ -15,6 +15,8 @@ import path from 'node:path';
 import fetch from 'node-fetch';
 import { classifyWinnipegTopic } from './lib/winnipegClassification.js';
 import { isAdministrativeTitle } from './lib/topicClassification.js';
+import { normalizeWinnipegTitle } from './lib/winnipegTitle.js';
+import { locationsFromWinnipegTitle } from './lib/winnipegGeocoding.js';
 
 /* global process */
 
@@ -44,6 +46,15 @@ export const CURRENT_COUNCIL = [
     'Russ Wyatt', 'Shawn Dobson', 'Sherri Rollins', 'Vivian Santos',
 ].map(name => ({ name, current: true }));
 
+function buildCouncil(rows) {
+    const currentNames = new Set(CURRENT_COUNCIL.map(member => member.name));
+    const historicalNames = [...new Set(rows.map(row => memberName(row.member)))]
+        .filter(name => !currentNames.has(name))
+        .sort((a, b) => a.localeCompare(b))
+        .map(name => ({ name, current: false }));
+    return [...CURRENT_COUNCIL, ...historicalNames];
+}
+
 function memberName(value) {
     const surname = String(value ?? '').trim();
     return MEMBER_NAMES[surname] ?? `Councillor ${surname}`;
@@ -56,23 +67,6 @@ function normalizeVote(value) {
         Absent: 'ABSENT',
         'Conflict Of Interest': 'CONFLICT',
     }[value] ?? 'NO_VOTE';
-}
-
-function cleanTitle(value) {
-    return String(value ?? '')
-        .replace(/\s+/g, ' ')
-        .replace(/^\s*\d+(?:\.\d+)*\s*[.)-]?\s*/, '')
-        .trim();
-}
-
-function scoreMotion({ title, yesCount, noCount, status, administrative }) {
-    let score = 45;
-    if (noCount > 0) score += 25;
-    if (yesCount > 0 && noCount > 0) score += 10;
-    if (/lost|defeated|not adopted/i.test(status)) score += 10;
-    if (/budget|tax|housing|transit|development|zoning|police|fire/i.test(title)) score += 10;
-    if (administrative) score -= 30;
-    return Math.max(0, Math.min(100, score));
 }
 
 async function fetchRows() {
@@ -99,9 +93,11 @@ export function groupRows(rows) {
     for (const row of rows) {
         if (!row.meeting_id || !row.motion_id || !row.meeting_date || !row.member) continue;
         const key = String(row.motion_id);
+        const normalizedTitle = normalizeWinnipegTitle(row.title || row.heading || `Motion ${row.motion_id}`, row.motion_id);
         const group = groups.get(key) ?? {
             id: `wpg-${row.motion_id}`,
-            title: cleanTitle(row.title || row.heading || `Motion ${row.motion_id}`),
+            sourceTitle: normalizedTitle.sourceTitle,
+            title: normalizedTitle.title,
             date: row.meeting_date.slice(0, 10),
             committee: row.committee_name || row.committee || 'Winnipeg City Council',
             meetingId: row.meeting_id,
@@ -123,19 +119,17 @@ export function groupRows(rows) {
         const noCount = Object.values(group.votes).filter(vote => vote === 'NO').length;
         const status = /lost|defeated/i.test(group.result) ? 'Not adopted' : 'Adopted';
         const administrative = isAdministrativeTitle(group.title);
-        const significance = scoreMotion({ ...group, yesCount, noCount, status, administrative });
         return {
             id: group.id,
             title: group.title,
             date: group.date,
             committee: group.committee,
             status,
+            sourceTitle: group.sourceTitle,
             votes: group.votes,
             yesCount,
             noCount,
             topic: classifyWinnipegTopic(group.title),
-            significance,
-            trivial: significance < 40,
             administrative,
             sourceUrl: group.sourceUrl,
             agendaUrl: group.agendaUrl,
@@ -143,6 +137,9 @@ export function groupRows(rows) {
             meetingReference: group.meetingReference,
             motionNumber: group.motionNumber,
             voteDescription: group.voteDescription,
+            ...(locationsFromWinnipegTitle(group.title).length
+                ? { locationCandidates: locationsFromWinnipegTitle(group.title) }
+                : {}),
         };
     }).sort((a, b) => a.date.localeCompare(b.date) || a.id.localeCompare(b.id));
 }
@@ -175,7 +172,7 @@ async function main() {
     fs.mkdirSync(DATA_DIR, { recursive: true });
     fs.writeFileSync(path.join(DATA_DIR, 'motions.json'), `${JSON.stringify(motions, null, 2)}\n`);
     fs.writeFileSync(path.join(DATA_DIR, 'meetings.json'), `${JSON.stringify(meetings, null, 2)}\n`);
-    fs.writeFileSync(path.join(DATA_DIR, 'councillors.json'), `${JSON.stringify(CURRENT_COUNCIL, null, 2)}\n`);
+    fs.writeFileSync(path.join(DATA_DIR, 'councillors.json'), `${JSON.stringify(buildCouncil(rows), null, 2)}\n`);
     fs.writeFileSync(path.join(DATA_DIR, 'metadata.json'), `${JSON.stringify({ lastChecked: new Date().toISOString(), source: SOURCE_URL }, null, 2)}\n`);
     console.log(`Imported ${motions.length.toLocaleString()} Winnipeg motions across ${meetings.length} meetings.`);
     console.log(`Date range: ${motions[0]?.date ?? 'none'} → ${motions.at(-1)?.date ?? 'none'}`);

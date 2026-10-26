@@ -23,11 +23,13 @@ const LOCATION_COPY = {
   toronto: 'Addresses and named places get mapped when we can pin them down, then matched to official Toronto wards.',
   vancouver: 'Addresses and named places get mapped when we can pin them down. Vancouver councillors are elected at-large, so locations aren’t tied to wards.',
   victoria: 'Addresses and named places get mapped when we can pin them down. Victoria councillors are elected citywide, so locations aren’t tied to wards.',
+  winnipeg: 'Winnipeg motion titles are being reviewed for reliable addresses and named places. No location tags are published until that review is complete.',
 };
 const GEOGRAPHY_COPY = {
   toronto: { label: 'WARD COVERAGE', heading: 'Citywide and ward-specific activity', body: 'A motion is shown for a ward when its record identifies that ward or includes a reliably mapped location inside it. Citywide motions remain available in the overall record and are not placed on individual ward maps.' },
   vancouver: { label: 'GEOGRAPHY', heading: 'Citywide council activity', body: 'Vancouver’s mayor and councillors represent the entire city. Motions therefore remain in one shared citywide record.' },
   victoria: { label: 'GEOGRAPHY', heading: 'Citywide council activity', body: 'Victoria’s mayor and councillors represent the entire city. Motions therefore remain in one shared citywide record.' },
+  winnipeg: { label: 'GEOGRAPHY', heading: 'Citywide council activity', body: 'Winnipeg’s council records are shown citywide. Ward-level boundaries and motion-to-ward mapping are not implemented.' },
 };
 
 export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toronto' }, motions = [], metadata = null }) {
@@ -75,6 +77,9 @@ export default function DataPage({ jurisdiction = { id: 'toronto', name: 'Toront
               ? <>Council decisions come from <a className={SOURCE_LINK_CLASS} href={sourceUrl} target="_blank" rel="noopener noreferrer">{jurisdiction.name}’s official meeting calendar</a>, which links to meeting agendas and minutes.</>
               : <>Voting records come from <a className={SOURCE_LINK_CLASS} href={sourceUrl} target="_blank" rel="noopener noreferrer">{jurisdiction.name} Open Data</a>. Meeting details and agenda records come from the City of {jurisdiction.name}’s council and committee pages.</>}
           </p>
+          {jurisdiction.id === 'winnipeg' && (
+            <p className="text-sm leading-relaxed text-slate-500">This local prototype publishes structured vote records and titles only. Motions summaries are not generated for Winnipeg.</p>
+          )}
           <Link className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#004a99]" to="/sources">
             See all sources
           </Link>

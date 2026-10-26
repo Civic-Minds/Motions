@@ -15,6 +15,7 @@ export default function MotionCardItem({
   showTopicBadge = true,
   showVoteBadge = !!vote,
   votePlacement = 'header',
+  showImpactBadges = true,
 }) {
   const dotColor = vote != null
     ? (vote === 'YES' ? 'bg-emerald-400' : vote === 'NO' ? 'bg-rose-400' : 'bg-slate-200')
@@ -84,10 +85,10 @@ export default function MotionCardItem({
                 {m.committee || getCommittee(m.id)}
               </span>
             )}
-            {m.significance >= 90 && (
+            {showImpactBadges && m.significance >= 90 && (
               <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-600">High Impact</span>
             )}
-            {m.significance >= 60 && m.significance < 90 && (
+            {showImpactBadges && m.significance >= 60 && m.significance < 90 && (
               <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-600">Notable</span>
             )}
             <span className="text-[10px] text-slate-500 ml-auto">{formatMotionDate(m.date)}</span>

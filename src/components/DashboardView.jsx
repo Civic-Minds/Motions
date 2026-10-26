@@ -92,7 +92,7 @@ function hasActiveFilters(f) {
 }
 
 // ── Sub-component: desktop filter sidebar ─────────────────────────────────
-function DashboardFilterContent({ filters, dispatch, committees, years, sortedCount, savedCouncillor, lastMeeting }) {
+function DashboardFilterContent({ filters, dispatch, committees, years, sortedCount, savedCouncillor, lastMeeting, showImpactFilter = true }) {
   return (
     <>
 
@@ -225,15 +225,17 @@ function DashboardFilterContent({ filters, dispatch, committees, years, sortedCo
         >
           <Star className={cn("w-3 h-3 shrink-0", filters.showFollowingOnly ? "fill-current" : "")} /> Following
         </button>
-        <button
-          onClick={() => dispatch({ type: 'TOGGLE_NOTABLE' })}
-          className={cn(
-            "flex items-center gap-1 px-2 py-0.5 rounded-full text-xs lg:text-[11px] font-medium transition-all",
-            filters.showNotableOnly ? "bg-amber-100 text-amber-700" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-          )}
-        >
-          <AlertCircle className="w-3 h-3 shrink-0" /> Notable
-        </button>
+        {showImpactFilter && (
+          <button
+            onClick={() => dispatch({ type: 'TOGGLE_NOTABLE' })}
+            className={cn(
+              "flex items-center gap-1 px-2 py-0.5 rounded-full text-xs lg:text-[11px] font-medium transition-all",
+              filters.showNotableOnly ? "bg-amber-100 text-amber-700" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+            )}
+          >
+            <AlertCircle className="w-3 h-3 shrink-0" /> Notable
+          </button>
+        )}
         {savedCouncillor && (
           <button
             onClick={() => dispatch({ type: 'TOGGLE_MY_WARD' })}
@@ -284,7 +286,7 @@ function DashboardFilterContent({ filters, dispatch, committees, years, sortedCo
 }
 
 // ── Sub-component: motion list + load more ─────────────────────────────────
-function MotionList({ visibleMotions, sortedCount, visibleCount, onLoadMore, filters, dispatch, committees, years, savedCouncillor, lastMeeting }) {
+function MotionList({ visibleMotions, sortedCount, visibleCount, onLoadMore, filters, dispatch, committees, years, savedCouncillor, lastMeeting, showImpactFilter = true, showImpactBadges = true }) {
   const activeFilterCount = filters.topics.length + filters.committees.length + filters.voteTypes.length + filters.years.length
     + Number(filters.showNotableOnly) + Number(filters.showMyWard) + Number(filters.showLastMeeting) + Number(filters.showFollowingOnly) + Number(filters.hideAdministrative);
 
@@ -309,13 +311,14 @@ function MotionList({ visibleMotions, sortedCount, visibleCount, onLoadMore, fil
             sortedCount={sortedCount}
             savedCouncillor={savedCouncillor}
             lastMeeting={lastMeeting}
+            showImpactFilter={showImpactFilter}
           />
         </div>
       </details>
 
       <div className="space-y-2">
         {visibleMotions.map((m, i) => (
-          <MotionCardItem key={m.id} motion={m} index={i} />
+          <MotionCardItem key={m.id} motion={m} index={i} showImpactBadges={showImpactBadges} />
         ))}
 
         {sortedCount === 0 && (
@@ -407,6 +410,7 @@ export default function DashboardView({ motions, meetings = [], councillors = []
   const isToronto = jurisdiction.id === 'toronto';
   const isVictoria = jurisdiction.id === 'victoria';
   const isYellowknife = jurisdiction.id === 'yellowknife';
+  const isWinnipeg = jurisdiction.id === 'winnipeg';
   const hasElectionPromo = isToronto || isVancouver;
   const electionOver = isOnOrAfter(jurisdiction.election?.date);
   const [searchParams] = useSearchParams();
@@ -492,7 +496,7 @@ export default function DashboardView({ motions, meetings = [], councillors = []
     // fallback is what actually populates their homepage cards, so it
     // should filter out genuinely administrative motions itself rather
     // than showing whatever's most recent regardless of routineness.
-    const candidates = (isYellowknife || isVictoria)
+    const candidates = (isYellowknife || isVictoria || isWinnipeg)
       ? primaryMotions.filter(m => !m.administrative)
       : primaryMotions;
     return [...candidates]
@@ -513,7 +517,7 @@ export default function DashboardView({ motions, meetings = [], councillors = []
     return [...preferred, ...fillers].slice(0, 3);
   }, [highlights, wardHighlights, recentFallback]);
 
-  const motionSectionLabel = (isYellowknife || isVictoria) ? 'Recent Decisions' : 'Most Notable';
+  const motionSectionLabel = (isYellowknife || isVictoria || isWinnipeg) ? 'Recent Decisions' : 'Most Notable';
 
   // Available committees and years
   const committees = useMemo(() => {
@@ -723,7 +727,7 @@ export default function DashboardView({ motions, meetings = [], councillors = []
       {/* ── Main: Filter sidebar + motion list (same column widths as bento) ── */}
       <div className={cn(
         'grid grid-cols-1 lg:gap-x-3 lg:items-start gap-y-4',
-        (isToronto || isVancouver || isVictoria || isYellowknife) ? 'lg:grid-cols-[200px_1fr_220px]' : 'lg:grid-cols-[200px_1fr]'
+        (isToronto || isVancouver || isVictoria || isYellowknife || isWinnipeg) ? 'lg:grid-cols-[200px_1fr_220px]' : 'lg:grid-cols-[200px_1fr]'
       )}>
 
         <FilterSidebar>
@@ -735,6 +739,7 @@ export default function DashboardView({ motions, meetings = [], councillors = []
             sortedCount={sortedMotions.length}
             savedCouncillor={savedCouncillor}
             lastMeeting={lastMeeting}
+            showImpactFilter={!isWinnipeg}
           />
         </FilterSidebar>
 
@@ -749,6 +754,8 @@ export default function DashboardView({ motions, meetings = [], councillors = []
           years={years}
           savedCouncillor={savedCouncillor}
           lastMeeting={lastMeeting}
+          showImpactFilter={!isWinnipeg}
+          showImpactBadges={!isWinnipeg}
         />
 
         <UpcomingMeeting meetings={meetings} className="lg:hidden" />

@@ -370,10 +370,10 @@ function MotionDetail({ motions, motion, motionId, jurisdiction }) {
         <InfoBar>
           <span className="flex items-center gap-2">
             <StatusBadge status={motion.status} />
-            {motion.significance >= 90 && (
+            {jurisdiction.id !== 'winnipeg' && motion.significance >= 90 && (
               <span className="text-xs font-semibold text-amber-600 bg-amber-50 px-2.5 py-0.5 rounded-full">High Impact</span>
             )}
-            {motion.significance >= 60 && motion.significance < 90 && (
+            {jurisdiction.id !== 'winnipeg' && motion.significance >= 60 && motion.significance < 90 && (
               <span className="text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full">Notable</span>
             )}
           </span>

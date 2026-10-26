@@ -15,7 +15,7 @@ export default function SourcesCard({ links }) {
       <div className="bg-white border border-slate-200 rounded-xl divide-y divide-slate-100 overflow-hidden">
         {visible.map(({ label, href }) => (
           <a
-            key={href}
+            key={`${label}-${href}`}
             href={href}
             target="_blank"
             rel="noopener noreferrer"
