@@ -13,7 +13,9 @@ export function getLastJurisdiction() {
 export function setLastJurisdiction(id) {
   try {
     if (id) localStorage.setItem(JURISDICTION_KEY, id);
-  } catch {}
+  } catch {
+    // Storage unavailable (private mode, quota) — skip saving.
+  }
 }
 
 export function getWardId() {
@@ -29,7 +31,9 @@ export function setWardId(id) {
   try {
     if (id) localStorage.setItem(WARD_KEY, id);
     else localStorage.removeItem(WARD_KEY);
-  } catch {}
+  } catch {
+    // Storage unavailable (private mode, quota) — skip saving.
+  }
 }
 
 export function getFollowedCommittees() {
@@ -48,5 +52,7 @@ export function getFollowedCommittees() {
 export function setFollowedCommittees(names) {
   try {
     localStorage.setItem('motions_followed_committees', JSON.stringify(names));
-  } catch {}
+  } catch {
+    // Storage unavailable (private mode, quota) — skip saving.
+  }
 }

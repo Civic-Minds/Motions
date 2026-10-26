@@ -17,7 +17,9 @@ function FocusWard({ geojson, wardId }) {
       const L = window.L;
       const layer = L.geoJSON(feature);
       map.fitBounds(layer.getBounds(), { padding: [24, 24] });
-    } catch {}
+    } catch {
+      // Bad geometry — leave the map at its default view.
+    }
   }, [geojson, wardId, map]);
   return null;
 }

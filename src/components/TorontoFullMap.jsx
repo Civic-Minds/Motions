@@ -29,7 +29,7 @@ export default function TorontoFullMap({ geojson, wardActivity, wardSubtextById,
     const out = {};
     geojson.features.forEach(f => {
       const id = extractWardId(f.properties);
-      try { out[id] = window.L.geoJSON(f).getBounds(); } catch {}
+      try { out[id] = window.L.geoJSON(f).getBounds(); } catch { /* skip wards with bad geometry */ }
     });
     return out;
   }, [geojson]);

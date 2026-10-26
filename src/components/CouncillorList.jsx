@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { GitCompare, ChevronRight, MapPin, Info } from 'lucide-react';
 import { usePresence } from '../hooks/usePresence';
@@ -27,7 +27,6 @@ const MAYOR = 'Olivia Chow';
 
 export default function CouncillorList({ motions, councillors: councillorRoster = [], compareMode, onCompareModeToggle, jurisdiction = { id: 'toronto', name: 'Toronto', mayorName: MAYOR } }) {
   const [compareSlots, setCompareSlots] = useState([]);
-  const [versusSelection, setVersusSelection] = useState([]);
   const [findPending, setFindPending] = useState(false);
   const { slug, slug2 } = useParams();
   const navigate = useNavigate();
@@ -37,7 +36,7 @@ export default function CouncillorList({ motions, councillors: councillorRoster 
   // Some cities' vote data stores the mayor's name with a "Mayor " prefix baked
   // in (e.g. Vancouver's "Mayor Ken Sim"), others don't (Toronto's "Olivia
   // Chow"). Normalize both sides so mayor detection works either way.
-  const isMayorName = name => name.replace(/^Mayor\s+/i, '') === mayorName.replace(/^Mayor\s+/i, '');
+  const isMayorName = useCallback(name => name.replace(/^Mayor\s+/i, '') === mayorName.replace(/^Mayor\s+/i, ''), [mayorName]);
   const currentNames = useMemo(() => getCurrentMembers(councillorRoster), [councillorRoster]);
 
   const myCouncillor = hasWardLookup && myWardId ? WARD_COUNCILLORS[myWardId] : null;
@@ -95,32 +94,31 @@ export default function CouncillorList({ motions, councillors: councillorRoster 
         if (isMayorName(b.name)) return 1;
         return a.name.split(' ').at(-1).localeCompare(b.name.split(' ').at(-1));
       });
-  }, [motions, currentNames, mayorName]);
+  }, [motions, currentNames, isMayorName]);
 
   const allNames = useMemo(() => councillors.map(c => c.name), [councillors]);
 
-  // Handle VS URL
-  useEffect(() => {
-    if (!allNames.length) return;
-    if (slug2) {
-      const n1 = slugToName(slug, allNames);
-      const n2 = slugToName(slug2, allNames);
-      if (n1 && n2) setVersusSelection([n1, n2]);
-      else navigate('/councillors', { replace: true });
-    } else {
-      setVersusSelection([]);
-    }
+  // Handle VS URL — the selected pair comes straight from the URL.
+  const versusSelection = useMemo(() => {
+    if (!slug2) return [];
+    const n1 = slugToName(slug, allNames);
+    const n2 = slugToName(slug2, allNames);
+    return n1 && n2 ? [n1, n2] : [];
   }, [slug, slug2, allNames]);
+
+  // An unknown pair in the URL goes back to the list.
+  useEffect(() => {
+    if (!allNames.length || !slug2) return;
+    if (!slugToName(slug, allNames) || !slugToName(slug2, allNames)) navigate('/councillors', { replace: true });
+  }, [slug, slug2, allNames, navigate]);
 
   const openProfile = (name) => navigate(`/councillors/${nameToSlug(name)}`);
 
   const openVersus = (n1, n2) => {
-    setVersusSelection([n1, n2]);
     navigate(`/councillors/${nameToSlug(n1)}/vs/${nameToSlug(n2)}`);
   };
 
   const closeVersus = () => {
-    setVersusSelection([]);
     navigate('/councillors');
   };
 

@@ -230,9 +230,11 @@ function TrusteeSection({ candidateData, wardId, geoData, onCityWardChange }) {
       return [trusteeWardCard.id, candidateData ? `${count.toLocaleString()} candidates` : 'Loading candidates…'];
     })
   );
-  useEffect(() => {
+  const [prevBoardAndWard, setPrevBoardAndWard] = useState({ boardId, wardId });
+  if (prevBoardAndWard.boardId !== boardId || prevBoardAndWard.wardId !== wardId) {
+    setPrevBoardAndWard({ boardId, wardId });
     setSelectedTrusteeWard(null);
-  }, [boardId, wardId]);
+  }
 
   return (
     <section className="order-7 space-y-3">
