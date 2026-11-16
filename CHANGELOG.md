@@ -8,6 +8,7 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ### Changed
 
+- **Pages load about half as many files**: Small code files are bundled together, so a first visit to a Toronto page fetches 10-12 files instead of 19-21, cutting billed hosting requests with no change in download size.
 - **Crawlers are steered away from the data API**: robots.txt now blocks `/api/` for crawlers and asks SEO bots to wait 10 seconds between requests, cutting bot load while search engines and link previews keep working.
 
 ### Fixed
