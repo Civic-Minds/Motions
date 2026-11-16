@@ -7,10 +7,10 @@ const CONTENT = {
     title: 'Privacy | Motions',
     heading: 'Privacy',
     intro: 'This policy explains what information Motions collects, why we use it, and the choices you have.',
-    updated: 'September 2, 2026',
+    updated: 'November 16, 2026',
     sections: [
       ['Who runs Motions', 'Motions is run by Civic Minds, an independent civic data project. If Motions collects information from you, Civic Minds is responsible for it.'],
-      ['What we collect', 'You do not need an account to use Motions, and you can browse without sending us personal information. Google Analytics, Vercel Web Analytics, and Vercel Speed Insights may receive information about visits, pages, referrers, devices, general location, and page performance. Google Analytics may use cookies or similar identifiers. Vercel describes Web Analytics as anonymized and cookie-free.'],
+      ['What we collect', 'You do not need an account to use Motions, and you can browse without sending us personal information. Google Analytics, Vercel Web Analytics, and Vercel Speed Insights may receive information about visits, pages, referrers, devices, general location, and page performance. Google Analytics may use cookies or similar identifiers. Vercel describes Web Analytics as anonymized and cookie-free. Our hosting provider may set a short-lived security cookie to check that a visitor isn’t automated.'],
       ['Information saved in your browser and location access', 'Motions may save your selected city, ward, or followed committees in your browser so it can remember your preferences. We do not send these preferences to Motions. If you choose Find My Ward, your device shares its location with your browser so Motions can identify your ward. We do not store that location.'],
       ['How we use information', 'We use information to run, understand, and improve Motions. We do not sell personal information. Analytics and hosting providers may process technical information for us under their own policies. Browser preferences stay until you clear them in your browser.'],
       ['Service providers and transfers', 'Motions is hosted on Vercel and uses Google Analytics, Vercel Web Analytics, and Vercel Speed Insights. Some pages also load fonts from Google Fonts and map tiles from OpenStreetMap. These services may receive standard technical information needed to provide their services and may process it in Canada, the United States, or another country where they operate. Their own privacy policies explain how they handle that information.'],
