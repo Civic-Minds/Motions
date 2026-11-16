@@ -6,6 +6,10 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+### Changed
+
+- **Crawlers are steered away from the data API**: robots.txt now blocks `/api/` for crawlers and asks SEO bots to wait 10 seconds between requests, cutting bot load while search engines and link previews keep working.
+
 ### Fixed
 
 - **Victoria and Yellowknife meetings no longer lose their motions when the City blocks minutes downloads**: A blocked meeting keeps its existing motion links, and a refresh where most downloads are blocked, or where data has gone stale, now stops before publishing.

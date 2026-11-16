@@ -1,4 +1,48 @@
+# Specific API rules come before "Allow: /" so parsers that use the first
+# matching rule agree with ones that use the longest match.
+# Pages are open to crawlers. API endpoints are not, except the share image
+# (/api/og) that link previews load.
 User-agent: *
+Allow: /api/og
+Disallow: /api/
+Allow: /
+
+# Search engines render pages with JavaScript, which loads motion data from
+# /api/data. Without it they would index empty pages.
+User-agent: Googlebot
+User-agent: Bingbot
+Allow: /api/og
+Allow: /api/data
+Disallow: /api/
+Allow: /
+
+# Link-preview bots: explicit allow so share cards keep working.
+User-agent: Twitterbot
+User-agent: facebookexternalhit
+User-agent: LinkedInBot
+User-agent: Slackbot
+User-agent: Slackbot-LinkExpanding
+User-agent: Discordbot
+User-agent: redditbot
+Allow: /api/og
+Allow: /api/preview
+Disallow: /api/
+Allow: /
+
+# SEO and research crawlers that honour Crawl-delay: one request per 10 seconds.
+User-agent: AhrefsBot
+User-agent: SemrushBot
+User-agent: MJ12bot
+User-agent: DotBot
+User-agent: ShapBot
+User-agent: BLEXBot
+User-agent: DataForSeoBot
+User-agent: PetalBot
+User-agent: ExaSearchBot
+User-agent: QlyzeBot
+Crawl-delay: 10
+Allow: /api/og
+Disallow: /api/
 Allow: /
 
 Sitemap: https://motions.watch/sitemap.xml
