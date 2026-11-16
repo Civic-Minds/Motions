@@ -1,8 +1,12 @@
 name: Bot traffic alert
 
-# Hourly check of Vercel request volume (CIV-1762). Over the threshold, it
-# opens or updates a `bot-traffic` issue naming the top user agents,
-# networks, IP prefixes and paths, so the crawler's identity is saved.
+# Hourly check of Vercel request volume (CIV-1762, CIV-1778) for the
+# motions, atlas and atlas-beta projects, each with its own 24h threshold
+# (set in scripts/check_bot_traffic.js). For each project over its
+# threshold, it opens a `bot-traffic` issue titled with that project, assigned
+# to ryanphanna so GitHub emails him (or comments on that project's open
+# issue, at most every 6h), naming the top user agents, networks, IP prefixes
+# and paths, so the crawler's identity is saved.
 #
 # Runs here in GitHub Actions using a team-scoped VERCEL_TOKEN secret (a
 # project-scoped token gets 403 from the metrics API). The old LaunchAgent
@@ -13,8 +17,8 @@ on:
     - cron: '17 * * * *'
   workflow_dispatch:
     inputs:
-      threshold:
-        description: 'Requests per 24h that trigger an alert'
+      thresholds:
+        description: 'Per-project overrides of the 24h thresholds, e.g. atlas=10000,motions=20000'
         required: false
         default: ''
       dry_run:
@@ -38,7 +42,7 @@ jobs:
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
       GH_TOKEN: ${{ github.token }}
       GH_REPO: ${{ github.repository }}
-      BOT_TRAFFIC_THRESHOLD: ${{ inputs.threshold || vars.BOT_TRAFFIC_THRESHOLD || '30000' }}
+      BOT_TRAFFIC_THRESHOLDS: ${{ inputs.thresholds || vars.BOT_TRAFFIC_THRESHOLDS || '' }}
       DRY_RUN: ${{ inputs.dry_run && '1' || '0' }}
     steps:
       - name: Check for Vercel token
