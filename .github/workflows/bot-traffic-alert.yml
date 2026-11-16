@@ -3,6 +3,10 @@ name: Bot traffic alert
 # Hourly check of Vercel request volume (CIV-1762). Over the threshold, it
 # opens or updates a `bot-traffic` issue naming the top user agents,
 # networks, IP prefixes and paths, so the crawler's identity is saved.
+#
+# Disabled: a project-scoped Vercel token gets 403 from the metrics API.
+# The check now runs hourly on Ryan's Mac instead (LaunchAgent
+# com.ryan.motions-bot-alert, using the Vercel CLI's own login).
 
 on:
   schedule:

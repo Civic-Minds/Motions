@@ -8,7 +8,14 @@
 //   VERCEL_TOKEN            Vercel token (optional locally if the CLI is logged in)
 //   BOT_TRAFFIC_THRESHOLD   requests per 24h that trigger an alert (default 30000)
 //   DRY_RUN=1               print the report instead of touching GitHub issues
-//   GH_TOKEN                used by the gh CLI in GitHub Actions
+//   GH_TOKEN                used by the gh CLI (locally, taken from the
+//                           ryanphanna gh login when unset)
+//   GH_REPO                 defaults to Civic-Minds/Motions
+//
+// Runs hourly on Ryan's Mac via the LaunchAgent
+// ~/Library/LaunchAgents/com.ryan.motions-bot-alert.plist, using the Vercel
+// CLI's own login (a project-scoped token gets 403 from the metrics API).
+// Under the threshold it makes no GitHub calls.
 
 import { execFileSync } from 'node:child_process';
 
@@ -21,6 +28,9 @@ const THRESHOLD = Number(process.env.BOT_TRAFFIC_THRESHOLD || 30000);
 const DRY_RUN = process.env.DRY_RUN === '1';
 const COMMENT_COOLDOWN_HOURS = 6;
 const COUNT_KEY = 'vercel_request_count_count';
+const GH_ACCOUNT = 'ryanphanna';
+
+process.env.GH_REPO ||= 'Civic-Minds/Motions';
 
 function metrics(extraArgs = []) {
   const args = [
@@ -71,6 +81,16 @@ function table(title, rows) {
   return [`### ${title}`, '', '| Requests | Value |', '| ---: | --- |', ...lines, ''].join('\n');
 }
 
+// Locally, pin gh to the ryanphanna login without switching the active
+// account (reads the stored token; no API call).
+function ensureGhToken() {
+  if (process.env.GH_TOKEN) return;
+  process.env.GH_TOKEN = execFileSync('gh', ['auth', 'token', '--user', GH_ACCOUNT], {
+    encoding: 'utf8',
+    stdio: ['ignore', 'pipe', 'inherit'],
+  }).trim();
+}
+
 function gh(args) {
   return execFileSync('gh', args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'inherit'] });
 }
@@ -94,7 +114,7 @@ function main() {
     table('Top verified/known bots', top('botName')),
     table('Top IP prefixes', topPrefixes()),
     table('Top paths', top('requestPath')),
-    '_Posted by the hourly bot-traffic check (`.github/workflows/bot-traffic-alert.yml`)._',
+    '_Posted by the hourly bot-traffic check (`scripts/check_bot_traffic.js`, run hourly on a local Mac)._',
   ].join('\n');
 
   if (DRY_RUN) {
@@ -103,6 +123,7 @@ function main() {
     return;
   }
 
+  ensureGhToken();
   gh(['label', 'create', LABEL, '--color', 'B60205', '--description', 'Automated bot-traffic alert', '--force']);
   const open = JSON.parse(gh(['issue', 'list', '--label', LABEL, '--state', 'open', '--json', 'number,createdAt,comments', '--limit', '1']));
 
