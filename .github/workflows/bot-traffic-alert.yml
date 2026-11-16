@@ -1,0 +1,63 @@
+name: Bot traffic alert
+
+# Hourly check of Vercel request volume (CIV-1762). Over the threshold, it
+# opens or updates a `bot-traffic` issue naming the top user agents,
+# networks, IP prefixes and paths, so the crawler's identity is saved.
+
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+    inputs:
+      threshold:
+        description: 'Requests per 24h that trigger an alert'
+        required: false
+        default: ''
+      dry_run:
+        description: 'Print the report instead of touching issues'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: bot-traffic-alert
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      BOT_TRAFFIC_THRESHOLD: ${{ inputs.threshold || vars.BOT_TRAFFIC_THRESHOLD || '30000' }}
+      DRY_RUN: ${{ inputs.dry_run && '1' || '0' }}
+    steps:
+      - name: Check for Vercel token
+        id: token
+        run: |
+          if [ -z "$VERCEL_TOKEN" ]; then
+            echo "::notice::VERCEL_TOKEN secret is not set; skipping the bot-traffic check."
+            echo "present=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.token.outputs.present == 'true'
+        with:
+          sparse-checkout: scripts/check_bot_traffic.js
+          sparse-checkout-cone-mode: false
+
+      - uses: actions/setup-node@v4
+        if: steps.token.outputs.present == 'true'
+        with:
+          node-version: 22
+
+      - name: Check request volume
+        if: steps.token.outputs.present == 'true'
+        run: node scripts/check_bot_traffic.js
