@@ -6,6 +6,10 @@ See [CHANGELOG_ARCHIVE.md](CHANGELOG_ARCHIVE.md) for earlier history.
 
 ## [Unreleased]
 
+### Security
+
+- **Patched two dependency vulnerabilities**: zod (high) and minimatch (medium) now resolve to fixed versions, closing Dependabot alerts #70 and #71.
+
 ### Changed
 
 - **Pages load about half as many files**: Small code files are bundled together, so a first visit to a Toronto page fetches 10-12 files instead of 19-21, cutting billed hosting requests with no change in download size.
