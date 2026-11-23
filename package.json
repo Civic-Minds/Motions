@@ -16,7 +16,7 @@
     "optimize:images": "node scripts/optimize_councillor_photos.js"
   },
   "dependencies": {
-    "@google/genai": "^2.31.0",
+    "@google/genai": "^3.6.1",
     "@tailwindcss/vite": "^4.3.5",
     "@turf/union": "^7.4.0",
     "@vercel/analytics": "^2.0.1",
